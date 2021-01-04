@@ -68,7 +68,7 @@
                             <div class="col-sm-6">
                                 <label class="col-lable"><b>Campaign Id</b></label>
                                  <?php // echo form_error('campaign_id'); ?>
-                                <input type="text" name="campaign_id"  placeholder="EnterCampaign ID" value="<?php echo set_value('campaign_id'); ?>" 
+                                <input type="text" name="campaign_id" id="campaign_id" placeholder="EnterCampaign ID" value="<?php echo set_value('campaign_id'); ?>" 
                                     <?php echo (form_error('campaign_id')) ? 'class="form-control form-control-danger"' : 'class="form-control"';?>>
                             </div>
                         </div>
@@ -317,11 +317,18 @@
         $("#addcampForm").on('submit', function(e) {
            
             e.preventDefault();
+            var campaign_id = $('#campaign_id').val();
+            var campaign_name = $('#campaign_name').val();
+            alert($('#campaign_id').val());
+            alert(campaign_name);
 
             $.ajax({
-                url: addcampForm.attr('action'),
                 type: 'post',
-                data: addcampForm.serialize(),
+                data: {
+					campaign_id: campaign_id1,
+					campaign_name: campaign_name
+					
+				},
                 success: function(response){
                     console.log(response);
                     if(response.status == 'success') {

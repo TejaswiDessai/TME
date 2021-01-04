@@ -48,8 +48,10 @@
                         </div>
                     </div>
                     <div class="col-sm-12">
-                        <?php echo form_open_multipart('campaigns/add_campaign'); ?>
-
+                        <!-- <?php 
+                        // echo form_open_multipart('campaigns/add_campaign');
+                         ?> -->
+                        <?php echo form_open('campaigns/add_campaign', array('id' => 'addcampForm')) ?>
 
 
                         <div class="form-group row">
@@ -309,22 +311,41 @@
                                                     </div>
                                                 </div>
                                         </div>
-                                        
+    
+<script>
+    $(function() {
+        $("#addcampForm").on('submit', function(e) {
+           
+            e.preventDefault();
+
+            $.ajax({
+                url: addcampForm.attr('action'),
+                type: 'post',
+                data: addcampForm.serialize(),
+                success: function(response){
+                    console.log(response);
+                    if(response.status == 'success') {
+                        $("#addcampForm").hide();
+                    }
+
+                    $("#message").html(response.message);
+
+                }
+            });
+        });
+    });
+</script>
+                                    
     <script>
        
   
   $( document ).ready(function() {
     
-//    $('#mybtn').click(function() {
-//       
-//    var input = $('.suppclass');
-//    input.each(function() {  
-//      var ch1 = this.type=="checkbox" ? +this.checked : this.value ;      
-//      alert(  ch1  );
-//    }); 
-//
-//});
-//    
+   
+
+
+
+    
     
     
 //      $('#mybtn').click(function(){
@@ -343,15 +364,7 @@
              $('#mybtn').append('<input type="checkbox"  class="js-small f-right suppclass form-control" name="suppchk" id="uho"/> ');
                
       });
-      
-      $('#country_id').on('change',function() {
-        alert($(this).val());
-        console.log($(this).val());
-      });
-      $('#region_id').on('change',function() {
-        alert($(this).val());
-        console.log($(this).val());
-      });
+    
  
 });
  

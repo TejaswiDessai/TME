@@ -96,7 +96,7 @@ $(document).ready(function(){
                                         <td>
                                                
                                                 <a class="label label-inverse-info" href='<?php echo base_url(); ?>administrator/users/update-user/<?php echo $post['cnid']; ?>'>Edit</a>
-                                                <a class="label label-inverse-danger delete" href='<?php echo base_url(); ?>administrator/delete/<?php echo $post['cnid']; ?>?table=<?php echo base64_encode('users'); ?>'>Delete</a>
+                                                <!-- <a class="label label-inverse-danger delete" href='<?php echo base_url(); ?>administrator/delete/<?php echo $post['cnid']; ?>?table=<?php echo base64_encode('users'); ?>'>Delete</a> -->
                                             
                                         </td>
                                     </tr>

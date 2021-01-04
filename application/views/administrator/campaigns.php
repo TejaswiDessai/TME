@@ -94,11 +94,7 @@ $(document).ready(function(){
                                         <td><?php echo date("M d,Y", strtotime($post['estclosedt'])); ?></td>
                                         <td><?php echo date("M d,Y", strtotime($post['Modifieddt'])); ?></td>
                                         <td>
-                                                <?php //if($post['status'] != 1){ ?>
-                                               <a class="label label-inverse-primary enable" href='<?php echo base_url(); ?>administrator/enable/<?php echo $post['id']; ?>?table=<?php echo base64_encode('users'); ?>'>Enabled</a>
-                                                <?php// }else{ ?> 
-                                                <a class="label label-inverse-warning desable" href='<?php echo base_url(); ?>administrator/desable/<?php echo $post['id']; ?>?table=<?php echo base64_encode('users'); ?>'>Desabled</a>
-                                                <?php// } ?>
+                                               
                                                 <a class="label label-inverse-info" href='<?php echo base_url(); ?>administrator/users/update-user/<?php echo $post['cnid']; ?>'>Edit</a>
                                                 <a class="label label-inverse-danger delete" href='<?php echo base_url(); ?>administrator/delete/<?php echo $post['cnid']; ?>?table=<?php echo base64_encode('users'); ?>'>Delete</a>
                                             

@@ -76,8 +76,8 @@ $(document).ready(function(){
                                 <thead>
                                     <tr>
                                         <th>Id</th>
+                                        <th>Client ID</th>
                                         <th>Campaign Name</th>
-                                        <th>Name</th>
                                         <th>Start Date</th>
                                         <th>Estimated Close Date</th>
                                         <th>Modified Date</th>
@@ -88,7 +88,7 @@ $(document).ready(function(){
                                 <?php foreach($campaigns as $post) : ?>
                                  <tr>
                                         <td><?php echo $post['cnid']; ?></td>
-                                        <td><?php echo $post['clientids']; ?></td>
+                                        <td><?php echo $post['clientcode']; ?></td>
                                         <td><?php echo $post['campnm']; ?></td>
                                         <td><?php echo date("M d,Y", strtotime($post['startdt'])); ?></td>
                                         <td><?php echo date("M d,Y", strtotime($post['estclosedt'])); ?></td>

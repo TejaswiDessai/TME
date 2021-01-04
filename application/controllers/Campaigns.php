@@ -170,7 +170,7 @@
 			// Pagination Config
 			$config['base_url'] = base_url(). 'campaigns/campaign/';
 			$config['total_rows'] = $this->db->count_all('campaign');
-			$config['per_page'] = 3;
+			$config['per_page'] = '';
 			$config['uri_segment'] = 3;
 			$config['attributes'] = array('class' => 'paginate-link');
 

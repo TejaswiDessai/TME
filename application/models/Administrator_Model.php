@@ -114,6 +114,12 @@
                         $query = $this->db->get('designation');                       
 			return $query->result_array();
 		}
+		public function get_assetitle(){
+			
+			$query = $this->db->get('assetitle');                       
+			return $query->result_array();
+		}
+
 
 		public function add_user($post_image,$password)
 		{
@@ -138,8 +144,9 @@
 		public function add_Campaign($datacampaign)
 		{
                         
-			return $this->db->insert('campaign', $datacampaign);
-//                         echo $this->db->last_query(); exit;
+			 $this->db->insert('campaign', $datacampaign);
+			 return true;
+                        // echo $this->db->last_query(); 
 		}
 
 		public function get_users($username = FALSE, $limit = FALSE, $offset = FALSE)

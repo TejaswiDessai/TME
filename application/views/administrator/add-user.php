@@ -5,7 +5,9 @@
     <!-- Date-Dropper css -->
     <link rel="stylesheet" type="text/css" href="<?php echo base_url(); ?>admintemplate/bower_components/datedropper/datedropper.min.css" />
     <link rel="stylesheet" type="text/css" href="<?php echo base_url(); ?>admintemplate/bower_components/switchery/dist/switchery.min.css" />
-
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
     
             <div class="page-header">
                 <div class="page-header-title">
@@ -47,60 +49,66 @@
                                 </div>
                             </div>
                              <div class="col-sm-8">
-                               <?php echo form_open_multipart('administrator/add_user'); ?>
-                                    
+                               <?php //echo form_open_multipart('administrator/add_user'); ?>
+                                    <!-- <form id="addUser" method="post"> -->
                                     <div class="form-group row">
-                                        <label class="col-sm-2 col-form-label">Name</label>
+                                        <label class="col-sm-2 col-form-label">Emp Id</label>
                                         <div class="col-sm-10">
-                                            <input type="text" name="name" class="form-control" placeholder="Full Name">
+                                            <input type="text" name="emp_id" id="emp_id" class="form-control" placeholder="Emp Id">
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label class="col-sm-2 col-form-label">First Name</label>
+                                        <div class="col-sm-10">
+                                            <input type="text" name="Fname" id="Fname" class="form-control" placeholder="First Name">
                                         </div>
                                     </div>
                                      <div class="form-group row">
-                                        <label class="col-sm-2 col-form-label">User-Name</label>
+                                        <label class="col-sm-2 col-form-label">Last-Name</label>
                                         <div class="col-sm-10">
-                                            <input type="text" name="username" class="form-control" placeholder="User Name">
+                                            <input type="text" id="Lname" name="Lname" class="form-control" placeholder="Last Name">
                                         </div>
                                     </div>
-                                    <div class="form-group row">
+                                    <!-- <div class="form-group row">
                                         <label class="col-sm-2 col-form-label">Email</label>
                                         <div class="col-sm-10">
-                                            <input type="text"  name="email" class="form-control" placeholder="Email">
+                                            <input type="text"  id="email" name="email" class="form-control" placeholder="Email">
                                         </div>
-                                    </div>
+                                    </div> -->
                                     <div class="form-group row">
-                                        <label class="col-sm-2 col-form-label">Mobile No.</label>
+                                        <label class="col-sm-2 col-form-label">Manager</label>
                                         <div class="col-sm-10">
-                                            <input type="text" name="contact" class="form-control" placeholder="Mobile No.">
+                                            <input type="text" id="Manager" name="Manager" class="form-control" placeholder="Manager">
                                         </div>
                                     </div>
-                                    <div class="form-group row">
+                                    <!-- <div class="form-group row">
                                         <label class="col-sm-2 col-form-label">Address</label>
                                         <div class="col-sm-10">
-                                            <input type="text"  name="address" class="form-control" placeholder="Address">
+                                            <input type="text" id="address" name="address" class="form-control" placeholder="Address">
                                         </div>
                                     </div>
                                     <div class="form-group row">
                                         <label class="col-sm-2 col-form-label">Zipcode</label>
                                         <div class="col-sm-10">
-                                            <input type="text"  name="zipcode" class="form-control" placeholder="Zipcode">
+                                            <input type="text" id="zipcode" name="zipcode" class="form-control" placeholder="Zipcode">
                                         </div>
                                     </div>
                                     <div class="form-group row" style="float:center;">
                                     <label class="col-sm-2 col-form-label">Gender</label>&nbsp;&nbsp;&nbsp;&nbsp;
                                     
                                          <label>
-                                            <input value="Female" name="gender" checked="" type="radio"><i class="helper"></i> Female
+                                            <input value="Female" id="gender" name="gender" checked="" type="radio"><i class="helper"></i> Female
                                         </label>
                                     &nbsp;&nbsp;&nbsp;&nbsp;
                                         <label>
-                                            <input value="Male" name="gender" type="radio"><i class="helper"></i> Male
+                                            <input value="Male" id="gender" name="gender" type="radio"><i class="helper"></i> Male
                                         </label>
                                     </div>
                                     
                                     <div class="form-group row">
                                         <label class="col-sm-2 col-form-label">User Image</label>
                                         <div class="col-sm-6">
-                                            <input type="file" name="userfile" class="form-control">
+                                            <input type="file" id="userfile" name="userfile" class="form-control">
                                         </div>
                                     </div>
                                     <div class="form-group row">
@@ -108,30 +116,101 @@
                                         <div class="col-sm-6">
                                         <input type="text" id="dropper-default" name="dob" class="form-control" placeholder="Select Your Birth Date">
                                         </div>
-                                    </div>
+                                    </div> -->
                                     <div class="form-group row">
                                         <label class="col-sm-2 col-form-label">Want to make Enable?</label>
                                         <div class="col-sm-3">
-                                            <input type="checkbox" value="1" name="status" class="js-single" checked />
+                                            <input type="checkbox" value="TRUE" id="status" name="status" class="js-single" checked />
                                         </div>
                                     </div>
+                                    <div class="form-group row">
+                                        <label class="col-sm-2 col-form-label">User Type</label>
+                                        <div class="col-sm-10">
+                                            <input type="text" id="user_type" name="user_type" class="form-control" placeholder="User Type">
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label class="col-sm-2 col-form-label">Password</label>
+                                        <div class="col-sm-10">
+                                            <input type="text" id="Password" name="Password" class="form-control" placeholder="Password">
+                                        </div>
+                                    </div>
+                                    
                                     
                                     <div class="form-group row">
                                         <label class="col-sm-2 col-form-label"></label>
                                         <div class="col-sm-10">
-                                            <button type="submit" name="submit" class="btn btn-primary">Add</button>
+                                            <button type="submit" name="submit" id="butsave" class="btn btn-primary">Add</button>
                                         </div>
                                     </div>
                                     <textarea id="description" style="visibility: hidden;"></textarea>
                                     
-                                </form>
+                                <!-- </form> -->
                                </div>
                                    
                                 </div>
                             </div>
                         </div>
                         <!-- Basic Form Inputs card end -->
-                   
+                        <script>
+                        $(document).ready(function() {
+                            $('#butsave').on('click', function() {
+                                var emp_id = $('#emp_id').val();
+                                var Fname = $('#Fname').val();
+                                var Lname = $('#Lname').val();
+                                var Manager = $('#Manager').val();
+                                var status = $('#status').val();
+                                var user_type = $('#user_type').val();
+                                var Password = $('#Password').val();
+                                // alert(Password);
+                                // var userfile = $('#userfile').val();
+                                // var dob = $('#dropper-default').val();
+                                // var status = $('#status').val();
+                                // var address = $('#address').val();
+
+                                if(emp_id!="" && Fname!=""){
+                                    // $("#butsave").attr("disabled", "disabled");
+                                    $.ajax({
+                                        url: "<?php echo base_url("Administrator/savedata");?>",
+                                        type: "GET",
+                                        data: {
+                                            type: 1,
+                                            emp_id: emp_id,
+                                            Fname: Fname,
+                                            Lname: Lname,
+                                            Manager: Manager,
+                                            status: status,
+                                            user_type: user_type,
+                                            Password: Password,
+                                            // userfile: userfile,
+                                            // dob: dob,
+                                            // status: status
+                                        },
+                                        cache: false,
+                                        success: function(dataResult){
+                                            // alert(dataResult.statusCode);
+                                            console.log(dataResult)
+                                            var dataResult = JSON.parse(dataResult);
+                                            if(dataResult.statusCode==200){
+                                                alert("success");
+                                                $("#butsave").removeAttr("disabled");
+                                                $('#fupForm').find('input:text').val('');
+                                                $("#success").show();
+                                                $('#success').html('Data added successfully !'); 						
+                                            }
+                                            else if(dataResult.statusCode==201){
+                                            alert("Error occured !");
+                                            }
+                                            
+                                        }
+                                    });
+                                }
+                                else{
+                                    alert('Please fill all the field !');
+                                }
+                            });
+                        });
+                        </script>
 
      <script type="text/javascript" src="<?php echo base_url(); ?>admintemplate/bower_components/switchery/dist/switchery.min.js"></script>
     <!-- Custom js -->

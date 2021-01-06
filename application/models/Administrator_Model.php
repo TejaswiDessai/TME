@@ -117,20 +117,15 @@
 
 		public function add_user($post_image,$password)
 		{
-			$data = array('name' => $this->input->post('name'), 
-							'email' => $this->input->post('email'),
-							'password' => $password,
-							'username' => $this->input->post('username'),
-							'zipcode' => $this->input->post('zipcode'),
-							'contact' => $this->input->post('contact'),
-							'address' => $this->input->post('address'),
-							'gender' => $this->input->post('gender'),
-							'role_id' => '2',
+			$data = array('id' => $this->input->post('name'), 
+							'emp_id' => $this->input->post('email'),
+							'fname' => $password,
+							'lname' => $this->input->post('username'),
+							'mngr' => $this->input->post('zipcode'),
 							'status' => $this->input->post('status'),
-							'dob' => $this->input->post('dob'),
-							'image' => $post_image,
+							'user_type' => $post_image,
 							'password' => $password,
-							'register_date' => date("Y-m-d H:i:s")
+							'last_login' => date("Y-m-d H:i:s")
 
 						  );
 			return $this->db->insert('users', $data);
@@ -850,4 +845,11 @@ public function is_temp_pass_valid($temp_pass){
     else return FALSE;
 }
 
-	}
+function saverecords($emp_id,$Fname,$Lname,$Manager,$status,$user_type,$Password,$register_date)
+{
+	$query="INSERT INTO users( id, emp_id, fname, lname,mngr,usertype,password,status,last_login) 
+		VALUES ('$emp_id','$emp_id','$Fname','$Lname','$Manager','$user_type','$Password','t','$register_date')";
+		$this->db->query($query);
+}
+
+}

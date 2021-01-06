@@ -151,27 +151,32 @@ echo $date;
 		  		 $this->load->view('administrator/footer');
 			}else{
 				//Upload Image
-				$config['upload_path'] = './assets/images/users';
-				$config['allowed_types'] = 'gif|jpg|png|jpeg';
-				$config['max_size'] = '2048';
-				$config['max_width'] = '2000';
-				$config['max_height'] = '2000';
+				// $config['upload_path'] = './assets/images/users';
+				// $config['allowed_types'] = 'gif|jpg|png|jpeg';
+				// $config['max_size'] = '2048';
+				// $config['max_width'] = '2000';
+				// $config['max_height'] = '2000';
 
-				$this->load->library('upload', $config);
+				// $this->load->library('upload', $config);
 
-				if(!$this->upload->do_upload()){
-					$errors =  array('error' => $this->upload->display_errors());
-					$post_image = 'noimage.jpg';
-				}else{
-					$data =  array('upload_data' => $this->upload->data());
-					$post_image = $_FILES['userfile']['name'];
-				}
+				// if(!$this->upload->do_upload()){
+				// 	$errors =  array('error' => $this->upload->display_errors());
+				// 	$post_image = 'noimage.jpg';
+				// }else{
+				// 	$data =  array('upload_data' => $this->upload->data());
+				// 	$post_image = $_FILES['userfile']['name'];
+				// }
+				$post_image = 'noimage.jpg';
 				$password = md5('Test@123');
+
 				$this->Administrator_Model->add_user($post_image,$password);
 
+				echo json_encode(array(
+					"statusCode"=>200
+				));
 				//Set Message
-				$this->session->set_flashdata('success', 'User has been created Successfull.');
-				redirect('administrator/users');
+				// $this->session->set_flashdata('success', 'User has been created Successfull.');
+				// redirect('administrator/users');
 			}
 			
 		}
@@ -1728,7 +1733,34 @@ public function update_password(){
 }
 
 
-		
+public function savedata()
+{
+	// if(isset($this->input->post('emp_id')))
+	// {
+		$emp_id=$_GET['emp_id'];
+		$Fname=$_GET['Fname'];
+		$Lname=$_GET['Lname'];
+		// $password = $password;
+		$Manager = $_GET['Manager'];
+		$status = $_GET['status'];
+		$status1 ="yes";
+		$user_type = $_GET['user_type'];
+		$Password =$_GET['Password'];
+		$password = md5($Password);
+
+		// $gender = $this->input->post('gender');
+		// $role_id = '2';
+		// $status = $this->input->post('status');
+		// $dob = $this->input->post('dob');
+		// $image = $post_image;
+		// $password = $password;
+		$register_date = date("Y-m-d H:i:s");
+		$this->Administrator_Model->saverecords($emp_id,$Fname,$Lname,$Manager,$status1,$user_type,$password,$register_date);	
+		echo json_encode(array(
+			"statusCode"=>200
+		));
+	// } 
+}
 	}
 	
 

@@ -114,6 +114,12 @@
                         $query = $this->db->get('designation');                       
 			return $query->result_array();
 		}
+		public function get_assetitle(){
+			
+			$query = $this->db->get('assetitle');                       
+			return $query->result_array();
+		}
+
 
 		public function add_user($post_image,$password)
 		{
@@ -133,8 +139,9 @@
 		public function add_Campaign($datacampaign)
 		{
                         
-			return $this->db->insert('campaign', $datacampaign);
-//                         echo $this->db->last_query(); exit;
+			 $this->db->insert('campaign', $datacampaign);
+			 return true;
+                        // echo $this->db->last_query(); 
 		}
 
 		public function get_users($username = FALSE, $limit = FALSE, $offset = FALSE)
@@ -153,15 +160,15 @@
 			$query = $this->db->get_where('users', array('username' => $username));
 			return $query->row_array();
 		}
-		public function get_campaign($username = FALSE, $limit = FALSE, $offset = FALSE)
+		public function get_campaign($campaigns = FALSE, $limit = FALSE, $offset = FALSE)
 		{
 			if ($limit) {
 				$this->db->limit($limit, $offset);
 			}
 
-			if($username === FALSE){
+			if($campaigns === FALSE){
 				$this->db->order_by('campaign.cnid', 'DESC');
-				//$this->db->join('categories', 'categories.id = posts.category_id');
+				$this->db->join('clientscd', 'clientscd.clientid = campaign.clientids');
 				$query = $this->db->get('campaign');
 				return $query->result_array(); 
 			}

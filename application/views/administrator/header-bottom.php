@@ -46,7 +46,7 @@
                             <span>Campaigns</span>
                         </a>
                         <ul class="tree-1">
-                            <li><a href="<?php echo base_url(); ?>campaigns/add-campaign">Add Campaign</a></li>
+                            <li><a href="<?php echo base_url(); ?>campaigns/addcampaignForm">Add Campaign</a></li>
                              <li><a href="<?php echo base_url(); ?>campaigns/campaign">Campaign List</a></li>
                         </ul>
                     </li>

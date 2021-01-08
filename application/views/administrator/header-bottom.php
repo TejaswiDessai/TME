@@ -50,6 +50,12 @@
                              <li><a href="<?php echo base_url(); ?>campaigns/campaign">Campaign List</a></li>
                         </ul>
                     </li>
+                    <li class="nav-item">
+                        <a href="<?php echo base_url(); ?>cdc/addlead"">
+                        <i class="icon-call-out"></i>
+                            <span>Data Lead and CDC</span>
+                        </a>
+                    </li>
              
                 <li class="nav-item">
                     <a href="#!">

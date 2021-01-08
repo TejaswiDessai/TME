@@ -27,39 +27,97 @@
 
                      
                         $campaigncountryStr = '';
-                        if(!empty($_POST['country_id'])) {
-                        $campaigncountryStr = implode(',',$_POST['country_id']);
+                        if(!empty($_GET['country_id'])) {
+                        $campaigncountryStr = implode(',',$_GET['country_id']);
                          }
                         $regionStr = '';
-                        if(!empty($_POST['region_id'])) {
-                        $regionStr = implode(',',$_POST['region_id']);
+                        if(!empty($_GET['region_id'])) {
+                        $regionStr = implode(',',$_GET['region_id']);
                          }
                         $industryStr = '';
-                        if(!empty($_POST['industrycd'])) {
-                        $industryStr = implode(',',$_POST['industrycd']);
+                        if(!empty($_GET['industrycd'])) {
+                        $industryStr = implode(',',$_GET['industrycd']);
                          }
                         $deptStr = '';
-                        if(!empty($_POST['dcd'])) {
-                        $deptStr = implode(',',$_POST['dcd']);
+                        if(!empty($_GET['dcd'])) {
+                        $deptStr = implode(',',$_GET['dcd']);
                          }
                         $empsizeStr = '';
-                        if(!empty($_POST['emplzid'])) {
-                        $empsizeStr = implode(',',$_POST['emplzid']);
+                        if(!empty($_GET['emplzid'])) {
+                        $empsizeStr = $_GET['emplzid'];
                          }
                         $revStr = '';
-                        if(!empty($_POST['revid'])) {
-                        $revStr = implode(',',$_POST['revid']);
+                        if(!empty($_GET['revid'])) {
+                        $revStr = $_GET['revid'];
                          }
                         $desiStr = '';
-                        if(!empty($_POST['desid'])) {
-                        $desiStr = implode(',',$_POST['desid']);
-                         }
-                         
-                        
+                        if(!empty($_GET['desid'])) {
+                        $desiStr = implode(',',$_GET['desid']);
+						}
+
+						$emplbound = '';
+						if(!empty($_GET['emplbound'])) {
+						$emplbound = $_GET['emplbound'];
+						}
+						$empubound = "";
+						if(!empty($_GET['empubound'])) {
+						$empubound = $_GET['empubound'];
+						}
+						$emp_range = null;
+						if(isset($emplbound) && $empubound)
+							$emp_range = $emplbound . "-" . $empubound;
+
+						$revnlbound = '';
+						if(!empty($_GET['revnlbound'])) {
+						$revnlbound = $_GET['revnlbound'];
+						}
+						$revnubound = "";
+						if(!empty($_GET['revnubound'])) {
+						$revnubound = $_GET['revnubound'];
+						}
+						$ren_range = null;
+						if(isset($emplbound) && $empubound)
+							$ren_range = $emplbound ."m -". $empubound."m";
+						
+						$revnlbound_range = '';
+						if(!empty($_GET['revnlbound_range'])) {
+						$revnlbound_range = $_GET['revnlbound_range'];
+						}
+						$revnubound_range = "";
+						if(!empty($_GET['revnubound_range'])) {
+						$revnubound_range = $_GET['revnubound_range'];
+						}
+						if(isset($emplbound) && $empubound)
+						{
+							$post_data = array(
+								'emplbound' => $emplbound, 
+								'empubound' => $empubound,
+								'emplsizerange' => $emp_range,
+								// 'loaddt' => date("Y-m-d")
+								
+											
+							);
+							$empsizeStr = $this->Administrator_Model->add_employee_size($post_data);
+						}
+
+						if(isset($revnlbound) && $revnubound)
+						{
+							$add_compsize = array(
+								'curr' => "USD",
+								'revnlbound' => $revnlbound, 
+								'nmlistlbound' => $revnlbound_range,
+								'revnubound' => $revnubound,
+								'nmlistubound' => $revnubound_range,
+								'rangelist' => $ren_range
+								
+											
+							);
+							$revStr = $this->Administrator_Model->add_compsize($add_compsize);
+						}
                         $datacampaign = array(
-                            'clientids' => $this->input->post('client_id'), 
-							'cids' => $this->input->post('campaign_id'),
-							'campnm' => $this->input->post('campaign_name'),
+                            'clientids' => $_GET['client_id'], 
+							'cids' => $_GET['campaign_id'],
+							'campnm' => $_GET['campaign_name'],
 							'countrycd' => $campaigncountryStr,
 							'regioncode' => $regionStr,
 							'industrycd' => $industryStr,
@@ -67,13 +125,13 @@
 							'emplzid' => $empsizeStr,
 							'comzid' => $revStr,
 							'tid' => $desiStr,
-							'suplistnew' =>$this->input->post('checksupp'),
-							'inclistnew' =>$this->input->post('inclist'),
-							'cdcneed' =>$this->input->post('cdqa'),
-							'questnos' =>$this->input->post('quantity'),
-							'status' => $this->input->post('selectstatus'),			
-							'estclosedt' => $this->input->post('estclosedt'),
-							'startdt' => $this->input->post('startdt')
+							'suplistnew' =>$_GET['checksupp'],
+							'inclistnew' =>$_GET['inclist'],
+							'cdcneed' =>$_GET['cdqa'],
+							'questnos' =>$_GET['quantity'],
+							'status' => $_GET['selectstatus'],			
+							'estclosedt' => $_GET['estclosedt'],
+							'startdt' => $_GET['startdt']
 							// 'Modifieddt' => date("Y-m-d H:i:s")
                             
                                           
@@ -81,8 +139,7 @@
                         
 						//   print_r($datacampaign);
 						//      exit();
-		
-                            
+						
 							$addcampaigndata = $this->Administrator_Model->add_campaign($datacampaign);
 							// print_r(addcampaigndata); 
 
@@ -142,7 +199,47 @@
                         $data['empsize'] = $this->Administrator_Model->get_empsize();
                         $data['revsize'] = $this->Administrator_Model->get_revenuesize();
 						$data['designation'] = $this->Administrator_Model->get_designation();
-						$data['assetitle'] = $this->Administrator_Model->get_assetitle();
+						$data['lbound'] = $this->Administrator_Model->get_empsize();
+						$data['ubound'] = $this->Administrator_Model->get_empsize();
+
+						$data['revnlbound'] = $this->Administrator_Model->get_revenuesize();
+						$data['revnubound'] = $this->Administrator_Model->get_revenuesize();
+						// $data['assetitle'] = $this->Administrator_Model->get_assetitle();
+			
+			
+			$this->load->view('administrator/header-script');
+			$this->load->view('administrator/header');
+			$this->load->view('administrator/header-bottom');
+			 $this->load->view('administrator/'.$page, $data);
+			$this->load->view('administrator/footer');
+			// $datacampaign1 = array(
+			// 	'clientids' => $this->input->post('client_id'), 
+			// 	'cids' => $this->input->post('campaign_id'));
+			// $addcampaigndata = $this->Administrator_Model->add_campaign($datacampaign1);
+			// if($addcampaigndata == true){
+			// return json_encode(array(
+			// 		"statusCode"=>200
+			// 	));
+			// }else{
+			// 	return json_encode(array(
+			// 		"statusCode"=>201
+			// 	));
+			// }
+
+
+		}
+
+		function addsuppressionList($page = 'suppression-list'){
+			$data['title'] = 'Create Campaigns';
+                        $data['clients'] = $this->Administrator_Model->get_clients();
+                        $data['countries'] = $this->Administrator_Model->get_countries();
+                        $data['regions'] = $this->Administrator_Model->get_regions();
+                        $data['industries'] = $this->Administrator_Model->get_industries();
+                        $data['departments'] = $this->Administrator_Model->get_depts();
+                        $data['empsize'] = $this->Administrator_Model->get_empsize();
+                        $data['revsize'] = $this->Administrator_Model->get_revenuesize();
+						$data['designation'] = $this->Administrator_Model->get_designation();
+						// $data['assetitle'] = $this->Administrator_Model->get_assetitle();
 			
 			
 			$this->load->view('administrator/header-script');

@@ -1,13 +1,71 @@
 <style>
     .multiselect-container{position:absolute;list-style-type:none;margin:0;padding:0}.multiselect-container .input-group{margin:5px}.multiselect-container>li{padding:0}.multiselect-container>li>a.multiselect-all label{font-weight:700}.multiselect-container>li>label.multiselect-group{margin:0;padding:3px 20px;height:100%;font-weight:700}.multiselect-container>li>a{padding:0}.multiselect-container>li>a>label{margin:0;height:100%;cursor:pointer;font-weight:400;padding:3px 20px 3px 40px}.multiselect-container>li>a>label.radio,.multiselect-container>li>a>label.checkbox{margin:0}.multiselect-container>li>a>label>input[type=checkbox]{margin-bottom:5px}.btn-group>.btn-group:nth-child(2)>.multiselect.btn{border-top-left-radius:4px;border-bottom-left-radius:4px}.form-inline .multiselect-container label.checkbox,.form-inline .multiselect-container label.radio{padding:3px 20px 3px 40px}.form-inline .multiselect-container li a label.checkbox input[type=checkbox],.form-inline .multiselect-container li a label.radio input[type=radio]{margin-left:-20px;margin-right:0}
 
-#myModal .modal-body { 
-    min-height: 400px;
-}
+    #myModal .modal-body 
+    { 
+        min-height: 400px;
+    }
+</style>
+<script>
+var base_url = "<?php echo base_url() ?>";
+$(document).ready(function () {
+    // Handler for .ready() called.
+    $('html, body').animate({
+        scrollTop: $('#camp_form').offset().top
+    }, 'slow');
+});
 
+$(document).ready(function() {
+    var elements = $('.section').hide();
+    $('#emplzid').bind('change', function() {
+        // alert("test");
+        var elements = $('.section').hide(); // hide all the elements
+        var value = $(this).val();
+        // alert(value);
 
-    </style>
+        if (value == 10) { // if somethings' selected
+            var elements = $('.section').show();
+            $('#emplzid').children().hide();
+            elements.filter('.' + value).show(); // show the ones we want
+        }
+    }).trigger('change');
     
+    // $('.second-level-select').bind('change', function() {
+    //     var elements = $('div.second-level-container').children().hide(); // hide all the elements
+    //     var value = $(this).val();
+
+    //     if (value.length) { // if somethings' selected
+    //         elements.filter('.' + value).show(); // show the ones we want
+    //     }
+    // }).trigger('change');
+});
+$(document).ready(function() {
+    var elements = $('.panel').hide();
+    $('#revid').bind('change', function() {
+        // alert("test");
+        var elements = $('.panel').hide(); // hide all the elements
+        var value = $(this).val();
+        // alert(value);
+
+        if (value == 177) { // if somethings' selected
+            var elements = $('.panel').show();
+            $('#revid').children().hide();
+            elements.filter('.' + value).show(); // show the ones we want
+        }
+    }).trigger('change');
+    
+    // $('.second-level-select').bind('change', function() {
+    //     var elements = $('div.second-level-container').children().hide(); // hide all the elements
+    //     var value = $(this).val();
+
+    //     if (value.length) { // if somethings' selected
+    //         elements.filter('.' + value).show(); // show the ones we want
+    //     }
+    // }).trigger('change');
+});
+
+</script>
+
 <div class="page-header">
     <div class="page-header-title">
         <h4>Campaigns</h4>
@@ -32,7 +90,7 @@
     <div class="row">
         <div class="col-sm-12">
             <!-- Basic Form Inputs card start -->
-            <div class="card">
+            <div class="card" id="camp_form">
                 <div class="card-header">
                     <h5>Add Campaign</h5>
                     <div class="card-header-right">
@@ -48,7 +106,7 @@
                         </div>
                        
                     </div>
-                    <div class="col-sm-12">
+                    <div class="col-sm-12" >
                         <!-- <?php 
                         // echo form_open_multipart('campaigns/add_campaign');
                          ?> -->
@@ -57,37 +115,65 @@
                         <!-- <form id="addcampForm" method="POST" enctype="multipart/form-data"> -->
 
                         <div class="form-group row">
-                            <div class="col-sm-6">
-                                <label class="col-lable"><b>Client Id</b></label>
+                            <div class="col-sm-3">
+                                <label  class="col-lable"><b>Client Id</b></label>
                                  <select name="client_id" id="client_id"  <?php echo (form_error('client_id')) ? 'class="form-control form-control-danger"' : 'class="form-control"';?>>
                                       <option value="<?php echo set_select('client_id'); ?>">Select One Client ID</option>
                                 <?php foreach ($clients as $client): ?>
                                     <option value="<?php echo $client['clientid']; ?>"><?php echo $client['clientcode']; ?></option>
                                 <?php endforeach; ?>
                                 </select>
-
+                                <span style='color:#FF0000' id="client_id_msg"></span>
                             </div>
-                            <div class="col-sm-6">
+                            <div class="col-sm-3">
                                 <label class="col-lable"><b>Campaign Id</b></label>
                                  <?php // echo form_error('campaign_id'); ?>
                                 <input type="text" name="campaign_id" id="campaign_id" placeholder="EnterCampaign ID" value="<?php echo set_value('campaign_id'); ?>" 
-                                    <?php echo (form_error('campaign_id')) ? 'class="form-control form-control-danger"' : 'class="form-control"';?>>
+                                <?php echo (form_error('campaign_id')) ? 'class="form-control form-control-danger"' : 'class="form-control"';?>>
+                                <span style='color:#FF0000' id="campaign_id_msg"></span>
                             </div>
-                        </div>
-
-                        <div class="form-group row">
-                            <div class="col-sm-12">
+                            <div class="col-sm-3">
                                 <label class="col-lable"><b>Campaign Name</b></label>
 
                                 <?php // echo form_error('campaign_name'); ?>
                                 <input type="text"  name="campaign_name"  placeholder="Enter Campaign Name"  value="<?php echo set_value('campaign_name'); ?>" id="campaign_name" 
-                             <?php echo (form_error('campaign_name')) ? 'class="form-control form-control-danger"' :'class="form-control"';?> >
+                                <?php echo (form_error('campaign_name')) ? 'class="form-control form-control-danger"' :'class="form-control"';?> >
+                                <span style='color:#FF0000' id="campaign_name_msg"></span>
+                            </div>
+                            <div class="col-sm-3">
+                                <label class="col-lable"><b>Select Designation</b></label><?php echo form_error('desid'); ?>
+                              <select class="js-example-basic-multiple col-sm-12" multiple="multiple" name="desid[]" id="desid">
+                                <?php foreach ($designation as $designation): ?>
+                                    <option value="<?php echo $designation['tid']; ?>"><?php echo $designation['designation']; ?></option>
+                                <?php endforeach; ?>
+                                   
+                                </select>
                             </div>
                         </div>
+                      
+                        <!-- <div class="form-group row">
+                            <div class="col-sm-3">
+                                <label class="col-lable"><b>Campaign Name</b></label>
+
+                                <?php // echo form_error('campaign_name'); ?>
+                                <input type="text"  name="campaign_name"  placeholder="Enter Campaign Name"  value="<?php echo set_value('campaign_name'); ?>" id="campaign_name" 
+                             <?php //echo (form_error('campaign_name')) ? 'class="form-control form-control-danger"' :'class="form-control"';?> >
+                            </div>
+                        </div> -->
 
 
                         <div class="form-group row">
-                            <div class="col-sm-6">
+                            <div class="col-sm-3">
+                                <label class="col-lable"><b>World Region</b></label><?php echo form_error('region_id'); ?>
+                                <select class="js-example-basic-multiple col-sm-12" multiple="multiple" name="region_id[]" id="region_id">
+                                 
+                                <?php foreach ($regions as $region): ?>
+                                    <option value="<?php echo $region['regioncode']; ?>"><?php echo $region['region']; ?></option>
+                                <?php endforeach; ?>
+                                </select>
+                            </div>
+
+                            <div class="col-sm-3">
                                 <label class="col-lable"><b>Select Country</b></label>  <?php echo form_error('country_id'); ?>
                                 <select class="js-example-basic-multiple col-sm-12" multiple="multiple" name="country_id[]" id="country_id">
                                  
@@ -97,18 +183,7 @@
                                 </select>
                             </div>
 
-                            <div class="col-sm-6">
-                                <label class="col-lable"><b>World Region</b></label><?php echo form_error('region_id'); ?>
-                                <select class="js-example-basic-multiple col-sm-12" multiple="multiple" name="region_id[]" id="region_id">
-                                 
-                            <?php foreach ($regions as $region): ?>
-                                    <option value="<?php echo $region['regioncode']; ?>"><?php echo $region['region']; ?></option>
-                                <?php endforeach; ?>
-                                </select>
-                            </div>
-                        </div>
-                        <div class="form-group row">
-                            <div class="col-sm-6">
+                            <div class="col-sm-3">
                                 <label class="col-lable"><b>Industry</b></label><?php echo form_error('industrycd'); ?>
                                 <select class="js-example-basic-multiple col-sm-12" multiple="multiple" name="industrycd[]" id="industrycd">
                                      <?php foreach ($industries as $industry): ?>
@@ -116,7 +191,7 @@
                                 <?php endforeach; ?>
                                 </select>
                             </div>
-                            <div class="col-sm-6">
+                            <div class="col-sm-3">
                                 <label class="col-lable"><b>Department</b></label><?php echo form_error('dcd'); ?>
                                 <select class="js-example-basic-multiple col-sm-12" multiple="multiple" name="dcd[]" id="dcd">
                                    <?php foreach ($departments as $dept): ?>
@@ -125,27 +200,127 @@
                                 </select>
                             </div>
                         </div>
+                        <!-- <div class="form-group row">
+                            <div class="col-sm-6">
+                                <label class="col-lable"><b>Industry</b></label><?php //echo form_error('industrycd'); ?>
+                                <select class="js-example-basic-multiple col-sm-12" multiple="multiple" name="industrycd[]" id="industrycd">
+                                     <?php //foreach ($industries as $industry): ?>
+                                    <option value="<?php //echo $industry['industrycd']; ?>"><?php //echo $industry['industry']; ?></option>
+                                <?php //endforeach; ?>
+                                </select>
+                            </div>
+                            <div class="col-sm-6">
+                                <label class="col-lable"><b>Department</b></label><?php //echo form_error('dcd'); ?>
+                                <select class="js-example-basic-multiple col-sm-12" multiple="multiple" name="dcd[]" id="dcd">
+                                   <?php //foreach ($departments as $dept): ?>
+                                    <option value="<?php //echo $dept['dcd']; ?>"><?php //echo $dept['department']; ?></option>
+                                <?php //endforeach; ?>
+                                </select>
+                            </div>
+                        </div> -->
 
 
                         <div class="form-group row">
-                            <div class="col-sm-4">
+                            <div class="col-sm-2">
                                 <label class="col-lable"><b>Select Employee Size</b></label><?php echo form_error('emplzid'); ?>
-                                <select class="js-example-basic-multiple col-sm-12" multiple="multiple" name="emplzid[]" id="emplzid">
+                                <select class="js-example-basic-multiple col-sm-12" name="emplzid[]" id="emplzid">
                                 <?php foreach ($empsize as $empsize): ?>
                                     <option value="<?php echo $empsize['emplzid']; ?>"><?php echo $empsize['emplsizerange']; ?></option>
                                 <?php endforeach; ?>
                                     </select>
                             </div>
-                            <div class="col-sm-4">
-                                <label class="col-lable"><b>Select Revenue Size</b></label><?php echo form_error('revid'); ?>
-                              <select class="js-example-basic-multiple col-sm-12" multiple="multiple" name="revid[]" id="revid">
-                                <?php foreach ($revsize as $revsize): ?>
-                                    <option value="<?php echo $revsize['comzid']; ?>"><?php echo $revsize['rangelist']; ?></option>
-                                <?php endforeach; ?>
+                            <div class="col-sm-2 section">
+                                    
+                                <label class="col-lable"><b>Select Lower Bound</b></label><?php echo form_error('emplbound'); ?>
+                                <select class="second-level-select js-example-basic-multiple col-sm-12"  name="emplbound" id="emplbound">
+                                    <?php foreach ($ubound as $ubound): ?>
+                                    <option value="<?php echo $ubound['emplbound']; ?>"><?php echo $ubound['emplbound']; ?></option>
+                                    <?php endforeach; ?>
+                                </select>
+                            </div>
+                            <div class="col-sm-2 section">
+                                <label class="col-lable"><b>Select Upper Bound</b></label><?php echo form_error('empubound'); ?>
+                                <select class="second-level-select js-example-basic-multiple col-sm-12"  name="empubound" id="empubound">
+                                    <?php foreach ($lbound as $lbound): ?>
+                                    <option value="<?php echo $lbound['empubound']; ?>"><?php echo $lbound['empubound']; ?></option>
+                                    <?php endforeach; ?>
+                                </select>
+                            </div>
+                              
+                            <!-- </div>
+                        </div> -->
+                        
+                        <!-- </div> -->
+                        <!-- <div class="form-group row"> -->
+                            
+                            <div class="col-sm-2">
+                                    <label class="col-lable"><b>Select Revenue Size</b></label><?php echo form_error('revid'); ?>
+                                    <select class="js-example-basic-multiple col-sm-12" name="revid[]" id="revid">
+                                        <?php foreach ($revsize as $revsize): ?>
+                                            <option value="<?php echo $revsize['comzid']; ?>"><?php echo $revsize['rangelist']; ?></option>
+                                        <?php endforeach; ?>
                                     </select>
                             </div>
+                            <!-- <div class="panel"> -->
+                            <!-- <div class="col-sm-9"> -->
+                            
+                            <div class="col-sm-2 panel">
+                                <!-- <div class="senior-airman"> -->
+                                <label class="col-lable"><b>Select Lower Bound</b></label><?php echo form_error('emplbound'); ?>
+                                <select class="second-level-select js-example-basic-multiple col-sm-12"  name="revnlbound" id="revnlbound">
+                                <option value="">Select </option>
+                                    <?php foreach ($revnubound as $revnubound): ?>
+                                    <option value="<?php echo $revnubound['revnlbound']; ?>"><?php echo $revnubound['revnlbound']; ?></option>
+                                    <?php endforeach; ?>
+                                </select>
+                                <!-- </div> -->
+                            </div>
+                            <div class="col-sm-2 panel">
+                                <label class="col-lable "><b>NM List Bount</b></label>
 
-                            <div class="col-sm-4">
+                                <select name="selectstatus" class="form-control form-control-default" id="revnlbound_range">
+                                    <option value="">Select </option>
+                                    <option value="hundred ">Hundred </option>
+                                    <option value="thousand">Thousand</option>
+                                    <option value="million">Million</option>
+                                    <option value="billion ">Billion </option>
+                                    <option value="trillion ">trillion </option>
+                                </select>
+                            </div>
+                            <div class="col-sm-2 panel">
+                                
+                                <!-- <div class="airman"> -->
+                                    <label class="col-lable"><b>Select Upper Bound</b></label><?php echo form_error('revnubound'); ?>
+                                    <select class="second-level-select js-example-basic-multiple col-sm-12"  name="revnubound" id="revnubound">
+                                   
+                                        <?php foreach ($revnlbound as $revnlbound): ?>
+                                            <option value="">Select </option>
+                                        <option value="<?php echo $revnlbound['revnubound']; ?>"><?php echo $revnlbound['revnubound']; ?></option>
+                                        <?php endforeach; ?>
+                                    </select>
+                                <!-- </div> -->
+                            </div>
+                            <div class="col-sm-2 panel">
+                                <label class="col-lable "><b>NM List Bount</b></label>
+
+                                <select name="selectstatus" class="form-control form-control-default" id="revnubound_range">
+                                    <option value="">Select </option>
+                                    <option value="hundred ">Hundred </option>
+                                    <option value="thousand">Thousand</option>
+                                    <option value="million">Million</option>
+                                    <option value="billion ">Billion </option>
+                                    <option value="trillion ">trillion </option>
+                                    
+                                </select>
+                            </div>
+                              
+                            <!-- </div> -->
+                            
+
+                        </div>
+
+                        <!-- <div class="form-group row">
+                        <div class="col-sm-3">
                                 <label class="col-lable"><b>Select Designation</b></label><?php echo form_error('desid'); ?>
                               <select class="js-example-basic-multiple col-sm-12" multiple="multiple" name="desid[]" id="desid">
                                 <?php foreach ($designation as $designation): ?>
@@ -154,27 +329,25 @@
                                    
                                 </select>
                             </div>
-
-                        </div>
-
+                        </div> -->
 
                         <div class="form-group row">
                            
-                              <div class="col-sm-2">
-                                            <label class="f-left col-lable"><b>Suppression List</b> </label>
-                              </div>
-                              <div class="col-sm-2" id="mybtn"> 
-                                          <input type="checkbox" class="js-small f-right suppclass" name="suppchk" id="uho" value="" >
-                                </div>
-                              <div class="col-sm-2">
-                                            <label class="f-left col-lable"><b>Inclusion Account List  </b> </label>
-                              </div>
+                            <div class="col-sm-2">
+                                <label class="f-left col-lable"><b>Suppression List</b> </label>
+                            </div>
+                            <div class="col-sm-2" id="mybtn"> 
+                                <input type="checkbox" class="js-small f-right suppclass" name="suppchk" id="uho" value="" >
+                            </div>
+                            <div class="col-sm-2">
+                                <label class="f-left col-lable"><b>Inclusion Account List  </b> </label>
+                            </div>
                             <div class="col-sm-2"> 
-                              <input type="checkbox" class="js-small f-right" name="inclist[]" value="" id="inclist">
-                                 </div>
-                             <div class="col-sm-4">   
-                                              <input type="file" name="files[]" class="form-control">
-                                </div>
+                                <input type="checkbox" class="js-small f-right" name="inclist[]" value="" id="inclist">
+                            </div>
+                            <div class="col-sm-4">   
+                                <input type="file" name="files[]" class="form-control">
+                            </div>
                                  
                         </div>
                         
@@ -201,7 +374,7 @@
                         
                         
                         <div class="form-group row">
-                              <div class="col-sm-6">
+                              <div class="col-sm-3">
                                 <label class="col-lable"><b>Asset Title</b></label>
 
                                 <select class="js-example-basic-multiple col-sm-12" multiple="multiple" name="assetid[]" id="assetid">
@@ -210,22 +383,30 @@
                                 <?php endforeach; ?>
                                 </select>
                             </div>
-                              <div class="col-sm-6">
+                              <div class="col-sm-3">
                                 <label class="col-lable"><b>Live Status</b></label>
 
-                                 <select name="selectstatus" class="form-control form-control-default" id="selectstatus">
-                                   <option value="2">Open</option>
+                                <select name="selectstatus" class="form-control form-control-default" id="selectstatus">
+                                    <option value="2">Open</option>
                                     <option value="1">Closed</option>
                                     <option value="3">Hold</option>
-                                    <
                                 </select>
+                            </div>
+
+                            <div class="col-sm-3">
+                                <label class="col-lable"><b>Est Completion Date</b></label> <?php echo form_error('estclosedt'); ?>
+                                <input type="date" id="estclosedt"  name="estclosedt" value="<?php echo set_value('estclosedt');?>" <?php echo (form_error('estclosedt')) ? 'class="form-control form-control-danger"' :'class="form-control"';?> >
+                            </div>
+                            <div class="col-sm-3">
+                                <label class="col-lable"><b>Start Date</b></label> <?php echo form_error('startdt'); ?>
+                                <input type="date" id="startdt"  name="startdt" value="<?php echo set_value('startdt');?>"  <?php echo (form_error('startdt')) ? 'class="form-control form-control-danger"' :'class="form-control"';?>>
                             </div>
 
                         </div>
                         
                         
                         
-                        <div class="form-group row">
+                        <!-- <div class="form-group row">
                             <div class="col-sm-6">
                                 <label class="col-lable"><b>Est Completion Date</b></label> <?php echo form_error('estclosedt'); ?>
                                 <input type="date" id="estclosedt"  name="estclosedt" value="<?php echo set_value('estclosedt');?>" <?php echo (form_error('estclosedt')) ? 'class="form-control form-control-danger"' :'class="form-control"';?> >
@@ -234,7 +415,7 @@
                                 <label class="col-lable"><b>Start Date</b></label> <?php echo form_error('startdt'); ?>
                                 <input type="date" id="startdt"  name="startdt" value="<?php echo set_value('startdt');?>"  <?php echo (form_error('startdt')) ? 'class="form-control form-control-danger"' :'class="form-control"';?>>
                             </div>
-                        </div>
+                        </div> -->
 
 
                         <div class="form-group row">
@@ -312,13 +493,11 @@
     
 <script>
     $(function() {
-        $("#addcampbtn").on('click', function() {
-          
-          
+        $("#addcampbtn").on('click', function() 
+        {
             var campaign_id = $('#campaign_id').val();
             var client_id = $('#client_id').val();
             var campaign_name = $('#campaign_name').val();
-            
             var country_id = $('#country_id').val(); 
             var region_id = $('#region_id').val(); 
             var industrycd = $('#industrycd').val(); 
@@ -326,7 +505,31 @@
             var emplzid = $('#emplzid').val(); 
             var revid = $('#revid').val(); 
             var desid = $('#desid').val();
-
+            var emplbound = $('#emplbound').val();
+            var empubound = $('#empubound').val();
+            var revnlbound = $('#revnlbound').val();
+            var revnubound = $('#revnubound').val();
+            var revnlbound_range = $('#revnlbound_range').val();
+            var revnubound_range = $('#revnubound_range').val();
+            alert(revnlbound+ "" + emplbound);
+            $("#client_id_msg").html("");
+            $("#campaign_id_msg").html("");
+            $("#campaign_name_msg").html("");
+            if(client_id == null || client_id == '')
+            {
+                $("#client_id_msg").html("<p><strong>Please fill this.</strong></p>");
+                return;
+            }
+            if(campaign_id == null || campaign_id == '')
+            {
+                $("#campaign_id_msg").html("<p><strong>Please fill this.</strong></p>");
+                return;
+            }
+            if(campaign_name == null || campaign_name == '')
+            {
+                $("#campaign_name_msg").html("<p><strong>Please fill this.</strong></p>");
+                return;
+            }
             // var myCheckboxes = new Array();
             // $("input:checked").each(function() {
             // myCheckboxes.push($('#uho').prop('checked'));
@@ -339,9 +542,32 @@
             //     var checksupp = false;
             // }
             var checksupp = $('#uho').prop('checked');
-          
+            if(checksupp == true)
+            {
+                checksupp = 1;
+            }
+            else
+            {
+                checksupp = 0;
+            }
             var inclist =$('#inclist').prop('checked');
+            if(inclist == true)
+            {
+                inclist = 1;
+            }
+            else
+            {
+                inclist = 0;
+            }
             var cdqa = $('#cdqa').prop('checked');
+            if(cdqa == true)
+            {
+                cdqa = 1;
+            }
+            else
+            {
+                cdqa = 0;
+            }
             var quantity = $('#quantity').val();
             var selectstatus = $('#selectstatus').val();
             var estclosedt = $('#estclosedt').val();
@@ -349,7 +575,7 @@
 
             $.ajax({
                 url :'<?php echo base_url("campaigns/ajax_add_campaign");?>',
-                type: 'POST', 
+                type: 'GET', 
                 dataType: 'json',              
                 data: {
 					campaign_id: campaign_id,
@@ -368,7 +594,13 @@
                     quantity:quantity,
                     selectstatus:selectstatus,
                     estclosedt:estclosedt,
-                    startdt:startdt
+                    startdt:startdt,
+                    emplbound:emplbound,
+                    empubound:empubound,
+                    revnlbound:revnlbound,
+                    revnubound:revnubound,
+                    revnlbound_range:revnlbound_range,
+                    revnubound_range:revnubound_range
                     
 
 				},
@@ -381,6 +613,7 @@
                     {                        
                         $("#addcampbtn").html(response.message);
                         $("#addcampbtn").prop('disabled', true);
+                        top.location.href=base_url+"campaigns/addsuppressionList";//redirection
                     }else if(response.statusCode=="Fail")
                     {
                         $("#addcampbtn").html(response.message);

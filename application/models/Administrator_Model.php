@@ -144,6 +144,20 @@
                         // echo $this->db->last_query(); 
 		}
 
+		function add_employee_size($add_compsize){
+			$this->db->insert('emplzid', $add_compsize);
+			$insert_id = $this->db->insert_id();
+		 
+			return  $insert_id;
+		}
+
+		function add_compsize($post_data){
+			$this->db->insert('compsize', $post_data);
+			$insert_id = $this->db->insert_id();
+		 
+			return  $insert_id;
+		}
+
 		public function get_users($username = FALSE, $limit = FALSE, $offset = FALSE)
 		{
 			if ($limit) {

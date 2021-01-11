@@ -129,6 +129,12 @@
 			$query = $this->db->get('freqdays');                       
 			return $query->result_array();
 		}
+		public function get_timezones(){
+			
+			$query = $this->db->get('timezone');                       
+			return $query->result_array();
+		}
+
 
 		public function add_user($post_image,$password)
 		{

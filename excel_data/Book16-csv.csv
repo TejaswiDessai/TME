@@ -1,0 +1,251 @@
+zoneid,region,subregion,abbrev,timezonenm,othernm,utcoffset
+1,Americas,North America,ADT,Atlantic Daylight Time,HAA,UTC -3
+2,Americas,North America,AKDT,Alaska Daylight Time,,UTC -8
+3,Americas,North America,AKST,Alaska Standard Time,,UTC -9
+4,Americas,North America,AST,Atlantic Standard Time, HNA,UTC -4
+5,Americas,North America,AT,Atlantic Time,,UTC -4:00 / -3:00
+6,Americas,North America,CDT,Central Daylight Time,HAC,UTC -5
+7,Americas,North America,CST,Central Standard Time, HNC,UTC -6
+8,Americas,North America,CT,Central Time,,UTC -6:00 / -5:00
+9,Americas,North America,EDT,Eastern Daylight Time, EDT,UTC -4
+10,Americas,North America,EGST,Eastern Greenland Summer Time,,UTC +0
+11,Americas,North America,EGT,East Greenland Time,,UTC -1
+12,Americas,North America,EST,Eastern Standard Time, HNE,UTC -5
+13,Americas,North America,ET,Eastern Time,,UTC -5:00 / -4:00
+14,Americas,North America,GMT,Greenwich Mean Time,,UTC +0
+15,Americas,North America,HDT,Hawaii-Aleutian Daylight Time,,UTC -9
+16,Americas,North America,HST,Hawaii Standard Time,,UTC -10
+17,Americas,North America,MDT,Mountain Daylight Time,HAR,UTC -6
+18,Americas,North America,MST,Mountain Standard Time,HNR,UTC -7
+19,Americas,North America,MT,Mountain Time,,UTC -7:00 / -6:00
+20,Americas,North America,NDT,Newfoundland Daylight Time,HAT,UTC -2:30
+21,Americas,North America,NST,Newfoundland Standard Time,HNT,UTC -3:30
+22,Americas,North America,PDT,Pacific Daylight Time,HAP,UTC -7
+23,Americas,North America,PMDT,Pierre & Miquelon Daylight Time,,UTC -2
+24,Americas,North America,PMST,Pierre & Miquelon Standard Time,,UTC -3
+25,Americas,North America,PST,Pacific Standard Time, HNP,UTC -8
+26,Americas,North America,PT,Pacific Time,,UTC -8:00 / -7:00
+27,Americas,North America,WGST,Western Greenland Summer Time,,UTC -2
+28,Americas,North America,WGT,West Greenland Time,,UTC -3
+29,Africa,Africa,CAT,Central Africa Time,,UTC +2
+30,Africa,Africa,CET,Central European Time,MEZ,UTC +1
+31,Africa,Africa,CVT,Cape Verde Time,,UTC -1
+32,Africa,Africa,EAT,Eastern Africa Time,,UTC +3
+33,Africa,Africa,EET,Eastern European Time,OEZ,UTC +2
+34,Africa,Africa,GMT,Greenwich Mean Time,,UTC +0
+35,Africa,Africa,MUT,Mauritius Time,,UTC +4
+36,Africa,Africa,RET,Reunion Time,,UTC +4
+37,Africa,Africa,SAST,South Africa Standard Time,,UTC +2
+38,Africa,Africa,SCT,Seychelles Time,,UTC +4
+39,Africa,Africa,WAST,West Africa Summer Time,,UTC +2
+40,Africa,Africa,WAT,West Africa Time,,UTC +1
+41,Africa,Africa,WEST,Western European Summer Time,WESZ,UTC +1
+42,Africa,Africa,WET,Western European Time,WEZ,UTC +0
+43,Africa,Africa,WST,Western Sahara Summer Time,,UTC +1
+44,Africa,Africa,WT,Western Sahara Standard Time,,UTC +0
+45,Oceania,Antartica,ART,Argentina Time,,UTC -3
+46,Oceania,Antartica,CAST,Casey Time,,UTC +8
+47,Oceania,Antartica,CEST,Central European Summer Time,MESZ,UTC +2
+48,Oceania,Antartica,CLST,Chile Summer Time,,UTC -3
+49,Oceania,Antartica,CLT,Chile Standard Time,,UTC -4
+50,Oceania,Antartica,DAVT,Davis Time,,UTC +7
+51,Oceania,Antartica,DDUT,Dumont-d'Urville Time,,UTC +10
+52,Oceania,Antartica,GMT,Greenwich Mean Time,,UTC +0
+53,Oceania,Antartica,MAWT,Mawson Time,,UTC +5
+54,Oceania,Antartica,NZDT,New Zealand Daylight Time,,UTC +13
+55,Oceania,Antartica,NZST,New Zealand Standard Time,,UTC +12
+56,Oceania,Antartica,ROTT,Rothera Time,,UTC -3
+57,Oceania,Antartica,SYOT,Syowa Time,,UTC +3
+58,Oceania,Antartica,VOST,Vostok Time,,UTC +6
+59,Asia,Asia,ADT,Arabia Daylight Time,,UTC +4
+60,Asia,Asia,AFT,Afghanistan Time,,UTC +4:30
+61,Asia,Asia,ALMT,Alma-Ata Time,,UTC +6
+62,Asia,Asia,AMST,Armenia Summer Time,,UTC +5
+63,Asia,Asia,AMT,Armenia Time,,UTC +4
+64,Asia,Asia,ANAST,Anadyr Summer Time,,UTC +12
+65,Asia,Asia,ANAT,Anadyr Time,,UTC +12
+66,Asia,Asia,AQTT,Aqtobe Time,,UTC +5
+67,Asia,Asia,AST,Arabia Standard Time,,UTC +3
+68,Asia,Asia,AZST,Azerbaijan Summer Time,,UTC +5
+69,Asia,Asia,AZT,Azerbaijan Time,,UTC +4
+70,Asia,Asia,BNT,Brunei Darussalam Time,,UTC +8
+71,Asia,Asia,BST,Bangladesh Standard Time,,UTC +6
+72,Asia,Asia,BTT,Bhutan Time,,UTC +6
+73,Asia,Asia,CHOST,Choibalsan Summer Time,,UTC +9
+74,Asia,Asia,CHOT,Choibalsan Time,,UTC +8
+75,Asia,Asia,CST,China Standard Time,,UTC +8
+76,Asia,Asia,EEST,Eastern European Summer Time,OESZ,UTC +3
+77,Asia,Asia,EET,Eastern European Time,OEZ,UTC +2
+78,Asia,Asia,GET,Georgia Standard Time,,UTC +4
+79,Asia,Asia,GST,Gulf Standard Time,,UTC +4
+80,Asia,Asia,HKT,Hong Kong Time,,UTC +8
+81,Asia,Asia,HOVST,Hovd Summer Time,,UTC +8
+82,Asia,Asia,HOVT,Hovd Time,,UTC +7
+83,Asia,Asia,ICT,Indochina Time,,UTC +7
+84,Asia,Asia,IDT,Israel Daylight Time,,UTC +3
+85,Asia,Asia,IRDT,Iran Daylight Time,,UTC +4:30
+86,Asia,Asia,IRKST,Irkutsk Summer Time,,UTC +9
+87,Asia,Asia,IRKT,Irkutsk Time,,UTC +8
+88,Asia,Asia,IRST,Iran Standard Time,,UTC +3:30
+89,Asia,Asia,IST,Israel Standard Time,,UTC +2
+90,Asia,Asia,IST,India Standard Time,,UTC +5:30
+91,Asia,Asia,JST,Japan Standard Time,,UTC +9
+92,Asia,Asia,KGT,Kyrgyzstan Time,,UTC +6
+93,Asia,Asia,KRAST,Krasnoyarsk Summer Time,,UTC +8
+94,Asia,Asia,KRAT,Krasnoyarsk Time,,UTC +7
+95,Asia,Asia,KST,Korea Standard Time,,UTC +9
+96,Asia,Asia,MAGST,Magadan Summer Time,,UTC +12
+97,Asia,Asia,MAGT,Magadan Time,,UTC +11
+98,Asia,Asia,MMT,Myanmar Time,,UTC +6:30
+99,Asia,Asia,MSK,Moscow Standard Time,,UTC +3
+100,Asia,Asia,MVT,Maldives Time,,UTC +5
+101,Asia,Asia,MYT,Malaysia Time,,UTC +8
+102,Asia,Asia,NOVST,Novosibirsk Summer Time,,UTC +7
+103,Asia,Asia,NOVT,Novosibirsk Time,,UTC +7
+104,Asia,Asia,NPT,Nepal Time,,UTC +5:45
+105,Asia,Asia,OMSST,Omsk Summer Time,,UTC +7
+106,Asia,Asia,OMST,Omsk Standard Time,,UTC +6
+107,Asia,Asia,ORAT,Oral Time,,UTC +5
+108,Asia,Asia,PETST,Kamchatka Summer Time,,UTC +12
+109,Asia,Asia,PETT,Kamchatka Time,,UTC +12
+110,Asia,Asia,PHT,Philippine Time,,UTC +8
+111,Asia,Asia,PKT,Pakistan Standard Time,,UTC +5
+112,Asia,Asia,PYT,Pyongyang Time,,UTC +8:30
+113,Asia,Asia,QYZT,Qyzylorda Time,,UTC +6
+114,Asia,Asia,SAKT,Sakhalin Time,,UTC +11
+115,Asia,Asia,SGT,Singapore Time,,UTC +8
+116,Asia,Asia,SRET,Srednekolymsk Time,,UTC +11
+117,Asia,Asia,TJT,Tajikistan Time,,UTC +5
+118,Asia,Asia,TLT,East Timor Time,,UTC +9
+119,Asia,Asia,TMT,Turkmenistan Time,,UTC +5
+120,Asia,Asia,TRT,Turkey Time,,UTC +3
+121,Asia,Asia,ULAST,Ulaanbaatar Summer Time,,UTC +9
+122,Asia,Asia,ULAT,Ulaanbaatar Time,,UTC +8
+123,Asia,Asia,UZT,Uzbekistan Time,,UTC +5
+124,Asia,Asia,VLAST,Vladivostok Summer Time,,UTC +11
+125,Asia,Asia,VLAT,Vladivostok Time,,UTC +10
+126,Asia,Asia,WIB,Western Indonesian Time,,UTC +7
+127,Asia,Asia,WIT,Eastern Indonesian Time,,UTC +9
+128,Asia,Asia,WITA,Central Indonesian Time,,UTC +8
+129,Asia,Asia,YAKST,Yakutsk Summer Time,,UTC +10
+130,Asia,Asia,YAKT,Yakutsk Time,,UTC +9
+131,Asia,Asia,YEKST,Yekaterinburg Summer Time,,UTC +6
+132,Asia,Asia,YEKT,Yekaterinburg Time,,UTC +5
+133,Oceania,Atlantic,ADT,Atlantic Daylight Time,HAA,UTC -3
+134,Oceania,Atlantic,AST,Atlantic Standard Time, HNA,UTC -4
+135,Oceania,Atlantic,AT,Atlantic Time,,UTC -4:00 / -3:00
+136,Oceania,Atlantic,AZOST,Azores Summer Time,,UTC +0
+137,Oceania,Atlantic,AZOT,Azores Time,,UTC -1
+138,Oceania,Australia,ACDT,Australian Central Daylight Time,,UTC +10:30
+139,Oceania,Australia,ACST,Australian Central Standard Time,,UTC +9:30
+140,Oceania,Australia,ACT,Australian Central Time,,UTC +9:30 / +10:30
+141,Oceania,Australia,ACWST,Australian Central Western Standard Time,,UTC +8:45
+142,Oceania,Australia,AEDT,Australian Eastern Daylight Time,,UTC +11
+143,Oceania,Australia,AEST,Australian Eastern Standard Time,,UTC +10
+144,Oceania,Australia,AET,Australian Eastern Time,,UTC +10:00 / +11:00
+145,Oceania,Australia,AWDT,Australian Western Daylight Time,,UTC +9
+146,Oceania,Australia,AWST,Australian Western Standard Time,,UTC +8
+147,Oceania,Australia,CXT,Christmas Island Time,,UTC +7
+148,Oceania,Australia,LHDT,Lord Howe Daylight Time,,UTC +11
+149,Oceania,Australia,LHST,Lord Howe Standard Time,,UTC +10:30
+150,Oceania,Australia,NFDT,Norfolk Daylight Time,,UTC +12
+151,Oceania,Australia,NFT,Norfolk Time,,UTC +11
+152,Latin America and the Caribbean,Caribbean,AST,Atlantic Standard Time, HNA,UTC -4
+153,Latin America and the Caribbean,Caribbean,AT,Atlantic Time,,UTC -4:00 / -3:00
+154,Latin America and the Caribbean,Caribbean,CDT,Cuba Daylight Time,,UTC -4
+155,Latin America and the Caribbean,Caribbean,CIDST,Cayman Islands Daylight Saving Time,,UTC -4
+156,Latin America and the Caribbean,Caribbean,CIST,Cayman Islands Standard Time,,UTC -5
+157,Latin America and the Caribbean,Caribbean,CST,Cuba Standard Time,,UTC -5
+158,Latin America and the Caribbean,Caribbean,EDT,Eastern Daylight Time, EDT,UTC -4
+159,Latin America and the Caribbean,Caribbean,EST,Eastern Standard Time, HNE,UTC -5
+160,Latin America and the Caribbean,Caribbean,ET,Eastern Time,,UTC -5:00 / -4:00
+161,Americas,Central America,CST,Central Standard Time, HNC,UTC -6
+162,Americas,Central America,CT,Central Time,,UTC -6:00 / -5:00
+163,Americas,Central America,EST,Eastern Standard Time, HNE,UTC -5
+164,Americas,Central America,ET,Eastern Time,,UTC -5:00 / -4:00
+165,Europe,Europe,BST,British Summer Time,,UTC +1
+166,Europe,Europe,CEST,Central European Summer Time,MESZ,UTC +2
+167,Europe,Europe,CET,Central European Time,MEZ,UTC +1
+168,Europe,Europe,EEST,Eastern European Summer Time,OESZ,UTC +3
+169,Europe,Europe,EET,Eastern European Time,OEZ,UTC +2
+170,Europe,Europe,FET,Further-Eastern European Time,,UTC +3
+171,Europe,Europe,GET,Georgia Standard Time,,UTC +4
+172,Europe,Europe,GMT,Greenwich Mean Time,,UTC +0
+173,Europe,Europe,IST,Irish Standard Time,,UTC +1
+174,Europe,Europe,KUYT,Kuybyshev Time,,UTC +4
+175,Europe,Europe,MSD,Moscow Daylight Time,,UTC +4
+176,Europe,Europe,MSK,Moscow Standard Time,,UTC +3
+177,Europe,Europe,SAMT,Samara Time,,UTC +4
+178,Europe,Europe,TRT,Turkey Time,,UTC +3
+179,Europe,Europe,WEST,Western European Summer Time,WESZ,UTC +1
+180,Europe,Europe,WET,Western European Time,WEZ,UTC +0
+181,Oceania,Indian Ocean,CCT,Cocos Islands Time,,UTC +6:30
+182,Oceania,Indian Ocean,EAT,East Africa Time,,UTC +3
+183,Oceania,Indian Ocean,IOT,Indian Chagos Time,,UTC +6
+184,Oceania,Indian Ocean,TFT,French Southern and Antarctic Time,,UTC +5
+185,Latin America and the Caribbean,Pacific,AoE,Anywhere on Earth,,UTC -12
+186,Latin America and the Caribbean,Pacific,BST,Bougainville Standard Time,,UTC +11
+187,Latin America and the Caribbean,Pacific,CHADT,Chatham Island Daylight Time,,UTC +13:45
+188,Latin America and the Caribbean,Pacific,CHAST,Chatham Island Standard Time,,UTC +12:45
+189,Latin America and the Caribbean,Pacific,CHUT,Chuuk Time,,UTC +10
+190,Latin America and the Caribbean,Pacific,CKT,Cook Island Time,,UTC -10
+191,Latin America and the Caribbean,Pacific,ChST,Chamorro Standard Time,,UTC +10
+192,Latin America and the Caribbean,Pacific,EASST,Easter Island Summer Time,,UTC -5
+193,Latin America and the Caribbean,Pacific,EAST,Easter Island Standard Time,,UTC -6
+194,Latin America and the Caribbean,Pacific,FJST,Fiji Summer Time,,UTC +13
+195,Latin America and the Caribbean,Pacific,FJT,Fiji Time,,UTC +12
+196,Latin America and the Caribbean,Pacific,GALT,Galapagos Time,,UTC -6
+197,Latin America and the Caribbean,Pacific,GAMT,Gambier Time,,UTC -9
+198,Latin America and the Caribbean,Pacific,GILT,Gilbert Island Time,,UTC +12
+199,Latin America and the Caribbean,Pacific,HST,Hawaii Standard Time,,UTC -10
+200,Latin America and the Caribbean,Pacific,KOST,Kosrae Time,,UTC +11
+201,Latin America and the Caribbean,Pacific,LINT,Line Islands Time,,UTC +14
+202,Latin America and the Caribbean,Pacific,MART,Marquesas Time,,UTC -9:30
+203,Latin America and the Caribbean,Pacific,MHT,Marshall Islands Time,,UTC +12
+204,Latin America and the Caribbean,Pacific,NCT,New Caledonia Time,,UTC +11
+205,Latin America and the Caribbean,Pacific,NRT,Nauru Time,,UTC +12
+206,Latin America and the Caribbean,Pacific,NUT,Niue Time,,UTC -11
+207,Latin America and the Caribbean,Pacific,NZDT,New Zealand Daylight Time,,UTC +13
+208,Latin America and the Caribbean,Pacific,NZST,New Zealand Standard Time,,UTC +12
+209,Latin America and the Caribbean,Pacific,PGT,Papua New Guinea Time,,UTC +10
+210,Latin America and the Caribbean,Pacific,PHOT,Phoenix Island Time,,UTC +13
+211,Latin America and the Caribbean,Pacific,PONT,Pohnpei Standard Time,,UTC +11
+212,Latin America and the Caribbean,Pacific,PST,Pitcairn Standard Time,,UTC -8
+213,Latin America and the Caribbean,Pacific,PWT,Palau Time,,UTC +9
+214,Latin America and the Caribbean,Pacific,SBT,Solomon Islands Time,,UTC +11
+215,Latin America and the Caribbean,Pacific,SST,Samoa Standard Time,,UTC -11
+216,Latin America and the Caribbean,Pacific,TAHT,Tahiti Time,,UTC -10
+217,Latin America and the Caribbean,Pacific,TKT,Tokelau Time,,UTC +13
+218,Latin America and the Caribbean,Pacific,TOST,Tonga Summer Time,,UTC +14
+219,Latin America and the Caribbean,Pacific,TOT,Tonga Time,,UTC +13
+220,Latin America and the Caribbean,Pacific,TVT,Tuvalu Time,,UTC +12
+221,Latin America and the Caribbean,Pacific,VUT,Vanuatu Time,,UTC +11
+222,Latin America and the Caribbean,Pacific,WAKT,Wake Time,,UTC +12
+223,Latin America and the Caribbean,Pacific,WFT,Wallis and Futuna Time,,UTC +12
+224,Latin America and the Caribbean,Pacific,WST,West Samoa Time,,UTC +14
+225,Latin America and the Caribbean,Pacific,YAPT,Yap Time,,UTC +10
+226,Americas,South America,ACT,Acre Time,,UTC -5
+227,Americas,South America,AMST,Amazon Summer Time,,UTC -3
+228,Americas,South America,AMT,Amazon Time,,UTC -4
+229,Americas,South America,ART,Argentina Time,,UTC -3
+230,Americas,South America,BOT,Bolivia Time,,UTC -4
+231,Americas,South America,BRST,Bras¡lia Summer Time,,UTC -2
+232,Americas,South America,BRT,Bras¡lia Time,,UTC -3
+233,Americas,South America,CLST,Chile Summer Time,,UTC -3
+234,Americas,South America,CLT,Chile Standard Time,,UTC -4
+235,Americas,South America,COT,Colombia Time,,UTC -5
+236,Americas,South America,ECT,Ecuador Time,,UTC -5
+237,Americas,South America,FKST,Falkland Islands Summer Time,,UTC -3
+238,Americas,South America,FKT,Falkland Island Time,,UTC -4
+239,Americas,South America,FNT,Fernando de Noronha Time,,UTC -2
+240,Americas,South America,GFT,French Guiana Time,,UTC -3
+241,Americas,South America,GST,South Georgia Time,,UTC -2
+242,Americas,South America,GYT,Guyana Time,,UTC -4
+243,Americas,South America,PET,Peru Time,,UTC -5
+244,Americas,South America,PYST,Paraguay Summer Time,,UTC -3
+245,Americas,South America,PYT,Paraguay Time,,UTC -4
+246,Americas,South America,SRT,Suriname Time,,UTC -3
+247,Americas,South America,UYST,Uruguay Summer Time,,UTC -2
+248,Americas,South America,UYT,Uruguay Time,,UTC -3
+249,Americas,South America,VET,Venezuelan Standard Time,HLV,UTC -4
+250,Americas,South America,WARST,Western Argentine Summer Time,,UTC -3

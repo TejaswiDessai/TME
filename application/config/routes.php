@@ -23,6 +23,8 @@ $route['campaigns/ajax_add_campaign']       = "campaigns/ajax_add_campaign";
 // $route['campaigns/add-campaign'] = 'campaigns/add_campaign';
 $route['campaigns/campaign'] = 'campaigns/campaign';
 
+//lead
+$route['cdc/addlead'] = 'cdc/addlead';
 //admin routs
 $route['administrator'] = 'administrator/view';
 $route['administrator/home'] = 'administrator/home';

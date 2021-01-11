@@ -2,7 +2,7 @@
 	class Campaigns extends CI_Controller
 	{
 		
-         public function ajax_add_campaign()
+		public function ajax_add_campaign()
 		{
 			
 
@@ -53,6 +53,15 @@
                         $desiStr = '';
                         if(!empty($_GET['desid'])) {
                         $desiStr = implode(',',$_GET['desid']);
+						}
+
+						$frequency_type = '';
+                        if(!empty($_GET['frequency_type'])) {
+                        $frequency_type = $_GET['frequency_type'];
+						}
+						$frequency = '';
+                        if(!empty($_GET['frequency'])) {
+                        $frequency = implode(',',$_GET['frequency']);
 						}
 
 						$emplbound = '';
@@ -131,7 +140,9 @@
 							'questnos' =>$_GET['quantity'],
 							'status' => $_GET['selectstatus'],			
 							'estclosedt' => $_GET['estclosedt'],
-							'startdt' => $_GET['startdt']
+							'startdt' => $_GET['startdt'],
+							'freqtyp' => $frequency_type,
+							'freqid' => $frequency
 							// 'Modifieddt' => date("Y-m-d H:i:s")
                             
                                           
@@ -164,7 +175,7 @@
 			
 		}
                 
-                public function campaign($offset = 0)
+		public function campaign($offset = 0)
 		{
                      $this->load->model('Administrator_Model');
 			// Pagination Config
@@ -204,6 +215,8 @@
 
 						$data['revnlbound'] = $this->Administrator_Model->get_revenuesize();
 						$data['revnubound'] = $this->Administrator_Model->get_revenuesize();
+						$data['frequency_type'] = $this->Administrator_Model->get_frequency_type();
+						$data['frequency'] = $this->Administrator_Model->get_frequency();
 						// $data['assetitle'] = $this->Administrator_Model->get_assetitle();
 			
 			
@@ -264,5 +277,196 @@
 
 		}
 
+		public function getCountry(){ 
+			// POST data 
+			$postData = $this->input->post();
+			// print_r($postData);
+			$desiStr = implode(',',$postData);
+			// load model 
+			// $this->load->model('Main_model');
+			
+			// get data 
+			$data = $this->Administrator_Model->getCountry($postData);
+			echo json_encode($data); 
+		  }
+		
+		  public function update_campaign($id = NULL)
+		  {
+			$data['clients'] = $this->Administrator_Model->get_clients();
+			$data['countries'] = $this->Administrator_Model->get_countries();
+			$data['regions'] = $this->Administrator_Model->get_regions();
+			$data['industries'] = $this->Administrator_Model->get_industries();
+			$data['departments'] = $this->Administrator_Model->get_depts();
+			$data['empsize'] = $this->Administrator_Model->get_empsize();
+			$data['revsize'] = $this->Administrator_Model->get_revenuesize();
+			$data['designation'] = $this->Administrator_Model->get_designation();
+			$data['lbound'] = $this->Administrator_Model->get_empsize();
+			$data['ubound'] = $this->Administrator_Model->get_empsize();
+			$data['revnlbound'] = $this->Administrator_Model->get_revenuesize();
+			$data['revnubound'] = $this->Administrator_Model->get_revenuesize();
+			$data['frequency_type'] = $this->Administrator_Model->get_frequency_type();
+			$data['frequency'] = $this->Administrator_Model->get_frequency();
+
+			$data['campaign_record'] = $this->Administrator_Model->get_campaign_by_id($id);
+			  
+			  if (empty($data['campaign_record'])) {
+				  show_404();
+			  }
+			  $data['title'] = 'Update Campaign';
+  
+			  $this->load->view('administrator/header-script');
+				 $this->load->view('administrator/header');
+				 $this->load->view('administrator/header-bottom');
+				  $this->load->view('administrator/update-campaign', $data);
+				$this->load->view('administrator/footer');
+		}
+		public function ajax_update_campaign()
+		{
+
+					 
+			$campaign_id = $_GET['campaign_id'];
+			$campaigncountryStr = '';
+			if(!empty($_GET['country_id'])) {
+			$campaigncountryStr = implode(',',$_GET['country_id']);
+				}
+			$regionStr = '';
+			if(!empty($_GET['region_id'])) {
+			$regionStr = implode(',',$_GET['region_id']);
+				}
+			$industryStr = '';
+			if(!empty($_GET['industrycd'])) {
+			$industryStr = implode(',',$_GET['industrycd']);
+				}
+			$deptStr = '';
+			if(!empty($_GET['dcd'])) {
+			$deptStr = implode(',',$_GET['dcd']);
+				}
+			$empsizeStr = '';
+			if(!empty($_GET['emplzid'])) {
+			$empsizeStr = $_GET['emplzid'];
+				}
+			$revStr = '';
+			if(!empty($_GET['revid'])) {
+			$revStr = $_GET['revid'];
+				}
+			$desiStr = '';
+			if(!empty($_GET['desid'])) {
+			$desiStr = implode(',',$_GET['desid']);
+			}
+
+			$frequency_type = '';
+			if(!empty($_GET['frequency_type'])) {
+			$frequency_type = $_GET['frequency_type'];
+			}
+			$frequency = '';
+			if(!empty($_GET['frequency'])) {
+			$frequency = implode(',',$_GET['frequency']);
+			}
+
+			$emplbound = '';
+			if(!empty($_GET['emplbound'])) {
+			$emplbound = $_GET['emplbound'];
+			}
+			$empubound = "";
+			if(!empty($_GET['empubound'])) {
+			$empubound = $_GET['empubound'];
+			}
+			$emp_range = null;
+			if(isset($emplbound) && $empubound)
+				$emp_range = $emplbound . "-" . $empubound;
+
+			$revnlbound = '';
+			if(!empty($_GET['revnlbound'])) {
+			$revnlbound = $_GET['revnlbound'];
+			}
+			$revnubound = "";
+			if(!empty($_GET['revnubound'])) {
+			$revnubound = $_GET['revnubound'];
+			}
+			$ren_range = null;
+			if(isset($emplbound) && $empubound)
+				$ren_range = $emplbound ."m -". $empubound."m";
+			
+			$revnlbound_range = '';
+			if(!empty($_GET['revnlbound_range'])) {
+			$revnlbound_range = $_GET['revnlbound_range'];
+			}
+			$revnubound_range = "";
+			if(!empty($_GET['revnubound_range'])) {
+			$revnubound_range = $_GET['revnubound_range'];
+			}
+			if(isset($emplbound) && isset($empubound) && $empsizeStr == 10 )
+			{
+				$post_data = array(
+					'emplbound' => $emplbound, 
+					'empubound' => $empubound,
+					'emplsizerange' => $emp_range,
+					// 'loaddt' => date("Y-m-d")
+					
+								
+				);
+				$empsizeStr = $this->Administrator_Model->add_employee_size($post_data);
+			}
+
+			if(isset($revnlbound) && isset($revnubound) && $revStr == 177)
+			{
+				$add_compsize = array(
+					'curr' => "USD",
+					'revnlbound' => $revnlbound, 
+					'nmlistlbound' => $revnlbound_range,
+					'revnubound' => $revnubound,
+					'nmlistubound' => $revnubound_range,
+					'rangelist' => $ren_range
+					
+								
+				);
+				$revStr = $this->Administrator_Model->add_compsize($add_compsize);
+			}
+			$datacampaign = array(
+				'clientids' => $_GET['client_id'], 
+				'cids' => $_GET['campaign_id'],
+				'campnm' => $_GET['campaign_name'],
+				'countrycd' => $campaigncountryStr,
+				'regioncode' => $regionStr,
+				'industrycd' => $industryStr,
+				'dcd' => $deptStr,
+				'emplzid' => $empsizeStr,
+				'comzid' => $revStr,
+				'tid' => $desiStr,
+				'suplistnew' =>$_GET['checksupp'],
+				'inclistnew' =>$_GET['inclist'],
+				'cdcneed' =>$_GET['cdqa'],
+				'questnos' =>$_GET['quantity'],
+				'status' => $_GET['selectstatus'],			
+				'estclosedt' => $_GET['estclosedt'],
+				'startdt' => $_GET['startdt'],
+				'freqtyp' => $frequency_type,
+				'freqid' => $frequency
+				// 'Modifieddt' => date("Y-m-d H:i:s")
+				
+								
+				);
+			
+			//   print_r($datacampaign);
+			//      exit();
+			
+				$addcampaigndata = $this->Administrator_Model->update_campaign($datacampaign,$campaign_id);
+				// print_r(addcampaigndata); 
+
+				if($addcampaigndata == true){
+			
+					echo json_encode(array(
+						"statusCode"=>"Success",
+						"message"=>"Campaign Updated Successfully.."
+					));
+				}else{
+					echo json_encode(array(
+						"statusCode"=>"Fail",
+						"message"=>"Updated Campaign failed.."
+					));
+				}
+								
+			
+		}
 
 	}

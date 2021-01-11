@@ -119,7 +119,16 @@
 			$query = $this->db->get('assetitle');                       
 			return $query->result_array();
 		}
-
+		public function get_frequency_type(){
+			
+			$query = $this->db->get('freqtype');                       
+			return $query->result_array();
+		}
+		public function get_frequency(){
+			
+			$query = $this->db->get('freqdays');                       
+			return $query->result_array();
+		}
 
 		public function add_user($post_image,$password)
 		{
@@ -872,5 +881,40 @@ function saverecords($emp_id,$Fname,$Lname,$Manager,$status,$user_type,$Password
 		VALUES ('$emp_id','$emp_id','$Fname','$Lname','$Manager','$user_type','$Password','t','$register_date')";
 		$this->db->query($query);
 }
+function getCountry($postData){
+	$response = array();
+ 
+	// Select record
+	$this->db->select('countrycd,countryname');
+	$this->db->where('regioncode', $postData);
+	$q = $this->db->get('country');
+	$response = $q->result_array();
+
+	return $response;
+  }
+
+  public function get_campaign_by_id($id = FALSE)
+	{
+		// if($id === FALSE){
+		// 	$query = $this->db->get('campaign');
+		// 	return $query->result_array(); 
+		// }
+
+		$query = $this->db->get_where('campaign', array('cnid' => $id));
+		// echo $this->db->last_query(); 
+		// echo $string;
+		// die;
+		return $query->result_array();
+	}
+
+	public function update_Campaign($datacampaign,$campaign_id)
+		{
+			$this->db->where('cids', $campaign_id);
+			$this->db->update('campaign', $datacampaign);
+			return true;
+			//  $this->db->insert('campaign', $datacampaign);
+			//  return true;
+                        // echo $this->db->last_query(); 
+		}
 
 }

@@ -92,10 +92,10 @@ $(document).ready(function(){
                                         <td><?php echo $post['campnm']; ?></td>
                                         <td><?php echo date("M d,Y", strtotime($post['startdt'])); ?></td>
                                         <td><?php echo date("M d,Y", strtotime($post['estclosedt'])); ?></td>
-                                        <td><?php echo date("M d,Y", strtotime($post['Modifieddt'])); ?></td>
+                                        <td><?php if(isset($post['Modifieddt'])){ echo date("M d,Y", strtotime($post['Modifieddt']));} ?></td>
                                         <td>
                                                
-                                                <a class="label label-inverse-info" href='<?php echo base_url(); ?>administrator/users/update-user/<?php echo $post['cnid']; ?>'>Edit</a>
+                                                <a class="label label-inverse-info" href='<?php echo base_url(); ?>campaigns/update_campaign/<?php echo $post['cnid']; ?>'>Edit</a>
                                                 <a class="label label-inverse-danger delete" href='<?php echo base_url(); ?>administrator/delete/<?php echo $post['cnid']; ?>?table=<?php echo base64_encode('users'); ?>'>Delete</a>
                                             
                                         </td>

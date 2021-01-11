@@ -153,6 +153,7 @@ $(function () {
                         <i class="icofont icofont-close-circled"></i>
                     </div>
                 </div>
+                <?php foreach($campaign_record as $post) : ?>
                 <div class="card-block">
                     <div class="col-sm-8">
                         <div class="validation_errors_alert">
@@ -172,17 +173,20 @@ $(function () {
                             <div class="col-sm-3">
                                 <label  class="col-lable"><b>Client Id</b></label>
                                  <select name="client_id" id="client_id"  <?php echo (form_error('client_id')) ? 'class="form-control form-control-danger"' : 'class="form-control"';?>>
-                                      <option value="<?php echo set_select('client_id'); ?>">Select One Client ID</option>
-                                <?php foreach ($clients as $client): ?>
-                                    <option value="<?php echo $client['clientid']; ?>"><?php echo $client['clientcode']; ?></option>
-                                <?php endforeach; ?>
+                                    <option value="<?php echo set_select('client_id'); ?>">Select One Client ID</option>
+                                    
+                                    <?php foreach ($clients as $client) : ?>
+                                    <option value="<?php echo $post['clientids']; ?>" 
+                                    <?php if($post['clientids'] == $client['clientid']){ echo "selected" ; } ?> ><?php echo $client['clientcode']; ?></option>
+                                    <?php endforeach; ?>
+                   
                                 </select>
                                 <span style='color:#FF0000' id="client_id_msg"></span>
                             </div>
                             <div class="col-sm-3">
                                 <label class="col-lable"><b>Campaign Id</b></label>
                                  <?php // echo form_error('campaign_id'); ?>
-                                <input type="text" name="campaign_id" id="campaign_id" placeholder="EnterCampaign ID" value="<?php echo set_value('campaign_id'); ?>" 
+                                <input type="text" name="campaign_id" id="campaign_id" placeholder="EnterCampaign ID" value="<?php echo $post['cids']; ?>" 
                                 <?php echo (form_error('campaign_id')) ? 'class="form-control form-control-danger"' : 'class="form-control"';?>  onkeypress="return isNumber(event)">
                                 <span style='color:#FF0000' id="campaign_id_msg"></span>
                             </div>
@@ -190,7 +194,7 @@ $(function () {
                                 <label class="col-lable"><b>Campaign Name</b></label>
 
                                 <?php // echo form_error('campaign_name'); ?>
-                                <input type="text" pattern="^[a-zA-Z0-9]+$"  name="campaign_name"  placeholder="Enter Campaign Name"  value="<?php echo set_value('campaign_name'); ?>" id="campaign_name" 
+                                <input type="text" pattern="^[a-zA-Z0-9]+$"  name="campaign_name"  placeholder="Enter Campaign Name"  value="<?php echo $post['campnm']; ?>" id="campaign_name" 
                                 <?php echo (form_error('campaign_name')) ? 'class="form-control form-control-danger"' :'class="form-control"';?> >
                                 <span style='color:#FF0000' id="campaign_name_msg"></span>
                             </div>
@@ -198,7 +202,7 @@ $(function () {
                                 <label class="col-lable"><b>Select Designation</b></label><?php echo form_error('desid'); ?>
                               <select class="js-example-basic-multiple col-sm-12" multiple="multiple" name="desid[]" id="desid">
                                 <?php foreach ($designation as $designation): ?>
-                                    <option value="<?php echo $designation['tid']; ?>"><?php echo $designation['designation']; ?></option>
+                                    <option value="<?php echo $post['tid']; ?>" <?php if($post['tid'] == $designation['tid']){ echo "selected" ; } ?>><?php echo $designation['designation']; ?></option>
                                 <?php endforeach; ?>
                                    
                                 </select>
@@ -220,10 +224,10 @@ $(function () {
                             <div class="col-sm-3">
                                 <label class="col-lable"><b>World Region</b></label><?php echo form_error('region_id'); ?>
                                 <select class="js-example-basic-multiple col-sm-12" multiple="multiple" name="region_id" id="region_id">
-                                 
                                 <?php foreach ($regions as $region): ?>
-                                    <option value="<?php echo $region['regioncode']; ?>"><?php echo $region['region']; ?></option>
+                                    <option value="<?php echo $post['regioncode']; ?>" <?php if($post['regioncode'] == $region['regioncode']){ echo "selected" ; } ?>><?php echo $region['region']; ?></option>
                                 <?php endforeach; ?>
+                                
                                 </select>
                             </div>
 
@@ -232,7 +236,7 @@ $(function () {
                                 <select class="js-example-basic-multiple col-sm-12" multiple="multiple" name="country_id[]" id="country_id">
                                  
                             <?php foreach ($countries as $country): ?>
-                                    <option value="<?php echo $country['countrycd'];echo set_select('country_id'); ?>"><?php echo $country['countryname']; ?></option>
+                                    <option value="<?php echo $post['countrycd']; ?>" <?php if($post['countrycd'] == $country['countrycd']){ echo "selected" ; } ?>><?php echo $country['countryname']; ?></option>
                                 <?php endforeach; ?>
                                 </select>
                             </div>
@@ -241,7 +245,7 @@ $(function () {
                                 <label class="col-lable"><b>Industry</b></label><?php echo form_error('industrycd'); ?>
                                 <select class="js-example-basic-multiple col-sm-12" multiple="multiple" name="industrycd[]" id="industrycd">
                                      <?php foreach ($industries as $industry): ?>
-                                    <option value="<?php echo $industry['industrycd']; ?>"><?php echo $industry['industry']; ?></option>
+                                    <option value="<?php echo $post['industrycd']; ?>" <?php if($post['industrycd'] == $industry['industrycd']){ echo "selected" ; } ?>><?php echo $industry['industry']; ?></option>
                                 <?php endforeach; ?>
                                 </select>
                             </div>
@@ -249,7 +253,7 @@ $(function () {
                                 <label class="col-lable"><b>Department</b></label><?php echo form_error('dcd'); ?>
                                 <select class="js-example-basic-multiple col-sm-12" multiple="multiple" name="dcd[]" id="dcd">
                                    <?php foreach ($departments as $dept): ?>
-                                    <option value="<?php echo $dept['dcd']; ?>"><?php echo $dept['department']; ?></option>
+                                    <option value="<?php echo $post['dcd']; ?>"  <?php if($post['dcd'] == $dept['dcd']){ echo "selected" ; } ?>><?php echo $dept['department']; ?></option>
                                 <?php endforeach; ?>
                                 </select>
                             </div>
@@ -279,7 +283,7 @@ $(function () {
                                 <label class="col-lable"><b>Select Employee Size</b></label><?php echo form_error('emplzid'); ?>
                                 <select class="js-example-basic-multiple col-sm-12" name="emplzid[]" id="emplzid">
                                 <?php foreach ($empsize as $empsize): ?>
-                                    <option value="<?php echo $empsize['emplzid']; ?>"><?php echo $empsize['emplsizerange']; ?></option>
+                                    <option value="<?php echo $post['emplzid']; ?>" <?php if($post['emplzid'] == $empsize['emplzid']){ echo "selected" ; } ?>><?php echo $empsize['emplsizerange']; ?></option>
                                 <?php endforeach; ?>
                                     </select>
                             </div>
@@ -288,7 +292,7 @@ $(function () {
                                 <label class="col-lable"><b>Select Lower Bound</b></label><?php echo form_error('emplbound'); ?>
                                 <select class="second-level-select js-example-basic-multiple col-sm-12"  name="emplbound" id="emplbound">
                                     <?php foreach ($ubound as $ubound): ?>
-                                    <option value="<?php echo $ubound['emplbound']; ?>"><?php echo $ubound['emplbound']; ?></option>
+                                    <option value="<?php echo $post['emplbound']; ?>" <?php if($post['emplbound'] == $ubound['emplbound']){ echo "selected" ; } ?>><?php echo $ubound['emplbound']; ?></option>
                                     <?php endforeach; ?>
                                 </select>
                             </div>
@@ -296,7 +300,7 @@ $(function () {
                                 <label class="col-lable"><b>Select Upper Bound</b></label><?php echo form_error('empubound'); ?>
                                 <select class="second-level-select js-example-basic-multiple col-sm-12"  name="empubound" id="empubound">
                                     <?php foreach ($lbound as $lbound): ?>
-                                    <option value="<?php echo $lbound['empubound']; ?>"><?php echo $lbound['empubound']; ?></option>
+                                    <option value="<?php echo $post['empubound']; ?>" <?php if($post['empubound'] == $ubound['empubound']){ echo "selected" ; } ?>><?php echo $lbound['empubound']; ?></option>
                                     <?php endforeach; ?>
                                 </select>
                             </div>
@@ -311,7 +315,7 @@ $(function () {
                                     <label class="col-lable"><b>Select Revenue Size</b></label><?php echo form_error('revid'); ?>
                                     <select class="js-example-basic-multiple col-sm-12" name="revid[]" id="revid">
                                         <?php foreach ($revsize as $revsize): ?>
-                                            <option value="<?php echo $revsize['comzid']; ?>"><?php echo $revsize['rangelist']; ?></option>
+                                            <option value="<?php echo $post['comzid']; ?>" <?php if($post['comzid'] == $revsize['comzid']){ echo "selected" ; } ?>><?php echo $revsize['rangelist']; ?></option>
                                         <?php endforeach; ?>
                                     </select>
                             </div>
@@ -324,7 +328,7 @@ $(function () {
                                 <select class="second-level-select js-example-basic-multiple col-sm-12"  name="revnlbound" id="revnlbound">
                                 <option value="">Select </option>
                                     <?php foreach ($revnubound as $revnubound): ?>
-                                    <option value="<?php echo $revnubound['revnlbound']; ?>"><?php echo $revnubound['revnlbound']; ?></option>
+                                    <option value="<?php echo $post['revnlbound']; ?>" <?php if($post['revnlbound'] == $revnubound['revnlbound']){ echo "selected" ; } ?>><?php echo $revnubound['revnlbound']; ?></option>
                                     <?php endforeach; ?>
                                 </select>
                                 <!-- </div> -->
@@ -334,11 +338,11 @@ $(function () {
 
                                 <select name="selectstatus" class="form-control form-control-default" id="revnlbound_range">
                                     <option value="">Select </option>
-                                    <option value="hundred">Hundred </option>
-                                    <option value="thousand">Thousand</option>
-                                    <option value="million">Million</option>
-                                    <option value="billion">Billion </option>
-                                    <option value="trillion">trillion </option>
+                                    <option value="hundred " <?php if($post['revnlbound'] == "hundred"){ echo "selected" ; } ?>>Hundred </option>
+                                    <option value="thousand" <?php if($post['revnlbound'] == "thousand"){ echo "selected" ; } ?>>Thousand</option>
+                                    <option value="million" <?php if($post['revnlbound'] == "million"){ echo "selected" ; } ?>>Million</option>
+                                    <option value="billion" <?php if($post['revnlbound'] == "billion"){ echo "selected" ; } ?>>Billion </option>
+                                    <option value="trillion" <?php if($post['revnlbound'] == "trillion"){ echo "selected" ; } ?>>trillion </option>
                                 </select>
                             </div>
                             <div class="col-sm-2 panel">
@@ -349,7 +353,7 @@ $(function () {
                                    
                                         <?php foreach ($revnlbound as $revnlbound): ?>
                                             <option value="">Select </option>
-                                        <option value="<?php echo $revnlbound['revnubound']; ?>"><?php echo $revnlbound['revnubound']; ?></option>
+                                        <option value="<?php echo $revnlbound['revnubound']; ?>" <?php if($post['revnubound'] == $revnlbound['revnubound']){ echo "selected" ; } ?>><?php echo $revnlbound['revnubound']; ?></option>
                                         <?php endforeach; ?>
                                     </select>
                                 <!-- </div> -->
@@ -391,13 +395,13 @@ $(function () {
                                 <label class="f-left col-lable"><b>Suppression List</b> </label>
                             </div>
                             <div class="col-sm-2" id="mybtn"> 
-                                <input type="checkbox" class="js-small f-right suppclass" name="suppchk" id="uho" value="" >
+                                <input type="checkbox" <?php if($post['suplistnew'] == '1'){ echo "checked" ; } ?> class="js-small f-right suppclass" name="suppchk" id="uho" value="" >
                             </div>
                             <div class="col-sm-2">
                                 <label class="f-left col-lable"><b>Inclusion Account List  </b> </label>
                             </div>
                             <div class="col-sm-2"> 
-                                <input type="checkbox" class="js-small f-right" name="inclist[]" value="" id="inclist">
+                                <input type="checkbox" <?php if($post['inclistnew'] == '1'){ echo "checked" ; } ?> class="js-small f-right" name="inclist[]" value="" id="inclist">
                             </div>
                             <div class="col-sm-4">   
                                 <input type="file" name="files[]" class="form-control">
@@ -411,13 +415,13 @@ $(function () {
                                             <label class="f-left col-lable"><b>CDQA Needed?</b> </label>
                               </div>
                             <div class="col-sm-2">
-                             <input type="checkbox" class="js-small f-right" name="cdqa[]" value="" id="cdqa">
+                             <input type="checkbox" class="js-small f-right"  <?php if($post['cdcneed'] == '1'){ echo "checked" ; } ?> name="cdqa[]" value="" id="cdqa">
                                </div>
                               <div class="col-sm-2">
                                   <label class="f-left col-lable"><b>No. of Questions</b><br> <?php echo form_error('quantity'); ?></label>
                               </div>
                                <div class="col-sm-2">   
-                                   <input  type="number" id="quantity" name="quantity" min="1" max="12" maxlength="2" value="<?php echo set_value('quantity');?>"
+                                   <input  type="number" id="quantity" name="quantity" min="1" max="12" maxlength="2" value="<?php echo $post['questnos'];?>"
                                     <?php echo (form_error('quantity')) ? 'class="form-control form-control-danger"' :'class="form-control"';?> >
                                </div>
                             <div class="col-sm-4">   
@@ -430,17 +434,17 @@ $(function () {
                                 <label class="col-lable"><b>Frequency Type</b></label>
                                 <select class="js-example-basic-multiple col-sm-12"  name="frequency_type" id="frequency_type">
                                  
-                                <?php foreach ($frequency_type as $frequency_type): ?>
-                                    <option value="<?php echo $frequency_type['fids']; ?>"><?php echo $frequency_type['freqtype']; ?></option>
+                                <?php foreach ($frequency_type as $frequency_types): ?>
+                                    <option value="<?php echo $frequency_types['fids']; ?>" <?php if($post['freqtyp'] == $frequency_types['fids']){ echo "selected" ; } ?>><?php echo $frequency_types['freqtype']; ?></option>
                                 <?php endforeach; ?>
                                 </select>
                             </div>
                             <div class="col-sm-3">
-                                <label class="col-lable"><b>Frequency</b></label>
+                                <label class="col-lable"><b>Frequency <?php echo $post['freqid'] ?></b></label>
                                 <select class="js-example-basic-multiple col-sm-12" multiple="multiple" name="frequency[]" id="frequency">
-                                 
+                                 <?php $freqid = explode(',',$post['freqid']);?>
                                 <?php foreach ($frequency as $frequency): ?>
-                                    <option value="<?php echo $frequency['fdid']; ?>"><?php echo $frequency['days']; ?></option>
+                                    <option value="<?php echo $frequency['fdid']; ?>" <?php if( in_array($frequency['fdid'], $freqid)){ echo "selected" ; } ?>><?php echo $frequency['days']; ?></option>
                                 <?php endforeach; ?>
                                 </select>
                             </div>
@@ -452,7 +456,7 @@ $(function () {
 
                                 <select class="js-example-basic-multiple col-sm-12" multiple="multiple" name="assetid[]" id="assetid">
                                 <?php foreach ($assetitle as $assetitle): ?>
-                                    <option value="<?php echo $assetitle['assetid']; ?>"><?php echo $assetitle['title']; ?></option>
+                                    <option value="<?php echo $assetitle['assetid']; ?>" <?php if($post['assetnew'] == $assetitle['assetid']){ echo "selected" ; } ?>><?php echo $assetitle['title']; ?></option>
                                 <?php endforeach; ?>
                                 </select>
                             </div>
@@ -469,11 +473,11 @@ $(function () {
 
                             <div class="col-sm-3">
                                 <label class="col-lable"><b>Est Completion Date</b></label> <?php echo form_error('estclosedt'); ?>
-                                <input type="date" id="estclosedt"  name="estclosedt" value="<?php echo set_value('estclosedt');?>" <?php echo (form_error('estclosedt')) ? 'class="form-control form-control-danger"' :'class="form-control"';?> >
+                                <input type="date" id="estclosedt"  name="estclosedt" value="<?php echo $post['estclosedt'];?>" <?php echo (form_error('estclosedt')) ? 'class="form-control form-control-danger"' :'class="form-control"';?> >
                             </div>
                             <div class="col-sm-3">
                                 <label class="col-lable"><b>Start Date</b></label> <?php echo form_error('startdt'); ?>
-                                <input type="date" id="startdt"  name="startdt" value="<?php echo set_value('startdt');?>"  <?php echo (form_error('startdt')) ? 'class="form-control form-control-danger"' :'class="form-control"';?>>
+                                <input type="date" id="startdt"  name="startdt" value="<?php echo $post['startdt'];?>"  <?php echo (form_error('startdt')) ? 'class="form-control form-control-danger"' :'class="form-control"';?>>
                                 <span style='color:#FF0000' id="startdt_msg"></span>
                             </div>
 
@@ -509,7 +513,7 @@ $(function () {
             </div>
         </div>
         <!-- Basic Form Inputs card end -->
-
+        <?php endforeach; ?>
  <!--<button type="button" class="btn btn-danger waves-effect" data-toggle="modal" data-target="#Modal-overflow" id="showmodal">Overflow</button>-->
                                         <!-- Modal -->
                                         <div class="modal fade modal-flex" id="Modal-overflow" tabindex="-1" role="dialog">
@@ -667,7 +671,7 @@ $(function () {
             
 
             $.ajax({
-                url :'<?php echo base_url("campaigns/ajax_add_campaign");?>',
+                url :'<?php echo base_url("campaigns/ajax_update_campaign");?>',
                 type: 'GET', 
                 dataType: 'json',              
                 data: {

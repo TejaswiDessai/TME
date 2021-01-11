@@ -158,10 +158,12 @@ $(document).ready(function() {
                             <div class="col-sm-2">
                                 <label class="col-lable"><b>First Name</b></label>
                                 <input type="text"  name="first_name" id="first_name"  placeholder="Enter Fisrt Name"  class="form-control">
+                                <span style='color:#FF0000' id="fname_msg"></span>
                             </div>
                             <div class="col-sm-2">
                                 <label class="col-lable"><b>Last Name</b></label>
                                 <input type="text"  name="last_name" id="last_name"  placeholder="Enter Last Name"  class="form-control">
+                                <span style='color:#FF0000' id="lname_msg"></span>
                             </div>
                         </div>
 
@@ -182,11 +184,15 @@ $(document).ready(function() {
                             </div>
                             <div class="col-sm-2">
                                 <label class="col-lable"><b>Email</b></label>
-                                <input type="email"  name="lead_email" id="lead_email"  placeholder="Enter Email"  class="form-control">
+                                <div class="newsletter-signup">
+                                <input type="text"  name="lead_email" id="lead_email"  placeholder="Enter Email"  class="form-control">
+                               </div>
+                                <span style='color:#FF0000' id="email_msg"></span>
                             </div>
                             <div class="col-sm-2">
                                 <label class="col-lable"><b>Phone</b></label>
-                                <input type="text"  name="phone" id="phone"  placeholder="Enter Phone"  class="form-control">
+                                <input type="text"  name="phone" id="phone"  placeholder="Enter Phone" maxlength="10"  class="form-control">
+                                <span style='color:#FF0000' id="phone_msg"></span>
                             </div>
                             <div class="col-sm-2">
                                 <label class="col-lable"><b>Phone Extension</b></label>
@@ -291,7 +297,10 @@ $(document).ready(function() {
                             </div>
                              <div class="col-sm-2">
                                 <label class="col-lable"><b>Prospect link</b></label>
+                               <div class="urlcheck">
                                 <input type="text"  name="prospect_link" id="prospect_link"  placeholder="Enter Prospect Link"  class="form-control">
+                                <span style='color:#FF0000' id="url_msg"></span>
+                            </div>
                             </div>
                              <div class="col-sm-2">
                                 <label class="col-lable"><b>Employee Size Link</b></label>
@@ -364,7 +373,76 @@ $(document).ready(function() {
         </div>
         <!-- Basic Form Inputs card end -->
 
-                         
+     <script>
+     // Campaign Name no special character allowed validation code
+    $(function () {
+        $("#first_name").keypress(function (e) {
+            var keyCode = e.keyCode || e.which;
+ 
+            $("#fname_msg").html("");
+ 
+            //Regex for Valid Characters i.e. Alphabets and Numbers.
+          
+            var regex = /^[A-Za-z]+$/;
+ 
+            //Validate TextBox value against the Regex.
+            var isValid = regex.test(String.fromCharCode(keyCode));
+            if (!isValid) {
+                $("#fname_msg").html("Only Alphabets allowed.");
+            }
+ 
+            return isValid;
+        });
+        $("#last_name").keypress(function (e) {
+            var keyCode = e.keyCode || e.which;
+ 
+            $("#lname_msg").html("");
+ 
+            //Regex for Valid Characters i.e. Alphabets and Numbers.
+          
+            var regex = /^[A-Za-z]+$/;
+ 
+            //Validate TextBox value against the Regex.
+            var isValid = regex.test(String.fromCharCode(keyCode));
+            if (!isValid) {
+                $("#lname_msg").html("Only Alphabets allowed.");
+            }
+            return isValid;
+        });
+        $("#phone").keypress(function (e) {
+            var keyCode = e.keyCode || e.which;
+ 
+            $("#phone_msg").html("");
+ 
+            //Regex for Valid Characters i.e. Alphabets and Numbers.
+          
+            var regex = /^[0-9]+$/;
+ 
+            //Validate TextBox value against the Regex.
+            var isValid = regex.test(String.fromCharCode(keyCode));
+            if (!isValid) {
+                $("#phone_msg").html("Only Numbers allowed.");
+            }
+            return isValid;
+        });
+    });
+  
+    $('.newsletter-signup input:first').on('keyup', function(){
+        $('#email_msg').html("");
+    var valid = /^([\w-\.]+@([\w-]+\.)+[\w-]{2,4})?$/.test(this.value) && this.value.length;
+    if(valid){
+        $('#email_msg').html("");
+    }else{
+        $('#email_msg').html("Not Valid format");  
+    }
+    
+   
+});
+
+
+
+     </script>
+
     
 
   

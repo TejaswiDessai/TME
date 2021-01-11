@@ -5,6 +5,7 @@
     <link rel="stylesheet" type="text/css" href="<?php echo base_url(); ?>admintemplate/bower_components/lightbox2/dist/css/lightbox.css">
 
 <script type="text/javascript">
+var base_url = "<?php echo base_url() ?>";
  $(document).ready(function(){
         $(".delete").click(function(e){ alert('as');
             $this  = $(this);
@@ -40,6 +41,27 @@ $(document).ready(function(){
                 }
             })
         });
+    });
+
+    $( document ).ready(function() {
+    
+    
+         $('.status').click(function(){
+            $("#camp_id").val($(this).data('camp_id'));
+            $("#client_id").val($(this).data('client_id'));
+           
+                    $("#Modal-overflow").modal('show');
+               
+         });
+          $('#cancelSuppbtn').click(function(){
+                // $( "#uho" ).prop( "checked", false );
+    //            alert($('#uho').prop('checked'));
+    //                $('#mybtn').empty();
+                //  $('#mybtn').append('<input type="checkbox"  class="js-small f-right suppclass form-control" name="suppchk" id="uho"/> ');
+                   
+          });
+        
+     
     });
 </script>
 
@@ -81,6 +103,7 @@ $(document).ready(function(){
                                         <th>Start Date</th>
                                         <th>Estimated Close Date</th>
                                         <th>Modified Date</th>
+                                        <!-- <th>Status</th> -->
                                         <th>Action</th>
                                     </tr>
                                 </thead>
@@ -93,8 +116,12 @@ $(document).ready(function(){
                                         <td><?php echo date("M d,Y", strtotime($post['startdt'])); ?></td>
                                         <td><?php echo date("M d,Y", strtotime($post['estclosedt'])); ?></td>
                                         <td><?php if(isset($post['Modifieddt'])){ echo date("M d,Y", strtotime($post['Modifieddt']));} ?></td>
+                                        <!-- <td > -->
+                                        <!-- <button name="submit" id="mybtn" class="btn btn-primary">Status</button> -->
+                                        <!-- <a class="label label-inverse-info" id="mybtn" href='#'>Status</a> -->
+                                        <!-- </td> -->
                                         <td>
-                                               
+                                        <a  id="mybtn" data-camp_id="<?php echo $post['cnid']; ?>" data-client_id="<?php echo $post['clientids']; ?>" class="btn btn-primary status">Status</a>
                                                 <a class="label label-inverse-info" href='<?php echo base_url(); ?>campaigns/update_campaign/<?php echo $post['cnid']; ?>'>Edit</a>
                                                 <a class="label label-inverse-danger delete" href='<?php echo base_url(); ?>administrator/delete/<?php echo $post['cnid']; ?>?table=<?php echo base64_encode('users'); ?>'>Delete</a>
                                             
@@ -114,4 +141,87 @@ $(document).ready(function(){
                 <!-- DOM/Jquery table end -->
             </div>
 
-  
+    <!-- Modal -->
+    <div class="modal fade modal-flex" id="Modal-overflow" tabindex="-1" role="dialog">
+                                            <div class="modal-dialog" role="document">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                            <h5 class="modal-title">Status</h5>
+<!--                                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                <span aria-hidden="true">&times;</span>
+                                                            </button>-->
+                                                        </div>
+                                                        <div class="modal-body p-b-0">
+                                                            <form>
+                                                               
+                                                                <div class="form-group row">
+                                                                    <div class="col-sm-6">
+                                                                        <label class="col-lable"><b>Status</b></label>
+                                                                        <input type="hidden" id="camp_id" >
+                                                                        <input type="hidden" id="client_id" >
+                                                                        <select  name="campaign_status" id="campaign_status" class="form-control">
+                                                                            <option value="0">Campaign</option>
+                                                                            <option value="1">CDC</option>
+                                                                            <option value="2">Lead</option>
+                                                                        </select>
+                                                                    </div>
+                                                              
+                                                                    <div class="col-sm-6">
+                                                                        <label class="col-lable"><b>Comment</b></label>
+                                                                        <textarea id="comment" ></textarea>
+                                                                    </div>
+                                                                
+                                                               
+                                                            </form>
+                                                        </div>
+                                                        <div class="modal-footer">
+                                                            <button type="button" id="update_status" class="btn btn-primary">Update Status</button>
+                                                            <button type="button" class="btn btn-default" data-dismiss="modal" id="cancelSuppbtn">Cancel</button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                        </div>
+        <script>
+        $(function() {
+        $("#update_status").on('click', function() 
+        {
+            var campaign_id = $('#camp_id').val();
+            var client_id = $('#client_id').val();
+            var campaign_status = $('#campaign_status').val();
+            var comment = $('#comment').val();
+            // alert("camp id= "+campaign_id+"client id= "+client_id+"status="+campaign_status+"comment= "+comment);
+            $.ajax({
+                url :'<?php echo base_url("campaigns/updateCampaignStatus");?>',
+                type: 'GET', 
+                dataType: 'json',              
+                data: {
+					campaign_id: campaign_id,
+                    client_id:client_id,
+					campaign_status: campaign_status,
+                    comment:comment
+				},
+                cache: false,
+                success: function(response){
+                    var text = response.statusCode;
+                    console.log(text);
+                   
+                    if(response.statusCode == "Success") 
+                    {                        
+                        $(".status").html(response.status);
+                        $("#addcampbtn").prop('disabled', true);
+                        $('#Modal-overflow').modal('hide');
+                        // top.location.href=base_url+"campaigns/updateCampaignStatus";//redirection
+                    }else if(response.statusCode=="Fail")
+                    {
+                        $("#addcampbtn").html(response.message);
+                        
+					}
+
+                   
+
+                }
+              
+            });
+        });
+    });
+</script>

@@ -469,4 +469,35 @@
 			
 		}
 
+
+		public function updateCampaignStatus()
+		{
+			$campaign_id = $_GET['campaign_id'];
+			$client_id = $_GET['client_id'];
+			$campaign_status = $_GET['campaign_status'];
+			$comment = $_GET['comment'];
+			$datacampaign = array(
+				'status' => $campaign_status,
+				// 'countrycd' => $comment
+				
+								
+				);
+				$updatecampaignStatus = $this->Administrator_Model->updatecampaignStatus($datacampaign,$campaign_id,$client_id);
+				// print_r(addcampaigndata); 
+
+				if($updatecampaignStatus == true){
+			
+					echo json_encode(array(
+						"statusCode"=>"Success",
+						"status" => $campaign_status,
+						"message"=>"Status Updated Successfully.."
+					));
+				}else{
+					echo json_encode(array(
+						"statusCode"=>"Fail",
+						"message"=>"Updated Campaign failed.."
+					));
+				}
+
+	}
 	}

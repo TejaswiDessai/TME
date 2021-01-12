@@ -6,6 +6,7 @@
 
 		function addlead($page = 'add-lead'){
 			$data['title'] = 'Create Lead';
+			$data['campaigns'] = $this->Administrator_Model->get_campaign(FALSE, FALSE, 0);
                         $data['clients'] = $this->Administrator_Model->get_clients();
                         $data['countries'] = $this->Administrator_Model->get_countries();
                         $data['regions'] = $this->Administrator_Model->get_regions();

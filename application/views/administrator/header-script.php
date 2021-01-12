@@ -60,7 +60,8 @@
     <script src="<?php echo base_url(); ?>admintemplate/bower_components/jquery-ui/jquery-ui.min.js"></script>
     <script type="text/javascript" src="<?php echo base_url(); ?>admintemplate/bower_components/tether/dist/js/tether.min.js"></script>
     <script type="text/javascript" src="<?php echo base_url(); ?>admintemplate/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
-    
+    <script type="text/javascript" src="<?php echo base_url(); ?>admintemplate/assets/pages/form-validation/validate.js"></script>
+    <script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.11.1/jquery.validate.min.js"></script>
 </head>
 <body class="horizontal-static">
     <!-- Pre-loader start -->

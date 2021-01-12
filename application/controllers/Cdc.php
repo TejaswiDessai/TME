@@ -6,6 +6,7 @@
 
 		function addlead($page = 'add-lead'){
 			$data['title'] = 'Create Lead';
+			$data['campaigns'] = $this->Administrator_Model->get_campaign();
                         $data['clients'] = $this->Administrator_Model->get_clients();
                         $data['countries'] = $this->Administrator_Model->get_countries();
                         $data['regions'] = $this->Administrator_Model->get_regions();
@@ -44,6 +45,19 @@
 
 
 		}
+
+		public function getAjaxcampaign(){ 
+			// POST data 
+			$postData = $this->input->post();
+			// print_r($postData);
+			// $desiStr = implode(',',$postData);
+			// load model 
+			// $this->load->model('Main_model');
+			
+			// get data 
+			$data = $this->Administrator_Model->get_campaign($postData);
+			echo json_encode($data); 
+		  }
 
 
 	}

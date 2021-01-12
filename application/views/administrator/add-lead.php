@@ -23,35 +23,52 @@ $(document).ready(function() {
         var value = $(this).val();
         if (value == 2) { // if cdqa is selected
             var elements = $('.section').show(); 
-            $("#dcd").attr("disabled", true);   
-            $("#company_name").attr("disabled", true);   
-            $("#rec_type_id").attr("disabled", true);   
-            $("#first_name").attr("disabled", true);   
-            $("#last_name").attr("disabled", true);   
-            $("#job_title").attr("disabled", true);   
-            $("#desid").attr("disabled", true);   
-            $("#lead_email").attr("disabled", true);   
-            $("#phone").attr("disabled", true);   
-            $("#ph_ext").attr("disabled", true);   
-            $("#country_id").attr("disabled", true);   
-            $("#state_id").attr("disabled", true);   
-            $("#city_id").attr("disabled", true);   
-            $("#st_address").attr("disabled", true);   
-            $("#zip_code").attr("disabled", true);   
-            $("#timezone").attr("disabled", true);   
-            $("#subindustrycd").attr("disabled", true);   
-            $("#industrycd").attr("disabled", true);   
-            $("#actual_empsize").attr("disabled", true);   
-            $("#emplzid").attr("disabled", true);   
-            $("#actual_revsize").attr("disabled", true);   
-            $("#revid").attr("disabled", true);   
-            $("#assetid").attr("disabled", true);   
-            $("#sal_id").attr("disabled", true);   
+
+            $(".cdqadisable").attr("disabled", true);   
+            // $("#dcd").attr("disabled", true);   
+            // $("#company_name").attr("disabled", true);  
+           
+          
+        }else{
+            $(".cdqadisable").attr("disabled", false);    
             
         }
     }).trigger('change');
-  
+ 
+$('#rec_type_id').change(function(){
+  if($(this).val() == '2'){ // or this.value == 'volvo'
+    
+    var campaign_id = $('#campaign_id').val();
+    
+    $.ajax({
+                url:'<?php echo base_url("cdc/getAjaxcampaign");?>',
+                method: 'post',
+                data: {
+                    campaign_id:campaign_id
+
+                },
+                dataType: 'json',
+                success: function(response){
+   
+                // Remove options 
+                //    $('#sel_user').find('option').not(':first').remove();
+                $('#company_name').val(response.cnid);
+
+                }
+            });
+
+
+
+  }
 });
+
+
+});
+
+
+
+
+
 
 
 </script>
@@ -125,15 +142,15 @@ $(document).ready(function() {
                                       <option value="2">CDQA </option>
                                 </select>
                             </div>
-                            <div class="col-sm-3 section">
+                            <!-- <div class="col-sm-3 section">
                               <button type="button" name="retrivesubmit" class="btn btn-primary" style="margin-top:25px"  id="addleadbtn">Retrieve Data</button>
-                            </div>
+                            </div> -->
                         </div>
                       
                         <div class="form-group row">
                             <div class="col-sm-3">
                                 <label class="col-lable"><b>Department</b></label>
-                                <select class="js-example-basic-multiple col-sm-12" multiple="multiple" name="dcd[]" id="dcd">
+                                <select class="js-example-basic-multiple col-sm-12 cdqadisable" multiple="multiple" name="dcd[]" id="dcd">
                                    <?php foreach ($departments as $dept): ?>
                                     <option value="<?php echo $dept['dcd']; ?>"><?php echo $dept['department']; ?></option>
                                 <?php endforeach; ?>
@@ -141,11 +158,11 @@ $(document).ready(function() {
                             </div>
                             <div class="col-sm-3">
                                 <label class="col-lable"><b>Company Name</b></label>
-                                <input type="text"  name="company_name" id="company_name"  placeholder="Enter Company Name"  class="form-control">
+                                <input type="text"  name="company_name" id="company_name"  placeholder="Enter Company Name"  class="form-control cdqadisable">
                             </div>
                             <div class="col-sm-2">
                                 <label class="col-lable"><b>Salutation</b></label>
-                                 <select name="sal_id" id="sal_id"  class="form-control">
+                                 <select name="sal_id" id="sal_id"  class="form-control cdqadisable">
                                       <option value="1">Mr.</option>
                                       <option value="2">Miss.</option>
                                       <option value="3">Mrs.</option>
@@ -154,12 +171,12 @@ $(document).ready(function() {
                             </div>
                             <div class="col-sm-2">
                                 <label class="col-lable"><b>First Name</b></label>
-                                <input type="text"  name="first_name" id="first_name"  placeholder="Enter Fisrt Name"  class="form-control">
+                                <input type="text"  name="first_name" id="first_name"  placeholder="Enter Fisrt Name"  class="form-control cdqadisable">
                                 <span style='color:#FF0000' id="fname_msg"></span>
                             </div>
                             <div class="col-sm-2">
                                 <label class="col-lable"><b>Last Name</b></label>
-                                <input type="text"  name="last_name" id="last_name"  placeholder="Enter Last Name"  class="form-control">
+                                <input type="text"  name="last_name" id="last_name"  placeholder="Enter Last Name"  class="form-control cdqadisable">
                                 <span style='color:#FF0000' id="lname_msg"></span>
                             </div>
                         </div>
@@ -168,11 +185,11 @@ $(document).ready(function() {
                         <div class="form-group row">
                             <div class="col-sm-3">
                                 <label class="col-lable"><b>Job Title</b></label>
-                                <input type="text"  name="job_title" id="job_title"  placeholder="Enter Job Title"  class="form-control">
+                                <input type="text"  name="job_title" id="job_title"  placeholder="Enter Job Title"  class="form-control cdqadisable">
                             </div>
                             <div class="col-sm-3">
                                 <label class="col-lable"><b>Designation</b></label>
-                                <select class="js-example-basic-multiple col-sm-12" multiple="multiple" name="desid[]" id="desid">
+                                <select class="js-example-basic-multiple col-sm-12 cdqadisable" multiple="multiple" name="desid[]" id="desid">
                                 <?php foreach ($designation as $designation): ?>
                                     <option value="<?php echo $designation['tid']; ?>"><?php echo $designation['designation']; ?></option>
                                 <?php endforeach; ?>
@@ -182,18 +199,18 @@ $(document).ready(function() {
                             <div class="col-sm-2">
                                 <label class="col-lable"><b>Email</b></label>
                                 <div class="newsletter-signup">
-                                <input type="text"  name="lead_email" id="lead_email"  placeholder="Enter Email"  class="form-control">
+                                <input type="text"  name="lead_email" id="lead_email"  placeholder="Enter Email"  class="form-control cdqadisable">
                                </div>
                                 <span style='color:#FF0000' id="email_msg"></span>
                             </div>
                             <div class="col-sm-2">
                                 <label class="col-lable"><b>Phone</b></label>
-                                <input type="text"  name="phone" id="phone"  placeholder="Enter Phone" maxlength="10"  class="form-control">
+                                <input type="text"  name="phone" id="phone"  placeholder="Enter Phone" maxlength="10"  class="form-control cdqadisable">
                                 <span style='color:#FF0000' id="phone_msg"></span>
                             </div>
                             <div class="col-sm-2">
                                 <label class="col-lable"><b>Phone Extension</b></label>
-                                <input type="text"  name="ph_ext" id="ph_ext"  placeholder="Enter Extension" maxlength="5"  class="form-control">
+                                <input type="text"  name="ph_ext" id="ph_ext"  placeholder="Enter Extension" maxlength="5"  class="form-control cdqadisable">
                             </div>
                         </div>
                        
@@ -201,7 +218,7 @@ $(document).ready(function() {
                         <div class="form-group row">
                             <div class="col-sm-3">
                                 <label class="col-lable"><b>Select Country</b></label>
-                                <select class="js-example-basic-multiple col-sm-12" multiple="multiple" name="country_id[]" id="country_id">
+                                <select class="js-example-basic-multiple col-sm-12 cdqadisable" multiple="multiple" name="country_id[]" id="country_id">
                                  <?php foreach ($countries as $country): ?>
                                     <option value="<?php echo $country['countrycd'];echo set_select('country_id'); ?>"><?php echo $country['countryname']; ?></option>
                                 <?php endforeach; ?>
@@ -209,23 +226,20 @@ $(document).ready(function() {
                             </div>
                             <div class="col-sm-3">
                                 <label class="col-lable"><b>Select State</b></label>
-                                <select class="js-example-basic-multiple col-sm-12" multiple="multiple" name="state_id[]" id="state_id">
-                                 <?php foreach ($countries as $country): ?>
-                                    <option value="<?php echo $country['countrycd'];echo set_select('country_id'); ?>"><?php echo $country['countryname']; ?></option>
-                                <?php endforeach; ?>
+                                <input type="text"  name="state_id" id="state_id"  placeholder="Enter City"  class="form-control cdqadisable">
                                 </select>
                             </div>
                             <div class="col-sm-2">
                                 <label class="col-lable"><b>City</b></label>
-                                <input type="text"  name="city_id" id="city_id"  placeholder="Enter City"  class="form-control">
+                                <input type="text"  name="city_id" id="city_id"  placeholder="Enter City"  class="form-control cdqadisable">
                            </div>
                             <div class="col-sm-2">
                                 <label class="col-lable"><b>Street Address</b></label>
-                                <input type="text"  name="st_address" id="st_address"  placeholder="Enter Address"  class="form-control">
+                                <input type="text"  name="st_address" id="st_address"  placeholder="Enter Address"  class="form-control cdqadisable">
                            </div>
                             <div class="col-sm-2">
                                 <label class="col-lable"><b>Zip</b></label>
-                                <input type="text"  name="zip_code" id="zip_code"  placeholder="Enter Zip Code"  class="form-control">
+                                <input type="text"  name="zip_code" id="zip_code"  placeholder="Enter Zip Code"  class="form-control cdqadisable">
                            </div>
                        
                         </div>
@@ -233,7 +247,7 @@ $(document).ready(function() {
                         <div class="form-group row">
                          <div class="col-sm-3">
                                 <label class="col-lable"><b>Select TimeZone</b></label>
-                              <select class="js-example-basic-multiple col-sm-12" multiple="multiple" name="timezone[]" id="timezone">
+                              <select class="js-example-basic-multiple col-sm-12 cdqadisable" multiple="multiple" name="timezone[]" id="timezone">
                                 <?php foreach ($timezones as $tz): ?>
                                     <option value="<?php echo $tz['zoneid']; ?>"><?php echo $tz['timezonenm']; ?></option>
                                 <?php endforeach; ?>
@@ -242,7 +256,7 @@ $(document).ready(function() {
                             </div>
                             <div class="col-sm-3">
                                 <label class="col-lable"><b>Select Sub Industry</b></label>
-                                <select class="js-example-basic-multiple col-sm-12" multiple="multiple" name="subindustrycd[]" id="subindustrycd">
+                                <select class="js-example-basic-multiple col-sm-12 cdqadisable" multiple="multiple" name="subindustrycd[]" id="subindustrycd">
                                      <?php foreach ($industries as $industry): ?>
                                     <option value="<?php echo $industry['industrycd']; ?>"><?php echo $industry['industry']; ?></option>
                                 <?php endforeach; ?>
@@ -250,7 +264,7 @@ $(document).ready(function() {
                             </div>
                             <div class="col-sm-2">
                                 <label class="col-lable"><b>Select Industry</b></label>
-                                <select class="js-example-basic-multiple col-sm-12" multiple="multiple" name="industrycd[]" id="industrycd">
+                                <select class="js-example-basic-multiple col-sm-12 cdqadisable" multiple="multiple" name="industrycd[]" id="industrycd">
                                      <?php foreach ($industries as $industry): ?>
                                     <option value="<?php echo $industry['industrycd']; ?>"><?php echo $industry['industry']; ?></option>
                                 <?php endforeach; ?>
@@ -258,11 +272,11 @@ $(document).ready(function() {
                             </div>
                             <div class="col-sm-2">
                                 <label class="col-lable"><b>Actual Employee Size</b></label>
-                                <input type="text"  name="actual_empsize" id="actual_empsize" maxlength="10" placeholder="Enter Actual Employee Size"  class="form-control">
+                                <input type="text"  name="actual_empsize" id="actual_empsize" maxlength="10" placeholder="Enter Actual Employee Size"  class="form-control cdqadisable">
                             </div>
                             <div class="col-sm-2">
                                 <label class="col-lable"><b>Select Employee Size</b></label>
-                                <select class="js-example-basic-multiple col-sm-12" name="emplzid[]" id="emplzid">
+                                <select class="js-example-basic-multiple col-sm-12 cdqadisable" name="emplzid[]" id="emplzid">
                                 <?php foreach ($empsize as $empsize): ?>
                                     <option value="<?php echo $empsize['emplzid']; ?>"><?php echo $empsize['emplsizerange']; ?></option>
                                 <?php endforeach; ?>
@@ -273,11 +287,11 @@ $(document).ready(function() {
                         <div class="form-group row">
                              <div class="col-sm-3">
                                 <label class="col-lable"><b>Actual Revenue Size</b></label>
-                                <input type="text"  name="actual_revsize" id="actual_revsize" maxlength="15" placeholder="Enter Actual Revenue Size"  class="form-control">
+                                <input type="text"  name="actual_revsize" id="actual_revsize" maxlength="15" placeholder="Enter Actual Revenue Size"  class="form-control cdqadisable">
                             </div>
                              <div class="col-sm-3">
                                 <label class="col-lable"><b> Revenue Size</b></label>
-                                    <select class="js-example-basic-multiple col-sm-12" name="revid[]" id="revid">
+                                    <select class="js-example-basic-multiple col-sm-12 cdqadisable" name="revid[]" id="revid">
                                         <?php foreach ($revsize as $revsize): ?>
                                             <option value="<?php echo $revsize['comzid']; ?>"><?php echo $revsize['rangelist']; ?></option>
                                         <?php endforeach; ?>
@@ -285,7 +299,7 @@ $(document).ready(function() {
                               </div>
                              <div class="col-sm-2">
                                 <label class="col-lable"><b>Asset Titles</b></label>
-                                <select class="js-example-basic-multiple col-sm-12" multiple="multiple" name="assetid[]" id="assetid">
+                                <select class="js-example-basic-multiple col-sm-12 cdqadisable" multiple="multiple" name="assetid[]" id="assetid">
                                 <?php foreach ($assetitle as $assetitle): ?>
                                     <option value="<?php echo $assetitle['assetid']; ?>"><?php echo $assetitle['title']; ?></option>
                                 <?php endforeach; ?>
@@ -341,7 +355,7 @@ $(document).ready(function() {
                                     </div>
                                     <div class="card-block">
                                         <div id="form2">
-                                        <input type="text"  name="ans1" id="ans1"  placeholder="Answer for Question 1"  class="form-control">
+                                        <input type="text"  name="ans1" id="ans1"  placeholder="Answer for Question 1"  class="form-control cdqadisable">
                                         </div>
                                     </div>
                                 </div>
@@ -354,7 +368,7 @@ $(document).ready(function() {
                                     </div>
                                     <div class="card-block">
                                         <div id="form2">
-                                        <input type="text"  name="ans2" id="ans2"  placeholder="Answer for Question 2"  class="form-control">
+                                        <input type="text"  name="ans2" id="ans2"  placeholder="Answer for Question 2"  class="form-control cdqadisable">
                                         </div>
                                     </div>
                                 </div>

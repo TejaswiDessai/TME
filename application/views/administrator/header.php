@@ -26,23 +26,23 @@
             </div>
             <div class="navbar-container container-fluid">
                 <div>
-                    <ul class="nav-left">
+                    <ul class="nav-right">
                         <li>
                             <a id="collapse-menu" href="#">
                                 <i class="ti-menu"></i>
                             </a>
                         </li>
-<!--                        <li>
+                       <!-- <li>
                             <a class="main-search morphsearch-search" href="#">
                                  themify icon 
                                 <i class="ti-search"></i>
                             </a>
-                        </li>
+                        </li> -->
                         <li>
                             <a href="#!" onclick="javascript:toggleFullScreen()">
                                 <i class="ti-fullscreen"></i>
                             </a>
-                        </li>-->
+                        </li>
                        
                     </ul>
                     <ul class="nav-right">

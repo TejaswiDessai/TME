@@ -403,32 +403,19 @@ $(function () {
                             <div class="col-sm-2"> 
                                 <input type="checkbox" <?php if($post['inclistnew'] == '1'){ echo "checked" ; } ?> class="js-small f-right" name="inclist[]" value="" id="inclist">
                             </div>
-                            <div class="col-sm-4">   
-                                <input type="file" name="files[]" class="form-control">
-                            </div>
-                                 
-                        </div>
-                        
-                        <div class="form-group row">
-                           
-                              <div class="col-sm-2">
+                            <div class="col-sm-2">
                                             <label class="f-left col-lable"><b>CDQA Needed?</b> </label>
                               </div>
                             <div class="col-sm-2">
                              <input type="checkbox" class="js-small f-right"  <?php if($post['cdcneed'] == '1'){ echo "checked" ; } ?> name="cdqa[]" value="" id="cdqa">
                                </div>
-                              <div class="col-sm-2">
-                                  <label class="f-left col-lable"><b>No. of Questions</b><br> <?php echo form_error('quantity'); ?></label>
-                              </div>
-                               <div class="col-sm-2">   
-                                   <input  type="number" id="quantity" name="quantity" min="1" max="12" maxlength="2" value="<?php echo $post['questnos'];?>"
-                                    <?php echo (form_error('quantity')) ? 'class="form-control form-control-danger"' :'class="form-control"';?> >
-                               </div>
-                            <div class="col-sm-4">   
+                            <!-- <div class="col-sm-4">   
                                 <input type="file" name="files[]" class="form-control">
-                                </div>
+                            </div> -->
                                  
                         </div>
+                        
+                      
                         <div class="form-group row">
                             <div class="col-sm-3">
                                 <label class="col-lable"><b>Frequency Type</b></label>
@@ -448,6 +435,12 @@ $(function () {
                                 <?php endforeach; ?>
                                 </select>
                             </div>
+                  
+                               <div class="col-sm-2">   
+                               <label class="f-left col-lable"><b>No. of Questions</b><br> <?php echo form_error('quantity'); ?></label>
+                                   <input  type="number" id="quantity" name="quantity" min="1" max="12" maxlength="2" value="<?php echo $post['questnos'];?>"
+                                    <?php echo (form_error('quantity')) ? 'class="form-control form-control-danger"' :'class="form-control"';?> >
+                               </div>
                         </div>
                         
                         <div class="form-group row">
@@ -500,7 +493,7 @@ $(function () {
                         <div class="form-group row">
 
                             <div class="col-sm-6">
-                                <button type="submit" name="submit" class="btn btn-primary"  id="addcampbtn">Add Campaign</button>
+                                <button type="submit" name="submit" class="btn btn-primary"  id="addcampbtn">Update Campaign</button>
                             </div>
                              
                         </div>
@@ -712,7 +705,7 @@ $(function () {
                     {                        
                         $("#addcampbtn").html(response.message);
                         $("#addcampbtn").prop('disabled', true);
-                        top.location.href=base_url+"campaigns/addsuppressionList";//redirection
+                        top.location.href=base_url+"campaigns/campaign";//redirection
                     }else if(response.statusCode=="Fail")
                     {
                         $("#addcampbtn").html(response.message);

@@ -224,4 +224,11 @@ $(document).ready(function(){
             });
         });
     });
+
+    $(document).ready(function() {
+    $('#dom-jqry').DataTable( {
+        "order": [[ 0, "desc" ]]
+    } );
+} );
+
 </script>

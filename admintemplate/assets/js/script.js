@@ -60,7 +60,7 @@ $(document).ready(function() {
                 $("body").addClass("menu-static");
             } else {
 
-                $("body").addClass("menu-expanded");
+                $("body").addClass("menu-collapsed");
             }
         }
     };

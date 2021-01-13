@@ -198,7 +198,7 @@
 			}
 
 			if($campaigns === FALSE){
-				$this->db->order_by('campaign.cnid', 'DESC');
+				$this->db->order_by('campaign.cids', 'DESC');
 				$this->db->join('clientscd', 'clientscd.clientid = campaign.clientids');
 				$query = $this->db->get('campaign');
 				return $query->result_array(); 

@@ -12,9 +12,36 @@ $(document).ready(function () {
     $('html, body').animate({
         scrollTop: $('#camp_form').offset().top
     }, 'slow');
+
+    $('#noneAboveCheck').change(function () {
+        $('#noneAbove').toggle(this.checked);
+    }).change();
+
+    $('#incarcerated, #support').change(function () {
+        if ($(this).attr("checked")) {
+            $('#noneAboveCheck').attr('disabled', true);
+        } else {
+            $('#noneAboveCheck').attr('disabled', false);
+        }
+    });
+
+    
+    $('#noneAboveCheckInclusion').change(function () {
+        $('#noneAboveInclusion').toggle(this.checked);
+    }).change();
+
+    $('#incarcerated, #support').change(function () {
+        if ($(this).attr("checked")) {
+            $('#noneAboveCheckInclusion').attr('disabled', true);
+        } else {
+            $('#noneAboveCheckInclusion').attr('disabled', false);
+        }
+    });
+
 });
 </script>
-
+<!-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW" crossorigin="anonymous"></script> -->
 <div class="page-header">
     <div class="page-header-title">
         <h4>Campaigns</h4>
@@ -61,36 +88,55 @@ $(document).ready(function () {
                          ?> -->
                         <!-- <?php 
                         // echo form_open_multipart('', array('id' => 'addcampForm')) ?> -->
-                        <!-- <form id="addcampForm" method="POST" enctype="multipart/form-data"> -->
+                        <form id="addcampForm" method="post" action="ajax_add_suppression_list" enctype="multipart/form-data">
 
                         <div class="form-group row">
                         
                             <div class="col-sm-3">
                                 <label class="col-lable"><b>Campaign Name</b></label>
-
+                                <?php foreach ($campaign_record as $campaign_record): ?>
+                                    <?php echo $campaign_record['campnm']; ?>
                                 <?php // echo form_error('campaign_name'); ?>
-                                <input type="text"  name="campaign_name"  placeholder="Enter Campaign Name"  value="<?php echo set_value('campaign_name'); ?>" id="campaign_name" 
-                                <?php echo (form_error('campaign_name')) ? 'class="form-control form-control-danger"' :'class="form-control"';?> >
+                                <!-- <input type="text"  name="campaign_name"  value="<?php echo $campaign_record['campnm']; ?>" id="campaign_name" > -->
                                 <span style='color:#FF0000' id="campaign_name_msg"></span>
+                                <?php endforeach; ?>
                             </div>
-                            <div class="col-sm-4" id="mybtn"> 
-                            <label class="f-left col-lable"><b>Company Names (*.csv) </b> </label>
-                            <input type="file" name="company_name[]" class="form-control">
+                            <div class="col-sm-3">
+                            <label class="col-lable"><b>Suppression Type</b></label><?php echo form_error('revid'); ?>
+                            <select class="js-example-basic-multiple col-sm-12"  name="revid[]" id="revid">
+                                <option value="">All</option>
+                                <option value="1">Client</option>
+                                <option value="0">Internal</option>
+                            </select>
                             </div>
+                            
+                           
                         </div>
 
                         <div class="form-group row">
-                            <div class="col-sm-3">
-                                <label class="col-lable"><b>Exclusion Type</b></label><?php echo form_error('emplzid'); ?>
-                                <select class="js-example-basic-multiple col-sm-12" multiple="multiple" name="emplzid[]" id="emplzid">
-                                <?php foreach ($empsize as $empsize): ?>
-                                    <option value="<?php echo $empsize['emplzid']; ?>"><?php echo $empsize['emplsizerange']; ?></option>
-                                <?php endforeach; ?>
-                                    </select>
+                        <div   class="col-sm-4 form-check form-switch hidden">
+                        
+                             <label class="col-lable"><b>Exclusion Type</b></label>
+                             <input type="checkbox" class="js-small f-right suppclass" name="suppchk" id="noneAboveCheck" value="" >
+                                <div id="noneAbove">
+                                <label class="checkbox-inline form-control"><input id="exlusion_maid_list" type="checkbox" value="1">&nbsp;Mail List</label>
+                                <label class="checkbox-inline form-control"><input id="exlusion_acc_list" type="checkbox" value="2">&nbsp;Account List</label>
+                                <label class="checkbox-inline form-control"><input id="exlusion_dom_list" type="checkbox" value="3">&nbsp;Domain List</label>
+                                <label class="f-left col-lable"><b>Exclusion(*.csv) </b> </label>
+                            <input type="file" name="userfile" class="form-control">
                             </div>
-                            <div class="col-sm-4"> 
-                            <label class="f-left col-lable"><b>Domain Names (*.csv)  </b> </label>
-                            <input type="file" name="domain_names[]" class="form-control">
+                            </div>
+                           
+                            <div class="col-sm-4 form-check form-switch " >
+                             <label class="col-lable"><b>Inclusion Type</b></label>
+                             <input type="checkbox" class="js-small f-right suppclass" name="suppchk" id="noneAboveCheckInclusion" value="" >
+                             <div id="noneAboveInclusion">
+                            <label class="checkbox-inline form-control"><input type="checkbox" id="inclusion_maid_list"  value="1">&nbsp;Mail List</label>
+                            <label class="checkbox-inline form-control"><input type="checkbox" id="inclusion_acc_list" value="2">&nbsp;Account List</label>
+                            <label class="checkbox-inline form-control"><input type="checkbox" id="inclusion_dom_list" value="3">&nbsp;Domain List</label>
+                            <label class="f-left col-lable"><b>Inclusion(*.csv) </b> </label>
+                            <input type="file" name="userfile" class="form-control">
+                            </div>
                             </div>
                             
 
@@ -98,43 +144,41 @@ $(document).ready(function () {
 
 
                         <div class="form-group row">
-                            <div class="col-sm-3">
-                                <label class="col-lable"><b>Suppression Type</b></label><?php echo form_error('revid'); ?>
-                              <select class="js-example-basic-multiple col-sm-12" multiple="multiple" name="revid[]" id="revid">
-                                <?php foreach ($revsize as $revsize): ?>
-                                    <option value="<?php echo $revsize['comzid']; ?>"><?php echo $revsize['rangelist']; ?></option>
-                                <?php endforeach; ?>
-                                    </select>
-                            </div>
                             
+                        <!-- <div class="col-sm-4" id="noneAbove"> 
+                            <label class="f-left col-lable"><b>Exclusion(*.csv) </b> </label>
+                            <input type="file" name="userfile" class="form-control">
+                        </div>
                             
-                            <div class="col-sm-4"> 
-                            <label class="f-left col-lable"><b>Campaign Name (*.csv)  </b> </label>
-                            <input type="file" name="domain_names[]" class="form-control">
-                            </div>
+                        <div class="col-sm-4" id="noneAboveInclusion"> 
+                            <label class="f-left col-lable"><b>Inclusion(*.csv) </b> </label>
+                            <input type="file" name="userfile" class="form-control">
+                        </div> -->
                                  
                         </div>
     
                         
                         
                         <div class="form-group row">
-                        <div class="col-sm-3">
+                        <!-- <div class="col-sm-3">
                                 <label  class="col-lable"><b>Client Id</b></label>
-                                 <select name="client_id" id="client_id"  <?php echo (form_error('client_id')) ? 'class="form-control form-control-danger"' : 'class="form-control"';?>>
-                                      <option value="<?php echo set_select('client_id'); ?>">Select One Client ID</option>
-                                <?php foreach ($clients as $client): ?>
-                                    <option value="<?php echo $client['clientid']; ?>"><?php echo $client['clientcode']; ?></option>
-                                <?php endforeach; ?>
+                                 <select name="client_id" id="client_id"  <?php //echo (form_error('client_id')) ? 'class="form-control form-control-danger"' : 'class="form-control"';?>>
+                                      <option value="<?php //echo set_select('client_id'); ?>">Select One Client ID</option>
+                                <?php //foreach ($clients as $client): ?>
+                                    <option value="<?php //echo $client['clientid']; ?>"><?php //echo $client['clientcode']; ?></option>
+                                <?php //endforeach; ?>
                                 </select>
                                 <span style='color:#FF0000' id="client_id_msg"></span>
-                            </div>
-                            <div class="col-sm-4">
-                                <label class="col-lable"><b>Select Period</b></label><?php echo form_error('desid'); ?>
-                                <select class="js-example-basic-multiple col-sm-12" multiple="multiple" name="desid[]" id="desid">
-                                <?php foreach ($designation as $designation): ?>
-                                    <option value="<?php echo $designation['tid']; ?>"><?php echo $designation['designation']; ?></option>
-                                <?php endforeach; ?>
-                                   
+                            </div> -->
+                            <div class="col-sm-3">
+                                <label class="col-lable"><b>Select Period</b></label>
+                                <select class="js-example-basic-multiple col-sm-12 "  name="period" id="period">
+                                <option value="1">1 Month<option>
+                                <option value="2">2 Month<option>
+                                <option value="3">3 Month<option>
+                                <option value="4">4 Month<option>
+                                <option value="5">5 Month<option>
+                                <option value="6" selected>6 Month<option>
                                 </select>
                             </div>
 
@@ -146,13 +190,13 @@ $(document).ready(function () {
                         <div class="form-group row">
 
                             <div class="col-sm-6">
-                                <button type="submit" name="submit" class="btn btn-primary"  id="addcampbtn">Add To Suppression List</button>
+                                <button name="submit" class="btn btn-primary"  id="addSuppressionbtn">Add To Suppression List</button>
                             </div>
                              
                         </div>
                         <!--<textarea id="description" style="visibility: hidden;"></textarea>-->
 
-                        <!-- </form> -->
+                        </form>
                     </div>
                            
                 </div>
@@ -164,9 +208,12 @@ $(document).ready(function () {
     
 <script>
     $(function() {
-        $("#addcampbtn").on('click', function() 
+        $("#addSuppressionbtn").on('click', function() 
         {
-            var campaign_id = $('#campaign_id').val();
+            
+            var userfile = $('file#userfile').val();
+            var files = $('#userfile')[0].files;
+            alert("test"+files);
             var client_id = $('#client_id').val();
             var campaign_name = $('#campaign_name').val();
             var country_id = $('#country_id').val(); 
@@ -179,31 +226,20 @@ $(document).ready(function () {
             $("#client_id_msg").html("");
             $("#campaign_id_msg").html("");
             $("#campaign_name_msg").html("");
-            if(client_id == null || client_id == '')
-            {
-                $("#client_id_msg").html("<p><strong>Please fill this.</strong></p>");
-                return;
-            }
-            if(campaign_id == null || campaign_id == '')
-            {
-                $("#campaign_id_msg").html("<p><strong>Please fill this.</strong></p>");
-                return;
-            }
-            if(campaign_name == null || campaign_name == '')
-            {
-                $("#campaign_name_msg").html("<p><strong>Please fill this.</strong></p>");
-                return;
-            }
-            // var myCheckboxes = new Array();
-            // $("input:checked").each(function() {
-            // myCheckboxes.push($('#uho').prop('checked'));
-            // });
-            // alert(myCheckboxes);
-            // if(myCheckboxes == true)
+            // if(client_id == null || client_id == '')
             // {
-            //     var checksupp = true;
-            // }else{
-            //     var checksupp = false;
+            //     $("#client_id_msg").html("<p><strong>Please fill this.</strong></p>");
+            //     return;
+            // }
+            // if(campaign_id == null || campaign_id == '')
+            // {
+            //     $("#campaign_id_msg").html("<p><strong>Please fill this.</strong></p>");
+            //     return;
+            // }
+            // if(campaign_name == null || campaign_name == '')
+            // {
+            //     $("#campaign_name_msg").html("<p><strong>Please fill this.</strong></p>");
+            //     return;
             // }
             var checksupp = $('#uho').prop('checked');
           
@@ -215,27 +251,27 @@ $(document).ready(function () {
             var startdt = $('#startdt').val();
 
             $.ajax({
-                url :'<?php echo base_url("campaigns/ajax_add_campaign");?>',
-                type: 'POST', 
+                url :'<?php echo base_url("campaigns/ajax_add_suppression_list");?>',
+                type: 'GET', 
                 dataType: 'json',              
                 data: {
-					campaign_id: campaign_id,
-                    client_id:client_id,
-					campaign_name: campaign_name,
-                    country_id:country_id,
-                    region_id:region_id,
-                    industrycd:industrycd,
-                    dcd:dcd,
-                    emplzid:emplzid,
-                    revid:revid,
-                    desid:desid,
-                    checksupp:checksupp,
-                    inclist:inclist,
-                    cdqa:cdqa,
-                    quantity:quantity,
-                    selectstatus:selectstatus,
-                    estclosedt:estclosedt,
-                    startdt:startdt
+					// campaign_id: campaign_id,
+                    // client_id:client_id,
+					userfile: userfile,
+                    // country_id:country_id,
+                    // region_id:region_id,
+                    // industrycd:industrycd,
+                    // dcd:dcd,
+                    // emplzid:emplzid,
+                    // revid:revid,
+                    // desid:desid,
+                    // checksupp:checksupp,
+                    // inclist:inclist,
+                    // cdqa:cdqa,
+                    // quantity:quantity,
+                    // selectstatus:selectstatus,
+                    // estclosedt:estclosedt,
+                    // startdt:startdt
                     
 
 				},

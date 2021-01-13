@@ -73,7 +73,7 @@ function isNumber(evt) {
     }
     return true;
 }
-// Campaign Name no special character allowed validation code
+Campaign Name no special character allowed validation code
 $(function () {
         $("#campaign_name").keypress(function (e) {
             var keyCode = e.keyCode || e.which;
@@ -92,32 +92,32 @@ $(function () {
             return isValid;
         });
     });
-    $(document).ready(function(){
+    // $(document).ready(function(){
  
  // City change
- $('#region_id').change(function(){
-   var region_id = $(this).val();
-    alert(region_id);
-   // AJAX request
-   $.ajax({
-     url:'<?php echo base_url("campaigns/getCountry");?>',
-     method: 'post',
-     data: {region_id: region_id},
-     dataType: 'json',
-     success: function(response){
+//  $('#region_id').change(function(){
+//    var region_id = $(this).val();
+    // alert(region_id);
+//    // AJAX request
+//    $.ajax({
+//      url:'<?php echo base_url("campaigns/getCountry");?>',
+//      method: 'post',
+//      data: {region_id: region_id},
+//      dataType: 'json',
+//      success: function(response){
 
        // Remove options 
     //    $('#sel_user').find('option').not(':first').remove();
-       $('#country_id').find('option').not(':first').remove();
+    //    $('#country_id').find('option').not(':first').remove();
 
        // Add options
-       $.each(response,function(index,data){
-          $('#country_id').append('<option value="'+data['countrycd']+'">'+data['countryname']+'</option>');
-       });
-     }
-  });
-});
-});
+//        $.each(response,function(index,data){
+//           $('#country_id').append('<option value="'+data['countrycd']+'">'+data['countryname']+'</option>');
+//        });
+//      }
+//   });
+// });
+// });
 </script>
 
 <div class="page-header">
@@ -219,7 +219,7 @@ $(function () {
                         <div class="form-group row">
                             <div class="col-sm-3">
                                 <label class="col-lable"><b>World Region</b></label><?php echo form_error('region_id'); ?>
-                                <select class="js-example-basic-multiple col-sm-12" multiple="multiple" name="region_id" id="region_id">
+                                <select class="js-example-basic-multiple col-sm-12" multiple="multiple" name="region_id[]" id="region_id">
                                  
                                 <?php foreach ($regions as $region): ?>
                                     <option value="<?php echo $region['regioncode']; ?>"><?php echo $region['region']; ?></option>
@@ -346,9 +346,9 @@ $(function () {
                                 <!-- <div class="airman"> -->
                                     <label class="col-lable"><b>Select Upper Bound</b></label><?php echo form_error('revnubound'); ?>
                                     <select class="second-level-select js-example-basic-multiple col-sm-12"  name="revnubound" id="revnubound">
-                                   
+                                    <option value="">Select </option>
                                         <?php foreach ($revnlbound as $revnlbound): ?>
-                                            <option value="">Select </option>
+                                          
                                         <option value="<?php echo $revnlbound['revnubound']; ?>"><?php echo $revnlbound['revnubound']; ?></option>
                                         <?php endforeach; ?>
                                     </select>
@@ -496,7 +496,7 @@ $(function () {
                         <div class="form-group row">
 
                             <div class="col-sm-6">
-                                <button type="submit" name="submit" class="btn btn-primary"  id="addcampbtn">Add Campaign</button>
+                                <button  name="submit" class="btn btn-primary"  id="addcampbtn">Add Campaign</button>
                             </div>
                              
                         </div>
@@ -570,9 +570,11 @@ $(function () {
     $(function() {
         $("#addcampbtn").on('click', function() 
         {
+            
             var campaign_id = $('#campaign_id').val();
             var client_id = $('#client_id').val();
             var campaign_name = $('#campaign_name').val();
+           
             var country_id = $('#country_id').val(); 
             var region_id = $('#region_id').val(); 
             var industrycd = $('#industrycd').val(); 
@@ -605,11 +607,11 @@ $(function () {
                 $("#campaign_id_msg").html("<p><strong>Please fill this.</strong></p>");
                 return;
             }
-            if(campaign_name == null || campaign_name == '')
-            {
-                $("#campaign_name_msg").html("<p><strong>Please fill this.</strong></p>");
-                return;
-            }
+            // if(campaign_name == null || campaign_name == '')
+            // {
+            //     $("#campaign_name_msg").html("<p><strong>Please fill this.</strong></p>");
+            //     return;
+            // }
             if(startdt == null || startdt == '')
             {
                 $("#startdt_msg").html("<p><strong>Please fill this.</strong></p>");
@@ -621,19 +623,6 @@ $(function () {
                 return;
             }
             
-            
-
-            // var myCheckboxes = new Array();
-            // $("input:checked").each(function() {
-            // myCheckboxes.push($('#uho').prop('checked'));
-            // });
-            // alert(myCheckboxes);
-            // if(myCheckboxes == true)
-            // {
-            //     var checksupp = true;
-            // }else{
-            //     var checksupp = false;
-            // }
             var checksupp = $('#uho').prop('checked');
             if(checksupp == true)
             {
@@ -664,10 +653,11 @@ $(function () {
             var quantity = $('#quantity').val();
             
             var estclosedt = $('#estclosedt').val();
-            
-
+           
+            var url = "<?php echo base_url("campaigns/ajax_add_campaign");?>";
+            console.log(url+"?campaign_id="+campaign_id+"&client_id="+client_id+"&campaign_name="+campaign_name+"&region_id="+region_id+"&industrycd="+industrycd+"&country_id="+country_id+"&dcd="+dcd+"&emplzid="+emplzid+"&revid="+revid+"&desid="+desid+"&checksupp="+checksupp+"&inclist="+inclist+"&cdqa="+cdqa+"&quantity="+quantity+"&selectstatus="+selectstatus+"&estclosedt="+estclosedt+"&startdt="+startdt+"&emplbound="+emplbound+"&empubound="+empubound+"&revnlbound="+revnlbound+"&revnubound="+revnubound+"&revnlbound_range="+revnlbound_range+"&revnubound_range="+revnubound_range+"&frequency_type="+frequency_type+"&frequency="+frequency);
             $.ajax({
-                url :'<?php echo base_url("campaigns/ajax_add_campaign");?>',
+                url :'<?php echo base_url("campaigns/ajax_add_new_campaign");?>',
                 type: 'GET', 
                 dataType: 'json',              
                 data: {
@@ -696,10 +686,8 @@ $(function () {
                     revnubound_range:revnubound_range,
                     frequency_type:frequency_type,
                     frequency:frequency
-                    
-
 				},
-                cache: false,
+                // cache: false,
                 success: function(response){
                     var text = response.statusCode;
                     console.log("check");
@@ -707,8 +695,8 @@ $(function () {
                     if(response.statusCode == "Success") 
                     {                        
                         $("#addcampbtn").html(response.message);
-                        $("#addcampbtn").prop('disabled', true);
-                        top.location.href=base_url+"campaigns/addsuppressionList";//redirection
+                        // $("#addcampbtn").prop('disabled', true);
+                        top.location.href=base_url+"campaigns/addsuppressionList?camp_id="+response.campaign_id;//redirection
                     }else if(response.statusCode=="Fail")
                     {
                         $("#addcampbtn").html(response.message);

@@ -155,7 +155,9 @@
 		{
                         
 			 $this->db->insert('campaign', $datacampaign);
-			 return true;
+			 $insert_id = $this->db->insert_id();
+			//  return true;
+			 return  $insert_id;
                         // echo $this->db->last_query(); 
 		}
 
@@ -921,6 +923,46 @@ function getCountry($postData){
 			//  $this->db->insert('campaign', $datacampaign);
 			//  return true;
                         // echo $this->db->last_query(); 
+		}
+		function uploadData($filename)
+		{
+			$count=0;
+			$fp = fopen($_FILES['userfile']['tmp_name'],'r') or die("can't open file");
+			// echo $fp;die;
+			while($csv_line = fgetcsv($fp,1024))
+			{
+				$count++;
+				if($count == 1)
+				{
+					continue;
+				}//keep this if condition if you want to remove the first row
+				for($i = 0, $j = count($csv_line); $i < $j; $i++)
+				{
+					$insert_csv = array();
+					$insert_csv['camp_id'] = $csv_line[0];//remove if you want to have primary key,
+					$insert_csv['camp_name'] = $csv_line[1];
+					$insert_csv['camp_status'] = $csv_line[2];
+	
+				}
+				$i++;
+				$data = array(
+					'camp_id' => $insert_csv['camp_id'] ,
+					'camp_name' => $insert_csv['camp_name'],
+					'camp_status' => $insert_csv['camp_status']
+				   );
+				$data['crane_features']=$this->db->insert('test_csv', $data);
+			}
+			fclose($fp) or die("can't close file");
+			$data['success']="success";
+			return $data;
+		}
+
+		public function updatecampaignStatus($datacampaign,$campaign_id,$client_id)
+		{
+			$this->db->where('cnid', $campaign_id);
+			// $this->db->where('clientids', $client_id);
+			$this->db->update('campaign', $datacampaign);
+			return true;
 		}
 
 }

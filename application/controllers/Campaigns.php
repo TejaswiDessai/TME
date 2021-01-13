@@ -480,47 +480,120 @@
 
 		public function ajax_add_suppression_list()
 		{
+			$camp_id = $_POST['camp_id'];
+			$excltyp = $_POST['suptyp'];
+			$period = $_POST['period'];
 			$connect = pg_connect("host=localhost dbname=Forerunner user=postgres password=password@123");
 
-			if($_FILES['userfile']['name'])
+			if(isset($_FILES['userfile']['name']))
 			{
-			$filename = explode(".", $_FILES['userfile']['name']);
-			if($filename[1] == 'csv')
-			{
-				$handle = fopen($_FILES['userfile']['tmp_name'], "r");
-				while($data = fgetcsv($handle))
+				$filename = explode(".", $_FILES['userfile']['name']);
+				if($filename[1] == 'csv')
 				{
-					$item1 = pg_escape_string ($connect, $data[0]);  
-					$item2 = pg_escape_string ($connect, $data[1]);
-					$item3 = pg_escape_string ($connect, $data[2]);
+					$handle = fopen($_FILES['userfile']['tmp_name'], "r");
+					while($data = fgetcsv($handle))
+					{
+						$item1 = pg_escape_string ($connect, $data[0]);  
+						$item2 = pg_escape_string ($connect, $data[1]);
+						$item3 = pg_escape_string ($connect, $data[2]);
 					
-					//$item36= mysqli_real_escape_string($connect, $data[35]);
+						//$item36= mysqli_real_escape_string($connect, $data[35]);
 
-					//$item5 = mysqli_real_escape_string($connect, $data[4]);
-					$query = "INSERT into exclusion(campid,
-					aclist,
-					domainlist,maillist
-					)
-					values
-					('$item1','$item2','$item3')";
-					// show_error($this->db->last_query(), 200, "SQL");
-					$result = pg_query($connect, $query);
-					if (!$result) {
-						die('Invalid query: ' . pg_result_error($connect));
+						//$item5 = mysqli_real_escape_string($connect, $data[4]);
+						$query = "INSERT into exclusion(excltyp,campid,aclist,domainlist,maillist,period
+						)values('$excltyp','$camp_id','$item1','$item2','$item3','$period')";
+						// show_error($this->db->last_query(), 200, "SQL");
+						$result = pg_query($connect, $query);
+						if (!$result) {
+							die('Invalid query: ' . pg_result_error($connect));
 						}
 						else{
-					echo "<script>alert('Import done');</script>";}
+						// echo "<script>alert('Import done');</script>";
+						}
 							
-				}
-				fclose($handle);
+						}
+						fclose($handle);
 				
+					}
 				}
-			}
 
-			// print_r($filename);
-			// // die; 
-			// $this->Administrator_Model->uploadData($filename);
-		}
+				if(isset($_FILES['userfileincl']['name']))
+				{
+					$filename = explode(".", $_FILES['userfileincl']['name']);
+					if($filename[1] == 'csv')
+					{
+						$handle = fopen($_FILES['userfileincl']['tmp_name'], "r");
+						while($data = fgetcsv($handle))
+						{
+							$item1 = pg_escape_string ($connect, $data[0]);  
+							$item2 = pg_escape_string ($connect, $data[1]);
+							$item3 = pg_escape_string ($connect, $data[2]);
+						
+							//$item36= mysqli_real_escape_string($connect, $data[35]);
+	
+							//$item5 = mysqli_real_escape_string($connect, $data[4]);
+							$query = "INSERT into inclusion(incltyp,campid,aclist,domainlist,maillist,period
+							)values('$excltyp','$camp_id','$item1','$item2','$item3','$period')";
+							// show_error($this->db->last_query(), 200, "SQL");
+							$result = pg_query($connect, $query);
+							if (!$result) {
+								die('Invalid query: ' . pg_result_error($connect));
+							}
+							else{
+							//echo "<script>alert('Import done');</script>";
+							}
+								
+							}
+							fclose($handle);
+					
+						}
+					}
+
+				if(isset($_FILES['userfilequestion']['name']))
+				{
+					$filename = explode(".", $_FILES['userfilequestion']['name']);
+					if($filename[1] == 'csv')
+					{
+						$handle = fopen($_FILES['userfilequestion']['tmp_name'], "r");
+						$count = 0;
+						while($data = fgetcsv($handle))
+						{
+							$item1 = pg_escape_string ($connect, $data[0]);  
+							// $item2 = pg_escape_string ($connect, $data[1]);
+							// $item3 = pg_escape_string ($connect, $data[2]);
+						
+							//$item36= mysqli_real_escape_string($connect, $data[35]);
+	
+							//$item5 = mysqli_real_escape_string($connect, $data[4]);
+							$query = "INSERT into questions(cid,questions
+							)values('$camp_id','$item1')";
+							// show_error($this->db->last_query(), 200, "SQL");
+							$result = pg_query($connect, $query);
+							if (!$result) {
+								die('Invalid query: ' . pg_result_error($connect));
+							}
+							else{
+							// echo "<script>alert('Import done');</script>";
+							}
+							if($count < 11)
+							{
+								$count ++;
+							}
+							else
+							{
+								break;
+							}
+							
+							}
+							fclose($handle);
+					
+						}
+					}
+
+					redirect('campaigns/campaign');
+					
+			}
+		// }
 
 		public function updateCampaignStatus()
 		{

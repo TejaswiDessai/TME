@@ -97,49 +97,71 @@ $(document).ready(function () {
                                 <?php foreach ($campaign_record as $campaign_record): ?>
                                     <?php echo $campaign_record['campnm']; ?>
                                 <?php // echo form_error('campaign_name'); ?>
-                                <!-- <input type="text"  name="campaign_name"  value="<?php echo $campaign_record['campnm']; ?>" id="campaign_name" > -->
+                                <input type="hidden"  name="camp_id"  value="<?php echo $campaign_record['cnid']; ?>" id="camp_id" >
                                 <span style='color:#FF0000' id="campaign_name_msg"></span>
-                                <?php endforeach; ?>
+                               
                             </div>
                             <div class="col-sm-3">
                             <label class="col-lable"><b>Suppression Type</b></label><?php echo form_error('revid'); ?>
-                            <select class="js-example-basic-multiple col-sm-12"  name="revid[]" id="revid">
-                                <option value="">All</option>
+                            <select class="js-example-basic-multiple col-sm-12"  name="suptyp" id="suptyp">
+                                <option value="1">All</option>
                                 <option value="1">Client</option>
                                 <option value="0">Internal</option>
                             </select>
                             </div>
-                            
+                            <div class="col-sm-3">
+                                <label class="col-lable"><b>Select Period</b></label>
+                                <select class="js-example-basic-multiple col-sm-12 "  name="period" id="period">
+                                <option value="1">1 Month<option>
+                                <option value="2">2 Month<option>
+                                <option value="3">3 Month<option>
+                                <option value="4">4 Month<option>
+                                <option value="5">5 Month<option>
+                                <option value="6" selected>6 Month<option>
+                                </select>
+                            </div>
                            
                         </div>
 
                         <div class="form-group row">
+                        <?php if($campaign_record['suplistnew'] == 1){?>
                         <div   class="col-sm-4 form-check form-switch hidden">
-                        
+                                
                              <label class="col-lable"><b>Exclusion Type</b></label>
-                             <input type="checkbox" class="js-small f-right suppclass" name="suppchk" id="noneAboveCheck" value="" >
-                                <div id="noneAbove">
+                             <!-- <input type="checkbox" class="js-small f-right suppclass" name="suppchk" id="noneAboveCheck" value="" > -->
+                                <!-- <div id="noneAbove"> -->
                                 <label class="checkbox-inline form-control"><input id="exlusion_maid_list" type="checkbox" value="1">&nbsp;Mail List</label>
                                 <label class="checkbox-inline form-control"><input id="exlusion_acc_list" type="checkbox" value="2">&nbsp;Account List</label>
                                 <label class="checkbox-inline form-control"><input id="exlusion_dom_list" type="checkbox" value="3">&nbsp;Domain List</label>
                                 <label class="f-left col-lable"><b>Exclusion(*.csv) </b> </label>
                             <input type="file" name="userfile" class="form-control">
+                            <!-- </div> -->
                             </div>
-                            </div>
-                           
+                           <?php } ?>
+                           <?php if($campaign_record['inclistnew'] == 1){?>
                             <div class="col-sm-4 form-check form-switch " >
                              <label class="col-lable"><b>Inclusion Type</b></label>
-                             <input type="checkbox" class="js-small f-right suppclass" name="suppchk" id="noneAboveCheckInclusion" value="" >
-                             <div id="noneAboveInclusion">
+                             <!-- <input type="checkbox" class="js-small f-right suppclass" name="suppchk" id="noneAboveCheckInclusion" value="" > -->
+                             <!-- <div id="noneAboveInclusion"> -->
                             <label class="checkbox-inline form-control"><input type="checkbox" id="inclusion_maid_list"  value="1">&nbsp;Mail List</label>
                             <label class="checkbox-inline form-control"><input type="checkbox" id="inclusion_acc_list" value="2">&nbsp;Account List</label>
                             <label class="checkbox-inline form-control"><input type="checkbox" id="inclusion_dom_list" value="3">&nbsp;Domain List</label>
                             <label class="f-left col-lable"><b>Inclusion(*.csv) </b> </label>
-                            <input type="file" name="userfile" class="form-control">
+                            <input type="file" name="userfileincl" class="form-control">
                             </div>
-                            </div>
-                            
+                            <!-- </div> -->
+                            <?php } ?>
 
+                            <?php if($campaign_record['questnos'] != 0 || $campaign_record['questnos'] != null){?>
+                            <div class="col-sm-4 form-check form-switch " >
+                             <label class="col-lable"><b>Questions(*.csv)</b></label>
+                             <!-- <input type="checkbox" class="js-small f-right suppclass" name="suppchk" id="noneAboveCheckInclusion" value="" > -->
+                             <!-- <div id="noneAboveInclusion"> -->
+                            <!-- <label class="f-left col-lable"><b>Inclusion(*.csv) </b> </label> -->
+                            <input type="file" name="userfilequestion" class="form-control">
+                            </div>
+                            <!-- </div> -->
+                            <?php } ?>
                         </div>
 
 
@@ -170,17 +192,7 @@ $(document).ready(function () {
                                 </select>
                                 <span style='color:#FF0000' id="client_id_msg"></span>
                             </div> -->
-                            <div class="col-sm-3">
-                                <label class="col-lable"><b>Select Period</b></label>
-                                <select class="js-example-basic-multiple col-sm-12 "  name="period" id="period">
-                                <option value="1">1 Month<option>
-                                <option value="2">2 Month<option>
-                                <option value="3">3 Month<option>
-                                <option value="4">4 Month<option>
-                                <option value="5">5 Month<option>
-                                <option value="6" selected>6 Month<option>
-                                </select>
-                            </div>
+                           
 
                         </div>
                         
@@ -190,12 +202,12 @@ $(document).ready(function () {
                         <div class="form-group row">
 
                             <div class="col-sm-6">
-                                <button name="submit" class="btn btn-primary"  id="addSuppressionbtn">Add To Suppression List</button>
+                                <button name="submit" class="btn btn-primary"  id="addSuppressionbtn">Add CSV Data</button>
                             </div>
                              
                         </div>
                         <!--<textarea id="description" style="visibility: hidden;"></textarea>-->
-
+                        <?php endforeach; ?>
                         </form>
                     </div>
                            
@@ -216,16 +228,9 @@ $(document).ready(function () {
             alert("test"+files);
             var client_id = $('#client_id').val();
             var campaign_name = $('#campaign_name').val();
-            var country_id = $('#country_id').val(); 
+            var suptyp = $('#suptyp').val(); 
             var region_id = $('#region_id').val(); 
-            var industrycd = $('#industrycd').val(); 
-            var dcd = $('#dcd').val(); 
-            var emplzid = $('#emplzid').val(); 
-            var revid = $('#revid').val(); 
-            var desid = $('#desid').val();
-            $("#client_id_msg").html("");
-            $("#campaign_id_msg").html("");
-            $("#campaign_name_msg").html("");
+            
             // if(client_id == null || client_id == '')
             // {
             //     $("#client_id_msg").html("<p><strong>Please fill this.</strong></p>");
@@ -241,37 +246,19 @@ $(document).ready(function () {
             //     $("#campaign_name_msg").html("<p><strong>Please fill this.</strong></p>");
             //     return;
             // }
-            var checksupp = $('#uho').prop('checked');
-          
-            var inclist =$('#inclist').prop('checked');
-            var cdqa = $('#cdqa').prop('checked');
-            var quantity = $('#quantity').val();
-            var selectstatus = $('#selectstatus').val();
-            var estclosedt = $('#estclosedt').val();
-            var startdt = $('#startdt').val();
+           
 
             $.ajax({
                 url :'<?php echo base_url("campaigns/ajax_add_suppression_list");?>',
                 type: 'GET', 
                 dataType: 'json',              
                 data: {
-					// campaign_id: campaign_id,
+					campaign_id: campaign_id,
                     // client_id:client_id,
 					userfile: userfile,
                     // country_id:country_id,
                     // region_id:region_id,
-                    // industrycd:industrycd,
-                    // dcd:dcd,
-                    // emplzid:emplzid,
-                    // revid:revid,
-                    // desid:desid,
-                    // checksupp:checksupp,
-                    // inclist:inclist,
-                    // cdqa:cdqa,
-                    // quantity:quantity,
-                    // selectstatus:selectstatus,
-                    // estclosedt:estclosedt,
-                    // startdt:startdt
+                   
                     
 
 				},

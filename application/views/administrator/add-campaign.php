@@ -334,8 +334,7 @@ $(function () {
 
                                 <select name="selectstatus" class="form-control form-control-default" id="revnlbound_range">
                                     <option value="">Select </option>
-                                    <option value="hundred">Hundred </option>
-                                    <option value="thousand">Thousand</option>
+                                    <option value="hundred">Hundred Thousand </option>
                                     <option value="million">Million</option>
                                     <option value="billion">Billion </option>
                                     <option value="trillion">trillion </option>
@@ -359,8 +358,7 @@ $(function () {
 
                                 <select name="selectstatus" class="form-control form-control-default" id="revnubound_range">
                                     <option value="">Select </option>
-                                    <option value="hundred ">Hundred </option>
-                                    <option value="thousand">Thousand</option>
+                                    <option value="hundred">Hundred Thousand </option>
                                     <option value="million">Million</option>
                                     <option value="billion ">Billion </option>
                                     <option value="trillion ">trillion </option>
@@ -399,32 +397,21 @@ $(function () {
                             <div class="col-sm-2"> 
                                 <input type="checkbox" class="js-small f-right" name="inclist[]" value="" id="inclist">
                             </div>
-                            <div class="col-sm-4">   
-                                <input type="file" name="files[]" class="form-control">
+                            <div class="col-sm-2">
+                                <label class="f-left col-lable"><b>CDQA Needed?</b> </label>
                             </div>
-                                 
-                        </div>
-                        
-                        <div class="form-group row">
-                           
-                              <div class="col-sm-2">
-                                            <label class="f-left col-lable"><b>CDQA Needed?</b> </label>
-                              </div>
                             <div class="col-sm-2">
                              <input type="checkbox" class="js-small f-right" name="cdqa[]" value="" id="cdqa">
                                </div>
-                              <div class="col-sm-2">
-                                  <label class="f-left col-lable"><b>No. of Questions</b><br> <?php echo form_error('quantity'); ?></label>
-                              </div>
-                               <div class="col-sm-2">   
-                                   <input  type="number" id="quantity" name="quantity" min="1" max="12" maxlength="2" value="<?php echo set_value('quantity');?>"
-                                    <?php echo (form_error('quantity')) ? 'class="form-control form-control-danger"' :'class="form-control"';?> >
-                               </div>
-                            <div class="col-sm-4">   
+
+                            
+                            <!-- <div class="col-sm-4">   
                                 <input type="file" name="files[]" class="form-control">
-                                </div>
+                            </div> -->
                                  
                         </div>
+                        
+                       
                         <div class="form-group row">
                             <div class="col-sm-3">
                                 <label class="col-lable"><b>Frequency Type</b></label>
@@ -443,6 +430,11 @@ $(function () {
                                     <option value="<?php echo $frequency['fdid']; ?>"><?php echo $frequency['days']; ?></option>
                                 <?php endforeach; ?>
                                 </select>
+                            </div>
+                            <div class="col-sm-2">   
+                            <label class="f-left col-lable"><b>No. of Questions</b><br> <?php echo form_error('quantity'); ?></label>
+                                <input  type="number" id="quantity" name="quantity" min="1" max="12" maxlength="2" value="<?php echo set_value('quantity');?>"
+                                <?php echo (form_error('quantity')) ? 'class="form-control form-control-danger"' :'class="form-control"';?> >
                             </div>
                         </div>
                         

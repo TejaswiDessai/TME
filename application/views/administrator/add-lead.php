@@ -98,14 +98,41 @@ $('#rec_type_id').change(function(){
         <div class="col-sm-12">
             <!-- Basic Form Inputs card start -->
             <div class="card" id="camp_form">
+              <form id="basic-form" method="POST" enctype="multipart/form-data">
                 <div class="card-header">
-                    <h5>Add Lead</h5>
+                 <div class="form-group row"> 
+                        <div class="col-sm-3">
+                        <h5>Add Lead</h5>
+                      </div>
+                      <div class="col-sm-4">
+                              <div class="col-sm-12">   
+                               <select name="campaign_id" id="campaign_id"  class="form-control">
+                                     <option value="">Select Campaign</option>
+                               <?php foreach ($campaigns as $campaign): ?>
+                                   <option value="<?php echo $campaign['cnid']; ?>"><?php echo $campaign['campnm']; ?></option>
+                               <?php endforeach; ?>
+                               </select>
+                               </div>
+                              
+                        </div>
+                         <div class="col-sm-2">
+                              <button type="button" name="retrievedata" class="btn btn-primary" style=""  id="retrievedata">Retrieve Data</button>
+                            </div>
+                            
+                         <div class="col-sm-2">
+                              <button type="button" name="retrievedata" class="btn btn-primary" style=""  id="retrievedata">Retrieve Data</button>
+                            </div>
+                            
+                  </div>
+                     
+                    
                     <div class="card-header-right">
                         <i class="icofont icofont-rounded-down"></i>
                         <i class="icofont icofont-refresh"></i>
                         <i class="icofont icofont-close-circled"></i>
                     </div>
                 </div>
+                
                 <div class="card-block">
                     <div class="col-sm-8">
                         <div class="validation_errors_alert">
@@ -119,22 +146,10 @@ $('#rec_type_id').change(function(){
                          ?> -->
                         <!-- <?php 
                         // echo form_open_multipart('', array('id' => 'addcampForm')) ?> -->
-                        <form id="basic-form" method="POST" enctype="multipart/form-data">
+                        <!-- <form id="basic-form" method="POST" enctype="multipart/form-data"> -->
 
                         <div class="form-group row">
-                            <div class="col-sm-3">
-                                <label  class="col-lable"><b>Agent Name</b></label>
-                                <input type="text" name="agentName" id="agent_name" class="form-control" value="<?php echo $this->session->userdata('username'); ?>" disabled="">
-                            </div>
-                            <div class="col-sm-3">
-                                <label class="col-lable"><b>Campaign Name</b></label>
-                                 <select name="campaign_id" id="campaign_id"  class="form-control">
-                                      <option value="">Select Campaign</option>
-                                <?php foreach ($campaigns as $campaign): ?>
-                                    <option value="<?php echo $campaign['cnid']; ?>"><?php echo $campaign['campnm']; ?></option>
-                                <?php endforeach; ?>
-                                </select>
-                            </div>
+                           
                             <div class="col-sm-3">
                                 <label class="col-lable"><b>Rec Type</b></label>
                                  <select name="rec_type_id" id="rec_type_id"  class="form-control">
@@ -142,9 +157,7 @@ $('#rec_type_id').change(function(){
                                       <option value="2">CDQA </option>
                                 </select>
                             </div>
-                            <!-- <div class="col-sm-3 section">
-                              <button type="button" name="retrivesubmit" class="btn btn-primary" style="margin-top:25px"  id="addleadbtn">Retrieve Data</button>
-                            </div> -->
+                          
                         </div>
                       
                         <div class="form-group row">
@@ -376,10 +389,11 @@ $('#rec_type_id').change(function(){
                         </div>  
                         <button type="submit" name="leadsubmit" class="btn btn-primary" style="margin-top:25px"  id="addleadbtn">Add Lead</button> 
                         <!-- <input class="submit" class ="" type="submit" value="SUBMIT"> -->
-                        </form>
+                        
                     </div>
-                           
+                      
                 </div>
+                </form>  
             </div>
         </div>
         <!-- Basic Form Inputs card end -->

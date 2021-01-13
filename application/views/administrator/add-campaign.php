@@ -73,7 +73,7 @@ function isNumber(evt) {
     }
     return true;
 }
-Campaign Name no special character allowed validation code
+//Campaign Name no special character allowed validation code
 $(function () {
         $("#campaign_name").keypress(function (e) {
             var keyCode = e.keyCode || e.which;

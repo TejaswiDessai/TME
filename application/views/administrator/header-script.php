@@ -63,7 +63,7 @@
     <script type="text/javascript" src="<?php echo base_url(); ?>admintemplate/assets/pages/form-validation/validate.js"></script>
     <script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.11.1/jquery.validate.min.js"></script>
 </head>
-<body class="horizontal-static">
+<body class="horizontal-vertical">
     <!-- Pre-loader start -->
     <div class="theme-loader">
         <div class="ball-scale">

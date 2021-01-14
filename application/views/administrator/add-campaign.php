@@ -225,7 +225,7 @@ $(function () {
                                 <span style='color:#FF0000' id="campaign_name_msg"></span>
                             </div>
                             <div class="col-sm-3">
-                                <label class="col-lable"><b>Select Designation</b></label><?php echo form_error('desid'); ?>
+                                <label class="col-lable"><b>Designation</b></label><?php echo form_error('desid'); ?>
                               <select class="js-example-basic-multiple col-sm-12 form-control-sm" multiple="multiple" name="desid[]" id="desid">
                                 <?php foreach ($designation as $designation): ?>
                                     <option value="<?php echo $designation['tid']; ?>"><?php echo $designation['designation']; ?></option>
@@ -258,7 +258,7 @@ $(function () {
                             </div>
 
                             <div class="col-sm-3">
-                                <label class="col-lable"><b>Select Country</b></label>  <?php echo form_error('country_id'); ?>
+                                <label class="col-lable"><b>Country</b></label>  <?php echo form_error('country_id'); ?>
                                 <select class="js-example-basic-multiple col-sm-12 form-control-sm" multiple="multiple" name="country_id[]" id="country_id">
                                
                                 <option value="">-- Select Country --</option>
@@ -340,7 +340,7 @@ $(function () {
                        <hr>
                         <div class="form-group row">
                             <div class="col-sm-2">
-                                <label class="col-lable"><b>Select Employee Size</b></label>
+                                <label class="col-lable"><b>Employee Size</b></label>
                                 <select class="form-control form-control-sm" name="emplzid[]" id="emplzid">
                                 <option value="">Select Emp Size</option>
                                 <?php foreach ($empsize as $empsize): ?>
@@ -396,7 +396,7 @@ $(function () {
                         <div class="form-group row">
                             
                             <div class="col-sm-2">
-                                    <label class="col-lable"><b>Select Revenue Size</b></label><?php echo form_error('revid'); ?>
+                                    <label class="col-lable"><b>Revenue Size</b></label><?php echo form_error('revid'); ?>
                                     <select class="form-control form-control-sm" name="revid[]" id="revid">
                                         <?php foreach ($revsize as $revsize): ?>
                                             <option value="<?php echo $revsize['comzid']; ?>"><?php echo $revsize['rangelist']; ?></option>

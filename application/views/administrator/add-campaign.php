@@ -112,7 +112,7 @@ $(function () {
             $("#campaign_name_msg").html("");
  
             //Regex for Valid Characters i.e. Alphabets and Numbers.
-            var regex = /^[A-Za-z0-9]+$/;
+            var regex = /^[A-Za-z0-9 ]+$/;
  
             //Validate TextBox value against the Regex.
             var isValid = regex.test(String.fromCharCode(keyCode));

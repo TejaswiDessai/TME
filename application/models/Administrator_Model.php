@@ -101,7 +101,7 @@
 		}
 		public function get_empsize(){
 			
-                        $query = $this->db->get('emplzid');                       
+			$query = $this->db->get('emplzid');
 			return $query->result_array();
 		}
 		public function get_revenuesize(){

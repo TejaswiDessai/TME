@@ -701,7 +701,7 @@
 			if(!empty($_GET['revnubound_range'])) {
 			$revnubound_range = $_GET['revnubound_range'];
 			}
-			if(isset($emplbound) && isset($empubound) && $empsizeStr == 10 )
+			if(isset($emplbound) && isset($empubound) && $empsizeStr == "emp_other" )
 			{
 				$post_data = array(
 					'emplbound' => $emplbound, 
@@ -714,7 +714,7 @@
 				$empsizeStr = $this->Administrator_Model->add_employee_size($post_data);
 			}
 
-			if(isset($revnlbound) && isset($revnubound) && $revStr == 177)
+			if(isset($revnlbound) && isset($revnubound) && $revStr == "rev_other")
 			{
 				$add_compsize = array(
 					'curr' => "USD",

@@ -23,7 +23,7 @@ $(document).ready(function() {
         var value = $(this).val();
         // alert(value);
 
-        if (value == 10) { // if somethings' selected
+        if (value == "emp_other") { // if somethings' selected
             var elements = $('.section').show();
             $('#emplzid').children().hide();
             elements.filter('.' + value).show(); // show the ones we want
@@ -47,7 +47,7 @@ $(document).ready(function() {
         var value = $(this).val();
         // alert(value);
 
-        if (value == 177) { // if somethings' selected
+        if (value == "rev_other") { // if somethings' selected
             var elements = $('.panel').show();
             $('#revid').children().hide();
             elements.filter('.' + value).show(); // show the ones we want
@@ -281,6 +281,7 @@ $(function () {
                                 <?php foreach ($empsize as $empsize): ?>
                                     <option value="<?php echo $empsize['emplzid']; ?>"><?php echo $empsize['emplsizerange']; ?></option>
                                 <?php endforeach; ?>
+                                <option value="emp_other">Other</option>
                                     </select>
                             </div>
                             <div class="col-sm-2 section">
@@ -313,6 +314,7 @@ $(function () {
                                         <?php foreach ($revsize as $revsize): ?>
                                             <option value="<?php echo $revsize['comzid']; ?>"><?php echo $revsize['rangelist']; ?></option>
                                         <?php endforeach; ?>
+                                        <option value="rev_other">Other</option>
                                     </select>
                             </div>
                             <!-- <div class="panel"> -->

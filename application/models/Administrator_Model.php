@@ -889,12 +889,14 @@ function saverecords($emp_id,$Fname,$Lname,$Manager,$status,$user_type,$Password
 		VALUES ('$emp_id','$emp_id','$Fname','$Lname','$Manager','$user_type','$Password','t','$register_date')";
 		$this->db->query($query);
 }
-function getCountry($postData){
+function getCountry($region_id)
+{
 	$response = array();
  
 	// Select record
 	$this->db->select('countrycd,countryname');
-	$this->db->where('regioncode', $postData);
+	// $this->db->where('regioncode', $region_id);
+	$this->db->where_in('regioncode', $region_id );  //this is condition 
 	$q = $this->db->get('country');
 	$response = $q->result_array();
 

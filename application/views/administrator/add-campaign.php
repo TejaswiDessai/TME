@@ -92,32 +92,31 @@ $(function () {
             return isValid;
         });
     });
-    // $(document).ready(function(){
+    
+    $(document).ready(function(){
  
- // City change
-//  $('#region_id').change(function(){
-//    var region_id = $(this).val();
-    // alert(region_id);
-//    // AJAX request
-//    $.ajax({
-//      url:'<?php echo base_url("campaigns/getCountry");?>',
-//      method: 'post',
-//      data: {region_id: region_id},
-//      dataType: 'json',
-//      success: function(response){
+    // City change
+    $('#region_id').change(function(){
+    var region_id = $(this).val();
+    // AJAX request
+    $.ajax({
+        url:'<?php echo base_url("campaigns/getCountry");?>',
+        method: 'get',
+        data: {region_id: region_id},
+        dataType: 'json',
+        success: function(response){
 
-       // Remove options 
-    //    $('#sel_user').find('option').not(':first').remove();
-    //    $('#country_id').find('option').not(':first').remove();
+        //    Remove options 
+       $('#country_id').find('option').not(':first').remove();
 
-       // Add options
-//        $.each(response,function(index,data){
-//           $('#country_id').append('<option value="'+data['countrycd']+'">'+data['countryname']+'</option>');
-//        });
-//      }
-//   });
-// });
-// });
+        //    Add options
+       $.each(response,function(index,data){
+          $('#country_id').append('<option value="'+data['countrycd']+'">'+data['countryname']+'</option>');
+        });
+        }
+    });
+});
+});
 </script>
 
 <div class="page-header">
@@ -230,11 +229,13 @@ $(function () {
                             <div class="col-sm-3">
                                 <label class="col-lable"><b>Select Country</b></label>  <?php echo form_error('country_id'); ?>
                                 <select class="js-example-basic-multiple col-sm-12" multiple="multiple" name="country_id[]" id="country_id">
-                                 
-                            <?php foreach ($countries as $country): ?>
-                                    <option value="<?php echo $country['countrycd'];echo set_select('country_id'); ?>"><?php echo $country['countryname']; ?></option>
-                                <?php endforeach; ?>
+                               
+                                <option value="">-- Select Country --</option>
                                 </select>
+                            <?php //foreach ($countries as $country): ?>
+                                    <!-- <option value="<?php //echo $country['countrycd'];echo set_select('country_id'); ?>"><?php //echo $country['countryname']; ?></option> -->
+                                <?php //endforeach; ?>
+                                <!-- </select> -->
                             </div>
 
                             <div class="col-sm-3">

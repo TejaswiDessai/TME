@@ -287,15 +287,11 @@
 		}
 
 		public function getCountry(){ 
-			// POST data 
-			$postData = $this->input->post();
-			// print_r($postData);
-			$desiStr = implode(',',$postData);
-			// load model 
-			// $this->load->model('Main_model');
 			
+			$region_id = $_GET['region_id'];
+			$desiStr = implode(',',$region_id);
 			// get data 
-			$data = $this->Administrator_Model->getCountry($postData);
+			$data = $this->Administrator_Model->getCountry($region_id);
 			echo json_encode($data); 
 		  }
 		

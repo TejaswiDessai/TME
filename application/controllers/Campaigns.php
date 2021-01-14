@@ -742,6 +742,7 @@
 				'suplistnew' =>$_GET['checksupp'],
 				'inclistnew' =>$_GET['inclist'],
 				'cdcneed' =>$_GET['cdqa'],
+				'assetid' => $_GET['assetid'],
 				'questnos' =>$_GET['quantity'],
 				'status' => $_GET['selectstatus'],			
 				'estclosedt' => $closedate,

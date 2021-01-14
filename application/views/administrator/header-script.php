@@ -65,10 +65,10 @@
 </head>
 <style>
 body{
-       line-height: 0.3;
+       line-height: 1;
     }
     p {
-    margin-bottom: 0px;
+    margin-bottom: 2px;
     }
 
     .main-body .page-wrapper .page-header {

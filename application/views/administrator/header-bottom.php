@@ -31,7 +31,7 @@
                    
                     </ul>
         </div>
-        <div class="main-menu-content">
+        <div class="main-menu-content" style="height:700px">
             <ul class="main-navigation">
              <li class="nav-item has-class">
                     <a href="<?php echo base_url(); ?>administrator/dashboard">

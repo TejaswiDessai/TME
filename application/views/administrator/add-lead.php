@@ -287,7 +287,7 @@ $('#rec_type_id').change(function(){
                             </div>
                             <div class="col-sm-2">
                                 <label class="col-lable"><b>Select Employee Size</b></label>
-                                <select class="js-example-basic-multiple col-sm-12 cdqadisable" name="emplzid[]" id="emplzid">
+                                <select class="form-control form-control-sm cdqadisable" name="emplzid[]" id="emplzid">
                                 <?php foreach ($empsize as $empsize): ?>
                                     <option value="<?php echo $empsize['emplzid']; ?>"><?php echo $empsize['emplsizerange']; ?></option>
                                 <?php endforeach; ?>
@@ -302,7 +302,7 @@ $('#rec_type_id').change(function(){
                             </div>
                              <div class="col-sm-3">
                                 <label class="col-lable"><b> Revenue Size</b></label>
-                                    <select class="js-example-basic-multiple col-sm-12 cdqadisable" name="revid[]" id="revid">
+                                    <select class="form-control form-control-sm  cdqadisable" name="revid[]" id="revid">
                                         <?php foreach ($revsize as $revsize): ?>
                                             <option value="<?php echo $revsize['comzid']; ?>"><?php echo $revsize['rangelist']; ?></option>
                                         <?php endforeach; ?>

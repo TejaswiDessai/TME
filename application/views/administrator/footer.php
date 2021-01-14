@@ -67,7 +67,7 @@
 
     elem.forEach(function(html) {
         var switchery = new Switchery(html, {
-            color: '#1abc9c',
+            color: '#FF5722',
             jackColor: '#fff',
             size: 'small'
         });

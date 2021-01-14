@@ -10,9 +10,21 @@
     padding:0px 0px 0px 0px;
     }
     
-    
+/*     
+      .form-control option:hover {
+          background: pink;
+            
+     box-shadow: 0 0 10px 10px #e1358f inset;
+        }
+        select:focus{
+    border-color: gray;
+    outline:none;
+} */
+
  </style>
 <script>
+
+
 var base_url = "<?php echo base_url() ?>";
 $(document).ready(function () {
     // Handler for .ready() called.
@@ -114,7 +126,7 @@ $('#rec_type_id').change(function(){
                                 </select>
                             </div>
                       <div class="col-sm-3">
-                               <select name="campaign_id" id="campaign_id"  class="form-control form-control-sm">
+                               <select name="campaign_id" id="campaign_id"  class="form-control form-control-sm" >
                                      <option value="">Select Campaign</option>
                                <?php foreach ($campaigns as $campaign): ?>
                                    <option value="<?php echo $campaign['cnid']; ?>"><?php echo $campaign['campnm']; ?></option>
@@ -127,10 +139,10 @@ $('#rec_type_id').change(function(){
                               <button type="button" name="retrievedata" class="btn btn-primary" style=""  id="retrievedata">Retrieve Data from Campaign</button>
                             </div>
                             
-                         <div class="col-sm-3">
+                         <!-- <div class="col-sm-3">
                               <button type="button" name="retrievedata" class="btn btn-primary" style=""  id="retrievedata">Retrieve from Campaign Group</button>
                             </div>
-                            
+                             -->
                   </div>
                      
                     
@@ -159,18 +171,7 @@ $('#rec_type_id').change(function(){
                        
                       
                         <div class="form-group row">
-                            <div class="col-sm-3">
-                                <label class="col-lable"><b>Department</b></label>
-                                <select class="js-example-basic-multiple col-sm-12 cdqadisable" multiple="multiple" name="dcd[]" id="dcd">
-                                   <?php foreach ($departments as $dept): ?>
-                                    <option value="<?php echo $dept['dcd']; ?>"><?php echo $dept['department']; ?></option>
-                                <?php endforeach; ?>
-                                </select>
-                            </div>
-                            <div class="col-sm-3">
-                                <label class="col-lable"><b>Company Name</b></label>
-                                <input type="text"  name="company_name" id="company_name"  placeholder="Enter Company Name"  class="form-control form-control-sm cdqadisable">
-                            </div>
+                           
                             <div class="col-sm-2">
                                 <label class="col-lable"><b>Salutation</b></label>
                                  <select name="sal_id" id="sal_id"  class="form-control  form-control-sm cdqadisable">
@@ -190,10 +191,38 @@ $('#rec_type_id').change(function(){
                                 <input type="text"  name="last_name" id="last_name"  placeholder="Enter Last Name"  class="form-control form-control-sm cdqadisable">
                                 <span style='color:#FF0000' id="lname_msg"></span>
                             </div>
+                            <div class="col-sm-3">
+                                <label class="col-lable"><b>Job Title</b></label>
+                                <input type="text"  name="job_title" id="job_title"  placeholder="Enter Job Title"  class="form-control form-control-sm cdqadisable">
+                            </div>
+                            <div class="col-sm-3">
+                                <label class="col-lable"><b>Department</b></label>
+                                <select class="js-example-basic-multiple col-sm-12 cdqadisable" multiple="multiple" name="dcd[]" id="dcd">
+                                   <?php foreach ($departments as $dept): ?>
+                                    <option value="<?php echo $dept['dcd']; ?>"><?php echo $dept['department']; ?></option>
+                                <?php endforeach; ?>
+                                </select>
+                            </div> 
+                            
                         </div>
 
 
                         <div class="form-group row">
+                        <div class="col-sm-3">
+                                <label class="col-lable"><b>Company Name</b></label>
+                                <input type="text"  name="company_name" id="company_name"  placeholder="Enter Company Name"  class="form-control form-control-sm cdqadisable">
+                            </div>  
+                            <div class="col-sm-2">
+                                <label class="col-lable"><b>Company Type</b></label>
+                                 <select name="ctype" id="ctype"  class="form-control  form-control-sm cdqadisable">
+                                 <!-- 0 = none, 1 = Private Equity, 2= Law Firm, 3= Corporate, 4=Investment Banking -->
+
+                                 <option value="1">Mr.</option>
+                                      <option value="0">None</option>
+                                      <option value="1">Private Equity</option>
+                                      <option value="4">Law Firm</option>
+                                </select>
+                            </div>
                             <div class="col-sm-3">
                                 <label class="col-lable"><b>Job Title</b></label>
                                 <input type="text"  name="job_title" id="job_title"  placeholder="Enter Job Title"  class="form-control form-control-sm cdqadisable">

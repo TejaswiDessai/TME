@@ -95,7 +95,7 @@ $('#rec_type_id').change(function(){
     <div class="page-header-title">
         <h4>Data Lead And CDC </h4> 
     </div>
-    <div class="page-header-breadcrumb">
+    <!-- <div class="page-header-breadcrumb">
         <ul class="breadcrumb-title">
             <li class="breadcrumb-item">
                 <a href="index-2.html">
@@ -107,7 +107,7 @@ $('#rec_type_id').change(function(){
             <li class="breadcrumb-item"><a href="#!">Add Lead</a>
             </li>
         </ul>
-    </div>
+    </div> -->
 </div>
 <!-- Page header end -->
 <!-- Page body start -->

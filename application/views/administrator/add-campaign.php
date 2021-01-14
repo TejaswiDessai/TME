@@ -9,6 +9,34 @@
     padding:0px 0px 0px 0px;
     }
 </style>
+<link href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/themes/base/jquery-ui.css"
+rel="Stylesheet"type="text/css"/>
+<script type="text/javascript">
+$(function () {
+    // $( "#startdt" ).datepicker({ minDate: 0});
+    $("#startdt").datepicker({
+        numberOfMonths: 1,
+        minDate: '-0m',
+        onSelect: function (selected) {
+            
+            var dt = new Date(selected);
+            dt.setDate(dt.getDate() + 0);
+            // alert(dt);
+            
+            $("#estclosedt").datepicker("option", "minDate", dt);
+        }
+    });
+    $("#estclosedt").datepicker({
+        numberOfMonths: 1,
+        onSelect: function (selected) {
+            var dt = new Date(selected);
+            // alert(dt);
+            dt.setDate(dt.getDate() - 1);
+            // $("#estclosedt").datepicker("option", "minDate", dt);
+        }
+    });
+});
+</script>
 <script>
 var base_url = "<?php echo base_url() ?>";
 $(document).ready(function () {
@@ -425,7 +453,7 @@ $(function () {
                                 <select class="js-example-basic col-sm-12 form-control-sm"   name="frequency_type" id="frequency_type">
                                  
                                 <?php foreach ($frequency_type as $frequency_type): ?>
-                                    <option value="<?php echo $frequency_type['fids']; ?>"><?php echo $frequency_type['freqtype']; ?></option>
+                                    <option value="<?php echo $frequency_type['fids']; ?>"><?php echo ucfirst($frequency_type['freqtype']); ?></option>
                                 <?php endforeach; ?>
                                 </select>
                             </div>
@@ -467,14 +495,15 @@ $(function () {
                             </div>
 
                             <div class="col-sm-3">
-                                <label class="col-lable"><b>Est Completion Date</b></label> <?php echo form_error('estclosedt'); ?>
-                                <input type="date" id="estclosedt"  name="estclosedt" value="<?php echo set_value('estclosedt');?>" <?php echo (form_error('estclosedt')) ? 'class="form-control form-control-danger form-control-sm"' :'class="form-control form-control-sm"';?> >
-                            </div>
-                            <div class="col-sm-3">
-                                <label class="col-lable"><b>Start Date</b></label> <?php echo form_error('startdt'); ?>
-                                <input type="date" id="startdt"  name="startdt" value="<?php echo set_value('startdt');?>"  <?php echo (form_error('startdt')) ? 'class="form-control form-control-danger form-control-sm"' :'class="form-control form-control-sm"';?>>
+                                <label class="col-lable"><b>Start Date</b></label> 
+                                <input type="text" id="startdt"  name="startdt"   <?php echo (form_error('startdt')) ? 'class="form-control form-control-danger form-control-sm"' :'class="form-control form-control-sm"';?>>
                                 <span style='color:#FF0000' id="startdt_msg"></span>
                             </div>
+                            <div class="col-sm-3">
+                                <label class="col-lable"><b>Est Completion Date</b></label> <?php echo form_error('estclosedt'); ?>
+                                <input type="text" id="estclosedt"  name="estclosedt" value="<?php echo set_value('estclosedt');?>" <?php echo (form_error('estclosedt')) ? 'class="form-control form-control-danger form-control-sm"' :'class="form-control form-control-sm"';?> >
+                            </div>
+                            
 
                         </div>
                         

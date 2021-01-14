@@ -724,6 +724,10 @@
 				);
 				$revStr = $this->Administrator_Model->add_compsize($add_compsize);
 			}
+			$sdate=date_create($_GET['startdt']);
+			$cdate=date_create($_GET['estclosedt']);
+			$closedate = date_format($cdate,"Y/m/d");
+			$startdate = date_format($sdate,"Y/m/d");
 			$datacampaign = array(
 				'clientids' => $_GET['client_id'], 
 				'cids' => $_GET['campaign_id'],
@@ -738,10 +742,11 @@
 				'suplistnew' =>$_GET['checksupp'],
 				'inclistnew' =>$_GET['inclist'],
 				'cdcneed' =>$_GET['cdqa'],
+				'assetid' => $_GET['assetid'],
 				'questnos' =>$_GET['quantity'],
 				'status' => $_GET['selectstatus'],			
-				'estclosedt' => $_GET['estclosedt'],
-				'startdt' => $_GET['startdt'],
+				'estclosedt' => $closedate,
+				'startdt' => $startdate,
 				'freqtyp' => $frequency_type,
 				'freqid' => $frequency
 				// 'Modifieddt' => date("Y-m-d H:i:s")

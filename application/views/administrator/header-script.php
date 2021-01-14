@@ -63,6 +63,25 @@
     <script type="text/javascript" src="<?php echo base_url(); ?>admintemplate/assets/pages/form-validation/validate.js"></script>
     <script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.11.1/jquery.validate.min.js"></script>
 </head>
+<style>
+body{
+       line-height: 0.3;
+    }
+    p {
+    margin-bottom: 0px;
+    }
+
+    .main-body .page-wrapper .page-header {
+    margin-bottom: 5px;
+    }
+   .card .card-header{
+    margin-bottom: 0px;
+    padding:1px;
+   }
+   .select2-container--default .select2-selection--multiple {
+    padding:0px 0px 0px 0px;
+    }
+    </style>
 <body class="horizontal-vertical">
     <!-- Pre-loader start -->
     <div class="theme-loader">

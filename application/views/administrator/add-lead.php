@@ -4,7 +4,13 @@
     font-size: 12px;
     display: block;
     margin-top: 5px;
-}
+    }
+   
+    .select2-container--default .select2-selection--multiple {
+    padding:0px 0px 0px 0px;
+    }
+    
+    
  </style>
 <script>
 var base_url = "<?php echo base_url() ?>";
@@ -75,7 +81,7 @@ $('#rec_type_id').change(function(){
 
 <div class="page-header">
     <div class="page-header-title">
-        <h4>Data Lead And CDC</h4>
+        <h4>Data Lead And CDC </h4> 
     </div>
     <div class="page-header-breadcrumb">
         <ul class="breadcrumb-title">
@@ -84,7 +90,7 @@ $('#rec_type_id').change(function(){
                     <i class="icofont icofont-home"></i>
                 </a>
             </li>
-            <li class="breadcrumb-item"><a href="#!">Data Lead</a>
+            <li class="breadcrumb-item"><a href="#!">Data Lead And CDC</a>
             </li>
             <li class="breadcrumb-item"><a href="#!">Add Lead</a>
             </li>
@@ -101,36 +107,38 @@ $('#rec_type_id').change(function(){
               <form id="basic-form" method="POST" enctype="multipart/form-data">
                 <div class="card-header">
                  <div class="form-group row"> 
-                        <div class="col-sm-3">
-                        <h5>Add Lead</h5>
-                      </div>
-                      <div class="col-sm-4">
-                              <div class="col-sm-12">   
-                               <select name="campaign_id" id="campaign_id"  class="form-control">
+                 <div class="col-sm-3">
+                                <select name="rec_type_id" id="rec_type_id"  class="form-control form-control-sm">
+                                      <option value="1">Data </option>
+                                      <option value="2">CDQA </option>
+                                </select>
+                            </div>
+                      <div class="col-sm-3">
+                               <select name="campaign_id" id="campaign_id"  class="form-control form-control-sm">
                                      <option value="">Select Campaign</option>
                                <?php foreach ($campaigns as $campaign): ?>
                                    <option value="<?php echo $campaign['cnid']; ?>"><?php echo $campaign['campnm']; ?></option>
                                <?php endforeach; ?>
                                </select>
-                               </div>
+                              
                               
                         </div>
-                         <div class="col-sm-2">
-                              <button type="button" name="retrievedata" class="btn btn-primary" style=""  id="retrievedata">Retrieve Data</button>
+                         <div class="col-sm-3">
+                              <button type="button" name="retrievedata" class="btn btn-primary" style=""  id="retrievedata">Retrieve Data from Campaign</button>
                             </div>
                             
-                         <div class="col-sm-2">
-                              <button type="button" name="retrievedata" class="btn btn-primary" style=""  id="retrievedata">Retrieve Data</button>
+                         <div class="col-sm-3">
+                              <button type="button" name="retrievedata" class="btn btn-primary" style=""  id="retrievedata">Retrieve from Campaign Group</button>
                             </div>
                             
                   </div>
                      
                     
-                    <div class="card-header-right">
+                    <!-- <div class="card-header-right">
                         <i class="icofont icofont-rounded-down"></i>
                         <i class="icofont icofont-refresh"></i>
                         <i class="icofont icofont-close-circled"></i>
-                    </div>
+                    </div> -->
                 </div>
                 
                 <div class="card-block">
@@ -148,17 +156,7 @@ $('#rec_type_id').change(function(){
                         // echo form_open_multipart('', array('id' => 'addcampForm')) ?> -->
                         <!-- <form id="basic-form" method="POST" enctype="multipart/form-data"> -->
 
-                        <div class="form-group row">
-                           
-                            <div class="col-sm-3">
-                                <label class="col-lable"><b>Rec Type</b></label>
-                                 <select name="rec_type_id" id="rec_type_id"  class="form-control">
-                                      <option value="1">Data </option>
-                                      <option value="2">CDQA </option>
-                                </select>
-                            </div>
-                          
-                        </div>
+                       
                       
                         <div class="form-group row">
                             <div class="col-sm-3">
@@ -171,11 +169,11 @@ $('#rec_type_id').change(function(){
                             </div>
                             <div class="col-sm-3">
                                 <label class="col-lable"><b>Company Name</b></label>
-                                <input type="text"  name="company_name" id="company_name"  placeholder="Enter Company Name"  class="form-control cdqadisable">
+                                <input type="text"  name="company_name" id="company_name"  placeholder="Enter Company Name"  class="form-control form-control-sm cdqadisable">
                             </div>
                             <div class="col-sm-2">
                                 <label class="col-lable"><b>Salutation</b></label>
-                                 <select name="sal_id" id="sal_id"  class="form-control cdqadisable">
+                                 <select name="sal_id" id="sal_id"  class="form-control  form-control-sm cdqadisable">
                                       <option value="1">Mr.</option>
                                       <option value="2">Miss.</option>
                                       <option value="3">Mrs.</option>
@@ -184,12 +182,12 @@ $('#rec_type_id').change(function(){
                             </div>
                             <div class="col-sm-2">
                                 <label class="col-lable"><b>First Name</b></label>
-                                <input type="text"  name="first_name" id="first_name"  placeholder="Enter Fisrt Name"  class="form-control cdqadisable">
+                                <input type="text"  name="first_name" id="first_name"  placeholder="Enter Fisrt Name"  class="form-control form-control-sm cdqadisable">
                                 <span style='color:#FF0000' id="fname_msg"></span>
                             </div>
                             <div class="col-sm-2">
                                 <label class="col-lable"><b>Last Name</b></label>
-                                <input type="text"  name="last_name" id="last_name"  placeholder="Enter Last Name"  class="form-control cdqadisable">
+                                <input type="text"  name="last_name" id="last_name"  placeholder="Enter Last Name"  class="form-control form-control-sm cdqadisable">
                                 <span style='color:#FF0000' id="lname_msg"></span>
                             </div>
                         </div>
@@ -198,7 +196,7 @@ $('#rec_type_id').change(function(){
                         <div class="form-group row">
                             <div class="col-sm-3">
                                 <label class="col-lable"><b>Job Title</b></label>
-                                <input type="text"  name="job_title" id="job_title"  placeholder="Enter Job Title"  class="form-control cdqadisable">
+                                <input type="text"  name="job_title" id="job_title"  placeholder="Enter Job Title"  class="form-control form-control-sm cdqadisable">
                             </div>
                             <div class="col-sm-3">
                                 <label class="col-lable"><b>Designation</b></label>
@@ -212,18 +210,18 @@ $('#rec_type_id').change(function(){
                             <div class="col-sm-2">
                                 <label class="col-lable"><b>Email</b></label>
                                 <div class="newsletter-signup">
-                                <input type="text"  name="lead_email" id="lead_email"  placeholder="Enter Email"  class="form-control cdqadisable">
+                                <input type="text"  name="lead_email" id="lead_email"  placeholder="Enter Email"  class="form-control form-control-sm cdqadisable">
                                </div>
                                 <span style='color:#FF0000' id="email_msg"></span>
                             </div>
                             <div class="col-sm-2">
                                 <label class="col-lable"><b>Phone</b></label>
-                                <input type="text"  name="phone" id="phone"  placeholder="Enter Phone" maxlength="10"  class="form-control cdqadisable">
+                                <input type="text"  name="phone" id="phone"  placeholder="Enter Phone" maxlength="10"  class="form-control form-control-sm cdqadisable">
                                 <span style='color:#FF0000' id="phone_msg"></span>
                             </div>
                             <div class="col-sm-2">
                                 <label class="col-lable"><b>Phone Extension</b></label>
-                                <input type="text"  name="ph_ext" id="ph_ext"  placeholder="Enter Extension" maxlength="5"  class="form-control cdqadisable">
+                                <input type="text"  name="ph_ext" id="ph_ext"  placeholder="Enter Extension" maxlength="5"  class="form-control form-control-sm cdqadisable">
                             </div>
                         </div>
                        
@@ -239,20 +237,20 @@ $('#rec_type_id').change(function(){
                             </div>
                             <div class="col-sm-3">
                                 <label class="col-lable"><b>Select State</b></label>
-                                <input type="text"  name="state_id" id="state_id"  placeholder="Enter City"  class="form-control cdqadisable">
+                                <input type="text"  name="state_id" id="state_id"  placeholder="Enter City"  class="form-control form-control-sm cdqadisable">
                                 </select>
                             </div>
                             <div class="col-sm-2">
                                 <label class="col-lable"><b>City</b></label>
-                                <input type="text"  name="city_id" id="city_id"  placeholder="Enter City"  class="form-control cdqadisable">
+                                <input type="text"  name="city_id" id="city_id"  placeholder="Enter City"  class="form-control form-control-sm cdqadisable">
                            </div>
                             <div class="col-sm-2">
                                 <label class="col-lable"><b>Street Address</b></label>
-                                <input type="text"  name="st_address" id="st_address"  placeholder="Enter Address"  class="form-control cdqadisable">
+                                <input type="text"  name="st_address" id="st_address"  placeholder="Enter Address"  class="form-control form-control-sm cdqadisable">
                            </div>
                             <div class="col-sm-2">
                                 <label class="col-lable"><b>Zip</b></label>
-                                <input type="text"  name="zip_code" id="zip_code"  placeholder="Enter Zip Code"  class="form-control cdqadisable">
+                                <input type="text"  name="zip_code" id="zip_code"  placeholder="Enter Zip Code"  class="form-control form-control-sm cdqadisable">
                            </div>
                        
                         </div>
@@ -285,7 +283,7 @@ $('#rec_type_id').change(function(){
                             </div>
                             <div class="col-sm-2">
                                 <label class="col-lable"><b>Actual Employee Size</b></label>
-                                <input type="text"  name="actual_empsize" id="actual_empsize" maxlength="10" placeholder="Enter Actual Employee Size"  class="form-control cdqadisable">
+                                <input type="text"  name="actual_empsize" id="actual_empsize" maxlength="10" placeholder="Enter Actual Employee Size"  class="form-control form-control-sm cdqadisable">
                             </div>
                             <div class="col-sm-2">
                                 <label class="col-lable"><b>Select Employee Size</b></label>
@@ -300,7 +298,7 @@ $('#rec_type_id').change(function(){
                         <div class="form-group row">
                              <div class="col-sm-3">
                                 <label class="col-lable"><b>Actual Revenue Size</b></label>
-                                <input type="text"  name="actual_revsize" id="actual_revsize" maxlength="15" placeholder="Enter Actual Revenue Size"  class="form-control cdqadisable">
+                                <input type="text"  name="actual_revsize" id="actual_revsize" maxlength="15" placeholder="Enter Actual Revenue Size"  class="form-control form-control-sm cdqadisable">
                             </div>
                              <div class="col-sm-3">
                                 <label class="col-lable"><b> Revenue Size</b></label>
@@ -321,39 +319,39 @@ $('#rec_type_id').change(function(){
                              <div class="col-sm-2">
                                 <label class="col-lable"><b>Prospect link</b></label>
                                <div class="urlcheck">
-                                <input type="text"  name="prospect_link" id="prospect_link"  placeholder="Enter Prospect Link"  class="form-control">
+                                <input type="text"  name="prospect_link" id="prospect_link"  placeholder="Enter Prospect Link"  class="form-control form-control-sm">
                                 <span style='color:#FF0000' id="url_msg"></span>
                             </div>
                             </div>
                              <div class="col-sm-2">
                                 <label class="col-lable"><b>Employee Size Link</b></label>
-                                <input type="text"  name="emp_size_link" id="emp_size_link"  placeholder="Employee Size Link"  class="form-control">
+                                <input type="text"  name="emp_size_link" id="emp_size_link"  placeholder="Employee Size Link"  class="form-control form-control-sm">
                             </div>
                         </div>
                         <div class="form-group row">
                              <div class="col-sm-3">
                                 <label class="col-lable"><b>Industry Type Link</b></label>
-                                <input type="text"  name="indutry_link" id="indutry_link"  placeholder="Enter Industry Type Link"  class="form-control">
+                                <input type="text"  name="indutry_link" id="indutry_link"  placeholder="Enter Industry Type Link"  class="form-control form-control-sm">
                             </div>
                              <div class="col-sm-3">
                                 <label class="col-lable"><b>Revenue Size Link</b></label>
-                                <input type="text"  name="revsize_link" id="revsize_link"  placeholder="Enter Revenue Size Link"  class="form-control">
+                                <input type="text"  name="revsize_link" id="revsize_link"  placeholder="Enter Revenue Size Link"  class="form-control form-control-sm">
                             </div>
                              <div class="col-sm-2">
                                 <label class="col-lable"><b>Domain</b></label>
-                                <input type="text"  name="domain" id="domain"  placeholder="Enter Domain"  class="form-control">
+                                <input type="text"  name="domain" id="domain"  placeholder="Enter Domain"  class="form-control form-control-sm">
                             </div>
                              
                              <div class="col-sm-2">
                                 <label class="col-lable"><b>Call Verified</b></label>
-                                <select class="form-control"  name="call_veryfied" id="call_veryfied">
+                                <select class="form-control form-control-sm"  name="call_veryfied" id="call_veryfied">
                                     <option value="1">Yes</option>
                                     <option value="2">No</option>
                                 </select>
                             </div>
                             <div class="col-sm-2">
                                 <label class="col-lable"><b>Call Recording</b></label>
-                                <select class="form-control"  name="call_recording" id="call_recording">
+                                <select class="form-control form-control-sm"  name="call_recording" id="call_recording">
                                     <option value="1">Yes</option>
                                     <option value="2">No</option>
                                 </select>
@@ -364,11 +362,11 @@ $('#rec_type_id').change(function(){
                                 <div class="card">
                                     <div class="card-header">
                                         <h5>Question 1: </h5><br>
-                                        <label class="col-lable"><b>This example loads data, options and schema parameters through ajax calls.</b></label>
+                                        <label class="col-lable"><p><b>This example loads data, options and schema parameters through ajax calls.</b></p></label>
                                     </div>
                                     <div class="card-block">
                                         <div id="form2">
-                                        <input type="text"  name="ans1" id="ans1"  placeholder="Answer for Question 1"  class="form-control cdqadisable">
+                                        <input type="text"  name="ans1" id="ans1"  placeholder="Answer for Question 1"  class="form-control form-control-sm cdqadisable">
                                         </div>
                                     </div>
                                 </div>
@@ -377,17 +375,17 @@ $('#rec_type_id').change(function(){
                                 <div class="card">
                                     <div class="card-header">
                                     <h5>Question 2: </h5><br>
-                                   <label class="col-lable"><b>This example loads data, options and schema parameters through ajax calls.</b></label>
+                                    <label class="col-lable"><p><b>This example loads data, options and schema parameters through ajax calls.</b></p></label>
                                     </div>
                                     <div class="card-block">
                                         <div id="form2">
-                                        <input type="text"  name="ans2" id="ans2"  placeholder="Answer for Question 2"  class="form-control cdqadisable">
+                                        <input type="text"  name="ans2" id="ans2"  placeholder="Answer for Question 2"  class="form-control form-control-sm cdqadisable">
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>  
-                        <button type="submit" name="leadsubmit" class="btn btn-primary" style="margin-top:25px"  id="addleadbtn">Add Lead</button> 
+                        <button type="submit" name="leadsubmit" class="btn btn-primary" style="margin-top: -25px;"  id="addleadbtn">Add Lead</button> 
                         <!-- <input class="submit" class ="" type="submit" value="SUBMIT"> -->
                         
                     </div>

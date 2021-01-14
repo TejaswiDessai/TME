@@ -5,6 +5,9 @@
     { 
         min-height: 400px;
     }
+    .select2-container--default .select2-selection--multiple {
+    padding:0px 0px 0px 0px;
+    }
 </style>
 <script>
 var base_url = "<?php echo base_url() ?>";
@@ -92,7 +95,7 @@ $(function () {
             return isValid;
         });
     });
-    
+
     $(document).ready(function(){
  
     // City change
@@ -144,14 +147,14 @@ $(function () {
         <div class="col-sm-12">
             <!-- Basic Form Inputs card start -->
             <div class="card" id="camp_form">
-                <div class="card-header">
+                <!-- <div class="card-header">
                     <h5>Add Campaign</h5>
                     <div class="card-header-right">
                         <i class="icofont icofont-rounded-down"></i>
                         <i class="icofont icofont-refresh"></i>
                         <i class="icofont icofont-close-circled"></i>
                     </div>
-                </div>
+                </div> -->
                 <div class="card-block">
                     <div class="col-sm-8">
                         <div class="validation_errors_alert">
@@ -170,7 +173,7 @@ $(function () {
                         <div class="form-group row">
                             <div class="col-sm-3">
                                 <label  class="col-lable"><b>Client Id</b></label>
-                                 <select name="client_id" id="client_id"  <?php echo (form_error('client_id')) ? 'class="form-control form-control-danger"' : 'class="form-control"';?>>
+                                 <select name="client_id" id="client_id"  <?php echo (form_error('client_id')) ? 'class="form-control form-control-sm form-control-danger"' : 'class="form-control form-control-sm"';?>>
                                       <option value="<?php echo set_select('client_id'); ?>">Select One Client ID</option>
                                 <?php foreach ($clients as $client): ?>
                                     <option value="<?php echo $client['clientid']; ?>"><?php echo $client['clientcode']; ?></option>
@@ -182,7 +185,7 @@ $(function () {
                                 <label class="col-lable"><b>Campaign Id</b></label>
                                  <?php // echo form_error('campaign_id'); ?>
                                 <input type="text" name="campaign_id" id="campaign_id" placeholder="EnterCampaign ID" value="<?php echo set_value('campaign_id'); ?>" 
-                                <?php echo (form_error('campaign_id')) ? 'class="form-control form-control-danger"' : 'class="form-control"';?>  onkeypress="return isNumber(event)">
+                                <?php echo (form_error('campaign_id')) ? 'class="form-control form-control-sm form-control-danger"' : 'class="form-control form-control-sm"';?>  onkeypress="return isNumber(event)">
                                 <span style='color:#FF0000' id="campaign_id_msg"></span>
                             </div>
                             <div class="col-sm-3">
@@ -190,12 +193,12 @@ $(function () {
 
                                 <?php // echo form_error('campaign_name'); ?>
                                 <input type="text" pattern="^[a-zA-Z0-9]+$"  name="campaign_name"  placeholder="Enter Campaign Name"  value="<?php echo set_value('campaign_name'); ?>" id="campaign_name" 
-                                <?php echo (form_error('campaign_name')) ? 'class="form-control form-control-danger"' :'class="form-control"';?> >
+                                <?php echo (form_error('campaign_name')) ? 'class="form-control form-control-sm form-control-danger"' :'class="form-control form-control-sm"';?> >
                                 <span style='color:#FF0000' id="campaign_name_msg"></span>
                             </div>
                             <div class="col-sm-3">
                                 <label class="col-lable"><b>Select Designation</b></label><?php echo form_error('desid'); ?>
-                              <select class="js-example-basic-multiple col-sm-12" multiple="multiple" name="desid[]" id="desid">
+                              <select class="js-example-basic-multiple col-sm-12 form-control-sm" multiple="multiple" name="desid[]" id="desid">
                                 <?php foreach ($designation as $designation): ?>
                                     <option value="<?php echo $designation['tid']; ?>"><?php echo $designation['designation']; ?></option>
                                 <?php endforeach; ?>
@@ -218,7 +221,7 @@ $(function () {
                         <div class="form-group row">
                             <div class="col-sm-3">
                                 <label class="col-lable"><b>World Region</b></label><?php echo form_error('region_id'); ?>
-                                <select class="js-example-basic-multiple col-sm-12" multiple="multiple" name="region_id[]" id="region_id">
+                                <select class="js-example-basic-multiple col-sm-12 form-control-sm" multiple="multiple" name="region_id[]" id="region_id">
                                  
                                 <?php foreach ($regions as $region): ?>
                                     <option value="<?php echo $region['regioncode']; ?>"><?php echo $region['region']; ?></option>
@@ -228,7 +231,7 @@ $(function () {
 
                             <div class="col-sm-3">
                                 <label class="col-lable"><b>Select Country</b></label>  <?php echo form_error('country_id'); ?>
-                                <select class="js-example-basic-multiple col-sm-12" multiple="multiple" name="country_id[]" id="country_id">
+                                <select class="js-example-basic-multiple col-sm-12 form-control-sm" multiple="multiple" name="country_id[]" id="country_id">
                                
                                 <option value="">-- Select Country --</option>
                                 </select>
@@ -240,7 +243,7 @@ $(function () {
 
                             <div class="col-sm-3">
                                 <label class="col-lable"><b>Industry</b></label><?php echo form_error('industrycd'); ?>
-                                <select class="js-example-basic-multiple col-sm-12" multiple="multiple" name="industrycd[]" id="industrycd">
+                                <select class="js-example-basic-multiple col-sm-12 form-control-sm" multiple="multiple" name="industrycd[]" id="industrycd">
                                      <?php foreach ($industries as $industry): ?>
                                     <option value="<?php echo $industry['industrycd']; ?>"><?php echo $industry['industry']; ?></option>
                                 <?php endforeach; ?>
@@ -248,7 +251,7 @@ $(function () {
                             </div>
                             <div class="col-sm-3">
                                 <label class="col-lable"><b>Department</b></label><?php echo form_error('dcd'); ?>
-                                <select class="js-example-basic-multiple col-sm-12" multiple="multiple" name="dcd[]" id="dcd">
+                                <select class="js-example-basic-multiple col-sm-12 form-control-sm" multiple="multiple" name="dcd[]" id="dcd">
                                    <?php foreach ($departments as $dept): ?>
                                     <option value="<?php echo $dept['dcd']; ?>"><?php echo $dept['department']; ?></option>
                                 <?php endforeach; ?>
@@ -277,8 +280,9 @@ $(function () {
 
                         <div class="form-group row">
                             <div class="col-sm-2">
-                                <label class="col-lable"><b>Select Employee Size</b></label><?php echo form_error('emplzid'); ?>
-                                <select class="js-example-basic-multiple col-sm-12" name="emplzid[]" id="emplzid">
+                                <label class="col-lable"><b>Select Employee Size</b></label>
+                                <select class="form-control form-control-sm" name="emplzid[]" id="emplzid">
+                                <option value="">Select Emp Size</option>
                                 <?php foreach ($empsize as $empsize): ?>
                                     <option value="<?php echo $empsize['emplzid']; ?>"><?php echo $empsize['emplsizerange']; ?></option>
                                 <?php endforeach; ?>
@@ -288,7 +292,7 @@ $(function () {
                             <div class="col-sm-2 section">
                                     
                                 <label class="col-lable"><b>Select Lower Bound</b></label><?php echo form_error('emplbound'); ?>
-                                <select class="second-level-select js-example-basic-multiple col-sm-12"  name="emplbound" id="emplbound">
+                                <select class="second-level-select form-control form-control-sm"  name="emplbound" id="emplbound">
                                     <?php foreach ($ubound as $ubound): ?>
                                     <option value="<?php echo $ubound['emplbound']; ?>"><?php echo $ubound['emplbound']; ?></option>
                                     <?php endforeach; ?>
@@ -296,7 +300,7 @@ $(function () {
                             </div>
                             <div class="col-sm-2 section">
                                 <label class="col-lable"><b>Select Upper Bound</b></label><?php echo form_error('empubound'); ?>
-                                <select class="second-level-select js-example-basic-multiple col-sm-12"  name="empubound" id="empubound">
+                                <select class="second-level-select form-control form-control-sm"  name="empubound" id="empubound">
                                     <?php foreach ($lbound as $lbound): ?>
                                     <option value="<?php echo $lbound['empubound']; ?>"><?php echo $lbound['empubound']; ?></option>
                                     <?php endforeach; ?>
@@ -311,7 +315,7 @@ $(function () {
                             
                             <div class="col-sm-2">
                                     <label class="col-lable"><b>Select Revenue Size</b></label><?php echo form_error('revid'); ?>
-                                    <select class="js-example-basic-multiple col-sm-12" name="revid[]" id="revid">
+                                    <select class="form-control form-control-sm" name="revid[]" id="revid">
                                         <?php foreach ($revsize as $revsize): ?>
                                             <option value="<?php echo $revsize['comzid']; ?>"><?php echo $revsize['rangelist']; ?></option>
                                         <?php endforeach; ?>
@@ -324,7 +328,7 @@ $(function () {
                             <div class="col-sm-2 panel">
                                 <!-- <div class="senior-airman"> -->
                                 <label class="col-lable"><b>Select Lower Bound</b></label><?php echo form_error('emplbound'); ?>
-                                <select class="second-level-select js-example-basic-multiple col-sm-12"  name="revnlbound" id="revnlbound">
+                                <select class="second-level-select form-control form-control-sm"  name="revnlbound" id="revnlbound">
                                 <option value="">Select </option>
                                     <?php foreach ($revnubound as $revnubound): ?>
                                     <option value="<?php echo $revnubound['revnlbound']; ?>"><?php echo $revnubound['revnlbound']; ?></option>
@@ -335,7 +339,7 @@ $(function () {
                             <div class="col-sm-2 panel">
                                 <label class="col-lable "><b>NM List Bount</b></label>
 
-                                <select name="selectstatus" class="form-control form-control-default" id="revnlbound_range">
+                                <select name="selectstatus" class="form-control form-control-sm form-control-default" id="revnlbound_range">
                                     <option value="">Select </option>
                                     <option value="hundred">Hundred Thousand </option>
                                     <option value="million">Million</option>
@@ -347,7 +351,7 @@ $(function () {
                                 
                                 <!-- <div class="airman"> -->
                                     <label class="col-lable"><b>Select Upper Bound</b></label><?php echo form_error('revnubound'); ?>
-                                    <select class="second-level-select js-example-basic-multiple col-sm-12"  name="revnubound" id="revnubound">
+                                    <select class="second-level-select form-control form-control-sm"  name="revnubound" id="revnubound">
                                     <option value="">Select </option>
                                         <?php foreach ($revnlbound as $revnlbound): ?>
                                           
@@ -359,7 +363,7 @@ $(function () {
                             <div class="col-sm-2 panel">
                                 <label class="col-lable "><b>NM List Bount</b></label>
 
-                                <select name="selectstatus" class="form-control form-control-default" id="revnubound_range">
+                                <select name="selectstatus" class="form-control form-control-sm form-control-default" id="revnubound_range">
                                     <option value="">Select </option>
                                     <option value="hundred">Hundred Thousand </option>
                                     <option value="million">Million</option>
@@ -418,7 +422,7 @@ $(function () {
                         <div class="form-group row">
                             <div class="col-sm-3">
                                 <label class="col-lable"><b>Frequency Type</b></label>
-                                <select class="js-example-basic-multiple col-sm-12"  name="frequency_type" id="frequency_type">
+                                <select class="js-example-basic col-sm-12 form-control-sm"   name="frequency_type" id="frequency_type">
                                  
                                 <?php foreach ($frequency_type as $frequency_type): ?>
                                     <option value="<?php echo $frequency_type['fids']; ?>"><?php echo $frequency_type['freqtype']; ?></option>
@@ -427,7 +431,7 @@ $(function () {
                             </div>
                             <div class="col-sm-3">
                                 <label class="col-lable"><b>Frequency</b></label>
-                                <select class="js-example-basic-multiple col-sm-12" multiple="multiple" name="frequency[]" id="frequency">
+                                <select class="js-example-basic-multiple col-sm-12 form-control-sm" multiple="multiple" name="frequency[]" id="frequency">
                                  
                                 <?php foreach ($frequency as $frequency): ?>
                                     <option value="<?php echo $frequency['fdid']; ?>"><?php echo $frequency['days']; ?></option>
@@ -437,7 +441,7 @@ $(function () {
                             <div class="col-sm-2">   
                             <label class="f-left col-lable"><b>No. of Questions</b><br> <?php echo form_error('quantity'); ?></label>
                                 <input  type="number" id="quantity" name="quantity" min="1" max="12" maxlength="2" value="<?php echo set_value('quantity');?>"
-                                <?php echo (form_error('quantity')) ? 'class="form-control form-control-danger"' :'class="form-control"';?> >
+                                <?php echo (form_error('quantity')) ? 'class="form-control form-control-danger form-control-sm"' :'class="form-control form-control-sm"';?> >
                             </div>
                         </div>
                         
@@ -445,7 +449,7 @@ $(function () {
                               <div class="col-sm-3">
                                 <label class="col-lable"><b>Asset Title</b></label>
 
-                                <select class="js-example-basic-multiple col-sm-12" multiple="multiple" name="assetid[]" id="assetid">
+                                <select class="js-example-basic-multiple col-sm-12 form-control-sm" multiple="multiple" name="assetid[]" id="assetid">
                                 <?php foreach ($assetitle as $assetitle): ?>
                                     <option value="<?php echo $assetitle['assetid']; ?>"><?php echo $assetitle['title']; ?></option>
                                 <?php endforeach; ?>
@@ -454,7 +458,7 @@ $(function () {
                               <div class="col-sm-3">
                                 <label class="col-lable"><b>Live Status</b></label>
 
-                                <select name="selectstatus" class="form-control form-control-default" id="selectstatus">
+                                <select name="selectstatus" class="form-control form-control-default form-control-sm" id="selectstatus">
                                     <option value="2">Open</option>
                                     <option value="1">Closed</option>
                                     <option value="3">Hold</option>
@@ -464,11 +468,11 @@ $(function () {
 
                             <div class="col-sm-3">
                                 <label class="col-lable"><b>Est Completion Date</b></label> <?php echo form_error('estclosedt'); ?>
-                                <input type="date" id="estclosedt"  name="estclosedt" value="<?php echo set_value('estclosedt');?>" <?php echo (form_error('estclosedt')) ? 'class="form-control form-control-danger"' :'class="form-control"';?> >
+                                <input type="date" id="estclosedt"  name="estclosedt" value="<?php echo set_value('estclosedt');?>" <?php echo (form_error('estclosedt')) ? 'class="form-control form-control-danger form-control-sm"' :'class="form-control form-control-sm"';?> >
                             </div>
                             <div class="col-sm-3">
                                 <label class="col-lable"><b>Start Date</b></label> <?php echo form_error('startdt'); ?>
-                                <input type="date" id="startdt"  name="startdt" value="<?php echo set_value('startdt');?>"  <?php echo (form_error('startdt')) ? 'class="form-control form-control-danger"' :'class="form-control"';?>>
+                                <input type="date" id="startdt"  name="startdt" value="<?php echo set_value('startdt');?>"  <?php echo (form_error('startdt')) ? 'class="form-control form-control-danger form-control-sm"' :'class="form-control form-control-sm"';?>>
                                 <span style='color:#FF0000' id="startdt_msg"></span>
                             </div>
 

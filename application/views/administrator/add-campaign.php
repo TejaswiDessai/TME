@@ -304,7 +304,7 @@ $(function () {
                                 </select>
                             </div>
                         </div> -->
-
+                        <hr>
                         <div class="form-group row">
                            
                            <div class="col-sm-2">
@@ -337,6 +337,7 @@ $(function () {
                            </div> -->
                                 
                        </div>
+                       <hr>
                         <div class="form-group row">
                             <div class="col-sm-2">
                                 <label class="col-lable"><b>Select Employee Size</b></label>
@@ -478,7 +479,7 @@ $(function () {
                             
                             
                         </div> -->
-                        
+                        <hr>
                         <div class="form-group row">
                               <div class="col-sm-3">
                                 <label class="col-lable"><b>Current Status</b></label>

@@ -81,6 +81,11 @@ body{
    .select2-container--default .select2-selection--multiple {
     padding:0px 0px 0px 0px;
     }
+
+    .main-body .page-wrapper{
+    padding: 10px;
+    }
+
     </style>
 <body class="horizontal-vertical">
     <!-- Pre-loader start -->

@@ -197,7 +197,7 @@ $(function () {
         <h4>Campaigns</h4>
     </div>
     <div class="page-header-breadcrumb">
-        <ul class="breadcrumb-title">
+        <!-- <ul class="breadcrumb-title">
             <li class="breadcrumb-item">
                 <a href="index-2.html">
                     <i class="icofont icofont-home"></i>
@@ -207,7 +207,7 @@ $(function () {
             </li>
             <li class="breadcrumb-item"><a href="#!">Add Campaign</a>
             </li>
-        </ul>
+        </ul> -->
     </div>
 </div>
 <!-- Page header end -->

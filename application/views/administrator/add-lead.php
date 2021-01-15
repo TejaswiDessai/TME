@@ -160,9 +160,8 @@ $(document).ready(function() {
                       
                         <div class="form-group row">
                            
-                            <div class="col-sm-2">
-                                <label class="col-lable"><b>Salutation</b></label>
-                                 <select name="sal_id" id="sal_id"  class="form-control  form-control-sm cdqadisable">
+                            <div class="col-sm-1">
+                                 <select name="sal" id="sal"  class="form-control  form-control-sm cdqadisable">
                                       <option value="1">Mr.</option>
                                       <option value="2">Miss.</option>
                                       <option value="3">Mrs.</option>
@@ -170,107 +169,88 @@ $(document).ready(function() {
                                 </select>
                             </div>
                             <div class="col-sm-2">
-                                <label class="col-lable"><b>First Name</b></label>
-                                <input type="text"  name="first_name" id="first_name"  placeholder="Enter Fisrt Name"  class="form-control form-control-sm cdqadisable">
+                                <input type="text"  name="fname" id="fname"  placeholder="Fisrt Name"  class="form-control form-control-sm cdqadisable">
                                 <span style='color:#FF0000' id="fname_msg"></span>
                             </div>
                             <div class="col-sm-2">
-                                <label class="col-lable"><b>Last Name</b></label>
-                                <input type="text"  name="last_name" id="last_name"  placeholder="Enter Last Name"  class="form-control form-control-sm cdqadisable">
+                                <input type="text"  name="lname" id="lname"  placeholder="Last Name"  class="form-control form-control-sm cdqadisable">
                                 <span style='color:#FF0000' id="lname_msg"></span>
                             </div>
-                            <div class="col-sm-2">
-                                <label class="col-lable"><b>Job Title</b></label>
-                                <input type="text"  name="job_title" id="job_title"  placeholder="Enter Job Title"  class="form-control form-control-sm cdqadisable">
+                            <div class="col-sm-3">
+                                <input type="text"  name="jtitle" id="jtitle"  placeholder="Job Title"  class="form-control form-control-sm cdqadisable">
                             </div>
                             <div class="col-sm-2">
-                                <label class="col-lable"><b>Designation</b></label>
                                 <!-- <select class="js-example-basic-multiple col-sm-12 cdqadisable" multiple="multiple" name="desid[]" id="desid"> -->
                                 <select class="form-control form-control-sm cdqadisable" name="desid[]" id="desid">
+                                <option>Designation</option>
                                 <?php foreach ($designation as $designation): ?>
                                     <option value="<?php echo $designation['tid']; ?>"><?php echo $designation['designation']; ?></option>
                                 <?php endforeach; ?>  
                                 </select>
                             </div>
                             <div class="col-sm-2">
-                                <label class="col-lable"><b>Department</b></label>
-                                <select class="form-control form-control-sm cdqadisable" name="dcd[]" id="dcd">
-                                <?php foreach ($departments as $dept): ?>
-                                    <option value="<?php echo $dept['dcd']; ?>"><?php echo $dept['department']; ?></option>
-                                <?php endforeach; ?>
+                                <!-- <select class="js-example-basic-multiple col-sm-12 cdqadisable" multiple="multiple" name="desid[]" id="desid"> -->
+                                <select class="form-control form-control-sm cdqadisable" name="jlevel" id="jlevel">
+                                <option>Job Level</option>
+                               
                                 </select>
-                            </div> 
+                            </div>
                            
                         </div>
 
                         <hr>
                         <div class="form-group row">
                         <div class="col-sm-2">
-                                <label class="col-lable"><b>Company Name</b></label>
-                                <input type="text"  name="company_name" id="company_name"  placeholder="Enter Company Name"  class="form-control form-control-sm cdqadisable">
-                            </div>  
-                            <div class="col-sm-2">
-                                <label class="col-lable"><b>Company Type</b></label>
-                                <select name="ctype" id="ctype"  class="form-control  form-control-sm cdqadisable">
-                                      <option value="1">Mr.</option>
-                                      <option value="0">None</option>
-                                      <option value="1">Private Equity</option>
-                                      <option value="2">Law Firm</option>
-                                      <option value="3">Corporate</option>
-                                      <option value="4">Investment Banking</option>
+                                 <select class="form-control form-control-sm cdqadisable" name="dcd[]" id="dcd">
+                                    <option> Department</option>
+                                <?php foreach ($departments as $dept): ?>
+                                    <option value="<?php echo $dept['dcd']; ?>"><?php echo $dept['department']; ?></option>
+                                <?php endforeach; ?>
                                 </select>
-                            </div>
+                            </div> 
                             <div class="col-sm-2">
-                                <label class="col-lable"><b>Email</b></label>
                                 <div class="newsletter-signup">
-                                <input type="text"  name="lead_email" id="lead_email"  placeholder="Enter Email"  class="form-control form-control-sm cdqadisable">
+                                <input type="text"  name="email" id="email"  placeholder="Email"  class="form-control form-control-sm cdqadisable">
                                </div>
                                 <span style='color:#FF0000' id="email_msg"></span>
                             </div>
                             <div class="col-sm-2">
-                                <label class="col-lable"><b>Phone</b></label>
-                                <input type="text"  name="phone" id="phone"  placeholder="Enter Phone" maxlength="10"  class="form-control form-control-sm cdqadisable">
+                                <input type="text"  name="phone" id="phone"  placeholder="Phone" maxlength="10"  class="form-control form-control-sm cdqadisable">
                                 <span style='color:#FF0000' id="phone_msg"></span>
                             </div>
                             <div class="col-sm-2">
-                                <label class="col-lable"><b>Direct/Board</b></label> 
-                                <select name="linetype" id="linetype"  class="form-control  form-control-sm cdqadisable">
-                                      <option value="null">unknown</option>
-                                      <option value="0">Direct</option>
-                                      <option value="1">Board</option>  
-                                </select>
+                                <input type="text"  name="altphn" id="altphn"  placeholder="Alternate Phone Number" maxlength="10"  class="form-control form-control-sm cdqadisable">
+                            </div>
+                            
+                            <div class="col-sm-2">
+                                <input type="text"  name="phext" id="phext"  placeholder="Extension" maxlength="5"  class="form-control form-control-sm cdqadisable">
                             </div>
                             <div class="col-sm-2">
-                                <label class="col-lable"><b>Phone Extension</b></label>
-                                <input type="text"  name="phext" id="phext"  placeholder="Enter Extension" maxlength="5"  class="form-control form-control-sm cdqadisable">
+                                <input type="text"  name="plink" id="plink"  placeholder="Prospect Link"  class="form-control form-control-sm">
+                                <span style='color:#FF0000' id="url_msg"></span>
                             </div>
+                        
                       </div>
                             <hr>
                         <div class="form-group row">
+                        <div class="col-sm-2">
+                                <input type="text"  name="company_name" id="company_name"  placeholder="Company Name"  class="form-control form-control-sm cdqadisable">
+                            </div>  
                             <div class="col-sm-2">
-                                <label class="col-lable"><b>Alternate Phone</b></label>
-                                <input type="text"  name="altphn" id="altphn"  placeholder="Enter Alternate Phone Number" maxlength="10"  class="form-control form-control-sm cdqadisable">
-                            </div>
-                            <div class="col-sm-2">
-                                <label class="col-lable"><b>Street Address</b></label>
-                                <input type="text"  name="address" id="address"  placeholder="Enter Address"  class="form-control form-control-sm cdqadisable">
+                                <input type="text"  name="address" id="address"  placeholder="Address"  class="form-control form-control-sm cdqadisable">
                            </div>
                            <div class="col-sm-2">
-                                <label class="col-lable"><b>City</b></label>
-                                <input type="text"  name="city" id="city"  placeholder="Enter City"  class="form-control form-control-sm cdqadisable">
+                                <input type="text"  name="city" id="city"  placeholder="City"  class="form-control form-control-sm cdqadisable">
                            </div>
                            <div class="col-sm-2">
-                                <label class="col-lable"><b>State</b></label>
-                                <input type="text"  name="state" id="state"  placeholder="Enter State"  class="form-control form-control-sm cdqadisable">
+                                <input type="text"  name="state" id="state"  placeholder="State"  class="form-control form-control-sm cdqadisable">
                                 </select>
                             </div>
                             <div class="col-sm-2">
-                                <label class="col-lable"><b>Zip</b></label>
-                                <input type="text"  name="zip_code" id="zip_code"  placeholder="Enter Zip Code"  class="form-control form-control-sm cdqadisable">
+                                <input type="text"  name="zip_code" id="zip_code"  placeholder="Zip Code"  class="form-control form-control-sm cdqadisable">
                            </div>
                              <div class="col-sm-2">
-                                <label class="col-lable"><b>Select Country</b></label>
-                                <select class="form-control form-control-sm cdqadisable" name="country_id[]" id="country_id">
+                                     <select class="form-control form-control-sm cdqadisable" name="country_id[]" id="country_id">
                                  <?php foreach ($countries as $country): ?>
                                     <option value="<?php echo $country['countrycd'];echo set_select('country_id'); ?>"><?php echo $country['countryname']; ?></option>
                                 <?php endforeach; ?>
@@ -283,32 +263,53 @@ $(document).ready(function() {
                         <div class="form-group row">
                             
                             <div class="col-sm-2">
-                                <label class="col-lable"><b>Select TimeZone</b></label>
                               <select class="form-control form-control-sm cdqadisable"  name="timezone[]" id="timezone">
-                                <?php foreach ($timezones as $tz): ?>
+                              <option value="">Timezone</option>
+                              <?php foreach ($timezones as $tz): ?>
                                     <option value="<?php echo $tz['zoneid']; ?>"><?php echo $tz['timezonenm']; ?></option>
                                 <?php endforeach; ?> 
                                 </select>
                             </div>
+
                             <div class="col-sm-2">
-                                <label class="col-lable"><b>Select Industry</b></label>
-                                <select class="form-control form-control-sm cdqadisable"  name="industrycd[]" id="industrycd">
-                                     <?php foreach ($industries as $industry): ?>
+                               <select name="ctype" id="ctype"  class="form-control  form-control-sm cdqadisable"> 
+                                     <option value="">Company Type</option>
+                                     <option value="0">None</option>
+                                     <option value="1">Private Equity</option>
+                                     <option value="2">Law Firm</option>
+                                     <option value="3">Corporate</option>
+                                     <option value="4">Investment Banking</option>
+                               </select>
+                           </div>
+                           
+                           <div class="col-sm-2">
+                               <select name="linetype" id="linetype"  class="form-control  form-control-sm cdqadisable">
+                                     <option value="null">unknown</option>
+                                     <option value="0">Direct</option>
+                                     <option value="1">Board</option>  
+                               </select>
+                           </div>
+
+
+                            <div class="col-sm-2">
+                              <select class="form-control form-control-sm cdqadisable"  name="industrycd" id="industrycd">
+                              <option value="">Industry</option>
+                              <?php foreach ($industries as $industry): ?>
                                     <option value="<?php echo $industry['industrycd']; ?>"><?php echo $industry['industry']; ?></option>
                                 <?php endforeach; ?>
                                 </select>
                             </div>
                             <div class="col-sm-2">
-                                <label class="col-lable"><b>Select Sub Industry</b></label>
-                                <select class="form-control form-control-sm cdqadisable" name="subindustrycd[]" id="subindustrycd">
-                                     <?php foreach ($industries as $industry): ?>
+                                <select class="form-control form-control-sm cdqadisable" name="subindustrycd" id="subindustrycd">
+                                <option value="">Sub Industry</option>
+                                <?php foreach ($industries as $industry): ?>
                                     <option value="<?php echo $industry['industrycd']; ?>"><?php echo $industry['industry']; ?></option>
                                 <?php endforeach; ?>
                                 </select>
                             </div>
                             <div class="col-sm-2">
-                                <label class="col-lable"><b>Sector Type</b></label>
                                 <select class="form-control form-control-sm cdqadisable" name="sectyp" id="sectyp">
+                                    <option value="">Sector</option>
                                     <option value="0">Unknown</option>
                                     <option value="1">Public</option>
                                     <option value="2">Private</option>
@@ -318,22 +319,18 @@ $(document).ready(function() {
                                     </select>
                             </div>
 
-                            <div class="col-sm-2">
-                                <label class="col-lable"><b>Actual Employee Size</b></label>
-                                <input type="text"  name="empsize" id="empsize" maxlength="10" placeholder="Enter Actual Employee Size"  class="form-control form-control-sm cdqadisable">
-                            </div>
-                            <div class="col-sm-2">
-                                <label class="col-lable"><b>Actual Revenue Size</b></label>
-                                <input type="text"  name="arevenue" id="arevenue" maxlength="15" placeholder="Enter Actual Revenue Size"  class="form-control form-control-sm cdqadisable">
-                            </div>
-
                         </div>
                 <hr>
-                        <div class="form-group row">
-                        
+                    <div class="form-group row">
+                        <div class="col-sm-2">
+                                <input type="text"  name="empsize" id="empsize" maxlength="10" placeholder="Actual Employee Size"  class="form-control form-control-sm cdqadisable">
+                            </div>
+                            <div class="col-sm-2">
+                                <input type="text"  name="arevenue" id="arevenue" maxlength="15" placeholder="Actual Revenue Size"  class="form-control form-control-sm cdqadisable">
+                            </div>
+
                             
                             <div class="col-sm-2">
-                                <label class="col-lable"><b>Mil/Bil</b></label>
                                 <select class="form-control form-control-sm cdqadisable" name="mlbl" id="mlbl">
                                     <option value="0">Thousands</option>
                                     <option value="1">Hundred Thousand</option>
@@ -343,61 +340,69 @@ $(document).ready(function() {
                                     </select>
                             </div>          
                             <div class="col-sm-2">
-                                <label class="col-lable"><b>Currency</b></label>
                                 <select class="form-control form-control-sm cdqadisable" name="curr" id="curr">
-                                    <option value="0">Select</option>
+                                    <option value="0">USD</option>
                                    </select>
                             </div>          
                             <div class="col-sm-2">
-                                <label class="col-lable"><b>Domain</b></label>
-                                <input type="text"  name="domain" id="domain"  placeholder="Enter Domain"  class="form-control form-control-sm">
+                                <input type="text"  name="domain" id="domain"  placeholder="Domain"  class="form-control form-control-sm">
                             </div>
+                            
                             <div class="col-sm-2">
-                                <label class="col-lable"><b>Prospect link</b></label>
-                                <input type="text"  name="plink" id="plink"  placeholder="Enter Prospect Link"  class="form-control form-control-sm">
-                                <span style='color:#FF0000' id="url_msg"></span>
-                            </div>
-                            <div class="col-sm-2">
-                                <label class="col-lable"><b>Employee Size Link</b></label>
                                 <input type="text"  name="empszlink" id="empszlink"  placeholder="Employee Size Link"  class="form-control form-control-sm">
                             </div>
-                            <div class="col-sm-2">
-                                <label class="col-lable"><b>Industry Type Link</b></label>
-                                <input type="text"  name="indlink" id="indlink"  placeholder="Enter Industry Type Link"  class="form-control form-control-sm">
-                            </div>
+                           
                         </div>
                         
                         <hr>
                         <div class="form-group row">
                            
-                           
-                            <div class="col-sm-2">
-                                <label class="col-lable"><b>Revenue Size Link</b></label>
-                                <input type="text"  name="revszlink" id="revszlink"  placeholder="Enter Revenue Size Link"  class="form-control form-control-sm">
+                        <div class="col-sm-2">
+                                <input type="text"  name="indlink" id="indlink"  placeholder="Industry Type Link"  class="form-control form-control-sm">
                             </div>
                             <div class="col-sm-2">
-                                <label class="col-lable"><b>Other Links</b></label>
-                                <input type="text"  name="othrlink" id="othrlink"  placeholder="Enter Other Link"  class="form-control form-control-sm">
+                                <input type="text"  name="revszlink" id="revszlink"  placeholder="Revenue Size Link"  class="form-control form-control-sm">
                             </div>
                             <div class="col-sm-2">
-                                <label class="col-lable"><b>Email Verified</b></label>
+                                <input type="text"  name="othrlink" id="othrlink"  placeholder="Other Link"  class="form-control form-control-sm">
+                            </div>
+                            <div class="col-sm-2">
                                 <select class="form-control form-control-sm"  name="emailver" id="emailver">
                                     <option value="1">Yes</option>
                                     <option value="0">No</option>
                                 </select>
                             </div>
                             <div class="col-sm-2">
-                                <label class="col-lable"><b>AUM</b></label>
-                                <input type="text"  name="aum" id="aum"  placeholder="Enter Asset Under Management"  class="form-control form-control-sm">
+                                <input type="text"  name="aum" id="aum"  placeholder="Asset Under Management"  class="form-control form-control-sm">
                             </div>
                             <div class="col-sm-2">
-                                <label class="col-lable"><b>Asset title</b></label>
                                 <select class="form-control form-control-sm cdqadisable" name="assetid" id="assetid">
-                                    <option value="0">Select</option>
+                                    <option value="0">Asset</option>
                                    </select>
                             </div> 
                         </div>
-                       
+                        <hr>
+                        <div class="form-group row">
+                                       
+                                        <div class="col-sm-2">
+                                        Opt - in Post  <input type="checkbox" value="TRUE" id="optpst" name="optpst" class="js-single" checked />
+                                        </div>
+                                       
+                                        <div class="col-sm-2">
+                                        Opt - in Phone<input type="checkbox" value="TRUE" id="optph" name="optph" class="js-single" checked />
+                                        </div>
+                                        
+                                        <div class="col-sm-2">
+                                        Opt - in  <input type="checkbox" value="TRUE" id="optin" name="optin" class="js-single" checked />
+                                        </div>
+                                        
+                                        <div class="col-sm-2">
+                                        Opt - in Email <input type="checkbox" value="TRUE" id="opteml" name="opteml" class="js-single" checked />
+                                        </div>
+                                        <div class="col-sm-2">
+                                        DND <input type="checkbox" value="TRUE" id="dnd" name="dnd" class="js-single" checked />
+                                        </div>
+                         </div>
                         <div class="form-group row">     
                           <div class="col-sm-6 card">
                                 <div class="card-header">
@@ -425,7 +430,7 @@ $(document).ready(function() {
 
                             <div class="col-sm-12">
                                 <label class="col-lable"><b>Comment</b></label>
-                                <input type="text"  name="pcomt" id="pcomt"  placeholder="Enter Comment"  class="form-control form-control-sm">
+                                <input type="text"  name="pcomt" id="pcomt"  placeholder="Comment"  class="form-control form-control-sm">
                             </div> 
                         </div> 
                        
@@ -514,17 +519,65 @@ $(document).ready(function() {
 $(document).ready(function() {
   $("#basic-form").validate({
     rules: {
-        campaign_id : {
+        sal : {
+        required: true
+      },
+      fname : {
+        required: true
+      },
+      lname : {
+        required: true
+      },
+      jtitle : {
+        required: true
+      },
+      jlevel : {
         required: true
       },
         company_name : {
         required: true,
         minlength: 3
       },
-       'country_id[]' : {
+      dcd : {
         required: true,
-        minlength: 1
+        minlength: 3
       },
+      linetype : {
+        required: true        
+      },
+      address : {
+        required: true,
+        minlength: 5
+      },
+      city : {
+        required: true,
+        minlength: 5
+      },
+      state : {
+        required: true,
+        minlength: 5
+      },
+      zip_code : {
+        required: true,
+        minlength: 5
+      },
+      country_id : {
+        required: true
+      },
+      timezone : {
+        required: true,
+      },
+      industrycd : {
+        required: true
+      },
+      subindustrycd : {
+        required: true
+      },
+
+    //    'country_id[]' : {
+    //     required: true,
+    //     minlength: 1
+    //   },
       phone: {
         required: true,
         number: true,
@@ -537,7 +590,38 @@ $(document).ready(function() {
       domain: {
         required: true,
         url: true
+      },     
+      plink: {
+        required: true,
+        url: true
       },
+      empszlink: {
+        required: true,
+        url: true
+      },
+      indlink: {
+        required: true,
+        url: true
+      },
+      revszlink: {
+        required: true,
+        url: true
+      },
+      emailver: {
+        required: true
+      },
+      optpst: {
+        required: true
+      },
+      optph: {
+        required: true
+      },
+      optin: {
+        required: true
+      },
+      opteml: {
+        required: true
+      }
      
     },
     messages : {

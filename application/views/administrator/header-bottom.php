@@ -51,7 +51,8 @@
                         </ul>
                     </li>
                     <li class="nav-item">
-                        <a href="<?php echo base_url(); ?>cdc/addlead"">
+                        <!-- <a href="<?php echo base_url(); ?>cdc/addlead""> -->
+                        <a href="<?php echo base_url(); ?>cdc/selectCampaign">
                         <i class="icon-call-out"></i>
                             <span>Data Lead and CDC</span>
                         </a>

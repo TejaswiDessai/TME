@@ -7,7 +7,7 @@
 		function addlead($page = 'add-lead'){
 
 			$data['title'] = 'Create Lead';
-			$data['campaigns'] = $this->Administrator_Model->get_campaign();
+			
                         $data['clients'] = $this->Administrator_Model->get_clients();
                         $data['countries'] = $this->Administrator_Model->get_countries();
                         $data['regions'] = $this->Administrator_Model->get_regions();
@@ -25,7 +25,11 @@
 						// $data['assetitle'] = $this->Administrator_Model->get_assetitle();
 			
 						$postData = $this->input->post();
-						
+						$postData1 = $postData['campaign_id'];
+						// print_r($postData1);
+						$data['campaigns'] = $this->Administrator_Model->get_campaign_by_id($postData1);
+
+
 			$this->load->view('administrator/header-script');
 			$this->load->view('administrator/header');
 			$this->load->view('administrator/header-bottom');

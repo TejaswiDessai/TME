@@ -892,11 +892,15 @@ function saverecords($emp_id,$Fname,$Lname,$Manager,$status,$user_type,$Password
 function getCountry($region_id)
 {
 	$response = array();
- 
+	
 	// Select record
 	$this->db->select('countrycd,countryname');
 	// $this->db->where('regioncode', $region_id);
-	$this->db->where_in('regioncode', $region_id );  //this is condition 
+	if($region_id[0] != "all")
+	{
+		$this->db->where_in('regioncode', $region_id );  //this is condition 
+	}
+	
 	$q = $this->db->get('country');
 	$response = $q->result_array();
 

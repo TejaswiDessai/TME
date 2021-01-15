@@ -586,6 +586,48 @@
 						}
 					}
 
+					if(isset($_FILES['userfileasset']['name']))
+				{
+					$filename = explode(".", $_FILES['userfileasset']['name']);
+					if($filename[1] == 'csv')
+					{
+						$handle = fopen($_FILES['userfileasset']['tmp_name'], "r");
+						$count = 0;
+						while($data = fgetcsv($handle))
+						{
+							$item1 = pg_escape_string ($connect, $data[0]);  
+							// $item2 = pg_escape_string ($connect, $data[1]);
+							// $item3 = pg_escape_string ($connect, $data[2]);
+						
+							//$item36= mysqli_real_escape_string($connect, $data[35]);
+	
+							//$item5 = mysqli_real_escape_string($connect, $data[4]);
+							$query = "INSERT into questions(cid,questions
+							)values('$camp_id','$item1')";
+							// show_error($this->db->last_query(), 200, "SQL");
+							$result = pg_query($connect, $query);
+							if (!$result) {
+								die('Invalid query: ' . pg_result_error($connect));
+							}
+							else{
+							// echo "<script>alert('Import done');</script>";
+							}
+							if($count < 11)
+							{
+								$count ++;
+							}
+							else
+							{
+								break;
+							}
+							
+							}
+							fclose($handle);
+					
+						}
+					}
+					
+
 					redirect('campaigns/campaign');
 					
 			}
@@ -624,8 +666,129 @@
 
 	public function ajax_add_new_campaign()
 		{
+			$campaign_id = $_GET['campaign_id'];
+			$campaigncountryStr = '';
+			if(!empty($_GET['country_id'])) {
+			$campaigncountryStr = $_GET['country_id'];
+				}
+			$regionStr = '';
+			if(!empty($_GET['region_id'])) {
+			$regionStr = $_GET['region_id'];
+				}
+			$industryStr = '';
+			if(!empty($_GET['industrycd'])) {
+			$industryStr = $_GET['industrycd'];
+				}
+			$deptStr = '';
+			if(!empty($_GET['dcd'])) {
+			$deptStr = $_GET['dcd'];
+				}
+			$empsizeStr = '';
+			if(!empty($_GET['emplzid'])) {
+			$empsizeStr = $_GET['emplzid'];
+				}
+			$revStr = '';
+			if(!empty($_GET['revid'])) {
+			$revStr = $_GET['revid'];
+				}
+			$desiStr = '';
+			if(!empty($_GET['desid'])) {
+			$desiStr = $_GET['desid'];
+			}
 
-					 
+			$frequency_type = '';
+			if(!empty($_GET['frequency_type'])) {
+			$frequency_type = $_GET['frequency_type'];
+			}
+			$frequency = '';
+			if(!empty($_GET['frequency'])) {
+			$frequency = $_GET['frequency'];
+			}
+
+			$emplbound = '';
+			if(!empty($_GET['emplbound'])) {
+			$emplbound = $_GET['emplbound'];
+			}
+			$empubound = "";
+			if(!empty($_GET['empubound'])) {
+			$empubound = $_GET['empubound'];
+			}
+			$emp_range = null;
+			if(isset($emplbound) && $empubound)
+				$emp_range = $emplbound . "-" . $empubound;
+
+			$revnlbound = '';
+			if(!empty($_GET['revnlbound'])) {
+			$revnlbound = $_GET['revnlbound'];
+			}
+			$revnubound = "";
+			if(!empty($_GET['revnubound'])) {
+			$revnubound = $_GET['revnubound'];
+			}
+			$ren_range = null;
+			if(isset($emplbound) && $empubound)
+				$ren_range = $emplbound ."m -". $empubound."m";
+			
+			$revnlbound_range = '';
+			if(!empty($_GET['revnlbound_range'])) {
+			$revnlbound_range = $_GET['revnlbound_range'];
+			}
+			$revnubound_range = "";
+			if(!empty($_GET['revnubound_range'])) {
+			$revnubound_range = $_GET['revnubound_range'];
+			}
+			$sdate=date_create($_GET['startdt']);
+			$cdate=date_create($_GET['estclosedt']);
+			$closedate = date_format($cdate,"Y/m/d");
+			$startdate = date_format($sdate,"Y/m/d");
+			$datacampaign = array(
+				'clientids' => $_GET['client_id'], 
+				'cids' => $_GET['campaign_id'],
+				'campnm' => $_GET['campaign_name'],
+				'countrycd' => $campaigncountryStr,
+				'regioncode' => $regionStr,
+				'industrycd' => $industryStr,
+				'dcd' => $deptStr,
+				'emplbnd' => $emplbound, 
+				'empubnd' => $empubound,
+				'revlbnd' => $revnlbound, 
+				'revubnd' => $revnubound,
+				'revlbdim' => $revnlbound_range,
+				'revubdim' => $revnubound_range,
+				'tid' => $desiStr,
+				'suplistnew' =>$_GET['checksupp'],
+				'inclistnew' =>$_GET['inclist'],
+				'cdcneed' =>$_GET['cdqa'],
+				'assetid' => $_GET['assetid'],
+				'questnos' =>$_GET['quantity'],
+				'status' => $_GET['selectstatus'],			
+				'estclosedt' => $closedate,
+				'startdt' => $startdate,
+				'freqtyp' => $frequency_type,
+				'freqid' => $frequency
+				// 'Modifieddt' => date("Y-m-d H:i:s")				
+				);
+			
+				$addcampaigndata = $this->Administrator_Model->add_campaign($datacampaign);
+				if(isset($addcampaigndata)){
+			
+					echo json_encode(array(
+						"statusCode"=>"Success",
+						"campaign_id"=>$addcampaigndata,
+						"message"=>"Campaign Added Successfully.."
+					));
+				}else{
+					echo json_encode(array(
+						"statusCode"=>"Fail",
+						"message"=>"Add Campaign failed.."
+					));
+				}
+								
+			
+		}
+
+		public function ajax_add_new_campaign1()
+		{
 			$campaign_id = $_GET['campaign_id'];
 			$campaigncountryStr = '';
 			if(!empty($_GET['country_id'])) {
@@ -643,14 +806,14 @@
 			if(!empty($_GET['dcd'])) {
 			$deptStr = implode(',',$_GET['dcd']);
 				}
-			$empsizeStr = '';
-			if(!empty($_GET['emplzid'])) {
-			$empsizeStr = $_GET['emplzid'];
-				}
-			$revStr = '';
-			if(!empty($_GET['revid'])) {
-			$revStr = $_GET['revid'];
-				}
+			// $empsizeStr = '';
+			// if(!empty($_GET['emplzid'])) {
+			// $empsizeStr = $_GET['emplzid'];
+			// 	}
+			// $revStr = '';
+			// if(!empty($_GET['revid'])) {
+			// $revStr = $_GET['revid'];
+			// 	}
 			$desiStr = '';
 			if(!empty($_GET['desid'])) {
 			$desiStr = implode(',',$_GET['desid']);
@@ -697,33 +860,7 @@
 			if(!empty($_GET['revnubound_range'])) {
 			$revnubound_range = $_GET['revnubound_range'];
 			}
-			if(isset($emplbound) && isset($empubound) && $empsizeStr == "emp_other" )
-			{
-				$post_data = array(
-					'emplbound' => $emplbound, 
-					'empubound' => $empubound,
-					'emplsizerange' => $emp_range,
-					// 'loaddt' => date("Y-m-d")
-					
-								
-				);
-				$empsizeStr = $this->Administrator_Model->add_employee_size($post_data);
-			}
-
-			if(isset($revnlbound) && isset($revnubound) && $revStr == "rev_other")
-			{
-				$add_compsize = array(
-					'curr' => "USD",
-					'revnlbound' => $revnlbound, 
-					'nmlistlbound' => $revnlbound_range,
-					'revnubound' => $revnubound,
-					'nmlistubound' => $revnubound_range,
-					'rangelist' => $ren_range
-					
-								
-				);
-				$revStr = $this->Administrator_Model->add_compsize($add_compsize);
-			}
+			
 			$sdate=date_create($_GET['startdt']);
 			$cdate=date_create($_GET['estclosedt']);
 			$closedate = date_format($cdate,"Y/m/d");
@@ -736,8 +873,8 @@
 				'regioncode' => $regionStr,
 				'industrycd' => $industryStr,
 				'dcd' => $deptStr,
-				'emplzid' => $empsizeStr,
-				'comzid' => $revStr,
+				// 'emplzid' => $empsizeStr,
+				// 'comzid' => $revStr,
 				'tid' => $desiStr,
 				'suplistnew' =>$_GET['checksupp'],
 				'inclistnew' =>$_GET['inclist'],
@@ -748,7 +885,13 @@
 				'estclosedt' => $closedate,
 				'startdt' => $startdate,
 				'freqtyp' => $frequency_type,
-				'freqid' => $frequency
+				'freqid' => $frequency,
+				'emplbnd' => $emplbound, 
+				'empubnd' => $empubound,
+				'revlbnd' => $revnlbound, 
+				'revubnd' => $revnubound,
+				'revlbdim' => $revnlbound_range,
+				'revubdim' => $revnubound_range
 				// 'Modifieddt' => date("Y-m-d H:i:s")
 				
 								

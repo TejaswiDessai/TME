@@ -97,7 +97,7 @@ $(document).ready(function(){
                             <table id="dom-jqry" class="table table-striped table-bordered nowrap">
                                 <thead>
                                     <tr>
-                                        <th>Id</th>
+                                        <th>Campaign Id</th>
                                         <th>Client ID</th>
                                         <th>Campaign Name</th>
                                         <th>Start Date</th>
@@ -110,7 +110,7 @@ $(document).ready(function(){
                                 <tbody>
                                 <?php foreach($campaigns as $post) : ?>
                                  <tr>
-                                        <td><?php echo $post['cnid']; ?></td>
+                                        <td><?php echo $post['cids']; ?></td>
                                         <td><?php echo $post['clientcode']; ?></td>
                                         <td><?php echo $post['campnm']; ?></td>
                                         <td><?php echo date("M d,Y", strtotime($post['startdt'])); ?></td>

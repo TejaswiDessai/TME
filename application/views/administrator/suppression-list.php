@@ -67,14 +67,14 @@ $(document).ready(function () {
         <div class="col-sm-12">
             <!-- Basic Form Inputs card start -->
             <div class="card" id="camp_form">
-                <div class="card-header">
+                <!-- <div class="card-header">
                     <h5>Add Suppression List</h5>
                     <div class="card-header-right">
                         <i class="icofont icofont-rounded-down"></i>
                         <i class="icofont icofont-refresh"></i>
                         <i class="icofont icofont-close-circled"></i>
                     </div>
-                </div>
+                </div> -->
                 <div class="card-block">
                     <div class="col-sm-8">
                         <div class="validation_errors_alert">
@@ -122,38 +122,62 @@ $(document).ready(function () {
                             </div>
                            
                         </div>
-
+                        
                         <div class="form-group row">
-                        <?php if($campaign_record['suplistnew'] == 1){?>
-                        <div   class="col-sm-4 form-check form-switch hidden">
-                                
-                             <label class="col-lable"><b>Exclusion Type</b></label>
-                             <!-- <input type="checkbox" class="js-small f-right suppclass" name="suppchk" id="noneAboveCheck" value="" > -->
+                            <?php if($campaign_record['suplistnew'] == 1){?>
+                                <div class="col-sm-12">
+                                    <label class="col-lable" style="color:#FF5722;"><b>Exclusion Type</b></label><br>
+                                </div>
+                            <div class="col-sm-3 form-check form-switch hidden">
+                                <!-- <input type="checkbox" class="js-small f-right suppclass" name="suppchk" id="noneAboveCheck" value="" > -->
                                 <!-- <div id="noneAbove"> -->
-                                <label class="checkbox-inline form-control"><input id="exlusion_maid_list" type="checkbox" value="1">&nbsp;Mail List</label>
-                                <label class="checkbox-inline form-control"><input id="exlusion_acc_list" type="checkbox" value="2">&nbsp;Account List</label>
-                                <label class="checkbox-inline form-control"><input id="exlusion_dom_list" type="checkbox" value="3">&nbsp;Domain List</label>
-                                <label class="f-left col-lable"><b>Exclusion(*.csv) </b> </label>
-                            <input type="file" name="userfile" class="form-control">
-                            <!-- </div> -->
+                                <label class="col-lable"><b>Mail List</b></label>
+                                <input type="file" name="userfile" class="form-control">
                             </div>
-                           <?php } ?>
-                           <?php if($campaign_record['inclistnew'] == 1){?>
-                            <div class="col-sm-4 form-check form-switch " >
-                             <label class="col-lable"><b>Inclusion Type</b></label>
-                             <!-- <input type="checkbox" class="js-small f-right suppclass" name="suppchk" id="noneAboveCheckInclusion" value="" > -->
-                             <!-- <div id="noneAboveInclusion"> -->
-                            <label class="checkbox-inline form-control"><input type="checkbox" id="inclusion_maid_list"  value="1">&nbsp;Mail List</label>
-                            <label class="checkbox-inline form-control"><input type="checkbox" id="inclusion_acc_list" value="2">&nbsp;Account List</label>
-                            <label class="checkbox-inline form-control"><input type="checkbox" id="inclusion_dom_list" value="3">&nbsp;Domain List</label>
-                            <label class="f-left col-lable"><b>Inclusion(*.csv) </b> </label>
-                            <input type="file" name="userfileincl" class="form-control">
+                            <div class="col-sm-3 form-check form-switch hidden">
+                                <label class="col-lable"><b>Company List</b></label>
+                                <input type="file" name="userfile" class="form-control">
                             </div>
+                            <div class="col-sm-3 form-check form-switch hidden">
+                                <label class="col-lable"><b>Domain List </b></label>
+                                <input type="file" name="userfile" class="form-control">
+                            </div>
+                                <!-- <label class="f-left col-lable"><b>Exclusion(*.csv) </b> </label>
+                                <input type="file" name="userfile" class="form-control"> -->
+                                <!-- </div> -->
                             <!-- </div> -->
                             <?php } ?>
-
+                        </div>
+                        <hr>
+                           <div class="form-group row">
+                           <?php if($campaign_record['inclistnew'] == 1){?>
+                            <div class="col-sm-12">
+                                <label class="col-lable" style="color:#FF5722;"><b>Inclusion Type </b></label>
+                            </div>
+                            <div class="col-sm-3 form-check form-switch " >
+                                <!-- <input type="checkbox" class="js-small f-right suppclass" name="suppchk" id="noneAboveCheckInclusion" value="" > -->
+                                <!-- <div id="noneAboveInclusion"> -->
+                                <label class="col-lable"><b>Mail List</b></label>
+                                <input type="file" name="userfileincl" class="form-control">
+                            </div>
+                            <div class="col-sm-3 form-check form-switch " >
+                                <label class="col-lable"><b>Company List</b></label>
+                                <input type="file" name="userfileincl" class="form-control">
+                            </div>
+                            <div class="col-sm-3 form-check form-switch " >
+                                <label class="col-lable"><b>Domain List</b></label>
+                                <input type="file" name="userfileincl" class="form-control">
+                            </div>
+                                <!-- <label class="f-left col-lable"><b>Inclusion(*.csv) </b> </label>
+                            <input type="file" name="userfileincl" class="form-control">
+                            </div> -->
+                            <!-- </div> -->
+                            <?php } ?>
+                            </div>
+                            <hr>
+                            <div class="form-group row">
                             <?php if($campaign_record['questnos'] != 0 || $campaign_record['questnos'] != null){?>
-                            <div class="col-sm-4 form-check form-switch " >
+                            <div class="col-sm-3 form-check form-switch " >
                              <label class="col-lable"><b>Questions(*.csv)</b></label>
                              <!-- <input type="checkbox" class="js-small f-right suppclass" name="suppchk" id="noneAboveCheckInclusion" value="" > -->
                              <!-- <div id="noneAboveInclusion"> -->
@@ -162,8 +186,18 @@ $(document).ready(function () {
                             </div>
                             <!-- </div> -->
                             <?php } ?>
+                            <?php if($campaign_record['assetid'] != 0 || $campaign_record['assetid'] != null){?>
+                            <div class="col-sm-3 form-check form-switch " >
+                             <label class="col-lable"><b>Asset Title(*.csv)</b></label>
+                             <!-- <input type="checkbox" class="js-small f-right suppclass" name="suppchk" id="noneAboveCheckInclusion" value="" > -->
+                             <!-- <div id="noneAboveInclusion"> -->
+                            <!-- <label class="f-left col-lable"><b>Inclusion(*.csv) </b> </label> -->
+                            <input type="file" name="userfileasset" class="form-control">
+                            </div>
+                            <!-- </div> -->
+                            <?php } ?>
                         </div>
-
+                        
 
                         <div class="form-group row">
                             

@@ -908,12 +908,12 @@
 					echo json_encode(array(
 						"statusCode"=>"Success",
 						"campaign_id"=>$addcampaigndata,
-						"message"=>"Campaign Updated Successfully.."
+						"message"=>"Campaign Added Successfully.."
 					));
 				}else{
 					echo json_encode(array(
 						"statusCode"=>"Fail",
-						"message"=>"Updated Campaign failed.."
+						"message"=>"Add Campaign failed.."
 					));
 				}
 								

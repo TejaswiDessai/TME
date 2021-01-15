@@ -724,7 +724,6 @@ $(function () {
                 cache: false,
                 success: function(response){
                     var text = response.statusCode;
-                    alert("resopnse");
                     console.log("check");
                    
                     if(response.statusCode == "Success") 

@@ -346,14 +346,14 @@
 			if(!empty($_GET['dcd'])) {
 			$deptStr = implode(',',$_GET['dcd']);
 				}
-			$empsizeStr = '';
-			if(!empty($_GET['emplzid'])) {
-			$empsizeStr = $_GET['emplzid'];
-				}
-			$revStr = '';
-			if(!empty($_GET['revid'])) {
-			$revStr = $_GET['revid'];
-				}
+			// $empsizeStr = '';
+			// if(!empty($_GET['emplzid'])) {
+			// $empsizeStr = $_GET['emplzid'];
+			// 	}
+			// $revStr = '';
+			// if(!empty($_GET['revid'])) {
+			// $revStr = $_GET['revid'];
+			// 	}
 			$desiStr = '';
 			if(!empty($_GET['desid'])) {
 			$desiStr = implode(',',$_GET['desid']);
@@ -400,33 +400,11 @@
 			if(!empty($_GET['revnubound_range'])) {
 			$revnubound_range = $_GET['revnubound_range'];
 			}
-			if(isset($emplbound) && isset($empubound) && $empsizeStr == 10 )
-			{
-				$post_data = array(
-					'emplbound' => $emplbound, 
-					'empubound' => $empubound,
-					'emplsizerange' => $emp_range,
-					// 'loaddt' => date("Y-m-d")
-					
-								
-				);
-				$empsizeStr = $this->Administrator_Model->add_employee_size($post_data);
-			}
-
-			if(isset($revnlbound) && isset($revnubound) && $revStr == 177)
-			{
-				$add_compsize = array(
-					'curr' => "USD",
-					'revnlbound' => $revnlbound, 
-					'nmlistlbound' => $revnlbound_range,
-					'revnubound' => $revnubound,
-					'nmlistubound' => $revnubound_range,
-					'rangelist' => $ren_range
-					
-								
-				);
-				$revStr = $this->Administrator_Model->add_compsize($add_compsize);
-			}
+			
+			$sdate=date_create($_GET['startdt']);
+			$cdate=date_create($_GET['estclosedt']);
+			$closedate = date_format($cdate,"Y/m/d");
+			$startdate = date_format($sdate,"Y/m/d");
 			$datacampaign = array(
 				'clientids' => $_GET['client_id'], 
 				'cids' => $_GET['campaign_id'],
@@ -435,18 +413,25 @@
 				'regioncode' => $regionStr,
 				'industrycd' => $industryStr,
 				'dcd' => $deptStr,
-				'emplzid' => $empsizeStr,
-				'comzid' => $revStr,
+				// 'emplzid' => $empsizeStr,
+				// 'comzid' => $revStr,
 				'tid' => $desiStr,
 				'suplistnew' =>$_GET['checksupp'],
 				'inclistnew' =>$_GET['inclist'],
 				'cdcneed' =>$_GET['cdqa'],
+				'assetid' => $_GET['assetid'],
 				'questnos' =>$_GET['quantity'],
 				'status' => $_GET['selectstatus'],			
-				'estclosedt' => $_GET['estclosedt'],
-				'startdt' => $_GET['startdt'],
+				'estclosedt' => $closedate,
+				'startdt' => $startdate,
 				'freqtyp' => $frequency_type,
-				'freqid' => $frequency
+				'freqid' => $frequency,
+				'emplbnd' => $emplbound, 
+				'empubnd' => $empubound,
+				'revlbnd' => $revnlbound, 
+				'revubnd' => $revnubound,
+				'revlbdim' => $revnlbound_range,
+				'revubdim' => $revnubound_range
 				// 'Modifieddt' => date("Y-m-d H:i:s")
 				
 								
@@ -908,12 +893,12 @@
 					echo json_encode(array(
 						"statusCode"=>"Success",
 						"campaign_id"=>$addcampaigndata,
-						"message"=>"Campaign Updated Successfully.."
+						"message"=>"Campaign Added Successfully.."
 					));
 				}else{
 					echo json_encode(array(
 						"statusCode"=>"Fail",
-						"message"=>"Updated Campaign failed.."
+						"message"=>"Add Campaign failed.."
 					));
 				}
 								

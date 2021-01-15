@@ -97,7 +97,7 @@ $(function () {
  // City change
  $('#region_id').change(function(){
    var region_id = $(this).val();
-    alert(region_id);
+    // alert(region_id);
    // AJAX request
    $.ajax({
      url:'<?php echo base_url("campaigns/getCountry");?>',
@@ -146,7 +146,7 @@ $(function () {
             <!-- Basic Form Inputs card start -->
             <div class="card" id="camp_form">
                 <div class="card-header">
-                    <h5>Add Campaign</h5>
+                    <h5>Update Campaign</h5>
                     <div class="card-header-right">
                         <i class="icofont icofont-rounded-down"></i>
                         <i class="icofont icofont-refresh"></i>
@@ -186,7 +186,7 @@ $(function () {
                             <div class="col-sm-3">
                                 <label class="col-lable"><b>Campaign Id</b></label>
                                  <?php // echo form_error('campaign_id'); ?>
-                                <input type="text" name="campaign_id" id="campaign_id" placeholder="EnterCampaign ID" value="<?php echo $post['cids']; ?>" 
+                                <input type="text" name="campaign_id" id="campaign_id"  value="<?php echo $post['cids']; ?>" 
                                 <?php echo (form_error('campaign_id')) ? 'class="form-control form-control-danger"' : 'class="form-control"';?>  onkeypress="return isNumber(event)">
                                 <span style='color:#FF0000' id="campaign_id_msg"></span>
                             </div>
@@ -199,14 +199,14 @@ $(function () {
                                 <span style='color:#FF0000' id="campaign_name_msg"></span>
                             </div>
                             <div class="col-sm-3">
-                                <label class="col-lable"><b>Select Designation</b></label><?php echo form_error('desid'); ?>
-                              <select class="js-example-basic-multiple col-sm-12" multiple="multiple" name="desid[]" id="desid">
-                                <?php foreach ($designation as $designation): ?>
-                                    <option value="<?php echo $post['tid']; ?>" <?php if($post['tid'] == $designation['tid']){ echo "selected" ; } ?>><?php echo $designation['designation']; ?></option>
+                                <label class="col-lable"><b>Department</b></label><?php echo form_error('dcd'); ?>
+                                <select class="js-example-basic-multiple col-sm-12" multiple="multiple" name="dcd[]" id="dcd">
+                                   <?php foreach ($departments as $dept): ?>
+                                    <option value="<?php echo $post['dcd']; ?>"  <?php if($post['dcd'] == $dept['dcd']){ echo "selected" ; } ?>><?php echo $dept['department']; ?></option>
                                 <?php endforeach; ?>
-                                   
                                 </select>
                             </div>
+                            
                         </div>
                       
                         <!-- <div class="form-group row">
@@ -219,10 +219,12 @@ $(function () {
                             </div>
                         </div> -->
 
-
+                                <?php
+                                $HiddenProducts = explode(',',$post['regioncode']);
+                                ?>
                         <div class="form-group row">
                             <div class="col-sm-3">
-                                <label class="col-lable"><b>World Region</b></label><?php echo form_error('region_id'); ?>
+                                <label class="col-lable"><b>World Region</b></label>
                                 <select class="js-example-basic-multiple col-sm-12" multiple="multiple" name="region_id" id="region_id">
                                 <?php foreach ($regions as $region): ?>
                                     <option value="<?php echo $post['regioncode']; ?>" <?php if($post['regioncode'] == $region['regioncode']){ echo "selected" ; } ?>><?php echo $region['region']; ?></option>
@@ -230,7 +232,7 @@ $(function () {
                                 
                                 </select>
                             </div>
-
+                            
                             <div class="col-sm-3">
                                 <label class="col-lable"><b>Select Country</b></label>  <?php echo form_error('country_id'); ?>
                                 <select class="js-example-basic-multiple col-sm-12" multiple="multiple" name="country_id[]" id="country_id">
@@ -240,7 +242,15 @@ $(function () {
                                 <?php endforeach; ?>
                                 </select>
                             </div>
-
+                            <div class="col-sm-3">
+                                <label class="col-lable"><b>Sector</b></label>
+                                <select class="js-example-basic-multiple col-sm-12 form-control-sm" multiple="multiple" name="sector_id[]" id="sector_id">
+                                <option value="0">All</option>
+                                     <?php //foreach ($industries as $industry): ?>
+                                    <!-- <option value="<?php //echo $industry['industrycd']; ?>"><?php //echo $industry['industry']; ?></option> -->
+                                <?php// endforeach; ?>
+                                </select>
+                            </div>
                             <div class="col-sm-3">
                                 <label class="col-lable"><b>Industry</b></label><?php echo form_error('industrycd'); ?>
                                 <select class="js-example-basic-multiple col-sm-12" multiple="multiple" name="industrycd[]" id="industrycd">
@@ -249,12 +259,26 @@ $(function () {
                                 <?php endforeach; ?>
                                 </select>
                             </div>
+                            
+                        </div>
+                        <div class="form-group row">
                             <div class="col-sm-3">
-                                <label class="col-lable"><b>Department</b></label><?php echo form_error('dcd'); ?>
-                                <select class="js-example-basic-multiple col-sm-12" multiple="multiple" name="dcd[]" id="dcd">
-                                   <?php foreach ($departments as $dept): ?>
-                                    <option value="<?php echo $post['dcd']; ?>"  <?php if($post['dcd'] == $dept['dcd']){ echo "selected" ; } ?>><?php echo $dept['department']; ?></option>
+                                <label class="col-lable"><b>Job Level</b></label>
+                              <select class="js-example-basic-multiple col-sm-12 form-control-sm" multiple="multiple" name="levelid[]" id="levelid">
+                              <option value="0">All</option>
+                                <?php //foreach ($designation as $designation): ?>
+                                    <!-- <option value="<?php //echo $designation['tid']; ?>"><?php //echo $designation['designation']; ?></option> -->
+                                <?php //endforeach; ?>
+                                   
+                                </select>
+                            </div>
+                            <div class="col-sm-3">
+                                <label class="col-lable"><b>Designation</b></label><?php echo form_error('desid'); ?>
+                              <select class="js-example-basic-multiple col-sm-12" multiple="multiple" name="desid[]" id="desid">
+                                <?php foreach ($designation as $designation): ?>
+                                    <option value="<?php echo $post['tid']; ?>" <?php if($post['tid'] == $designation['tid']){ echo "selected" ; } ?>><?php echo $designation['designation']; ?></option>
                                 <?php endforeach; ?>
+                                   
                                 </select>
                             </div>
                         </div>
@@ -277,146 +301,48 @@ $(function () {
                             </div>
                         </div> -->
 
-
-                        <div class="form-group row">
-                            <div class="col-sm-2">
-                                <label class="col-lable"><b>Select Employee Size</b></label><?php echo form_error('emplzid'); ?>
-                                <select class="js-example-basic-multiple col-sm-12" name="emplzid[]" id="emplzid">
-                                <?php foreach ($empsize as $empsize): ?>
-                                    <option value="<?php echo $post['emplzid']; ?>" <?php if($post['emplzid'] == $empsize['emplzid']){ echo "selected" ; } ?>><?php echo $empsize['emplsizerange']; ?></option>
-                                <?php endforeach; ?>
-                                    </select>
-                            </div>
-                            <div class="col-sm-2 section">
-                                    
-                                <label class="col-lable"><b>Select Lower Bound</b></label><?php echo form_error('emplbound'); ?>
-                                <select class="second-level-select js-example-basic-multiple col-sm-12"  name="emplbound" id="emplbound">
-                                    <?php foreach ($ubound as $ubound): ?>
-                                    <option value="<?php echo $post['emplbound']; ?>" <?php if($post['emplbound'] == $ubound['emplbound']){ echo "selected" ; } ?>><?php echo $ubound['emplbound']; ?></option>
-                                    <?php endforeach; ?>
-                                </select>
-                            </div>
-                            <div class="col-sm-2 section">
-                                <label class="col-lable"><b>Select Upper Bound</b></label><?php echo form_error('empubound'); ?>
-                                <select class="second-level-select js-example-basic-multiple col-sm-12"  name="empubound" id="empubound">
-                                    <?php foreach ($lbound as $lbound): ?>
-                                    <option value="<?php echo $post['empubound']; ?>" <?php if($post['empubound'] == $ubound['empubound']){ echo "selected" ; } ?>><?php echo $lbound['empubound']; ?></option>
-                                    <?php endforeach; ?>
-                                </select>
-                            </div>
-                              
-                            <!-- </div>
-                        </div> -->
-                        
-                        <!-- </div> -->
-                        <!-- <div class="form-group row"> -->
-                            
-                            <div class="col-sm-2">
-                                    <label class="col-lable"><b>Select Revenue Size</b></label><?php echo form_error('revid'); ?>
-                                    <select class="js-example-basic-multiple col-sm-12" name="revid[]" id="revid">
-                                        <?php foreach ($revsize as $revsize): ?>
-                                            <option value="<?php echo $post['comzid']; ?>" <?php if($post['comzid'] == $revsize['comzid']){ echo "selected" ; } ?>><?php echo $revsize['rangelist']; ?></option>
-                                        <?php endforeach; ?>
-                                    </select>
-                            </div>
-                            <!-- <div class="panel"> -->
-                            <!-- <div class="col-sm-9"> -->
-                            
-                            <div class="col-sm-2 panel">
-                                <!-- <div class="senior-airman"> -->
-                                <label class="col-lable"><b>Select Lower Bound</b></label><?php echo form_error('emplbound'); ?>
-                                <select class="second-level-select js-example-basic-multiple col-sm-12"  name="revnlbound" id="revnlbound">
-                                <option value="">Select </option>
-                                    <?php foreach ($revnubound as $revnubound): ?>
-                                    <option value="<?php echo $post['revnlbound']; ?>" <?php if($post['revnlbound'] == $revnubound['revnlbound']){ echo "selected" ; } ?>><?php echo $revnubound['revnlbound']; ?></option>
-                                    <?php endforeach; ?>
-                                </select>
-                                <!-- </div> -->
-                            </div>
-                            <div class="col-sm-2 panel">
-                                <label class="col-lable "><b>NM List Bount</b></label>
-
-                                <select name="selectstatus" class="form-control form-control-default" id="revnlbound_range">
-                                    <option value="">Select </option>
-                                    <option value="hundred " <?php if($post['revnlbound'] == "hundred"){ echo "selected" ; } ?>>Hundred </option>
-                                    <option value="thousand" <?php if($post['revnlbound'] == "thousand"){ echo "selected" ; } ?>>Thousand</option>
-                                    <option value="million" <?php if($post['revnlbound'] == "million"){ echo "selected" ; } ?>>Million</option>
-                                    <option value="billion" <?php if($post['revnlbound'] == "billion"){ echo "selected" ; } ?>>Billion </option>
-                                    <option value="trillion" <?php if($post['revnlbound'] == "trillion"){ echo "selected" ; } ?>>trillion </option>
-                                </select>
-                            </div>
-                            <div class="col-sm-2 panel">
-                                
-                                <!-- <div class="airman"> -->
-                                    <label class="col-lable"><b>Select Upper Bound</b></label><?php echo form_error('revnubound'); ?>
-                                    <select class="second-level-select js-example-basic-multiple col-sm-12"  name="revnubound" id="revnubound">
-                                   
-                                        <?php foreach ($revnlbound as $revnlbound): ?>
-                                            <option value="">Select </option>
-                                        <option value="<?php echo $revnlbound['revnubound']; ?>" <?php if($post['revnubound'] == $revnlbound['revnubound']){ echo "selected" ; } ?>><?php echo $revnlbound['revnubound']; ?></option>
-                                        <?php endforeach; ?>
-                                    </select>
-                                <!-- </div> -->
-                            </div>
-                            <div class="col-sm-2 panel">
-                                <label class="col-lable "><b>NM List Bount</b></label>
-
-                                <select name="selectstatus" class="form-control form-control-default" id="revnubound_range">
-                                    <option value="">Select </option>
-                                    <option value="hundred ">Hundred </option>
-                                    <option value="thousand">Thousand</option>
-                                    <option value="million">Million</option>
-                                    <option value="billion ">Billion </option>
-                                    <option value="trillion ">trillion </option>
-                                    
-                                </select>
-                            </div>
-                              
-                            <!-- </div> -->
-                            
-
-                        </div>
-
-                        <!-- <div class="form-group row">
-                        <div class="col-sm-3">
-                                <label class="col-lable"><b>Select Designation</b></label><?php echo form_error('desid'); ?>
-                              <select class="js-example-basic-multiple col-sm-12" multiple="multiple" name="desid[]" id="desid">
-                                <?php foreach ($designation as $designation): ?>
-                                    <option value="<?php echo $designation['tid']; ?>"><?php echo $designation['designation']; ?></option>
-                                <?php endforeach; ?>
-                                   
-                                </select>
-                            </div>
-                        </div> -->
-
+                        <hr>
                         <div class="form-group row">
                            
                             <div class="col-sm-2">
                                 <label class="f-left col-lable"><b>Suppression List</b> </label>
                             </div>
-                            <div class="col-sm-2" id="mybtn"> 
+                            <div class="col-sm-1" id="mybtn"> 
                                 <input type="checkbox" <?php if($post['suplistnew'] == '1'){ echo "checked" ; } ?> class="js-small f-right suppclass" name="suppchk" id="uho" value="" >
                             </div>
                             <div class="col-sm-2">
                                 <label class="f-left col-lable"><b>Inclusion Account List  </b> </label>
                             </div>
-                            <div class="col-sm-2"> 
+                            <div class="col-sm-1"> 
                                 <input type="checkbox" <?php if($post['inclistnew'] == '1'){ echo "checked" ; } ?> class="js-small f-right" name="inclist[]" value="" id="inclist">
                             </div>
                             <div class="col-sm-2">
                                             <label class="f-left col-lable"><b>CDQA Needed?</b> </label>
                               </div>
-                            <div class="col-sm-2">
+                            <div class="col-sm-1">
                              <input type="checkbox" class="js-small f-right"  <?php if($post['cdcneed'] == '1'){ echo "checked" ; } ?> name="cdqa[]" value="" id="cdqa">
                                </div>
-                            <!-- <div class="col-sm-4">   
-                                <input type="file" name="files[]" class="form-control">
-                            </div> -->
+                               <div class="col-sm-2">
+                                            <label class="f-left col-lable"><b>Asset Title</b> </label>
+                              </div>
+                            <div class="col-sm-1">
+                             <input type="checkbox" class="js-small f-right"  <?php if($post['assetid'] == '1'){ echo "checked" ; } ?> name="cdqa[]" value="" id="cdqa">
+                               </div>
+                            
                                  
                         </div>
-                        
-                      
+                        <hr>
                         <div class="form-group row">
+                            
+                            <div class="col-sm-2">
+                                    
+                                <label class="col-lable"><b>Select Lower Bound</b></label>
+                                <input type="text"   name="emplbound"  value="<?php echo $post['emplbnd']; ?>"  id="emplbound" class="form-control form-control-sm" onkeypress="return isNumber(event)" >
+                            </div>
+                            <div class="col-sm-2 ">
+                                <label class="col-lable"><b>Select Upper Bound</b></label><?php echo form_error('empubound'); ?>
+                                <input type="text"   name="empubound"  value="<?php echo $post['empubnd']; ?>"  id="empubound" class="form-control form-control-sm" onkeypress="return isNumber(event)" >
+                            </div>
                             <div class="col-sm-3">
                                 <label class="col-lable"><b>Frequency Type</b></label>
                                 <select class="js-example-basic-multiple col-sm-12"  name="frequency_type" id="frequency_type">
@@ -441,20 +367,71 @@ $(function () {
                                    <input  type="number" id="quantity" name="quantity" min="1" max="12" maxlength="2" value="<?php echo $post['questnos'];?>"
                                     <?php echo (form_error('quantity')) ? 'class="form-control form-control-danger"' :'class="form-control"';?> >
                                </div>
-                        </div>
+                          </div>
+                        <!-- </div>  -->
                         
+                        <!-- </div> -->
                         <div class="form-group row">
-                              <div class="col-sm-3">
-                                <label class="col-lable"><b>Asset Title</b></label>
+                            <div class="col-sm-2 ">
+                                <!-- <div class="senior-airman"> -->
+                                <label class="col-lable"><b>Select Lower Bound</b></label><?php echo form_error('emplbound'); ?>
+                                <input type="text"   name="revnlbound"  value="<?php echo $post['revlbnd']; ?>"  id="revnlbound" class="form-control form-control-sm" onkeypress="return isNumber(event)" >
+                                
+                                <!-- </div> -->
+                            </div>
+                            <div class="col-sm-2 ">
+                                <label class="col-lable "><b>NM List Bount</b></label>
 
-                                <select class="js-example-basic-multiple col-sm-12" multiple="multiple" name="assetid[]" id="assetid">
-                                <?php foreach ($assetitle as $assetitle): ?>
-                                    <option value="<?php echo $assetitle['assetid']; ?>" <?php if($post['assetnew'] == $assetitle['assetid']){ echo "selected" ; } ?>><?php echo $assetitle['title']; ?></option>
-                                <?php endforeach; ?>
+                                <select name="selectstatus" class="form-control form-control-default" id="revnlbound_range">
+                                    <option value="">Select </option>
+                                    <option value="hundred " <?php if($post['revlbdim'] == "hundred"){ echo "selected" ; } ?>>Hundred Thousand</option>
+                                    <option value="million" <?php if($post['revlbdim'] == "million"){ echo "selected" ; } ?>>Million</option>
+                                    <option value="billion" <?php if($post['revlbdim'] == "billion"){ echo "selected" ; } ?>>Billion </option>
+                                    <option value="trillion" <?php if($post['revlbdim'] == "trillion"){ echo "selected" ; } ?>>trillion </option>
                                 </select>
                             </div>
+                            <div class="col-sm-2 ">
+                                
+                                <!-- <div class="airman"> -->
+                                    <label class="col-lable"><b>Select Upper Bound</b></label>
+                                    <input type="text"   name="revnubound"  value="<?php echo $post['revubnd']; ?>"  id="revnubound" class="form-control form-control-sm" onkeypress="return isNumber(event)" >
+                                    
+                            </div>
+                            <div class="col-sm-2 ">
+                                <label class="col-lable "><b>NM List Bount</b></label>
+
+                                <select name="selectstatus" class="form-control form-control-default" id="revnubound_range">
+                                    <option value="">Select </option>
+                                    <option value="hundred " <?php if($post['revubdim'] == "hundred"){ echo "selected" ; } ?>>Hundred Thousand</option>
+                                    <option value="million" <?php if($post['revubdim'] == "million"){ echo "selected" ; } ?>>Million</option>
+                                    <option value="billion" <?php if($post['revubdim'] == "billion"){ echo "selected" ; } ?>>Billion </option>
+                                    <option value="trillion" <?php if($post['revubdim'] == "trillion"){ echo "selected" ; } ?>>trillion </option>
+                                    
+                                </select>
+                            </div>
+                              
+                            <!-- </div> -->
+                            
+
+                        </div>
+
+                        <!-- <div class="form-group row">
+                        <div class="col-sm-3">
+                                <label class="col-lable"><b>Select Designation</b></label><?php echo form_error('desid'); ?>
+                              <select class="js-example-basic-multiple col-sm-12" multiple="multiple" name="desid[]" id="desid">
+                                <?php foreach ($designation as $designation): ?>
+                                    <option value="<?php echo $designation['tid']; ?>"><?php echo $designation['designation']; ?></option>
+                                <?php endforeach; ?>
+                                   
+                                </select>
+                            </div>
+                        </div> -->
+
+                        <hr>
+                        <div class="form-group row">
+                             
                               <div class="col-sm-3">
-                                <label class="col-lable"><b>Live Status</b></label>
+                                <label class="col-lable"><b>Current Status</b></label>
 
                                 <select name="selectstatus" class="form-control form-control-default" id="selectstatus">
                                     <option value="2">Open</option>
@@ -463,16 +440,16 @@ $(function () {
                                 </select>
                                 <span style='color:#FF0000' id="selectstatus_msg"></span>
                             </div>
-
-                            <div class="col-sm-3">
-                                <label class="col-lable"><b>Est Completion Date</b></label> <?php echo form_error('estclosedt'); ?>
-                                <input type="date" id="estclosedt"  name="estclosedt" value="<?php echo $post['estclosedt'];?>" <?php echo (form_error('estclosedt')) ? 'class="form-control form-control-danger"' :'class="form-control"';?> >
-                            </div>
                             <div class="col-sm-3">
                                 <label class="col-lable"><b>Start Date</b></label> <?php echo form_error('startdt'); ?>
                                 <input type="date" id="startdt"  name="startdt" value="<?php echo $post['startdt'];?>"  <?php echo (form_error('startdt')) ? 'class="form-control form-control-danger"' :'class="form-control"';?>>
                                 <span style='color:#FF0000' id="startdt_msg"></span>
                             </div>
+                            <div class="col-sm-3">
+                                <label class="col-lable"><b>Est Completion Date</b></label> <?php echo form_error('estclosedt'); ?>
+                                <input type="date" id="estclosedt"  name="estclosedt" value="<?php echo $post['estclosedt'];?>" <?php echo (form_error('estclosedt')) ? 'class="form-control form-control-danger"' :'class="form-control"';?> >
+                            </div>
+                            
 
                         </div>
                         
@@ -571,11 +548,13 @@ $(function () {
             var client_id = $('#client_id').val();
             var campaign_name = $('#campaign_name').val();
             var country_id = $('#country_id').val(); 
-            var region_id = $('#region_id').val(); 
+            var region_id = $('#region_id').val();
+            // var theRemovedElement = region_id.shift();  
             var industrycd = $('#industrycd').val(); 
+            // alert(industrycd);
             var dcd = $('#dcd').val(); 
-            var emplzid = $('#emplzid').val(); 
-            var revid = $('#revid').val(); 
+            // var emplzid = $('#emplzid').val(); 
+            // var revid = $('#revid').val(); 
             var desid = $('#desid').val();
             var emplbound = $('#emplbound').val();
             var empubound = $('#empubound').val();
@@ -658,8 +637,16 @@ $(function () {
             {
                 cdqa = 0;
             }
+            var assetid = $('#assetid').prop('checked');
+            if(assetid == true)
+            {
+                assetid = 1;
+            }
+            else
+            {
+                assetid = 0;
+            }
             var quantity = $('#quantity').val();
-            
             var estclosedt = $('#estclosedt').val();
             
 
@@ -675,12 +662,11 @@ $(function () {
                     region_id:region_id,
                     industrycd:industrycd,
                     dcd:dcd,
-                    emplzid:emplzid,
-                    revid:revid,
                     desid:desid,
                     checksupp:checksupp,
                     inclist:inclist,
                     cdqa:cdqa,
+                    assetid:assetid,
                     quantity:quantity,
                     selectstatus:selectstatus,
                     estclosedt:estclosedt,

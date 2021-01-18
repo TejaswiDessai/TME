@@ -480,13 +480,14 @@
 		public function ajax_add_suppression_list()
 		{
 			$camp_id = $_POST['camp_id'];
-			$excltyp = $_POST['suptyp'];
+			$suptyp = $_POST['suptyp'];
 			$period = $_POST['period'];
 			$connect = pg_connect("host=localhost dbname=Forerunner user=postgres password=password@123");
 
 			if(isset($_FILES['suplistnew_email']['name']))
 			{
 				$filename = explode(".", $_FILES['suplistnew_email']['name']);
+				$ex_email_file = $filename[0].".".$filename[1];
 				if($filename[1] == 'csv')
 				{
 					$handle = fopen($_FILES['suplistnew_email']['tmp_name'], "r");
@@ -499,7 +500,7 @@
 						//$item36= mysqli_real_escape_string($connect, $data[35]);
 
 						//$item5 = mysqli_real_escape_string($connect, $data[4]);
-						$query = "INSERT into emaillist(cid,filename,emailids)values('$camp_id','$excltyp','$item1')";
+						$query = "INSERT into emaillist(cid,filename,emailids,datatype,exclincl,period)values('$camp_id','$ex_email_file','$item1','$suptyp','0',$period)";
 						// show_error($this->db->last_query(), 200, "SQL");
 						$result = pg_query($connect, $query);
 						if (!$result) {
@@ -518,13 +519,14 @@
 				if(isset($_FILES['suplistnew_company']['name']))
 				{
 					$filename = explode(".", $_FILES['suplistnew_company']['name']);
+					$ex_company_file = $filename[0].".".$filename[1];
 					if($filename[1] == 'csv')
 					{
 						$handle = fopen($_FILES['suplistnew_company']['tmp_name'], "r");
 						while($data = fgetcsv($handle))
 						{
 							$item1 = pg_escape_string ($connect, $data[0]);  
-							$query = "INSERT into complist(cid,filename,companynms)values('$camp_id','$excltyp','$item1')";
+							$query = "INSERT into complist(cid,filename,companynms,datatype,exlincl,period)values('$camp_id','$ex_company_file','$item1','$suptyp','0',$period)";
 							// $item2 = pg_escape_string ($connect, $data[1]);
 							// $item3 = pg_escape_string ($connect, $data[2]);
 						
@@ -550,13 +552,14 @@
 			if(isset($_FILES['suplistnew_domain']['name']))
 			{
 				$filename = explode(".", $_FILES['suplistnew_domain']['name']);
+				$ex_domain_file = $filename[0].".".$filename[1];
 				if($filename[1] == 'csv')
 				{
 					$handle = fopen($_FILES['suplistnew_domain']['tmp_name'], "r");
 					while($data = fgetcsv($handle))
 					{
 						$item1 = pg_escape_string ($connect, $data[0]);  
-						$query = "INSERT into domainlist(cid,filename,domainnms)values('$camp_id','$excltyp','$item1')";
+						$query = "INSERT into domainlist(cid,filename,domainnms,datatype,inclexcl,period)values('$camp_id','$ex_domain_file','$item1','$suptyp','0',$period)";
 						// $item2 = pg_escape_string ($connect, $data[1]);
 						// $item3 = pg_escape_string ($connect, $data[2]);
 					
@@ -581,9 +584,10 @@
 				}
 
 				// Inclusion file upload
-				if(isset($_FILES['inclistnew_email']['name']))
+			if(isset($_FILES['inclistnew_email']['name']))
 			{
 				$filename = explode(".", $_FILES['inclistnew_email']['name']);
+				$in_email_file = $filename[0].".".$filename[1];
 				if($filename[1] == 'csv')
 				{
 					$handle = fopen($_FILES['inclistnew_email']['tmp_name'], "r");
@@ -596,7 +600,7 @@
 						//$item36= mysqli_real_escape_string($connect, $data[35]);
 
 						//$item5 = mysqli_real_escape_string($connect, $data[4]);
-						$query = "INSERT into emaillist(cid,filename,emailids)values('$camp_id','$excltyp','$item1')";
+						$query = "INSERT into emaillist(cid,filename,emailids,domainnms,datatype,exclincl,period)values('$camp_id','$in_email_file','$item1','$suptyp','1',$period)";
 						// show_error($this->db->last_query(), 200, "SQL");
 						$result = pg_query($connect, $query);
 						if (!$result) {
@@ -615,13 +619,14 @@
 				if(isset($_FILES['inclistnew_company']['name']))
 				{
 					$filename = explode(".", $_FILES['inclistnew_company']['name']);
+					$in_company_file = $filename[0].".".$filename[1];
 					if($filename[1] == 'csv')
 					{
 						$handle = fopen($_FILES['inclistnew_company']['tmp_name'], "r");
 						while($data = fgetcsv($handle))
 						{
 							$item1 = pg_escape_string ($connect, $data[0]);  
-							$query = "INSERT into complist(cid,filename,companynms)values('$camp_id','$excltyp','$item1')";
+							$query = "INSERT into complist(cid,filename,companynms,datatype,exlincl,period)values('$camp_id','$in_company_file','$item1','$suptyp','1',$period)";
 							// $item2 = pg_escape_string ($connect, $data[1]);
 							// $item3 = pg_escape_string ($connect, $data[2]);
 						
@@ -647,13 +652,14 @@
 			if(isset($_FILES['inclistnew_domain']['name']))
 			{
 				$filename = explode(".", $_FILES['inclistnew_domain']['name']);
+				$in_domain_file = $filename[0].".".$filename[1];
 				if($filename[1] == 'csv')
 				{
 					$handle = fopen($_FILES['inclistnew_domain']['tmp_name'], "r");
 					while($data = fgetcsv($handle))
 					{
 						$item1 = pg_escape_string ($connect, $data[0]);  
-						$query = "INSERT into domainlist(cid,filename,domainnms)values('$camp_id','$excltyp','$item1')";
+						$query = "INSERT into domainlist(cid,filename,domainnms,datatype,inclexcl,period)values('$camp_id','$in_domain_file','$item1','$suptyp','1',$period)";
 						// $item2 = pg_escape_string ($connect, $data[1]);
 						// $item3 = pg_escape_string ($connect, $data[2]);
 					

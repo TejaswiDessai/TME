@@ -165,6 +165,27 @@
 			return $query->result_array(); 
 
 		}
+		public function get_countriesbyCampaign($cnid){
+			$this->db->select('*');
+			$this->db->join('country', 'country.countrycd = CAST(campaign.countrycd as smallint)');
+			$this->db->where('campaign.cnid', $cnid);
+			$query = $this->db->get('campaign');
+			
+			return $query->result_array(); 
+
+		}
+		public function get_timezonesbyCampaign($cnid){
+			// $this->db->select('*');
+			$this->db->select('timezone.zoneid,timezone.zonename');
+			$this->db->group_by('timezone.zoneid');
+			$this->db->group_by('timezone.zonename');
+			$this->db->join('timezone', 'timezone.countrycd = CAST(campaign.countrycd as smallint)');
+			$this->db->where('campaign.cnid', $cnid);
+			$query = $this->db->get('campaign');
+			
+			return $query->result_array(); 
+
+		}
 		public function get_assetitle_byCampaign($cnid){
 			$this->db->select('*');
 			$this->db->where('cids', $cnid);

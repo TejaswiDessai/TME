@@ -23,7 +23,7 @@
 						
 
                         $data['clients'] = $this->Administrator_Model->get_clients();
-                        $data['countries'] = $this->Administrator_Model->get_countries();
+                        $data['countries'] = $this->Administrator_Model->get_countriesbyCampaign($camp_id);
                         $data['regions'] = $this->Administrator_Model->get_regions();
 						$data['industries'] = $this->Administrator_Model->get_industries_byCampaign($camp_id);
 						$data['industries'] = $this->Administrator_Model->get_subindustries_byCampaign($camp_id);
@@ -33,7 +33,8 @@
                         $data['revsize'] = $this->Administrator_Model->get_revenuesize();
 						$data['designation'] = $this->Administrator_Model->get_designation_byCampaign($camp_id);
 					
-						$data['timezones'] = $this->Administrator_Model->get_timezones();
+						$data['timezones'] = $this->Administrator_Model->get_timezonesbyCampaign($camp_id);
+						// print_r($data['timezones']);
 						$data['lbound'] = $this->Administrator_Model->get_empsize();
 						$data['ubound'] = $this->Administrator_Model->get_empsize();
 

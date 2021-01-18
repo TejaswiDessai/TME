@@ -266,7 +266,7 @@ $(document).ready(function() {
                               <select class="form-control form-control-sm cdqadisable"  name="timezone[]" id="timezone">
                               <option value="">Timezone</option>
                               <?php foreach ($timezones as $tz): ?>
-                                    <option value="<?php echo $tz['zoneid']; ?>"><?php echo $tz['timezonenm']; ?></option>
+                                    <option value="<?php echo $tz['zoneid']; ?>"><?php echo $tz['zonename']; ?></option>
                                 <?php endforeach; ?> 
                                 </select>
                             </div>

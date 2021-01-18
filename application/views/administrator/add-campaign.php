@@ -36,6 +36,47 @@ $(function () {
         }
     });
 });
+
+$(function(){
+    $('#revnlbound_range').change(function(){
+        
+        if($(this).attr('id') == 'revnlbound_range' && $(this).val() == 'hundred'){
+            // alert("hundred");
+            $("#revnubound_range option").not(':first-child').each(function (index) {
+                $(this).prop('disabled', false);
+            });
+            $('#revnubound_range').val($(this).val());
+        }
+        else if($(this).attr('id') == 'revnlbound_range' && $(this).val() == 'million'){
+            // alert("million");
+            var check = "hundred";
+            $('option[disabled]').prop('disabled', false);
+            $('select').each(function() {
+            $('#revnubound_range').not(this).find('option[value="' + check + '"]').prop('disabled', true); 
+            });
+            $('#revnubound_range').val($(this).val());
+        } 
+        else if($(this).attr('id') == 'revnlbound_range' && $(this).val() == 'billion'){
+            var check = "hundred";
+            var check2 = "million";
+            $('option[disabled]').prop('disabled', false);
+            $('#revnubound_range').val($(this).val());
+            $('select').each(function() {
+                $('#revnubound_range').not(this).find('option[value="' + check + '"]').prop('disabled', true); 
+                $('#revnubound_range').not(this).find('option[value="' + check2 + '"]').prop('disabled', true); 
+            });
+            
+        } 
+        else if($(this).attr('id') == 'revnlbound_range' && $(this).val() == 'trillion'){
+            // alert($(this).val());
+            $('#revnubound_range').val($(this).val());
+            $("#revnubound_range option").not(':last-child').each(function (index) {
+                $(this).prop('disabled', true);
+            });
+            
+        }  
+    });
+});
 </script>
 <script>
 var base_url = "<?php echo base_url() ?>";
@@ -484,7 +525,7 @@ $(function () {
                                     <option value="">Select </option>
                                     <option value="hundred">Hundred Thousand </option>
                                     <option value="million">Million</option>
-                                    <option value="billion">Billion </option>
+                                    <option value="billion">Billion</option>
                                     <option value="trillion">Trillion </option>
                                 </select>
                             </div>
@@ -509,8 +550,8 @@ $(function () {
                                     <option value="">Select </option>
                                     <option value="hundred">Hundred Thousand </option>
                                     <option value="million">Million</option>
-                                    <option value="billion ">Billion </option>
-                                    <option value="trillion ">Trillion </option>
+                                    <option value="billion">Billion</option>
+                                    <option value="trillion">Trillion</option>
                                     
                                 </select>
                             </div>

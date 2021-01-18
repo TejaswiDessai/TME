@@ -293,10 +293,28 @@
 			// get data 
 			$data = $this->Administrator_Model->getCountry($region_id);
 			echo json_encode($data); 
-		  }
+		}
+
+		public function getIndustry(){ 
 		
-		  public function update_campaign($id = NULL)
-		  {
+		$sector_id = $_GET['sector_id'];
+		$desiStr = implode(',',$sector_id);
+		// get data 
+		$data = $this->Administrator_Model->getIndustry($sector_id);
+		echo json_encode($data); 
+		}
+
+		public function getJobTitle(){ 
+		
+			$levelid = $_GET['levelid'];
+			// $desiStr = implode(',',$levelid);
+			// get data 
+			$data = $this->Administrator_Model->getJobTitle($levelid);
+			echo json_encode($data); 
+		}
+		
+		public function update_campaign($id = NULL)
+		{
 			$data['clients'] = $this->Administrator_Model->get_clients();
 			$data['countries'] = $this->Administrator_Model->get_countries();
 			$data['regions'] = $this->Administrator_Model->get_regions();
@@ -462,27 +480,27 @@
 		public function ajax_add_suppression_list()
 		{
 			$camp_id = $_POST['camp_id'];
-			$excltyp = $_POST['suptyp'];
+			$suptyp = $_POST['suptyp'];
 			$period = $_POST['period'];
 			$connect = pg_connect("host=localhost dbname=Forerunner user=postgres password=password@123");
 
-			if(isset($_FILES['userfile']['name']))
+			if(isset($_FILES['suplistnew_email']['name']))
 			{
-				$filename = explode(".", $_FILES['userfile']['name']);
+				$filename = explode(".", $_FILES['suplistnew_email']['name']);
+				$ex_email_file = $filename[0].".".$filename[1];
 				if($filename[1] == 'csv')
 				{
-					$handle = fopen($_FILES['userfile']['tmp_name'], "r");
+					$handle = fopen($_FILES['suplistnew_email']['tmp_name'], "r");
 					while($data = fgetcsv($handle))
 					{
 						$item1 = pg_escape_string ($connect, $data[0]);  
-						$item2 = pg_escape_string ($connect, $data[1]);
-						$item3 = pg_escape_string ($connect, $data[2]);
+						// $item2 = pg_escape_string ($connect, $data[1]);
+						// $item3 = pg_escape_string ($connect, $data[2]);
 					
 						//$item36= mysqli_real_escape_string($connect, $data[35]);
 
 						//$item5 = mysqli_real_escape_string($connect, $data[4]);
-						$query = "INSERT into exclusion(excltyp,campid,aclist,domainlist,maillist,period
-						)values('$excltyp','$camp_id','$item1','$item2','$item3','$period')";
+						$query = "INSERT into emaillist(cid,filename,emailids,datatype,exclincl,period)values('$camp_id','$ex_email_file','$item1','$suptyp','0',$period)";
 						// show_error($this->db->last_query(), 200, "SQL");
 						$result = pg_query($connect, $query);
 						if (!$result) {
@@ -498,23 +516,25 @@
 					}
 				}
 
-				if(isset($_FILES['userfileincl']['name']))
+				if(isset($_FILES['suplistnew_company']['name']))
 				{
-					$filename = explode(".", $_FILES['userfileincl']['name']);
+					$filename = explode(".", $_FILES['suplistnew_company']['name']);
+					$ex_company_file = $filename[0].".".$filename[1];
 					if($filename[1] == 'csv')
 					{
-						$handle = fopen($_FILES['userfileincl']['tmp_name'], "r");
+						$handle = fopen($_FILES['suplistnew_company']['tmp_name'], "r");
 						while($data = fgetcsv($handle))
 						{
 							$item1 = pg_escape_string ($connect, $data[0]);  
-							$item2 = pg_escape_string ($connect, $data[1]);
-							$item3 = pg_escape_string ($connect, $data[2]);
+							$query = "INSERT into complist(cid,filename,companynms,datatype,exlincl,period)values('$camp_id','$ex_company_file','$item1','$suptyp','0',$period)";
+							// $item2 = pg_escape_string ($connect, $data[1]);
+							// $item3 = pg_escape_string ($connect, $data[2]);
 						
 							//$item36= mysqli_real_escape_string($connect, $data[35]);
 	
 							//$item5 = mysqli_real_escape_string($connect, $data[4]);
-							$query = "INSERT into inclusion(incltyp,campid,aclist,domainlist,maillist,period
-							)values('$excltyp','$camp_id','$item1','$item2','$item3','$period')";
+							// $query = "INSERT into inclusion(incltyp,campid,aclist,domainlist,maillist,period
+							// )values('$excltyp','$camp_id','$item1','$item2','$item3','$period')";
 							// show_error($this->db->last_query(), 200, "SQL");
 							$result = pg_query($connect, $query);
 							if (!$result) {
@@ -528,8 +548,141 @@
 							fclose($handle);
 					
 						}
-					}
+				}
+			if(isset($_FILES['suplistnew_domain']['name']))
+			{
+				$filename = explode(".", $_FILES['suplistnew_domain']['name']);
+				$ex_domain_file = $filename[0].".".$filename[1];
+				if($filename[1] == 'csv')
+				{
+					$handle = fopen($_FILES['suplistnew_domain']['tmp_name'], "r");
+					while($data = fgetcsv($handle))
+					{
+						$item1 = pg_escape_string ($connect, $data[0]);  
+						$query = "INSERT into domainlist(cid,filename,domainnms,datatype,inclexcl,period)values('$camp_id','$ex_domain_file','$item1','$suptyp','0',$period)";
+						// $item2 = pg_escape_string ($connect, $data[1]);
+						// $item3 = pg_escape_string ($connect, $data[2]);
+					
+						//$item36= mysqli_real_escape_string($connect, $data[35]);
 
+						//$item5 = mysqli_real_escape_string($connect, $data[4]);
+						// $query = "INSERT into inclusion(incltyp,campid,aclist,domainlist,maillist,period
+						// )values('$excltyp','$camp_id','$item1','$item2','$item3','$period')";
+						// show_error($this->db->last_query(), 200, "SQL");
+						$result = pg_query($connect, $query);
+						if (!$result) {
+							die('Invalid query: ' . pg_result_error($connect));
+						}
+						else{
+						//echo "<script>alert('Import done');</script>";
+						}
+							
+						}
+						fclose($handle);
+				
+					}
+				}
+
+				// Inclusion file upload
+			if(isset($_FILES['inclistnew_email']['name']))
+			{
+				$filename = explode(".", $_FILES['inclistnew_email']['name']);
+				$in_email_file = $filename[0].".".$filename[1];
+				if($filename[1] == 'csv')
+				{
+					$handle = fopen($_FILES['inclistnew_email']['tmp_name'], "r");
+					while($data = fgetcsv($handle))
+					{
+						$item1 = pg_escape_string ($connect, $data[0]);  
+						// $item2 = pg_escape_string ($connect, $data[1]);
+						// $item3 = pg_escape_string ($connect, $data[2]);
+					
+						//$item36= mysqli_real_escape_string($connect, $data[35]);
+
+						//$item5 = mysqli_real_escape_string($connect, $data[4]);
+						$query = "INSERT into emaillist(cid,filename,emailids,domainnms,datatype,exclincl,period)values('$camp_id','$in_email_file','$item1','$suptyp','1',$period)";
+						// show_error($this->db->last_query(), 200, "SQL");
+						$result = pg_query($connect, $query);
+						if (!$result) {
+							die('Invalid query: ' . pg_result_error($connect));
+						}
+						else{
+						// echo "<script>alert('Import done');</script>";
+						}
+							
+						}
+						fclose($handle);
+				
+					}
+				}
+
+				if(isset($_FILES['inclistnew_company']['name']))
+				{
+					$filename = explode(".", $_FILES['inclistnew_company']['name']);
+					$in_company_file = $filename[0].".".$filename[1];
+					if($filename[1] == 'csv')
+					{
+						$handle = fopen($_FILES['inclistnew_company']['tmp_name'], "r");
+						while($data = fgetcsv($handle))
+						{
+							$item1 = pg_escape_string ($connect, $data[0]);  
+							$query = "INSERT into complist(cid,filename,companynms,datatype,exlincl,period)values('$camp_id','$in_company_file','$item1','$suptyp','1',$period)";
+							// $item2 = pg_escape_string ($connect, $data[1]);
+							// $item3 = pg_escape_string ($connect, $data[2]);
+						
+							//$item36= mysqli_real_escape_string($connect, $data[35]);
+	
+							//$item5 = mysqli_real_escape_string($connect, $data[4]);
+							// $query = "INSERT into inclusion(incltyp,campid,aclist,domainlist,maillist,period
+							// )values('$excltyp','$camp_id','$item1','$item2','$item3','$period')";
+							// show_error($this->db->last_query(), 200, "SQL");
+							$result = pg_query($connect, $query);
+							if (!$result) {
+								die('Invalid query: ' . pg_result_error($connect));
+							}
+							else{
+							//echo "<script>alert('Import done');</script>";
+							}
+								
+							}
+							fclose($handle);
+					
+						}
+				}
+			if(isset($_FILES['inclistnew_domain']['name']))
+			{
+				$filename = explode(".", $_FILES['inclistnew_domain']['name']);
+				$in_domain_file = $filename[0].".".$filename[1];
+				if($filename[1] == 'csv')
+				{
+					$handle = fopen($_FILES['inclistnew_domain']['tmp_name'], "r");
+					while($data = fgetcsv($handle))
+					{
+						$item1 = pg_escape_string ($connect, $data[0]);  
+						$query = "INSERT into domainlist(cid,filename,domainnms,datatype,inclexcl,period)values('$camp_id','$in_domain_file','$item1','$suptyp','1',$period)";
+						// $item2 = pg_escape_string ($connect, $data[1]);
+						// $item3 = pg_escape_string ($connect, $data[2]);
+					
+						//$item36= mysqli_real_escape_string($connect, $data[35]);
+
+						//$item5 = mysqli_real_escape_string($connect, $data[4]);
+						// $query = "INSERT into inclusion(incltyp,campid,aclist,domainlist,maillist,period
+						// )values('$excltyp','$camp_id','$item1','$item2','$item3','$period')";
+						// show_error($this->db->last_query(), 200, "SQL");
+						$result = pg_query($connect, $query);
+						if (!$result) {
+							die('Invalid query: ' . pg_result_error($connect));
+						}
+						else{
+						//echo "<script>alert('Import done');</script>";
+						}
+							
+						}
+						fclose($handle);
+				
+					}
+				}
+						
 				if(isset($_FILES['userfilequestion']['name']))
 				{
 					$filename = explode(".", $_FILES['userfilequestion']['name']);
@@ -833,9 +986,9 @@
 			if(!empty($_GET['revnubound'])) {
 			$revnubound = $_GET['revnubound'];
 			}
-			$ren_range = null;
-			if(isset($emplbound) && $empubound)
-				$ren_range = $emplbound ."m -". $empubound."m";
+			// $ren_range = null;
+			// if(isset($emplbound) && $empubound)
+			// 	$ren_range = $emplbound .$str[0]"-". $empubound.$str[0];;
 			
 			$revnlbound_range = '';
 			if(!empty($_GET['revnlbound_range'])) {

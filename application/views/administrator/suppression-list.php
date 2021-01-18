@@ -132,15 +132,15 @@ $(document).ready(function () {
                                 <!-- <input type="checkbox" class="js-small f-right suppclass" name="suppchk" id="noneAboveCheck" value="" > -->
                                 <!-- <div id="noneAbove"> -->
                                 <label class="col-lable"><b>Mail List</b></label>
-                                <input type="file" name="userfile" class="form-control">
+                                <input type="file" name="suplistnew_email" class="form-control">
                             </div>
                             <div class="col-sm-3 form-check form-switch hidden">
                                 <label class="col-lable"><b>Company List</b></label>
-                                <input type="file" name="userfile" class="form-control">
+                                <input type="file" name="suplistnew_company" class="form-control">
                             </div>
                             <div class="col-sm-3 form-check form-switch hidden">
                                 <label class="col-lable"><b>Domain List </b></label>
-                                <input type="file" name="userfile" class="form-control">
+                                <input type="file" name="suplistnew_domain" class="form-control">
                             </div>
                                 <!-- <label class="f-left col-lable"><b>Exclusion(*.csv) </b> </label>
                                 <input type="file" name="userfile" class="form-control"> -->
@@ -158,15 +158,15 @@ $(document).ready(function () {
                                 <!-- <input type="checkbox" class="js-small f-right suppclass" name="suppchk" id="noneAboveCheckInclusion" value="" > -->
                                 <!-- <div id="noneAboveInclusion"> -->
                                 <label class="col-lable"><b>Mail List</b></label>
-                                <input type="file" name="userfileincl" class="form-control">
+                                <input type="file" name="inclistnew_email" class="form-control">
                             </div>
                             <div class="col-sm-3 form-check form-switch " >
                                 <label class="col-lable"><b>Company List</b></label>
-                                <input type="file" name="userfileincl" class="form-control">
+                                <input type="file" name="inclistnew_company" class="form-control">
                             </div>
                             <div class="col-sm-3 form-check form-switch " >
                                 <label class="col-lable"><b>Domain List</b></label>
-                                <input type="file" name="userfileincl" class="form-control">
+                                <input type="file" name="inclistnew_domain" class="form-control">
                             </div>
                                 <!-- <label class="f-left col-lable"><b>Inclusion(*.csv) </b> </label>
                             <input type="file" name="userfileincl" class="form-control">

@@ -118,6 +118,47 @@ $(function () {
   });
 });
 });
+
+$(function(){
+    $('#revnlbound_range').change(function(){
+        
+        if($(this).attr('id') == 'revnlbound_range' && $(this).val() == 'hundred'){
+            // alert("hundred");
+            $("#revnubound_range option").not(':first-child').each(function (index) {
+                $(this).prop('disabled', false);
+            });
+            $('#revnubound_range').val($(this).val());
+        }
+        else if($(this).attr('id') == 'revnlbound_range' && $(this).val() == 'million'){
+            // alert("million");
+            var check = "hundred";
+            $('option[disabled]').prop('disabled', false);
+            $('select').each(function() {
+            $('#revnubound_range').not(this).find('option[value="' + check + '"]').prop('disabled', true); 
+            });
+            $('#revnubound_range').val($(this).val());
+        } 
+        else if($(this).attr('id') == 'revnlbound_range' && $(this).val() == 'billion'){
+            var check = "hundred";
+            var check2 = "million";
+            $('option[disabled]').prop('disabled', false);
+            $('#revnubound_range').val($(this).val());
+            $('select').each(function() {
+                $('#revnubound_range').not(this).find('option[value="' + check + '"]').prop('disabled', true); 
+                $('#revnubound_range').not(this).find('option[value="' + check2 + '"]').prop('disabled', true); 
+            });
+            
+        } 
+        else if($(this).attr('id') == 'revnlbound_range' && $(this).val() == 'trillion'){
+            // alert($(this).val());
+            $('#revnubound_range').val($(this).val());
+            $("#revnubound_range option").not(':last-child').each(function (index) {
+                $(this).prop('disabled', true);
+            });
+            
+        }  
+    });
+});
 </script>
 
 <div class="page-header">
@@ -384,10 +425,10 @@ $(function () {
 
                                 <select name="selectstatus" class="form-control form-control-default" id="revnlbound_range">
                                     <option value="">Select </option>
-                                    <option value="hundred " <?php if($post['revlbdim'] == "hundred"){ echo "selected" ; } ?>>Hundred Thousand</option>
+                                    <option value="hundred" <?php if($post['revlbdim'] == "hundred"){ echo "selected" ; } ?>>Hundred Thousand</option>
                                     <option value="million" <?php if($post['revlbdim'] == "million"){ echo "selected" ; } ?>>Million</option>
                                     <option value="billion" <?php if($post['revlbdim'] == "billion"){ echo "selected" ; } ?>>Billion </option>
-                                    <option value="trillion" <?php if($post['revlbdim'] == "trillion"){ echo "selected" ; } ?>>trillion </option>
+                                    <option value="trillion" <?php if($post['revlbdim'] == "trillion"){ echo "selected" ; } ?>>Trillion </option>
                                 </select>
                             </div>
                             <div class="col-sm-2 ">
@@ -402,10 +443,10 @@ $(function () {
 
                                 <select name="selectstatus" class="form-control form-control-default" id="revnubound_range">
                                     <option value="">Select </option>
-                                    <option value="hundred " <?php if($post['revubdim'] == "hundred"){ echo "selected" ; } ?>>Hundred Thousand</option>
+                                    <option value="hundred" <?php if($post['revubdim'] == "hundred"){ echo "selected" ; } ?>>Hundred Thousand</option>
                                     <option value="million" <?php if($post['revubdim'] == "million"){ echo "selected" ; } ?>>Million</option>
                                     <option value="billion" <?php if($post['revubdim'] == "billion"){ echo "selected" ; } ?>>Billion </option>
-                                    <option value="trillion" <?php if($post['revubdim'] == "trillion"){ echo "selected" ; } ?>>trillion </option>
+                                    <option value="trillion" <?php if($post['revubdim'] == "trillion"){ echo "selected" ; } ?>>Trillion </option>
                                     
                                 </select>
                             </div>

@@ -188,7 +188,56 @@ $(function () {
         }
     });
 });
+
+//  Get sub industry
+ $('#sector_id').change(function(){
+    var sector_id = $(this).val();
+    // alert(sector_id);
+    // AJAX request
+    $.ajax({
+        url:'<?php echo base_url("campaigns/getIndustry");?>',
+        method: 'get',
+        data: {sector_id: sector_id},
+        dataType: 'json',
+        success: function(response){
+
+        //    Remove options 
+       $('#industrycd').find('option').not(':first').remove();
+
+        //    Add options
+       $.each(response,function(index,data){
+          $('#industrycd').append('<option value="'+data['subindustrycd']+'">'+data['subindustry']+'</option>');
+        });
+        }
+    });
 });
+
+//  Get Job Title
+$('#levelid').change(function(){
+    var levelid = $(this).val();
+    // alert(levelid);
+    var url = '<?php echo base_url("campaigns/getJobTitle")?>';
+    console.log(url+'?levelid='+levelid);
+    // AJAX request
+    $.ajax({
+        url:'<?php echo base_url("campaigns/getJobTitle");?>',
+        method: 'get',
+        data: {levelid: levelid},
+        dataType: 'json',
+        success: function(response){
+
+        //    Remove options 
+       $('#desid').find('option').not(':first').remove();
+
+        //    Add options
+       $.each(response,function(index,data){
+          $('#desid').append('<option value="'+data['jid']+'">'+data['joblist']+'</option>');
+        });
+        }
+    });
+});
+});
+
 // $('#region_id').on("select2:select", function (e) { 
 //     alert("tesdt");
 //            var data = e.params.data.text;
@@ -353,21 +402,19 @@ $(function () {
                                 <!-- </select> -->
                             </div>
                             <div class="col-sm-3">
-                                <label class="col-lable"><b>Sector</b></label>
+                                <label class="col-lable"><b>Sector (Industry)</b></label>
                                 <select class="js-example-basic-multiple col-sm-12 form-control-sm" multiple="multiple" name="sector_id[]" id="sector_id">
                                 <option value="0">All</option>
-                                     <?php //foreach ($industries as $industry): ?>
-                                    <!-- <option value="<?php //echo $industry['industrycd']; ?>"><?php //echo $industry['industry']; ?></option> -->
-                                <?php// endforeach; ?>
+                                <?php foreach ($industries as $industry): ?>
+                                    <option value="<?php echo $industry['industrycd']; ?>"><?php echo $industry['industry']; ?></option>
+                                <?php endforeach; ?>
+                                
                                 </select>
                             </div>
                             <div class="col-sm-3">
-                                <label class="col-lable"><b>Industry</b></label><?php echo form_error('industrycd'); ?>
+                                <label class="col-lable"><b>Sub Industry</b></label><?php echo form_error('industrycd'); ?>
                                 <select class="js-example-basic-multiple col-sm-12 form-control-sm" multiple="multiple" name="industrycd[]" id="industrycd">
                                 <option value="0">All</option>
-                                    <?php foreach ($industries as $industry): ?>
-                                    <option value="<?php echo $industry['industrycd']; ?>"><?php echo $industry['industry']; ?></option>
-                                <?php endforeach; ?>
                                 </select>
                             </div>
                             </div>
@@ -376,9 +423,9 @@ $(function () {
                                 <label class="col-lable"><b>Job Level</b></label>
                               <select class="js-example-basic-multiple col-sm-12 form-control-sm" multiple="multiple" name="levelid[]" id="levelid">
                               <option value="0">All</option>
-                                <?php //foreach ($designation as $designation): ?>
-                                    <!-- <option value="<?php //echo $designation['tid']; ?>"><?php //echo $designation['designation']; ?></option> -->
-                                <?php //endforeach; ?>
+                              <?php foreach ($designation as $designation): ?>
+                                    <option value="<?php echo $designation['joblids']; ?>"><?php echo $designation['joblevel']; ?></option>
+                                <?php endforeach; ?>
                                    
                                 </select>
                             </div>
@@ -386,9 +433,7 @@ $(function () {
                                 <label class="col-lable"><b>Designation [Job Title]</b></label><?php echo form_error('desid'); ?>
                               <select class="js-example-basic-multiple col-sm-12 form-control-sm" multiple="multiple" name="desid[]" id="desid">
                               <option value="0">All</option>
-                                <?php foreach ($designation as $designation): ?>
-                                    <option value="<?php echo $designation['tid']; ?>"><?php echo $designation['designation']; ?></option>
-                                <?php endforeach; ?>
+                               
                                    
                                 </select>
                             </div>
@@ -509,7 +554,7 @@ $(function () {
                             <div class="col-sm-2 ">
                                 <!-- <div class="senior-airman"> -->
                                 <label class="col-lable"><b>Revenue Lower Bound</b></label>
-                                <input type="text"   name="revnlbound"  placeholder="Rev Lower Bound"  id="revnlbound" class="form-control form-control-sm" onkeypress="return isNumber(event)" >
+                                <input type="text"   name="revnlbound" step="5"  placeholder="Rev Lower Bound"  id="revnlbound" class="form-control form-control-sm" onkeypress="return isNumber(event)" >
                                 <!-- <select class="second-level-select form-control form-control-sm"  name="revnlbound" id="revnlbound">
                                 <option value="">Select </option>
                                     <?php //foreach ($revnubound as $revnubound): ?>

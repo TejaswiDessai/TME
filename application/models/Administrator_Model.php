@@ -91,8 +91,14 @@
 		
 		public function get_industries(){
 			
-                        $query = $this->db->get('industry');                       
+			$this->db->select('industrycd,industry');
+			$this->db->group_by('industrycd');
+			$this->db->group_by('industry');
+			$query = $this->db->get('industry'); 
+//                         echo $this->db->last_query(); exit;
 			return $query->result_array();
+			// $query = $this->db->get('industry');                       
+			// return $query->result_array();
 		}
 		public function get_depts(){
 			
@@ -110,9 +116,14 @@
 			return $query->result_array();
 		}
 		public function get_designation(){
-			
-                        $query = $this->db->get('designation');                       
+			$this->db->select('joblids,joblevel');
+			$this->db->group_by('joblids');
+			$this->db->group_by('joblevel');
+			$query = $this->db->get('joblevels'); 
+//                         echo $this->db->last_query(); exit;
 			return $query->result_array();
+			// $query = $this->db->get('designation');                       
+			// return $query->result_array();
 		}
 		public function get_assetitle(){
 			
@@ -889,6 +900,7 @@ function saverecords($emp_id,$Fname,$Lname,$Manager,$status,$user_type,$Password
 		VALUES ('$emp_id','$emp_id','$Fname','$Lname','$Manager','$user_type','$Password','t','$register_date')";
 		$this->db->query($query);
 }
+
 function getCountry($region_id)
 {
 	$response = array();
@@ -905,10 +917,46 @@ function getCountry($region_id)
 	$response = $q->result_array();
 
 	return $response;
-  }
+}
 
-  public function get_campaign_by_id($id = FALSE)
+function getIndustry($region_id)
+{
+	$response = array();
+	
+	// Select record
+	$this->db->select('subindustrycd,subindustry');
+	// $this->db->where('regioncode', $region_id);
+	if($region_id[0] != "all")
 	{
+		$this->db->where_in('industrycd', $region_id );  //this is condition 
+	}
+	
+	$q = $this->db->get('industry');
+	$response = $q->result_array();
+
+	return $response;
+}
+
+function getJobTitle($levelid)
+{
+	$response = array();
+	
+	// Select record
+	$this->db->select('jid,joblist');
+	// $this->db->where('regioncode', $region_id);
+	if($levelid[0] != "all")
+	{
+		$this->db->where_in('joblids', $levelid );  //this is condition 
+	}
+	
+	$q = $this->db->get('joblevels');
+	$response = $q->result_array();
+
+	return $response;
+}
+
+public function get_campaign_by_id($id = FALSE)
+{
 		// if($id === FALSE){
 		// 	$query = $this->db->get('campaign');
 		// 	return $query->result_array(); 

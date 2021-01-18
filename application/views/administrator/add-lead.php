@@ -169,11 +169,11 @@ $(document).ready(function() {
                                 </select>
                             </div>
                             <div class="col-sm-2">
-                                <input type="text"  name="fname" id="fname"  placeholder="Fisrt Name"  class="form-control form-control-sm cdqadisable">
+                                <input type="text"  name="fname" id="fname"  placeholder="First Name" Maxlength="5"  class="form-control form-control-sm cdqadisable">
                                 <span style='color:#FF0000' id="fname_msg"></span>
                             </div>
                             <div class="col-sm-2">
-                                <input type="text"  name="lname" id="lname"  placeholder="Last Name"  class="form-control form-control-sm cdqadisable">
+                                <input type="text"  name="lname" id="lname"  placeholder="Last Name"   Maxlength="5" class="form-control form-control-sm cdqadisable">
                                 <span style='color:#FF0000' id="lname_msg"></span>
                             </div>
                             <div class="col-sm-3">
@@ -302,9 +302,9 @@ $(document).ready(function() {
                             <div class="col-sm-2">
                                 <select class="form-control form-control-sm cdqadisable" name="subindustrycd" id="subindustrycd">
                                 <option value="">Sub Industry</option>
-                                <?php foreach ($industries as $industry): ?>
-                                    <option value="<?php echo $industry['industrycd']; ?>"><?php echo $industry['industry']; ?></option>
-                                <?php endforeach; ?>
+                                <!-- <?php //foreach ($industries as $industry): ?>
+                                    <option value="<?php echo $industry['industrycd']; ?>"><?php echo $industry['industrycd']; ?></option>
+                                <?php //endforeach; ?> -->
                                 </select>
                             </div>
                             <div class="col-sm-2">
@@ -323,7 +323,7 @@ $(document).ready(function() {
                 <hr>
                     <div class="form-group row">
                         <div class="col-sm-2">
-                                <input type="text"  name="empsize" id="empsize" maxlength="10" placeholder="Actual Employee Size"  class="form-control form-control-sm cdqadisable">
+                                <input type="text"  name="empsize" id="empsize" maxlength="6" placeholder="Actual Employee Size"  class="form-control form-control-sm cdqadisable">
                             </div>
                             <div class="col-sm-2">
                                 <input type="text"  name="arevenue" id="arevenue" maxlength="15" placeholder="Actual Revenue Size"  class="form-control form-control-sm cdqadisable">
@@ -368,6 +368,7 @@ $(document).ready(function() {
                             </div>
                             <div class="col-sm-2">
                                 <select class="form-control form-control-sm"  name="emailver" id="emailver">
+                                    <option value="">Email Verification</option>
                                     <option value="1">Yes</option>
                                     <option value="0">No</option>
                                 </select>
@@ -378,29 +379,31 @@ $(document).ready(function() {
                             <div class="col-sm-2">
                                 <select class="form-control form-control-sm cdqadisable" name="assetid" id="assetid">
                                     <option value="0">Asset</option>
+                                    <?php foreach ($assetitle as $assetitle): ?>
+                                    <option value="<?php echo $assetitle['assetid']; ?>"><?php echo $assetitle['title']; ?></option>
+                                <?php endforeach; ?>
                                    </select>
                             </div> 
                         </div>
                         <hr>
                         <div class="form-group row">
                                        
-                                        <div class="col-sm-2">
-                                        Opt - in Post  <input type="checkbox" value="TRUE" id="optpst" name="optpst" class="js-single" checked />
+                                       <div class="col-sm-2">
+                                        Opt - in  <input type="checkbox" value=""  id="optin" name="optin" class="js-single optin"  />
+                                        </div>
+                                        <div class="col-sm-2 optoption">
+                                        Opt - in Post  <input type="checkbox" value="" id="optpst" name="optpst" class="js-single"  />
                                         </div>
                                        
-                                        <div class="col-sm-2">
-                                        Opt - in Phone<input type="checkbox" value="TRUE" id="optph" name="optph" class="js-single" checked />
+                                        <div class="col-sm-2 optoption">
+                                        Opt - in Phone <input type="checkbox" value=""  id="optph" name="optph" class="js-single"  />
                                         </div>
                                         
-                                        <div class="col-sm-2">
-                                        Opt - in  <input type="checkbox" value="TRUE" id="optin" name="optin" class="js-single" checked />
+                                        <div class="col-sm-2 optoption">
+                                        Opt - in Email <input type="checkbox" value="" id="opteml" name="opteml" class="js-single"  />
                                         </div>
-                                        
-                                        <div class="col-sm-2">
-                                        Opt - in Email <input type="checkbox" value="TRUE" id="opteml" name="opteml" class="js-single" checked />
-                                        </div>
-                                        <div class="col-sm-2">
-                                        DND <input type="checkbox" value="TRUE" id="dnd" name="dnd" class="js-single" checked />
+                                        <div class="col-sm-2 optoption">
+                                        DND <input type="checkbox" value="" id="dnd" name="dnd" class="js-single"  />
                                         </div>
                          </div>
                         <div class="form-group row">     
@@ -452,7 +455,7 @@ $(document).ready(function() {
      <script>
      // Campaign Name no special character allowed validation code
     $(function () {
-        $("#first_name").keypress(function (e) {
+        $("#fname").keypress(function (e) {
             var keyCode = e.keyCode || e.which;
  
             $("#fname_msg").html("");
@@ -516,7 +519,25 @@ $(document).ready(function() {
 });
 
 
+
 $(document).ready(function() {
+    $('.optoption').hide();
+    
+    $('[name="optin"]').change(function()
+      {
+        if ($(this).is(':checked')) {
+            $('#optin').val("1");
+            $('.optoption').show();
+               
+        }else{
+            $('#optin').val("0");
+            $('.optoption').hide();
+               
+        };
+      });
+
+
+
   $("#basic-form").validate({
     rules: {
         sal : {
@@ -582,6 +603,12 @@ $(document).ready(function() {
         required: true,
         number: true,
         min: 6
+      },
+      altphn: {
+        number: true
+      },
+      empsize: {
+        number: true
       },
       email: {
         required: true,

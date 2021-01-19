@@ -165,16 +165,54 @@ $(function () {
         });
     });
 
-    $(document).ready(function(){
- 
+    $(document).ready(function()
+    {
+        $('#sub_region_id').prop('disabled', true);
+        $('#country_id').prop('disabled', true);
+        $('#industrycd').prop('disabled', true);
+        $('#desid').prop('disabled', true);
     // City change
     $('#region_id').change(function(){
+    
+    
     var region_id = $(this).val();
+    if (region_id != '')
+    {
+        $('#sub_region_id').prop('disabled', false);
+    }
+    // alert(region_id);
+    // AJAX request
+    $.ajax({
+        url:'<?php echo base_url("campaigns/getSubRegion");?>',
+        method: 'get',
+        data: {region_id: region_id},
+        dataType: 'json',
+        success: function(response){
+
+        //    Remove options 
+       $('#sub_region_id').find('option').not(':first').remove();
+
+        //    Add options
+       $.each(response,function(index,data){
+          $('#sub_region_id').append('<option value="'+data['intercodederived']+'">'+data['intermedtregion']+'</option>');
+        });
+        }
+    });
+});
+
+ // City change
+ $('#sub_region_id').change(function(){
+    var sub_region_id = $(this).val();
+    if (sub_region_id != '')
+    {
+        $('#country_id').prop('disabled', false);
+    }
+    // alert(sub_region_id);
     // AJAX request
     $.ajax({
         url:'<?php echo base_url("campaigns/getCountry");?>',
         method: 'get',
-        data: {region_id: region_id},
+        data: {sub_region_id: sub_region_id},
         dataType: 'json',
         success: function(response){
 
@@ -192,6 +230,10 @@ $(function () {
 //  Get sub industry
  $('#sector_id').change(function(){
     var sector_id = $(this).val();
+    if (region_id != '')
+    {
+        $('#industrycd').prop('disabled', false);
+    }
     // alert(sector_id);
     // AJAX request
     $.ajax({
@@ -215,6 +257,10 @@ $(function () {
 //  Get Job Title
 $('#levelid').change(function(){
     var levelid = $(this).val();
+    if (levelid != '')
+    {
+        $('#desid').prop('disabled', false);
+    }
     // alert(levelid);
     var url = '<?php echo base_url("campaigns/getJobTitle")?>';
     console.log(url+'?levelid='+levelid);
@@ -389,17 +435,19 @@ $('#levelid').change(function(){
                                 <?php endforeach; ?>
                                 </select>
                             </div>
-
+                            <div class="col-sm-3">
+                                <label class="col-lable"><b>Sub Region</b></label>  <?php echo form_error('country_id'); ?>
+                                <select class="js-example-basic-multiple col-sm-12 form-control-sm" multiple="multiple" name="sub_region_id[]" id="sub_region_id">
+                               
+                                <option value="0">All</option>
+                                </select>
+                            </div>
                             <div class="col-sm-3">
                                 <label class="col-lable"><b>Country</b></label>  <?php echo form_error('country_id'); ?>
                                 <select class="js-example-basic-multiple col-sm-12 form-control-sm" multiple="multiple" name="country_id[]" id="country_id">
                                
                                 <option value="0">All</option>
                                 </select>
-                            <?php //foreach ($countries as $country): ?>
-                                    <!-- <option value="<?php //echo $country['countrycd'];echo set_select('country_id'); ?>"><?php //echo $country['countryname']; ?></option> -->
-                                <?php //endforeach; ?>
-                                <!-- </select> -->
                             </div>
                             <div class="col-sm-3">
                                 <label class="col-lable"><b>Sector (Industry)</b></label>

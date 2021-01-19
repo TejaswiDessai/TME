@@ -130,6 +130,15 @@
 			// $query = $this->db->get('designation');                       
 			// return $query->result_array();
 		}
+		public function getquestions_byCampaign($cnid){
+			$this->db->select('*');
+			$this->db->join('questions', 'questions.cid = CAST(campaign.cnid as integer)');
+			$this->db->where('campaign.cnid', $cnid);
+			$query = $this->db->get('campaign');
+			// echo $this->db->last_query(); 
+			return $query->result_array(); 
+			// echo $this->db->last_query(); 
+		}
 		public function get_designation_byCampaign($cnid){
 			$this->db->select('*');
 			$this->db->join('joblevels', 'joblevels.jid = CAST(campaign.tid as integer)');
@@ -1083,7 +1092,7 @@ function check_inclusion_email($email)
 	$this->db->where('exclincl', 1 ); // check inclusion
 	$result = $this->db->get('emaillist');
 	// echo $this->db->last_query(); 
-			if ($result->num_rows() > 1) {
+			if ($result->num_rows() >= 1) {
                return "true";        
 			}else{
 				return "false";
@@ -1094,12 +1103,76 @@ function check_suppression_email($email)
 {
 	// Select record
 	$this->db->select('emailids');
-	// $this->db->where('emailids', $email);
-	$this->db->where('emailids', 'test@test.com');
+	$this->db->where('emailids', $email);
+	// $this->db->where('emailids', 'test@test.com');
 	$this->db->where('exclincl', 0 ); // check Exclusion
 	$result = $this->db->get('emaillist');
 	// echo $this->db->last_query(); 
-			if ($result->num_rows() > 1) {
+			if ($result->num_rows() >= 1) {
+               return "true";        
+			}else{
+				return "false";
+			}
+
+}
+function check_domain_suppression($domain)
+{
+	// Select record
+	$this->db->select('domainnms');
+	$this->db->where('domainnms', $domain);
+	// $this->db->where('emailids', 'test@test.com');
+	$this->db->where('inclexcl', 0 ); // check Exclusion
+	$result = $this->db->get('domainlist');
+	// echo $this->db->last_query(); 
+			if ($result->num_rows() >= 1) {
+               return "true";        
+			}else{
+				return "false";
+			}
+
+}
+function check_domain_incl($domain)
+{
+	// Select record
+	$this->db->select('domainnms');
+	$this->db->where('domainnms', $domain);
+	// $this->db->where('emailids', 'test@test.com');
+	$this->db->where('inclexcl', 1 ); // check inclusion
+	$result = $this->db->get('domainlist');
+	// echo $this->db->last_query(); 
+			if ($result->num_rows() >= 1) {
+               return "true";        
+			}else{
+				return "false";
+			}
+
+}
+function check_company_incl($company_name)
+{
+	// Select record
+	$this->db->select('companynms');
+	$this->db->where('companynms', $company_name);
+	// $this->db->where('emailids', 'test@test.com');
+	$this->db->where('exlincl', 1 ); // check inclusion
+	$result = $this->db->get('complist');
+	// echo $this->db->last_query(); 
+			if ($result->num_rows() >= 1) {
+               return "true";        
+			}else{
+				return "false";
+			}
+
+}
+function check_company_suppression($company_name)
+{
+	// Select record
+	$this->db->select('companynms');
+	$this->db->where('companynms', $company_name);
+	// $this->db->where('emailids', 'test@test.com');
+	$this->db->where('exlincl', 0 ); // check Exclusion
+	$result = $this->db->get('complist');
+	// echo $this->db->last_query(); 
+			if ($result->num_rows() >= 1) {
                return "true";        
 			}else{
 				return "false";

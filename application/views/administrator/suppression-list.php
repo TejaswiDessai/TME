@@ -109,7 +109,7 @@ $(document).ready(function () {
                                 <option value="0">Internal</option>
                             </select>
                             </div>
-                            <div class="col-sm-3">
+                            <!-- <div class="col-sm-3">
                                 <label class="col-lable"><b>Select Period</b></label>
                                 <select class="js-example-basic-multiple col-sm-12 "  name="period" id="period">
                                 <option value="1">1 Month<option>
@@ -119,7 +119,7 @@ $(document).ready(function () {
                                 <option value="5">5 Month<option>
                                 <option value="6" selected>6 Month<option>
                                 </select>
-                            </div>
+                            </div> -->
                            
                         </div>
                         

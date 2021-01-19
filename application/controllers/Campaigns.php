@@ -509,7 +509,7 @@
 						//$item36= mysqli_real_escape_string($connect, $data[35]);
 
 						//$item5 = mysqli_real_escape_string($connect, $data[4]);
-						$query = "INSERT into emaillist(cid,filename,emailids,datatype,exclincl,period)values('$camp_id','$ex_email_file','$item1','$suptyp','0',$period)";
+						$query = "INSERT into emaillist(cid,filename,emailids,datatype,exclincl)values('$camp_id','$ex_email_file','$item1','$suptyp','0')";
 						// show_error($this->db->last_query(), 200, "SQL");
 						$result = pg_query($connect, $query);
 						if (!$result) {
@@ -535,7 +535,7 @@
 						while($data = fgetcsv($handle))
 						{
 							$item1 = pg_escape_string ($connect, $data[0]);  
-							$query = "INSERT into complist(cid,filename,companynms,datatype,exlincl,period)values('$camp_id','$ex_company_file','$item1','$suptyp','0',$period)";
+							$query = "INSERT into complist(cid,filename,companynms,datatype,exlincl)values('$camp_id','$ex_company_file','$item1','$suptyp','0')";
 							// $item2 = pg_escape_string ($connect, $data[1]);
 							// $item3 = pg_escape_string ($connect, $data[2]);
 						
@@ -568,7 +568,7 @@
 					while($data = fgetcsv($handle))
 					{
 						$item1 = pg_escape_string ($connect, $data[0]);  
-						$query = "INSERT into domainlist(cid,filename,domainnms,datatype,inclexcl,period)values('$camp_id','$ex_domain_file','$item1','$suptyp','0',$period)";
+						$query = "INSERT into domainlist(cid,filename,domainnms,datatype,inclexcl)values('$camp_id','$ex_domain_file','$item1','$suptyp','0')";
 						// $item2 = pg_escape_string ($connect, $data[1]);
 						// $item3 = pg_escape_string ($connect, $data[2]);
 					
@@ -609,7 +609,7 @@
 						//$item36= mysqli_real_escape_string($connect, $data[35]);
 
 						//$item5 = mysqli_real_escape_string($connect, $data[4]);
-						$query = "INSERT into emaillist(cid,filename,emailids,domainnms,datatype,exclincl,period)values('$camp_id','$in_email_file','$item1','$suptyp','1',$period)";
+						$query = "INSERT into emaillist(cid,filename,emailids,domainnms,datatype,exclincl)values('$camp_id','$in_email_file','$item1','$suptyp','1')";
 						// show_error($this->db->last_query(), 200, "SQL");
 						$result = pg_query($connect, $query);
 						if (!$result) {
@@ -635,7 +635,7 @@
 						while($data = fgetcsv($handle))
 						{
 							$item1 = pg_escape_string ($connect, $data[0]);  
-							$query = "INSERT into complist(cid,filename,companynms,datatype,exlincl,period)values('$camp_id','$in_company_file','$item1','$suptyp','1',$period)";
+							$query = "INSERT into complist(cid,filename,companynms,datatype,exlincl)values('$camp_id','$in_company_file','$item1','$suptyp','1')";
 							// $item2 = pg_escape_string ($connect, $data[1]);
 							// $item3 = pg_escape_string ($connect, $data[2]);
 						
@@ -668,7 +668,7 @@
 					while($data = fgetcsv($handle))
 					{
 						$item1 = pg_escape_string ($connect, $data[0]);  
-						$query = "INSERT into domainlist(cid,filename,domainnms,datatype,inclexcl,period)values('$camp_id','$in_domain_file','$item1','$suptyp','1',$period)";
+						$query = "INSERT into domainlist(cid,filename,domainnms,datatype,inclexcl)values('$camp_id','$in_domain_file','$item1','$suptyp','1')";
 						// $item2 = pg_escape_string ($connect, $data[1]);
 						// $item3 = pg_escape_string ($connect, $data[2]);
 					

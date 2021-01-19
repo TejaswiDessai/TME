@@ -324,6 +324,7 @@
 		
 		public function update_campaign($id = NULL)
 		{
+			$data['campaign_record'] = $this->Administrator_Model->get_campaign_by_id($id);
 			$data['clients'] = $this->Administrator_Model->get_clients();
 			$data['countries'] = $this->Administrator_Model->get_countries();
 			$data['regions'] = $this->Administrator_Model->get_regions();
@@ -339,7 +340,7 @@
 			$data['frequency_type'] = $this->Administrator_Model->get_frequency_type();
 			$data['frequency'] = $this->Administrator_Model->get_frequency();
 
-			$data['campaign_record'] = $this->Administrator_Model->get_campaign_by_id($id);
+			
 			  
 			  if (empty($data['campaign_record'])) {
 				  show_404();

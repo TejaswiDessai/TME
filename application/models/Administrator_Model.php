@@ -1007,16 +1007,34 @@ function saverecords($emp_id,$Fname,$Lname,$Manager,$status,$user_type,$Password
 		$this->db->query($query);
 }
 
-function getCountry($region_id)
+function getSubRegion($region_id)
+{
+	$response = array();
+	
+	// Select record
+	$this->db->select('intercodederived,intermedtregion');
+	// $this->db->where('regioncode', $region_id);
+	if($region_id[0] != 0)
+	{
+		$this->db->where_in('regioncode', $region_id );  //this is condition 
+	}
+	
+	$q = $this->db->get('country');
+	$response = $q->result_array();
+
+	return $response;
+}
+
+function getCountry($sub_region_id)
 {
 	$response = array();
 	
 	// Select record
 	$this->db->select('countrycd,countryname');
 	// $this->db->where('regioncode', $region_id);
-	if($region_id[0] != "all")
+	if($sub_region_id[0] != 0)
 	{
-		$this->db->where_in('regioncode', $region_id );  //this is condition 
+		$this->db->where_in('intercodederived', $sub_region_id );  //this is condition 
 	}
 	
 	$q = $this->db->get('country');
@@ -1032,7 +1050,7 @@ function getIndustry($region_id)
 	// Select record
 	$this->db->select('subindustrycd,subindustry');
 	// $this->db->where('regioncode', $region_id);
-	if($region_id[0] != "all")
+	if($region_id[0] != 0)
 	{
 		$this->db->where_in('industrycd', $region_id );  //this is condition 
 	}
@@ -1096,7 +1114,7 @@ function getJobTitle($levelid)
 	// Select record
 	$this->db->select('jid,joblist');
 	// $this->db->where('regioncode', $region_id);
-	if($levelid[0] != "all")
+	if($levelid[0] != 0)
 	{
 		$this->db->where_in('joblids', $levelid );  //this is condition 
 	}

@@ -38,6 +38,8 @@ $(function () {
 });
 
 $(function(){
+    $('#revnubound').prop('disabled', true);
+    $('#revnubound_range').prop('disabled', true);
     $('#revnlbound_range').change(function(){
         
         if($(this).attr('id') == 'revnlbound_range' && $(this).val() == 'hundred'){
@@ -75,6 +77,52 @@ $(function(){
             });
             
         }  
+    });
+
+    $('#revnlbound').change(function(){
+        
+        if($(this).attr('id') == 'revnlbound' && $(this).val() != null){
+            var revnlbound = $(this).val();
+            
+            if (revnlbound != '')
+            {
+                $('#revnubound').prop('disabled', false);
+                $('#revnubound_range').prop('disabled', false);
+            }
+            if(revnlbound > 10){
+                if(revnlbound % 10 == 0)
+                {
+                    $("#revnlbound_msg").html("");
+                }
+                else
+                {
+                    $("#revnlbound_msg").html("<p><strong>Number should (* 10).</strong></p>");
+                    return;
+                }
+            }
+            
+        }
+    });
+
+    $('#revnubound').change(function(){
+        
+        if($(this).attr('id') == 'revnubound' && $(this).val() != null){
+            var revnlbound = $(this).val();
+            if(revnlbound > 10){
+                if(revnlbound % 10 == 0)
+                {
+                    $("#revnubound_msg").html("");
+                    //alert("prime");
+                }
+                else
+                {
+                    // alert("Please enter revenue multiple of 10");
+                    $("#revnubound_msg").html("<p><strong>Number should (* 10).</strong></p>");
+                    return;
+                }
+            }
+            
+        }
     });
 });
 </script>
@@ -165,16 +213,54 @@ $(function () {
         });
     });
 
-    $(document).ready(function(){
- 
+    $(document).ready(function()
+    {
+        $('#sub_region_id').prop('disabled', true);
+        $('#country_id').prop('disabled', true);
+        $('#industrycd').prop('disabled', true);
+        $('#desid').prop('disabled', true);
     // City change
     $('#region_id').change(function(){
+    
+    
     var region_id = $(this).val();
+    if (region_id != '')
+    {
+        $('#sub_region_id').prop('disabled', false);
+    }
+    // alert(region_id);
+    // AJAX request
+    $.ajax({
+        url:'<?php echo base_url("campaigns/getSubRegion");?>',
+        method: 'get',
+        data: {region_id: region_id},
+        dataType: 'json',
+        success: function(response){
+
+        //    Remove options 
+       $('#sub_region_id').find('option').not(':first').remove();
+
+        //    Add options
+       $.each(response,function(index,data){
+          $('#sub_region_id').append('<option value="'+data['intercodederived']+'">'+data['intermedtregion']+'</option>');
+        });
+        }
+    });
+});
+
+ // City change
+ $('#sub_region_id').change(function(){
+    var sub_region_id = $(this).val();
+    if (sub_region_id != '')
+    {
+        $('#country_id').prop('disabled', false);
+    }
+    // alert(sub_region_id);
     // AJAX request
     $.ajax({
         url:'<?php echo base_url("campaigns/getCountry");?>',
         method: 'get',
-        data: {region_id: region_id},
+        data: {sub_region_id: sub_region_id},
         dataType: 'json',
         success: function(response){
 
@@ -192,6 +278,10 @@ $(function () {
 //  Get sub industry
  $('#sector_id').change(function(){
     var sector_id = $(this).val();
+    if (region_id != '')
+    {
+        $('#industrycd').prop('disabled', false);
+    }
     // alert(sector_id);
     // AJAX request
     $.ajax({
@@ -215,6 +305,10 @@ $(function () {
 //  Get Job Title
 $('#levelid').change(function(){
     var levelid = $(this).val();
+    if (levelid != '')
+    {
+        $('#desid').prop('disabled', false);
+    }
     // alert(levelid);
     var url = '<?php echo base_url("campaigns/getJobTitle")?>';
     console.log(url+'?levelid='+levelid);
@@ -381,7 +475,7 @@ $('#levelid').change(function(){
 
                         <div class="form-group row">
                             <div class="col-sm-3">
-                                <label class="col-lable"><b>World Region</b></label><?php echo form_error('region_id'); ?>
+                                <label class="col-lable"><b>World Region</b></label>
                                 <select class="js-example-basic-multiple col-sm-12 form-control-sm region" multiple="multiple" name="region_id[]" id="region_id">
                                 <option value="0">All</option>
                                 <?php foreach ($regions as $region): ?>
@@ -389,18 +483,24 @@ $('#levelid').change(function(){
                                 <?php endforeach; ?>
                                 </select>
                             </div>
-
+                            <div class="col-sm-3">
+                                <label class="col-lable"><b>Sub Region</b></label>  <?php echo form_error('country_id'); ?>
+                                <select class="js-example-basic-multiple col-sm-12 form-control-sm" multiple="multiple" name="sub_region_id[]" id="sub_region_id">
+                               
+                                <option value="0">All</option>
+                                </select>
+                            </div>
                             <div class="col-sm-3">
                                 <label class="col-lable"><b>Country</b></label>  <?php echo form_error('country_id'); ?>
                                 <select class="js-example-basic-multiple col-sm-12 form-control-sm" multiple="multiple" name="country_id[]" id="country_id">
                                
                                 <option value="0">All</option>
                                 </select>
-                            <?php //foreach ($countries as $country): ?>
-                                    <!-- <option value="<?php //echo $country['countrycd'];echo set_select('country_id'); ?>"><?php //echo $country['countryname']; ?></option> -->
-                                <?php //endforeach; ?>
-                                <!-- </select> -->
                             </div>
+                            
+                           
+                            </div>
+                            <div class="form-group row">
                             <div class="col-sm-3">
                                 <label class="col-lable"><b>Sector (Industry)</b></label>
                                 <select class="js-example-basic-multiple col-sm-12 form-control-sm" multiple="multiple" name="sector_id[]" id="sector_id">
@@ -417,8 +517,6 @@ $('#levelid').change(function(){
                                 <option value="0">All</option>
                                 </select>
                             </div>
-                            </div>
-                            <div class="form-group row">
                             <div class="col-sm-3">
                                 <label class="col-lable"><b>Job Level</b></label>
                               <select class="js-example-basic-multiple col-sm-12 form-control-sm" multiple="multiple" name="levelid[]" id="levelid">
@@ -555,6 +653,7 @@ $('#levelid').change(function(){
                                 <!-- <div class="senior-airman"> -->
                                 <label class="col-lable"><b>Revenue Lower Bound</b></label>
                                 <input type="text"   name="revnlbound" step="5"  placeholder="Rev Lower Bound"  id="revnlbound" class="form-control form-control-sm" onkeypress="return isNumber(event)" >
+                                <span style='color:#FF0000' id="revnlbound_msg"></span>
                                 <!-- <select class="second-level-select form-control form-control-sm"  name="revnlbound" id="revnlbound">
                                 <option value="">Select </option>
                                     <?php //foreach ($revnubound as $revnubound): ?>
@@ -579,6 +678,7 @@ $('#levelid').change(function(){
                                 <!-- <div class="airman"> -->
                                     <label class="col-lable"><b>Revenue Upper Bound</b></label>
                                     <input type="text"   name="revnubound"  placeholder="Rev Upper Bound"  id="revnubound" class="form-control form-control-sm" onkeypress="return isNumber(event)" >
+                                    <span style='color:#FF0000' id="revnubound_msg"></span>
                                     <!-- <select class="second-level-select form-control form-control-sm"  name="revnubound" id="revnubound">
                                     <option value="">Select </option>
                                         <?php //foreach ($revnlbound as $revnlbound): ?>
@@ -647,7 +747,18 @@ $('#levelid').change(function(){
                                 <label class="col-lable"><b>Est Completion Date</b></label> <?php echo form_error('estclosedt'); ?>
                                 <input type="text" id="estclosedt"  name="estclosedt" value="<?php echo set_value('estclosedt');?>" <?php echo (form_error('estclosedt')) ? 'class="form-control form-control-danger form-control-sm"' :'class="form-control form-control-sm"';?> >
                             </div>
+                            <div class="col-sm-3">
+                                <label class="col-lable"><b>Select Period</b></label>
+                                <select class="form-control form-control-default form-control-sm "  name="period" id="period">
+                                <option value="1">1 Month<option>
+                                <option value="2">2 Month<option>
+                                <option value="3">3 Month<option>
+                                <option value="4">4 Month<option>
+                                <option value="5">5 Month<option>
+                                <option value="6" selected>6 Month<option>
+                                </select>
                             
+                            </div>
 
                         </div>
                         
@@ -693,12 +804,13 @@ $('#levelid').change(function(){
             var campaign_name = $('#campaign_name').val();
             var country_id = $('#country_id').val(); 
             var region_id = $('#region_id').val();
+            alert(region_id);
             // var theRemovedElement = region_id.shift();  
             var industrycd = $('#industrycd').val(); 
             // alert(industrycd);
             var dcd = $('#dcd').val(); 
             // var emplzid = $('#emplzid').val(); 
-            // var revid = $('#revid').val(); 
+            
             var desid = $('#desid').val();
             var emplbound = $('#emplbound').val();
             var empubound = $('#empubound').val();
@@ -710,7 +822,8 @@ $('#levelid').change(function(){
             var selectstatus = $('#selectstatus').val();
             var frequency_type = $('#frequency_type').val();
             var frequency = $('#frequency').val();
-            
+            var period = $('#period').val(); 
+            alert(period);
             //alert(revnlbound+ "" + emplbound);
             $("#client_id_msg").html("");
             $("#campaign_id_msg").html("");
@@ -805,7 +918,8 @@ $('#levelid').change(function(){
                     revnlbound_range:revnlbound_range,
                     revnubound_range:revnubound_range,
                     frequency_type:frequency_type,
-                    frequency:frequency
+                    frequency:frequency,
+                    period:period
 				},
                 cache: false,
                 success: function(response){

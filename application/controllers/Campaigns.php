@@ -286,12 +286,21 @@
 
 		}
 
-		public function getCountry(){ 
+		public function getSubRegion(){ 
 			
 			$region_id = $_GET['region_id'];
 			$desiStr = implode(',',$region_id);
 			// get data 
-			$data = $this->Administrator_Model->getCountry($region_id);
+			$data = $this->Administrator_Model->getSubRegion($region_id);
+			echo json_encode($data); 
+		}
+
+		public function getCountry(){ 
+			
+			$sub_region_id = $_GET['sub_region_id'];
+			$desiStr = implode(',',$sub_region_id);
+			// get data 
+			$data = $this->Administrator_Model->getCountry($sub_region_id);
 			echo json_encode($data); 
 		}
 
@@ -500,7 +509,7 @@
 						//$item36= mysqli_real_escape_string($connect, $data[35]);
 
 						//$item5 = mysqli_real_escape_string($connect, $data[4]);
-						$query = "INSERT into emaillist(cid,filename,emailids,datatype,exclincl,period)values('$camp_id','$ex_email_file','$item1','$suptyp','0',$period)";
+						$query = "INSERT into emaillist(cid,filename,emailids,datatype,exclincl)values('$camp_id','$ex_email_file','$item1','$suptyp','0')";
 						// show_error($this->db->last_query(), 200, "SQL");
 						$result = pg_query($connect, $query);
 						if (!$result) {
@@ -526,7 +535,7 @@
 						while($data = fgetcsv($handle))
 						{
 							$item1 = pg_escape_string ($connect, $data[0]);  
-							$query = "INSERT into complist(cid,filename,companynms,datatype,exlincl,period)values('$camp_id','$ex_company_file','$item1','$suptyp','0',$period)";
+							$query = "INSERT into complist(cid,filename,companynms,datatype,exlincl)values('$camp_id','$ex_company_file','$item1','$suptyp','0')";
 							// $item2 = pg_escape_string ($connect, $data[1]);
 							// $item3 = pg_escape_string ($connect, $data[2]);
 						
@@ -559,7 +568,7 @@
 					while($data = fgetcsv($handle))
 					{
 						$item1 = pg_escape_string ($connect, $data[0]);  
-						$query = "INSERT into domainlist(cid,filename,domainnms,datatype,inclexcl,period)values('$camp_id','$ex_domain_file','$item1','$suptyp','0',$period)";
+						$query = "INSERT into domainlist(cid,filename,domainnms,datatype,inclexcl)values('$camp_id','$ex_domain_file','$item1','$suptyp','0')";
 						// $item2 = pg_escape_string ($connect, $data[1]);
 						// $item3 = pg_escape_string ($connect, $data[2]);
 					
@@ -600,7 +609,7 @@
 						//$item36= mysqli_real_escape_string($connect, $data[35]);
 
 						//$item5 = mysqli_real_escape_string($connect, $data[4]);
-						$query = "INSERT into emaillist(cid,filename,emailids,domainnms,datatype,exclincl,period)values('$camp_id','$in_email_file','$item1','$suptyp','1',$period)";
+						$query = "INSERT into emaillist(cid,filename,emailids,domainnms,datatype,exclincl)values('$camp_id','$in_email_file','$item1','$suptyp','1')";
 						// show_error($this->db->last_query(), 200, "SQL");
 						$result = pg_query($connect, $query);
 						if (!$result) {
@@ -626,7 +635,7 @@
 						while($data = fgetcsv($handle))
 						{
 							$item1 = pg_escape_string ($connect, $data[0]);  
-							$query = "INSERT into complist(cid,filename,companynms,datatype,exlincl,period)values('$camp_id','$in_company_file','$item1','$suptyp','1',$period)";
+							$query = "INSERT into complist(cid,filename,companynms,datatype,exlincl)values('$camp_id','$in_company_file','$item1','$suptyp','1')";
 							// $item2 = pg_escape_string ($connect, $data[1]);
 							// $item3 = pg_escape_string ($connect, $data[2]);
 						
@@ -659,7 +668,7 @@
 					while($data = fgetcsv($handle))
 					{
 						$item1 = pg_escape_string ($connect, $data[0]);  
-						$query = "INSERT into domainlist(cid,filename,domainnms,datatype,inclexcl,period)values('$camp_id','$in_domain_file','$item1','$suptyp','1',$period)";
+						$query = "INSERT into domainlist(cid,filename,domainnms,datatype,inclexcl)values('$camp_id','$in_domain_file','$item1','$suptyp','1')";
 						// $item2 = pg_escape_string ($connect, $data[1]);
 						// $item3 = pg_escape_string ($connect, $data[2]);
 					
@@ -998,6 +1007,7 @@
 			if(!empty($_GET['revnubound_range'])) {
 			$revnubound_range = $_GET['revnubound_range'];
 			}
+			$period = $_GET['period'];
 			
 			$sdate=date_create($_GET['startdt']);
 			$cdate=date_create($_GET['estclosedt']);
@@ -1029,7 +1039,8 @@
 				'revlbnd' => $revnlbound, 
 				'revubnd' => $revnubound,
 				'revlbdim' => $revnlbound_range,
-				'revubdim' => $revnubound_range
+				'revubdim' => $revnubound_range,
+				'period' => $period,
 				// 'Modifieddt' => date("Y-m-d H:i:s")
 				
 								

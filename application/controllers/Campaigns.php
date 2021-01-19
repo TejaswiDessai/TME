@@ -1007,6 +1007,7 @@
 			if(!empty($_GET['revnubound_range'])) {
 			$revnubound_range = $_GET['revnubound_range'];
 			}
+			$period = $_GET['period'];
 			
 			$sdate=date_create($_GET['startdt']);
 			$cdate=date_create($_GET['estclosedt']);
@@ -1038,7 +1039,8 @@
 				'revlbnd' => $revnlbound, 
 				'revubnd' => $revnubound,
 				'revlbdim' => $revnlbound_range,
-				'revubdim' => $revnubound_range
+				'revubdim' => $revnubound_range,
+				'period' => $period,
 				// 'Modifieddt' => date("Y-m-d H:i:s")
 				
 								

@@ -475,7 +475,7 @@ $('#levelid').change(function(){
 
                         <div class="form-group row">
                             <div class="col-sm-3">
-                                <label class="col-lable"><b>World Region</b></label><?php echo form_error('region_id'); ?>
+                                <label class="col-lable"><b>World Region</b></label>
                                 <select class="js-example-basic-multiple col-sm-12 form-control-sm region" multiple="multiple" name="region_id[]" id="region_id">
                                 <option value="0">All</option>
                                 <?php foreach ($regions as $region): ?>
@@ -497,6 +497,10 @@ $('#levelid').change(function(){
                                 <option value="0">All</option>
                                 </select>
                             </div>
+                            
+                           
+                            </div>
+                            <div class="form-group row">
                             <div class="col-sm-3">
                                 <label class="col-lable"><b>Sector (Industry)</b></label>
                                 <select class="js-example-basic-multiple col-sm-12 form-control-sm" multiple="multiple" name="sector_id[]" id="sector_id">
@@ -513,8 +517,6 @@ $('#levelid').change(function(){
                                 <option value="0">All</option>
                                 </select>
                             </div>
-                            </div>
-                            <div class="form-group row">
                             <div class="col-sm-3">
                                 <label class="col-lable"><b>Job Level</b></label>
                               <select class="js-example-basic-multiple col-sm-12 form-control-sm" multiple="multiple" name="levelid[]" id="levelid">
@@ -745,7 +747,18 @@ $('#levelid').change(function(){
                                 <label class="col-lable"><b>Est Completion Date</b></label> <?php echo form_error('estclosedt'); ?>
                                 <input type="text" id="estclosedt"  name="estclosedt" value="<?php echo set_value('estclosedt');?>" <?php echo (form_error('estclosedt')) ? 'class="form-control form-control-danger form-control-sm"' :'class="form-control form-control-sm"';?> >
                             </div>
+                            <div class="col-sm-3">
+                                <label class="col-lable"><b>Select Period</b></label>
+                                <select class="form-control form-control-default form-control-sm "  name="period" id="period">
+                                <option value="1">1 Month<option>
+                                <option value="2">2 Month<option>
+                                <option value="3">3 Month<option>
+                                <option value="4">4 Month<option>
+                                <option value="5">5 Month<option>
+                                <option value="6" selected>6 Month<option>
+                                </select>
                             
+                            </div>
 
                         </div>
                         
@@ -791,12 +804,13 @@ $('#levelid').change(function(){
             var campaign_name = $('#campaign_name').val();
             var country_id = $('#country_id').val(); 
             var region_id = $('#region_id').val();
+            alert(region_id);
             // var theRemovedElement = region_id.shift();  
             var industrycd = $('#industrycd').val(); 
             // alert(industrycd);
             var dcd = $('#dcd').val(); 
             // var emplzid = $('#emplzid').val(); 
-            // var revid = $('#revid').val(); 
+            
             var desid = $('#desid').val();
             var emplbound = $('#emplbound').val();
             var empubound = $('#empubound').val();
@@ -808,7 +822,8 @@ $('#levelid').change(function(){
             var selectstatus = $('#selectstatus').val();
             var frequency_type = $('#frequency_type').val();
             var frequency = $('#frequency').val();
-            
+            var period = $('#period').val(); 
+            alert(period);
             //alert(revnlbound+ "" + emplbound);
             $("#client_id_msg").html("");
             $("#campaign_id_msg").html("");
@@ -903,7 +918,8 @@ $('#levelid').change(function(){
                     revnlbound_range:revnlbound_range,
                     revnubound_range:revnubound_range,
                     frequency_type:frequency_type,
-                    frequency:frequency
+                    frequency:frequency,
+                    period:period
 				},
                 cache: false,
                 success: function(response){

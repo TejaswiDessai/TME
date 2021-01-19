@@ -38,6 +38,8 @@ $(function () {
 });
 
 $(function(){
+    $('#revnubound').prop('disabled', true);
+    $('#revnubound_range').prop('disabled', true);
     $('#revnlbound_range').change(function(){
         
         if($(this).attr('id') == 'revnlbound_range' && $(this).val() == 'hundred'){
@@ -75,6 +77,52 @@ $(function(){
             });
             
         }  
+    });
+
+    $('#revnlbound').change(function(){
+        
+        if($(this).attr('id') == 'revnlbound' && $(this).val() != null){
+            var revnlbound = $(this).val();
+            
+            if (revnlbound != '')
+            {
+                $('#revnubound').prop('disabled', false);
+                $('#revnubound_range').prop('disabled', false);
+            }
+            if(revnlbound > 10){
+                if(revnlbound % 10 == 0)
+                {
+                    $("#revnlbound_msg").html("");
+                }
+                else
+                {
+                    $("#revnlbound_msg").html("<p><strong>Number should (* 10).</strong></p>");
+                    return;
+                }
+            }
+            
+        }
+    });
+
+    $('#revnubound').change(function(){
+        
+        if($(this).attr('id') == 'revnubound' && $(this).val() != null){
+            var revnlbound = $(this).val();
+            if(revnlbound > 10){
+                if(revnlbound % 10 == 0)
+                {
+                    $("#revnubound_msg").html("");
+                    //alert("prime");
+                }
+                else
+                {
+                    // alert("Please enter revenue multiple of 10");
+                    $("#revnubound_msg").html("<p><strong>Number should (* 10).</strong></p>");
+                    return;
+                }
+            }
+            
+        }
     });
 });
 </script>
@@ -603,6 +651,7 @@ $('#levelid').change(function(){
                                 <!-- <div class="senior-airman"> -->
                                 <label class="col-lable"><b>Revenue Lower Bound</b></label>
                                 <input type="text"   name="revnlbound" step="5"  placeholder="Rev Lower Bound"  id="revnlbound" class="form-control form-control-sm" onkeypress="return isNumber(event)" >
+                                <span style='color:#FF0000' id="revnlbound_msg"></span>
                                 <!-- <select class="second-level-select form-control form-control-sm"  name="revnlbound" id="revnlbound">
                                 <option value="">Select </option>
                                     <?php //foreach ($revnubound as $revnubound): ?>
@@ -627,6 +676,7 @@ $('#levelid').change(function(){
                                 <!-- <div class="airman"> -->
                                     <label class="col-lable"><b>Revenue Upper Bound</b></label>
                                     <input type="text"   name="revnubound"  placeholder="Rev Upper Bound"  id="revnubound" class="form-control form-control-sm" onkeypress="return isNumber(event)" >
+                                    <span style='color:#FF0000' id="revnubound_msg"></span>
                                     <!-- <select class="second-level-select form-control form-control-sm"  name="revnubound" id="revnubound">
                                     <option value="">Select </option>
                                         <?php //foreach ($revnlbound as $revnlbound): ?>

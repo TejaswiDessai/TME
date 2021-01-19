@@ -116,6 +116,10 @@
                         $query = $this->db->get('compsize');                       
 			return $query->result_array();
 		}
+		public function get_comptype(){
+			$query = $this->db->get('comptype');                       
+			return $query->result_array();
+		}
 		public function get_designation(){
 			$this->db->select('joblids,joblevel');
 			$this->db->group_by('joblids');
@@ -128,7 +132,17 @@
 		}
 		public function get_designation_byCampaign($cnid){
 			$this->db->select('*');
-			$this->db->join('designation', 'designation.tid = CAST(campaign.tid as integer)');
+			$this->db->join('joblevels', 'joblevels.jid = CAST(campaign.tid as integer)');
+			$this->db->where('campaign.cnid', $cnid);
+			$query = $this->db->get('campaign');
+			return $query->result_array(); 
+			// echo $this->db->last_query(); 
+		}
+		public function get_joblevels_byCampaign($cnid){
+			$this->db->select('joblids,joblevel');
+			$this->db->group_by('joblids');
+			$this->db->group_by('joblevel');
+			$this->db->join('joblevels', 'joblevels.jid = CAST(campaign.tid as integer)');
 			$this->db->where('campaign.cnid', $cnid);
 			$query = $this->db->get('campaign');
 			return $query->result_array(); 
@@ -142,26 +156,35 @@
 			return $query->result_array(); 
 			// echo $this->db->last_query(); 
 		}
+		// public function get_industries_byCampaign($cnid){
+		// 	$this->db->select('*');
+		// 	$this->db->select('industry.industrycd,industry.industry,campaign.industrycd');
+		// 	$this->db->group_by('industry.industrycd');
+		// 	$this->db->group_by('industry.industry');
+		// 	$this->db->group_by('campaign.industrycd');
+		// 	$this->db->join('industry', 'industry.industrycd = CAST(campaign.industrycd as smallint)');
+		// 	$this->db->where('campaign.cnid', $cnid);
+		// 	$query = $this->db->get('campaign');
+			
+		// 	return $query->result_array(); 
+
+		// }
+		
 		public function get_industries_byCampaign($cnid){
-			// $this->db->select('*');
-			$this->db->select('industry.industrycd,industry.industry,campaign.industrycd');
-			$this->db->group_by('industry.industrycd');
-			$this->db->group_by('industry.industry');
-			$this->db->group_by('campaign.industrycd');
-			$this->db->join('industry', 'industry.industrycd = CAST(campaign.industrycd as smallint)');
+			$this->db->select('*');
+			$this->db->join('industry', 'industry.subindustrycd = CAST(campaign.industrycd as smallint)');
 			$this->db->where('campaign.cnid', $cnid);
 			$query = $this->db->get('campaign');
-			
+			// echo $this->db->last_query(); 
 			return $query->result_array(); 
 
 		}
 		public function get_subindustries_byCampaign($cnid){
 			$this->db->select('*');
-			
 			$this->db->join('industry', 'industry.subindustrycd = CAST(campaign.industrycd as smallint)');
 			$this->db->where('campaign.cnid', $cnid);
 			$query = $this->db->get('campaign');
-			
+			// echo $this->db->last_query(); 
 			return $query->result_array(); 
 
 		}
@@ -182,7 +205,20 @@
 			$this->db->join('timezone', 'timezone.countrycd = CAST(campaign.countrycd as smallint)');
 			$this->db->where('campaign.cnid', $cnid);
 			$query = $this->db->get('campaign');
-			
+			//  echo $this->db->last_query(); 
+			return $query->result_array(); 
+
+		}
+		public function get_currencybyCampaign($cnid){
+			// $this->db->select('*');
+			$this->db->select('country.currab,country.currnme,country.currid');
+			$this->db->group_by('country.currab');
+			$this->db->group_by('country.currnme');
+			$this->db->group_by('country.currid');
+			$this->db->join('country', 'country.countrycd = CAST(campaign.countrycd as smallint)');
+			$this->db->where('campaign.cnid', $cnid);
+			$query = $this->db->get('campaign');
+			//   echo $this->db->last_query(); 
 			return $query->result_array(); 
 
 		}
@@ -1005,6 +1041,52 @@ function getIndustry($region_id)
 	$response = $q->result_array();
 
 	return $response;
+}
+function check_unique_email($email)
+{
+	// Select record
+	$this->db->select('email');
+	$this->db->where('email', $email);
+	$result = $this->db->get('leadmaster');
+	// echo $this->db->last_query(); 
+			if ($result->num_rows() > 1) {
+               return "true";        
+			}else{
+				return "false";
+			}
+
+}
+function check_inclusion_email($email)
+{
+	// Select record
+	$this->db->select('emailids');
+	$this->db->where('emailids', $email);
+	// $this->db->where('emailids', 'test@test.com');
+	$this->db->where('exclincl', 1 ); // check inclusion
+	$result = $this->db->get('emaillist');
+	// echo $this->db->last_query(); 
+			if ($result->num_rows() > 1) {
+               return "true";        
+			}else{
+				return "false";
+			}
+
+}
+function check_suppression_email($email)
+{
+	// Select record
+	$this->db->select('emailids');
+	// $this->db->where('emailids', $email);
+	$this->db->where('emailids', 'test@test.com');
+	$this->db->where('exclincl', 0 ); // check Exclusion
+	$result = $this->db->get('emaillist');
+	// echo $this->db->last_query(); 
+			if ($result->num_rows() > 1) {
+               return "true";        
+			}else{
+				return "false";
+			}
+
 }
 
 function getJobTitle($levelid)

@@ -243,7 +243,7 @@ $(function(){
                                 <label class="col-lable"><b>Department</b></label><?php echo form_error('dcd'); ?>
                                 <select class="js-example-basic-multiple col-sm-12" multiple="multiple" name="dcd[]" id="dcd">
                                    <?php foreach ($departments as $dept): ?>
-                                    <option value="<?php echo $post['dcd']; ?>"  <?php if($post['dcd'] == $dept['dcd']){ echo "selected" ; } ?>><?php echo $dept['department']; ?></option>
+                                    <option value="<?php echo $dept['dcd']; ?>"  <?php if($post['dcd'] == $dept['dcd']){ echo "selected" ; } ?>><?php echo $dept['department']; ?></option>
                                 <?php endforeach; ?>
                                 </select>
                             </div>
@@ -268,7 +268,7 @@ $(function(){
                                 <label class="col-lable"><b>World Region</b></label>
                                 <select class="js-example-basic-multiple col-sm-12" multiple="multiple" name="region_id" id="region_id">
                                 <?php foreach ($regions as $region): ?>
-                                    <option value="<?php echo $post['regioncode']; ?>" <?php if($post['regioncode'] == $region['regioncode']){ echo "selected" ; } ?>><?php echo $region['region']; ?></option>
+                                    <option value="<?php echo $region['regioncode']; ?>" <?php if($post['regioncode'] == $region['regioncode']){ echo "selected" ; } ?>><?php echo $region['region']; ?></option>
                                 <?php endforeach; ?>
                                 
                                 </select>
@@ -279,45 +279,45 @@ $(function(){
                                 <select class="js-example-basic-multiple col-sm-12" multiple="multiple" name="country_id[]" id="country_id">
                                  
                             <?php foreach ($countries as $country): ?>
-                                    <option value="<?php echo $post['countrycd']; ?>" <?php if($post['countrycd'] == $country['countrycd']){ echo "selected" ; } ?>><?php echo $country['countryname']; ?></option>
+                                    <option value="<?php echo $country['countrycd']; ?>" <?php if($post['countrycd'] == $country['countrycd']){ echo "selected" ; } ?>><?php echo $country['countryname']; ?></option>
                                 <?php endforeach; ?>
                                 </select>
                             </div>
-                            <div class="col-sm-3">
-                                <label class="col-lable"><b>Sector</b></label>
+                            <!-- <div class="col-sm-3"> -->
+                                <!-- <label class="col-lable"><b>Sector</b></label>
                                 <select class="js-example-basic-multiple col-sm-12 form-control-sm" multiple="multiple" name="sector_id[]" id="sector_id">
-                                <option value="0">All</option>
+                                <option value="0">All</option> -->
                                      <?php //foreach ($industries as $industry): ?>
                                     <!-- <option value="<?php //echo $industry['industrycd']; ?>"><?php //echo $industry['industry']; ?></option> -->
                                 <?php// endforeach; ?>
-                                </select>
-                            </div>
+                                <!-- </select> -->
+                            <!-- </div> -->
                             <div class="col-sm-3">
                                 <label class="col-lable"><b>Industry</b></label><?php echo form_error('industrycd'); ?>
                                 <select class="js-example-basic-multiple col-sm-12" multiple="multiple" name="industrycd[]" id="industrycd">
                                      <?php foreach ($industries as $industry): ?>
-                                    <option value="<?php echo $post['industrycd']; ?>" <?php if($post['industrycd'] == $industry['industrycd']){ echo "selected" ; } ?>><?php echo $industry['industry']; ?></option>
+                                    <option value="<?php echo $industry['subindustrycd']; ?>" <?php if($post['industrycd'] == $industry['subindustrycd']){ echo "selected" ; } ?>><?php echo $industry['subindustry']; ?></option>
                                 <?php endforeach; ?>
                                 </select>
                             </div>
                             
                         </div>
                         <div class="form-group row">
-                            <div class="col-sm-3">
+                            <!-- <div class="col-sm-3">
                                 <label class="col-lable"><b>Job Level</b></label>
                               <select class="js-example-basic-multiple col-sm-12 form-control-sm" multiple="multiple" name="levelid[]" id="levelid">
-                              <option value="0">All</option>
+                              <option value="0">All</option> -->
                                 <?php //foreach ($designation as $designation): ?>
                                     <!-- <option value="<?php //echo $designation['tid']; ?>"><?php //echo $designation['designation']; ?></option> -->
                                 <?php //endforeach; ?>
                                    
-                                </select>
-                            </div>
+                                <!-- </select>
+                            </div> -->
                             <div class="col-sm-3">
                                 <label class="col-lable"><b>Designation</b></label><?php echo form_error('desid'); ?>
                               <select class="js-example-basic-multiple col-sm-12" multiple="multiple" name="desid[]" id="desid">
                                 <?php foreach ($designation as $designation): ?>
-                                    <option value="<?php echo $post['tid']; ?>" <?php if($post['tid'] == $designation['tid']){ echo "selected" ; } ?>><?php echo $designation['designation']; ?></option>
+                                    <option value="<?php echo $designation['jid']; ?>" <?php if($post['tid'] == $designation['jid']){ echo "selected" ; } ?>><?php echo $designation['joblist']; ?></option>
                                 <?php endforeach; ?>
                                    
                                 </select>

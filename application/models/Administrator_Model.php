@@ -92,9 +92,11 @@
 		
 		public function get_industries(){
 			
-			$this->db->select('industrycd,industry');
+			$this->db->select('industrycd,industry,subindustry,subindustrycd');
 			$this->db->group_by('industrycd');
 			$this->db->group_by('industry');
+			$this->db->group_by('subindustry');
+			$this->db->group_by('subindustrycd');
 			$query = $this->db->get('industry'); 
 //                         echo $this->db->last_query(); exit;
 			return $query->result_array();
@@ -117,9 +119,11 @@
 			return $query->result_array();
 		}
 		public function get_designation(){
-			$this->db->select('joblids,joblevel');
+			$this->db->select('joblids,joblevel,jid,joblist');
 			$this->db->group_by('joblids');
 			$this->db->group_by('joblevel');
+			$this->db->group_by('jid');
+			$this->db->group_by('joblist');
 			$query = $this->db->get('joblevels'); 
 //                         echo $this->db->last_query(); exit;
 			return $query->result_array();

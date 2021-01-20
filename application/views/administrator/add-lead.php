@@ -41,6 +41,8 @@ $(document).ready(function() {
         var value = $(this).val();
         if (value == 2) { // if cdqa is selected
           $('.commentvisible').show();
+          $('.cdqadisplay').show();
+         
             var elements = $('.section').show(); 
             $("input.checkbox").attr("disabled", true);
             $(".cdqadisable").attr("disabled", true);   
@@ -50,6 +52,7 @@ $(document).ready(function() {
           
         }else{
           $('.commentvisible').hide();
+          $('.leaddisplay').hide();
             $(".cdqadisable").attr("disabled", false);    
             
         }
@@ -74,12 +77,18 @@ $(document).ready(function() {
                                       <option value="2">CDQA </option>
                                 </select>
                   </div> 
-        <div class="col-sm-2" style="margin-top: -20px;">
-        <?php foreach ($campaigns as $campaign): ?>
+                <div class="col-sm-2" style="margin-top: -20px;">
+                <?php foreach ($campaigns as $campaign): ?>
                  <label class="col-lable"><b>Campaign Name: <?php echo $campaign['campnm']; ?></b></label>
                  <?php endforeach; ?>
-                  </div> 
-        </div>   
+                </div> 
+                <div class="col-sm-2" style="margin-top: -20px;">
+                Select lead
+                <!-- <?php foreach ($campaigns as $campaign): ?>
+                 <label class="col-lable"><b>Campaign Name: <?php echo $campaign['campnm']; ?></b></label>
+                 <?php endforeach; ?> -->
+                </div> 
+            </div>   
                            
     </div>
     <!-- <div class="page-header-breadcrumb">
@@ -206,7 +215,9 @@ $(document).ready(function() {
                                 <input type="text"  name="phext" id="phext"  placeholder="Extension" maxlength="5"  class="form-control form-control-sm cdqadisable">
                             </div>
                             <div class="col-sm-2">
-                                <input type="text"  name="plink" id="plink"  placeholder="Prospect Link"  class="form-control form-control-sm">
+                          
+                                <input type="text"  name="plink" id="plink"  placeholder="Prospect Link"  class="form-control form-control-sm"  >
+                               
                                 <span style='color:#FF0000' id="url_msg"></span>
                             </div>
                         
@@ -330,13 +341,13 @@ $(document).ready(function() {
                             </div>          
                             <div class="col-sm-2">
                                 <div class="domaincheck">
-                                <input type="text"  name="domain" id="domain"  placeholder="Domain"  class="form-control form-control-sm cdqadisable">
+                                <input type="text"  name="domain" id="domain"  placeholder="Domain" value="<?php if(isset($post['domain']))  echo $post['domain']; ?>"   class="form-control form-control-sm cdqadisable">
                                 </div>
                                 <span style='color:#FF0000' id="domain_msg"></span>
                               </div>
                             
                             <div class="col-sm-2">
-                                <input type="text"  name="empszlink" id="empszlink"  placeholder="Employee Size Link"  class="form-control form-control-sm">
+                                <input type="text"  name="empszlink" id="empszlink" value="<?php if(isset($post['empszlink']))  echo $post['empszlink']; ?>"   placeholder="Employee Size Link"  class="form-control form-control-sm">
                             </div>
                            
                         </div>
@@ -345,13 +356,13 @@ $(document).ready(function() {
                         <div class="form-group row">
                            
                         <div class="col-sm-2 ">
-                                <input type="text"  name="indlink" id="indlink"  placeholder="Industry Type Link"  class="form-control form-control-sm">
+                                <input type="text"  name="indlink" id="indlink"  placeholder="Industry Type Link" value="<?php if(isset($post['indlink'])) echo $post['indlink']; ?>" class="form-control form-control-sm">
                             </div>
                             <div class="col-sm-2">
-                                <input type="text"  name="revszlink" id="revszlink"  placeholder="Revenue Size Link"  class="form-control form-control-sm">
+                                <input type="text"  name="revszlink" id="revszlink" value="<?php if(isset($post['revszlink'])) echo $post['revszlink']; ?>"    placeholder="Revenue Size Link"  class="form-control form-control-sm">
                             </div>
                             <div class="col-sm-2">
-                                <input type="text"  name="othrlink" id="othrlink"  placeholder="Other Link"  class="form-control form-control-sm">
+                                <input type="text"  name="othrlink" id="othrlink" value="<?php if(isset($post['othrlink']))  echo $post['othrlink']; ?>"  placeholder="Other Link"  class="form-control form-control-sm">
                             </div>
                             <div class="col-sm-2">
                                 <select class="form-control form-control-sm"  name="emailver" id="emailver">
@@ -400,15 +411,19 @@ $(document).ready(function() {
                         <br>
 
                         <div class="form-group row" >
-                        <div class="col-sm-12 commentvisible">
+                             <div class="col-sm-12 commentvisible">
                                 <label class="col-lable"><b>Comment</b></label>
                                 <input type="text"  name="pcomt" id="pcomt"  placeholder="Comment"  class="form-control form-control-sm">
                             </div> 
-                            </div>
-                       <input type = hidden name="campaign_id" id="campaign_id" value="<?php echo $campaign['cnid']; ?>">
-                        <button type="submit" name="leadsubmit" class="btn btn-primary" style=""  id="leadsubmit">Submit Lead</button> 
-                        <button type="submit" name="leadsave" class="btn btn-primary" style=""  id="leadsave">Save Lead</button> 
+                         </div>
+                        <input type = hidden name="campaign_id" id="campaign_id" value="<?php echo $campaign['cnid']; ?>">
+                        
+                        <button type="submit" name="leadsubmit" class="btn btn-primary leaddisplay" style=""  id="leadsubmit">Submit Lead</button> 
+                        <button type="submit" name="leadsave" class="btn btn-primary leaddisplay" style=""  id="leadsave">Save Lead</button> 
                         <!-- <input class="submit" class ="" type="submit" value="SUBMIT"> -->
+                        <!-- below buttons are for cdqa save and submit -->
+                        <button type="submit" name="cdqasubmit" class="btn btn-primary cdqadisplay" style=""  id="cdqasubmit">Submit Lead BY CDQA</button> 
+                        <button type="submit" name="cdqasave" class="btn btn-primary cdqadisplay" style=""  id="cdqasave">Save Lead BY CDQA</button> 
                        
 
                     </div>
@@ -598,6 +613,8 @@ $(document).ready(function() {
 $(document).ready(function() {
   
   $('.commentvisible').hide();
+  $('.leaddisplay').show();
+  $('.cdqadisplay').hide();
   // load questions of campaign on load 
   var campaign_id = $('#campaign_id').val();
 
@@ -1103,6 +1120,144 @@ $(document).ready(function() {
                     }else if(response.statusCode=="Fail")
                     {
                         $("#leadsubmit").html(response.message);
+                        
+					          }
+
+                   
+
+                }
+              
+            });
+        });
+    });
+</script>   
+<!--  code for Submit data in CDQA -->
+<script>
+    $(function() {
+        $("#cdqasubmit").on('click', function() 
+        {
+         
+            var campaign_id = $('#campaign_id').val();
+           
+           
+            var plink = $('#plink').val();
+            
+            var empszlink = $('#empszlink').val();
+            var domain = $('#domain').val();
+            var indlink = $('#indlink').val();
+            var revszlink = $('#revszlink').val();
+            var pcomt = $('#pcomt').val();
+
+           
+            var othrlink = $('#othrlink').val();
+            var emailver = $('#emailver').val();
+            
+            var url = "<?php echo base_url("cdc/ajax_submit_leadandcdcbyCDQA");?>";
+            console.log(url+"?campaign_id="+campaign_id+"&plink="+plink+"&empszlink="+empszlink+"&indlink="+indlink+"&domain="+domain+"&othrlink="+othrlink+"&revszlink="+revszlink+"&emailver="+emailver+"&pcomt="+pcomt);
+           
+            $.ajax({
+                url :'<?php echo base_url("cdc/ajax_submit_leadandcdcbyCDQA");?>',
+                type: 'GET', 
+                dataType: 'json',              
+                data: {
+                   
+					          campaign_id: campaign_id,
+                   
+                    plink:plink,
+
+                    domain:domain,
+                    empszlink:empszlink,
+                    revszlink:revszlink,
+                    indlink:indlink,
+                    pcomt:pcomt,
+                    othrlink:othrlink,
+                    emailver:emailver
+                   
+                    
+                    
+				},
+                cache: false,
+                success: function(response){
+                    var text = response.statusCode;
+                    console.log("check");
+                   
+                    if(response.statusCode == "Success") 
+                    {                        
+                        $("#cdqasubmit").html(response.message);
+                        // $("#addcampbtn").prop('disabled', true);
+                        // top.location.href=base_url+"campaigns/addsuppressionList?camp_id="+response.campaign_id;//redirection
+                    }else if(response.statusCode=="Fail")
+                    {
+                        $("#cdqasubmit").html(response.message);
+                        
+					          }
+
+                   
+
+                }
+              
+            });
+        });
+    });
+</script>   
+<!--  code for Save data in CDQA -->
+<script>
+    $(function() {
+        $("#cdqasave").on('click', function() 
+        {
+         
+            var campaign_id = $('#campaign_id').val();
+           
+           
+            var plink = $('#plink').val();
+            
+            var empszlink = $('#empszlink').val();
+            var domain = $('#domain').val();
+            var indlink = $('#indlink').val();
+            var revszlink = $('#revszlink').val();
+            var pcomt = $('#pcomt').val();
+
+           
+            var othrlink = $('#othrlink').val();
+            var emailver = $('#emailver').val();
+            
+            var url = "<?php echo base_url("cdc/ajax_save_leadandcdcbyCDQA");?>";
+            console.log(url+"?campaign_id="+campaign_id+"&plink="+plink+"&empszlink="+empszlink+"&indlink="+indlink+"&domain="+domain+"&othrlink="+othrlink+"&revszlink="+revszlink+"&emailver="+emailver+"&pcomt="+pcomt);
+           
+            $.ajax({
+                url :'<?php echo base_url("cdc/ajax_save_leadandcdcbyCDQA");?>',
+                type: 'GET', 
+                dataType: 'json',              
+                data: {
+                   
+					          campaign_id: campaign_id,
+                   
+                    plink:plink,
+
+                    domain:domain,
+                    empszlink:empszlink,
+                    revszlink:revszlink,
+                    indlink:indlink,
+                    pcomt:pcomt,
+                    othrlink:othrlink,
+                    emailver:emailver
+                   
+                    
+                    
+				},
+                cache: false,
+                success: function(response){
+                    var text = response.statusCode;
+                    console.log("check");
+                   
+                    if(response.statusCode == "Success") 
+                    {                        
+                        $("#cdqasave").html(response.message);
+                        // $("#addcampbtn").prop('disabled', true);
+                        // top.location.href=base_url+"campaigns/addsuppressionList?camp_id="+response.campaign_id;//redirection
+                    }else if(response.statusCode=="Fail")
+                    {
+                        $("#cdqasave").html(response.message);
                         
 					          }
 

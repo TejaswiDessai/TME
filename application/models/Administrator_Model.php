@@ -243,6 +243,16 @@
 			return $query->result_array(); 
 
 		}
+		public function get_dataforCDQA_byCampaign($cnid){
+			$this->db->select('*');
+			$this->db->where('pload', 1);
+			$this->db->where('cnid', $cnid);
+			
+			$query = $this->db->get('leadmaster');
+			// echo $this->db->last_query(); 
+			return $query->result_array(); 
+
+		}
 
 		public function get_assetitle(){
 			
@@ -1230,6 +1240,15 @@ public function get_campaign_by_id($id = FALSE)
 		{
 			$this->db->where('cids', $campaign_id);
 			$this->db->update('campaign', $datacampaign);
+			return true;
+			//  $this->db->insert('campaign', $datacampaign);
+			//  return true;
+                        // echo $this->db->last_query(); 
+		}
+	public function update_leadandcdcbyCDQA($updateleadandcdcdata,$campaign_id)
+		{
+			$this->db->where('cnid', $campaign_id);
+			$this->db->update('leadmaster', $updateleadandcdcdata);
 			return true;
 			//  $this->db->insert('campaign', $datacampaign);
 			//  return true;

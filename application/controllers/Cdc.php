@@ -39,8 +39,9 @@
 						$data['comptype'] = $this->Administrator_Model->get_comptype();
 						
 						$data['assetitle'] = $this->Administrator_Model->get_assetitle_byCampaign($camp_id);
-						// $data['questions'] = $this->Administrator_Model->get_questions_byCampaign($camp_id);
-			
+
+						$data['dataforcdqa'] = $this->Administrator_Model->get_dataforCDQA_byCampaign($camp_id);
+			// print_r($data['dataforcdqa']);
 						
 
 
@@ -323,6 +324,129 @@
 					echo json_encode(array(
 						"statusCode"=>"Fail",
 						"message"=>"Add data Lead failed.."
+					));
+				}
+								
+			
+		}
+		public function ajax_submit_leadandcdcbyCDQA()
+		{
+			$campaign_id = $_GET['campaign_id'];
+			
+				
+
+				$old_date = date('y-m-d-h-i-s');            // works
+				$middle = strtotime($old_date);             // returns bool(false)
+				$new_date = date('Y-m-d H:i:s', $middle);
+
+				$datacdcandlead = array(
+				// 'cnid' => $_GET['campaign_id'],
+				
+				
+				'domain' => $_GET['domain'],
+				'indlink' => $_GET['indlink'],
+				'revszlink' => $_GET['revszlink'],
+				'empszlink' => $_GET['empszlink'],
+				'pcomt' => $_GET['pcomt'],
+
+				'othrlink' => $_GET['othrlink'],
+
+				'emailver' => $_GET['emailver'],
+				
+				// tag
+				'cdcload' => '1', // submit to next level
+
+				
+
+				'cdcsbagti' => $_SESSION['user_id'], // save Agent Name
+				'cdcsbdti' => $new_date // save date time
+				//'stagtidi' => '1', // submit agent name
+				//'stdti' => $new_date // submit date time
+				
+
+
+								
+				);
+			
+			//   print_r($datacdcandlead);
+			    //  exit();
+				
+				$updateleadandcdcdata = $this->Administrator_Model->update_leadandcdcbyCDQA($datacdcandlead,$campaign_id);
+				// print_r(addcampaigndata); 
+
+				if($updateleadandcdcdata == true){
+			
+					echo json_encode(array(
+						"statusCode"=>"Success",
+						"lead_id"=>$updateleadandcdcdata,
+						"message"=>"Lead updated Successfully.."
+					));
+				}else{
+					echo json_encode(array(
+						"statusCode"=>"Fail",
+						"message"=>"Lead updated  failed.."
+					));
+				}
+								
+			
+		}
+		public function ajax_save_leadandcdcbyCDQA()
+		{
+			$campaign_id = $_GET['campaign_id'];
+			
+				
+
+				$old_date = date('y-m-d-h-i-s');            // works
+				$middle = strtotime($old_date);             // returns bool(false)
+				$new_date = date('Y-m-d H:i:s', $middle);
+
+				$datacdcandlead = array(
+				// 'cnid' => $_GET['campaign_id'],
+				
+				
+
+				'domain' => $_GET['domain'],
+				'indlink' => $_GET['indlink'],
+				'revszlink' => $_GET['revszlink'],
+				'empszlink' => $_GET['empszlink'],
+				'pcomt' => $_GET['pcomt'],
+
+				'othrlink' => $_GET['othrlink'],
+
+				'emailver' => $_GET['emailver'],
+				
+				// tag
+				'cdcsv' => '1', // Save only
+
+				
+
+				'cdcsvagti' => $_SESSION['user_id'], // save Agent Name
+				'cdcsvdti' => $new_date // save date time
+				//'stagtidi' => '1', // submit agent name
+				//'stdti' => $new_date // submit date time
+				
+
+
+								
+				);
+			
+			//   print_r($datacdcandlead);
+			    //  exit();
+			
+				$updateleadandcdcdata = $this->Administrator_Model->update_leadandcdcbyCDQA($datacdcandlead,$campaign_id);
+				// print_r(addcampaigndata); 
+
+				if($updateleadandcdcdata == true){
+			
+					echo json_encode(array(
+						"statusCode"=>"Success",
+						"lead_id"=>$updateleadandcdcdata,
+						"message"=>"Lead updated Successfully.."
+					));
+				}else{
+					echo json_encode(array(
+						"statusCode"=>"Fail",
+						"message"=>"Lead updated  failed.."
 					));
 				}
 								

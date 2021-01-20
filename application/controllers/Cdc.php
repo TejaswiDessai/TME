@@ -7,7 +7,8 @@
 		function addlead($page = 'add-lead'){
 
 			$data['title'] = 'Create Lead';
-			
+			// print_r($_SESSION);
+			// print_r($_SESSION['user_id']);
 						$postData = $this->input->post();
 						$postData1 = $postData['campaign_id'];
 						// print_r($postData1);
@@ -77,6 +78,260 @@
 			$this->load->view('administrator/footer');
 		
 		}
+
+		public function ajax_add_new_leadandcdc()
+		{
+			$campaign_id = $_GET['campaign_id'];
+			// $revnlbound_range = '';
+			// if(!empty($_GET['revnlbound_range'])) {
+			// $revnlbound_range = $_GET['revnlbound_range'];
+			// }
+				// Concatenation Of String 
+				$trimfname=$_GET['fname'];
+				$trimlname=$_GET['lname'];
+
+				$first =substr($trimfname, 0, 4);  // abcd
+				$last = substr($trimlname, 0, 4);
+				$conname = $first." ".$last; 
+
+
+				$old_date = date('y-m-d-h-i-s');            // works
+				$middle = strtotime($old_date);             // returns bool(false)
+				$new_date = date('Y-m-d H:i:s', $middle);
+
+				$datacdcandlead = array(
+				'cnid' => $_GET['campaign_id'],
+				
+				'sal' => $_GET['sal'],
+				'fname' => $_GET['fname'],
+				'lname' => $_GET['lname'],
+				'conname' => $conname, //concate strings
+				'jtitle' => $_GET['jtitle'],
+				// 'desid' => $_GET['desid'],
+
+				'jlevel' => $_GET['jlevel'],
+				'dname' => $_GET['dcd'], //department
+				'email' => $_GET['email'],
+				'phone' => $_GET['phone'],
+				'altphn' => $_GET['altphn'],
+
+				'phext' => $_GET['phext'],
+				'plink' => $_GET['plink'],
+				'cname' => $_GET['company_name'],
+				'address' => $_GET['address'],
+
+				'city' => $_GET['city'],
+				'state' => $_GET['state'],
+				'zipcode' => $_GET['zip_code'],
+				'country' => $_GET['country_id'],
+				'timez' => $_GET['timezone'],
+				'ctyp' => $_GET['ctype'],
+			
+				'linetype' => $_GET['linetype'],
+				'indtry' => $_GET['industrycd'],
+				'sindtry' => $_GET['subindustrycd'],
+
+				'sectyp' => $_GET['sectyp'],
+				'empsize' => $_GET['empsize'],
+				'arevenue' => $_GET['arevenue'],
+				'mlbl' => $_GET['mlbl'],
+				'curr' => $_GET['curr'],
+
+				'domain' => $_GET['domain'],
+				'indlink' => $_GET['indlink'],
+				'revszlink' => $_GET['revszlink'],
+				'empszlink' => $_GET['empszlink'],
+				'pcomt' => $_GET['pcomt'],
+
+				'othrlink' => $_GET['othrlink'],
+
+				'emailver' => $_GET['emailver'],
+				'aum' => $_GET['aum'],
+				'atitle' => $_GET['assetid'],
+
+				'optin' => $_GET['optin'],
+				'optpst' => $_GET['optpst'],
+				'optph' => $_GET['optph'],
+				'opteml' => $_GET['opteml'],
+				
+
+				'aa1' => $_GET['aa1'],
+				'aa2' => $_GET['aa2'],
+				'aa3' => $_GET['aa3'],
+				'aa4' => $_GET['aa4'],
+				'aa5' => $_GET['aa5'],
+				'aa6' => $_GET['aa6'],
+				'aa7' => $_GET['aa7'],
+				'aa8' => $_GET['aa8'],
+				'aa9' => $_GET['aa9'],
+				'aa10' => $_GET['aa10'],
+				'aa11' => $_GET['aa11'],
+				'aa12' => $_GET['aa12'],
+
+				// tag
+				'pload' => '1', // next level ready to load
+
+				
+
+				// 'svagtidi' => '1' // save Agent Name
+				// 'svdti' => '1' // save date time
+				'stagtidi' => $_SESSION['user_id'], // submit agent name
+				'stdti' => $new_date // submit date time
+								
+				);
+			
+			//   print_r($datacdcandlead);
+			    //  exit();
+			
+				$addleadandcdcdata = $this->Administrator_Model->add_leadandcdc($datacdcandlead);
+				// print_r(addcampaigndata); 
+
+				if($addleadandcdcdata == true){
+			
+					echo json_encode(array(
+						"statusCode"=>"Success",
+						"lead_id"=>$addleadandcdcdata,
+						"message"=>"Lead Added Successfully.."
+					));
+				}else{
+					echo json_encode(array(
+						"statusCode"=>"Fail",
+						"message"=>"Add data Lead failed.."
+					));
+				}
+								
+			
+		}
+		public function ajax_save_leadandcdc()
+		{
+			$campaign_id = $_GET['campaign_id'];
+			// $revnlbound_range = '';
+			// if(!empty($_GET['revnlbound_range'])) {
+			// $revnlbound_range = $_GET['revnlbound_range'];
+			// }
+				// Concatenation Of String 
+				$trimfname=$_GET['fname'];
+				$trimlname=$_GET['lname'];
+
+				$first =substr($trimfname, 0, 4);  // abcd
+				$last = substr($trimlname, 0, 4);
+				$conname = $first." ".$last; 
+
+
+				$old_date = date('y-m-d-h-i-s');            // works
+				$middle = strtotime($old_date);             // returns bool(false)
+				$new_date = date('Y-m-d H:i:s', $middle);
+
+				$datacdcandlead = array(
+				'cnid' => $_GET['campaign_id'],
+				
+				'sal' => $_GET['sal'],
+				'fname' => $_GET['fname'],
+				'lname' => $_GET['lname'],
+				'conname' => $conname, //concate strings
+				'jtitle' => $_GET['jtitle'],
+				// 'desid' => $_GET['desid'],
+
+				'jlevel' => $_GET['jlevel'],
+				'dname' => $_GET['dcd'], //department
+				'email' => $_GET['email'],
+				'phone' => $_GET['phone'],
+				'altphn' => $_GET['altphn'],
+
+				'phext' => $_GET['phext'],
+				'plink' => $_GET['plink'],
+				'cname' => $_GET['company_name'],
+				'address' => $_GET['address'],
+
+				'city' => $_GET['city'],
+				'state' => $_GET['state'],
+				'zipcode' => $_GET['zip_code'],
+				'country' => $_GET['country_id'],
+				'timez' => $_GET['timezone'],
+				'ctyp' => $_GET['ctype'],
+			
+				'linetype' => $_GET['linetype'],
+				'indtry' => $_GET['industrycd'],
+				'sindtry' => $_GET['subindustrycd'],
+
+				'sectyp' => $_GET['sectyp'],
+				'empsize' => $_GET['empsize'],
+				'arevenue' => $_GET['arevenue'],
+				'mlbl' => $_GET['mlbl'],
+				'curr' => $_GET['curr'],
+
+				'domain' => $_GET['domain'],
+				'indlink' => $_GET['indlink'],
+				'revszlink' => $_GET['revszlink'],
+				'empszlink' => $_GET['empszlink'],
+				'pcomt' => $_GET['pcomt'],
+
+				'othrlink' => $_GET['othrlink'],
+
+				'emailver' => $_GET['emailver'],
+				'aum' => $_GET['aum'],
+				'atitle' => $_GET['assetid'],
+
+				'optin' => $_GET['optin'],
+				'optpst' => $_GET['optpst'],
+				'optph' => $_GET['optph'],
+				'opteml' => $_GET['opteml'],
+				
+
+				'aa1' => $_GET['aa1'],
+				'aa2' => $_GET['aa2'],
+				'aa3' => $_GET['aa3'],
+				'aa4' => $_GET['aa4'],
+				'aa5' => $_GET['aa5'],
+				'aa6' => $_GET['aa6'],
+				'aa7' => $_GET['aa7'],
+				'aa8' => $_GET['aa8'],
+				'aa9' => $_GET['aa9'],
+				'aa10' => $_GET['aa10'],
+				'aa11' => $_GET['aa11'],
+				'aa12' => $_GET['aa12'],
+
+				// tag
+				'pload' => '0', // No next level ready to load- save means here
+
+				
+
+				'svagtidi' => $_SESSION['user_id'], // save Agent Name
+				'svdti' => $new_date // save date time
+				//'stagtidi' => '1', // submit agent name
+				//'stdti' => $new_date // submit date time
+				
+
+
+								
+				);
+			
+			//   print_r($datacdcandlead);
+			    //  exit();
+			
+				$addleadandcdcdata = $this->Administrator_Model->add_leadandcdc($datacdcandlead);
+				// print_r(addcampaigndata); 
+
+				if($addleadandcdcdata == true){
+			
+					echo json_encode(array(
+						"statusCode"=>"Success",
+						"lead_id"=>$addleadandcdcdata,
+						"message"=>"Lead Added Successfully.."
+					));
+				}else{
+					echo json_encode(array(
+						"statusCode"=>"Fail",
+						"message"=>"Add data Lead failed.."
+					));
+				}
+								
+			
+		}
+
+
+
+
 
 		public function checkemail(){ 
 			

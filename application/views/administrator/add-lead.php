@@ -40,14 +40,16 @@ $(document).ready(function() {
         var elements = $('.section').hide(); // hide all the elements
         var value = $(this).val();
         if (value == 2) { // if cdqa is selected
+          $('.commentvisible').show();
             var elements = $('.section').show(); 
-
+            $("input.checkbox").attr("disabled", true);
             $(".cdqadisable").attr("disabled", true);   
             // $("#dcd").attr("disabled", true);   
             // $("#company_name").attr("disabled", true);  
            
           
         }else{
+          $('.commentvisible').hide();
             $(".cdqadisable").attr("disabled", false);    
             
         }
@@ -144,11 +146,11 @@ $(document).ready(function() {
                                 </select>
                             </div>
                             <div class="col-sm-2">
-                                <input type="text"  name="fname" id="fname"  placeholder="First Name" Maxlength="5"  class="form-control form-control-sm cdqadisable">
+                                <input type="text"  name="fname" id="fname"  placeholder="First Name"   class="form-control form-control-sm cdqadisable">
                                 <span style='color:#FF0000' id="fname_msg"></span>
                             </div>
                             <div class="col-sm-2">
-                                <input type="text"  name="lname" id="lname"  placeholder="Last Name"   Maxlength="5" class="form-control form-control-sm cdqadisable">
+                                <input type="text"  name="lname" id="lname"  placeholder="Last Name"   class="form-control form-control-sm cdqadisable">
                                 <span style='color:#FF0000' id="lname_msg"></span>
                             </div>
                             <div class="col-sm-3">
@@ -328,7 +330,7 @@ $(document).ready(function() {
                             </div>          
                             <div class="col-sm-2">
                                 <div class="domaincheck">
-                                <input type="text"  name="domain" id="domain"  placeholder="Domain"  class="form-control form-control-sm">
+                                <input type="text"  name="domain" id="domain"  placeholder="Domain"  class="form-control form-control-sm cdqadisable">
                                 </div>
                                 <span style='color:#FF0000' id="domain_msg"></span>
                               </div>
@@ -342,7 +344,7 @@ $(document).ready(function() {
                         <hr>
                         <div class="form-group row">
                            
-                        <div class="col-sm-2">
+                        <div class="col-sm-2 ">
                                 <input type="text"  name="indlink" id="indlink"  placeholder="Industry Type Link"  class="form-control form-control-sm">
                             </div>
                             <div class="col-sm-2">
@@ -391,36 +393,18 @@ $(document).ready(function() {
                                         DND <input type="checkbox" value="" id="dnd" name="dnd" class="js-single"  />
                                         </div>
                          </div>
-                        <div class="form-group row questionrow">     
-                          <!-- <div class="col-sm-6 card">
-                                <div class="card-header">
-                                    <h5>Question 2: </h5><br>
-                                    <label class="col-lable"><p><b>This example loads data, options and schema parameters through ajax calls.</b></p></label>
-                                    </div>
-                                    <div class="card-block">
-                                        <div id="form2">
-                                        <input type="text"  name="ans2" id="ans2"  placeholder="Answer for Question 2"  class="form-control form-control-sm cdqadisable">
-                                        </div>
-                                    </div>
-                            </div>
-                            <div class="col-sm-6 card">
-                                <div class="card-header">
-                                    <h5>Question 2: </h5><br>
-                                    <label class="col-lable"><p><b>This example loads data, options and schema parameters through ajax calls.</b></p></label>
-                                    </div>
-                                    <div class="card-block">
-                                        <div id="form2">
-                                        <input type="text"  name="ans2" id="ans2"  placeholder="Answer for Question 2"  class="form-control form-control-sm cdqadisable">
-                                        </div>
-                                    </div>
-                               
-                            </div> -->
+                        <div class="form-group row questionrow">  
+                         
+                          
+                        </div> 
+                        <br>
 
-                            <div class="col-sm-12">
+                        <div class="form-group row" >
+                        <div class="col-sm-12 commentvisible">
                                 <label class="col-lable"><b>Comment</b></label>
                                 <input type="text"  name="pcomt" id="pcomt"  placeholder="Comment"  class="form-control form-control-sm">
                             </div> 
-                        </div> 
+                            </div>
                        <input type = hidden name="campaign_id" id="campaign_id" value="<?php echo $campaign['cnid']; ?>">
                         <button type="submit" name="leadsubmit" class="btn btn-primary" style=""  id="leadsubmit">Submit Lead</button> 
                         <button type="submit" name="leadsave" class="btn btn-primary" style=""  id="leadsave">Save Lead</button> 
@@ -506,7 +490,7 @@ $(document).ready(function() {
         data: {email: email},
         dataType: 'json',
         success: function(response){
-          $( '#email_msg' ).html(response);
+          $( '#email_msg' ).html("response");
           if(response.inclusionemail == "true")
           {
             $("#email_msg").html("");
@@ -613,6 +597,8 @@ $(document).ready(function() {
 
 $(document).ready(function() {
   
+  $('.commentvisible').hide();
+  // load questions of campaign on load 
   var campaign_id = $('#campaign_id').val();
 
   var urlq = '<?php echo base_url("cdc/getquestion");?>';
@@ -631,16 +617,14 @@ $(document).ready(function() {
        $.each(response,function(index,data){
           // $('.questionrow').append('<select><option value="'+data['qid']+'">'+data['questions']+'</option></select');
          
-
-          $('.questionrow').append('<div class="col-sm-6 card"> <div class="card-header"> <h5>Question </h5><br>'+
-                                    '<label class="col-lable"><p><b>'+data['questions']+'</b></p></label>'+
-                                   ' </div>'+
-                                    '<div class="card-block">'+
-                                       ' <div id="form2">'+
-                                        '<input type="text"  name="ans2" id="ans2"  placeholder="Answer for Question 2"  class="form-control form-control-sm cdqadisable">'+
-                                        '</div>'+
-                                   '</div>'+
+            index++;
+          $('.questionrow').append('<div class="col-sm-6 card">'+
+                                     '<p><b>'+data['questions']+'</b></p>'+
+                                        '<input type="text"  name="aa' + index + '" id="aa' + index + '"  placeholder="Answer for Question 2"  class="form-control form-control-sm cdqadisable">'+
+                                                                       
                             '</div>');
+
+          
         });
         }
     });
@@ -652,14 +636,21 @@ $(document).ready(function() {
 
     $('.optoption').hide();
     
-    $('[name="optin"]').change(function()
+    $('[type="checkbox"]').change(function()
       {
-        if ($(this).is(':checked')) {
+        if ($('#optin').is(':checked')) {
             $('#optin').val("1");
+            $('#opteml').val("1");
+            $('#optph').val("1");
+            $('#optpst').val("1");
             $('.optoption').show();
+            alert($(this).val());
                
         }else{
             $('#optin').val("0");
+            $('#opteml').val("0");
+            $('#optph').val("0");
+            $('#optpst').val("0");
             $('.optoption').hide();
                
         };
@@ -673,10 +664,12 @@ $(document).ready(function() {
         required: true
       },
       fname : {
-        required: true
+        required: true,
+        minlength: 2
       },
       lname : {
-        required: true
+        required: true,
+        minlength: 2
       },
       jtitle : {
         required: true
@@ -686,30 +679,30 @@ $(document).ready(function() {
       },
         company_name : {
         required: true,
-        minlength: 3
+        // minlength: 3
       },
       dcd : {
         required: true,
-        minlength: 3
+        // minlength: 3
       },
       linetype : {
         required: true        
       },
       address : {
         required: true,
-        minlength: 5
+        // minlength: 4
       },
       city : {
         required: true,
-        minlength: 5
+        // minlength: 5
       },
       state : {
         required: true,
-        minlength: 5
+        // minlength: 5
       },
       zip_code : {
         required: true,
-        minlength: 5
+        // minlength: 5
       },
       country_id : {
         required: true
@@ -767,18 +760,21 @@ $(document).ready(function() {
         required: true
       },
       optpst: {
-        required: true
+        // required: true
       },
       optph: {
-        required: true
+        // required: true
       },
       optin: {
-        required: true
+        // required: true
       },
       opteml: {
-        required: true
+        // required: true
       }
      
+    },
+    submitHandler: function(form) {
+// alert();
     },
     messages : {
         company_name: {
@@ -811,6 +807,7 @@ $(document).ready(function() {
             var jtitle = $('#jtitle').val();
             var desid = $('#desid').val();
             var jlevel = $('#jlevel').val();
+           
             var dcd = $('#dcd').val();
             var email = $('#email').val();
             var phone = $('#phone').val();
@@ -832,6 +829,15 @@ $(document).ready(function() {
             var sectyp = $('#sectyp').val();
             
             var empsize = $('#empsize').val();
+
+            var mlbl = $('#mlbl').val();
+            var domain = $('#domain').val();
+            var curr = $('#curr').val();
+            var empszlink = $('#empszlink').val();
+            var indlink = $('#indlink').val();
+            var revszlink = $('#revszlink').val();
+            var pcomt = $('#pcomt').val();
+
             var arevenue = $('#arevenue').val();
             var othrlink = $('#othrlink').val();
             var emailver = $('#emailver').val();
@@ -840,11 +846,25 @@ $(document).ready(function() {
             
             var optin = $('#optin').val();
             var optpst = $('#optpst').val();
+            var opteml = $('#opteml').val();
             var optph = $('#optph').val();
             var optoption = $('#optoption').val();
+
+            var aa1 = $('#aa1').val();
+            var aa2 = $('#aa2').val();
+            var aa3 = $('#aa3').val();
+            var aa4 = $('#aa4').val();
+            var aa5 = $('#aa5').val();
+            var aa6 = $('#aa6').val();
+            var aa7 = $('#aa7').val();
+            var aa8 = $('#aa8').val();
+            var aa9 = $('#aa9').val();
+            var aa10 = $('#aa10').val();
+            var aa11 = $('#aa11').val();
+            var aa12 = $('#aa12').val();
           
             
-///// end today
+
             var checksupp = $('#uho').prop('checked');
             if(checksupp == true)
             {
@@ -856,41 +876,58 @@ $(document).ready(function() {
             }
            
           
-            var quantity = $('#quantity').val();
-            var estclosedt = $('#estclosedt').val();
            
-            var url = "<?php echo base_url("campaigns/ajax_add_new_campaign1");?>";
-            console.log(url+"?campaign_id="+campaign_id+"&client_id="+client_id+"&campaign_name="+campaign_name+"&region_id="+region_id+"&industrycd="+industrycd+"&country_id="+country_id+"&dcd="+dcd+"&desid="+desid+"&checksupp="+checksupp+"&inclist="+inclist+"&cdqa="+cdqa+"&assetid="+assetid+"&quantity="+quantity+"&selectstatus="+selectstatus+"&estclosedt="+estclosedt+"&startdt="+startdt+"&emplbound="+emplbound+"&empubound="+empubound+"&revnlbound="+revnlbound+"&revnubound="+revnubound+"&revnlbound_range="+revnlbound_range+"&revnubound_range="+revnubound_range+"&frequency_type="+frequency_type+"&frequency="+frequency);
+            var url = "<?php echo base_url("cdc/ajax_add_new_leadandcdc");?>";
+            console.log(url+"?campaign_id="+campaign_id+"&sal="+sal+"&fname="+fname+"&lname="+lname+"&jtitle="+jtitle+"&desid="+desid+"&jlevel="+jlevel+"&dcd="+dcd+"&email="+email+"&phone="+phone+"&altphn="+altphn+"&phext="+phext+"&plink="+plink+"&company_name="+company_name+"&address="+address+"&city="+city+"&state="+state+"&zip_code="+zip_code+"&country_id="+country_id+"&timezone="+timezone+"&ctype="+ctype+"&linetype="+linetype+"&industrycd="+industrycd+"&subindustrycd="+subindustrycd+"&sectyp="+sectyp+"&empsize="+empsize+"&mlbl="+mlbl+"&curr="+curr+"&arevenue="+arevenue+"&empszlink="+empszlink+"&indlink="+indlink+"&domain="+domain+"&othrlink="+othrlink+"&revszlink="+revszlink+"&emailver="+emailver+"&aum="+aum+"&assetid="+assetid+"&optin="+optin+"&optpst="+optpst+"&optph="+optph+"&opteml="+opteml+"&optoption="+optoption+"&aa1="+aa1+"&aa2="+aa2+"&aa3="+aa3+"&aa4="+aa4+"&aa5="+aa5+"&aa6="+aa6+"&aa7="+aa7+"&aa8="+aa8+"&aa9="+aa9+"&aa10="+aa10+"&aa11="+aa11+"&aa12="+aa12+"&pcomt="+pcomt);
+           
             $.ajax({
-                url :'<?php echo base_url("campaigns/ajax_add_new_campaign1");?>',
+                url :'<?php echo base_url("cdc/ajax_add_new_leadandcdc");?>',
                 type: 'GET', 
                 dataType: 'json',              
                 data: {
-					campaign_id: campaign_id,
-                    client_id:client_id,
-					campaign_name: campaign_name,
-                    country_id:country_id,
-                    region_id:region_id,
-                    industrycd:industrycd,
-                    dcd:dcd,
+                   
+					          campaign_id: campaign_id,
+                    sal:sal,
+                    fname:fname,
+                    lname: lname,
+                    jtitle:jtitle,
                     desid:desid,
-                    checksupp:checksupp,
-                    inclist:inclist,
-                    cdqa:cdqa,
+                    jlevel:jlevel,
+                    dcd:dcd,
+                    email:email,
+                    phone:phone,
+                    altphn:altphn,
+                    phext:phext,
+                    plink:plink,
+                    company_name:company_name,
+                    address:address,
+                    city:city,
+                    state:state,
+                    zip_code:zip_code,
+                    
+                    country_id:country_id,
+                    timezone:timezone,
+                    ctype:ctype,
+                    linetype:linetype,
+                                      
+                    industrycd:industrycd,
+                    subindustrycd:subindustrycd,
+                    sectyp:sectyp,
+                    empsize:empsize,
+                    arevenue:arevenue,
+                    revszlink:revszlink,
+                    othrlink:othrlink,
+                    emailver:emailver,
+                    aum:aum,                 
+                    
                     assetid:assetid,
-                    quantity:quantity,
-                    selectstatus:selectstatus,
-                    estclosedt:estclosedt,
-                    startdt:startdt,
-                    emplbound:emplbound,
-                    empubound:empubound,
-                    revnlbound:revnlbound,
-                    revnubound:revnubound,
-                    revnlbound_range:revnlbound_range,
-                    revnubound_range:revnubound_range,
-                    frequency_type:frequency_type,
-                    frequency:frequency,
-                    period:period
+                    optin:optin,
+                    optph:optph,
+                    opteml:opteml,
+                    optpst:optpst,
+                    optoption:optoption
+                    
+                    
 				},
                 cache: false,
                 success: function(response){
@@ -899,14 +936,14 @@ $(document).ready(function() {
                    
                     if(response.statusCode == "Success") 
                     {                        
-                        $("#addcampbtn").html(response.message);
+                        $("#leadsubmit").html(response.message);
                         // $("#addcampbtn").prop('disabled', true);
-                        top.location.href=base_url+"campaigns/addsuppressionList?camp_id="+response.campaign_id;//redirection
+                        // top.location.href=base_url+"campaigns/addsuppressionList?camp_id="+response.campaign_id;//redirection
                     }else if(response.statusCode=="Fail")
                     {
-                        $("#addcampbtn").html(response.message);
+                        $("#leadsubmit").html(response.message);
                         
-					}
+					          }
 
                    
 
@@ -917,6 +954,165 @@ $(document).ready(function() {
     });
 </script>
 
-    
+<!--  code for save data in db -->
+<script>
+    $(function() {
+        $("#leadsave").on('click', function() 
+        {
+         
+            var campaign_id = $('#campaign_id').val();
+           
+            var sal = $('#sal').val();
+            var fname = $('#fname').val();
+            var lname = $('#lname').val();
+            var jtitle = $('#jtitle').val();
+            var desid = $('#desid').val();
+            var jlevel = $('#jlevel').val();
+           
+            var dcd = $('#dcd').val();
+            var email = $('#email').val();
+            var phone = $('#phone').val();
+            var altphn = $('#altphn').val();
+            var phext = $('#phext').val();
+            var plink = $('#plink').val();
+            var company_name = $('#company_name').val();
+            var address = $('#address').val();
+            var city = $('#city').val();
+            var state = $('#state').val();
+            var zip_code = $('#zip_code').val();
+
+            var country_id = $('#country_id').val(); 
+            var timezone = $('#timezone').val();
+            var ctype = $('#ctype').val();
+            var linetype = $('#linetype').val();
+            var industrycd = $('#industrycd').val();
+            var subindustrycd = $('#subindustrycd').val();
+            var sectyp = $('#sectyp').val();
+            
+            var empsize = $('#empsize').val();
+
+            var mlbl = $('#mlbl').val();
+            var domain = $('#domain').val();
+            var curr = $('#curr').val();
+            var empszlink = $('#empszlink').val();
+            var indlink = $('#indlink').val();
+            var revszlink = $('#revszlink').val();
+            var pcomt = $('#pcomt').val();
+
+            var arevenue = $('#arevenue').val();
+            var othrlink = $('#othrlink').val();
+            var emailver = $('#emailver').val();
+            var aum = $('#aum').val();
+            var assetid = $('#assetid').val();
+            
+            var optin = $('#optin').val();
+            var optpst = $('#optpst').val();
+            var opteml = $('#opteml').val();
+            var optph = $('#optph').val();
+            var optoption = $('#optoption').val();
+
+            var aa1 = $('#aa1').val();
+            var aa2 = $('#aa2').val();
+            var aa3 = $('#aa3').val();
+            var aa4 = $('#aa4').val();
+            var aa5 = $('#aa5').val();
+            var aa6 = $('#aa6').val();
+            var aa7 = $('#aa7').val();
+            var aa8 = $('#aa8').val();
+            var aa9 = $('#aa9').val();
+            var aa10 = $('#aa10').val();
+            var aa11 = $('#aa11').val();
+            var aa12 = $('#aa12').val();
+          
+            
+
+            var checksupp = $('#uho').prop('checked');
+            if(checksupp == true)
+            {
+                checksupp = 1;
+            }
+            else
+            {
+                checksupp = 0;
+            }
+           
+          
+           
+            var url = "<?php echo base_url("cdc/ajax_save_leadandcdc");?>";
+            console.log(url+"?campaign_id="+campaign_id+"&sal="+sal+"&fname="+fname+"&lname="+lname+"&jtitle="+jtitle+"&desid="+desid+"&jlevel="+jlevel+"&dcd="+dcd+"&email="+email+"&phone="+phone+"&altphn="+altphn+"&phext="+phext+"&plink="+plink+"&company_name="+company_name+"&address="+address+"&city="+city+"&state="+state+"&zip_code="+zip_code+"&country_id="+country_id+"&timezone="+timezone+"&ctype="+ctype+"&linetype="+linetype+"&industrycd="+industrycd+"&subindustrycd="+subindustrycd+"&sectyp="+sectyp+"&empsize="+empsize+"&mlbl="+mlbl+"&curr="+curr+"&arevenue="+arevenue+"&empszlink="+empszlink+"&indlink="+indlink+"&domain="+domain+"&othrlink="+othrlink+"&revszlink="+revszlink+"&emailver="+emailver+"&aum="+aum+"&assetid="+assetid+"&optin="+optin+"&optpst="+optpst+"&optph="+optph+"&opteml="+opteml+"&optoption="+optoption+"&aa1="+aa1+"&aa2="+aa2+"&aa3="+aa3+"&aa4="+aa4+"&aa5="+aa5+"&aa6="+aa6+"&aa7="+aa7+"&aa8="+aa8+"&aa9="+aa9+"&aa10="+aa10+"&aa11="+aa11+"&aa12="+aa12+"&pcomt="+pcomt);
+           
+            $.ajax({
+                url :'<?php echo base_url("cdc/ajax_save_leadandcdc");?>',
+                type: 'GET', 
+                dataType: 'json',              
+                data: {
+                   
+					          campaign_id: campaign_id,
+                    sal:sal,
+                    fname:fname,
+                    lname: lname,
+                    jtitle:jtitle,
+                    desid:desid,
+                    jlevel:jlevel,
+                    dcd:dcd,
+                    email:email,
+                    phone:phone,
+                    altphn:altphn,
+                    phext:phext,
+                    plink:plink,
+                    company_name:company_name,
+                    address:address,
+                    city:city,
+                    state:state,
+                    zip_code:zip_code,
+                    
+                    country_id:country_id,
+                    timezone:timezone,
+                    ctype:ctype,
+                    linetype:linetype,
+                                      
+                    industrycd:industrycd,
+                    subindustrycd:subindustrycd,
+                    sectyp:sectyp,
+                    empsize:empsize,
+                    arevenue:arevenue,
+                    revszlink:revszlink,
+                    othrlink:othrlink,
+                    emailver:emailver,
+                    aum:aum,                 
+                    
+                    assetid:assetid,
+                    optin:optin,
+                    optph:optph,
+                    opteml:opteml,
+                    optpst:optpst,
+                    optoption:optoption
+                    
+                    
+				},
+                cache: false,
+                success: function(response){
+                    var text = response.statusCode;
+                    console.log("check");
+                   
+                    if(response.statusCode == "Success") 
+                    {                        
+                        $("#leadsubmit").html(response.message);
+                        // $("#addcampbtn").prop('disabled', true);
+                        // top.location.href=base_url+"campaigns/addsuppressionList?camp_id="+response.campaign_id;//redirection
+                    }else if(response.statusCode=="Fail")
+                    {
+                        $("#leadsubmit").html(response.message);
+                        
+					          }
+
+                   
+
+                }
+              
+            });
+        });
+    });
+</script>   
 
   

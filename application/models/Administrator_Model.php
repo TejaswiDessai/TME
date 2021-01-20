@@ -290,6 +290,16 @@
 			 return  $insert_id;
                         // echo $this->db->last_query(); 
 		}
+		public function add_leadandcdc($datacdcandlead)
+		{
+                        
+			$this->db->insert('leadmaster', $datacdcandlead);
+			 $insert_id = $this->db->insert_id();
+			//  return true;
+			// echo $this->db->last_query(); 
+			 return  $insert_id;
+                       
+		}
 
 		function add_employee_size($add_compsize){
 			$this->db->insert('emplzid', $add_compsize);

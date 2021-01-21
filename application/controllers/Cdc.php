@@ -23,24 +23,52 @@
 						// print_r($data['campaigns']);
 						
 
-                        $data['countries'] = $this->Administrator_Model->get_countriesbyCampaign($camp_id);
-                       
-						$data['industries'] = $this->Administrator_Model->get_industries_byCampaign($camp_id);
-						$data['industries'] = $this->Administrator_Model->get_subindustries_byCampaign($camp_id);
-
-                        $data['departments'] = $this->Administrator_Model->get_depts_byCampaign($camp_id);
-                       
-						$data['designation'] = $this->Administrator_Model->get_designation_byCampaign($camp_id);
-						$data['joblevel'] = $this->Administrator_Model->get_joblevels_byCampaign($camp_id);
+						$data['countries'] = $this->Administrator_Model->get_countriesbyCampaign($camp_id);
 					
-						$data['timezones'] = $this->Administrator_Model->get_timezonesbyCampaign($camp_id);
-						$data['currency'] = $this->Administrator_Model->get_currencybyCampaign($camp_id);
+							foreach($data['countries'] as $co){
+							$myArray = implode(',', $co);
+							}
+
+							$myArray1 = explode(',', $myArray);
+							$data['countriesofcampaign'] = $this->Administrator_Model->get_countriesofCampaign($camp_id,$myArray1);
+							
+
+						// $data['countries'] = $this->Administrator_Model->get_countries();
+						$data['industries1'] = $this->Administrator_Model->get_industries_byCampaign($camp_id);
+						foreach($data['industries1'] as $ind){
+							$myind = implode(',', $ind);
+							}
+							$myind1 = explode(',', $myind);
+						$data['industries'] = $this->Administrator_Model->get_industries_ofCampaign($camp_id,$myind1);
+
+						$data['industriessub'] = $this->Administrator_Model->get_subindustries_byCampaign($camp_id,$myind1);
+
+						$data['departments1'] = $this->Administrator_Model->get_departmentsbyCampaign($camp_id);
+						foreach($data['departments1'] as $dp){
+							$mydpArray = implode(',', $dp);
+							}
+							$mydpArray1 = explode(',', $mydpArray);
+							$data['departments'] = $this->Administrator_Model->get_depts_byCampaign($camp_id,$mydpArray1);
+                        // $data['departments'] = $this->Administrator_Model->get_depts_byCampaign($mydpArray1);
+                       
+						$data['designation1'] = $this->Administrator_Model->get_designation_byCampaign($camp_id);
+						foreach($data['designation1'] as $ds){
+							$mydesi = implode(',', $ds);
+							}
+							$mydesiarry = explode(',', $mydesi);
+						$data['designation'] = $this->Administrator_Model->get_designation_ofCampaign($camp_id,$mydesiarry);
+
+						$data['joblevel'] = $this->Administrator_Model->get_joblevels_byCampaign($camp_id,$mydesiarry);
+					
+					
+						$data['timezones'] = $this->Administrator_Model->get_timezonesbyCampaign($camp_id,$myArray1);
+						$data['currency'] = $this->Administrator_Model->get_currencybyCampaign($camp_id,$myArray1);
 						// print_r($data['timezones']);
 						$data['comptype'] = $this->Administrator_Model->get_comptype();
 						
 						$data['assetitle'] = $this->Administrator_Model->get_assetitle_byCampaign($camp_id);
 
-						$data['dataforcdqa'] = $this->Administrator_Model->get_dataforCDQA_byCampaign($camp_id);
+						// $data['dataforcdqa'] = $this->Administrator_Model->get_dataforCDQA_byCampaign($camp_id);
 			// print_r($data['dataforcdqa']);
 						
 
@@ -93,7 +121,7 @@
 
 				$first =substr($trimfname, 0, 4);  // abcd
 				$last = substr($trimlname, 0, 4);
-				$conname = $first." ".$last; 
+				$conname = $first.$last; 
 
 
 				$old_date = date('y-m-d-h-i-s');            // works
@@ -332,17 +360,61 @@
 		public function ajax_submit_leadandcdcbyCDQA()
 		{
 			$campaign_id = $_GET['campaign_id'];
-			
-				
+			// $revnlbound_range = '';
+			// if(!empty($_GET['revnlbound_range'])) {
+			// $revnlbound_range = $_GET['revnlbound_range'];
+			// }
+				// Concatenation Of String 
+				$trimfname=$_GET['fname'];
+				$trimlname=$_GET['lname'];
+
+				$first =substr($trimfname, 0, 4);  // abcd
+				$last = substr($trimlname, 0, 4);
+				$conname = $first.$last; 
+
 
 				$old_date = date('y-m-d-h-i-s');            // works
 				$middle = strtotime($old_date);             // returns bool(false)
 				$new_date = date('Y-m-d H:i:s', $middle);
 
 				$datacdcandlead = array(
-				// 'cnid' => $_GET['campaign_id'],
+				'cnid' => $_GET['campaign_id'],
 				
-				
+				'sal' => $_GET['sal'],
+				'fname' => $_GET['fname'],
+				'lname' => $_GET['lname'],
+				'conname' => $conname, //concate strings
+				'jtitle' => $_GET['jtitle'],
+				// 'desid' => $_GET['desid'],
+
+				'jlevel' => $_GET['jlevel'],
+				'dname' => $_GET['dcd'], //department
+				'email' => $_GET['email'],
+				'phone' => $_GET['phone'],
+				'altphn' => $_GET['altphn'],
+
+				'phext' => $_GET['phext'],
+				'plink' => $_GET['plink'],
+				'cname' => $_GET['company_name'],
+				'address' => $_GET['address'],
+
+				'city' => $_GET['city'],
+				'state' => $_GET['state'],
+				'zipcode' => $_GET['zip_code'],
+				'country' => $_GET['country_id'],
+				'timez' => $_GET['timezone'],
+				'ctyp' => $_GET['ctype'],
+			
+				'linetype' => $_GET['linetype'],
+				'indtry' => $_GET['industrycd'],
+				'sindtry' => $_GET['subindustrycd'],
+
+				'sectyp' => $_GET['sectyp'],
+				'empsize' => $_GET['empsize'],
+				'arevenue' => $_GET['arevenue'],
+				'mlbl' => $_GET['mlbl'],
+				'curr' => $_GET['curr'],
+
 				'domain' => $_GET['domain'],
 				'indlink' => $_GET['indlink'],
 				'revszlink' => $_GET['revszlink'],
@@ -352,6 +424,29 @@
 				'othrlink' => $_GET['othrlink'],
 
 				'emailver' => $_GET['emailver'],
+				'aum' => $_GET['aum'],
+				'atitle' => $_GET['assetid'],
+
+				'optin' => $_GET['optin'],
+				'optpst' => $_GET['optpst'],
+				'optph' => $_GET['optph'],
+				'opteml' => $_GET['opteml'],
+				
+
+				'aa1' => $_GET['aa1'],
+				'aa2' => $_GET['aa2'],
+				'aa3' => $_GET['aa3'],
+				'aa4' => $_GET['aa4'],
+				'aa5' => $_GET['aa5'],
+				'aa6' => $_GET['aa6'],
+				'aa7' => $_GET['aa7'],
+				'aa8' => $_GET['aa8'],
+				'aa9' => $_GET['aa9'],
+				'aa10' => $_GET['aa10'],
+				'aa11' => $_GET['aa11'],
+				'aa12' => $_GET['aa12'],
+
+				
 				
 				// tag
 				'cdcload' => '1', // submit to next level
@@ -371,7 +466,8 @@
 			//   print_r($datacdcandlead);
 			    //  exit();
 				
-				$updateleadandcdcdata = $this->Administrator_Model->update_leadandcdcbyCDQA($datacdcandlead,$campaign_id);
+				// $updateleadandcdcdata = $this->Administrator_Model->update_leadandcdcbyCDQA($datacdcandlead,$campaign_id);
+				$updateleadandcdcdata = $this->Administrator_Model->add_leadandcdcbyCDQA($datacdcandlead);
 				// print_r(addcampaigndata); 
 
 				if($updateleadandcdcdata == true){
@@ -379,12 +475,12 @@
 					echo json_encode(array(
 						"statusCode"=>"Success",
 						"lead_id"=>$updateleadandcdcdata,
-						"message"=>"Lead updated Successfully.."
+						"message"=>"Lead added Successfully.."
 					));
 				}else{
 					echo json_encode(array(
 						"statusCode"=>"Fail",
-						"message"=>"Lead updated  failed.."
+						"message"=>"Lead  failed.."
 					));
 				}
 								
@@ -393,17 +489,60 @@
 		public function ajax_save_leadandcdcbyCDQA()
 		{
 			$campaign_id = $_GET['campaign_id'];
-			
-				
+			// $revnlbound_range = '';
+			// if(!empty($_GET['revnlbound_range'])) {
+			// $revnlbound_range = $_GET['revnlbound_range'];
+			// }
+				// Concatenation Of String 
+				$trimfname=$_GET['fname'];
+				$trimlname=$_GET['lname'];
+
+				$first =substr($trimfname, 0, 4);  // abcd
+				$last = substr($trimlname, 0, 4);
+				$conname = $first.$last; 
+
 
 				$old_date = date('y-m-d-h-i-s');            // works
 				$middle = strtotime($old_date);             // returns bool(false)
 				$new_date = date('Y-m-d H:i:s', $middle);
 
 				$datacdcandlead = array(
-				// 'cnid' => $_GET['campaign_id'],
+				'cnid' => $_GET['campaign_id'],
 				
-				
+				'sal' => $_GET['sal'],
+				'fname' => $_GET['fname'],
+				'lname' => $_GET['lname'],
+				'conname' => $conname, //concate strings
+				'jtitle' => $_GET['jtitle'],
+				// 'desid' => $_GET['desid'],
+
+				'jlevel' => $_GET['jlevel'],
+				'dname' => $_GET['dcd'], //department
+				'email' => $_GET['email'],
+				'phone' => $_GET['phone'],
+				'altphn' => $_GET['altphn'],
+
+				'phext' => $_GET['phext'],
+				'plink' => $_GET['plink'],
+				'cname' => $_GET['company_name'],
+				'address' => $_GET['address'],
+
+				'city' => $_GET['city'],
+				'state' => $_GET['state'],
+				'zipcode' => $_GET['zip_code'],
+				'country' => $_GET['country_id'],
+				'timez' => $_GET['timezone'],
+				'ctyp' => $_GET['ctype'],
+			
+				'linetype' => $_GET['linetype'],
+				'indtry' => $_GET['industrycd'],
+				'sindtry' => $_GET['subindustrycd'],
+
+				'sectyp' => $_GET['sectyp'],
+				'empsize' => $_GET['empsize'],
+				'arevenue' => $_GET['arevenue'],
+				'mlbl' => $_GET['mlbl'],
+				'curr' => $_GET['curr'],
 
 				'domain' => $_GET['domain'],
 				'indlink' => $_GET['indlink'],
@@ -414,6 +553,28 @@
 				'othrlink' => $_GET['othrlink'],
 
 				'emailver' => $_GET['emailver'],
+				'aum' => $_GET['aum'],
+				'atitle' => $_GET['assetid'],
+
+				'optin' => $_GET['optin'],
+				'optpst' => $_GET['optpst'],
+				'optph' => $_GET['optph'],
+				'opteml' => $_GET['opteml'],
+				
+
+				'aa1' => $_GET['aa1'],
+				'aa2' => $_GET['aa2'],
+				'aa3' => $_GET['aa3'],
+				'aa4' => $_GET['aa4'],
+				'aa5' => $_GET['aa5'],
+				'aa6' => $_GET['aa6'],
+				'aa7' => $_GET['aa7'],
+				'aa8' => $_GET['aa8'],
+				'aa9' => $_GET['aa9'],
+				'aa10' => $_GET['aa10'],
+				'aa11' => $_GET['aa11'],
+				'aa12' => $_GET['aa12'],
+
 				
 				// tag
 				'cdcsv' => '1', // Save only
@@ -430,23 +591,23 @@
 								
 				);
 			
-			//   print_r($datacdcandlead);
-			    //  exit();
 			
-				$updateleadandcdcdata = $this->Administrator_Model->update_leadandcdcbyCDQA($datacdcandlead,$campaign_id);
+			
+				// $updateleadandcdcdata = $this->Administrator_Model->update_leadandcdcbyCDQA($datacdcandlead,$campaign_id);
 				// print_r(addcampaigndata); 
+				$updateleadandcdcdata = $this->Administrator_Model->add_leadandcdcbyCDQA($datacdcandlead);
 
 				if($updateleadandcdcdata == true){
 			
 					echo json_encode(array(
 						"statusCode"=>"Success",
 						"lead_id"=>$updateleadandcdcdata,
-						"message"=>"Lead updated Successfully.."
+						"message"=>"Lead added Successfully.."
 					));
 				}else{
 					echo json_encode(array(
 						"statusCode"=>"Fail",
-						"message"=>"Lead updated  failed.."
+						"message"=>"Lead failed.."
 					));
 				}
 								

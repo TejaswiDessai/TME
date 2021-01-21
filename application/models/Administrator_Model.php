@@ -144,102 +144,177 @@
 			// echo $this->db->last_query(); 
 		}
 		public function get_designation_byCampaign($cnid){
-			$this->db->select('*');
-			// $this->db->join('joblevels', 'joblevels.jid = CAST(campaign.tid as integer)');
-			$this->db->join('joblevels', 'cast(joblevels.jid as character varying) = campaign.tid');
+			$this->db->select('tid');
 			$this->db->where('campaign.cnid', $cnid);
 			$query = $this->db->get('campaign');
 			return $query->result_array(); 
 			// echo $this->db->last_query(); 
 		}
-		public function get_joblevels_byCampaign($cnid){
+		public function get_designation_ofCampaign($cnid,$myarray){
+			$this->db->select('*');
+			foreach ($myarray as $arr)
+			{	
+				$this->db->OR_where('jid', $arr);
+			}
+			$query = $this->db->get('joblevels');
+			
+			return $query->result_array();
+			
+			
+		}
+		public function get_joblevels_byCampaign($cnid,$myarray){
+
 			$this->db->select('joblids,joblevel');
 			$this->db->group_by('joblids');
 			$this->db->group_by('joblevel');
-			$this->db->join('joblevels',  'cast(joblevels.jid as character varying) = campaign.tid');
-			$this->db->where('campaign.cnid', $cnid);
-			$query = $this->db->get('campaign');
-			return $query->result_array(); 
-			// echo $this->db->last_query(); 
-		}
-		public function get_depts_byCampaign($cnid){
-			$this->db->select('*');
-			// $this->db->join('dept', 'dept.dcd = CAST(campaign.dcd as smallint)');
-			$this->db->join('dept', 'CAST(dept.dcd as character varying)= campaign.dcd');
-			$this->db->where('campaign.cnid', $cnid);
-			$query = $this->db->get('campaign');
-			return $query->result_array(); 
-			// echo $this->db->last_query(); 
-		}
-		// public function get_industries_byCampaign($cnid){
-		// 	$this->db->select('*');
-		// 	$this->db->select('industry.industrycd,industry.industry,campaign.industrycd');
-		// 	$this->db->group_by('industry.industrycd');
-		// 	$this->db->group_by('industry.industry');
-		// 	$this->db->group_by('campaign.industrycd');
-		// 	$this->db->join('industry', 'industry.industrycd = CAST(campaign.industrycd as smallint)');
-		// 	$this->db->where('campaign.cnid', $cnid);
-		// 	$query = $this->db->get('campaign');
-			
-		// 	return $query->result_array(); 
+			foreach ($myarray as $arr)
+			{	
+				$this->db->OR_where('jid', $arr);
+			}
+			$query = $this->db->get('joblevels');
+			return $query->result_array();
 
-		// }
+			// $this->db->select('joblids,joblevel');
+			// $this->db->group_by('joblids');
+			// $this->db->group_by('joblevel');
+			// $this->db->join('joblevels',  'cast(joblevels.jid as character varying) = campaign.tid');
+			// $this->db->where('campaign.cnid', $cnid);
+			// $query = $this->db->get('campaign');
+			// return $query->result_array(); 
+			// echo $this->db->last_query(); 
+		}
+		public function get_depts_byCampaign($cnid,$myarray){
+			$this->db->select('*');
+			foreach ($myarray as $arr)
+			{	
+				$this->db->OR_where('dcd', $arr);
+			}
+			$query = $this->db->get('dept');
+			return $query->result_array();
+			
+			
+			// $this->db->select('*');
+			// // $this->db->join('dept', 'dept.dcd = CAST(campaign.dcd as smallint)');
+			// $this->db->join('dept', 'CAST(dept.dcd as character varying)= campaign.dcd');
+			// $this->db->where('campaign.cnid', $cnid);
+			// $query = $this->db->get('campaign');
+			// return $query->result_array(); 
+			// echo $this->db->last_query(); 
+		}
+		
+		public function get_industries_ofCampaign($cnid,$myarray){
+			// $this->db->select('*');
+			$this->db->select('industrycd,industry');
+			$this->db->group_by('industrycd');
+			$this->db->group_by('industry');
+			// $this->db->group_by('subindustrycd');
+			foreach ($myarray as $arr)
+			{	
+				$this->db->OR_where('subindustrycd', $arr);
+			}
+			$query = $this->db->get('industry');
+			// echo $this->db->last_query(); 
+			return $query->result_array();
+			
+			
+		}
+		
 		
 		public function get_industries_byCampaign($cnid){
-			$this->db->select('*');
-			// $this->db->join('industry', 'industry.subindustrycd = CAST(campaign.industrycd as smallint)');
-			$this->db->join('industry', 'CAST(industry.subindustrycd as character varying) = campaign.industrycd');
-			$this->db->where('campaign.cnid', $cnid);
+			$this->db->select('industrycd');
+			$this->db->where('cnid', $cnid);
 			$query = $this->db->get('campaign');
 			// echo $this->db->last_query(); 
 			return $query->result_array(); 
 
 		}
-		public function get_subindustries_byCampaign($cnid){
+		public function get_subindustries_byCampaign($cnid,$myarray){
+		
 			$this->db->select('*');
-			// $this->db->join('industry', 'industry.subindustrycd = CAST(campaign.industrycd as smallint)');
-			$this->db->join('industry', 'CAST(industry.subindustrycd as character varying) = campaign.industrycd');
-			$this->db->where('campaign.cnid', $cnid);
-			$query = $this->db->get('campaign');
+			
+			foreach ($myarray as $arr)
+			{	
+				$this->db->OR_where('subindustrycd', $arr);
+			}
+			$query = $this->db->get('industry');
 			// echo $this->db->last_query(); 
-			return $query->result_array(); 
+			return $query->result_array();
+		
 
+		}
+		public function get_countriesofCampaign($cnid,$myarray){
+			// print_r($myarray);
+			$this->db->select('*');
+			foreach ($myarray as $arr)
+			{	
+				$this->db->OR_where('countrycd', $arr);
+			}
+			$query = $this->db->get('country');
+			return $query->result_array();
+			// $this->db->select('*');
+			// $this->db->where('countrycd', $myarray);
+			// $query = $this->db->get('country');
+			// echo $this->db->last_query(); 
+			// return $query->result_array();
+			
 		}
 		public function get_countriesbyCampaign($cnid){
-			$this->db->select('*');
-			// $this->db->join('country', 'country.countrycd = CAST(campaign.countrycd as smallint)');
-			$this->db->join('country', 'cast(country.countrycd as character varying) = campaign.countrycd');
-			$this->db->where('campaign.cnid', $cnid);
+
+			$this->db->select('countrycd');
+			$this->db->where('cnid', $cnid);
 			$query = $this->db->get('campaign');
 			
-			return $query->result_array(); 
+		
+			$response = $query->result_array();
+			return $response;
+			// echo $this->db->last_query(); 
+			
 
 		}
-		public function get_timezonesbyCampaign($cnid){
+		public function get_departmentsbyCampaign($cnid){
+
+			$this->db->select('dcd');
+			$this->db->where('cnid', $cnid);
+			$query = $this->db->get('campaign');
+			
+		
+			$response = $query->result_array();
+			return $response;
+			// echo $this->db->last_query(); 
+			
+
+		}
+		public function get_timezonesbyCampaign($cnid,$myarray){
 			// $this->db->select('*');
 			$this->db->select('timezone.zoneid,timezone.zonename');
 			$this->db->group_by('timezone.zoneid');
 			$this->db->group_by('timezone.zonename');
-			// $this->db->join('timezone', 'timezone.countrycd = CAST(campaign.countrycd as smallint)');
-			$this->db->join('timezone', 'cast(timezone.countrycd as character varying)= campaign.countrycd');
-			$this->db->where('campaign.cnid', $cnid);
-			$query = $this->db->get('campaign');
-			//  echo $this->db->last_query(); 
-			return $query->result_array(); 
+			foreach ($myarray as $arr)
+			{	
+				$this->db->OR_where('countrycd', $arr);
+			}
+			$query = $this->db->get('timezone');
+			return $query->result_array();
+			
+		
 
 		}
-		public function get_currencybyCampaign($cnid){
+		public function get_currencybyCampaign($cnid,$myarray){
 			// $this->db->select('*');
+
 			$this->db->select('country.currab,country.currnme,country.currid');
 			$this->db->group_by('country.currab');
 			$this->db->group_by('country.currnme');
 			$this->db->group_by('country.currid');
-			// $this->db->join('country', 'country.countrycd = CAST(campaign.countrycd as smallint)');
-			$this->db->join('country', 'cast(country.countrycd as character varying)= campaign.countrycd');
-			$this->db->where('campaign.cnid', $cnid);
-			$query = $this->db->get('campaign');
-			//   echo $this->db->last_query(); 
-			return $query->result_array(); 
+			foreach ($myarray as $arr)
+			{	
+				$this->db->OR_where('countrycd', $arr);
+			}
+			$query = $this->db->get('country');
+			// echo $this->db->last_query(); 
+			return $query->result_array();
+
+		
 
 		}
 		public function get_assetitle_byCampaign($cnid){
@@ -308,6 +383,16 @@
                         // echo $this->db->last_query(); 
 		}
 		public function add_leadandcdc($datacdcandlead)
+		{
+                        
+			$this->db->insert('leadmaster', $datacdcandlead);
+			 $insert_id = $this->db->insert_id();
+			//  return true;
+			// echo $this->db->last_query(); 
+			 return  $insert_id;
+                       
+		}
+		public function add_leadandcdcbyCDQA($datacdcandlead)
 		{
                         
 			$this->db->insert('leadmaster', $datacdcandlead);

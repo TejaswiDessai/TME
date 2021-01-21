@@ -145,7 +145,8 @@
 		}
 		public function get_designation_byCampaign($cnid){
 			$this->db->select('*');
-			$this->db->join('joblevels', 'joblevels.jid = CAST(campaign.tid as integer)');
+			// $this->db->join('joblevels', 'joblevels.jid = CAST(campaign.tid as integer)');
+			$this->db->join('joblevels', 'cast(joblevels.jid as character varying) = campaign.tid');
 			$this->db->where('campaign.cnid', $cnid);
 			$query = $this->db->get('campaign');
 			return $query->result_array(); 
@@ -155,7 +156,7 @@
 			$this->db->select('joblids,joblevel');
 			$this->db->group_by('joblids');
 			$this->db->group_by('joblevel');
-			$this->db->join('joblevels', 'joblevels.jid = CAST(campaign.tid as integer)');
+			$this->db->join('joblevels',  'cast(joblevels.jid as character varying) = campaign.tid');
 			$this->db->where('campaign.cnid', $cnid);
 			$query = $this->db->get('campaign');
 			return $query->result_array(); 
@@ -163,7 +164,8 @@
 		}
 		public function get_depts_byCampaign($cnid){
 			$this->db->select('*');
-			$this->db->join('dept', 'dept.dcd = CAST(campaign.dcd as smallint)');
+			// $this->db->join('dept', 'dept.dcd = CAST(campaign.dcd as smallint)');
+			$this->db->join('dept', 'CAST(dept.dcd as character varying)= campaign.dcd');
 			$this->db->where('campaign.cnid', $cnid);
 			$query = $this->db->get('campaign');
 			return $query->result_array(); 
@@ -185,7 +187,8 @@
 		
 		public function get_industries_byCampaign($cnid){
 			$this->db->select('*');
-			$this->db->join('industry', 'industry.subindustrycd = CAST(campaign.industrycd as smallint)');
+			// $this->db->join('industry', 'industry.subindustrycd = CAST(campaign.industrycd as smallint)');
+			$this->db->join('industry', 'CAST(industry.subindustrycd as character varying) = campaign.industrycd');
 			$this->db->where('campaign.cnid', $cnid);
 			$query = $this->db->get('campaign');
 			// echo $this->db->last_query(); 
@@ -194,7 +197,8 @@
 		}
 		public function get_subindustries_byCampaign($cnid){
 			$this->db->select('*');
-			$this->db->join('industry', 'industry.subindustrycd = CAST(campaign.industrycd as smallint)');
+			// $this->db->join('industry', 'industry.subindustrycd = CAST(campaign.industrycd as smallint)');
+			$this->db->join('industry', 'CAST(industry.subindustrycd as character varying) = campaign.industrycd');
 			$this->db->where('campaign.cnid', $cnid);
 			$query = $this->db->get('campaign');
 			// echo $this->db->last_query(); 
@@ -203,7 +207,8 @@
 		}
 		public function get_countriesbyCampaign($cnid){
 			$this->db->select('*');
-			$this->db->join('country', 'country.countrycd = CAST(campaign.countrycd as smallint)');
+			// $this->db->join('country', 'country.countrycd = CAST(campaign.countrycd as smallint)');
+			$this->db->join('country', 'cast(country.countrycd as character varying) = campaign.countrycd');
 			$this->db->where('campaign.cnid', $cnid);
 			$query = $this->db->get('campaign');
 			
@@ -215,7 +220,8 @@
 			$this->db->select('timezone.zoneid,timezone.zonename');
 			$this->db->group_by('timezone.zoneid');
 			$this->db->group_by('timezone.zonename');
-			$this->db->join('timezone', 'timezone.countrycd = CAST(campaign.countrycd as smallint)');
+			// $this->db->join('timezone', 'timezone.countrycd = CAST(campaign.countrycd as smallint)');
+			$this->db->join('timezone', 'cast(timezone.countrycd as character varying)= campaign.countrycd');
 			$this->db->where('campaign.cnid', $cnid);
 			$query = $this->db->get('campaign');
 			//  echo $this->db->last_query(); 
@@ -228,7 +234,8 @@
 			$this->db->group_by('country.currab');
 			$this->db->group_by('country.currnme');
 			$this->db->group_by('country.currid');
-			$this->db->join('country', 'country.countrycd = CAST(campaign.countrycd as smallint)');
+			// $this->db->join('country', 'country.countrycd = CAST(campaign.countrycd as smallint)');
+			$this->db->join('country', 'cast(country.countrycd as character varying)= campaign.countrycd');
 			$this->db->where('campaign.cnid', $cnid);
 			$query = $this->db->get('campaign');
 			//   echo $this->db->last_query(); 

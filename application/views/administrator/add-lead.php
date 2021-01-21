@@ -83,12 +83,7 @@ $(document).ready(function() {
                  <label class="col-lable"><b>Campaign Name: <?php echo $campaign['campnm']; ?></b></label>
                  <?php endforeach; ?>
                 </div> 
-                <div class="col-sm-2" style="margin-top: -20px;">
-                Select lead
-                <!-- <?php foreach ($campaigns as $campaign): ?>
-                 <label class="col-lable"><b>Campaign Name: <?php echo $campaign['campnm']; ?></b></label>
-                 <?php endforeach; ?> -->
-                </div> 
+                
             </div>   
                            
     </div>
@@ -423,8 +418,8 @@ $(document).ready(function() {
                         <button type="submit" name="leadsave" class="btn btn-primary leaddisplay" style=""  id="leadsave">Save Lead</button> 
                         <!-- <input class="submit" class ="" type="submit" value="SUBMIT"> -->
                         <!-- below buttons are for cdqa save and submit -->
-                        <button type="submit" name="cdqasubmit" class="btn btn-primary cdqadisplay" style=""  id="cdqasubmit">Submit Lead BY CDQA</button> 
-                        <button type="submit" name="cdqasave" class="btn btn-primary cdqadisplay" style=""  id="cdqasave">Save Lead BY CDQA</button> 
+                        <button type="submit" name="cdqasubmit" class="btn btn-primary cdqadisplay" style=""  id="cdqasubmit">Submit Lead </button> 
+                        <button type="submit" name="cdqasave" class="btn btn-primary cdqadisplay" style=""  id="cdqasave">Save Lead </button> 
                        
 
                     </div>
@@ -534,7 +529,7 @@ $(document).ready(function() {
    
 });
   // Check unique domain
-    $('.domaincheck input:first').on('keyup', function(){ 
+    $('.domaincheck input:first').blur(function(){
       var domain = $('#domain').val();
      
      
@@ -559,6 +554,7 @@ $(document).ready(function() {
           {
             $("#domain_msg").html("Suppressed Domain");
             console.log("true");
+            $('#domain').val("");
             return true;	
           } else 
           {
@@ -574,7 +570,7 @@ $(document).ready(function() {
 });
 
  // Check unique Company
- $('.compcheck input:first').on('keyup', function(){ 
+ $('.compcheck input:first').blur(function(){
       var company_name = $('#company_name').val();
      
      
@@ -598,6 +594,7 @@ $(document).ready(function() {
           else if(response.companychecksupp == "true")
           {
             $("#comp_msg").html("Suppressed Company");
+            $('#company_name').val("");
             console.log("true");
             return true;	
           } else 
@@ -963,6 +960,7 @@ $(document).ready(function() {
                     if(response.statusCode == "Success") 
                     {                        
                         $("#leadsubmit").html(response.message);
+                        alert("Success");
                         // $("#addcampbtn").prop('disabled', true);
                         // top.location.href=base_url+"campaigns/addsuppressionList?camp_id="+response.campaign_id;//redirection
                     }else if(response.statusCode=="Fail")
@@ -1123,12 +1121,13 @@ $(document).ready(function() {
                    
                     if(response.statusCode == "Success") 
                     {                        
-                        $("#leadsubmit").html(response.message);
+                        $("#leadsave").html(response.message);
+                        alert("Success");
                         // $("#addcampbtn").prop('disabled', true);
                         // top.location.href=base_url+"campaigns/addsuppressionList?camp_id="+response.campaign_id;//redirection
                     }else if(response.statusCode=="Fail")
                     {
-                        $("#leadsubmit").html(response.message);
+                        $("#leadsave").html(response.message);
                         
 					          }
 
@@ -1191,7 +1190,8 @@ $(document).ready(function() {
                     console.log("check");
                    
                     if(response.statusCode == "Success") 
-                    {                        
+                    {        
+                      alert("Success");                
                         $("#cdqasubmit").html(response.message);
                         // $("#addcampbtn").prop('disabled', true);
                         // top.location.href=base_url+"campaigns/addsuppressionList?camp_id="+response.campaign_id;//redirection
@@ -1260,7 +1260,8 @@ $(document).ready(function() {
                     console.log("check");
                    
                     if(response.statusCode == "Success") 
-                    {                        
+                    {             
+                      alert("Success");           
                         $("#cdqasave").html(response.message);
                         // $("#addcampbtn").prop('disabled', true);
                         // top.location.href=base_url+"campaigns/addsuppressionList?camp_id="+response.campaign_id;//redirection

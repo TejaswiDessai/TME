@@ -35,25 +35,26 @@ $(document).ready(function () {
 
 //below code for retreive button on change on rect type
 $(document).ready(function() { 
-    var elements = $('.section').hide();
+  $('.cdqadisplay').hide();
+      $('.commentvisible').hide();
     $('#rec_type_id').bind('change', function() {
-        var elements = $('.section').hide(); // hide all the elements
+     
         var value = $(this).val();
         if (value == 2) { // if cdqa is selected
           $('.commentvisible').show();
           $('.cdqadisplay').show();
          
-            var elements = $('.section').show(); 
+          $('.leaddisplay').hide();
+           
             $("input.checkbox").attr("disabled", true);
-            $(".cdqadisable").attr("disabled", true);   
+          
             // $("#dcd").attr("disabled", true);   
             // $("#company_name").attr("disabled", true);  
            
-          
         }else{
           $('.commentvisible').hide();
-          $('.leaddisplay').hide();
-            $(".cdqadisable").attr("disabled", false);    
+          $('.leaddisplay').show();
+          $('.cdqadisplay').hide();
             
         }
     }).trigger('change');
@@ -341,13 +342,13 @@ $(document).ready(function() {
                             </div>          
                             <div class="col-sm-2">
                                 <div class="domaincheck">
-                                <input type="text"  name="domain" id="domain"  placeholder="Domain" value="<?php if(isset($post['domain']))  echo $post['domain']; ?>"   class="form-control form-control-sm cdqadisable">
+                                <input type="text"  name="domain" id="domain"  placeholder="Domain" value=""  class="form-control form-control-sm cdqadisable">
                                 </div>
                                 <span style='color:#FF0000' id="domain_msg"></span>
                               </div>
                             
                             <div class="col-sm-2">
-                                <input type="text"  name="empszlink" id="empszlink" value="<?php if(isset($post['empszlink']))  echo $post['empszlink']; ?>"   placeholder="Employee Size Link"  class="form-control form-control-sm">
+                                <input type="text"  name="empszlink" id="empszlink" value=""   placeholder="Employee Size Link"  class="form-control form-control-sm">
                             </div>
                            
                         </div>
@@ -356,13 +357,13 @@ $(document).ready(function() {
                         <div class="form-group row">
                            
                         <div class="col-sm-2 ">
-                                <input type="text"  name="indlink" id="indlink"  placeholder="Industry Type Link" value="<?php if(isset($post['indlink'])) echo $post['indlink']; ?>" class="form-control form-control-sm">
+                                <input type="text"  name="indlink" id="indlink"  placeholder="Industry Link" value="" class="form-control form-control-sm">
                             </div>
                             <div class="col-sm-2">
-                                <input type="text"  name="revszlink" id="revszlink" value="<?php if(isset($post['revszlink'])) echo $post['revszlink']; ?>"    placeholder="Revenue Size Link"  class="form-control form-control-sm">
+                                <input type="text"  name="revszlink" id="revszlink" value=""    placeholder="Revenue Size Link"  class="form-control form-control-sm">
                             </div>
                             <div class="col-sm-2">
-                                <input type="text"  name="othrlink" id="othrlink" value="<?php if(isset($post['othrlink']))  echo $post['othrlink']; ?>"  placeholder="Other Link"  class="form-control form-control-sm">
+                                <input type="text"  name="othrlink" id="othrlink" value=""  placeholder="Other Link"  class="form-control form-control-sm">
                             </div>
                             <div class="col-sm-2">
                                 <select class="form-control form-control-sm"  name="emailver" id="emailver">
@@ -491,7 +492,8 @@ $(document).ready(function() {
     });
   
   // Check unique Email function // check inclusion and exclusion email in db table
-    $('.newsletter-signup input:first').on('keyup', function(){ 
+    // $('.newsletter-signup input:first').on('keyup', function(){ 
+    $('.newsletter-signup input:first').blur(function(){
       var email = $('#email').val();
       // var campaign_id = <?php  //echo $campaign['cnid']; ?>
       // alert(campaign_id);
@@ -515,8 +517,10 @@ $(document).ready(function() {
           else if(response.exclusionemail == "true")
           {
             $("#email_msg").html("Suppressed Email");
+            $('#email').val("");
             console.log("true");
-            return true;	
+            
+
           } else 
           {
             $("#email_msg").html("");
@@ -613,8 +617,9 @@ $(document).ready(function() {
 $(document).ready(function() {
   
   $('.commentvisible').hide();
-  $('.leaddisplay').show();
-  $('.cdqadisplay').hide();
+
+  $('.leaddisplay').show(); //buttons
+  $('.cdqadisplay').hide();//buttons
   // load questions of campaign on load 
   var campaign_id = $('#campaign_id').val();
 
@@ -767,6 +772,10 @@ $(document).ready(function() {
       },
       indlink: {
         required: true,
+        url: true
+      },
+      othrlink: {
+        // required: true,
         url: true
       },
       revszlink: {

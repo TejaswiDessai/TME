@@ -47,7 +47,7 @@ $(function(){
             $("#revnubound_range option").not(':first-child').each(function (index) {
                 $(this).prop('disabled', false);
             });
-            $('#revnubound_range').val($(this).val());
+            // $('#revnubound_range').val($(this).val());
         }
         else if($(this).attr('id') == 'revnlbound_range' && $(this).val() == 'million'){
             // alert("million");
@@ -56,13 +56,13 @@ $(function(){
             $('select').each(function() {
             $('#revnubound_range').not(this).find('option[value="' + check + '"]').prop('disabled', true); 
             });
-            $('#revnubound_range').val($(this).val());
+            // $('#revnubound_range').val($(this).val());
         } 
         else if($(this).attr('id') == 'revnlbound_range' && $(this).val() == 'billion'){
             var check = "hundred";
             var check2 = "million";
             $('option[disabled]').prop('disabled', false);
-            $('#revnubound_range').val($(this).val());
+            // $('#revnubound_range').val($(this).val());
             $('select').each(function() {
                 $('#revnubound_range').not(this).find('option[value="' + check + '"]').prop('disabled', true); 
                 $('#revnubound_range').not(this).find('option[value="' + check2 + '"]').prop('disabled', true); 
@@ -71,12 +71,30 @@ $(function(){
         } 
         else if($(this).attr('id') == 'revnlbound_range' && $(this).val() == 'trillion'){
             // alert($(this).val());
-            $('#revnubound_range').val($(this).val());
+            // $('#revnubound_range').val($(this).val());
             $("#revnubound_range option").not(':last-child').each(function (index) {
                 $(this).prop('disabled', true);
             });
             
         }  
+    });
+
+    $('#revnubound_range').change(function()
+    {
+        var revnlbound_range = $('#revnlbound_range').val();
+        var revnubound = $('#revnubound').val();
+        var revnlbound = $('#revnlbound').val();
+        var revnubound_range = $(this).val();
+        $("#revnubound_msg").html("");
+        if( revnubound_range == revnlbound_range)
+        {
+            if(revnubound < revnlbound)
+            {
+                $("#revnubound_msg").html("<p><strong>Upper Revenue must be greater than greater lower revenue!</strong></p>");
+                return;
+            }
+            
+        }
     });
 
     $('#revnlbound').change(function(){
@@ -107,9 +125,10 @@ $(function(){
     $('#revnubound').change(function(){
         
         if($(this).attr('id') == 'revnubound' && $(this).val() != null){
-            var revnlbound = $(this).val();
-            if(revnlbound > 10){
-                if(revnlbound % 10 == 0)
+            var revnubound = $(this).val();
+           
+            if(revnubound > 10){
+                if(revnubound % 10 == 0)
                 {
                     $("#revnubound_msg").html("");
                     //alert("prime");
@@ -270,11 +289,43 @@ $(function () {
         //    Add options
        $.each(response,function(index,data){
           $('#country_id').append('<option value="'+data['countrycd']+'">'+data['countryname']+'</option>');
+          
         });
+        $('#country_id').multiselect("rebuild");
         }
     });
 });
 
+$(function() {
+$('#country_id')
+    .multiselect({
+    allSelectedText: 'All',
+    maxHeight: 200,
+    includeSelectAllOption: true
+    })
+    .multiselect('selectAll', false)
+    .multiselect('updateButtonText');
+});
+$(function() {
+$('#industrycd')
+    .multiselect({
+    allSelectedText: 'All',
+    maxHeight: 200,
+    includeSelectAllOption: true
+    })
+    .multiselect('selectAll', false)
+    .multiselect('updateButtonText');
+});
+$(function() {
+$('#desid')
+    .multiselect({
+    allSelectedText: 'All',
+    maxHeight: 200,
+    includeSelectAllOption: true
+    })
+    .multiselect('selectAll', false)
+    .multiselect('updateButtonText');
+});
 //  Get sub industry
  $('#sector_id').change(function(){
     var sector_id = $(this).val();
@@ -298,6 +349,7 @@ $(function () {
        $.each(response,function(index,data){
           $('#industrycd').append('<option value="'+data['subindustrycd']+'">'+data['subindustry']+'</option>');
         });
+        $('#industrycd').multiselect("rebuild");
         }
     });
 });
@@ -327,10 +379,13 @@ $('#levelid').change(function(){
        $.each(response,function(index,data){
           $('#desid').append('<option value="'+data['jid']+'">'+data['joblist']+'</option>');
         });
+        $('#desid').multiselect("rebuild");
         }
     });
 });
 });
+
+
 
 // $('#region_id').on("select2:select", function (e) { 
 //     alert("tesdt");
@@ -375,7 +430,24 @@ $('#levelid').change(function(){
     // }).trigger('change');
 // });
 </script>
-
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/2.3.2/css/bootstrap.min.css" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-multiselect/0.9.13/css/bootstrap-multiselect.css" />
+<style>
+.caret{
+    display:none;
+}
+.dropdown-toggle::after {
+    display: inline-block;
+    width: 0;
+    height: 0;
+    margin-left: 10.0em;
+    /* vertical-align: middle; */
+    content: "";
+    /* border-top: .3em solid;
+    border-right: .3em solid transparent;
+    border-left: .3em solid transparent; */
+}
+</style>
 <div class="page-header">
     <div class="page-header-title">
         <h4>Campaigns</h4>
@@ -438,7 +510,7 @@ $('#levelid').change(function(){
                             <div class="col-sm-3">
                                 <label class="col-lable"><b>Campaign Id</b></label>
                                  <?php // echo form_error('campaign_id'); ?>
-                                <input type="text" name="campaign_id" id="campaign_id" placeholder="EnterCampaign ID" value="<?php echo set_value('campaign_id'); ?>" 
+                                <input type="text" style="height:30px;" name="campaign_id" id="campaign_id" placeholder="EnterCampaign ID" value="<?php echo set_value('campaign_id'); ?>" 
                                 <?php echo (form_error('campaign_id')) ? 'class="form-control form-control-sm form-control-danger"' : 'class="form-control form-control-sm"';?>  onkeypress="return isNumber(event)">
                                 <span style='color:#FF0000' id="campaign_id_msg"></span>
                             </div>
@@ -446,7 +518,7 @@ $('#levelid').change(function(){
                                 <label class="col-lable"><b>Campaign Name</b></label>
 
                                 <?php // echo form_error('campaign_name'); ?>
-                                <input type="text" pattern="^[a-zA-Z0-9]+$"  name="campaign_name"  placeholder="Enter Campaign Name"  value="<?php echo set_value('campaign_name'); ?>" id="campaign_name" 
+                                <input type="text" style="height:30px;" pattern="^[a-zA-Z0-9]+$"  name="campaign_name"  placeholder="Enter Campaign Name"  value="<?php echo set_value('campaign_name'); ?>" id="campaign_name" 
                                 <?php echo (form_error('campaign_name')) ? 'class="form-control form-control-sm form-control-danger"' :'class="form-control form-control-sm"';?> >
                                 <span style='color:#FF0000' id="campaign_name_msg"></span>
                             </div>
@@ -492,9 +564,9 @@ $('#levelid').change(function(){
                             </div>
                             <div class="col-sm-3">
                                 <label class="col-lable"><b>Country</b></label>  <?php echo form_error('country_id'); ?>
-                                <select class="js-example-basic-multiple col-sm-12 form-control-sm" multiple="multiple" name="country_id[]" id="country_id">
+                                <select style="width:500px;" class="js-example-basic multiselect col-sm-12 form-control-sm" multiple="multiple" name="country_id[]" id="country_id">
                                
-                                <option value="0">All</option>
+                                <!-- <option value="0">All</option> -->
                                 </select>
                             </div>
                             
@@ -513,8 +585,8 @@ $('#levelid').change(function(){
                             </div>
                             <div class="col-sm-3">
                                 <label class="col-lable"><b>Sub Industry</b></label><?php echo form_error('industrycd'); ?>
-                                <select class="js-example-basic-multiple col-sm-12 form-control-sm" multiple="multiple" name="industrycd[]" id="industrycd">
-                                <option value="0">All</option>
+                                <select class="js-example-basic multiselect col-sm-12 form-control-sm" multiple="multiple" name="industrycd[]" id="industrycd">
+                                <!-- <option value="0">All</option> -->
                                 </select>
                             </div>
                             <div class="col-sm-3">
@@ -529,8 +601,8 @@ $('#levelid').change(function(){
                             </div>
                             <div class="col-sm-3">
                                 <label class="col-lable"><b>Designation [Job Title]</b></label><?php echo form_error('desid'); ?>
-                              <select class="js-example-basic-multiple col-sm-12 form-control-sm" multiple="multiple" name="desid[]" id="desid">
-                              <option value="0">All</option>
+                              <select class="js-example-basic multiselect col-sm-12 form-control-sm" multiple="multiple" name="desid[]" id="desid">
+                              <!-- <option value="0">All</option> -->
                                
                                    
                                 </select>
@@ -592,7 +664,7 @@ $('#levelid').change(function(){
                             <div class="col-sm-2 ">
                                     
                                 <label class="col-lable"><b>Employee Lower Bound</b></label>
-                                <input type="text"   name="emplbound"  placeholder="Emp Lower Bound"  id="emplbound" class="form-control form-control-sm" onkeypress="return isNumber(event)" >
+                                <input type="text"  style="height:30px;"  name="emplbound"  placeholder="Emp Lower Bound"  id="emplbound" class="form-control form-control-sm" onkeypress="return isNumber(event)" >
                                 <!-- <select class="second-level-select form-control form-control-sm"  name="emplbound" id="emplbound">
                                     <?php //foreach ($ubound as $ubound): ?>
                                     <option value="<?php //echo $ubound['emplbound']; ?>"><?php// echo $ubound['emplbound']; ?></option>
@@ -601,7 +673,7 @@ $('#levelid').change(function(){
                             </div>
                             <div class="col-sm-2 ">
                                 <label class="col-lable"><b>Employee Upper Bound</b></label><?php echo form_error('empubound'); ?>
-                                <input type="text"   name="empubound"  placeholder="Emp Upper Bound"  id="empubound" class="form-control form-control-sm" onkeypress="return isNumber(event)" >
+                                <input type="text"  style="height:30px;"  name="empubound"  placeholder="Emp Upper Bound"  id="empubound" class="form-control form-control-sm" onkeypress="return isNumber(event)" >
                                 <!-- <select class="second-level-select form-control form-control-sm"  name="empubound" id="empubound">
                                     <?php //foreach ($lbound as $lbound): ?>
                                     <option value="<?php //echo $lbound['empubound']; ?>"><?php //echo $lbound['empubound']; ?></option>
@@ -628,7 +700,7 @@ $('#levelid').change(function(){
                             </div>
                             <div class="col-sm-2">   
                             <label class="f-left col-lable"><b>No. of Questions</b><br> <?php echo form_error('quantity'); ?></label>
-                                <input  type="number" id="quantity" name="quantity" min="1" max="12" maxlength="2" value="<?php echo set_value('quantity');?>"
+                                <input  type="number" style="height:30px;" id="quantity" name="quantity" min="1" max="12" maxlength="2" 
                                 <?php echo (form_error('quantity')) ? 'class="form-control form-control-danger form-control-sm"' :'class="form-control form-control-sm"';?> >
                             </div>
                             <!-- </div>
@@ -652,7 +724,7 @@ $('#levelid').change(function(){
                             <div class="col-sm-2 ">
                                 <!-- <div class="senior-airman"> -->
                                 <label class="col-lable"><b>Revenue Lower Bound</b></label>
-                                <input type="text"   name="revnlbound" step="5"  placeholder="Rev Lower Bound"  id="revnlbound" class="form-control form-control-sm" onkeypress="return isNumber(event)" >
+                                <input type="text"  style="height:30px;"  name="revnlbound" step="5"  placeholder="Rev Lower Bound"  id="revnlbound" class="form-control form-control-sm" onkeypress="return isNumber(event)" >
                                 <span style='color:#FF0000' id="revnlbound_msg"></span>
                                 <!-- <select class="second-level-select form-control form-control-sm"  name="revnlbound" id="revnlbound">
                                 <option value="">Select </option>
@@ -677,7 +749,7 @@ $('#levelid').change(function(){
                                 
                                 <!-- <div class="airman"> -->
                                     <label class="col-lable"><b>Revenue Upper Bound</b></label>
-                                    <input type="text"   name="revnubound"  placeholder="Rev Upper Bound"  id="revnubound" class="form-control form-control-sm" onkeypress="return isNumber(event)" >
+                                    <input type="text"  style="height:30px;"  name="revnubound"  placeholder="Rev Upper Bound"  id="revnubound" class="form-control form-control-sm" onkeypress="return isNumber(event)" >
                                     <span style='color:#FF0000' id="revnubound_msg"></span>
                                     <!-- <select class="second-level-select form-control form-control-sm"  name="revnubound" id="revnubound">
                                     <option value="">Select </option>
@@ -740,12 +812,12 @@ $('#levelid').change(function(){
 
                             <div class="col-sm-3">
                                 <label class="col-lable"><b>Start Date</b></label> 
-                                <input type="text" id="startdt"  name="startdt"   <?php echo (form_error('startdt')) ? 'class="form-control form-control-danger form-control-sm"' :'class="form-control form-control-sm"';?>>
+                                <input type="text" style="height:30px;" id="startdt"  name="startdt"   <?php echo (form_error('startdt')) ? 'class="form-control form-control-danger form-control-sm"' :'class="form-control form-control-sm"';?>>
                                 <span style='color:#FF0000' id="startdt_msg"></span>
                             </div>
                             <div class="col-sm-3">
                                 <label class="col-lable"><b>Est Completion Date</b></label> <?php echo form_error('estclosedt'); ?>
-                                <input type="text" id="estclosedt"  name="estclosedt" value="<?php echo set_value('estclosedt');?>" <?php echo (form_error('estclosedt')) ? 'class="form-control form-control-danger form-control-sm"' :'class="form-control form-control-sm"';?> >
+                                <input type="text" style="height:30px;" id="estclosedt"  name="estclosedt" value="<?php echo set_value('estclosedt');?>" <?php echo (form_error('estclosedt')) ? 'class="form-control form-control-danger form-control-sm"' :'class="form-control form-control-sm"';?> >
                             </div>
                             <div class="col-sm-3">
                                 <label class="col-lable"><b>Select Period</b></label>
@@ -804,7 +876,7 @@ $('#levelid').change(function(){
             var campaign_name = $('#campaign_name').val();
             var country_id = $('#country_id').val(); 
             var region_id = $('#region_id').val();
-            alert(region_id);
+            // alert(region_id);
             // var theRemovedElement = region_id.shift();  
             var industrycd = $('#industrycd').val(); 
             // alert(industrycd);
@@ -823,7 +895,7 @@ $('#levelid').change(function(){
             var frequency_type = $('#frequency_type').val();
             var frequency = $('#frequency').val();
             var period = $('#period').val(); 
-            alert(period);
+            // alert(period);
             //alert(revnlbound+ "" + emplbound);
             $("#client_id_msg").html("");
             $("#campaign_id_msg").html("");

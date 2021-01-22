@@ -491,12 +491,14 @@
 		{
 			$camp_id = $_POST['camp_id'];
 			$suptyp = $_POST['suptyp'];
-			$period = $_POST['period'];
+			// $period = $_POST['period'];
 			$connect = pg_connect("host=localhost dbname=Forerunner user=postgres password=password@123");
 
-			if(isset($_FILES['suplistnew_email']['name']))
+			if(isset($_FILES['suplistnew_email']['name'])  && !empty($_FILES['inclistnew_domain']['name']))
 			{
 				$filename = explode(".", $_FILES['suplistnew_email']['name']);
+				
+				// echo ;
 				$ex_email_file = $filename[0].".".$filename[1];
 				if($filename[1] == 'csv')
 				{
@@ -526,7 +528,7 @@
 					}
 				}
 
-				if(isset($_FILES['suplistnew_company']['name']))
+				if(isset($_FILES['suplistnew_company']['name'])  && !empty($_FILES['inclistnew_domain']['name']))
 				{
 					$filename = explode(".", $_FILES['suplistnew_company']['name']);
 					$ex_company_file = $filename[0].".".$filename[1];
@@ -559,7 +561,7 @@
 					
 						}
 				}
-			if(isset($_FILES['suplistnew_domain']['name']))
+			if(isset($_FILES['suplistnew_domain']['name'])  && !empty($_FILES['inclistnew_domain']['name']))
 			{
 				$filename = explode(".", $_FILES['suplistnew_domain']['name']);
 				$ex_domain_file = $filename[0].".".$filename[1];
@@ -594,7 +596,7 @@
 				}
 
 				// Inclusion file upload
-			if(isset($_FILES['inclistnew_email']['name']))
+			if(isset($_FILES['inclistnew_email']['name'])  && !empty($_FILES['inclistnew_domain']['name']))
 			{
 				$filename = explode(".", $_FILES['inclistnew_email']['name']);
 				$in_email_file = $filename[0].".".$filename[1];
@@ -626,7 +628,7 @@
 					}
 				}
 
-				if(isset($_FILES['inclistnew_company']['name']))
+				if(isset($_FILES['inclistnew_company']['name']) && !empty($_FILES['inclistnew_domain']['name']) )
 				{
 					$filename = explode(".", $_FILES['inclistnew_company']['name']);
 					$in_company_file = $filename[0].".".$filename[1];
@@ -659,7 +661,7 @@
 					
 						}
 				}
-			if(isset($_FILES['inclistnew_domain']['name']))
+			if(isset($_FILES['inclistnew_domain']['name']) && !empty($_FILES['inclistnew_domain']['name']))
 			{
 				$filename = explode(".", $_FILES['inclistnew_domain']['name']);
 				$in_domain_file = $filename[0].".".$filename[1];
@@ -696,6 +698,7 @@
 				if(isset($_FILES['userfilequestion']['name']))
 				{
 					$filename = explode(".", $_FILES['userfilequestion']['name']);
+					
 					if($filename[1] == 'csv')
 					{
 						$handle = fopen($_FILES['userfilequestion']['tmp_name'], "r");
@@ -1010,6 +1013,11 @@
 			}
 			$period = $_GET['period'];
 			
+			$question = 0;
+			if(!empty($_GET['quantity'])) {
+				$question = $_GET['quantity'];
+			}
+			
 			$sdate=date_create($_GET['startdt']);
 			$cdate=date_create($_GET['estclosedt']);
 			$closedate = date_format($cdate,"Y/m/d");
@@ -1029,7 +1037,7 @@
 				'inclistnew' =>$_GET['inclist'],
 				'cdcneed' =>$_GET['cdqa'],
 				'assetid' => $_GET['assetid'],
-				'questnos' =>$_GET['quantity'],
+				'questnos' =>$question,
 				'status' => $_GET['selectstatus'],			
 				'estclosedt' => $closedate,
 				'startdt' => $startdate,

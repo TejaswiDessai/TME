@@ -753,7 +753,7 @@
 							//$item36= mysqli_real_escape_string($connect, $data[35]);
 	
 							//$item5 = mysqli_real_escape_string($connect, $data[4]);
-							$query = "INSERT into questions(cid,questions
+							$query = "INSERT into assettitle(cids,title
 							)values('$camp_id','$item1')";
 							// show_error($this->db->last_query(), 200, "SQL");
 							$result = pg_query($connect, $query);
@@ -1012,7 +1012,7 @@
 			$revnubound_range = $_GET['revnubound_range'];
 			}
 			$period = $_GET['period'];
-			
+
 			$question = 0;
 			if(!empty($_GET['quantity'])) {
 				$question = $_GET['quantity'];

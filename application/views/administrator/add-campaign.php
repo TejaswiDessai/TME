@@ -876,7 +876,7 @@ $('#levelid').change(function(){
             var campaign_name = $('#campaign_name').val();
             var country_id = $('#country_id').val(); 
             var region_id = $('#region_id').val();
-            alert(region_id);
+            // alert(region_id);
             // var theRemovedElement = region_id.shift();  
             var industrycd = $('#industrycd').val(); 
             // alert(industrycd);
@@ -895,7 +895,7 @@ $('#levelid').change(function(){
             var frequency_type = $('#frequency_type').val();
             var frequency = $('#frequency').val();
             var period = $('#period').val(); 
-            alert(period);
+            // alert(period);
             //alert(revnlbound+ "" + emplbound);
             $("#client_id_msg").html("");
             $("#campaign_id_msg").html("");

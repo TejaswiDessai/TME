@@ -100,6 +100,7 @@ $.ajax({
         $(".aumdis").attr("disabled", false);  
            
         }else{
+          $(".aumdis").val('');
           $(".aumdis").attr("disabled", true);  
             
         }
@@ -207,8 +208,8 @@ $.ajax({
                             </div>
                             <div class="col-sm-2">
                                 <!-- <select class="js-example-basic-multiple col-sm-12 cdqadisable" multiple="multiple" name="desid[]" id="desid"> -->
-                                <select class="form-control form-control-sm cdqadisable" name="desid[]" id="desid">
-                                <option>Designation</option>
+                                <select class="form-control form-control-sm cdqadisable" name="desid" id="desid">
+                                <option value="">Designation</option>
                                 <?php foreach ($designation as $designation): ?>
                                     <option value="<?php echo $designation['jid']; ?>"><?php echo $designation['joblist']; ?></option>
                                 <?php endforeach; ?>  
@@ -217,7 +218,7 @@ $.ajax({
                             <div class="col-sm-2">
                                 <!-- <select class="js-example-basic-multiple col-sm-12 cdqadisable" multiple="multiple" name="desid[]" id="desid"> -->
                                 <select class="form-control form-control-sm cdqadisable" name="jlevel" id="jlevel">
-                                <option>Job Level</option>
+                                <option value="">Job Level</option>
                                 <?php foreach ($joblevel as $joblevel): ?>
                                     <option value="<?php echo $joblevel['joblids']; ?>"><?php echo $joblevel['joblevel']; ?></option>
                                 <?php endforeach; ?>  
@@ -230,8 +231,8 @@ $.ajax({
                         <hr>
                         <div class="form-group row">
                         <div class="col-sm-2">
-                                 <select class="form-control form-control-sm cdqadisable" name="dcd[]" id="dcd">
-                                    <option> Department</option>
+                                 <select class="form-control form-control-sm cdqadisable" name="dcd" id="dcd">
+                                    <option value=""> Department</option>
                                 <?php foreach ($departments as $dept): ?>
                                     <option value="<?php echo $dept['dcd']; ?>"><?php echo $dept['department']; ?></option>
                                 <?php endforeach; ?>
@@ -284,8 +285,8 @@ $.ajax({
                                 <input type="text"  name="zip_code" id="zip_code"  placeholder="Zip Code"  class="form-control form-control-sm cdqadisable">
                            </div>
                              <div class="col-sm-2">
-                                     <select class="form-control form-control-sm cdqadisable" name="country_id[]" id="country_id">
-                                     <option>Countries</option>
+                                     <select class="form-control form-control-sm cdqadisable" name="country_id" id="country_id">
+                                     <option value="">Countries</option>
                                  <?php foreach ($countriesofcampaign as $countriesofcampaign): ?>
                                     <option value="<?php echo $countriesofcampaign['countrycd']; ?>"  ><?php echo $countriesofcampaign['countryname']; ?></option>
                                 <?php endforeach; ?>
@@ -298,7 +299,7 @@ $.ajax({
                         <div class="form-group row">
                             
                             <div class="col-sm-2">
-                              <select class="form-control form-control-sm cdqadisable"  name="timezone[]" id="timezone">
+                              <select class="form-control form-control-sm cdqadisable"  name="timezone" id="timezone">
                               <option value="">Timezone</option>
                               <?php foreach ($timezones as $tz): ?>
                                     <option value="<?php echo $tz['zoneid']; ?>"><?php echo $tz['zonename']; ?></option>
@@ -465,8 +466,8 @@ $.ajax({
                         <button type="submit" name="leadsave" class="btn btn-primary leaddisplay" style=""  id="leadsave">Save Lead</button> 
                         <!-- <input class="submit" class ="" type="submit" value="SUBMIT"> -->
                         <!-- below buttons are for cdqa save and submit -->
-                        <button type="submit" name="cdqasubmit" class="btn btn-primary cdqadisplay" style=""  id="cdqasubmit">Submit Lead </button> 
-                        <button type="submit" name="cdqasave" class="btn btn-primary cdqadisplay" style=""  id="cdqasave">Save Lead </button> 
+                        <button type="submit" name="submit" class="btn btn-primary cdqadisplay"   id="cdqasubmit">Submit Lead </button> 
+                        <button type="submit" name="submit" class="btn btn-primary cdqadisplay"  id="cdqasave">Save Lead </button> 
                        
 
                     </div>
@@ -729,33 +730,34 @@ $(document).ready(function() {
         // minlength: 3
       },
       dcd : {
-        required: true,
+        required: true
+        // minlength: 3
+      },
+      desid : {
+        required: true
         // minlength: 3
       },
       linetype : {
         required: true        
       },
       address : {
-        required: true,
+        required: true
         // minlength: 4
       },
       city : {
-        required: true,
+        required: true
         // minlength: 5
       },
       state : {
-        required: true,
+        required: true
         // minlength: 5
       },
       zip_code : {
-        required: true,
+        required: true
         // minlength: 5
       },
-      country_id : {
-        required: true
-      },
       timezone : {
-        required: true,
+        required: true
       },
       industrycd : {
         required: true
@@ -763,11 +765,10 @@ $(document).ready(function() {
       subindustrycd : {
         required: true
       },
-
-    //    'country_id[]' : {
-    //     required: true,
-    //     minlength: 1
-    //   },
+       country_id : {
+        required: true
+        // minlength: 1
+      },
       phone: {
         required: true,
         number: true,
@@ -1402,23 +1403,13 @@ $(document).ready(function() {
            var aa12 = $('#aa12').val();
          
            
-
-           var checksupp = $('#uho').prop('checked');
-           if(checksupp == true)
-           {
-               checksupp = 1;
-           }
-           else
-           {
-               checksupp = 0;
-           }
           
             
-            var url = "<?php echo base_url("cdc/ajax_save_leadandcdcbyCDQA");?>";
+            var url = "<?php echo base_url("cdc/ajax_update_lead");?>";
             console.log(url+"?campaign_id="+campaign_id+"&sal="+sal+"&fname="+fname+"&lname="+lname+"&jtitle="+jtitle+"&desid="+desid+"&jlevel="+jlevel+"&dcd="+dcd+"&email="+email+"&phone="+phone+"&altphn="+altphn+"&phext="+phext+"&plink="+plink+"&company_name="+company_name+"&address="+address+"&city="+city+"&state="+state+"&zip_code="+zip_code+"&country_id="+country_id+"&timezone="+timezone+"&ctype="+ctype+"&linetype="+linetype+"&industrycd="+industrycd+"&subindustrycd="+subindustrycd+"&sectyp="+sectyp+"&empsize="+empsize+"&mlbl="+mlbl+"&curr="+curr+"&arevenue="+arevenue+"&empszlink="+empszlink+"&indlink="+indlink+"&domain="+domain+"&othrlink="+othrlink+"&revszlink="+revszlink+"&emailver="+emailver+"&aum="+aum+"&assetid="+assetid+"&optin="+optin+"&optpst="+optpst+"&optph="+optph+"&opteml="+opteml+"&optoption="+optoption+"&aa1="+aa1+"&aa2="+aa2+"&aa3="+aa3+"&aa4="+aa4+"&aa5="+aa5+"&aa6="+aa6+"&aa7="+aa7+"&aa8="+aa8+"&aa9="+aa9+"&aa10="+aa10+"&aa11="+aa11+"&aa12="+aa12+"&pcomt="+pcomt);
           
             $.ajax({
-                url :'<?php echo base_url("cdc/ajax_save_leadandcdcbyCDQA");?>',
+                url :'<?php echo base_url("cdc/ajax_update_lead");?>',
                 type: 'GET', 
                 dataType: 'json',              
                 data: {
@@ -1451,8 +1442,13 @@ $(document).ready(function() {
                     subindustrycd:subindustrycd,
                     sectyp:sectyp,
                     empsize:empsize,
+                    mlbl:mlbl,
+                    curr:curr,
                     arevenue:arevenue,
+                    empszlink:empszlink,
+                    indlink:indlink,
                     revszlink:revszlink,
+                    domain:domain,
                     othrlink:othrlink,
                     emailver:emailver,
                     aum:aum,                 
@@ -1462,24 +1458,25 @@ $(document).ready(function() {
                     optph:optph,
                     opteml:opteml,
                     optpst:optpst,
-                    optoption:optoption                   
+                    optoption:optoption,
+                    aa1:aa1,
+                    aa2:aa2,
+                    pcomt:pcomt                 
                     
                    
                     
                     
 				},
                 cache: false,
+                
                 success: function(response){
-                    // var text = response.statusCode;
+                    alert("inside");
                     console.log("check");
                    
                     if(response.statusCode == "Success") 
                     {             
                       alert("Success");           
                         $("#cdqasave").html(response.message);
-                       
-                        // $("#addcampbtn").prop('disabled', true);
-                        // top.location.href=base_url+"campaigns/addsuppressionList?camp_id="+response.campaign_id;//redirection
                     }else if(response.statusCode=="Fail")
                     {
                         $("#cdqasave").html(response.message);

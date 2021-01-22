@@ -215,7 +215,7 @@
 				$addleadandcdcdata = $this->Administrator_Model->add_leadandcdc($datacdcandlead);
 				// print_r(addcampaigndata); 
 
-				if($addleadandcdcdata == true){
+				if($addleadandcdcdata != null){
 			
 					echo json_encode(array(
 						"statusCode"=>"Success",
@@ -339,9 +339,8 @@
 			    //  exit();
 			
 				$addleadandcdcdata = $this->Administrator_Model->add_leadandcdc($datacdcandlead);
-				// print_r(addcampaigndata); 
-
-				if($addleadandcdcdata == true){
+			
+				if($addleadandcdcdata != null){
 			
 					echo json_encode(array(
 						"statusCode"=>"Success",
@@ -468,9 +467,10 @@
 				
 				// $updateleadandcdcdata = $this->Administrator_Model->update_leadandcdcbyCDQA($datacdcandlead,$campaign_id);
 				$updateleadandcdcdata = $this->Administrator_Model->add_leadandcdcbyCDQA($datacdcandlead);
-				// print_r(addcampaigndata); 
+				// print_r($updateleadandcdcdata); 
+				// exit();
 
-				if($updateleadandcdcdata == true){
+				if($updateleadandcdcdata != null){
 			
 					echo json_encode(array(
 						"statusCode"=>"Success",
@@ -597,6 +597,7 @@
 				// print_r(addcampaigndata); 
 				$updateleadandcdcdata = $this->Administrator_Model->add_leadandcdcbyCDQA($datacdcandlead);
 
+				// if($updateleadandcdcdata != 'null'){
 				if($updateleadandcdcdata == true){
 			
 					echo json_encode(array(
@@ -613,9 +614,120 @@
 								
 			
 		}
+		public function ajax_update_lead()
+		{
+	 
+			$trimfname=$_GET['fname'];
+				$trimlname=$_GET['lname'];
+
+				$first =substr($trimfname, 0, 4);  // abcd
+				$last = substr($trimlname, 0, 4);
+				$conname = $first.$last; 
 
 
+				$old_date = date('y-m-d-h-i-s');            // works
+				$middle = strtotime($old_date);             // returns bool(false)
+				$new_date = date('Y-m-d H:i:s', $middle);
 
+
+			$datacdcandlead = array(
+				'cnid' => $_GET['campaign_id'],
+				
+				'sal' => $_GET['sal'],
+				'fname' => $_GET['fname'],
+				'lname' => $_GET['lname'],
+				'conname' => $conname, //concate strings
+				'jtitle' => $_GET['jtitle'],
+				// 'desid' => $_GET['desid'],
+
+				'jlevel' => $_GET['jlevel'],
+				'dname' => $_GET['dcd'], //department
+				'email' => $_GET['email'],
+				'phone' => $_GET['phone'],
+				'altphn' => $_GET['altphn'],
+
+				'phext' => $_GET['phext'],
+				'plink' => $_GET['plink'],
+				'cname' => $_GET['company_name'],
+				'address' => $_GET['address'],
+
+				'city' => $_GET['city'],
+				'state' => $_GET['state'],
+				'zipcode' => $_GET['zip_code'],
+				'country' => $_GET['country_id'],
+				'timez' => $_GET['timezone'],
+				'ctyp' => $_GET['ctype'],
+			
+				'linetype' => $_GET['linetype'],
+				'indtry' => $_GET['industrycd'],
+				'sindtry' => $_GET['subindustrycd'],
+
+				'sectyp' => $_GET['sectyp'],
+				'empsize' => $_GET['empsize'],
+				'arevenue' => $_GET['arevenue'],
+				'mlbl' => $_GET['mlbl'],
+				'curr' => $_GET['curr'],
+
+				'domain' => $_GET['domain'],
+				'indlink' => $_GET['indlink'],
+				'revszlink' => $_GET['revszlink'],
+				'empszlink' => $_GET['empszlink'],
+				'pcomt' => $_GET['pcomt'],
+
+				'othrlink' => $_GET['othrlink'],
+
+				'emailver' => $_GET['emailver'],
+				'aum' => $_GET['aum'],
+				'atitle' => $_GET['assetid'],
+
+				'optin' => $_GET['optin'],
+				'optpst' => $_GET['optpst'],
+				'optph' => $_GET['optph'],
+				'opteml' => $_GET['opteml'],
+				
+
+				'aa1' => $_GET['aa1'],
+				'aa2' => $_GET['aa2'],
+				'aa3' => $_GET['aa3'],
+				'aa4' => $_GET['aa4'],
+				'aa5' => $_GET['aa5'],
+				'aa6' => $_GET['aa6'],
+				'aa7' => $_GET['aa7'],
+				'aa8' => $_GET['aa8'],
+				'aa9' => $_GET['aa9'],
+				'aa10' => $_GET['aa10'],
+				'aa11' => $_GET['aa11'],
+				'aa12' => $_GET['aa12'],
+
+				
+				// tag
+				'cdcsv' => '1', // Save only
+
+				
+
+				'cdcsvagti' => $_SESSION['user_id'], // save Agent Name
+				'cdcsvdti' => $new_date // save date time
+				
+								
+				);
+				
+				$updateleadandcdcdata = $this->Administrator_Model->add_leadandcdcbyCDQA($datacdcandlead);
+
+				if($updateleadandcdcdata == true){
+			
+					echo json_encode(array(
+						"statusCode"=>"Success",
+						"message"=>"lead added Successfully.."
+					));
+				}else{
+					echo json_encode(array(
+						"statusCode"=>"Fail",
+						"message"=>"lead failed.."
+					));
+				}
+								
+			
+		}
 
 
 		public function checkemail(){ 

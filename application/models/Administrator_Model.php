@@ -386,10 +386,10 @@
 		{
                         
 			$this->db->insert('leadmaster', $datacdcandlead);
-			 $insert_id = $this->db->insert_id();
-			//  return true;
+			//  $insert_id = $this->db->insert_id();
+			 return true;
 			// echo $this->db->last_query(); 
-			 return  $insert_id;
+			//  return  $insert_id;
                        
 		}
 		public function add_leadandcdcbyCDQA($datacdcandlead)
@@ -397,9 +397,9 @@
                         
 			$this->db->insert('leadmaster', $datacdcandlead);
 			 $insert_id = $this->db->insert_id();
-			//  return true;
+			 return true;
 			// echo $this->db->last_query(); 
-			 return  $insert_id;
+			//  return  $insert_id;
                        
 		}
 

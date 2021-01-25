@@ -124,7 +124,7 @@
 				$conname = $first.$last; 
 
 
-				$old_date = date('y-m-d-h-i-s');            // works
+				$old_date = date('y-m-d H-i-s');            // works
 				$middle = strtotime($old_date);             // returns bool(false)
 				$new_date = date('Y-m-d H:i:s', $middle);
 
@@ -215,7 +215,7 @@
 				$addleadandcdcdata = $this->Administrator_Model->add_leadandcdc($datacdcandlead);
 				// print_r(addcampaigndata); 
 
-				if($addleadandcdcdata != null){
+				if($addleadandcdcdata == true){
 			
 					echo json_encode(array(
 						"statusCode"=>"Success",
@@ -247,7 +247,7 @@
 				$conname = $first." ".$last; 
 
 
-				$old_date = date('y-m-d-h-i-s');            // works
+				$old_date = date('Y-m-d H:i:s');           // works
 				$middle = strtotime($old_date);             // returns bool(false)
 				$new_date = date('Y-m-d H:i:s', $middle);
 
@@ -326,7 +326,7 @@
 				
 
 				'svagtidi' => $_SESSION['user_id'], // save Agent Name
-				'svdti' => $new_date // save date time
+				'svdti' => $old_date // save date time
 				//'stagtidi' => '1', // submit agent name
 				//'stdti' => $new_date // submit date time
 				
@@ -339,8 +339,9 @@
 			    //  exit();
 			
 				$addleadandcdcdata = $this->Administrator_Model->add_leadandcdc($datacdcandlead);
-			
-				if($addleadandcdcdata != null){
+				// print_r(addcampaigndata); 
+
+				if($addleadandcdcdata == true){
 			
 					echo json_encode(array(
 						"statusCode"=>"Success",
@@ -372,9 +373,23 @@
 				$conname = $first.$last; 
 
 
-				$old_date = date('y-m-d-h-i-s');            // works
-				$middle = strtotime($old_date);             // returns bool(false)
-				$new_date = date('Y-m-d H:i:s', $middle);
+				$old_date = date('Y-m-d H:i:s');            // works
+				// $middle = strtotime($old_date);             // returns bool(false)
+				// $new_date = date('Y-m-d H:i:s', $middle);
+				// print_r($old_date);
+				if(!empty($_GET['aum']))
+					{
+						$aum = $_GET['aum'];
+					} else{
+					$aum = 0 ;
+					}
+				if(!empty($_GET['sectyp']))
+					{
+						$sectype = $_GET['sectyp'];
+					} else{
+					$sectype = 0 ;
+					}
+				
 
 				$datacdcandlead = array(
 				'cnid' => $_GET['campaign_id'],
@@ -408,7 +423,7 @@
 				'indtry' => $_GET['industrycd'],
 				'sindtry' => $_GET['subindustrycd'],
 
-				'sectyp' => $_GET['sectyp'],
+				'sectyp' => $sectype,
 				'empsize' => $_GET['empsize'],
 				'arevenue' => $_GET['arevenue'],
 				'mlbl' => $_GET['mlbl'],
@@ -423,7 +438,7 @@
 				'othrlink' => $_GET['othrlink'],
 
 				'emailver' => $_GET['emailver'],
-				'aum' => $_GET['aum'],
+				'aum' => $aum,
 				'atitle' => $_GET['assetid'],
 
 				'optin' => $_GET['optin'],
@@ -453,7 +468,7 @@
 				
 
 				'cdcsbagti' => $_SESSION['user_id'], // save Agent Name
-				'cdcsbdti' => $new_date // save date time
+				'cdcsbdti' => $old_date // save date time
 				//'stagtidi' => '1', // submit agent name
 				//'stdti' => $new_date // submit date time
 				
@@ -467,20 +482,19 @@
 				
 				// $updateleadandcdcdata = $this->Administrator_Model->update_leadandcdcbyCDQA($datacdcandlead,$campaign_id);
 				$updateleadandcdcdata = $this->Administrator_Model->add_leadandcdcbyCDQA($datacdcandlead);
-				// print_r($updateleadandcdcdata); 
-				// exit();
+				// print_r(addcampaigndata); 
 
-				if($updateleadandcdcdata != null){
+				if($updateleadandcdcdata == true){
 			
 					echo json_encode(array(
-						"statusCode"=>"Success",
-						"lead_id"=>$updateleadandcdcdata,
-						"message"=>"Lead added Successfully.."
+						'statusCode'=>'Success',
+						// "lead_id"=>$updateleadandcdcdata,
+						'message'=>'Lead added Successfully..'
 					));
 				}else{
 					echo json_encode(array(
-						"statusCode"=>"Fail",
-						"message"=>"Lead  failed.."
+						'statusCode'=>'Fail',
+						'message'=>'Lead  failed..'
 					));
 				}
 								
@@ -502,7 +516,7 @@
 				$conname = $first.$last; 
 
 
-				$old_date = date('y-m-d-h-i-s');            // works
+				$old_date = date('Y-m-d H:i:s');           // works
 				$middle = strtotime($old_date);             // returns bool(false)
 				$new_date = date('Y-m-d H:i:s', $middle);
 
@@ -582,7 +596,7 @@
 				
 
 				'cdcsvagti' => $_SESSION['user_id'], // save Agent Name
-				'cdcsvdti' => $new_date // save date time
+				'cdcsvdti' => $old_date // save date time
 				//'stagtidi' => '1', // submit agent name
 				//'stdti' => $new_date // submit date time
 				
@@ -596,13 +610,13 @@
 				// $updateleadandcdcdata = $this->Administrator_Model->update_leadandcdcbyCDQA($datacdcandlead,$campaign_id);
 				// print_r(addcampaigndata); 
 				$updateleadandcdcdata = $this->Administrator_Model->add_leadandcdcbyCDQA($datacdcandlead);
-
-				// if($updateleadandcdcdata != 'null'){
+				
+				// echo json_encode($updateleadandcdcdata );
 				if($updateleadandcdcdata == true){
 			
 					echo json_encode(array(
 						"statusCode"=>"Success",
-						"lead_id"=>$updateleadandcdcdata,
+						// "lead_id"=>$updateleadandcdcdata,
 						"message"=>"Lead added Successfully.."
 					));
 				}else{
@@ -614,120 +628,9 @@
 								
 			
 		}
-		public function ajax_update_lead()
-		{
-	 
-			$trimfname=$_GET['fname'];
-				$trimlname=$_GET['lname'];
-
-				$first =substr($trimfname, 0, 4);  // abcd
-				$last = substr($trimlname, 0, 4);
-				$conname = $first.$last; 
 
 
-				$old_date = date('y-m-d-h-i-s');            // works
-				$middle = strtotime($old_date);             // returns bool(false)
-				$new_date = date('Y-m-d H:i:s', $middle);
 
-
-			$datacdcandlead = array(
-				'cnid' => $_GET['campaign_id'],
-				
-				'sal' => $_GET['sal'],
-				'fname' => $_GET['fname'],
-				'lname' => $_GET['lname'],
-				'conname' => $conname, //concate strings
-				'jtitle' => $_GET['jtitle'],
-				// 'desid' => $_GET['desid'],
-
-				'jlevel' => $_GET['jlevel'],
-				'dname' => $_GET['dcd'], //department
-				'email' => $_GET['email'],
-				'phone' => $_GET['phone'],
-				'altphn' => $_GET['altphn'],
-
-				'phext' => $_GET['phext'],
-				'plink' => $_GET['plink'],
-				'cname' => $_GET['company_name'],
-				'address' => $_GET['address'],
-
-				'city' => $_GET['city'],
-				'state' => $_GET['state'],
-				'zipcode' => $_GET['zip_code'],
-				'country' => $_GET['country_id'],
-				'timez' => $_GET['timezone'],
-				'ctyp' => $_GET['ctype'],
-			
-				'linetype' => $_GET['linetype'],
-				'indtry' => $_GET['industrycd'],
-				'sindtry' => $_GET['subindustrycd'],
-
-				'sectyp' => $_GET['sectyp'],
-				'empsize' => $_GET['empsize'],
-				'arevenue' => $_GET['arevenue'],
-				'mlbl' => $_GET['mlbl'],
-				'curr' => $_GET['curr'],
-
-				'domain' => $_GET['domain'],
-				'indlink' => $_GET['indlink'],
-				'revszlink' => $_GET['revszlink'],
-				'empszlink' => $_GET['empszlink'],
-				'pcomt' => $_GET['pcomt'],
-
-				'othrlink' => $_GET['othrlink'],
-
-				'emailver' => $_GET['emailver'],
-				'aum' => $_GET['aum'],
-				'atitle' => $_GET['assetid'],
-
-				'optin' => $_GET['optin'],
-				'optpst' => $_GET['optpst'],
-				'optph' => $_GET['optph'],
-				'opteml' => $_GET['opteml'],
-				
-
-				'aa1' => $_GET['aa1'],
-				'aa2' => $_GET['aa2'],
-				'aa3' => $_GET['aa3'],
-				'aa4' => $_GET['aa4'],
-				'aa5' => $_GET['aa5'],
-				'aa6' => $_GET['aa6'],
-				'aa7' => $_GET['aa7'],
-				'aa8' => $_GET['aa8'],
-				'aa9' => $_GET['aa9'],
-				'aa10' => $_GET['aa10'],
-				'aa11' => $_GET['aa11'],
-				'aa12' => $_GET['aa12'],
-
-				
-				// tag
-				'cdcsv' => '1', // Save only
-
-				
-
-				'cdcsvagti' => $_SESSION['user_id'], // save Agent Name
-				'cdcsvdti' => $new_date // save date time
-				
-								
-				);
-				
-				$updateleadandcdcdata = $this->Administrator_Model->add_leadandcdcbyCDQA($datacdcandlead);
-
-				if($updateleadandcdcdata == true){
-			
-					echo json_encode(array(
-						"statusCode"=>"Success",
-						"message"=>"lead added Successfully.."
-					));
-				}else{
-					echo json_encode(array(
-						"statusCode"=>"Fail",
-						"message"=>"lead failed.."
-					));
-				}
-								
-			
-		}
 
 
 		public function checkemail(){ 

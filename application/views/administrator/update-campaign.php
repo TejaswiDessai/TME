@@ -242,8 +242,9 @@ $(function(){
                             <div class="col-sm-3">
                                 <label class="col-lable"><b>Department</b></label><?php echo form_error('dcd'); ?>
                                 <select class="js-example-basic-multiple col-sm-12" multiple="multiple" name="dcd[]" id="dcd">
+                                <?php $dcd = explode(',',$post['dcd']);?>
                                    <?php foreach ($departments as $dept): ?>
-                                    <option value="<?php echo $dept['dcd']; ?>"  <?php if($post['dcd'] == $dept['dcd']){ echo "selected" ; } ?>><?php echo $dept['department']; ?></option>
+                                    <option value="<?php echo $dept['dcd']; ?>"  <?php if( in_array($dept['dcd'], $dcd)) { echo "selected" ; } ?>><?php echo $dept['department']; ?></option>
                                 <?php endforeach; ?>
                                 </select>
                             </div>
@@ -267,8 +268,9 @@ $(function(){
                             <div class="col-sm-3">
                                 <label class="col-lable"><b>World Region</b></label>
                                 <select class="js-example-basic-multiple col-sm-12" multiple="multiple" name="region_id" id="region_id">
+                                <?php $regioncode = explode(',',$post['regioncode']);?>
                                 <?php foreach ($regions as $region): ?>
-                                    <option value="<?php echo $region['regioncode']; ?>" <?php if($post['regioncode'] == $region['regioncode']){ echo "selected" ; } ?>><?php echo $region['region']; ?></option>
+                                    <option value="<?php echo $region['regioncode']; ?>" <?php if( in_array($region['regioncode'], $regioncode)) { echo "selected" ; } ?>><?php echo $region['region']; ?></option>
                                 <?php endforeach; ?>
                                 
                                 </select>
@@ -277,9 +279,9 @@ $(function(){
                             <div class="col-sm-3">
                                 <label class="col-lable"><b>Select Country</b></label>  <?php echo form_error('country_id'); ?>
                                 <select class="js-example-basic-multiple col-sm-12" multiple="multiple" name="country_id[]" id="country_id">
-                                 
+                                <?php $countrycd = explode(',',$post['countrycd']);?>
                             <?php foreach ($countries as $country): ?>
-                                    <option value="<?php echo $country['countrycd']; ?>" <?php if($post['countrycd'] == $country['countrycd']){ echo "selected" ; } ?>><?php echo $country['countryname']; ?></option>
+                                    <option value="<?php echo $country['countrycd']; ?>" <?php if( in_array($country['countrycd'], $countrycd)){ echo "selected" ; } ?>><?php echo $country['countryname']; ?></option>
                                 <?php endforeach; ?>
                                 </select>
                             </div>
@@ -295,8 +297,9 @@ $(function(){
                             <div class="col-sm-3">
                                 <label class="col-lable"><b>Industry</b></label><?php echo form_error('industrycd'); ?>
                                 <select class="js-example-basic-multiple col-sm-12" multiple="multiple" name="industrycd[]" id="industrycd">
+                                <?php $industrycd = explode(',',$post['industrycd']);?>
                                      <?php foreach ($industries as $industry): ?>
-                                    <option value="<?php echo $industry['subindustrycd']; ?>" <?php if($post['industrycd'] == $industry['subindustrycd']){ echo "selected" ; } ?>><?php echo $industry['subindustry']; ?></option>
+                                    <option value="<?php echo $industry['subindustrycd']; ?>" <?php if( in_array($industry['subindustrycd'], $industrycd)){ echo "selected" ; } ?>><?php echo $industry['subindustry']; ?></option>
                                 <?php endforeach; ?>
                                 </select>
                             </div>
@@ -316,8 +319,9 @@ $(function(){
                             <div class="col-sm-3">
                                 <label class="col-lable"><b>Designation</b></label><?php echo form_error('desid'); ?>
                               <select class="js-example-basic-multiple col-sm-12" multiple="multiple" name="desid[]" id="desid">
+                              <?php $tid = explode(',',$post['tid']);?>
                                 <?php foreach ($designation as $designation): ?>
-                                    <option value="<?php echo $designation['jid']; ?>" <?php if($post['tid'] == $designation['jid']){ echo "selected" ; } ?>><?php echo $designation['joblist']; ?></option>
+                                    <option value="<?php echo $designation['jid']; ?>" <?php if( in_array($designation['jid'], $tid)) { echo "selected" ; } ?>><?php echo $designation['joblist']; ?></option>
                                 <?php endforeach; ?>
                                    
                                 </select>
@@ -387,9 +391,9 @@ $(function(){
                             <div class="col-sm-3">
                                 <label class="col-lable"><b>Frequency Type</b></label>
                                 <select class="js-example-basic-multiple col-sm-12"  name="frequency_type" id="frequency_type">
-                                 
+                                <?php $freqtyp = explode(',',$post['freqtyp']);?>
                                 <?php foreach ($frequency_type as $frequency_types): ?>
-                                    <option value="<?php echo $frequency_types['fids']; ?>" <?php if($post['freqtyp'] == $frequency_types['fids']){ echo "selected" ; } ?>><?php echo $frequency_types['freqtype']; ?></option>
+                                    <option value="<?php echo $frequency_types['fids']; ?>" <?php if( in_array($frequency_types['fids'], $freqtyp)) { echo "selected" ; } ?>><?php echo $frequency_types['freqtype']; ?></option>
                                 <?php endforeach; ?>
                                 </select>
                             </div>

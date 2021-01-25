@@ -132,6 +132,9 @@ $.ajax({
             </div>   
                            
     </div>
+     <?php foreach ($campaigns as $campaign): ?>
+     
+      <?php endforeach; ?>
     <!-- <div class="page-header-breadcrumb">
         <ul class="breadcrumb-title">
             <li class="breadcrumb-item">
@@ -291,6 +294,7 @@ $.ajax({
                                     <option value="<?php echo $countriesofcampaign['countrycd']; ?>"  ><?php echo $countriesofcampaign['countryname']; ?></option>
                                 <?php endforeach; ?>
                                 </select>
+                                <span style='color:#FF0000' id="country_id_msg"></span>
                             </div>
                             
                         </div>
@@ -305,6 +309,7 @@ $.ajax({
                                     <option value="<?php echo $tz['zoneid']; ?>"><?php echo $tz['zonename']; ?></option>
                                 <?php endforeach; ?> 
                                 </select>
+                                <span style='color:#FF0000' id="timezone_msg"></span>
                             </div>
 
                             <div class="col-sm-2">
@@ -332,6 +337,7 @@ $.ajax({
                                     <option value="<?php echo $industry['industrycd']; ?>"><?php echo $industry['industry']; ?></option>
                                 <?php endforeach; ?>
                                 </select>
+                                <span style='color:#FF0000' id="industry_id_msg"></span>
                             </div>
                             <div class="col-sm-2">
                                 <select class="form-control form-control-sm cdqadisable" name="subindustrycd" id="subindustrycd">
@@ -340,6 +346,7 @@ $.ajax({
                                     <option value="<?php echo $sub['subindustrycd']; ?>"><?php echo $sub['subindustry']; ?></option>
                                 <?php endforeach; ?>
                                 </select>
+                                <span style='color:#FF0000' id="subindustry_id_msg"></span>
                             </div>
                             <div class="col-sm-2">
                                 <select class="form-control form-control-sm cdqadisable" name="sectyp" id="sectyp">
@@ -358,6 +365,7 @@ $.ajax({
                     <div class="form-group row">
                         <div class="col-sm-2">
                                 <input type="text"  name="empsize" id="empsize" maxlength="6" placeholder="Actual Employee Size"  class="form-control form-control-sm cdqadisable">
+                                <span style='color:#FF0000' id="empsize_msg"></span>
                             </div>
                             <div class="col-sm-2">
                                 <input type="text"  name="arevenue" id="arevenue" maxlength="15" placeholder="Actual Revenue Size"  class="form-control form-control-sm cdqadisable">
@@ -479,8 +487,38 @@ $.ajax({
         <!-- Basic Form Inputs card end -->
         </form>  
     
+<input type="hidden" id="php_lbound" value="<?php echo $campaign['emplbnd']; ?>"/>
+<input type="hidden" id="php_ubound" value="<?php echo $campaign['empubnd']; ?>"/>
+
    
      <script>
+$('#empsize').keyup(function(){
+  var lbound = $('#php_lbound').val();
+  // var lbound = 1;
+  var ubound = $('#php_ubound').val();
+  // alert(parseInt(ubound));
+  var value = $(this).val();
+  
+  
+  if ( value > parseInt(ubound) || value < parseInt(lbound)) 
+ 
+ {
+  $("#empsize_msg").html("Not in Range");
+  $(this).val("");
+ }else{
+  $("#empsize_msg").html("");
+ }
+
+
+
+});
+
+
+
+
+
+
+
      // Campaign Name no special character allowed validation code
     $(function () {
         $("#fname").keypress(function (e) {
@@ -726,7 +764,7 @@ $(document).ready(function() {
         required: true
       },
         company_name : {
-        required: true,
+        required: true
         // minlength: 3
       },
       dcd : {
@@ -777,7 +815,11 @@ $(document).ready(function() {
       altphn: {
         number: true
       },
+      aum: {
+        number: true
+      },
       empsize: {
+        required: true,
         number: true
       },
       email: {
@@ -929,7 +971,7 @@ $(document).ready(function() {
            
           
            
-            var url = "<?php echo base_url("cdc/ajax_add_new_leadandcdc");?>";
+            var url = encodeURI("<?php echo base_url("cdc/ajax_add_new_leadandcdc");?>");
             console.log(url+"?campaign_id="+campaign_id+"&sal="+sal+"&fname="+fname+"&lname="+lname+"&jtitle="+jtitle+"&desid="+desid+"&jlevel="+jlevel+"&dcd="+dcd+"&email="+email+"&phone="+phone+"&altphn="+altphn+"&phext="+phext+"&plink="+plink+"&company_name="+company_name+"&address="+address+"&city="+city+"&state="+state+"&zip_code="+zip_code+"&country_id="+country_id+"&timezone="+timezone+"&ctype="+ctype+"&linetype="+linetype+"&industrycd="+industrycd+"&subindustrycd="+subindustrycd+"&sectyp="+sectyp+"&empsize="+empsize+"&mlbl="+mlbl+"&curr="+curr+"&arevenue="+arevenue+"&empszlink="+empszlink+"&indlink="+indlink+"&domain="+domain+"&othrlink="+othrlink+"&revszlink="+revszlink+"&emailver="+emailver+"&aum="+aum+"&assetid="+assetid+"&optin="+optin+"&optpst="+optpst+"&optph="+optph+"&opteml="+opteml+"&optoption="+optoption+"&aa1="+aa1+"&aa2="+aa2+"&aa3="+aa3+"&aa4="+aa4+"&aa5="+aa5+"&aa6="+aa6+"&aa7="+aa7+"&aa8="+aa8+"&aa9="+aa9+"&aa10="+aa10+"&aa11="+aa11+"&aa12="+aa12+"&pcomt="+pcomt);
            
             $.ajax({
@@ -983,6 +1025,11 @@ $(document).ready(function() {
 				},
                 cache: false,
                 success: function(response){
+
+                  $("#leadsubmit").html("Submitted!");
+                  $("#leadsubmit").prop('disabled', true);
+                  $("#leadsave").hide();
+                  top.location.href=base_url+"administrator/dashboard";//redirection
                     var text = response.statusCode;
                     console.log("check");
                    
@@ -1001,7 +1048,11 @@ $(document).ready(function() {
 
                    
 
-                }
+                },
+                error: function (error) {
+    
+                    alert("Error");
+                  }
               
             });
         });
@@ -1080,19 +1131,8 @@ $(document).ready(function() {
           
             
 
-            var checksupp = $('#uho').prop('checked');
-            if(checksupp == true)
-            {
-                checksupp = 1;
-            }
-            else
-            {
-                checksupp = 0;
-            }
            
-          
-           
-            var url = "<?php echo base_url("cdc/ajax_save_leadandcdc");?>";
+            var url = encodeURI("<?php echo base_url("cdc/ajax_save_leadandcdc");?>");
             console.log(url+"?campaign_id="+campaign_id+"&sal="+sal+"&fname="+fname+"&lname="+lname+"&jtitle="+jtitle+"&desid="+desid+"&jlevel="+jlevel+"&dcd="+dcd+"&email="+email+"&phone="+phone+"&altphn="+altphn+"&phext="+phext+"&plink="+plink+"&company_name="+company_name+"&address="+address+"&city="+city+"&state="+state+"&zip_code="+zip_code+"&country_id="+country_id+"&timezone="+timezone+"&ctype="+ctype+"&linetype="+linetype+"&industrycd="+industrycd+"&subindustrycd="+subindustrycd+"&sectyp="+sectyp+"&empsize="+empsize+"&mlbl="+mlbl+"&curr="+curr+"&arevenue="+arevenue+"&empszlink="+empszlink+"&indlink="+indlink+"&domain="+domain+"&othrlink="+othrlink+"&revszlink="+revszlink+"&emailver="+emailver+"&aum="+aum+"&assetid="+assetid+"&optin="+optin+"&optpst="+optpst+"&optph="+optph+"&opteml="+opteml+"&optoption="+optoption+"&aa1="+aa1+"&aa2="+aa2+"&aa3="+aa3+"&aa4="+aa4+"&aa5="+aa5+"&aa6="+aa6+"&aa7="+aa7+"&aa8="+aa8+"&aa9="+aa9+"&aa10="+aa10+"&aa11="+aa11+"&aa12="+aa12+"&pcomt="+pcomt);
            
             $.ajax({
@@ -1146,6 +1186,12 @@ $(document).ready(function() {
 				},
                 cache: false,
                 success: function(response){
+
+                  $("#leadsave").html("Saved!");
+                  $("#leadsave").prop('disabled', true);
+                  $("#leadsubmit").hide();
+                  top.location.href=base_url+"administrator/dashboard";//redirection
+
                     var text = response.statusCode;
                     console.log("check");
                    
@@ -1164,7 +1210,12 @@ $(document).ready(function() {
 
                    
 
-                }
+                },
+                
+                error: function (error) {
+    
+                    alert("Error");
+                  }
               
             });
         });
@@ -1254,13 +1305,13 @@ $(document).ready(function() {
           
          
           
-           var url = "<?php echo base_url("cdc/ajax_submit_leadandcdcbyCDQA");?>";
+           var url = encodeURI("<?php echo base_url("cdc/ajax_submit_leadandcdcbyCDQA");?>");
            console.log(url+"?campaign_id="+campaign_id+"&sal="+sal+"&fname="+fname+"&lname="+lname+"&jtitle="+jtitle+"&desid="+desid+"&jlevel="+jlevel+"&dcd="+dcd+"&email="+email+"&phone="+phone+"&altphn="+altphn+"&phext="+phext+"&plink="+plink+"&company_name="+company_name+"&address="+address+"&city="+city+"&state="+state+"&zip_code="+zip_code+"&country_id="+country_id+"&timezone="+timezone+"&ctype="+ctype+"&linetype="+linetype+"&industrycd="+industrycd+"&subindustrycd="+subindustrycd+"&sectyp="+sectyp+"&empsize="+empsize+"&mlbl="+mlbl+"&curr="+curr+"&arevenue="+arevenue+"&empszlink="+empszlink+"&indlink="+indlink+"&domain="+domain+"&othrlink="+othrlink+"&revszlink="+revszlink+"&emailver="+emailver+"&aum="+aum+"&assetid="+assetid+"&optin="+optin+"&optpst="+optpst+"&optph="+optph+"&opteml="+opteml+"&optoption="+optoption+"&aa1="+aa1+"&aa2="+aa2+"&aa3="+aa3+"&aa4="+aa4+"&aa5="+aa5+"&aa6="+aa6+"&aa7="+aa7+"&aa8="+aa8+"&aa9="+aa9+"&aa10="+aa10+"&aa11="+aa11+"&aa12="+aa12+"&pcomt="+pcomt);
           
             $.ajax({
                 url :'<?php echo base_url("cdc/ajax_submit_leadandcdcbyCDQA");?>',
                 type: 'GET', 
-                dataType: 'json',              
+                dataType: 'Text',              
                 data: {
                    
                   campaign_id: campaign_id,
@@ -1295,7 +1346,8 @@ $(document).ready(function() {
                     revszlink:revszlink,
                     othrlink:othrlink,
                     emailver:emailver,
-                    aum:aum,                 
+                    aum:aum,  
+                    mlbl:mlbl,               
                     
                     assetid:assetid,
                     optin:optin,
@@ -1306,26 +1358,37 @@ $(document).ready(function() {
                     
                     
 				},
+        async: true,
                 cache: false,
                 success: function(response){
-                    var text = response.statusCode;
-                    console.log("check");
-                   
+                  console.log("Success");
+                  $("#cdqasubmit").html("Submitted!");
+                  $("#cdqasubmit").prop('disabled', true);
+                  $("#cdqasave").hide();
+                  top.location.href=base_url+"administrator/dashboard";//redirection
+                  // console.log(response);
+                  // var respons = JSON.parse(JSON.stringify(response));
+                  // console.log(respons);
                     if(response.statusCode == "Success") 
                     {        
                       alert("Success");                
-                        $("#cdqasubmit").html(response.message);
+                        $("#cdqasubmit").html(respons.message);
                         // $("#addcampbtn").prop('disabled', true);
                         // top.location.href=base_url+"campaigns/addsuppressionList?camp_id="+response.campaign_id;//redirection
                     }else if(response.statusCode=="Fail")
                     {
+                      alert("in Fail"); 
                         $("#cdqasubmit").html(response.message);
                         
 					          }
 
                    
 
-                }
+                },
+                error: function (error) {
+    
+                    alert("Error");
+                  }
               
             });
         });
@@ -1405,11 +1468,11 @@ $(document).ready(function() {
            
           
             
-            var url = "<?php echo base_url("cdc/ajax_update_lead");?>";
+            var url = encodeURI("<?php echo base_url("cdc/ajax_save_leadandcdcbyCDQA");?>");
             console.log(url+"?campaign_id="+campaign_id+"&sal="+sal+"&fname="+fname+"&lname="+lname+"&jtitle="+jtitle+"&desid="+desid+"&jlevel="+jlevel+"&dcd="+dcd+"&email="+email+"&phone="+phone+"&altphn="+altphn+"&phext="+phext+"&plink="+plink+"&company_name="+company_name+"&address="+address+"&city="+city+"&state="+state+"&zip_code="+zip_code+"&country_id="+country_id+"&timezone="+timezone+"&ctype="+ctype+"&linetype="+linetype+"&industrycd="+industrycd+"&subindustrycd="+subindustrycd+"&sectyp="+sectyp+"&empsize="+empsize+"&mlbl="+mlbl+"&curr="+curr+"&arevenue="+arevenue+"&empszlink="+empszlink+"&indlink="+indlink+"&domain="+domain+"&othrlink="+othrlink+"&revszlink="+revszlink+"&emailver="+emailver+"&aum="+aum+"&assetid="+assetid+"&optin="+optin+"&optpst="+optpst+"&optph="+optph+"&opteml="+opteml+"&optoption="+optoption+"&aa1="+aa1+"&aa2="+aa2+"&aa3="+aa3+"&aa4="+aa4+"&aa5="+aa5+"&aa6="+aa6+"&aa7="+aa7+"&aa8="+aa8+"&aa9="+aa9+"&aa10="+aa10+"&aa11="+aa11+"&aa12="+aa12+"&pcomt="+pcomt);
           
             $.ajax({
-                url :'<?php echo base_url("cdc/ajax_update_lead");?>',
+                url :'<?php echo base_url("cdc/ajax_save_leadandcdcbyCDQA");?>',
                 type: 'GET', 
                 dataType: 'json',              
                 data: {
@@ -1461,7 +1524,8 @@ $(document).ready(function() {
                     optoption:optoption,
                     aa1:aa1,
                     aa2:aa2,
-                    pcomt:pcomt                 
+                    pcomt:pcomt     
+             
                     
                    
                     
@@ -1470,22 +1534,36 @@ $(document).ready(function() {
                 cache: false,
                 
                 success: function(response){
-                    alert("inside");
-                    console.log("check");
-                   
-                    if(response.statusCode == "Success") 
-                    {             
-                      alert("Success");           
-                        $("#cdqasave").html(response.message);
-                    }else if(response.statusCode=="Fail")
-                    {
-                        $("#cdqasave").html(response.message);
+
+                  console.log("Success");
+                  $("#cdqasave").html("Saved!");
+                  $("#cdqasave").prop('disabled', true);
+                  $("#cdqasubmit").hide();
+                  top.location.href=base_url+"administrator/dashboard";//redirection
+
+
+
+                  // var respons = JSON.parse(JSON.stringify(response));
+                  // var text = respons.statusCode;
+                  //   console.log(text);
+                  
+                    // if(response.statusCode == "Success") 
+                    // {             
+                    //   alert("Success");           
+                    //     $("#cdqasave").html(response.message);
+                    // }else if(response.statusCode=="Fail")
+                    // {
+                    //     $("#cdqasave").html(response.message);
                         
-					          }
+					          // }
 
-                   
+                    
 
-                }
+                },
+                error: function (error) {
+    
+                alert("Error");
+              }
               
             });
         });

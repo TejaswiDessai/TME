@@ -1052,6 +1052,8 @@ $(document).ready(function() {
                 error: function (error) {
     
                     alert("Success");
+                    top.location.href=base_url+"cdc/addlead?camp_id=<?php echo $campaign['cnid']; ?>";//redirection
+                  }
                   }
               
             });
@@ -1215,6 +1217,8 @@ $(document).ready(function() {
                 error: function (error) {
     
                     alert("Success");
+                    top.location.href=base_url+"cdc/addlead?camp_id=<?php echo $campaign['cnid']; ?>";//redirection
+              }
                   }
               
             });
@@ -1388,6 +1392,8 @@ $(document).ready(function() {
                 error: function (error) {
     
                     alert("Success");
+                    top.location.href=base_url+"cdc/addlead?camp_id=<?php echo $campaign['cnid']; ?>";//redirection
+              }
                   }
               
             });
@@ -1563,6 +1569,7 @@ $(document).ready(function() {
                 error: function (error) {
     
                 alert("Success");
+                top.location.href=base_url+"cdc/addlead?camp_id=<?php echo $campaign['cnid']; ?>";//redirection
               }
               
             });

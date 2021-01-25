@@ -134,6 +134,12 @@
 				} else{
 				$aum = 0 ;
 				}
+				if(!empty($_GET['phext']))
+				{
+					$altphn = $_GET['phext'];
+				} else{
+				$phext = 0 ;
+				}
 			   if(!empty($_GET['sectyp']))
 				{
 					$sectype = $_GET['sectyp'];
@@ -184,7 +190,7 @@
 				'phone' => $_GET['phone'],
 				'altphn' => $_GET['altphn'],
 
-				'phext' => $_GET['phext'],
+				'phext' => $phext,
 				'plink' => $_GET['plink'],
 				'cname' => $_GET['company_name'],
 				'address' => $_GET['address'],

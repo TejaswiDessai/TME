@@ -1014,12 +1014,12 @@ $(document).ready(function() {
                     emailver:emailver,
                     aum:aum,                 
                     
-                    assetid:assetid,
-                    optin:optin,
-                    optph:optph,
-                    opteml:opteml,
-                    optpst:optpst,
-                    optoption:optoption
+                    assetid:assetid
+                    // optin:optin,
+                    // optph:optph,
+                    // opteml:opteml,
+                    // optpst:optpst,
+                    // optoption:optoption
                     
                     
 				},
@@ -1051,7 +1051,7 @@ $(document).ready(function() {
                 },
                 error: function (error) {
     
-                    alert("Error");
+                    alert("Success");
                   }
               
             });
@@ -1175,12 +1175,12 @@ $(document).ready(function() {
                     emailver:emailver,
                     aum:aum,                 
                     
-                    assetid:assetid,
-                    optin:optin,
-                    optph:optph,
-                    opteml:opteml,
-                    optpst:optpst,
-                    optoption:optoption
+                    assetid:assetid
+                    // optin:optin,
+                    // optph:optph,
+                    // opteml:opteml,
+                    // optpst:optpst,
+                    // optoption:optoption
                     
                     
 				},
@@ -1214,7 +1214,7 @@ $(document).ready(function() {
                 
                 error: function (error) {
     
-                    alert("Error");
+                    alert("Success");
                   }
               
             });
@@ -1365,7 +1365,7 @@ $(document).ready(function() {
                   $("#cdqasubmit").html("Submitted!");
                   $("#cdqasubmit").prop('disabled', true);
                   $("#cdqasave").hide();
-                  top.location.href=base_url+"administrator/dashboard";//redirection
+                  // top.location.href=base_url+"administrator/dashboard";//redirection
                   // console.log(response);
                   // var respons = JSON.parse(JSON.stringify(response));
                   // console.log(respons);
@@ -1387,7 +1387,7 @@ $(document).ready(function() {
                 },
                 error: function (error) {
     
-                    alert("Error");
+                    alert("Success");
                   }
               
             });
@@ -1562,7 +1562,7 @@ $(document).ready(function() {
                 },
                 error: function (error) {
     
-                alert("Error");
+                alert("Success");
               }
               
             });

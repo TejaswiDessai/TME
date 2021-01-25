@@ -128,6 +128,46 @@
 				$middle = strtotime($old_date);             // returns bool(false)
 				$new_date = date('Y-m-d H:i:s', $middle);
 
+				if(!empty($_GET['aum']))
+				{
+					$aum = $_GET['aum'];
+				} else{
+				$aum = 0 ;
+				}
+			   if(!empty($_GET['sectyp']))
+				{
+					$sectype = $_GET['sectyp'];
+				} else{
+				$sectype = 0 ;
+				}
+
+
+				if(!empty($_GET['optin']))
+				{
+					$optin = 1;
+				} else{
+				    $optin = 0 ;
+				}
+				if(!empty($_GET['optpst']))
+				{
+					$optpost = 1;
+				} else{
+				    $optpost = 0 ;
+				}
+				if(!empty($_GET['optph']))
+				{
+					$optph = 1;
+				} else{
+				    $optph = 0 ;
+				}
+				if(!empty($_GET['opteml']))
+				{
+					$opteml = 1;
+				} else{
+				    $opteml = 0 ;
+				}
+
+
 				$datacdcandlead = array(
 				'cnid' => $_GET['campaign_id'],
 				
@@ -160,7 +200,7 @@
 				'indtry' => $_GET['industrycd'],
 				'sindtry' => $_GET['subindustrycd'],
 
-				'sectyp' => $_GET['sectyp'],
+				'sectyp' => $sectype,
 				'empsize' => $_GET['empsize'],
 				'arevenue' => $_GET['arevenue'],
 				'mlbl' => $_GET['mlbl'],
@@ -175,13 +215,13 @@
 				'othrlink' => $_GET['othrlink'],
 
 				'emailver' => $_GET['emailver'],
-				'aum' => $_GET['aum'],
+				'aum' => $aum,
 				'atitle' => $_GET['assetid'],
 
-				'optin' => $_GET['optin'],
-				'optpst' => $_GET['optpst'],
-				'optph' => $_GET['optph'],
-				'opteml' => $_GET['opteml'],
+				'optin' => $optin,
+				'optpst' => $optpost,
+				'optph' => $optph,
+				'opteml' => $opteml,
 				
 
 				'aa1' => $_GET['aa1'],
@@ -251,6 +291,46 @@
 				$middle = strtotime($old_date);             // returns bool(false)
 				$new_date = date('Y-m-d H:i:s', $middle);
 
+				if(!empty($_GET['aum']))
+				{
+					$aum = $_GET['aum'];
+				} else{
+				$aum = 0 ;
+				}
+			   if(!empty($_GET['sectyp']))
+				{
+					$sectype = $_GET['sectyp'];
+				} else{
+				$sectype = 0 ;
+				}
+
+
+				if(!empty($_GET['optin']))
+				{
+					$optin = 1;
+				} else{
+				    $optin = 0 ;
+				}
+				if(!empty($_GET['optpst']))
+				{
+					$optpost = 1;
+				} else{
+				    $optpost = 0 ;
+				}
+				if(!empty($_GET['optph']))
+				{
+					$optph = 1;
+				} else{
+				    $optph = 0 ;
+				}
+				if(!empty($_GET['opteml']))
+				{
+					$opteml = 1;
+				} else{
+				    $opteml = 0 ;
+				}
+
+
 				$datacdcandlead = array(
 				'cnid' => $_GET['campaign_id'],
 				
@@ -283,7 +363,7 @@
 				'indtry' => $_GET['industrycd'],
 				'sindtry' => $_GET['subindustrycd'],
 
-				'sectyp' => $_GET['sectyp'],
+				'sectyp' => $sectype,
 				'empsize' => $_GET['empsize'],
 				'arevenue' => $_GET['arevenue'],
 				'mlbl' => $_GET['mlbl'],
@@ -298,13 +378,13 @@
 				'othrlink' => $_GET['othrlink'],
 
 				'emailver' => $_GET['emailver'],
-				'aum' => $_GET['aum'],
+				'aum' =>$aum,
 				'atitle' => $_GET['assetid'],
 
-				'optin' => $_GET['optin'],
-				'optpst' => $_GET['optpst'],
-				'optph' => $_GET['optph'],
-				'opteml' => $_GET['opteml'],
+				'optin' => $optin,
+				'optpst' => $optpost,
+				'optph' => $optph,
+				'opteml' => $opteml,
 				
 
 				'aa1' => $_GET['aa1'],
@@ -390,6 +470,30 @@
 					$sectype = 0 ;
 					}
 				
+					if(!empty($_GET['optin']))
+					{
+						$optin = 1;
+					} else{
+						$optin = 0 ;
+					}
+					if(!empty($_GET['optpst']))
+					{
+						$optpost = 1;
+					} else{
+						$optpost = 0 ;
+					}
+					if(!empty($_GET['optph']))
+					{
+						$optph = 1;
+					} else{
+						$optph = 0 ;
+					}
+					if(!empty($_GET['opteml']))
+					{
+						$opteml = 1;
+					} else{
+						$opteml = 0 ;
+					}
 
 				$datacdcandlead = array(
 				'cnid' => $_GET['campaign_id'],
@@ -441,10 +545,10 @@
 				'aum' => $aum,
 				'atitle' => $_GET['assetid'],
 
-				'optin' => $_GET['optin'],
-				'optpst' => $_GET['optpst'],
-				'optph' => $_GET['optph'],
-				'opteml' => $_GET['opteml'],
+				'optin' => $optin,
+				'optpst' => $optpost,
+				'optph' => $optph,
+				'opteml' => $opteml,
 				
 
 				'aa1' => $_GET['aa1'],
@@ -520,6 +624,31 @@
 				$middle = strtotime($old_date);             // returns bool(false)
 				$new_date = date('Y-m-d H:i:s', $middle);
 
+				if(!empty($_GET['optin']))
+				{
+					$optin = 1;
+				} else{
+				    $optin = 0 ;
+				}
+				if(!empty($_GET['optpst']))
+				{
+					$optpost = 1;
+				} else{
+				    $optpost = 0 ;
+				}
+				if(!empty($_GET['optph']))
+				{
+					$optph = 1;
+				} else{
+				    $optph = 0 ;
+				}
+				if(!empty($_GET['opteml']))
+				{
+					$opteml = 1;
+				} else{
+				    $opteml = 0 ;
+				}
+
 				$datacdcandlead = array(
 				'cnid' => $_GET['campaign_id'],
 				
@@ -570,10 +699,10 @@
 				'aum' => $_GET['aum'],
 				'atitle' => $_GET['assetid'],
 
-				'optin' => $_GET['optin'],
-				'optpst' => $_GET['optpst'],
-				'optph' => $_GET['optph'],
-				'opteml' => $_GET['opteml'],
+				'optin' => $optin,
+				'optpst' => $optpost,
+				'optph' => $optph,
+				'opteml' => $opteml,
 				
 
 				'aa1' => $_GET['aa1'],

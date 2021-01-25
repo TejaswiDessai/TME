@@ -134,9 +134,15 @@
 				} else{
 				$aum = 0 ;
 				}
+				if(!empty($_GET['arevenue']))
+				{
+					$arrevenue = $_GET['arevenue'];
+				} else{
+				$arrevenue = 0 ;
+				}
 				if(!empty($_GET['phext']))
 				{
-					$altphn = $_GET['phext'];
+					$phext = $_GET['phext'];
 				} else{
 				$phext = 0 ;
 				}
@@ -208,7 +214,7 @@
 
 				'sectyp' => $sectype,
 				'empsize' => $_GET['empsize'],
-				'arevenue' => $_GET['arevenue'],
+				'arevenue' =>$arrevenue,
 				'mlbl' => $_GET['mlbl'],
 				'curr' => $_GET['curr'],
 
@@ -303,6 +309,20 @@
 				} else{
 				$aum = 0 ;
 				}
+				if(!empty($_GET['arevenue']))
+				{
+					$arrevenue = $_GET['arevenue'];
+				} else{
+				$arrevenue = 0 ;
+				}
+				if(!empty($_GET['phext']))
+				{
+					$phext = $_GET['phext'];
+				} else{
+				$phext = 0 ;
+				}
+
+
 			   if(!empty($_GET['sectyp']))
 				{
 					$sectype = $_GET['sectyp'];
@@ -353,7 +373,7 @@
 				'phone' => $_GET['phone'],
 				'altphn' => $_GET['altphn'],
 
-				'phext' => $_GET['phext'],
+				'phext' => $phext,
 				'plink' => $_GET['plink'],
 				'cname' => $_GET['company_name'],
 				'address' => $_GET['address'],
@@ -371,7 +391,7 @@
 
 				'sectyp' => $sectype,
 				'empsize' => $_GET['empsize'],
-				'arevenue' => $_GET['arevenue'],
+				'arevenue' => $arrevenue,
 				'mlbl' => $_GET['mlbl'],
 				'curr' => $_GET['curr'],
 
@@ -469,6 +489,21 @@
 					} else{
 					$aum = 0 ;
 					}
+
+					if(!empty($_GET['arevenue']))
+					{
+						$arrevenue = $_GET['arevenue'];
+					} else{
+					$arrevenue = 0 ;
+					}
+					if(!empty($_GET['phext']))
+					{
+						$phext = $_GET['phext'];
+					} else{
+					$phext = 0 ;
+					}
+	
+					
 				if(!empty($_GET['sectyp']))
 					{
 						$sectype = $_GET['sectyp'];
@@ -517,7 +552,7 @@
 				'phone' => $_GET['phone'],
 				'altphn' => $_GET['altphn'],
 
-				'phext' => $_GET['phext'],
+				'phext' => $phext,
 				'plink' => $_GET['plink'],
 				'cname' => $_GET['company_name'],
 				'address' => $_GET['address'],
@@ -535,7 +570,7 @@
 
 				'sectyp' => $sectype,
 				'empsize' => $_GET['empsize'],
-				'arevenue' => $_GET['arevenue'],
+				'arevenue' => $arrevenue,
 				'mlbl' => $_GET['mlbl'],
 				'curr' => $_GET['curr'],
 
@@ -630,6 +665,38 @@
 				$middle = strtotime($old_date);             // returns bool(false)
 				$new_date = date('Y-m-d H:i:s', $middle);
 
+				if(!empty($_GET['aum']))
+					{
+						$aum = $_GET['aum'];
+					} else{
+					$aum = 0 ;
+					}
+
+					if(!empty($_GET['arevenue']))
+					{
+						$arrevenue = $_GET['arevenue'];
+					} else{
+					$arrevenue = 0 ;
+					}
+					if(!empty($_GET['phext']))
+					{
+						$phext = $_GET['phext'];
+					} else{
+					$phext = 0 ;
+					}
+					
+				if(!empty($_GET['sectyp']))
+					{
+						$sectype = $_GET['sectyp'];
+					} else{
+					$sectype = 0 ;
+					}
+				
+				
+				
+				
+				
+
 				if(!empty($_GET['optin']))
 				{
 					$optin = 1;
@@ -671,7 +738,7 @@
 				'phone' => $_GET['phone'],
 				'altphn' => $_GET['altphn'],
 
-				'phext' => $_GET['phext'],
+				'phext' => $phext,
 				'plink' => $_GET['plink'],
 				'cname' => $_GET['company_name'],
 				'address' => $_GET['address'],
@@ -687,9 +754,9 @@
 				'indtry' => $_GET['industrycd'],
 				'sindtry' => $_GET['subindustrycd'],
 
-				'sectyp' => $_GET['sectyp'],
+				'sectyp' => $sectype,
 				'empsize' => $_GET['empsize'],
-				'arevenue' => $_GET['arevenue'],
+				'arevenue' => $arrevenue,
 				'mlbl' => $_GET['mlbl'],
 				'curr' => $_GET['curr'],
 
@@ -702,7 +769,7 @@
 				'othrlink' => $_GET['othrlink'],
 
 				'emailver' => $_GET['emailver'],
-				'aum' => $_GET['aum'],
+				'aum' => $aum,
 				'atitle' => $_GET['assetid'],
 
 				'optin' => $optin,

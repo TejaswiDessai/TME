@@ -7,6 +7,7 @@
     }
 </style>
 <script>
+ var base_url = "<?php echo base_url() ?>";
 $(document).ready(function () {
     // Handler for .ready() called.
     $('html, body').animate({
@@ -95,6 +96,20 @@ $(document).ready(function () {
                             <div class="col-sm-3">
                                 <label class="col-lable"><b>Campaign Name</b></label>
                                 <?php foreach ($campaign_record as $campaign_record): ?>
+                                    <?php 
+                                    
+                                    if($campaign_record['suplistnew'] == 0 && $campaign_record['inclistnew'] == 0 && $campaign_record['questnos'] == 0 && $campaign_record['assetid'] == 0 )
+                                    {
+                                        ?>
+                                        <script>
+                                        alert("Campaign Added Successfully");
+                                        top.location.href=base_url+"campaigns/addcampaignForm";
+                                        </script>
+                                        <?php
+                                        // redirect('campaigns/addcampaignForm');
+                                    }
+                                    
+                                    ?>
                                     <?php echo $campaign_record['campnm']; ?>
                                 <?php // echo form_error('campaign_name'); ?>
                                 <input type="hidden"  name="camp_id"  value="<?php echo $campaign_record['cnid']; ?>" id="camp_id" >
@@ -176,7 +191,7 @@ $(document).ready(function () {
                             </div>
                             <hr>
                             <div class="form-group row">
-                            <?php if($campaign_record['questnos'] != 0 || $campaign_record['questnos'] != null){?>
+                            <?php if($campaign_record['questnos'] != 0){?>
                             <div class="col-sm-3 form-check form-switch " >
                              <label class="col-lable"><b>Questions(*.csv)</b></label>
                              <!-- <input type="checkbox" class="js-small f-right suppclass" name="suppchk" id="noneAboveCheckInclusion" value="" > -->
@@ -186,7 +201,7 @@ $(document).ready(function () {
                             </div>
                             <!-- </div> -->
                             <?php } ?>
-                            <?php if($campaign_record['assetid'] != 0 || $campaign_record['assetid'] != null){?>
+                            <?php if($campaign_record['assetid'] != 0 ){?>
                             <div class="col-sm-3 form-check form-switch " >
                              <label class="col-lable"><b>Asset Title(*.csv)</b></label>
                              <!-- <input type="checkbox" class="js-small f-right suppclass" name="suppchk" id="noneAboveCheckInclusion" value="" > -->

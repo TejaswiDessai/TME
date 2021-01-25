@@ -314,7 +314,7 @@ $.ajax({
 
                             <div class="col-sm-2">
                                <select name="ctype" id="ctype"  class="form-control  form-control-sm cdqadisable"> 
-                                     <option value="">Company Type</option>
+                                     <option value="0">Company Type</option>
                                      <?php foreach ($comptype as $comptype): ?>
                                     <option value="<?php echo $comptype['ctypid']; ?>"><?php echo $comptype['ctypname']; ?></option>
                                 <?php endforeach; ?> 
@@ -323,9 +323,9 @@ $.ajax({
                            
                            <div class="col-sm-2">
                                <select name="linetype" id="linetype"  class="form-control  form-control-sm cdqadisable">
-                                     <option value="null">unknown</option>
-                                     <option value="0">Direct</option>
-                                     <option value="1">Board</option>  
+                                     <option value="0">unknown</option>
+                                     <option value="1">Direct</option>
+                                     <option value="2">Board</option>  
                                </select>
                            </div>
 
@@ -350,7 +350,7 @@ $.ajax({
                             </div>
                             <div class="col-sm-2">
                                 <select class="form-control form-control-sm cdqadisable" name="sectyp" id="sectyp">
-                                    <option value="">Sector</option>
+                                  
                                     <option value="0">Unknown</option>
                                     <option value="1">Public</option>
                                     <option value="2">Private</option>
@@ -416,9 +416,9 @@ $.ajax({
                             </div>
                             <div class="col-sm-2">
                                 <select class="form-control form-control-sm"  name="emailver" id="emailver">
-                                    <option value="">Email Verification</option>
+                                <option value="0">No</option>
                                     <option value="1">Yes</option>
-                                    <option value="0">No</option>
+                                    
                                 </select>
                             </div>
                             <div class="col-sm-2">
@@ -1052,8 +1052,6 @@ $(document).ready(function() {
                 error: function (error) {
     
                     alert("Success");
-                    top.location.href=base_url+"cdc/addlead?camp_id=<?php echo $campaign['cnid']; ?>";//redirection
-                  }
                   }
               
             });
@@ -1217,8 +1215,6 @@ $(document).ready(function() {
                 error: function (error) {
     
                     alert("Success");
-                    top.location.href=base_url+"cdc/addlead?camp_id=<?php echo $campaign['cnid']; ?>";//redirection
-              }
                   }
               
             });
@@ -1392,8 +1388,6 @@ $(document).ready(function() {
                 error: function (error) {
     
                     alert("Success");
-                    top.location.href=base_url+"cdc/addlead?camp_id=<?php echo $campaign['cnid']; ?>";//redirection
-              }
                   }
               
             });
@@ -1569,7 +1563,6 @@ $(document).ready(function() {
                 error: function (error) {
     
                 alert("Success");
-                top.location.href=base_url+"cdc/addlead?camp_id=<?php echo $campaign['cnid']; ?>";//redirection
               }
               
             });

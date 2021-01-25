@@ -90,7 +90,7 @@ $(function(){
         {
             if(revnubound < revnlbound)
             {
-                $("#revnubound_msg").html("<p><strong>Upper Revenue must be greater than greater lower revenue!</strong></p>");
+                $("#revnubound_msg").html("<p><strong>Upper Revenue must be greater than lower revenue!</strong></p>");
                 return;
             }
             
@@ -142,6 +142,18 @@ $(function(){
             }
             
         }
+    });
+
+    $('#empubound').change(function()
+    {
+        var emplbound = $('#emplbound').val();
+        var empubound = $(this).val();
+        $("#empubound_msg").html("");
+            if( emplbound >= empubound)
+            {
+                $("#empubound_msg").html("<p><strong>Upper Employee must be greater than lower employee!</strong></p>");
+                return;
+            }
     });
 });
 </script>
@@ -652,7 +664,7 @@ $('#levelid').change(function(){
                                <label class="f-left col-lable"><b>Asset Title</b> </label>
                            </div>
                            <div class="col-sm-1">
-                            <input type="checkbox" class="js-small f-right" name="assetid[]" value="" id="assetid">
+                            <input type="checkbox" class="js-small f-right" name="assetid[]" value="0" id="assetid">
                               </div>
                            <!-- <div class="col-sm-4">   
                                <input type="file" name="files[]" class="form-control">
@@ -674,6 +686,7 @@ $('#levelid').change(function(){
                             <div class="col-sm-2 ">
                                 <label class="col-lable"><b>Employee Upper Bound</b></label><?php echo form_error('empubound'); ?>
                                 <input type="text"  style="height:30px;"  name="empubound"  placeholder="Emp Upper Bound"  id="empubound" class="form-control form-control-sm" onkeypress="return isNumber(event)" >
+                                <span style='color:#FF0000' id="empubound_msg"></span>
                                 <!-- <select class="second-level-select form-control form-control-sm"  name="empubound" id="empubound">
                                     <?php //foreach ($lbound as $lbound): ?>
                                     <option value="<?php //echo $lbound['empubound']; ?>"><?php //echo $lbound['empubound']; ?></option>
@@ -700,7 +713,7 @@ $('#levelid').change(function(){
                             </div>
                             <div class="col-sm-2">   
                             <label class="f-left col-lable"><b>No. of Questions</b><br> <?php echo form_error('quantity'); ?></label>
-                                <input  type="number" style="height:30px;" id="quantity" name="quantity" min="1" max="12" maxlength="2" 
+                                <input  type="number" style="height:30px;" id="quantity" name="quantity" min="1" value="0" max="12" maxlength="2" 
                                 <?php echo (form_error('quantity')) ? 'class="form-control form-control-danger form-control-sm"' :'class="form-control form-control-sm"';?> >
                             </div>
                             <!-- </div>

@@ -146,8 +146,9 @@ $(function(){
 
     $('#empubound').change(function()
     {
-        var emplbound = $('#emplbound').val();
-        var empubound = $(this).val();
+        var emplbound = parseInt($('#emplbound').val());
+        var empubound = parseInt($(this).val());
+        // alert(emplbound+empubound);
         $("#empubound_msg").html("");
             if( emplbound >= empubound)
             {

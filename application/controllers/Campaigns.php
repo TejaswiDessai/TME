@@ -947,12 +947,52 @@
 				}
 			$regionStr = '';
 			if(!empty($_GET['region_id'])) {
-			$regionStr = implode(',',$_GET['region_id']);
+				if($_GET['region_id'] == 0)
+				{
+					$regionStr = 0;
 				}
+				else
+				{
+					$regionStr = implode(',',$_GET['region_id']);
+				}
+				
+			}
+			$subregionStr = '';
+			if(!empty($_GET['sub_region_id'])) {
+				if($_GET['sub_region_id'] == 0)
+				{
+					$subregionStr = 0;
+				}
+				else
+				{
+					$subregionStr = implode(',',$_GET['sub_region_id']);
+				}
+				
+			}
+			$sector_id = '';
+			if(!empty($_GET['sector_id'])) {
+				if($_GET['sector_id'] == 0)
+				{
+					$sector_id = 0;
+				}
+				else
+				{
+					$sector_id = implode(',',$_GET['sector_id']);
+				}
+			
+			}
 			$industryStr = '';
 			if(!empty($_GET['industrycd'])) {
-			$industryStr = implode(',',$_GET['industrycd']);
+				if($_GET['industrycd'] == 0)
+				{
+					$industryStr = 0;
 				}
+				else
+				{
+					$industryStr = implode(',',$_GET['industrycd']);
+				}
+			
+			}
 			$deptStr = '';
 			if(!empty($_GET['dcd'])) {
 			$deptStr = implode(',',$_GET['dcd']);
@@ -1026,9 +1066,11 @@
 				'clientids' => $_GET['client_id'], 
 				'cids' => $_GET['campaign_id'],
 				'campnm' => $_GET['campaign_name'],
+				'subregioncode' => $subregionStr,
 				'countrycd' => $campaigncountryStr,
 				'regioncode' => $regionStr,
-				'industrycd' => $industryStr,
+				'industrycd' => $sector_id,
+				'subindustrycd' => $industryStr,
 				'dcd' => $deptStr,
 				// 'emplzid' => $empsizeStr,
 				// 'comzid' => $revStr,

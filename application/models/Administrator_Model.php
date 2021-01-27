@@ -92,20 +92,24 @@
 		
 		public function get_industries(){
 			
-			$this->db->select('industrycd,industry,subindustry,subindustrycd');
-			$this->db->group_by('industrycd');
-			$this->db->group_by('industry');
-			$this->db->group_by('subindustry');
-			$this->db->group_by('subindustrycd');
-			$query = $this->db->get('industry'); 
-//                         echo $this->db->last_query(); exit;
-			return $query->result_array();
+			$sql = "SELECT DISTINCT industrycd,industry FROM industry group by industry,industrycd order by industry";
+			return $query = $this->db->query($sql);
+// 			$this->db->select('industrycd,industry,subindustry,subindustrycd');
+// 			$this->db->group_by('industrycd');
+// 			$this->db->group_by('industry');
+// 			$this->db->group_by('subindustry');
+// 			$this->db->group_by('subindustrycd');
+// 			$this->db->order_by("subindustry", "asc");
+// 			$query = $this->db->get('industry'); 
+// //                         echo $this->db->last_query(); exit;
+// 			return $query->result_array();
 			// $query = $this->db->get('industry');                       
 			// return $query->result_array();
 		}
 		public function get_depts(){
-			
-                        $query = $this->db->get('dept');                       
+			$this->db->from('dept');
+			$this->db->order_by("department", "asc");
+			$query = $this->db->get();                       
 			return $query->result_array();
 		}
 		public function get_empsize(){
@@ -115,7 +119,7 @@
 		}
 		public function get_revenuesize(){
 			
-                        $query = $this->db->get('compsize');                       
+			$query = $this->db->get('compsize');                       
 			return $query->result_array();
 		}
 		public function get_comptype(){
@@ -123,14 +127,18 @@
 			return $query->result_array();
 		}
 		public function get_designation(){
-			$this->db->select('joblids,joblevel,jid,joblist');
-			$this->db->group_by('joblids');
-			$this->db->group_by('joblevel');
-			$this->db->group_by('jid');
-			$this->db->group_by('joblist');
-			$query = $this->db->get('joblevels'); 
-//                         echo $this->db->last_query(); exit;
-			return $query->result_array();
+
+			$sql = "SELECT DISTINCT joblevel,joblids FROM joblevels group by joblids,jid";
+			return $query = $this->db->query($sql);
+			// show_error($this->db->last_query(), 200, "SQL");
+// 			$this->db->select('joblids,joblevel,jid,joblist');
+// 			$this->db->group_by('joblids');
+// 			$this->db->group_by('joblevel');
+// 			$this->db->group_by('jid');
+// 			$this->db->group_by('joblist');
+// 			$query = $this->db->get('joblevels'); 
+// //                         echo $this->db->last_query(); exit;
+// 			return $query->result_array();
 			// $query = $this->db->get('designation');                       
 			// return $query->result_array();
 		}
@@ -1135,17 +1143,18 @@ function saverecords($emp_id,$Fname,$Lname,$Manager,$status,$user_type,$Password
 function getSubRegion($region_id)
 {
 	$response = array();
-	
+	$sql = "SELECT DISTINCT subregion,subregioncode FROM country group by subregion,subregioncode order by subregion asc";
+	$query = $this->db->query($sql);
 	// Select record
-	$this->db->select('intercodederived,intermedtregion');
-	// $this->db->where('regioncode', $region_id);
-	if($region_id[0] != 0)
-	{
-		$this->db->where_in('regioncode', $region_id );  //this is condition 
-	}
+	// $this->db->select('intercodederived,intermedtregion');
+	// // $this->db->where('regioncode', $region_id);
+	// if($region_id[0] != 0)
+	// {
+	// 	$this->db->where_in('regioncode', $region_id );  //this is condition 
+	// }
 	
-	$q = $this->db->get('country');
-	$response = $q->result_array();
+	// $q = $this->db->get('country');
+	$response = $query->result_array();
 
 	return $response;
 }
@@ -1159,9 +1168,9 @@ function getCountry($sub_region_id)
 	// $this->db->where('regioncode', $region_id);
 	if($sub_region_id[0] != 0)
 	{
-		$this->db->where_in('intercodederived', $sub_region_id );  //this is condition 
+		$this->db->where_in('subregioncode', $sub_region_id );  //this is condition 
 	}
-	
+	$this->db->order_by("countryname", "asc"); 
 	$q = $this->db->get('country');
 	$response = $q->result_array();
 
@@ -1179,7 +1188,7 @@ function getIndustry($region_id)
 	{
 		$this->db->where_in('industrycd', $region_id );  //this is condition 
 	}
-	
+	$this->db->order_by("subindustry", "asc");
 	$q = $this->db->get('industry');
 	$response = $q->result_array();
 
@@ -1307,7 +1316,7 @@ function getJobTitle($levelid)
 	{
 		$this->db->where_in('joblids', $levelid );  //this is condition 
 	}
-	
+	$this->db->order_by("joblist", "asc");
 	$q = $this->db->get('joblevels');
 	$response = $q->result_array();
 

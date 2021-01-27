@@ -8,6 +8,9 @@
     .select2-container--default .select2-selection--multiple {
     padding:0px 0px 0px 0px;
     }
+    .form-control .multiselect-search input[type="text"]{
+    height:40px;
+}
 </style>
 <link href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/themes/base/jquery-ui.css"
 rel="Stylesheet"type="text/css"/>
@@ -247,19 +250,23 @@ $(function () {
 
     $(document).ready(function()
     {
-        $('#sub_region_id').prop('disabled', true);
-        $('#country_id').prop('disabled', true);
-        $('#industrycd').prop('disabled', true);
-        $('#desid').prop('disabled', true);
+        // $('#sub_region_id').prop('disabled', true);
+        // $('#country_id').prop('disabled', true);
+        // $('#industrycd').prop('disabled', true);
+        // $('#desid').prop('disabled', true);
     // City change
     $('#region_id').change(function(){
     
-    
+    // $('#region_id').prop('disabled', false);
     var region_id = $(this).val();
     if (region_id != '')
     {
         $('#sub_region_id').prop('disabled', false);
     }
+    // if(region_id == 0)
+    // {
+    //     $('#region_id').prop('disabled', true);
+    // }
     // alert(region_id);
     // AJAX request
     $.ajax({
@@ -274,7 +281,7 @@ $(function () {
 
         //    Add options
        $.each(response,function(index,data){
-          $('#sub_region_id').append('<option value="'+data['intercodederived']+'">'+data['intermedtregion']+'</option>');
+          $('#sub_region_id').append('<option value="'+data['subregioncode']+'">'+data['subregion']+'</option>');
         });
         }
     });
@@ -304,45 +311,50 @@ $(function () {
           $('#country_id').append('<option value="'+data['countrycd']+'">'+data['countryname']+'</option>');
           
         });
-        $('#country_id').multiselect("rebuild");
+        // $('#country_id').multiselect("rebuild");
         }
     });
 });
 
-$(function() {
-$('#country_id')
-    .multiselect({
-    allSelectedText: 'All',
-    maxHeight: 200,
-    includeSelectAllOption: true
-    })
-    .multiselect('selectAll', false)
-    .multiselect('updateButtonText');
-});
-$(function() {
-$('#industrycd')
-    .multiselect({
-    allSelectedText: 'All',
-    maxHeight: 200,
-    includeSelectAllOption: true
-    })
-    .multiselect('selectAll', false)
-    .multiselect('updateButtonText');
-});
-$(function() {
-$('#desid')
-    .multiselect({
-    allSelectedText: 'All',
-    maxHeight: 200,
-    includeSelectAllOption: true
-    })
-    .multiselect('selectAll', false)
-    .multiselect('updateButtonText');
-});
+// $(function() {
+// $('#country_id')
+//     .multiselect({
+//     allSelectedText: 'All',
+//     maxHeight: 200,
+//     enableCaseInsensitiveFiltering :true,
+
+//     includeSelectAllOption: true,
+    
+//     })
+//     .multiselect('selectAll', false)
+//     .multiselect('updateButtonText');
+// });
+// $(function() {
+// $('#industrycd')
+//     .multiselect({
+//     allSelectedText: 'All',
+//     maxHeight: 200,
+//     enableCaseInsensitiveFiltering :true,
+//     includeSelectAllOption: true
+//     })
+//     .multiselect('selectAll', false)
+//     .multiselect('updateButtonText');
+// });
+// $(function() {
+// $('#desid')
+//     .multiselect({
+//     allSelectedText: 'All',
+//     maxHeight: 200,
+//      enableCaseInsensitiveFiltering :true,
+//     includeSelectAllOption: true
+//     })
+//     .multiselect('selectAll', false)
+//     .multiselect('updateButtonText');
+// });
 //  Get sub industry
  $('#sector_id').change(function(){
     var sector_id = $(this).val();
-    if (region_id != '')
+    if (sector_id != '')
     {
         $('#industrycd').prop('disabled', false);
     }
@@ -362,7 +374,7 @@ $('#desid')
        $.each(response,function(index,data){
           $('#industrycd').append('<option value="'+data['subindustrycd']+'">'+data['subindustry']+'</option>');
         });
-        $('#industrycd').multiselect("rebuild");
+        // $('#industrycd').multiselect("rebuild");
         }
     });
 });
@@ -392,7 +404,7 @@ $('#levelid').change(function(){
        $.each(response,function(index,data){
           $('#desid').append('<option value="'+data['jid']+'">'+data['joblist']+'</option>');
         });
-        $('#desid').multiselect("rebuild");
+        // $('#desid').multiselect("rebuild");
         }
     });
 });
@@ -460,6 +472,7 @@ $('#levelid').change(function(){
     border-right: .3em solid transparent;
     border-left: .3em solid transparent; */
 }
+
 </style>
 <div class="page-header">
     <div class="page-header-title">
@@ -577,9 +590,12 @@ $('#levelid').change(function(){
                             </div>
                             <div class="col-sm-3">
                                 <label class="col-lable"><b>Country</b></label>  <?php echo form_error('country_id'); ?>
-                                <select style="width:500px;" class="js-example-basic multiselect col-sm-12 form-control-sm" multiple="multiple" name="country_id[]" id="country_id">
+                                <select style="width:500px;" class="js-example-basic-multiple col-sm-12 form-control-sm" multiple="multiple" name="country_id[]" id="country_id">
+                                <option value="0">All</option>
+                                <?php foreach ($countries as $country): ?>
+                                    <option value="<?php echo $country['countrycd']; ?>"><?php echo $country['countryname']; ?></option>
+                                <?php endforeach; ?>
                                
-                                <!-- <option value="0">All</option> -->
                                 </select>
                             </div>
                             
@@ -590,7 +606,7 @@ $('#levelid').change(function(){
                                 <label class="col-lable"><b>Sector (Industry)</b></label>
                                 <select class="js-example-basic-multiple col-sm-12 form-control-sm" multiple="multiple" name="sector_id[]" id="sector_id">
                                 <option value="0">All</option>
-                                <?php foreach ($industries as $industry): ?>
+                                <?php foreach ($industries->result_array()  as $industry): ?>
                                     <option value="<?php echo $industry['industrycd']; ?>"><?php echo $industry['industry']; ?></option>
                                 <?php endforeach; ?>
                                 
@@ -598,15 +614,15 @@ $('#levelid').change(function(){
                             </div>
                             <div class="col-sm-3">
                                 <label class="col-lable"><b>Sub Industry</b></label><?php echo form_error('industrycd'); ?>
-                                <select class="js-example-basic multiselect col-sm-12 form-control-sm" multiple="multiple" name="industrycd[]" id="industrycd">
-                                <!-- <option value="0">All</option> -->
+                                <select class="js-example-basic-multiple col-sm-12 form-control-sm" multiple="multiple" name="industrycd[]" id="industrycd">
+                                <option value="0">All</option>
                                 </select>
                             </div>
                             <div class="col-sm-3">
                                 <label class="col-lable"><b>Job Level</b></label>
                               <select class="js-example-basic-multiple col-sm-12 form-control-sm" multiple="multiple" name="levelid[]" id="levelid">
                               <option value="0">All</option>
-                              <?php foreach ($designation as $designation): ?>
+                              <?php foreach ($designation->result_array() as $designation): ?>
                                     <option value="<?php echo $designation['joblids']; ?>"><?php echo $designation['joblevel']; ?></option>
                                 <?php endforeach; ?>
                                    
@@ -614,8 +630,8 @@ $('#levelid').change(function(){
                             </div>
                             <div class="col-sm-3">
                                 <label class="col-lable"><b>Designation [Job Title]</b></label><?php echo form_error('desid'); ?>
-                              <select class="js-example-basic multiselect col-sm-12 form-control-sm" multiple="multiple" name="desid[]" id="desid">
-                              <!-- <option value="0">All</option> -->
+                              <select class="js-example-basic-multiple col-sm-12 form-control-sm" multiple="multiple" name="desid[]" id="desid">
+                              <option value="0">All</option>
                                
                                    
                                 </select>
@@ -890,9 +906,11 @@ $('#levelid').change(function(){
             var campaign_name = $('#campaign_name').val();
             var country_id = $('#country_id').val(); 
             var region_id = $('#region_id').val();
+            var sub_region_id = $('#sub_region_id').val();
             // alert(region_id);
             // var theRemovedElement = region_id.shift();  
-            var industrycd = $('#industrycd').val(); 
+            var industrycd = $('#industrycd').val();
+            var sector_id = $('#sector_id').val(); 
             // alert(industrycd);
             var dcd = $('#dcd').val(); 
             // var emplzid = $('#emplzid').val(); 
@@ -986,6 +1004,8 @@ $('#levelid').change(function(){
 					campaign_name: campaign_name,
                     country_id:country_id,
                     region_id:region_id,
+                    sub_region_id:sub_region_id,
+                    sector_id:sector_id,
                     industrycd:industrycd,
                     dcd:dcd,
                     desid:desid,

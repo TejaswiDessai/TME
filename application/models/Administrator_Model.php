@@ -402,7 +402,7 @@
                         
 			$this->db->insert('leadmaster', $datacdcandlead);
 			//  $insert_id = $this->db->insert_id();
-			
+			// echo $this->db->last_query(); 
 			return true;
 			
 			//  return  $insert_id;

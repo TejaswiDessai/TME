@@ -499,7 +499,7 @@ $.ajax({
 
    
      <script>
-$('#empsize').keyup(function(){
+$('#empsize').blur(function(){
   var lbound = $('#php_lbound').val();
   // var lbound = 1;
   var ubound = $('#php_ubound').val();
@@ -997,6 +997,7 @@ $(document).ready(function() {
             $.ajax({
                 url :'<?php echo base_url("cdc/ajax_add_new_leadandcdc");?>',
                 type: 'GET', 
+                // contentType: "application/json",
                 dataType: 'json',              
                 data: {
                    
@@ -1068,18 +1069,18 @@ $(document).ready(function() {
                   $("#leadsubmit").html("Submitted!");
                   $("#leadsubmit").prop('disabled', true);
                   $("#leadsave").hide();
-                  top.location.href=base_url+"administrator/dashboard";//redirection
+                  // top.location.href=base_url+"administrator/dashboard";//redirection
                     var text = response.statusCode;
                     console.log("check");
-                   
-                    if(response.statusCode === "Success") 
+                    var dataResult = JSON.parse(response);
+                    if(dataResult.statusCode == "Success") 
                     {         
                       alert("Success in success");               
-                        $("#leadsubmit").html(response.message);
+                        $("#leadsubmit").html(dataResult.message);
                        
                         // $("#addcampbtn").prop('disabled', true);
                         // top.location.href=base_url+"campaigns/addsuppressionList?camp_id="+response.campaign_id;//redirection
-                    }else if(response.statusCode=="Fail")
+                    }else if(data.data=="Fail")
                     {
                         $("#leadsubmit").html(response.message);
                         
@@ -1248,11 +1249,11 @@ $(document).ready(function() {
                   $("#leadsave").prop('disabled', true);
                   $("#leadsubmit").hide();
                   // top.location.href=base_url+"administrator/dashboard";//redirection
-
+                  var dataResult = JSON.parse(response);
                     var text = response.statusCode;
                     console.log("check");
                    
-                    if(response.statusCode == "Success") 
+                    if(dataResult.statusCode == "Success") 
                     {     
                       alert("Success");                   
                         $("#leadsave").html(response.message);

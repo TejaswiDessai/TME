@@ -132,7 +132,7 @@
 				$conname = $first.$last; 
 
 
-				$old_date = date('y-m-d H-i-s');            // works
+				$old_date = date('Y-m-d H:i:s');         // works
 				$middle = strtotime($old_date);             // returns bool(false)
 				$new_date = date('Y-m-d H:i:s', $middle);
 
@@ -265,15 +265,16 @@
 				// 'svagtidi' => '1' // save Agent Name
 				// 'svdti' => '1' // save date time
 				'stagtidi' => $_SESSION['emp_id'], // submit agent name
-				'stdti' => $new_date // submit date time
+				'stdti' => $old_date  // submit date time
 								
 				);
 			
 			//   print_r($datacdcandlead);
-			    //  exit();
+			//      exit();
 			
 				$addleadandcdcdata = $this->Administrator_Model->add_leadandcdc($datacdcandlead);
-				// print_r(addcampaigndata); 
+				// print_r($addcampaigndata);  die;
+				
 
 				if($addleadandcdcdata == true){
 			

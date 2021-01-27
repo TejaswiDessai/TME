@@ -160,10 +160,17 @@
 		}
 		public function get_designation_ofCampaign($cnid,$myarray){
 			$this->db->select('*');
-			foreach ($myarray as $arr)
-			{	
-				$this->db->OR_where('jid', $arr);
+			// foreach ($myarray as $arr)
+			// {	
+			// 	$this->db->OR_where('jid', $arr);
+			// }
+
+			if($myarray[0] != 0)
+			{
+				$this->db->where_in('jid', $myarray );  //this is condition 
 			}
+			$this->db->order_by("jid", "asc"); 
+
 			$query = $this->db->get('joblevels');
 			
 			return $query->result_array();
@@ -175,10 +182,12 @@
 			$this->db->select('joblids,joblevel');
 			$this->db->group_by('joblids');
 			$this->db->group_by('joblevel');
-			foreach ($myarray as $arr)
-			{	
-				$this->db->OR_where('jid', $arr);
+			if($myarray[0] != 0)
+			{
+				$this->db->where_in('jid', $myarray );  //this is condition 
 			}
+			$this->db->order_by("joblids", "asc"); 
+
 			$query = $this->db->get('joblevels');
 			return $query->result_array();
 
@@ -193,10 +202,16 @@
 		}
 		public function get_depts_byCampaign($cnid,$myarray){
 			$this->db->select('*');
-			foreach ($myarray as $arr)
-			{	
-				$this->db->OR_where('dcd', $arr);
+			// foreach ($myarray as $arr)
+			// {	
+			// 	$this->db->OR_where('dcd', $arr);
+			// }
+			if($myarray[0] != 0)
+			{
+				$this->db->where_in('dcd', $myarray );  //this is condition 
 			}
+			$this->db->order_by("dcd", "asc"); 
+
 			$query = $this->db->get('dept');
 			return $query->result_array();
 			
@@ -216,10 +231,16 @@
 			$this->db->group_by('industrycd');
 			$this->db->group_by('industry');
 			// $this->db->group_by('subindustrycd');
-			foreach ($myarray as $arr)
-			{	
-				$this->db->OR_where('subindustrycd', $arr);
+	
+			if($myarray[0] != 0)
+			{
+				$this->db->where_in('industrycd', $myarray );  //this is condition 
 			}
+			$this->db->order_by("industrycd", "asc"); 
+			// foreach ($myarray as $arr)
+			// {	
+			// 	$this->db->OR_where('subindustrycd', $arr);
+			// }
 			$query = $this->db->get('industry');
 			// echo $this->db->last_query(); 
 			return $query->result_array();
@@ -240,10 +261,11 @@
 		
 			$this->db->select('*');
 			
-			foreach ($myarray as $arr)
-			{	
-				$this->db->OR_where('subindustrycd', $arr);
+			if($myarray[0] != 0)
+			{
+				$this->db->where_in('subindustrycd', $myarray );  //this is condition 
 			}
+			$this->db->order_by("subindustrycd", "asc"); 
 			$query = $this->db->get('industry');
 			// echo $this->db->last_query(); 
 			return $query->result_array();
@@ -252,11 +274,15 @@
 		}
 		public function get_countriesofCampaign($cnid,$myarray){
 			// print_r($myarray);
+
+		
 			$this->db->select('*');
-			foreach ($myarray as $arr)
-			{	
-				$this->db->OR_where('countrycd', $arr);
+			
+			if($myarray[0] != 0)
+			{
+				$this->db->where_in('countrycd', $myarray );  //this is condition 
 			}
+
 			$query = $this->db->get('country');
 			return $query->result_array();
 			// $this->db->select('*');

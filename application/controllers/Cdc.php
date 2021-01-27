@@ -24,14 +24,14 @@
 						
 
 						$data['countries'] = $this->Administrator_Model->get_countriesbyCampaign($camp_id);
-					
+				
 							foreach($data['countries'] as $co){
 							$myArray = implode(',', $co);
 							}
 
 							$myArray1 = explode(',', $myArray);
 							$data['countriesofcampaign'] = $this->Administrator_Model->get_countriesofCampaign($camp_id,$myArray1);
-							
+							// print_r($data['countriesofcampaign']);
 
 						// $data['countries'] = $this->Administrator_Model->get_countries();
 						$data['industries1'] = $this->Administrator_Model->get_industries_byCampaign($camp_id);

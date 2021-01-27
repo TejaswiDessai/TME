@@ -1550,13 +1550,13 @@ echo $date;
 
 		public function get_admin_data()
 		{
-			$data['changePassword'] = $this->Administrator_Model->get_admin_data();
+			/$data['changePassword'] = $this->Administrator_Model->get_admin_data();
 			$data['title'] = 'Change Password';
 
 			$this->load->view('administrator/header-script');
 	 	 	 $this->load->view('administrator/header');
 	  		 $this->load->view('administrator/header-bottom');
-	   		 $this->load->view('administrator/change-password', $data);
+		 	 $this->load->view('administrator/change-password', $data);
 	  		$this->load->view('administrator/footer');
 		}
 
@@ -1566,9 +1566,9 @@ echo $date;
 		    show_404();
 		   }
 			// Check login
-			if(!$this->session->userdata('login')) {
-				redirect('administrator/index');
-			}
+			// if(!$this->session->userdata('login')) {
+			// 	redirect('administrator/index');
+			// }
 
 			$data['title'] = 'Change password';
 
@@ -1685,9 +1685,9 @@ echo $date;
                             $temp_pass = md5(uniqid());
                             //send email with #temp_pass as a link
                             $this->load->library('email', array('mailtype'=>'html'));
-                            $this->email->from('tejaswi@mepune.com', "Site");
+                            $this->email->from('amol.waghmare@mehp.com', "Site");
 //                            $this->email->to($this->input->post('email'));
-                            $this->email->to($this->input->post('tejaswi@mepune.com'));
+                            $this->email->to($this->input->post('amol.waghmare@mehp.com'));
                             $this->email->subject("Reset your Password");
 
                             $message = "<p>This email has been sent as a request to reset our password</p>";
@@ -1702,7 +1702,8 @@ echo $date;
                                 }
                             }
                             else{
-                                echo "email was not sent, please contact your administrator";
+								// echo "email was not sent, please contact your administrator";
+								redirect('administrator/change-password');
                             }
 
         }else{

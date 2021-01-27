@@ -1550,7 +1550,7 @@ echo $date;
 
 		public function get_admin_data()
 		{
-			/$data['changePassword'] = $this->Administrator_Model->get_admin_data();
+			$data['changePassword'] = $this->Administrator_Model->get_admin_data();
 			$data['title'] = 'Change Password';
 
 			$this->load->view('administrator/header-script');

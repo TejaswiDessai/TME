@@ -304,6 +304,19 @@
 			// echo $this->db->last_query(); 
 			
 
+		// }
+		// public function get_subregionbyCampaign($cnid){
+
+		// 	$this->db->select('subregioncode');
+		// 	$this->db->where('cnid', $cnid);
+		// 	$query = $this->db->get('campaign');
+			
+		
+		// 	$response = $query->result_array();
+		// 	return $response;
+		// 	// echo $this->db->last_query(); 
+			
+
 		}
 		public function get_departmentsbyCampaign($cnid){
 

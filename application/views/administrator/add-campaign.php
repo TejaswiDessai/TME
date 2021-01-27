@@ -311,46 +311,46 @@ $(function () {
           $('#country_id').append('<option value="'+data['countrycd']+'">'+data['countryname']+'</option>');
           
         });
-        // $('#country_id').multiselect("rebuild");
+        $('#country_id').multiselect("rebuild");
         }
     });
 });
 
-// $(function() {
-// $('#country_id')
-//     .multiselect({
-//     allSelectedText: 'All',
-//     maxHeight: 200,
-//     enableCaseInsensitiveFiltering :true,
+$(function() {
+$('#country_id')
+    .multiselect({
+    allSelectedText: 'All',
+    maxHeight: 200,
+    enableCaseInsensitiveFiltering :true,
 
-//     includeSelectAllOption: true,
+    includeSelectAllOption: true,
     
-//     })
-//     .multiselect('selectAll', false)
-//     .multiselect('updateButtonText');
-// });
-// $(function() {
-// $('#industrycd')
-//     .multiselect({
-//     allSelectedText: 'All',
-//     maxHeight: 200,
-//     enableCaseInsensitiveFiltering :true,
-//     includeSelectAllOption: true
-//     })
-//     .multiselect('selectAll', false)
-//     .multiselect('updateButtonText');
-// });
-// $(function() {
-// $('#desid')
-//     .multiselect({
-//     allSelectedText: 'All',
-//     maxHeight: 200,
-//      enableCaseInsensitiveFiltering :true,
-//     includeSelectAllOption: true
-//     })
-//     .multiselect('selectAll', false)
-//     .multiselect('updateButtonText');
-// });
+    })
+    .multiselect('selectAll', false)
+    .multiselect('updateButtonText');
+});
+$(function() {
+$('#industrycd')
+    .multiselect({
+    allSelectedText: 'All',
+    maxHeight: 200,
+    enableCaseInsensitiveFiltering :true,
+    includeSelectAllOption: true
+    })
+    .multiselect('selectAll', false)
+    .multiselect('updateButtonText');
+});
+$(function() {
+$('#desid')
+    .multiselect({
+    allSelectedText: 'All',
+    maxHeight: 200,
+     enableCaseInsensitiveFiltering :true,
+    includeSelectAllOption: true
+    })
+    .multiselect('selectAll', false)
+    .multiselect('updateButtonText');
+});
 //  Get sub industry
  $('#sector_id').change(function(){
     var sector_id = $(this).val();
@@ -374,7 +374,7 @@ $(function () {
        $.each(response,function(index,data){
           $('#industrycd').append('<option value="'+data['subindustrycd']+'">'+data['subindustry']+'</option>');
         });
-        // $('#industrycd').multiselect("rebuild");
+        $('#industrycd').multiselect("rebuild");
         }
     });
 });
@@ -404,7 +404,7 @@ $('#levelid').change(function(){
        $.each(response,function(index,data){
           $('#desid').append('<option value="'+data['jid']+'">'+data['joblist']+'</option>');
         });
-        // $('#desid').multiselect("rebuild");
+        $('#desid').multiselect("rebuild");
         }
     });
 });
@@ -585,13 +585,13 @@ $('#levelid').change(function(){
                                 <label class="col-lable"><b>Sub Region</b></label>  <?php echo form_error('country_id'); ?>
                                 <select class="js-example-basic-multiple col-sm-12 form-control-sm" multiple="multiple" name="sub_region_id[]" id="sub_region_id">
                                
-                                <option value="0">All</option>
+                                <!-- <option value="0">All</option> -->
                                 </select>
                             </div>
                             <div class="col-sm-3">
                                 <label class="col-lable"><b>Country</b></label>  <?php echo form_error('country_id'); ?>
-                                <select style="width:500px;" class="js-example-basic-multiple col-sm-12 form-control-sm" multiple="multiple" name="country_id[]" id="country_id">
-                                <option value="0">All</option>
+                                <select style="width:500px;" class="js-example-basic multiselect col-sm-12 form-control-sm" multiple="multiple" name="country_id[]" id="country_id">
+                                <!-- <option value="0">All</option> -->
                                 <?php foreach ($countries as $country): ?>
                                     <option value="<?php echo $country['countrycd']; ?>"><?php echo $country['countryname']; ?></option>
                                 <?php endforeach; ?>
@@ -614,8 +614,8 @@ $('#levelid').change(function(){
                             </div>
                             <div class="col-sm-3">
                                 <label class="col-lable"><b>Sub Industry</b></label><?php echo form_error('industrycd'); ?>
-                                <select class="js-example-basic-multiple col-sm-12 form-control-sm" multiple="multiple" name="industrycd[]" id="industrycd">
-                                <option value="0">All</option>
+                                <select class="js-example-basic multiselect col-sm-12 form-control-sm" multiple="multiple" name="industrycd[]" id="industrycd">
+                                <!-- <option value="0">All</option> -->
                                 </select>
                             </div>
                             <div class="col-sm-3">
@@ -630,8 +630,8 @@ $('#levelid').change(function(){
                             </div>
                             <div class="col-sm-3">
                                 <label class="col-lable"><b>Designation [Job Title]</b></label><?php echo form_error('desid'); ?>
-                              <select class="js-example-basic-multiple col-sm-12 form-control-sm" multiple="multiple" name="desid[]" id="desid">
-                              <option value="0">All</option>
+                              <select class="js-example-basic multiselect col-sm-12 form-control-sm" multiple="multiple" name="desid[]" id="desid">
+                              <!-- <option value="0">All</option> -->
                                
                                    
                                 </select>

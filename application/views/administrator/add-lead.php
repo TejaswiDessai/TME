@@ -989,7 +989,7 @@ $(document).ready(function() {
           
             
            
-            if(fname!="" && lname!="" && jlevel!="" && jtitle!="" && desid!="" && email!="" && address!="" && city!=""  && country_id!="" && timezone!="" && industrycd!="" && subindustrycd!="" && empsize!="" && empszlink!="" && revszlink!=""){
+            if(fname != "" && lname != "" && jlevel != "" && jtitle != "" && desid != "" && email != "" && address != "" && city != ""  && country_id != "" && timezone != "" && industrycd != "" && subindustrycd != "" && empsize != "" && empszlink != "" && revszlink != ""){
            
             var url = encodeURI("<?php echo base_url("cdc/ajax_add_new_leadandcdc");?>");
             console.log(url+"?campaign_id="+campaign_id+"&sal="+sal+"&fname="+fname+"&lname="+lname+"&jtitle="+jtitle+"&desid="+desid+"&jlevel="+jlevel+"&dcd="+dcd+"&email="+email+"&phone="+phone+"&altphn="+altphn+"&phext="+phext+"&plink="+plink+"&company_name="+company_name+"&address="+address+"&city="+city+"&state="+state+"&zip_code="+zip_code+"&country_id="+country_id+"&timezone="+timezone+"&ctype="+ctype+"&linetype="+linetype+"&industrycd="+industrycd+"&subindustrycd="+subindustrycd+"&sectyp="+sectyp+"&empsize="+empsize+"&mlbl="+mlbl+"&curr="+curr+"&arevenue="+arevenue+"&empszlink="+empszlink+"&indlink="+indlink+"&domain="+domain+"&othrlink="+othrlink+"&revszlink="+revszlink+"&emailver="+emailver+"&aum="+aum+"&assetid="+assetid+"&optin="+optin+"&optpst="+optpst+"&optph="+optph+"&opteml="+opteml+"&optoption="+optoption+"&aa1="+aa1+"&aa2="+aa2+"&aa3="+aa3+"&aa4="+aa4+"&aa5="+aa5+"&aa6="+aa6+"&aa7="+aa7+"&aa8="+aa8+"&aa9="+aa9+"&aa10="+aa10+"&aa11="+aa11+"&aa12="+aa12+"&pcomt="+pcomt);

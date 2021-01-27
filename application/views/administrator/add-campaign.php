@@ -585,7 +585,7 @@ $('#levelid').change(function(){
                                 <label class="col-lable"><b>Sub Region</b></label>  <?php echo form_error('country_id'); ?>
                                 <select class="js-example-basic-multiple col-sm-12 form-control-sm" multiple="multiple" name="sub_region_id[]" id="sub_region_id">
                                
-                                <!-- <option value="0">All</option> -->
+                                <option value="0">All</option>
                                 </select>
                             </div>
                             <div class="col-sm-3">

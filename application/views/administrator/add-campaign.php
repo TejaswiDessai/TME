@@ -912,6 +912,8 @@ $('#levelid').change(function(){
             var industrycd = $('#industrycd').val();
             var sector_id = $('#sector_id').val(); 
             // alert(industrycd);
+            var levelid = $('#levelid').val(); 
+            
             var dcd = $('#dcd').val(); 
             // var emplzid = $('#emplzid').val(); 
             
@@ -1007,6 +1009,7 @@ $('#levelid').change(function(){
                     sub_region_id:sub_region_id,
                     sector_id:sector_id,
                     industrycd:industrycd,
+                    levelid:levelid,
                     dcd:dcd,
                     desid:desid,
                     checksupp:checksupp,

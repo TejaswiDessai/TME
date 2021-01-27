@@ -1005,6 +1005,11 @@
 			// if(!empty($_GET['revid'])) {
 			// $revStr = $_GET['revid'];
 			// 	}
+			$joblevelids = '';
+			if(!empty($_GET['levelid'])) {
+				$joblevelids = implode(',',$_GET['levelid']);
+			}
+
 			$desiStr = '';
 			if(!empty($_GET['desid'])) {
 			$desiStr = implode(',',$_GET['desid']);
@@ -1074,6 +1079,7 @@
 				'dcd' => $deptStr,
 				// 'emplzid' => $empsizeStr,
 				// 'comzid' => $revStr,
+				'joblevelids' => $joblevelids,
 				'tid' => $desiStr,
 				'suplistnew' =>$_GET['checksupp'],
 				'inclistnew' =>$_GET['inclist'],

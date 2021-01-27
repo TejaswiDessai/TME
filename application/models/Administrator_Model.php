@@ -304,9 +304,24 @@
 			$query = $this->db->get('timezone');
 			return $query->result_array();
 			
-		
-
 		}
+
+		function gettimezonesbycountry($country_id)
+		{
+			$response = array();
+			
+			// Select record
+			$this->db->select('timezone.zoneid,timezone.zonename');
+			$this->db->group_by('timezone.zoneid');
+			$this->db->group_by('timezone.zonename');
+			$this->db->where('countrycd', $country_id);
+		
+			$q = $this->db->get('timezone');
+			$response = $q->result_array();
+		
+			return $response;
+		}
+
 		public function get_currencybyCampaign($cnid,$myarray){
 			// $this->db->select('*');
 
@@ -395,8 +410,9 @@
                         
 			$this->db->insert('leadmaster', $datacdcandlead);
 			//  $insert_id = $this->db->insert_id();
-			 return true;
 			// echo $this->db->last_query(); 
+			return true;
+			
 			//  return  $insert_id;
                        
 		}

@@ -75,7 +75,7 @@ echo $date;
 		
 					//Create Session
 					$user_data = array(
-								'user_id' => $user_id->id,
+								'emp_id' => $user_id->emp_id,
 				 				'username' => $user_id->fname,
 				 				'fname' => $user_id->fname,
 				 				'login' => true,

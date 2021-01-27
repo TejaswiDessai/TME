@@ -8,7 +8,7 @@
 
 			$data['title'] = 'Create Lead';
 			// print_r($_SESSION);
-			// print_r($_SESSION['user_id']);
+			// print_r($_SESSION['emp_id']);
 						$postData = $this->input->post();
 						$postData1 = $postData['campaign_id'];
 						// print_r($postData1);
@@ -106,6 +106,14 @@
 			 $this->load->view('administrator/'.$page, $data);
 			$this->load->view('administrator/footer');
 		
+		}
+		public function gettimezones(){ 
+			
+			$country_id = $_GET['country_id'];
+			
+			// get data 
+			$data = $this->Administrator_Model->gettimezonesbycountry($country_id);
+			echo json_encode($data); 
 		}
 
 		public function ajax_add_new_leadandcdc()
@@ -256,7 +264,7 @@
 
 				// 'svagtidi' => '1' // save Agent Name
 				// 'svdti' => '1' // save date time
-				'stagtidi' => $_SESSION['user_id'], // submit agent name
+				'stagtidi' => $_SESSION['emp_id'], // submit agent name
 				'stdti' => $new_date // submit date time
 								
 				);
@@ -431,7 +439,7 @@
 
 				
 
-				'svagtidi' => $_SESSION['user_id'], // save Agent Name
+				'svagtidi' => $_SESSION['emp_id'], // save Agent Name
 				'svdti' => $old_date // save date time
 				//'stagtidi' => '1', // submit agent name
 				//'stdti' => $new_date // submit date time
@@ -445,7 +453,7 @@
 			    //  exit();
 			
 				$addleadandcdcdata = $this->Administrator_Model->add_leadandcdc($datacdcandlead);
-				// print_r(addcampaigndata); 
+				
 
 				if($addleadandcdcdata == true){
 			
@@ -612,7 +620,7 @@
 
 				
 
-				'cdcsbagti' => $_SESSION['user_id'], // save Agent Name
+				'cdcsbagti' => $_SESSION['emp_id'], // save Agent Name
 				'cdcsbdti' => $old_date // save date time
 				//'stagtidi' => '1', // submit agent name
 				//'stdti' => $new_date // submit date time
@@ -797,7 +805,7 @@
 
 				
 
-				'cdcsvagti' => $_SESSION['user_id'], // save Agent Name
+				'cdcsvagti' => $_SESSION['emp_id'], // save Agent Name
 				'cdcsvdti' => $old_date // save date time
 				//'stagtidi' => '1', // submit agent name
 				//'stdti' => $new_date // submit date time

@@ -9,6 +9,13 @@
     .select2-container--default .select2-selection--multiple {
     padding:0px 0px 0px 0px;
     }
+    .select2-container--default .select2-selection--single .select2-selection__rendered{
+      line-height :15px;
+    }
+    .select2-container--default .select2-selection--single .select2-selection__arrow {
+    top: 3px;
+    right: 15px;
+}
     
 /*     
       .form-control option:hover {
@@ -193,7 +200,7 @@ $.ajax({
                             <div class="col-sm-1">
                                  <select name="sal" id="sal"  class="form-control  form-control-sm cdqadisable">
                                       <option value="1">Mr.</option>
-                                      <option value="2">Miss.</option>
+                                      <option value="2">Ms.</option>
                                       <option value="3">Mrs.</option>
                                       <option value="4">Other</option>
                                 </select>
@@ -303,11 +310,11 @@ $.ajax({
                         <div class="form-group row">
                             
                             <div class="col-sm-2">
-                              <select class="form-control form-control-sm cdqadisable"  name="timezone" id="timezone">
+                              <select class="js-example-basic-single"  name="timezone" id="timezone">
                               <option value="">Timezone</option>
-                              <?php foreach ($timezones as $tz): ?>
-                                    <option value="<?php echo $tz['zoneid']; ?>"><?php echo $tz['zonename']; ?></option>
-                                <?php endforeach; ?> 
+                              <?php //foreach ($timezones as $tz): ?>
+                                    <!-- <option value="<?php //echo $tz['zoneid']; ?>"><?php// echo $tz['zonename']; ?></option> -->
+                                <?php //endforeach; ?> 
                                 </select>
                                 <span style='color:#FF0000' id="timezone_msg"></span>
                             </div>
@@ -416,16 +423,16 @@ $.ajax({
                             </div>
                             <div class="col-sm-2">
                                 <select class="form-control form-control-sm"  name="emailver" id="emailver">
-                                <option value="0">No</option>
+                                    <option value="0">Email Verification</option>
                                     <option value="1">Yes</option>
-                                    
+                                    <option value="0">No</option>
                                 </select>
                             </div>
                             <div class="col-sm-2">
                                 <input type="text"  name="aum" id="aum"  placeholder="Asset Under Management"  class="form-control form-control-sm aumdis">
                             </div>
                             <div class="col-sm-2">
-                                <select class="form-control form-control-sm cdqadisable" name="assetid" id="assetid">
+                                <select class="form-control form-control-sm commentvisible" name="assetid" id="assetid">
                                     <option value="0">Asset</option>
                                     <?php foreach ($assetitle as $assetitle): ?>
                                     <option value="<?php echo $assetitle['assetid']; ?>"><?php echo $assetitle['title']; ?></option>
@@ -513,7 +520,30 @@ $('#empsize').keyup(function(){
 
 });
 
+// Country change -- get timezones
+$('#country_id').change(function(){
+    var country_id = $(this).val();
+   
+    // AJAX request to get timezones
+    $.ajax({
+        url:'<?php echo base_url("cdc/gettimezones");?>',
+        method: 'get',
+        data: {country_id: country_id},
+        dataType: 'json',
+        success: function(response){
 
+        //    Remove options 
+       $('#timezone').find('option').not(':first').remove();
+
+        //    Add options
+       $.each(response,function(index,data){
+          $('#timezone').append('<option value="'+data['zoneid']+'">'+data['zonename']+'</option>');
+          
+        });
+        // $('#country_id').multiselect("rebuild");
+        }
+    });
+});
 
 
 
@@ -958,16 +988,6 @@ $(document).ready(function() {
             var aa12 = $('#aa12').val();
           
             
-
-            var checksupp = $('#uho').prop('checked');
-            if(checksupp == true)
-            {
-                checksupp = 1;
-            }
-            else
-            {
-                checksupp = 0;
-            }
            
           
            
@@ -980,7 +1000,7 @@ $(document).ready(function() {
                 dataType: 'json',              
                 data: {
                    
-					          campaign_id: campaign_id,
+                  campaign_id: campaign_id,
                     sal:sal,
                     fname:fname,
                     lname: lname,
@@ -1008,21 +1028,40 @@ $(document).ready(function() {
                     subindustrycd:subindustrycd,
                     sectyp:sectyp,
                     empsize:empsize,
+                    mlbl:mlbl,
+                    curr:curr,
                     arevenue:arevenue,
+                    empszlink:empszlink,
+                    indlink:indlink,
                     revszlink:revszlink,
+                    domain:domain,
                     othrlink:othrlink,
                     emailver:emailver,
                     aum:aum,                 
                     
-                    assetid:assetid
-                    // optin:optin,
-                    // optph:optph,
-                    // opteml:opteml,
-                    // optpst:optpst,
-                    // optoption:optoption
+                    assetid:assetid,
+                    optin:optin,
+                    optph:optph,
+                    opteml:opteml,
+                    optpst:optpst,
+                    optoption:optoption,
+                    aa1:aa1,
+                    aa2:aa2,
+                    aa3:aa3,
+                    aa4:aa4,
+                    aa5:aa5,
+                    aa6:aa6,
+                    aa7:aa7,
+                    aa8:aa8,
+                    aa9:aa9,
+                    aa10:aa10,
+                    aa11:aa11,
+                    aa12:aa12,
+                    pcomt:pcomt     
                     
                     
 				},
+        async: true,
                 cache: false,
                 success: function(response){
 
@@ -1033,9 +1072,9 @@ $(document).ready(function() {
                     var text = response.statusCode;
                     console.log("check");
                    
-                    if(response.statusCode == "Success") 
+                    if(response.statusCode === "Success") 
                     {         
-                      alert("Success");               
+                      alert("Success in success");               
                         $("#leadsubmit").html(response.message);
                        
                         // $("#addcampbtn").prop('disabled', true);
@@ -1138,10 +1177,10 @@ $(document).ready(function() {
             $.ajax({
                 url :'<?php echo base_url("cdc/ajax_save_leadandcdc");?>',
                 type: 'GET', 
-                dataType: 'json',              
+                dataType: 'Json',              
                 data: {
                    
-					          campaign_id: campaign_id,
+                  campaign_id: campaign_id,
                     sal:sal,
                     fname:fname,
                     lname: lname,
@@ -1169,28 +1208,46 @@ $(document).ready(function() {
                     subindustrycd:subindustrycd,
                     sectyp:sectyp,
                     empsize:empsize,
+                    mlbl:mlbl,
+                    curr:curr,
                     arevenue:arevenue,
+                    empszlink:empszlink,
+                    indlink:indlink,
                     revszlink:revszlink,
+                    domain:domain,
                     othrlink:othrlink,
                     emailver:emailver,
                     aum:aum,                 
                     
-                    assetid:assetid
-                    // optin:optin,
-                    // optph:optph,
-                    // opteml:opteml,
-                    // optpst:optpst,
-                    // optoption:optoption
-                    
+                    assetid:assetid,
+                    optin:optin,
+                    optph:optph,
+                    opteml:opteml,
+                    optpst:optpst,
+                    optoption:optoption,
+                    aa1:aa1,
+                    aa2:aa2,
+                    aa3:aa3,
+                    aa4:aa4,
+                    aa5:aa5,
+                    aa6:aa6,
+                    aa7:aa7,
+                    aa8:aa8,
+                    aa9:aa9,
+                    aa10:aa10,
+                    aa11:aa11,
+                    aa12:aa12,
+                    pcomt:pcomt     
                     
 				},
-                cache: false,
+        // async: true,
+                // cache: false,
                 success: function(response){
 
                   $("#leadsave").html("Saved!");
                   $("#leadsave").prop('disabled', true);
                   $("#leadsubmit").hide();
-                  top.location.href=base_url+"administrator/dashboard";//redirection
+                  // top.location.href=base_url+"administrator/dashboard";//redirection
 
                     var text = response.statusCode;
                     console.log("check");
@@ -1292,19 +1349,6 @@ $(document).ready(function() {
            var aa12 = $('#aa12').val();
          
            
-
-           var checksupp = $('#uho').prop('checked');
-           if(checksupp == true)
-           {
-               checksupp = 1;
-           }
-           else
-           {
-               checksupp = 0;
-           }
-          
-         
-          
            var url = encodeURI("<?php echo base_url("cdc/ajax_submit_leadandcdcbyCDQA");?>");
            console.log(url+"?campaign_id="+campaign_id+"&sal="+sal+"&fname="+fname+"&lname="+lname+"&jtitle="+jtitle+"&desid="+desid+"&jlevel="+jlevel+"&dcd="+dcd+"&email="+email+"&phone="+phone+"&altphn="+altphn+"&phext="+phext+"&plink="+plink+"&company_name="+company_name+"&address="+address+"&city="+city+"&state="+state+"&zip_code="+zip_code+"&country_id="+country_id+"&timezone="+timezone+"&ctype="+ctype+"&linetype="+linetype+"&industrycd="+industrycd+"&subindustrycd="+subindustrycd+"&sectyp="+sectyp+"&empsize="+empsize+"&mlbl="+mlbl+"&curr="+curr+"&arevenue="+arevenue+"&empszlink="+empszlink+"&indlink="+indlink+"&domain="+domain+"&othrlink="+othrlink+"&revszlink="+revszlink+"&emailver="+emailver+"&aum="+aum+"&assetid="+assetid+"&optin="+optin+"&optpst="+optpst+"&optph="+optph+"&opteml="+opteml+"&optoption="+optoption+"&aa1="+aa1+"&aa2="+aa2+"&aa3="+aa3+"&aa4="+aa4+"&aa5="+aa5+"&aa6="+aa6+"&aa7="+aa7+"&aa8="+aa8+"&aa9="+aa9+"&aa10="+aa10+"&aa11="+aa11+"&aa12="+aa12+"&pcomt="+pcomt);
           
@@ -1342,19 +1386,37 @@ $(document).ready(function() {
                     subindustrycd:subindustrycd,
                     sectyp:sectyp,
                     empsize:empsize,
+                    mlbl:mlbl,
+                    curr:curr,
                     arevenue:arevenue,
+                    empszlink:empszlink,
+                    indlink:indlink,
                     revszlink:revszlink,
+                    domain:domain,
                     othrlink:othrlink,
                     emailver:emailver,
-                    aum:aum,  
-                    mlbl:mlbl,               
+                    aum:aum,                 
                     
                     assetid:assetid,
                     optin:optin,
                     optph:optph,
                     opteml:opteml,
                     optpst:optpst,
-                    optoption:optoption                   
+                    optoption:optoption,
+                    aa1:aa1,
+                    aa2:aa2,
+                    aa3:aa3,
+                    aa4:aa4,
+                    aa5:aa5,
+                    aa6:aa6,
+                    aa7:aa7,
+                    aa8:aa8,
+                    aa9:aa9,
+                    aa10:aa10,
+                    aa11:aa11,
+                    aa12:aa12,
+                    pcomt:pcomt     
+             
                     
                     
 				},
@@ -1524,9 +1586,17 @@ $(document).ready(function() {
                     optoption:optoption,
                     aa1:aa1,
                     aa2:aa2,
+                    aa3:aa3,
+                    aa4:aa4,
+                    aa5:aa5,
+                    aa6:aa6,
+                    aa7:aa7,
+                    aa8:aa8,
+                    aa9:aa9,
+                    aa10:aa10,
+                    aa11:aa11,
+                    aa12:aa12,
                     pcomt:pcomt     
-             
-                    
                    
                     
                     

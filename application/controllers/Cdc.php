@@ -9,8 +9,15 @@
 			$data['title'] = 'Create Lead';
 			// print_r($_SESSION);
 			// print_r($_SESSION['emp_id']);
-						$postData = $this->input->post();
-						$postData1 = $postData['campaign_id'];
+			if(isset($_GET['camp_id'])){
+				$postData1 = $_GET['camp_id'];
+			}else{
+				$postData = $this->input->post();
+				$postData1 = $postData['campaign_id'];
+			}
+		
+
+						
 						// print_r($postData1);
 
 						$data['campaigns'] = $this->Administrator_Model->get_campaign_by_id($postData1);

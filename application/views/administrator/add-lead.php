@@ -241,7 +241,7 @@ $.ajax({
                         <hr>
                         <div class="form-group row">
                         <div class="col-sm-2">
-                                 <select class="js-example-basic-single" name="dcd" id="dcd">
+                                 <select class="js-example-basic-single" name="dcd" id="dcd">  
                                     <option value=""> Department</option>
                                 <?php foreach ($departments as $dept): ?>
                                     <option value="<?php echo $dept['dcd']; ?>"><?php echo $dept['department']; ?></option>
@@ -383,11 +383,11 @@ $.ajax({
                                 <select class="form-control form-control-sm cdqadisable" name="mlbl" id="mlbl">
                                 
                                 <?php echo $campaign['revlbdim']; ?><?php echo $campaign['revubdim']; ?>
-                                    <option value="K">K</option>
+                                    <option value="0">K</option>
                                     <!-- <option value="1">Hundred Thousand</option> -->
-                                    <option value="M">M</option>
-                                    <option value="B">B</option>
-                                    <option value="T">T</option>
+                                    <option value="1">M</option>
+                                    <option value="2">B</option>
+                                    <option value="3">T</option>
                                     </select>
                             </div>          
                             <div class="col-sm-2">
@@ -1165,8 +1165,8 @@ $(document).ready(function() {
 
                 },
                 error: function (error) {
-    
-                  location.reload();
+                  top.location.href=base_url+"cdc/addlead?camp_id="<?php echo $campaign['cnid']; ?>;//redirection
+                  // location.reload();
                   }
               
             });

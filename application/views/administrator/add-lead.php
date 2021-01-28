@@ -593,7 +593,33 @@ $('#country_id').change(function(){
 //         }
 //     });
 // }
+//  Get sub industry
+ $('#industrycd').change(function(){
+    var industrycd = $(this).val();
+    if (industrycd != '')
+    {
+        // $('#subindustrycd').prop('disabled', false);
+    }
+    // alert(sector_id);
+    // AJAX request
+    $.ajax({
+        url:'<?php echo base_url("cdc/getIndustry");?>',
+        method: 'get',
+        data: {industrycd: industrycd},
+        dataType: 'json',
+        success: function(response){
 
+        //    Remove options 
+       $('#subindustrycd').find('option').not(':first').remove();
+
+        //    Add options
+       $.each(response,function(index,data){
+          $('#subindustrycd').append('<option value="'+data['subindustrycd']+'">'+data['subindustry']+'</option>');
+        });
+        // $('#industrycd').multiselect("rebuild");
+        }
+    });
+});
 
 
      // Campaign Name no special character allowed validation code

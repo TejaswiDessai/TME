@@ -940,137 +940,137 @@
 
 		public function ajax_add_new_campaign1()
 		{
-			$campaign_id = $_GET['campaign_id'];
+			$campaign_id = $_POST['campaign_id'];
 			$campaigncountryStr = '';
-			if(!empty($_GET['country_id'])) {
-			$campaigncountryStr = implode(',',$_GET['country_id']);
+			if(!empty($_POST['country_id'])) {
+			$campaigncountryStr = implode(',',$_POST['country_id']);
 				}
 			$regionStr = '';
-			if(!empty($_GET['region_id'])) {
-				if($_GET['region_id'] == 0)
+			if(!empty($_POST['region_id'])) {
+				if($_POST['region_id'] == 0)
 				{
 					$regionStr = 0;
 				}
 				else
 				{
-					$regionStr = implode(',',$_GET['region_id']);
+					$regionStr = implode(',',$_POST['region_id']);
 				}
 				
 			}
 			$subregionStr = '';
-			if(!empty($_GET['sub_region_id'])) {
-				if($_GET['sub_region_id'] == 0)
+			if(!empty($_POST['sub_region_id'])) {
+				if($_POST['sub_region_id'] == 0)
 				{
 					$subregionStr = 0;
 				}
 				else
 				{
-					$subregionStr = implode(',',$_GET['sub_region_id']);
+					$subregionStr = implode(',',$_POST['sub_region_id']);
 				}
 				
 			}
 			$sector_id = '';
-			if(!empty($_GET['sector_id'])) {
-				if($_GET['sector_id'] == 0)
+			if(!empty($_POST['sector_id'])) {
+				if($_POST['sector_id'] == 0)
 				{
 					$sector_id = 0;
 				}
 				else
 				{
-					$sector_id = implode(',',$_GET['sector_id']);
+					$sector_id = implode(',',$_POST['sector_id']);
 				}
 			
 			}
 			$industryStr = '';
-			if(!empty($_GET['industrycd'])) {
-				if($_GET['industrycd'] == 0)
+			if(!empty($_POST['industrycd'])) {
+				if($_POST['industrycd'] == 0)
 				{
 					$industryStr = 0;
 				}
 				else
 				{
-					$industryStr = implode(',',$_GET['industrycd']);
+					$industryStr = implode(',',$_POST['industrycd']);
 				}
 			
 			}
 			$deptStr = '';
-			if(!empty($_GET['dcd'])) {
-			$deptStr = implode(',',$_GET['dcd']);
+			if(!empty($_POST['dcd'])) {
+			$deptStr = implode(',',$_POST['dcd']);
 				}
 			// $empsizeStr = '';
-			// if(!empty($_GET['emplzid'])) {
-			// $empsizeStr = $_GET['emplzid'];
+			// if(!empty($_POST['emplzid'])) {
+			// $empsizeStr = $_POST['emplzid'];
 			// 	}
 			// $revStr = '';
-			// if(!empty($_GET['revid'])) {
-			// $revStr = $_GET['revid'];
+			// if(!empty($_POST['revid'])) {
+			// $revStr = $_POST['revid'];
 			// 	}
 			$joblevelids = '';
-			if(!empty($_GET['levelid'])) {
-				$joblevelids = implode(',',$_GET['levelid']);
+			if(!empty($_POST['levelid'])) {
+				$joblevelids = implode(',',$_POST['levelid']);
 			}
 
 			$desiStr = '';
-			if(!empty($_GET['desid'])) {
-			$desiStr = implode(',',$_GET['desid']);
+			if(!empty($_POST['desid'])) {
+			$desiStr = implode(',',$_POST['desid']);
 			}
 
 			$frequency_type = '';
-			if(!empty($_GET['frequency_type'])) {
-			$frequency_type = $_GET['frequency_type'];
+			if(!empty($_POST['frequency_type'])) {
+			$frequency_type = $_POST['frequency_type'];
 			}
 			$frequency = '';
-			if(!empty($_GET['frequency'])) {
-			$frequency = implode(',',$_GET['frequency']);
+			if(!empty($_POST['frequency'])) {
+			$frequency = implode(',',$_POST['frequency']);
 			}
 
 			$emplbound = '';
-			if(!empty($_GET['emplbound'])) {
-			$emplbound = $_GET['emplbound'];
+			if(!empty($_POST['emplbound'])) {
+			$emplbound = $_POST['emplbound'];
 			}
 			$empubound = "";
-			if(!empty($_GET['empubound'])) {
-			$empubound = $_GET['empubound'];
+			if(!empty($_POST['empubound'])) {
+			$empubound = $_POST['empubound'];
 			}
 			$emp_range = null;
 			if(isset($emplbound) && $empubound)
 				$emp_range = $emplbound . "-" . $empubound;
 
 			$revnlbound = '';
-			if(!empty($_GET['revnlbound'])) {
-			$revnlbound = $_GET['revnlbound'];
+			if(!empty($_POST['revnlbound'])) {
+			$revnlbound = $_POST['revnlbound'];
 			}
 			$revnubound = "";
-			if(!empty($_GET['revnubound'])) {
-			$revnubound = $_GET['revnubound'];
+			if(!empty($_POST['revnubound'])) {
+			$revnubound = $_POST['revnubound'];
 			}
 			// $ren_range = null;
 			// if(isset($emplbound) && $empubound)
 			// 	$ren_range = $emplbound .$str[0]"-". $empubound.$str[0];;
 			
 			$revnlbound_range = '';
-			if(!empty($_GET['revnlbound_range'])) {
-			$revnlbound_range = $_GET['revnlbound_range'];
+			if(!empty($_POST['revnlbound_range'])) {
+			$revnlbound_range = $_POST['revnlbound_range'];
 			}
 			$revnubound_range = "";
-			if(!empty($_GET['revnubound_range'])) {
-			$revnubound_range = $_GET['revnubound_range'];
+			if(!empty($_POST['revnubound_range'])) {
+			$revnubound_range = $_POST['revnubound_range'];
 			}
-			$period = $_GET['period'];
+			$period = $_POST['period'];
 
 			$question = 0;
-			if(!empty($_GET['quantity'])) {
-				$question = $_GET['quantity'];
+			if(!empty($_POST['quantity'])) {
+				$question = $_POST['quantity'];
 			}
 			
-			$sdate=date_create($_GET['startdt']);
-			$cdate=date_create($_GET['estclosedt']);
+			$sdate=date_create($_POST['startdt']);
+			$cdate=date_create($_POST['estclosedt']);
 			$closedate = date_format($cdate,"Y/m/d");
 			$startdate = date_format($sdate,"Y/m/d");
 			$datacampaign = array(
-				'clientids' => $_GET['client_id'], 
-				'cids' => $_GET['campaign_id'],
-				'campnm' => $_GET['campaign_name'],
+				'clientids' => $_POST['client_id'], 
+				'cids' => $_POST['campaign_id'],
+				'campnm' => $_POST['campaign_name'],
 				'subregioncode' => $subregionStr,
 				'countrycd' => $campaigncountryStr,
 				'regioncode' => $regionStr,
@@ -1081,12 +1081,12 @@
 				// 'comzid' => $revStr,
 				'joblevelids' => $joblevelids,
 				'tid' => $desiStr,
-				'suplistnew' =>$_GET['checksupp'],
-				'inclistnew' =>$_GET['inclist'],
-				'cdcneed' =>$_GET['cdqa'],
-				'assetid' => $_GET['assetid'],
+				'suplistnew' =>$_POST['checksupp'],
+				'inclistnew' =>$_POST['inclist'],
+				'cdcneed' =>$_POST['cdqa'],
+				'assetid' => $_POST['assetid'],
 				'questnos' =>$question,
-				'status' => $_GET['selectstatus'],			
+				'status' => $_POST['selectstatus'],			
 				'estclosedt' => $closedate,
 				'startdt' => $startdate,
 				'freqtyp' => $frequency_type,

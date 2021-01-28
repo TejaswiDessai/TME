@@ -1213,8 +1213,15 @@ function saverecords($emp_id,$Fname,$Lname,$Manager,$status,$user_type,$Password
 
 function getSubRegion($region_id)
 {
+	$region_id = $region_id[0];
 	$response = array();
-	$sql = "SELECT DISTINCT subregion,subregioncode FROM country group by subregion,subregioncode order by subregion asc";
+	$test = null;
+	if($region_id != 0)
+	{
+		$test = "where regioncode=$region_id";
+	}
+	
+	$sql = "SELECT DISTINCT subregion,subregioncode FROM country $test group by subregion,subregioncode order by subregion asc";
 	$query = $this->db->query($sql);
 	// Select record
 	// $this->db->select('intercodederived,intermedtregion');
@@ -1230,7 +1237,7 @@ function getSubRegion($region_id)
 	return $response;
 }
 
-function getCountry($sub_region_id)
+function getCountry($sub_region_id,$region_id)
 {
 	$response = array();
 	
@@ -1241,6 +1248,11 @@ function getCountry($sub_region_id)
 	{
 		$this->db->where_in('subregioncode', $sub_region_id );  //this is condition 
 	}
+	if($region_id[0] != 0)
+	{
+		$this->db->where_in('regioncode', $region_id );  //this is condition 
+	}
+	$this->db->group_by('countrycd'); 
 	$this->db->order_by("countryname", "asc"); 
 	$q = $this->db->get('country');
 	$response = $q->result_array();

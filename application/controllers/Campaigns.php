@@ -298,9 +298,10 @@
 		public function getCountry(){ 
 			
 			$sub_region_id = $_GET['sub_region_id'];
+			$region_id = $_GET['region_id'];
 			$desiStr = implode(',',$sub_region_id);
 			// get data 
-			$data = $this->Administrator_Model->getCountry($sub_region_id);
+			$data = $this->Administrator_Model->getCountry($sub_region_id,$region_id);
 			echo json_encode($data); 
 		}
 

@@ -123,7 +123,15 @@
 			$data = $this->Administrator_Model->getcurrencybycountry($country_id);
 			echo json_encode($data); 
 		}
-
+		public function getIndustry(){ 
+		
+			$industrycd = $_GET['industrycd'];
+			
+			// get data 
+			$data = $this->Administrator_Model->getIndustry($industrycd);
+			echo json_encode($data); 
+			}
+	
 		public function ajax_add_new_leadandcdc()
 		{
 			$campaign_id = $_GET['campaign_id'];

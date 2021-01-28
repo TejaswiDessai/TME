@@ -381,11 +381,13 @@ $.ajax({
                             
                             <div class="col-sm-2">
                                 <select class="form-control form-control-sm cdqadisable" name="mlbl" id="mlbl">
-                                    <option value="0">Thousands</option>
-                                    <option value="1">Hundred Thousand</option>
-                                    <option value="2">Million</option>
-                                    <option value="3">Billion</option>
-                                    <option value="4">Trillion</option>
+                                
+                                <?php echo $campaign['revlbdim']; ?><?php echo $campaign['revubdim']; ?>
+                                    <option value="K">K</option>
+                                    <!-- <option value="1">Hundred Thousand</option> -->
+                                    <option value="M">M</option>
+                                    <option value="B">B</option>
+                                    <option value="T">T</option>
                                     </select>
                             </div>          
                             <div class="col-sm-2">
@@ -574,7 +576,7 @@ $('#country_id').change(function(){
 //     // AJAX request to get timezones
     
 //     $.ajax({
-//         url:'<?php echo base_url("cdc/gettcurrency");?>',
+//         url:'<?php // echo base_url("cdc/gettcurrency");?>',
 //         method: 'get',
 //         data: {country_id: country_id},
 //         dataType: 'json',
@@ -1164,7 +1166,7 @@ $(document).ready(function() {
                 },
                 error: function (error) {
     
-                    alert("Success");
+                  location.reload();
                   }
               
             });
@@ -1348,7 +1350,7 @@ $(document).ready(function() {
                 
                 error: function (error) {
     
-                    alert("Success");
+                  location.reload();
                   }
               
             });
@@ -1528,8 +1530,7 @@ $(document).ready(function() {
 
                 },
                 error: function (error) {
-    
-                    alert("Success");
+                  location.reload();
                   }
               
             });
@@ -1712,7 +1713,7 @@ $(document).ready(function() {
                 },
                 error: function (error) {
     
-                alert("Success");
+                  location.reload();
               }
               
             });

@@ -232,7 +232,7 @@
 			$this->db->group_by('industry');
 			// $this->db->group_by('subindustrycd');
 	
-			if($myarray[0] != 0)
+			if($myarray[0] != 0)  
 			{
 				$this->db->where_in('industrycd', $myarray );  //this is condition 
 			}

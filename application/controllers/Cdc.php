@@ -20,7 +20,7 @@
 						}
 						// echo $camp['cnid'];
 						$camp_id = $camp['cnid'];
-						// print_r($data['campaigns']);
+						// print_r($data['campaigns']);  
 						
 
 						$data['countries'] = $this->Administrator_Model->get_countriesbyCampaign($camp_id);

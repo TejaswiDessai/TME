@@ -290,6 +290,7 @@ $(function () {
  // City change
  $('#sub_region_id').change(function(){
     var sub_region_id = $(this).val();
+    var region_id = $('#region_id').val();
     if (sub_region_id != '')
     {
         $('#country_id').prop('disabled', false);
@@ -299,7 +300,7 @@ $(function () {
     $.ajax({
         url:'<?php echo base_url("campaigns/getCountry");?>',
         method: 'get',
-        data: {sub_region_id: sub_region_id},
+        data: {sub_region_id: sub_region_id,region_id:region_id},
         dataType: 'json',
         success: function(response){
 
@@ -605,9 +606,9 @@ $('#levelid').change(function(){
                                 <label class="col-lable"><b>Country</b></label>  <?php echo form_error('country_id'); ?>
                                 <select style="width:500px;" class="js-example-basic multiselect col-sm-12 form-control-sm" multiple="multiple" name="country_id[]" id="country_id">
                                 <!-- <option value="0">All</option> -->
-                                <?php foreach ($countries as $country): ?>
-                                    <option value="<?php echo $country['countrycd']; ?>"><?php echo $country['countryname']; ?></option>
-                                <?php endforeach; ?>
+                                <?php //foreach ($countries as $country): ?>
+                                    <!-- <option value="<?php //echo $country['countrycd']; ?>"><?php //echo $country['countryname']; ?></option> -->
+                                <?php //endforeach; ?>
                                
                                 </select>
                             </div>

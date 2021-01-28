@@ -20,7 +20,7 @@
 						}
 						// echo $camp['cnid'];
 						$camp_id = $camp['cnid'];
-						// print_r($data['campaigns']);
+						// print_r($data['campaigns']);  
 						
 
 						$data['countries'] = $this->Administrator_Model->get_countriesbyCampaign($camp_id);
@@ -206,7 +206,7 @@
 				{
 					$timezones = $_GET['timezone'];
 				} else{
-				    $timezones = GMT ;
+				    $timezones = 0 ;
 				}
 
 
@@ -391,7 +391,7 @@
 				{
 					$timezones = $_GET['timezone'];
 				} else{
-				    $timezones = GMT ;
+				    $timezones = 0;
 				}
 
 				$datacdcandlead = array(
@@ -576,7 +576,7 @@
 					{
 						$timezones = $_GET['timezone'];
 					} else{
-						$timezones = GMT ;
+						$timezones = 0 ;
 					}
 
 				$datacdcandlead = array(
@@ -768,7 +768,7 @@
 				{
 					$timezones = $_GET['timezone'];
 				} else{
-				    $timezones = GMT ;
+				    $timezones = 0 ;
 				}
 
 				$datacdcandlead = array(

@@ -242,7 +242,7 @@ $.ajax({
                         <hr>
                         <div class="form-group row">
                         <div class="col-sm-2">
-                                 <select class="form-control form-control-sm cdqadisable" name="dcd" id="dcd">
+                                 <select class="js-example-basic-single" name="dcd" id="dcd">
                                     <option value=""> Department</option>
                                 <?php foreach ($departments as $dept): ?>
                                     <option value="<?php echo $dept['dcd']; ?>"><?php echo $dept['department']; ?></option>
@@ -339,7 +339,7 @@ $.ajax({
 
 
                             <div class="col-sm-2">
-                              <select class="form-control form-control-sm cdqadisable"  name="industrycd" id="industrycd">
+                              <select class="js-example-basic-single"  name="industrycd" id="industrycd">
                               <option value="">Industry</option>
                               <?php foreach ($industries as $industry): ?>
                                     <option value="<?php echo $industry['industrycd']; ?>"><?php echo $industry['industry']; ?></option>
@@ -348,7 +348,7 @@ $.ajax({
                                 <span style='color:#FF0000' id="industry_id_msg"></span>
                             </div>
                             <div class="col-sm-2">
-                                <select class="form-control form-control-sm cdqadisable" name="subindustrycd" id="subindustrycd">
+                                <select class="js-example-basic-single" name="subindustrycd" id="subindustrycd">
                                 <option value="">Sub Industry</option>
                                 <?php foreach ($industriessub as $sub): ?>
                                     <option value="<?php echo $sub['subindustrycd']; ?>"><?php echo $sub['subindustry']; ?></option>
@@ -382,11 +382,13 @@ $.ajax({
                             
                             <div class="col-sm-2">
                                 <select class="form-control form-control-sm cdqadisable" name="mlbl" id="mlbl">
-                                    <option value="0">Thousands</option>
-                                    <option value="1">Hundred Thousand</option>
-                                    <option value="2">Million</option>
-                                    <option value="3">Billion</option>
-                                    <option value="4">Trillion</option>
+                                
+                                <?php echo $campaign['revlbdim']; ?><?php echo $campaign['revubdim']; ?>
+                                    <option value="K">K</option>
+                                    <!-- <option value="1">Hundred Thousand</option> -->
+                                    <option value="M">M</option>
+                                    <option value="B">B</option>
+                                    <option value="T">T</option>
                                     </select>
                             </div>          
                             <div class="col-sm-2">
@@ -575,7 +577,7 @@ $('#country_id').change(function(){
 //     // AJAX request to get timezones
     
 //     $.ajax({
-//         url:'<?php echo base_url("cdc/gettcurrency");?>',
+//         url:'<?php // echo base_url("cdc/gettcurrency");?>',
 //         method: 'get',
 //         data: {country_id: country_id},
 //         dataType: 'json',
@@ -1187,7 +1189,7 @@ $(document).ready(function() {
                 },
                 error: function (error) {
     
-                    alert("Success");
+                  location.reload();
                   }
               
             });
@@ -1371,7 +1373,7 @@ $(document).ready(function() {
                 
                 error: function (error) {
     
-                    alert("Success");
+                  location.reload();
                   }
               
             });
@@ -1551,8 +1553,7 @@ $(document).ready(function() {
 
                 },
                 error: function (error) {
-    
-                    alert("Success");
+                  location.reload();
                   }
               
             });
@@ -1735,7 +1736,7 @@ $(document).ready(function() {
                 },
                 error: function (error) {
     
-                alert("Success");
+                  location.reload();
               }
               
             });

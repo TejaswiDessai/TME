@@ -39,6 +39,7 @@
 							$myind = implode(',', $ind);
 							}
 							$myind1 = explode(',', $myind);
+							// print_r($myind1); // this is 10
 						$data['industries'] = $this->Administrator_Model->get_industries_ofCampaign($camp_id,$myind1);
 
 						$data['industriessub'] = $this->Administrator_Model->get_subindustries_byCampaign($camp_id,$myind1);
@@ -115,14 +116,6 @@
 			$data = $this->Administrator_Model->gettimezonesbycountry($country_id);
 			echo json_encode($data); 
 		}
-		public function gettcurrency(){ 
-			
-			$country_id = $_GET['country_id'];
-			
-			// get data 
-			$data = $this->Administrator_Model->getcurrencybycountry($country_id);
-			echo json_encode($data); 
-		}
 
 		public function ajax_add_new_leadandcdc()
 		{
@@ -194,12 +187,6 @@
 				} else{
 				    $opteml = 0 ;
 				}
-				if(!empty($_GET['timezone']))
-				{
-					$timezones = $_GET['timezone'];
-				} else{
-				    $timezones = GMT ;
-				}
 
 
 				$datacdcandlead = array(
@@ -227,7 +214,7 @@
 				'state' => $_GET['state'],
 				'zipcode' => $_GET['zip_code'],
 				'country' => $_GET['country_id'],
-				'timez' => $timezones,
+				'timez' => $_GET['timezone'],
 				'ctyp' => $_GET['ctype'],
 			
 				'linetype' => $_GET['linetype'],
@@ -379,12 +366,6 @@
 				    $opteml = 0 ;
 				}
 
-				if(!empty($_GET['timezone']))
-				{
-					$timezones = $_GET['timezone'];
-				} else{
-				    $timezones = GMT ;
-				}
 
 				$datacdcandlead = array(
 				'cnid' => $_GET['campaign_id'],
@@ -411,7 +392,7 @@
 				'state' => $_GET['state'],
 				'zipcode' => $_GET['zip_code'],
 				'country' => $_GET['country_id'],
-				'timez' => $timezones,
+				'timez' => $_GET['timezone'],
 				'ctyp' => $_GET['ctype'],
 			
 				'linetype' => $_GET['linetype'],
@@ -564,12 +545,6 @@
 					} else{
 						$opteml = 0 ;
 					}
-					if(!empty($_GET['timezone']))
-					{
-						$timezones = $_GET['timezone'];
-					} else{
-						$timezones = GMT ;
-					}
 
 				$datacdcandlead = array(
 				'cnid' => $_GET['campaign_id'],
@@ -596,7 +571,7 @@
 				'state' => $_GET['state'],
 				'zipcode' => $_GET['zip_code'],
 				'country' => $_GET['country_id'],
-				'timez' => $timezones,
+				'timez' => $_GET['timezone'],
 				'ctyp' => $_GET['ctype'],
 			
 				'linetype' => $_GET['linetype'],
@@ -756,12 +731,6 @@
 				} else{
 				    $opteml = 0 ;
 				}
-				if(!empty($_GET['timezone']))
-				{
-					$timezones = $_GET['timezone'];
-				} else{
-				    $timezones = GMT ;
-				}
 
 				$datacdcandlead = array(
 				'cnid' => $_GET['campaign_id'],
@@ -788,7 +757,7 @@
 				'state' => $_GET['state'],
 				'zipcode' => $_GET['zip_code'],
 				'country' => $_GET['country_id'],
-				'timez' => $timezones,
+				'timez' => $_GET['timezone'],
 				'ctyp' => $_GET['ctype'],
 			
 				'linetype' => $_GET['linetype'],

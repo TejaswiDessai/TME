@@ -218,7 +218,7 @@ $.ajax({
                             </div>
                             <div class="col-sm-2">
                                 <!-- <select class="js-example-basic-multiple col-sm-12 cdqadisable" multiple="multiple" name="desid[]" id="desid"> -->
-                                <select class="js-example-basic-single" name="desid" id="desid">
+                                <select class="form-control form-control-sm cdqadisable" name="desid" id="desid">
                                 <option value="">Designation</option>
                                 <?php foreach ($designation as $designation): ?>
                                     <option value="<?php echo $designation['jid']; ?>"><?php echo $designation['joblist']; ?></option>
@@ -295,7 +295,7 @@ $.ajax({
                                 <input type="text"  name="zip_code" id="zip_code"  placeholder="Zip Code"  class="form-control form-control-sm cdqadisable">
                            </div>
                              <div class="col-sm-2">
-                                     <select class="js-example-basic-single" name="country_id" id="country_id">
+                                     <select class="form-control form-control-sm cdqadisable" name="country_id" id="country_id">
                                      <option value="">Countries</option>
                                  <?php foreach ($countriesofcampaign as $countriesofcampaign): ?>
                                     <option value="<?php echo $countriesofcampaign['countrycd']; ?>"  ><?php echo $countriesofcampaign['countryname']; ?></option>
@@ -391,9 +391,9 @@ $.ajax({
                             <div class="col-sm-2">
                                 <select class="form-control form-control-sm cdqadisable" name="curr" id="curr">
                                     <option value="1">USD</option>                                  
-                                <!-- <?php //foreach ($currency as $currency): ?> -->
-                                    <!-- <option value="<?php //echo $currency['currid']; ?>"><?php //echo $currency['currab']; ?></option> -->
-                                <!-- <?php//endforeach; ?> -->
+                                <?php foreach ($currency as $currency): ?>
+                                    <option value="<?php echo $currency['currid']; ?>"><?php echo $currency['currab']; ?></option>
+                                <?php endforeach; ?>
                                    </select>
                             </div>          
                             <div class="col-sm-2">
@@ -541,58 +541,11 @@ $('#country_id').change(function(){
           
         });
         // $('#country_id').multiselect("rebuild");
-        // callB();
-              $.ajax({
-              url:'<?php echo base_url("cdc/gettcurrency");?>',
-              method: 'get',
-              data: {country_id: country_id},
-              dataType: 'json',
-              success: function(response){
-
-              //    Remove options 
-            $('#curr').find('option').not(':first').remove();
-
-              //    Add options
-            $.each(response,function(index,data){
-                $('#curr').append('<option value="'+data['currid']+'">'+data['currab']+'</option>');
-              
-              });
-              // $('#country_id').multiselect("rebuild");
-            
-              }
-          });
-
-
-
-
-
         }
     });
 });
 
-// function callB() {
-//     // AJAX request to get timezones
-    
-//     $.ajax({
-//         url:'<?php echo base_url("cdc/gettcurrency");?>',
-//         method: 'get',
-//         data: {country_id: country_id},
-//         dataType: 'json',
-//         success: function(response){
 
-//         //    Remove options 
-//        $('#curr').find('option').not(':first').remove();
-
-//         //    Add options
-//        $.each(response,function(index,data){
-//           $('#curr').append('<option value="'+data['currid']+'">'+data['currab']+'</option>');
-         
-//         });
-//         // $('#country_id').multiselect("rebuild");
-       
-//         }
-//     });
-// }
 
 
 
@@ -1036,7 +989,7 @@ $(document).ready(function() {
           
             
            
-            if(fname != "" && lname != "" && jlevel != "" && jtitle != "" && desid != "" && email != "" && address != "" && city != ""  && country_id != ""  && industrycd != "" && subindustrycd != "" && empsize != "" && empszlink != "" && revszlink != ""){
+            if(fname != "" && lname != "" && jlevel != "" && jtitle != "" && desid != "" && email != "" && address != "" && city != ""  && country_id != "" && timezone != "" && industrycd != "" && subindustrycd != "" && empsize != "" && empszlink != "" && revszlink != ""){
            
             var url = encodeURI("<?php echo base_url("cdc/ajax_add_new_leadandcdc");?>");
             console.log(url+"?campaign_id="+campaign_id+"&sal="+sal+"&fname="+fname+"&lname="+lname+"&jtitle="+jtitle+"&desid="+desid+"&jlevel="+jlevel+"&dcd="+dcd+"&email="+email+"&phone="+phone+"&altphn="+altphn+"&phext="+phext+"&plink="+plink+"&company_name="+company_name+"&address="+address+"&city="+city+"&state="+state+"&zip_code="+zip_code+"&country_id="+country_id+"&timezone="+timezone+"&ctype="+ctype+"&linetype="+linetype+"&industrycd="+industrycd+"&subindustrycd="+subindustrycd+"&sectyp="+sectyp+"&empsize="+empsize+"&mlbl="+mlbl+"&curr="+curr+"&arevenue="+arevenue+"&empszlink="+empszlink+"&indlink="+indlink+"&domain="+domain+"&othrlink="+othrlink+"&revszlink="+revszlink+"&emailver="+emailver+"&aum="+aum+"&assetid="+assetid+"&optin="+optin+"&optpst="+optpst+"&optph="+optph+"&opteml="+opteml+"&optoption="+optoption+"&aa1="+aa1+"&aa2="+aa2+"&aa3="+aa3+"&aa4="+aa4+"&aa5="+aa5+"&aa6="+aa6+"&aa7="+aa7+"&aa8="+aa8+"&aa9="+aa9+"&aa10="+aa10+"&aa11="+aa11+"&aa12="+aa12+"&pcomt="+pcomt);
@@ -1221,7 +1174,7 @@ $(document).ready(function() {
           
             
 
-            if(fname != "" && lname != "" && jlevel != "" && jtitle != "" && desid != "" && email != "" && address != "" && city != ""  && country_id != "" && industrycd != "" && subindustrycd != "" && empsize != "" && empszlink != "" && revszlink != ""){
+            if(fname != "" && lname != "" && jlevel != "" && jtitle != "" && desid != "" && email != "" && address != "" && city != ""  && country_id != "" && timezone != "" && industrycd != "" && subindustrycd != "" && empsize != "" && empszlink != "" && revszlink != ""){
             var url = encodeURI("<?php echo base_url("cdc/ajax_save_leadandcdc");?>");
             console.log(url+"?campaign_id="+campaign_id+"&sal="+sal+"&fname="+fname+"&lname="+lname+"&jtitle="+jtitle+"&desid="+desid+"&jlevel="+jlevel+"&dcd="+dcd+"&email="+email+"&phone="+phone+"&altphn="+altphn+"&phext="+phext+"&plink="+plink+"&company_name="+company_name+"&address="+address+"&city="+city+"&state="+state+"&zip_code="+zip_code+"&country_id="+country_id+"&timezone="+timezone+"&ctype="+ctype+"&linetype="+linetype+"&industrycd="+industrycd+"&subindustrycd="+subindustrycd+"&sectyp="+sectyp+"&empsize="+empsize+"&mlbl="+mlbl+"&curr="+curr+"&arevenue="+arevenue+"&empszlink="+empszlink+"&indlink="+indlink+"&domain="+domain+"&othrlink="+othrlink+"&revszlink="+revszlink+"&emailver="+emailver+"&aum="+aum+"&assetid="+assetid+"&optin="+optin+"&optpst="+optpst+"&optph="+optph+"&opteml="+opteml+"&optoption="+optoption+"&aa1="+aa1+"&aa2="+aa2+"&aa3="+aa3+"&aa4="+aa4+"&aa5="+aa5+"&aa6="+aa6+"&aa7="+aa7+"&aa8="+aa8+"&aa9="+aa9+"&aa10="+aa10+"&aa11="+aa11+"&aa12="+aa12+"&pcomt="+pcomt);
            

@@ -236,6 +236,7 @@
 			{
 				$this->db->where_in('industrycd', $myarray );  //this is condition 
 			}
+
 			$this->db->order_by("industrycd", "asc"); 
 			// foreach ($myarray as $arr)
 			// {	
@@ -263,11 +264,16 @@
 			
 			if($myarray[0] != 0)
 			{
-				$this->db->where_in('subindustrycd', $myarray );  //this is condition 
+				$resultsub =$this->db->where_in('subindustrycd', $myarray );  //this is condition 
 			}
+			
+			// if($result == 0 ){
+			// 	$this->db->select('*');
+			// }
+
 			$this->db->order_by("subindustrycd", "asc"); 
 			$query = $this->db->get('industry');
-			// echo $this->db->last_query(); 
+			echo $this->db->last_query(); 
 			return $query->result_array();
 		
 
@@ -302,19 +308,6 @@
 			$response = $query->result_array();
 			return $response;
 			// echo $this->db->last_query(); 
-			
-
-		// }
-		// public function get_subregionbyCampaign($cnid){
-
-		// 	$this->db->select('subregioncode');
-		// 	$this->db->where('cnid', $cnid);
-		// 	$query = $this->db->get('campaign');
-			
-		
-		// 	$response = $query->result_array();
-		// 	return $response;
-		// 	// echo $this->db->last_query(); 
 			
 
 		}
@@ -356,22 +349,6 @@
 			$this->db->where('countrycd', $country_id);
 		
 			$q = $this->db->get('timezone');
-			$response = $q->result_array();
-		
-			return $response;
-		}
-		function getcurrencybycountry($country_id)
-		{
-			$response = array();
-			
-			// Select record
-			$this->db->select('country.currab,country.currnme,country.currid');
-			$this->db->group_by('country.currab');
-			$this->db->group_by('country.currnme');
-			$this->db->group_by('country.currid');
-			$this->db->where('countrycd', $country_id);
-		
-			$q = $this->db->get('country');
 			$response = $q->result_array();
 		
 			return $response;

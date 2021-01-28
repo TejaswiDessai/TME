@@ -241,7 +241,7 @@ $.ajax({
                         <hr>
                         <div class="form-group row">
                         <div class="col-sm-2">
-                                 <select class="form-control form-control-sm cdqadisable" name="dcd" id="dcd">
+                                 <select class="js-example-basic-single" name="dcd" id="dcd">
                                     <option value=""> Department</option>
                                 <?php foreach ($departments as $dept): ?>
                                     <option value="<?php echo $dept['dcd']; ?>"><?php echo $dept['department']; ?></option>
@@ -338,7 +338,7 @@ $.ajax({
 
 
                             <div class="col-sm-2">
-                              <select class="form-control form-control-sm cdqadisable"  name="industrycd" id="industrycd">
+                              <select class="js-example-basic-single"  name="industrycd" id="industrycd">
                               <option value="">Industry</option>
                               <?php foreach ($industries as $industry): ?>
                                     <option value="<?php echo $industry['industrycd']; ?>"><?php echo $industry['industry']; ?></option>
@@ -347,7 +347,7 @@ $.ajax({
                                 <span style='color:#FF0000' id="industry_id_msg"></span>
                             </div>
                             <div class="col-sm-2">
-                                <select class="form-control form-control-sm cdqadisable" name="subindustrycd" id="subindustrycd">
+                                <select class="js-example-basic-single" name="subindustrycd" id="subindustrycd">
                                 <option value="">Sub Industry</option>
                                 <?php foreach ($industriessub as $sub): ?>
                                     <option value="<?php echo $sub['subindustrycd']; ?>"><?php echo $sub['subindustry']; ?></option>

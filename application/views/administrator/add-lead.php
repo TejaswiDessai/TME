@@ -207,7 +207,6 @@ $.ajax({
                             </div>
                             <div class="col-sm-2">
                                 <input type="text"  name="fname" id="fname"  placeholder="First Name"   class="form-control form-control-sm cdqadisable">
-                                <input type="hidden" name="inclistnew" id="inclistnew" value="<?php echo $campaign['inclistnew']; ?>">
                                 <span style='color:#FF0000' id="fname_msg"></span>
                             </div>
                             <div class="col-sm-2">
@@ -242,7 +241,7 @@ $.ajax({
                         <hr>
                         <div class="form-group row">
                         <div class="col-sm-2">
-                                 <select class="js-example-basic-single" name="dcd" id="dcd">  
+                                 <select class="js-example-basic-single" name="dcd" id="dcd">
                                     <option value=""> Department</option>
                                 <?php foreach ($departments as $dept): ?>
                                     <option value="<?php echo $dept['dcd']; ?>"><?php echo $dept['department']; ?></option>
@@ -682,7 +681,6 @@ $('#country_id').change(function(){
     // $('.newsletter-signup input:first').on('keyup', function(){ 
     $('.newsletter-signup input:first').blur(function(){
       var email = $('#email').val();
-      var inclistnew = $('#inclistnew').val();
       // var campaign_id = <?php  //echo $campaign['cnid']; ?>
       // alert(campaign_id);
       var url = '<?php echo base_url("cdc/checkemail");?>';
@@ -692,7 +690,7 @@ $('#country_id').change(function(){
 
         url:'<?php echo base_url("cdc/checkemail");?>',
         method: 'get',
-        data: {email: email,inclistnew:inclistnew},
+        data: {email: email},
         dataType: 'json',
         success: function(response){
           $( '#email_msg' ).html("response");
@@ -701,13 +699,6 @@ $('#country_id').change(function(){
             $("#email_msg").html("");
             console.log("true");
             return true;	
-          }
-          else if(response.inclusionemail == "false")
-          {
-            $("#email_msg").html("Not in Inclusion Email List");
-            console.log("false");
-            $('#email').val("");
-            // return false;	
           }
           else if(response.exclusionemail == "true")
           {
@@ -731,7 +722,6 @@ $('#country_id').change(function(){
   // Check unique domain
     $('.domaincheck input:first').blur(function(){
       var domain = $('#domain').val();
-      var inclistnew = $('#inclistnew').val();
      
      
       var url = '<?php echo base_url("cdc/checkdomain");?>';
@@ -741,7 +731,7 @@ $('#country_id').change(function(){
 
         url:'<?php echo base_url("cdc/checkdomain");?>',
         method: 'get',
-        data: {domain: domain,inclistnew:inclistnew},
+        data: {domain: domain},
         dataType: 'json',
         success: function(response){
           $( '#domain_msg' ).html(response);
@@ -751,15 +741,9 @@ $('#country_id').change(function(){
             console.log("true");
             return true;	
           }
-          if(response.domaincheckincl == "false")
-          {
-            $("#domain_msg").html("Not in Inclusion Doamin List");
-            console.log("true");
-            // return true;	
-          }
           else if(response.domainchecksupp == "true")
           {
-            $("#domain_msg").html("Suppressed Domain List");
+            $("#domain_msg").html("Suppressed Domain");
             console.log("true");
             $('#domain').val("");
             return true;	
@@ -779,7 +763,6 @@ $('#country_id').change(function(){
  // Check unique Company
  $('.compcheck input:first').blur(function(){
       var company_name = $('#company_name').val();
-      var inclistnew = $('#inclistnew').val();
      
      
       var url = '<?php echo base_url("cdc/checkcompanylist");?>';
@@ -789,19 +772,13 @@ $('#country_id').change(function(){
 
         url:'<?php echo base_url("cdc/checkcompanylist");?>',
         method: 'get',
-        data: {company_name: company_name,inclistnew:inclistnew},
+        data: {company_name: company_name},
         dataType: 'json',
         success: function(response){
           $( '#comp_msg' ).html(response);
           if(response.companycheckincl == "true")
           {
             $("#comp_msg").html("");
-            console.log("true");
-            return true;	
-          }
-          else if(response.companycheckincl == "false")
-          {
-            $("#comp_msg").html("Not in Inclusion Company List");
             console.log("true");
             return true;	
           }
@@ -1188,8 +1165,8 @@ $(document).ready(function() {
 
                 },
                 error: function (error) {
-                  top.location.href=base_url+"cdc/addlead?camp_id="<?php echo $campaign['cnid']; ?>;//redirection
-                  // location.reload();
+    
+                  location.reload();
                   }
               
             });

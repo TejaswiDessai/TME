@@ -10,7 +10,7 @@
 			// print_r($_SESSION);
 			// print_r($_SESSION['emp_id']);
 			if(isset($_GET['camp_id'])){
-				$postData1 = $_GET['camp_id'];
+				$postData1 = $_GET['camp_id']; 
 			}else{
 				$postData = $this->input->post();
 				$postData1 = $postData['campaign_id'];

@@ -351,6 +351,19 @@ $('#desid')
     .multiselect('selectAll', false)
     .multiselect('updateButtonText');
 });
+$(function() {
+$('#dcd')
+    .multiselect({
+    allSelectedText: 'All',
+    maxHeight: 200,
+    enableCaseInsensitiveFiltering :true,
+
+    includeSelectAllOption: true,
+    
+    })
+    .multiselect('selectAll', false)
+    .multiselect('updateButtonText');
+});
 //  Get sub industry
  $('#sector_id').change(function(){
     var sector_id = $(this).val();
@@ -550,8 +563,8 @@ $('#levelid').change(function(){
                             </div>
                             <div class="col-sm-3">
                                 <label class="col-lable"><b>Department</b></label><?php echo form_error('dcd'); ?>
-                                <select class="js-example-basic-multiple col-sm-12 form-control-sm" multiple="multiple" name="dcd[]" id="dcd">
-                                <option value="0">All</option>
+                                <select class="js-example-basic multiselect col-sm-12 form-control-sm" multiple="multiple" name="dcd[]" id="dcd">
+                                <!-- <option value="0">All</option> -->
                                    <?php foreach ($departments as $dept): ?>
                                     <option value="<?php echo $dept['dcd']; ?>"><?php echo $dept['department']; ?></option>
                                 <?php endforeach; ?>

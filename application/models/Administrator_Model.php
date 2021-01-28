@@ -333,9 +333,9 @@
 		}
 		public function get_timezonesbyCampaign($cnid,$myarray){
 			// $this->db->select('*');
-			$this->db->select('timezone.zoneid,timezone.zonename');
+			$this->db->select('timezone.zoneid,timezone.abbrev');
 			$this->db->group_by('timezone.zoneid');
-			$this->db->group_by('timezone.zonename');
+			$this->db->group_by('timezone.abbrev');
 			foreach ($myarray as $arr)
 			{	
 				$this->db->OR_where('countrycd', $arr);
@@ -350,9 +350,9 @@
 			$response = array();
 			
 			// Select record
-			$this->db->select('timezone.zoneid,timezone.zonename');
+			$this->db->select('timezone.zoneid,timezone.abbrev');
 			$this->db->group_by('timezone.zoneid');
-			$this->db->group_by('timezone.zonename');
+			$this->db->group_by('timezone.abbrev');
 			$this->db->where('countrycd', $country_id);
 		
 			$q = $this->db->get('timezone');

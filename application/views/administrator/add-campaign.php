@@ -277,7 +277,7 @@ $(function () {
         success: function(response){
 
         //    Remove options 
-       $('#sub_region_id').find('option').not(':first').remove();
+       $('#sub_region_id').find('option').remove();
 
         //    Add options
        $.each(response,function(index,data){
@@ -305,7 +305,7 @@ $(function () {
         success: function(response){
 
         //    Remove options 
-       $('#country_id').find('option').not(':first').remove();
+       $('#country_id').find('option').remove();
 
         //    Add options
        $.each(response,function(index,data){
@@ -382,7 +382,7 @@ $('#dcd')
         success: function(response){
 
         //    Remove options 
-       $('#industrycd').find('option').not(':first').remove();
+       $('#industrycd').find('option').remove();
 
         //    Add options
        $.each(response,function(index,data){
@@ -412,7 +412,7 @@ $('#levelid').change(function(){
         success: function(response){
 
         //    Remove options 
-       $('#desid').find('option').not(':first').remove();
+       $('#desid').find('option').remove();
 
         //    Add options
        $.each(response,function(index,data){

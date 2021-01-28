@@ -783,10 +783,10 @@ $('#levelid').change(function(){
 
                                 <select name="selectstatus" class="form-control form-control-sm form-control-default" id="revnlbound_range">
                                     <option value="">Select </option>
-                                    <option value="hundred">Hundred Thousand </option>
-                                    <option value="million">Million</option>
-                                    <option value="billion">Billion</option>
-                                    <option value="trillion">Trillion </option>
+                                    <option value="hundred">K</option>
+                                    <option value="million">M</option>
+                                    <option value="billion">B</option>
+                                    <option value="trillion">T</option>
                                 </select>
                             </div>
                             <div class="col-sm-2 ">
@@ -809,10 +809,10 @@ $('#levelid').change(function(){
 
                                 <select name="selectstatus" class="form-control form-control-sm form-control-default" id="revnubound_range">
                                     <option value="">Select </option>
-                                    <option value="hundred">Hundred Thousand </option>
-                                    <option value="million">Million</option>
-                                    <option value="billion">Billion</option>
-                                    <option value="trillion">Trillion</option>
+                                    <option value="hundred">K</option>
+                                    <option value="million">M</option>
+                                    <option value="billion">B</option>
+                                    <option value="trillion">T</option>
                                     
                                 </select>
                             </div>

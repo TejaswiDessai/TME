@@ -102,7 +102,7 @@ $(document).ready(function () {
                                     {
                                         ?>
                                         <script>
-                                        alert("Campaign Added Successfully");
+                                        // alert("Campaign Added Successfully");
                                         top.location.href=base_url+"campaigns/addcampaignForm";
                                         </script>
                                         <?php

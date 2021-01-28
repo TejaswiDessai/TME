@@ -218,15 +218,6 @@ $.ajax({
                             </div>
                             <div class="col-sm-2">
                                 <!-- <select class="js-example-basic-multiple col-sm-12 cdqadisable" multiple="multiple" name="desid[]" id="desid"> -->
-                                <select class="js-example-basic-single" name="desid" id="desid">
-                                <option value="">Designation</option>
-                                <?php foreach ($designation as $designation): ?>
-                                    <option value="<?php echo $designation['jid']; ?>"><?php echo $designation['joblist']; ?></option>
-                                <?php endforeach; ?>  
-                                </select>
-                            </div>
-                            <div class="col-sm-2">
-                                <!-- <select class="js-example-basic-multiple col-sm-12 cdqadisable" multiple="multiple" name="desid[]" id="desid"> -->
                                 <select class="form-control form-control-sm cdqadisable" name="jlevel" id="jlevel">
                                 <option value="">Job Level</option>
                                 <?php foreach ($joblevel as $joblevel): ?>
@@ -235,6 +226,16 @@ $.ajax({
                                
                                 </select>
                             </div>
+                            <div class="col-sm-2">
+                                <!-- <select class="js-example-basic-multiple col-sm-12 cdqadisable" multiple="multiple" name="desid[]" id="desid"> -->
+                                <select class="js-example-basic-single" name="desid" id="desid">
+                                <option value="">Designation</option>
+                                <?php foreach ($designation as $designation): ?>
+                                    <option value="<?php echo $designation['jid']; ?>"><?php echo $designation['joblist']; ?></option>
+                                <?php endforeach; ?>  
+                                </select>
+                            </div>
+                            
                            
                         </div>
 
@@ -546,6 +547,8 @@ $('#country_id').change(function(){
     var country_id = $(this).val();
    
     // AJAX request to get timezones
+    var urlq = '<?php echo base_url("cdc/gettimezones");?>';
+    console.log(urlq+'?country_id='+country_id);
     $.ajax({
         url:'<?php echo base_url("cdc/gettimezones");?>',
         method: 'get',

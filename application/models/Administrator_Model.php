@@ -356,8 +356,9 @@
 			$this->db->where('countrycd', $country_id);
 		
 			$q = $this->db->get('timezone');
+				// echo $this->db->last_query(); 
 			$response = $q->result_array();
-		
+	
 			return $response;
 		}
 		function getcurrencybycountry($country_id)

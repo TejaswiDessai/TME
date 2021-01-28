@@ -1446,7 +1446,7 @@ $(document).ready(function() {
                 },
                 
                 error: function (error) {
-                  // top.location.href=base_url+"cdc/addlead?camp_id="+<?php echo $campaign['cnid']; ?>;//redirection
+                  top.location.href=base_url+"cdc/addlead?camp_id="+<?php echo $campaign['cnid']; ?>;//redirection
                   // location.reload();
                   }
               

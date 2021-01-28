@@ -612,7 +612,7 @@
 						//$item36= mysqli_real_escape_string($connect, $data[35]);
 
 						//$item5 = mysqli_real_escape_string($connect, $data[4]);
-						$query = "INSERT into emaillist(cid,filename,emailids,domainnms,datatype,exclincl)values('$camp_id','$in_email_file','$item1','$suptyp','1')";
+						$query = "INSERT into emaillist(cid,filename,emailids,datatype,exclincl)values('$camp_id','$in_email_file','$item1','$suptyp','1')";
 						// show_error($this->db->last_query(), 200, "SQL");
 						$result = pg_query($connect, $query);
 						if (!$result) {

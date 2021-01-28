@@ -888,11 +888,14 @@
 			
 			
 			$email = $_GET['email'];
-			
+			$inclistnew = $_GET['inclistnew'];
 			// get data 
 			// $data = $this->Administrator_Model->check_unique_email($email);
-
-			$data['inclusionemail'] = $this->Administrator_Model->check_inclusion_email($email);
+			if($inclistnew == 1)
+			{
+				$data['inclusionemail'] = $this->Administrator_Model->check_inclusion_email($email);
+			}
+			
 
 
 			// if ($data['inclusionemail'] == true){
@@ -907,13 +910,15 @@
 			
 			
 			$domain = $_GET['domain'];
-			
+			$inclistnew = $_GET['inclistnew'];
 			// get data 
 			// $data = $this->Administrator_Model->check_unique_email($email);
 
 			$data['domainchecksupp'] = $this->Administrator_Model->check_domain_suppression($domain);
-			$data['domaincheckincl'] = $this->Administrator_Model->check_domain_incl($domain);
-
+			if($inclistnew == 1)
+			{
+				$data['domaincheckincl'] = $this->Administrator_Model->check_domain_incl($domain);
+			}
 			// print_r($data['domainchecksupp']); die;
 			
 			echo json_encode($data); 
@@ -922,13 +927,15 @@
 			
 			
 			$company_name = $_GET['company_name'];
-			
+			$inclistnew = $_GET['inclistnew'];
 			// get data 
 			// $data = $this->Administrator_Model->check_unique_email($email);
 
 			$data['companychecksupp'] = $this->Administrator_Model->check_company_suppression($company_name);
-			$data['companycheckincl'] = $this->Administrator_Model->check_company_incl($company_name);
-
+			if($inclistnew == 1)
+			{
+				$data['companycheckincl'] = $this->Administrator_Model->check_company_incl($company_name);
+			}
 			// print_r($data['domainchecksupp']); die;
 			
 			echo json_encode($data); 

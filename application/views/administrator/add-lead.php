@@ -995,7 +995,7 @@ $(document).ready(function() {
         // minlength: 5
       },
       timezone : {
-        required: true
+        // required: true
       },
       industrycd : {
         required: true
@@ -1160,8 +1160,7 @@ $(document).ready(function() {
           
             
            
-            if(fname != "" && lname != "" && jlevel != "" && jtitle != "" && desid != "" && email != "" && address != "" && city != ""  && country_id != ""  && industrycd != "" && subindustrycd != "" && empsize != "" && empszlink != "" && revszlink != ""){
-           
+            if(fname != "" && lname != "" && company_name != "" && jlevel != "" && jtitle != "" && desid != "" && dcd !="" && email != "" && phone !="" && plink !="" && address != "" && city != "" && state != ""  && country_id != "" && industrycd != "" && subindustrycd != "" && empsize != "" && domain !=""  && empszlink != "" && revszlink != "" && revszlink != "" && zip_code !="" ){
             var url = encodeURI("<?php echo base_url("cdc/ajax_add_new_leadandcdc");?>");
             console.log(url+"?campaign_id="+campaign_id+"&sal="+sal+"&fname="+fname+"&lname="+lname+"&jtitle="+jtitle+"&desid="+desid+"&jlevel="+jlevel+"&dcd="+dcd+"&email="+email+"&phone="+phone+"&altphn="+altphn+"&phext="+phext+"&plink="+plink+"&company_name="+company_name+"&address="+address+"&city="+city+"&state="+state+"&zip_code="+zip_code+"&country_id="+country_id+"&timezone="+timezone+"&ctype="+ctype+"&linetype="+linetype+"&industrycd="+industrycd+"&subindustrycd="+subindustrycd+"&sectyp="+sectyp+"&empsize="+empsize+"&mlbl="+mlbl+"&curr="+curr+"&arevenue="+arevenue+"&empszlink="+empszlink+"&indlink="+indlink+"&domain="+domain+"&othrlink="+othrlink+"&revszlink="+revszlink+"&emailver="+emailver+"&aum="+aum+"&assetid="+assetid+"&optin="+optin+"&optpst="+optpst+"&optph="+optph+"&opteml="+opteml+"&optoption="+optoption+"&aa1="+aa1+"&aa2="+aa2+"&aa3="+aa3+"&aa4="+aa4+"&aa5="+aa5+"&aa6="+aa6+"&aa7="+aa7+"&aa8="+aa8+"&aa9="+aa9+"&aa10="+aa10+"&aa11="+aa11+"&aa12="+aa12+"&pcomt="+pcomt);
            
@@ -1210,27 +1209,27 @@ $(document).ready(function() {
                     domain:domain,
                     othrlink:othrlink,
                     emailver:emailver,
-                    aum:aum,                 
+                    aum:aum                 
                     
-                    assetid:assetid,
-                    optin:optin,
-                    optph:optph,
-                    opteml:opteml,
-                    optpst:optpst,
-                    optoption:optoption,
-                    aa1:aa1,
-                    aa2:aa2,
-                    aa3:aa3,
-                    aa4:aa4,
-                    aa5:aa5,
-                    aa6:aa6,
-                    aa7:aa7,
-                    aa8:aa8,
-                    aa9:aa9,
-                    aa10:aa10,
-                    aa11:aa11,
-                    aa12:aa12,
-                    pcomt:pcomt     
+                    // assetid:assetid,
+                    // optin:optin,
+                    // optph:optph,
+                    // opteml:opteml,
+                    // optpst:optpst,
+                    // optoption:optoption,
+                    // aa1:aa1,
+                    // aa2:aa2,
+                    // aa3:aa3,
+                    // aa4:aa4,
+                    // aa5:aa5,
+                    // aa6:aa6,
+                    // aa7:aa7,
+                    // aa8:aa8,
+                    // aa9:aa9,
+                    // aa10:aa10,
+                    // aa11:aa11,
+                    // aa12:aa12,
+                    // pcomt:pcomt     
                     
                     
 				},
@@ -1244,15 +1243,15 @@ $(document).ready(function() {
                   // top.location.href=base_url+"administrator/dashboard";//redirection
                     var text = response.statusCode;
                     console.log("check");
-                    var dataResult = JSON.parse(response);
-                    if(dataResult.statusCode == "Success") 
+                    // var dataResult = JSON.parse(response);
+                    if(response.statusCode == "Success") 
                     {         
-                      alert("Success in success");               
-                        $("#leadsubmit").html(dataResult.message);
-                       
+                      // alert("Success in success");               
+                        $("#leadsubmit").html(response.message);
+                        top.location.href=base_url+"cdc/addlead?camp_id="+<?php echo $campaign['cnid']; ?>;//redirection
                         // $("#addcampbtn").prop('disabled', true);
                         // top.location.href=base_url+"campaigns/addsuppressionList?camp_id="+response.campaign_id;//redirection
-                    }else if(data.data=="Fail")
+                    }else if(response.data=="Fail")
                     {
                         $("#leadsubmit").html(response.message);
                         
@@ -1262,8 +1261,7 @@ $(document).ready(function() {
 
                 },
                 error: function (error) {
-                  top.location.href=base_url+"cdc/addlead?camp_id="+<?php echo $campaign['cnid']; ?>;//redirection
-                  // location.reload();
+                 alert("Error");
                   }
               
             });
@@ -1347,7 +1345,7 @@ $(document).ready(function() {
           
             
 
-            if(fname != "" && lname != "" && jlevel != "" && jtitle != "" && desid != "" && email != "" && address != "" && city != ""  && country_id != "" && industrycd != "" && subindustrycd != "" && empsize != "" && empszlink != "" && revszlink != ""){
+            if(fname != "" && lname != "" && company_name != "" && jlevel != "" && jtitle != "" && desid != "" && dcd !="" && email != "" && phone !="" && plink !="" && address != "" && city != "" && state != ""  && country_id != "" && industrycd != "" && subindustrycd != "" && empsize != "" && domain !=""  && empszlink != "" && revszlink != "" && revszlink != "" && zip_code !="" ){
             var url = encodeURI("<?php echo base_url("cdc/ajax_save_leadandcdc");?>");
             console.log(url+"?campaign_idcids="+campaign_idcids+"&campaign_id="+campaign_id+"&sal="+sal+"&fname="+fname+"&lname="+lname+"&jtitle="+jtitle+"&desid="+desid+"&jlevel="+jlevel+"&dcd="+dcd+"&email="+email+"&phone="+phone+"&altphn="+altphn+"&phext="+phext+"&plink="+plink+"&company_name="+company_name+"&address="+address+"&city="+city+"&state="+state+"&zip_code="+zip_code+"&country_id="+country_id+"&timezone="+timezone+"&ctype="+ctype+"&linetype="+linetype+"&industrycd="+industrycd+"&subindustrycd="+subindustrycd+"&sectyp="+sectyp+"&empsize="+empsize+"&mlbl="+mlbl+"&curr="+curr+"&arevenue="+arevenue+"&empszlink="+empszlink+"&indlink="+indlink+"&domain="+domain+"&othrlink="+othrlink+"&revszlink="+revszlink+"&emailver="+emailver+"&aum="+aum+"&assetid="+assetid+"&optin="+optin+"&optpst="+optpst+"&optph="+optph+"&opteml="+opteml+"&optoption="+optoption+"&aa1="+aa1+"&aa2="+aa2+"&aa3="+aa3+"&aa4="+aa4+"&aa5="+aa5+"&aa6="+aa6+"&aa7="+aa7+"&aa8="+aa8+"&aa9="+aa9+"&aa10="+aa10+"&aa11="+aa11+"&aa12="+aa12+"&pcomt="+pcomt);
            
@@ -1396,27 +1394,27 @@ $(document).ready(function() {
                     domain:domain,
                     othrlink:othrlink,
                     emailver:emailver,
-                    aum:aum,                 
+                    aum:aum                 
                     
-                    assetid:assetid,
-                    optin:optin,
-                    optph:optph,
-                    opteml:opteml,
-                    optpst:optpst,
-                    optoption:optoption,
-                    aa1:aa1,
-                    aa2:aa2,
-                    aa3:aa3,
-                    aa4:aa4,
-                    aa5:aa5,
-                    aa6:aa6,
-                    aa7:aa7,
-                    aa8:aa8,
-                    aa9:aa9,
-                    aa10:aa10,
-                    aa11:aa11,
-                    aa12:aa12,
-                    pcomt:pcomt     
+                    // assetid:assetid,
+                    // optin:optin,
+                    // optph:optph,
+                    // opteml:opteml,
+                    // optpst:optpst,
+                    // optoption:optoption,
+                    // aa1:aa1,
+                    // aa2:aa2,
+                    // aa3:aa3,
+                    // aa4:aa4,
+                    // aa5:aa5,
+                    // aa6:aa6,
+                    // aa7:aa7,
+                    // aa8:aa8,
+                    // aa9:aa9,
+                    // aa10:aa10,
+                    // aa11:aa11,
+                    // aa12:aa12,
+                    // pcomt:pcomt     
                     
 				},
         // async: true,
@@ -1427,15 +1425,15 @@ $(document).ready(function() {
                   $("#leadsave").prop('disabled', true);
                   $("#leadsubmit").hide();
                   // top.location.href=base_url+"administrator/dashboard";//redirection
-                  var dataResult = JSON.parse(response);
+                  // var dataResult = JSON.parse(response);
                     var text = response.statusCode;
                     console.log("check");
                    
-                    if(dataResult.statusCode == "Success") 
+                    if(response.statusCode == "Success") 
                     {     
-                      alert("Success");                   
+                      // alert("Success");                   
                         $("#leadsave").html(response.message);
-                      
+                        top.location.href=base_url+"cdc/addlead?camp_id="+<?php echo $campaign['cnid']; ?>;//redirection
                         // $("#addcampbtn").prop('disabled', true);
                         // top.location.href=base_url+"campaigns/addsuppressionList?camp_id="+response.campaign_id;//redirection
                     }else if(response.statusCode=="Fail")
@@ -1449,7 +1447,7 @@ $(document).ready(function() {
                 },
                 
                 error: function (error) {
-                  top.location.href=base_url+"cdc/addlead?camp_id="+<?php echo $campaign['cnid']; ?>;//redirection
+                alert("Error");
                   // location.reload();
                   }
               

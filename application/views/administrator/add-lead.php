@@ -218,15 +218,6 @@ $.ajax({
                             </div>
                             <div class="col-sm-2">
                                 <!-- <select class="js-example-basic-multiple col-sm-12 cdqadisable" multiple="multiple" name="desid[]" id="desid"> -->
-                                <select class="js-example-basic-single" name="desid" id="desid">
-                                <option value="">Designation</option>
-                                <?php foreach ($designation as $designation): ?>
-                                    <option value="<?php echo $designation['jid']; ?>"><?php echo $designation['joblist']; ?></option>
-                                <?php endforeach; ?>  
-                                </select>
-                            </div>
-                            <div class="col-sm-2">
-                                <!-- <select class="js-example-basic-multiple col-sm-12 cdqadisable" multiple="multiple" name="desid[]" id="desid"> -->
                                 <select class="form-control form-control-sm cdqadisable" name="jlevel" id="jlevel">
                                 <option value="">Job Level</option>
                                 <?php foreach ($joblevel as $joblevel): ?>
@@ -235,6 +226,16 @@ $.ajax({
                                
                                 </select>
                             </div>
+                            <div class="col-sm-2">
+                                <!-- <select class="js-example-basic-multiple col-sm-12 cdqadisable" multiple="multiple" name="desid[]" id="desid"> -->
+                                <select class="js-example-basic-single" name="desid" id="desid">
+                                <option value="">Designation</option>
+                                <?php foreach ($designation as $designation): ?>
+                                    <option value="<?php echo $designation['jid']; ?>"><?php echo $designation['joblist']; ?></option>
+                                <?php endforeach; ?>  
+                                </select>
+                            </div>
+                            
                            
                         </div>
 
@@ -255,7 +256,7 @@ $.ajax({
                                 <span style='color:#FF0000' id="email_msg"></span>
                             </div>
                             <div class="col-sm-2">
-                                <input type="text"  name="phone" id="phone"  placeholder="Phone" maxlength="10"  class="form-control form-control-sm cdqadisable">
+                                <input type="text"  name="phone" id="phone"  placeholder="Phone" maxlength="15"  class="form-control form-control-sm cdqadisable">
                                 <span style='color:#FF0000' id="phone_msg"></span>
                             </div>
                             <div class="col-sm-2">
@@ -275,12 +276,23 @@ $.ajax({
                       </div>
                             <hr>
                         <div class="form-group row">
+                             
+                              <div class="col-sm-2">
+                               <select name="linetype" id="linetype"  class="form-control  form-control-sm cdqadisable">
+                                     <option value="0">unknown</option>
+                                     <option value="1">Direct</option>
+                                     <option value="2">Board</option>  
+                               </select>
+                           </div>
                               <div class="col-sm-2">
                                 <div class="compcheck">
                                 <input type="text"  name="company_name" id="company_name"  placeholder="Company Name"  class="form-control form-control-sm cdqadisable">
                                 </div>
                                 <span style='color:#FF0000' id="comp_msg"></span>
-                              </div>  
+                              </div> 
+
+
+
                             <div class="col-sm-2">
                                 <input type="text"  name="address" id="address"  placeholder="Address"  class="form-control form-control-sm cdqadisable">
                            </div>
@@ -294,7 +306,14 @@ $.ajax({
                             <div class="col-sm-2">
                                 <input type="text"  name="zip_code" id="zip_code"  placeholder="Zip Code"  class="form-control form-control-sm cdqadisable">
                            </div>
-                             <div class="col-sm-2">
+                           
+                            
+                        </div>
+                       <hr>
+
+                        <div class="form-group row">
+
+                        <div class="col-sm-2">
                                      <select class="js-example-basic-single" name="country_id" id="country_id">
                                      <option value="">Countries</option>
                                  <?php foreach ($countriesofcampaign as $countriesofcampaign): ?>
@@ -303,11 +322,6 @@ $.ajax({
                                 </select>
                                 <span style='color:#FF0000' id="country_id_msg"></span>
                             </div>
-                            
-                        </div>
-                       <hr>
-
-                        <div class="form-group row">
                             
                             <div class="col-sm-2">
                               <select class="js-example-basic-single"  name="timezone" id="timezone">
@@ -328,13 +342,13 @@ $.ajax({
                                </select>
                            </div>
                            
-                           <div class="col-sm-2">
+                           <!-- <div class="col-sm-2">
                                <select name="linetype" id="linetype"  class="form-control  form-control-sm cdqadisable">
                                      <option value="0">unknown</option>
                                      <option value="1">Direct</option>
                                      <option value="2">Board</option>  
                                </select>
-                           </div>
+                           </div> -->
 
 
                             <div class="col-sm-2">
@@ -362,7 +376,7 @@ $.ajax({
                                     <option value="1">Public</option>
                                     <option value="2">Private</option>
                                     <option value="3">Government</option>
-                                    <option value="4">Charity</option>
+                                    <option value="4">Non -Profit </option>
                                
                                     </select>
                             </div>
@@ -376,8 +390,9 @@ $.ajax({
                             </div>
                             <div class="col-sm-2">
                                 <input type="text"  name="arevenue" id="arevenue" maxlength="15" placeholder="Actual Revenue Size"  class="form-control form-control-sm cdqadisable">
+                                <span style='color:#FF0000' id="revsize_msg"></span>
                             </div>
-
+                            
                             
                             <div class="col-sm-2">
                                 <select class="form-control form-control-sm cdqadisable" name="mlbl" id="mlbl">
@@ -478,6 +493,7 @@ $.ajax({
                             </div> 
                          </div>
                         <input type = hidden name="campaign_id" id="campaign_id" value="<?php echo $campaign['cnid']; ?>">
+                        <input type = hidden name="campaign_idcids" id="campaign_idcids" value="<?php echo $campaign['cids']; ?>">
                         
                         <button type="submit" name="leadsubmit" class="btn btn-primary leaddisplay" style=""  id="leadsubmit">Submit Lead</button> 
                         <button type="submit" name="leadsave" class="btn btn-primary leaddisplay" style=""  id="leadsave">Save Lead</button> 
@@ -498,6 +514,10 @@ $.ajax({
     
 <input type="hidden" id="php_lbound" value="<?php echo $campaign['emplbnd']; ?>"/>
 <input type="hidden" id="php_ubound" value="<?php echo $campaign['empubnd']; ?>"/>
+<input type="hidden" id="revlbndmlbl" value="<?php echo $campaign['revlbnd']; ?>"/>
+<input type="hidden" id="revubndmlbl" value="<?php echo $campaign['revubnd']; ?>"/>
+<input type="hidden" id="revlbdimmlbl" value="<?php echo $campaign['revlbdim']; ?>"/>
+<input type="hidden" id="revubdimmlbl" value="<?php echo $campaign['revubdim']; ?>"/>
 
    
      <script>
@@ -527,6 +547,8 @@ $('#country_id').change(function(){
     var country_id = $(this).val();
    
     // AJAX request to get timezones
+    var urlq = '<?php echo base_url("cdc/gettimezones");?>';
+    console.log(urlq+'?country_id='+country_id);
     $.ajax({
         url:'<?php echo base_url("cdc/gettimezones");?>',
         method: 'get',
@@ -539,7 +561,7 @@ $('#country_id').change(function(){
 
         //    Add options
        $.each(response,function(index,data){
-          $('#timezone').append('<option value="'+data['zoneid']+'">'+data['zonename']+'</option>');
+          $('#timezone').append('<option value="'+data['zoneid']+'">'+data['abbrev']+'</option>');
           
         });
         // $('#country_id').multiselect("rebuild");
@@ -595,6 +617,79 @@ $('#country_id').change(function(){
 //         }
 //     });
 // }
+// check revenue range for campaign
+$('#arevenue').change(function(){
+  var arevenuevalue = $('#arevenue').val();
+
+  var lrevrange = $('#revlbdimmlbl').val(); //lower range  for eg million /billion
+  var urevrange = $('#revubdimmlbl').val();
+
+  var lrevrangenumber = $('#revlbndmlbl').val();
+  var urevrangenumber = $('#revubndmlbl').val();
+  
+  if(lrevrange == urevrange ){
+    // alert("Same range");
+     if ( arevenuevalue > parseInt(urevrangenumber) || arevenuevalue < parseInt(lrevrangenumber)) 
+        {
+          $("#revsize_msg").html("Not in Range");
+          $('#arevenue').val("");
+        }else{
+        $("#revsize_msg").html("");
+      }
+
+          if(lrevrange == 'hundred'){
+            var check = "hundred";
+            // $('#revnubound_range').not(this).find('option[value="' + check + '"]').prop('disabled', true); 
+            $("#mlbl option").not(':first-child').each(function (index) {
+                      $(this).prop('disabled', true);
+                  });
+           }else if(lrevrange == 'million'){
+               var ch = "0"; // thousand
+               var ch1 = "1"; // million
+              var check = "2"; //billion
+              var check2 = "3"; // trillion
+              $('select').each(function() {
+                $('#mlbl').not(this).find('option[value="' + ch1 + '"]').prop('disabled', false);
+                  $('#mlbl').not(this).find('option[value="' + ch + '"]').prop('disabled', true); 
+                  $('#mlbl').not(this).find('option[value="' + check + '"]').prop('disabled', true); 
+                  $('#mlbl').not(this).find('option[value="' + check2 + '"]').prop('disabled', true); 
+              });
+              }else if(lrevrange == 'billion'){
+                var ch = "0"; // thousand
+               var ch1 = "1"; // million
+              var check = "2"; //billion
+              var check2 = "3"; // trillion
+              $('select').each(function() {
+                $('#mlbl').not(this).find('option[value="' + check + '"]').prop('disabled', false);
+                  $('#mlbl').not(this).find('option[value="' + ch + '"]').prop('disabled', true); 
+                  $('#mlbl').not(this).find('option[value="' + ch1 + '"]').prop('disabled', true); 
+                  $('#mlbl').not(this).find('option[value="' + check2 + '"]').prop('disabled', true); 
+              });
+              }else  if(lrevrange == 'trillion'){
+                var ch = "0"; // thousand
+               var ch1 = "1"; // million
+              var check = "2"; //billion
+              var check2 = "3"; // trillion
+              $('select').each(function() {
+                $('#mlbl').not(this).find('option[value="' + check2 + '"]').prop('disabled', false);
+                  $('#mlbl').not(this).find('option[value="' + ch + '"]').prop('disabled', true); 
+                  $('#mlbl').not(this).find('option[value="' + ch1 + '"]').prop('disabled', true); 
+                  $('#mlbl').not(this).find('option[value="' + check + '"]').prop('disabled', true); 
+              });
+
+              }
+
+        }
+
+  
+
+});
+
+
+
+
+
+
 //  Get sub industry
  $('#industrycd').change(function(){
     var industrycd = $(this).val();
@@ -999,7 +1094,8 @@ $(document).ready(function() {
         {
          
             var campaign_id = $('#campaign_id').val();
-           
+            var campaign_idcids = $('#campaign_idcids').val();
+          //  alert(campaign_idcids);
             var sal = $('#sal').val();
             var fname = $('#fname').val();
             var lname = $('#lname').val();
@@ -1077,6 +1173,7 @@ $(document).ready(function() {
                 data: {
                    
                   campaign_id: campaign_id,
+                  campaign_idcids: campaign_idcids,
                     sal:sal,
                     fname:fname,
                     lname: lname,
@@ -1184,7 +1281,8 @@ $(document).ready(function() {
         {
          
             var campaign_id = $('#campaign_id').val();
-           
+            var campaign_idcids = $('#campaign_idcids').val();
+            // alert(campaign_idcids);
             var sal = $('#sal').val();
             var fname = $('#fname').val();
             var lname = $('#lname').val();
@@ -1251,7 +1349,7 @@ $(document).ready(function() {
 
             if(fname != "" && lname != "" && jlevel != "" && jtitle != "" && desid != "" && email != "" && address != "" && city != ""  && country_id != "" && industrycd != "" && subindustrycd != "" && empsize != "" && empszlink != "" && revszlink != ""){
             var url = encodeURI("<?php echo base_url("cdc/ajax_save_leadandcdc");?>");
-            console.log(url+"?campaign_id="+campaign_id+"&sal="+sal+"&fname="+fname+"&lname="+lname+"&jtitle="+jtitle+"&desid="+desid+"&jlevel="+jlevel+"&dcd="+dcd+"&email="+email+"&phone="+phone+"&altphn="+altphn+"&phext="+phext+"&plink="+plink+"&company_name="+company_name+"&address="+address+"&city="+city+"&state="+state+"&zip_code="+zip_code+"&country_id="+country_id+"&timezone="+timezone+"&ctype="+ctype+"&linetype="+linetype+"&industrycd="+industrycd+"&subindustrycd="+subindustrycd+"&sectyp="+sectyp+"&empsize="+empsize+"&mlbl="+mlbl+"&curr="+curr+"&arevenue="+arevenue+"&empszlink="+empszlink+"&indlink="+indlink+"&domain="+domain+"&othrlink="+othrlink+"&revszlink="+revszlink+"&emailver="+emailver+"&aum="+aum+"&assetid="+assetid+"&optin="+optin+"&optpst="+optpst+"&optph="+optph+"&opteml="+opteml+"&optoption="+optoption+"&aa1="+aa1+"&aa2="+aa2+"&aa3="+aa3+"&aa4="+aa4+"&aa5="+aa5+"&aa6="+aa6+"&aa7="+aa7+"&aa8="+aa8+"&aa9="+aa9+"&aa10="+aa10+"&aa11="+aa11+"&aa12="+aa12+"&pcomt="+pcomt);
+            console.log(url+"?campaign_idcids="+campaign_idcids+"&campaign_id="+campaign_id+"&sal="+sal+"&fname="+fname+"&lname="+lname+"&jtitle="+jtitle+"&desid="+desid+"&jlevel="+jlevel+"&dcd="+dcd+"&email="+email+"&phone="+phone+"&altphn="+altphn+"&phext="+phext+"&plink="+plink+"&company_name="+company_name+"&address="+address+"&city="+city+"&state="+state+"&zip_code="+zip_code+"&country_id="+country_id+"&timezone="+timezone+"&ctype="+ctype+"&linetype="+linetype+"&industrycd="+industrycd+"&subindustrycd="+subindustrycd+"&sectyp="+sectyp+"&empsize="+empsize+"&mlbl="+mlbl+"&curr="+curr+"&arevenue="+arevenue+"&empszlink="+empszlink+"&indlink="+indlink+"&domain="+domain+"&othrlink="+othrlink+"&revszlink="+revszlink+"&emailver="+emailver+"&aum="+aum+"&assetid="+assetid+"&optin="+optin+"&optpst="+optpst+"&optph="+optph+"&opteml="+opteml+"&optoption="+optoption+"&aa1="+aa1+"&aa2="+aa2+"&aa3="+aa3+"&aa4="+aa4+"&aa5="+aa5+"&aa6="+aa6+"&aa7="+aa7+"&aa8="+aa8+"&aa9="+aa9+"&aa10="+aa10+"&aa11="+aa11+"&aa12="+aa12+"&pcomt="+pcomt);
            
             $.ajax({
                 url :'<?php echo base_url("cdc/ajax_save_leadandcdc");?>',
@@ -1260,6 +1358,8 @@ $(document).ready(function() {
                 data: {
                    
                   campaign_id: campaign_id,
+                  campaign_idcids: campaign_idcids,
+                
                     sal:sal,
                     fname:fname,
                     lname: lname,
@@ -1367,6 +1467,7 @@ $(document).ready(function() {
         {
          
           var campaign_id = $('#campaign_id').val();
+          var campaign_idcids = $('#campaign_idcids').val();
            
            var sal = $('#sal').val();
            var fname = $('#fname').val();
@@ -1441,6 +1542,7 @@ $(document).ready(function() {
                 data: {
                    
                   campaign_id: campaign_id,
+                  campaign_idcids: campaign_idcids,
                     sal:sal,
                     fname:fname,
                     lname: lname,
@@ -1545,6 +1647,7 @@ $(document).ready(function() {
         {
          
           var campaign_id = $('#campaign_id').val();
+          var campaign_idcids = $('#campaign_idcids').val();
            
            var sal = $('#sal').val();
        
@@ -1622,6 +1725,7 @@ $(document).ready(function() {
                 data: {
                    
                   campaign_id: campaign_id,
+                  campaign_idcids:campaign_idcids,
                     sal:sal,
                     fname:fname,
                     lname: lname,

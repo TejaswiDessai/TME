@@ -142,6 +142,8 @@
 		public function ajax_add_new_leadandcdc()
 		{
 			$campaign_id = $_GET['campaign_id'];
+			$cids = $_GET['campaign_idcids'];
+
 			// $revnlbound_range = '';
 			// if(!empty($_GET['revnlbound_range'])) {
 			// $revnlbound_range = $_GET['revnlbound_range'];
@@ -218,7 +220,7 @@
 
 
 				$datacdcandlead = array(
-				'cnid' => $_GET['campaign_id'],
+				'cids' => $_GET['campaign_idcids'],
 				
 				'sal' => $_GET['sal'],
 				'fname' => $_GET['fname'],
@@ -402,7 +404,7 @@
 				}
 
 				$datacdcandlead = array(
-				'cnid' => $_GET['campaign_id'],
+				'cids' => $_GET['campaign_idcids'],
 				
 				'sal' => $_GET['sal'],
 				'fname' => $_GET['fname'],
@@ -587,7 +589,7 @@
 					}
 
 				$datacdcandlead = array(
-				'cnid' => $_GET['campaign_id'],
+				'cids' => $_GET['campaign_idcids'],
 				
 				'sal' => $_GET['sal'],
 				'fname' => $_GET['fname'],
@@ -742,10 +744,6 @@
 					$sectype = 0 ;
 					}
 				
-				
-				
-				
-				
 
 				if(!empty($_GET['optin']))
 				{
@@ -779,7 +777,7 @@
 				}
 
 				$datacdcandlead = array(
-				'cnid' => $_GET['campaign_id'],
+				'cids' => $_GET['campaign_idcids'],
 				
 				'sal' => $_GET['sal'],
 				'fname' => $_GET['fname'],

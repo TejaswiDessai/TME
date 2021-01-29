@@ -80,7 +80,7 @@ $.ajax({
         $('.questionrow').html("");
         $('.questionrow').append('<div class="col-sm-6 card ansdiv">'+
                                    '<p><b>'+data['questions']+'</b></p>'+
-                                      '<input type="text"  name="aa' + index + '" id="aa' + index + '"  placeholder="Answer for Question 2"  class="form-control form-control-sm ">'+
+                                      '<input type="text" value=""  name="aa' + index + '" id="aa' + index + '"  placeholder="Answer for Question 2"  class="form-control form-control-sm ">'+
                                                                      
                           '</div>');
 
@@ -279,6 +279,7 @@ $.ajax({
                              
                               <div class="col-sm-2">
                                <select name="linetype" id="linetype"  class="form-control  form-control-sm cdqadisable">
+                                     <option value="0">Line Type</option>
                                      <option value="0">unknown</option>
                                      <option value="1">Direct</option>
                                      <option value="2">Board</option>  
@@ -372,6 +373,7 @@ $.ajax({
                             <div class="col-sm-2">
                                 <select class="form-control form-control-sm cdqadisable" name="sectyp" id="sectyp">
                                   
+                                    <option value="0">Sector Type</option>
                                     <option value="0">Unknown</option>
                                     <option value="1">Public</option>
                                     <option value="2">Private</option>
@@ -433,7 +435,7 @@ $.ajax({
                                 <input type="text"  name="indlink" id="indlink"  placeholder="Industry Link" value="" class="form-control form-control-sm">
                             </div>
                             <div class="col-sm-2">
-                                <input type="text"  name="revszlink" id="revszlink" value=""    placeholder="Revenue Size Link"  class="form-control form-control-sm">
+                                <input type="text"  name="revszlink" id="revszlink" value=""    placeholder="Revenue Size Link"  class="form-control form-control-sm revsizehide">
                             </div>
                             <div class="col-sm-2">
                                 <input type="text"  name="othrlink" id="othrlink" value=""  placeholder="Other Link"  class="form-control form-control-sm">
@@ -619,6 +621,9 @@ $('#country_id').change(function(){
 // }
 // check revenue range for campaign
 $('#arevenue').change(function(){
+
+  $("#revszlink").prop('disabled', false);
+  $('#revszlink').val("");
   var arevenuevalue = $('#arevenue').val();
 
   var lrevrange = $('#revlbdimmlbl').val(); //lower range  for eg million /billion
@@ -899,7 +904,11 @@ $('#arevenue').change(function(){
 
 $(document).ready(function() {
   
+  $("#revszlink").prop('disabled', true);
+  $('#revszlink').val("NA");
+
   $('.commentvisible').hide();
+  // $('.revsizehide').hide();
 
   $('.leaddisplay').show(); //buttons
   $('.cdqadisplay').hide();//buttons
@@ -1130,10 +1139,24 @@ $(document).ready(function() {
             var curr = $('#curr').val();
             var empszlink = $('#empszlink').val();
             var indlink = $('#indlink').val();
-            var revszlink = $('#revszlink').val();
+
+            
+
             var pcomt = $('#pcomt').val();
 
             var arevenue = $('#arevenue').val();
+            var revszlink = $('#revszlink').val();
+            if(arevenue ==""){
+              
+              $("#revszlink").prop('disabled', true);
+              $('#revszlink').val("NA");
+            }else if(arevenue != ""){
+              
+              $("#revszlink").prop('disabled', false);
+              var revszlink = $('#revszlink').val();
+            }
+        
+// alert(revszlink);
             var othrlink = $('#othrlink').val();
             var emailver = $('#emailver').val();
             var aum = $('#aum').val();
@@ -1160,7 +1183,7 @@ $(document).ready(function() {
           
             
            
-            if(fname != "" && lname != "" && company_name != "" && jlevel != "" && jtitle != "" && desid != "" && dcd !="" && email != "" && phone !="" && plink !="" && address != "" && city != "" && state != ""  && country_id != "" && industrycd != "" && subindustrycd != "" && empsize != "" && domain !=""  && empszlink != "" && revszlink != "" && revszlink != "" && zip_code !="" ){
+            if(fname != "" && lname != "" && company_name != "" && jlevel != "" && jtitle != "" && desid != "" && dcd !="" && email != "" && phone !="" && plink !="" && address != "" && city != "" && state != ""  && country_id != "" && industrycd != "" && subindustrycd != "" && empsize != "" && domain !=""  && empszlink != "" && revszlink != ""  && zip_code !="" ){
             var url = encodeURI("<?php echo base_url("cdc/ajax_add_new_leadandcdc");?>");
             console.log(url+"?campaign_id="+campaign_id+"&sal="+sal+"&fname="+fname+"&lname="+lname+"&jtitle="+jtitle+"&desid="+desid+"&jlevel="+jlevel+"&dcd="+dcd+"&email="+email+"&phone="+phone+"&altphn="+altphn+"&phext="+phext+"&plink="+plink+"&company_name="+company_name+"&address="+address+"&city="+city+"&state="+state+"&zip_code="+zip_code+"&country_id="+country_id+"&timezone="+timezone+"&ctype="+ctype+"&linetype="+linetype+"&industrycd="+industrycd+"&subindustrycd="+subindustrycd+"&sectyp="+sectyp+"&empsize="+empsize+"&mlbl="+mlbl+"&curr="+curr+"&arevenue="+arevenue+"&empszlink="+empszlink+"&indlink="+indlink+"&domain="+domain+"&othrlink="+othrlink+"&revszlink="+revszlink+"&emailver="+emailver+"&aum="+aum+"&assetid="+assetid+"&optin="+optin+"&optpst="+optpst+"&optph="+optph+"&opteml="+opteml+"&optoption="+optoption+"&aa1="+aa1+"&aa2="+aa2+"&aa3="+aa3+"&aa4="+aa4+"&aa5="+aa5+"&aa6="+aa6+"&aa7="+aa7+"&aa8="+aa8+"&aa9="+aa9+"&aa10="+aa10+"&aa11="+aa11+"&aa12="+aa12+"&pcomt="+pcomt);
            
@@ -1237,8 +1260,8 @@ $(document).ready(function() {
                 cache: false,
                 success: function(response){
 
-                  $("#leadsubmit").html("Submitted!");
-                  $("#leadsubmit").prop('disabled', true);
+                  // $("#leadsubmit").html("Submitted!");
+                  // $("#leadsubmit").prop('disabled', true);
                   $("#leadsave").hide();
                   // top.location.href=base_url+"administrator/dashboard";//redirection
                     var text = response.statusCode;
@@ -1315,10 +1338,22 @@ $(document).ready(function() {
             var curr = $('#curr').val();
             var empszlink = $('#empszlink').val();
             var indlink = $('#indlink').val();
-            var revszlink = $('#revszlink').val();
+           
             var pcomt = $('#pcomt').val();
 
             var arevenue = $('#arevenue').val();
+            var revszlink = $('#revszlink').val();
+
+            if(arevenue ==""){
+              
+              $("#revszlink").prop('disabled', true);
+              $('#revszlink').val("NA");
+            }else if(arevenue != ""){
+              
+              $("#revszlink").prop('disabled', false);
+              var revszlink = $('#revszlink').val();
+            }
+            
             var othrlink = $('#othrlink').val();
             var emailver = $('#emailver').val();
             var aum = $('#aum').val();
@@ -1345,7 +1380,7 @@ $(document).ready(function() {
           
             
 
-            if(fname != "" && lname != "" && company_name != "" && jlevel != "" && jtitle != "" && desid != "" && dcd !="" && email != "" && phone !="" && plink !="" && address != "" && city != "" && state != ""  && country_id != "" && industrycd != "" && subindustrycd != "" && empsize != "" && domain !=""  && empszlink != "" && revszlink != "" && revszlink != "" && zip_code !="" ){
+            if(fname != "" && lname != "" && company_name != "" && jlevel != "" && jtitle != "" && desid != "" && dcd !="" && email != "" && phone !="" && plink !="" && address != "" && city != "" && state != ""  && country_id != "" && industrycd != "" && subindustrycd != "" && empsize != "" && domain !=""  && empszlink != "" && revszlink != ""  && zip_code !="" ){
             var url = encodeURI("<?php echo base_url("cdc/ajax_save_leadandcdc");?>");
             console.log(url+"?campaign_idcids="+campaign_idcids+"&campaign_id="+campaign_id+"&sal="+sal+"&fname="+fname+"&lname="+lname+"&jtitle="+jtitle+"&desid="+desid+"&jlevel="+jlevel+"&dcd="+dcd+"&email="+email+"&phone="+phone+"&altphn="+altphn+"&phext="+phext+"&plink="+plink+"&company_name="+company_name+"&address="+address+"&city="+city+"&state="+state+"&zip_code="+zip_code+"&country_id="+country_id+"&timezone="+timezone+"&ctype="+ctype+"&linetype="+linetype+"&industrycd="+industrycd+"&subindustrycd="+subindustrycd+"&sectyp="+sectyp+"&empsize="+empsize+"&mlbl="+mlbl+"&curr="+curr+"&arevenue="+arevenue+"&empszlink="+empszlink+"&indlink="+indlink+"&domain="+domain+"&othrlink="+othrlink+"&revszlink="+revszlink+"&emailver="+emailver+"&aum="+aum+"&assetid="+assetid+"&optin="+optin+"&optpst="+optpst+"&optph="+optph+"&opteml="+opteml+"&optoption="+optoption+"&aa1="+aa1+"&aa2="+aa2+"&aa3="+aa3+"&aa4="+aa4+"&aa5="+aa5+"&aa6="+aa6+"&aa7="+aa7+"&aa8="+aa8+"&aa9="+aa9+"&aa10="+aa10+"&aa11="+aa11+"&aa12="+aa12+"&pcomt="+pcomt);
            
@@ -1421,9 +1456,9 @@ $(document).ready(function() {
                 // cache: false,
                 success: function(response){
 
-                  $("#leadsave").html("Saved!");
-                  $("#leadsave").prop('disabled', true);
-                  $("#leadsubmit").hide();
+                  // $("#leadsave").html("Saved!");
+                  // $("#leadsave").prop('disabled', true);
+                  // $("#leadsubmit").hide();
                   // top.location.href=base_url+"administrator/dashboard";//redirection
                   // var dataResult = JSON.parse(response);
                     var text = response.statusCode;
@@ -1463,11 +1498,11 @@ $(document).ready(function() {
     $(function() {
         $("#cdqasubmit").on('click', function() 
         {
-         
           var campaign_id = $('#campaign_id').val();
           var campaign_idcids = $('#campaign_idcids').val();
            
            var sal = $('#sal').val();
+       
            var fname = $('#fname').val();
            var lname = $('#lname').val();
            var jtitle = $('#jtitle').val();
@@ -1529,18 +1564,56 @@ $(document).ready(function() {
            var aa11 = $('#aa11').val();
            var aa12 = $('#aa12').val();
          
-           
+           if(aa1 == undefined){
+            var aa1 = 0;
+           }
+           if(aa2 == undefined){
+            var aa2 = 0;
+           }
+           if(aa3 == undefined){
+            var aa3 = 0;
+           }
+           if(aa4 == undefined){
+            var aa4 = 0;
+           }
+           if(aa5 == undefined){
+            var aa5 = 0;
+           }
+           if(aa6 == undefined){
+            var aa6 = 0;
+           }
+           if(aa7 == undefined){
+            var aa7 = 0;
+           }
+           if(aa8 == undefined){
+            var aa8 = 0;
+           }
+           if(aa9 == undefined){
+            var aa9 = 0;
+           }
+           if(aa10 == undefined){
+            var aa10 = 0;
+           }
+           if(aa11 == undefined){
+            var aa11 = 0;
+           }
+           if(aa12 == undefined){
+            var aa12 = 0;
+           }
+          
+          
+           if(fname != "" && lname != "" && company_name != "" && jlevel != "" && jtitle != "" && desid != "" && dcd !="" && email != "" && phone !="" && plink !="" && address != "" && city != "" && state != ""  && country_id != "" && industrycd != "" && subindustrycd != "" && empsize != "" && domain !=""  && empszlink != "" && revszlink != ""  && zip_code !="" ){
            var url = encodeURI("<?php echo base_url("cdc/ajax_submit_leadandcdcbyCDQA");?>");
            console.log(url+"?campaign_id="+campaign_id+"&sal="+sal+"&fname="+fname+"&lname="+lname+"&jtitle="+jtitle+"&desid="+desid+"&jlevel="+jlevel+"&dcd="+dcd+"&email="+email+"&phone="+phone+"&altphn="+altphn+"&phext="+phext+"&plink="+plink+"&company_name="+company_name+"&address="+address+"&city="+city+"&state="+state+"&zip_code="+zip_code+"&country_id="+country_id+"&timezone="+timezone+"&ctype="+ctype+"&linetype="+linetype+"&industrycd="+industrycd+"&subindustrycd="+subindustrycd+"&sectyp="+sectyp+"&empsize="+empsize+"&mlbl="+mlbl+"&curr="+curr+"&arevenue="+arevenue+"&empszlink="+empszlink+"&indlink="+indlink+"&domain="+domain+"&othrlink="+othrlink+"&revszlink="+revszlink+"&emailver="+emailver+"&aum="+aum+"&assetid="+assetid+"&optin="+optin+"&optpst="+optpst+"&optph="+optph+"&opteml="+opteml+"&optoption="+optoption+"&aa1="+aa1+"&aa2="+aa2+"&aa3="+aa3+"&aa4="+aa4+"&aa5="+aa5+"&aa6="+aa6+"&aa7="+aa7+"&aa8="+aa8+"&aa9="+aa9+"&aa10="+aa10+"&aa11="+aa11+"&aa12="+aa12+"&pcomt="+pcomt);
           
             $.ajax({
                 url :'<?php echo base_url("cdc/ajax_submit_leadandcdcbyCDQA");?>',
                 type: 'GET', 
-                dataType: 'Text',              
+                dataType: 'json',              
                 data: {
                    
                   campaign_id: campaign_id,
-                  campaign_idcids: campaign_idcids,
+                  campaign_idcids:campaign_idcids,
                     sal:sal,
                     fname:fname,
                     lname: lname,
@@ -1598,7 +1671,6 @@ $(document).ready(function() {
                     aa11:aa11,
                     aa12:aa12,
                     pcomt:pcomt     
-             
                     
                     
 				},
@@ -1615,8 +1687,9 @@ $(document).ready(function() {
                   // console.log(respons);
                     if(response.statusCode == "Success") 
                     {        
-                      alert("Success");                
-                        $("#cdqasubmit").html(respons.message);
+                          
+                        $("#cdqasubmit").html(response.message);
+                        top.location.href=base_url+"cdc/addlead?camp_id="+<?php echo $campaign['cnid']; ?>;//redirection
                         // $("#addcampbtn").prop('disabled', true);
                         // top.location.href=base_url+"campaigns/addsuppressionList?camp_id="+response.campaign_id;//redirection
                     }else if(response.statusCode=="Fail")
@@ -1630,11 +1703,15 @@ $(document).ready(function() {
 
                 },
                 error: function (error) {
-                  top.location.href=base_url+"cdc/addlead?camp_id="+<?php echo $campaign['cnid']; ?>;//redirection
+                  alert("Error");
+                  // top.location.href=base_url+"cdc/addlead?camp_id="+<?php echo $campaign['cnid']; ?>;//redirection
                   // location.reload();
                   }
               
             });
+        }else{
+          alert("Please fill Mandatory Fields");
+        }
         });
     });
 </script>   
@@ -1710,9 +1787,45 @@ $(document).ready(function() {
            var aa11 = $('#aa11').val();
            var aa12 = $('#aa12').val();
          
-           
+           if(aa1 == undefined){
+            var aa1 = 0;
+           }
+           if(aa2 == undefined){
+            var aa2 = 0;
+           }
+           if(aa3 == undefined){
+            var aa3 = 0;
+           }
+           if(aa4 == undefined){
+            var aa4 = 0;
+           }
+           if(aa5 == undefined){
+            var aa5 = 0;
+           }
+           if(aa6 == undefined){
+            var aa6 = 0;
+           }
+           if(aa7 == undefined){
+            var aa7 = 0;
+           }
+           if(aa8 == undefined){
+            var aa8 = 0;
+           }
+           if(aa9 == undefined){
+            var aa9 = 0;
+           }
+           if(aa10 == undefined){
+            var aa10 = 0;
+           }
+           if(aa11 == undefined){
+            var aa11 = 0;
+           }
+           if(aa12 == undefined){
+            var aa12 = 0;
+           }
           
-            
+          
+           if(fname != "" && lname != "" && company_name != "" && jlevel != "" && jtitle != "" && desid != "" && dcd !="" && email != "" && phone !="" && plink !="" && address != "" && city != "" && state != ""  && country_id != "" && industrycd != "" && subindustrycd != "" && empsize != "" && domain !=""  && empszlink != "" && revszlink != ""  && zip_code !="" ){
             var url = encodeURI("<?php echo base_url("cdc/ajax_save_leadandcdcbyCDQA");?>");
             console.log(url+"?campaign_id="+campaign_id+"&sal="+sal+"&fname="+fname+"&lname="+lname+"&jtitle="+jtitle+"&desid="+desid+"&jlevel="+jlevel+"&dcd="+dcd+"&email="+email+"&phone="+phone+"&altphn="+altphn+"&phext="+phext+"&plink="+plink+"&company_name="+company_name+"&address="+address+"&city="+city+"&state="+state+"&zip_code="+zip_code+"&country_id="+country_id+"&timezone="+timezone+"&ctype="+ctype+"&linetype="+linetype+"&industrycd="+industrycd+"&subindustrycd="+subindustrycd+"&sectyp="+sectyp+"&empsize="+empsize+"&mlbl="+mlbl+"&curr="+curr+"&arevenue="+arevenue+"&empszlink="+empszlink+"&indlink="+indlink+"&domain="+domain+"&othrlink="+othrlink+"&revszlink="+revszlink+"&emailver="+emailver+"&aum="+aum+"&assetid="+assetid+"&optin="+optin+"&optpst="+optpst+"&optph="+optph+"&opteml="+opteml+"&optoption="+optoption+"&aa1="+aa1+"&aa2="+aa2+"&aa3="+aa3+"&aa4="+aa4+"&aa5="+aa5+"&aa6="+aa6+"&aa7="+aa7+"&aa8="+aa8+"&aa9="+aa9+"&aa10="+aa10+"&aa11="+aa11+"&aa12="+aa12+"&pcomt="+pcomt);
           
@@ -1790,36 +1903,37 @@ $(document).ready(function() {
                 success: function(response){
 
                   console.log("Success");
-                  $("#cdqasave").html("Saved!");
-                  $("#cdqasave").prop('disabled', true);
-                  $("#cdqasubmit").hide();
-                  top.location.href=base_url+"administrator/dashboard";//redirection
-
+                  
 
 
                   // var respons = JSON.parse(JSON.stringify(response));
                   // var text = respons.statusCode;
-                  //   console.log(text);
+                    // console.log(text);
                   
-                    // if(response.statusCode == "Success") 
-                    // {             
-                    //   alert("Success");           
-                    //     $("#cdqasave").html(response.message);
-                    // }else if(response.statusCode=="Fail")
-                    // {
-                    //     $("#cdqasave").html(response.message);
+                    if(response.statusCode == "Success") 
+                    {             
+                      // alert("Success");           
+                        $("#cdqasave").html(response.message);
+                        top.location.href=base_url+"cdc/addlead?camp_id="+<?php echo $campaign['cnid']; ?>;//redirection
+                    }else if(response.statusCode=="Fail")
+                    {
+                        $("#cdqasave").html(response.message);
                         
-					          // }
+					          }
 
                     
 
                 },
                 error: function (error) {
-                  top.location.href=base_url+"cdc/addlead?camp_id="+<?php echo $campaign['cnid']; ?>;//redirection
+                  alert("Error");
+                  
                   // location.reload();
               }
               
             });
+          }else{
+          alert("Please fill Mandatory Fields");
+        }
         });
     });
 </script>   

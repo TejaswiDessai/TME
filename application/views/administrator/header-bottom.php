@@ -42,7 +42,7 @@
                 
                  <li class="nav-item">
                         <a href="#!">
-                            <i class="ti-settings"></i>
+                        <i class="icofont icofont-cop-badge"></i>
                             <span>Campaigns</span>
                         </a>
                         <ul class="tree-1">
@@ -53,7 +53,7 @@
                     <li class="nav-item">
                         <!-- <a href="<?php echo base_url(); ?>cdc/addlead""> -->
                         <a href="<?php echo base_url(); ?>cdc/selectCampaign">
-                        <i class="icon-call-out"></i>
+                        <i class="icofont icofont-sand-clock"></i>
                             <span>Data Lead and CDC</span>
                         </a>
                     </li>

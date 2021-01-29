@@ -685,7 +685,7 @@
 			
 					echo json_encode(array(
 						'statusCode'=>'Success',
-						// "lead_id"=>$updateleadandcdcdata,
+						"lead_id"=>$updateleadandcdcdata,
 						'message'=>'Lead added Successfully..'
 					));
 				}else{
@@ -872,7 +872,7 @@
 			
 					echo json_encode(array(
 						"statusCode"=>"Success",
-						// "lead_id"=>$updateleadandcdcdata,
+						"lead_id"=>$updateleadandcdcdata,
 						"message"=>"Lead added Successfully.."
 					));
 				}else{

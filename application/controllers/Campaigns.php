@@ -956,6 +956,7 @@
 		public function ajax_add_new_campaign1()
 		{
 			$campaign_id = $_POST['campaign_id'];
+	
 			$campaigncountryStr = '';
 			if(!empty($_POST['country_id'])) {
 			$campaigncountryStr = implode(',',$_POST['country_id']);

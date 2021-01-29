@@ -329,11 +329,14 @@
 			$data['clients'] = $this->Administrator_Model->get_clients();
 			$data['countries'] = $this->Administrator_Model->get_countries();
 			$data['regions'] = $this->Administrator_Model->get_regions();
+			$data['subregions'] = $this->Administrator_Model->get_subregions();
 			$data['industries'] = $this->Administrator_Model->get_industries();
+			$data['subindustries'] = $this->Administrator_Model->get_subindustries();
 			$data['departments'] = $this->Administrator_Model->get_depts();
 			$data['empsize'] = $this->Administrator_Model->get_empsize();
 			$data['revsize'] = $this->Administrator_Model->get_revenuesize();
-			$data['designation'] = $this->Administrator_Model->get_designation();
+			$data['job_level'] = $this->Administrator_Model->get_designation();
+			$data['designation'] = $this->Administrator_Model->get_sub_designation();
 			$data['lbound'] = $this->Administrator_Model->get_empsize();
 			$data['ubound'] = $this->Administrator_Model->get_empsize();
 			$data['revnlbound'] = $this->Administrator_Model->get_revenuesize();
@@ -351,106 +354,117 @@
 			  $this->load->view('administrator/header-script');
 				 $this->load->view('administrator/header');
 				 $this->load->view('administrator/header-bottom');
-				  $this->load->view('administrator/update-campaign', $data);
+				  $this->load->view('administrator/update_campaign_new', $data);
 				$this->load->view('administrator/footer');
 		}
 		public function ajax_update_campaign()
 		{
 
 					 
-			$campaign_id = $_GET['campaign_id'];
+			$campaign_id = $_POST['campaign_id'];
 			$campaigncountryStr = '';
-			if(!empty($_GET['country_id'])) {
-			$campaigncountryStr = implode(',',$_GET['country_id']);
+			if(!empty($_POST['country_id'])) {
+			$campaigncountryStr = implode(',',$_POST['country_id']);
 				}
 			$regionStr = '';
-			if(!empty($_GET['region_id'])) {
-			$regionStr = implode(',',$_GET['region_id']);
+			if(!empty($_POST['region_id'])) {
+			$regionStr = implode(',',$_POST['region_id']);
 				}
+
 			$industryStr = '';
-			if(!empty($_GET['industrycd'])) {
-			$industryStr = implode(',',$_GET['industrycd']);
+			if(!empty($_POST['industrycd'])) {
+			$industryStr = implode(',',$_POST['industrycd']);
+				}
+			$subindustryStr = '';
+			if(!empty($_POST['subindustrycd'])) {
+			$subindustryStr = implode(',',$_POST['subindustrycd']);
 				}
 			$deptStr = '';
-			if(!empty($_GET['dcd'])) {
-			$deptStr = implode(',',$_GET['dcd']);
+			if(!empty($_POST['dcd'])) {
+			$deptStr = implode(',',$_POST['dcd']);
 				}
 			// $empsizeStr = '';
-			// if(!empty($_GET['emplzid'])) {
-			// $empsizeStr = $_GET['emplzid'];
+			// if(!empty($_POST['emplzid'])) {
+			// $empsizeStr = $_POST['emplzid'];
 			// 	}
 			// $revStr = '';
-			// if(!empty($_GET['revid'])) {
-			// $revStr = $_GET['revid'];
+			// if(!empty($_POST['revid'])) {
+			// $revStr = $_POST['revid'];
 			// 	}
+			$levelid = '';
+			if(!empty($_POST['levelid'])) {
+			$levelid = implode(',',$_POST['levelid']);
+			}
+
 			$desiStr = '';
-			if(!empty($_GET['desid'])) {
-			$desiStr = implode(',',$_GET['desid']);
+			if(!empty($_POST['desid'])) {
+			$desiStr = implode(',',$_POST['desid']);
 			}
 
 			$frequency_type = '';
-			if(!empty($_GET['frequency_type'])) {
-			$frequency_type = $_GET['frequency_type'];
+			if(!empty($_POST['frequency_type'])) {
+			$frequency_type = $_POST['frequency_type'];
 			}
 			$frequency = '';
-			if(!empty($_GET['frequency'])) {
-			$frequency = implode(',',$_GET['frequency']);
+			if(!empty($_POST['frequency'])) {
+			$frequency = implode(',',$_POST['frequency']);
 			}
 
 			$emplbound = '';
-			if(!empty($_GET['emplbound'])) {
-			$emplbound = $_GET['emplbound'];
+			if(!empty($_POST['emplbound'])) {
+			$emplbound = $_POST['emplbound'];
 			}
 			$empubound = "";
-			if(!empty($_GET['empubound'])) {
-			$empubound = $_GET['empubound'];
+			if(!empty($_POST['empubound'])) {
+			$empubound = $_POST['empubound'];
 			}
 			$emp_range = null;
 			if(isset($emplbound) && $empubound)
 				$emp_range = $emplbound . "-" . $empubound;
 
 			$revnlbound = '';
-			if(!empty($_GET['revnlbound'])) {
-			$revnlbound = $_GET['revnlbound'];
+			if(!empty($_POST['revnlbound'])) {
+			$revnlbound = $_POST['revnlbound'];
 			}
 			$revnubound = "";
-			if(!empty($_GET['revnubound'])) {
-			$revnubound = $_GET['revnubound'];
+			if(!empty($_POST['revnubound'])) {
+			$revnubound = $_POST['revnubound'];
 			}
 			$ren_range = null;
 			if(isset($emplbound) && $empubound)
 				$ren_range = $emplbound ."m -". $empubound."m";
 			
 			$revnlbound_range = '';
-			if(!empty($_GET['revnlbound_range'])) {
-			$revnlbound_range = $_GET['revnlbound_range'];
+			if(!empty($_POST['revnlbound_range'])) {
+			$revnlbound_range = $_POST['revnlbound_range'];
 			}
 			$revnubound_range = "";
-			if(!empty($_GET['revnubound_range'])) {
-			$revnubound_range = $_GET['revnubound_range'];
+			if(!empty($_POST['revnubound_range'])) {
+			$revnubound_range = $_POST['revnubound_range'];
 			}
 			
-			$sdate=date_create($_GET['startdt']);
-			$cdate=date_create($_GET['estclosedt']);
+			$sdate=date_create($_POST['startdt']);
+			$cdate=date_create($_POST['estclosedt']);
 			$closedate = date_format($cdate,"Y/m/d");
 			$startdate = date_format($sdate,"Y/m/d");
 			$datacampaign = array(
-				'clientids' => $_GET['client_id'], 
-				'cids' => $_GET['campaign_id'],
-				'campnm' => $_GET['campaign_name'],
+				'clientids' => $_POST['client_id'], 
+				'cids' => $_POST['campaign_id'],
+				'campnm' => $_POST['campaign_name'],
 				'countrycd' => $campaigncountryStr,
 				'regioncode' => $regionStr,
 				'industrycd' => $industryStr,
+				'subindustrycd' => $subindustryStr,
 				'dcd' => $deptStr,
 				// 'emplzid' => $empsizeStr,
-				// 'comzid' => $revStr,
+				'joblevelids' => $levelid,
 				'tid' => $desiStr,
-				'suplistnew' =>$_GET['checksupp'],
-				'inclistnew' =>$_GET['inclist'],
-				'cdcneed' =>$_GET['cdqa'],
-				'assetid' => $_GET['assetid'],
-				'questnos' =>$_GET['quantity'],
-				'status' => $_GET['selectstatus'],			
+				'suplistnew' =>$_POST['checksupp'],
+				'inclistnew' =>$_POST['inclist'],
+				'cdcneed' =>$_POST['cdqa'],
+				'assetid' => $_POST['assetid'],
+				'questnos' =>$_POST['quantity'],
+				'status' => $_POST['selectstatus'],			
 				'estclosedt' => $closedate,
 				'startdt' => $startdate,
 				'freqtyp' => $frequency_type,

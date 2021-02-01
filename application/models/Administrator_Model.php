@@ -1431,6 +1431,16 @@ public function get_campaign_by_id($id = FALSE)
 		// die;
 		return $query->result_array();
 	}
+public function get_leadmasterby_campaignid($id = FALSE)
+{
+		
+
+		$query = $this->db->get_where('leadmaster', array('cids' => $id));
+		// echo $this->db->last_query(); 
+		// echo $string;
+		// die;
+		return $query->result_array();
+	}
 
 	public function update_Campaign($datacampaign,$campaign_id)
 		{

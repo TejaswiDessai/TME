@@ -144,6 +144,9 @@ $.ajax({
      <?php foreach ($campaigns as $campaign): ?>
      
       <?php endforeach; ?>
+     <?php foreach ($leadmaster as $ldmster): ?>
+     
+      <?php endforeach; ?>
    
 </div>
 <!-- Page header end -->
@@ -190,17 +193,18 @@ $.ajax({
                                 </select>
                             </div>
                             <div class="col-sm-2">
-                                <input type="text"  name="fname" id="fname"  placeholder="First Name"   class="form-control form-control-sm cdqadisable">
+                                <input type="text"  name="fname" id="fname"  placeholder="First Name"   class="form-control form-control-sm cdqadisable"
+                                 value ="<?php if(isset($ldmster)){  echo $ldmster['fname']; }?>" >
                                 <input type="hidden" name="inclistnew" id="inclistnew" value="<?php echo $campaign['inclistnew']; ?>">
                                 <span style='color:#FF0000' id="fname_msg"></span>
                             </div>
                             
                             <div class="col-sm-2">
-                                <input type="text"  name="lname" id="lname"  placeholder="Last Name"   class="form-control form-control-sm cdqadisable">
+                                <input type="text"  name="lname" id="lname"  placeholder="Last Name" value ="<?php if(isset($ldmster)){  echo $ldmster['lname']; }?>"   class="form-control form-control-sm cdqadisable">
                                 <span style='color:#FF0000' id="lname_msg"></span>
                             </div>
                             <div class="col-sm-3">
-                                <input type="text"  name="jtitle" id="jtitle"  placeholder="Job Title"  class="form-control form-control-sm cdqadisable">
+                                <input type="text"  name="jtitle" id="jtitle"  placeholder="Job Title" value ="<?php if(isset($ldmster)){  echo $ldmster['jtitle']; }?>"  class="form-control form-control-sm cdqadisable">
                             </div>
                             <div class="col-sm-2">
                                 <!-- <select class="js-example-basic-multiple col-sm-12 cdqadisable" multiple="multiple" name="desid[]" id="desid"> -->
@@ -329,15 +333,7 @@ $.ajax({
                                </select>
                            </div>
                            
-                           <!-- <div class="col-sm-2">
-                               <select name="linetype" id="linetype"  class="form-control  form-control-sm cdqadisable">
-                                     <option value="0">unknown</option>
-                                     <option value="1">Direct</option>
-                                     <option value="2">Board</option>  
-                               </select>
-                           </div> -->
-
-
+                         
                             <div class="col-sm-2">
                               <select class="js-example-basic-single"  name="industrycd" id="industrycd">
                               <option value="">Industry</option>
@@ -482,8 +478,12 @@ $.ajax({
                          </div>
                         <input type = hidden name="campaign_id" id="campaign_id" value="<?php echo $campaign['cnid']; ?>">
                         <input type = hidden name="campaign_idcids" id="campaign_idcids" value="<?php echo $campaign['cids']; ?>">
-                        
+                        <?php if(isset($ldmster) && $ldmster['sbsvtag'] < 6 ){ ?> 
+                        <button type="submit" name="leadupdate" class="btn btn-primary leaddisplay" style=""  id="leadupdate">Update</button> 
+                       <?php } ?>
+                       <?php if(empty($ldmster)){ ?>
                         <button type="submit" name="leadsubmit" class="btn btn-primary leaddisplay" style=""  id="leadsubmit">Submit </button> 
+                        <?php } ?>
                         <button type="submit" name="leadsave" class="btn btn-primary leaddisplay" style=""  id="leadsave">Save </button> 
                         <!-- <input class="submit" class ="" type="submit" value="SUBMIT"> -->
                         <!-- below buttons are for cdqa save and submit -->
@@ -1285,10 +1285,185 @@ $(document).ready(function() {
  </script>
 
 <script>
+/* add lead submit initial*/
     $(function() {
         $("#leadsubmit").on('click', function() 
         {
          
+            var campaign_id = $('#campaign_id').val();
+            var campaign_idcids = $('#campaign_idcids').val();
+          //  alert(campaign_idcids);
+            var sal = $('#sal').val();
+            var fname = $('#fname').val();
+            var lname = $('#lname').val();
+            var jtitle = $('#jtitle').val();
+            var desid = $('#desid').val();
+            var jlevel = $('#jlevel').val();
+           
+            var dcd = $('#dcd').val();
+            var email = $('#email').val();
+            var phone = $('#phone').val();
+            var altphn = $('#altphn').val();
+            var phext = $('#phext').val();
+            var plink = $('#plink').val();
+            var company_name = $('#company_name').val();
+            var address = $('#address').val();
+            var city = $('#city').val();
+            var state = $('#state').val();
+            var zip_code = $('#zip_code').val();
+
+            var country_id = $('#country_id').val(); 
+            var timezone = $('#timezone').val();
+            var ctype = $('#ctype').val();
+            var linetype = $('#linetype').val();
+            var industrycd = $('#industrycd').val();
+            var subindustrycd = $('#subindustrycd').val();
+            var sectyp = $('#sectyp').val();
+            
+            var empsize = $('#empsize').val();
+
+            var mlbl = $('#mlbl').val();
+            var domain = $('#domain').val();
+            var curr = $('#curr').val();
+            var empszlink = $('#empszlink').val();
+            var indlink = $('#indlink').val();
+
+            
+
+            var pcomt = $('#pcomt').val();
+
+            var arevenue = $('#arevenue').val();
+            var revszlink = $('#revszlink').val();
+            if(arevenue ==""){
+              
+              $("#revszlink").prop('disabled', true);
+              $('#revszlink').val("NA");
+            }else if(arevenue != ""){
+              
+              $("#revszlink").prop('disabled', false);
+              var revszlink = $('#revszlink').val();
+            }
+        
+// alert(revszlink);
+            var othrlink = $('#othrlink').val();
+            var emailver = $('#emailver').val();
+            var aum = $('#aum').val();
+            var assetid = $('#assetid').val();
+            
+            var optin = $('#optin').val();
+            var optpst = $('#optpst').val();
+            var opteml = $('#opteml').val();
+            var optph = $('#optph').val();
+            var optoption = $('#optoption').val();
+
+            var aa1 = $('#aa1').val();
+            var aa2 = $('#aa2').val();
+            var aa3 = $('#aa3').val();
+            var aa4 = $('#aa4').val();
+            var aa5 = $('#aa5').val();
+            var aa6 = $('#aa6').val();
+            var aa7 = $('#aa7').val();
+            var aa8 = $('#aa8').val();
+            var aa9 = $('#aa9').val();
+            var aa10 = $('#aa10').val();
+            var aa11 = $('#aa11').val();
+            var aa12 = $('#aa12').val();
+          
+            
+           
+            if(fname != "" && lname != "" && company_name != "" && jlevel != "" && jtitle != "" && desid != "" && dcd !="" && email != "" && phone !="" && plink !="" && address != "" && city != "" && state != ""  && country_id != "" && industrycd != "" && subindustrycd != "" && empsize != "" && domain !=""  && empszlink != "" && revszlink != ""  && zip_code !="" ){
+            var url = encodeURI("<?php echo base_url("cdc/ajax_add_new_leaddata");?>");
+            console.log(url+"?campaign_id="+campaign_id+"&sal="+sal+"&fname="+fname+"&lname="+lname+"&jtitle="+jtitle+"&desid="+desid+"&jlevel="+jlevel+"&dcd="+dcd+"&email="+email+"&phone="+phone+"&altphn="+altphn+"&phext="+phext+"&plink="+plink+"&company_name="+company_name+"&address="+address+"&city="+city+"&state="+state+"&zip_code="+zip_code+"&country_id="+country_id+"&timezone="+timezone+"&ctype="+ctype+"&linetype="+linetype+"&industrycd="+industrycd+"&subindustrycd="+subindustrycd+"&sectyp="+sectyp+"&empsize="+empsize+"&mlbl="+mlbl+"&curr="+curr+"&arevenue="+arevenue+"&empszlink="+empszlink+"&indlink="+indlink+"&domain="+domain+"&othrlink="+othrlink+"&revszlink="+revszlink+"&emailver="+emailver+"&aum="+aum+"&assetid="+assetid+"&optin="+optin+"&optpst="+optpst+"&optph="+optph+"&opteml="+opteml+"&optoption="+optoption+"&aa1="+aa1+"&aa2="+aa2+"&aa3="+aa3+"&aa4="+aa4+"&aa5="+aa5+"&aa6="+aa6+"&aa7="+aa7+"&aa8="+aa8+"&aa9="+aa9+"&aa10="+aa10+"&aa11="+aa11+"&aa12="+aa12+"&pcomt="+pcomt);
+           
+            $.ajax({
+                url :'<?php echo base_url("cdc/ajax_add_new_leaddata");?>',
+                type: 'GET', 
+                // contentType: "application/json",
+                dataType: 'json',              
+                data: {
+                   
+                  campaign_id: campaign_id,
+                  campaign_idcids: campaign_idcids,
+                    sal:sal,
+                    fname:fname,
+                    lname: lname,
+                    jtitle:jtitle,
+                    desid:desid,
+                    jlevel:jlevel,
+                    dcd:dcd,
+                    email:email,
+                    phone:phone,
+                    altphn:altphn,
+                    phext:phext,
+                    plink:plink,
+                    company_name:company_name,
+                    address:address,
+                    city:city,
+                    state:state,
+                    zip_code:zip_code,
+                    
+                    country_id:country_id,
+                    timezone:timezone,
+                    ctype:ctype,
+                    linetype:linetype,
+                                      
+                    industrycd:industrycd,
+                    subindustrycd:subindustrycd,
+                    sectyp:sectyp,
+                    empsize:empsize,
+                    mlbl:mlbl,
+                    curr:curr,
+                    arevenue:arevenue,
+                    empszlink:empszlink,
+                    indlink:indlink,
+                    revszlink:revszlink,
+                    domain:domain,
+                    othrlink:othrlink,
+                    emailver:emailver,
+                    aum:aum                 
+                      
+                    
+                    
+				},
+        async: true,
+                cache: false,
+                success: function(response){
+                    $("#leadsave").hide();
+                    var text = response.statusCode;
+                    console.log("check");
+                    if(response.statusCode == "Success") 
+                    {         
+                         
+                        $("#leadsubmit").html(response.message);
+                        top.location.href=base_url+"cdc/addleaddata?camp_id="+<?php echo $campaign['cnid']; ?>;//redirection
+                      
+                    }else if(response.data=="Fail")
+                    {
+                        $("#leadsubmit").html(response.message);
+                        
+					          }
+
+                   
+
+                },
+                error: function (error) {
+                 alert("Error");
+                  }
+              
+            });
+        } else{
+          alert("Please fill Mandatory fields");
+        }
+        });
+    });
+</script>
+<script>
+/* update lead submit*/
+    $(function() {
+        $("#leadupdate").on('click', function() 
+        {
+         alert("update");
+        
             var campaign_id = $('#campaign_id').val();
             var campaign_idcids = $('#campaign_idcids').val();
           //  alert(campaign_idcids);

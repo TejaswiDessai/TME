@@ -112,11 +112,22 @@
 						}
 						// echo $camp['cnid'];
 						$camp_id = $camp['cnid'];
-						$_SESSION['lmid'] = $camp['cids'];
+						// if(isset($_SESSION['lmid']) && $_SESSION['lmid'] == $camp['cids']){
+						// 	session_abort();
+						// 	print_r($_SESSION);
+						// }else {
+						// 	$_SESSION['lmid'] = $camp['cids'];
+						// }
+						// $_SESSION['lmid'] = $camp['cids'];
+						$cids = $camp['cids'];
 						// print_r($data['campaigns']);  
-						// print_r($_SESSION);
+						// print_r($cids);  
 						
-
+						$data['leadmaster'] = $this->Administrator_Model->get_leadmasterby_campaignid($cids);
+						print_r($data['leadmaster']); 
+						foreach ($data['leadmaster'] as $ldmster) {
+						
+						}
 						$data['countries'] = $this->Administrator_Model->get_countriesbyCampaign($camp_id);
 				
 							foreach($data['countries'] as $co){
@@ -1114,11 +1125,13 @@
 				'emailver' => $_GET['emailver'],
 				'aum' => $aum,
 				// tag
+				'ontag' => 0, // Submit and 0 = new
+				'sbsvtag' => '1', // Submit 1st time
 				'pload' => '1', // next level ready to load
 
 				// 'svagtidi' => '1' // save Agent Name
 				// 'svdti' => '1' // save date time
-				'stagtidi' => $_SESSION['emp_id'], // submit agent name
+				'stagtidi' => $_SESSION['emp_id'], // submit agent name 
 				'stdti' => $old_date  // submit date time
 								
 				);

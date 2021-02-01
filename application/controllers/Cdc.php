@@ -113,8 +113,8 @@
 						// echo $camp['cnid'];
 						$camp_id = $camp['cnid'];
 						$_SESSION['lmid'] = $camp['cids'];
-						print_r($data['campaigns']);  
-						print_r($_SESSION);
+						// print_r($data['campaigns']);  
+						// print_r($_SESSION);
 						
 
 						$data['countries'] = $this->Administrator_Model->get_countriesbyCampaign($camp_id);

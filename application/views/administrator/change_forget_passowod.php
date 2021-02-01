@@ -18,11 +18,11 @@
                             <div class="auth-box">
                                 <div class="row m-b-20">
                                     <div class="col-md-12">
-                                        <h3 class="text-left txt-primary">Forget password</h3>
+                                        <h3 class="text-left txt-primary">Update password</h3>
                                     </div>
                                 </div>
                                 <hr/>
-                                  <?php echo form_open('/send-email-php/mail.php'); ?>
+                                <?php echo form_open_multipart('administrator/change_password_action'); ?>
                                 <!-- <div class="input-group"> -->
                                 <div class="col-md-12">
                                 <div class="col-sm-12">
@@ -31,19 +31,17 @@
                                 </div>
                                 <br>
                                 <div class="col-sm-12">
-                                    <input type="text"  name="email" id="email"  placeholder="Email"   class="form-control form-control-sm cdqadisable">
+                                <input type="password" name="old_password" id="old_password" class="form-control" placeholder="Old Password">
                                     <span style='color:#FF0000' id="lname_msg"></span>
                                 </div>
                                 <br>
                                 <div class="col-sm-12">
-                                <select class="form-control form-control-default "  name="user_type" id="user_type">
-                                    <option value="1">Admin<option>
-                                    <option value="2">Core Team<option>
-                                    <option value="3">Manager<option>
-                                    <option value="4">Team Lead<option>
-                                    <option value="5" selected>Team Member<option>
-                                    <option value="6">Developers<option>
-                                </select>
+                                <input type="password" autocomplete="off" name="new_password" id="new_password" class="form-control" placeholder="New Password">
+                                </div>
+                                <br>
+                                <div class="col-sm-12">
+                                
+                                <input type="password" id="confirm_new_password" onkeyup="checkPass(); return false;" name="confirm_new_password" class="form-control" placeholder="Confirm New Password">
                                 </div>
                                     </div>
                                 <!-- </div> -->
@@ -86,4 +84,26 @@
         <!-- end of container-fluid -->
     </section>    
     
-   
+    <script type="text/javascript">
+function checkPass()
+{ 
+    //Store the password field objects into variables ...
+    var new_password = document.getElementById('new_password');
+    var pass2 = document.getElementById('confirm_new_password');
+    //Store the Confimation Message Object ...
+    var message = document.getElementById('confirmMessage');
+    //Set the colors we will be using ...
+    var goodColor = "rgb(46,204,113)";
+    var badColor = "rgb(231,76,60)";
+    if(new_password.value == confirm_new_password.value){
+        confirm_new_password.style.backgroundColor = goodColor;
+        message.style.color = goodColor;
+        message.innerHTML = "Passwords Match!"
+    }else{
+        confirm_new_password.style.backgroundColor = badColor;
+        message.style.color = badColor;
+        message.innerHTML = "Passwords Do Not Match!"
+    }
+} 
+ 
+</script>  

@@ -510,11 +510,12 @@
 
 		public function get_users($username = FALSE, $limit = FALSE, $offset = FALSE)
 		{
-			if ($limit) {
-				$this->db->limit($limit, $offset);
-			}
+			$emp_id = $this->session->userdata('emp_id');
+			// if ($limit) {
+			// 	$this->db->limit($limit, $offset);
+			// }
 
-			if($username === FALSE){
+			if($emp_id == 102){
 				$this->db->order_by('users.id', 'DESC');
 				//$this->db->join('categories', 'categories.id = posts.category_id');
 				$query = $this->db->get('users');
@@ -1157,12 +1158,11 @@
 			return $query->row_array();
 		}
 
-		public function change_password($new_password){
-
+		public function change_password($new_password,$emp_id){
 			$data = array(
 				'password' => md5($new_password)
 			    );
-			$this->db->where('id', $this->session->userdata('user_id'));
+			$this->db->where('emp_id', $emp_id);
 			return $this->db->update('users', $data);
 		}
 
@@ -1219,7 +1219,7 @@ public function is_temp_pass_valid($temp_pass){
 function saverecords($emp_id,$Fname,$Lname,$Manager,$status,$user_type,$Password,$register_date)
 {
 	$query="INSERT INTO users( id, emp_id, fname, lname,mngr,usertype,password,status,last_login) 
-		VALUES ('$emp_id','$emp_id','$Fname','$Lname','$Manager','$user_type','$Password','t','$register_date')";
+		VALUES ('$emp_id','$emp_id','$Fname','$Lname','$Manager','$user_type','$Password',$status,'$register_date')";
 		$this->db->query($query);
 }
 
@@ -1499,6 +1499,16 @@ public function get_leadmasterby_campaignid($id = FALSE)
 			// $this->db->where('clientids', $client_id);
 			$this->db->update('campaign', $datacampaign);
 			return true;
+		}
+
+		// Added by Amol
+		public function get_empid()
+		{
+			$this->db->order_by('id','desc');
+			$query = $this->db->get('users');
+			
+			$ret = $query->row();
+			return $ret->emp_id;
 		}
 
 }

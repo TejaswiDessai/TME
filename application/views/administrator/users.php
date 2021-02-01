@@ -75,26 +75,54 @@ $(document).ready(function(){
                             <table id="dom-jqry" class="table table-striped table-bordered nowrap">
                                 <thead>
                                     <tr>
-                                        <th>Id</th>
-                                        <th>Image</th>
+                                        <th>EMP Id</th>
+                                        <!-- <th>Image</th> -->
                                         <th>Name</th>
-                                        <th>Email</th>
-                                        <th>Contact</th>
+                                        <th>Manager</th>
+                                        <th>User Type</th>
                                         <th>Reg-Date</th>
+                                        <th>Status</th>
                                         <th>Action</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                 <?php foreach($users as $post) : ?>
                                  <tr>
-                                        <td><?php echo $post['id']; ?></td>
-                                        <td>
+                                        <td><?php echo $post['emp_id']; ?></td>
+                                        <!-- <td>
                                             <img width="20px;" src="<?php echo site_url();?>assets/images/users/<?php echo $post['image']; ?> ">                                           
-                                        </td>
-                                        <td><a href="edit-blog.php?id=14"><?php echo $post['name']; ?></a></td>
-                                        <td><?php echo $post['email']; ?></td>
-                                        <td><?php echo $post['contact']; ?></td>
-                                         <td><?php echo date("M d,Y", strtotime($post['register_date'])); ?></td>
+                                        </td> -->
+                                        <td><a href="edit-blog.php?id=14"><?php echo $post['fname']; ?></a></td>
+                                        <td><?php echo $post['mngr']; ?></td>
+                                        <td><?php 
+                                        if($post['usertype'] == 0)
+                                        {
+                                            echo "Admin";
+                                        }
+                                        else if($post['usertype'] == 1)
+                                        {
+                                            echo "Core";
+                                        }
+                                        else if($post['usertype'] == 2)
+                                        {
+                                            echo "Manager";
+                                        }
+                                        else if($post['usertype'] == 3)
+                                        {
+                                            echo "Team Leader";
+                                        }
+                                        else if($post['usertype'] == 4)
+                                        {
+                                            echo "Team Member";
+                                        }
+                                        else if($post['usertype'] == 5)
+                                        {
+                                            echo "Developer";
+                                        }
+
+                                        ?></td>
+                                         <td><?php echo date("M d,Y", strtotime($post['last_login'])); ?></td>
+                                         <td><?php if($post['status'] == 0){ echo "Active";}else{ echo "Inactive";} ?></td>
                                         <td>
                                                 <?php if($post['status'] == 1){ ?>
                                                <a class="label label-inverse-primary enable" href='<?php echo base_url(); ?>administrator/enable/<?php echo $post['id']; ?>?table=<?php echo base64_encode('users'); ?>'>Enabled</a>

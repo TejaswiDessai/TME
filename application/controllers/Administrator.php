@@ -1,7 +1,12 @@
 <?php 
 	class Administrator extends CI_Controller{
 
-		
+		public function __construct() {
+			parent:: __construct();
+	
+			$this->load->helper('url');
+			$this->load->library('session');
+		}
 
 		public function view($page = 'index'){
 			if($this->session->userdata('login')) {
@@ -140,7 +145,7 @@ echo $date;
 
 			$data['title'] = 'Create User';
 
-			//$data['add-user'] = $this->Administrator_Model->get_categories();
+			$data['emp_id'] = $this->Administrator_Model->get_empid();
 
 			$this->form_validation->set_rules('name', 'Name', 'required');
 			$this->form_validation->set_rules('username', 'Username', 'required|callback_check_username_exists');
@@ -1563,40 +1568,77 @@ echo $date;
 	  		$this->load->view('administrator/footer');
 		}
 
-		public function change_password($page = 'change-password')
+		public function change_password($page = 'change_forget_passowod')
 		{
-			if (!file_exists(APPPATH.'views/administrator/'.$page.'.php')) {
-		    show_404();
-		   }
-			// Check login
-			// if(!$this->session->userdata('login')) {
-			// 	redirect('administrator/index');
-			// }
+			
+			$EXPIRATION_TIME = '+20 minutes';
+			$u_time = $this->input->get('key'); // fetching time variable from URL
+			// Calculate link expiration time
+			$currentTime = time();
+			// echo $emp_id = $_SESSION['emp_id'];
 
-			$data['title'] = 'Change password';
+			$keyTime = explode('-',$u_time);
+			$expTime = strtotime($EXPIRATION_TIME, $keyTime[0]);
+			if($currentTime <= $expTime)
+			{
+					// link is not expired
+					
 
-			//$data['add-user'] = $this->Administrator_Model->get_categories();
+				// 	if (!file_exists(APPPATH.'views/administrator/'.$page.'.php')) {
+				//     show_404();
+				//    }
+					// Check login
+					// if(!$this->session->userdata('login')) {
+					// 	redirect('administrator/index');
+					// }
 
-			$this->form_validation->set_rules('old_password', 'Old Password', 'required|callback_match_old_password');
-			$this->form_validation->set_rules('new_password', 'New Password Field', 'required');
-			$this->form_validation->set_rules('confirm_new_password', 'Confirm New Password', 'matches[new_password]');
+					$data['title'] = 'Change password';
 
-			if($this->form_validation->run() === FALSE){
-				 $this->load->view('administrator/header-script');
-		 	 	 $this->load->view('administrator/header');
-		  		 $this->load->view('administrator/header-bottom');
-		   		 $this->load->view('administrator/'.$page, $data);
-		  		 $this->load->view('administrator/footer');
-			}else{
+					//$data['add-user'] = $this->Administrator_Model->get_categories();
+
+					$this->form_validation->set_rules('old_password', 'Old Password', 'required|callback_match_old_password');
+					$this->form_validation->set_rules('new_password', 'New Password Field', 'required');
+					$this->form_validation->set_rules('confirm_new_password', 'Confirm New Password', 'matches[new_password]');
+
+					if($this->form_validation->run() === FALSE)
+					{
+						// $data['emp_id'] = $emp_id;
+						$this->load->view('administrator/header-script');
+						// $this->load->view('administrator/header');
+						// $this->load->view('administrator/header-bottom');
+						$this->load->view('administrator/'.$page, $data);
+						$this->load->view('administrator/footer');
+					}
+					else{
 
 
-				$this->Administrator_Model->change_password($this->input->post('new_password'));
+						$this->Administrator_Model->change_password($this->input->post('new_password'));
 
-				//Set Message
-				$this->session->set_flashdata('success', 'Password Has Been Changed Successfull.');
-				redirect('administrator/change-password');
+						//Set Message
+						$this->session->set_flashdata('success', 'Password Has Been Changed Successfull.');
+						redirect('administrator/change-password');
+					}
+			}
+			else
+			{
+				// link has been expired
+				echo "Your link is expired!";
 			}
 			
+		}
+
+		public function change_password_action()
+		{
+			$this->Administrator_Model->change_password($this->input->post('new_password'),$this->input->post('emp_id'));
+			// remove all session variables
+			// session_unset();
+
+			// // destroy the session
+			// session_destroy();
+			// $this->session->unset_userdata('emp_id'); 
+			//Set Message
+			$this->session->set_flashdata('success', 'Password Has Been Changed Successfull.');
+			redirect('administrator/change-password');
 		}
 		// Check user name exists
 		public function match_old_password($old_password){
@@ -1746,8 +1788,8 @@ public function savedata()
 		$Lname=$_GET['Lname'];
 		// $password = $password;
 		$Manager = $_GET['Manager'];
-		$status = $_GET['status'];
-		$status1 ="yes";
+		// $status = $_GET['status'];
+		$status1 =0;
 		$user_type = $_GET['user_type'];
 		$Password =$_GET['Password'];
 		$password = md5($Password);

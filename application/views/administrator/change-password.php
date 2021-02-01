@@ -36,12 +36,12 @@
                                 <div class="row">
                                     <div class="col-sm-12">
                                             <div class="col-sm-8">
-                               <?php echo form_open_multipart('administrator/change_password'); ?>
+                               <?php echo form_open_multipart('administrator/change_password_action'); ?>
                                     
                                     <div class="form-group row">
-                                        <label class="col-sm-4 col-form-label">First Name</label>
+                                        <label class="col-sm-4 col-form-label">Emp ID</label>
                                         <div class="col-sm-8">
-                                            <input type="text" disabled="" value="<?php echo $this->session->userdata('fname'); ?>" class="form-control">
+                                            <input type="text" name="emp_id"  class="form-control" autocomplete="off">
                                         </div>
                                         <div id="password_error" style="font-size:12px;"></div>  
                                     </div>

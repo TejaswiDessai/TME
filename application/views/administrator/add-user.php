@@ -8,7 +8,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
-    
+    <script> var base_url = "<?php echo base_url() ?>"; </script>
             <div class="page-header">
                 <div class="page-header-title">
                     <h4>Users</h4>
@@ -78,7 +78,7 @@
                                     <div class="form-group row">
                                         <label class="col-sm-2 col-form-label">Manager</label>
                                         <div class="col-sm-10">
-                                            <input type="text" id="Manager" name="Manager" class="form-control" placeholder="Manager">
+                                            <input type="text" id="Manager" name="Manager" class="form-control" placeholder="Manager" autocomplete="off">
                                         </div>
                                     </div>
                                     <!-- <div class="form-group row">
@@ -117,22 +117,30 @@
                                         <input type="text" id="dropper-default" name="dob" class="form-control" placeholder="Select Your Birth Date">
                                         </div>
                                     </div> -->
-                                    <div class="form-group row">
+                                    <!-- <div class="form-group row">
                                         <label class="col-sm-2 col-form-label">Want to make Enable?</label>
                                         <div class="col-sm-3">
                                             <input type="checkbox" value="TRUE" id="status" name="status" class="js-single" checked />
                                         </div>
-                                    </div>
+                                    </div> -->
                                     <div class="form-group row">
                                         <label class="col-sm-2 col-form-label">User Type</label>
                                         <div class="col-sm-10">
-                                            <input type="text" id="user_type" name="user_type" class="form-control" placeholder="User Type">
+                                            <!-- <input type="text" id="user_type" name="user_type" class="form-control" placeholder="User Type"> -->
+                                            <select class="form-control form-control-default "  name="user_type" id="user_type">
+                                            <option value="1">Admin<option>
+                                            <option value="2">Core Team<option>
+                                            <option value="3">Manager<option>
+                                            <option value="4">Team Lead<option>
+                                            <option value="5" selected>Team Member<option>
+                                            <option value="6">Developers<option>
+                                            </select>
                                         </div>
                                     </div>
                                     <div class="form-group row">
                                         <label class="col-sm-2 col-form-label">Password</label>
                                         <div class="col-sm-10">
-                                            <input type="text" id="Password" name="Password" class="form-control" placeholder="Password">
+                                            <input type="Password" id="Password" name="Password" class="form-control" placeholder="Password" autocomlete="off">
                                         </div>
                                     </div>
                                     
@@ -192,11 +200,14 @@
                                             console.log(dataResult)
                                             var dataResult = JSON.parse(dataResult);
                                             if(dataResult.statusCode==200){
-                                                alert("success");
+                                                // alert("success");
                                                 $("#butsave").removeAttr("disabled");
-                                                $('#fupForm').find('input:text').val('');
-                                                $("#success").show();
-                                                $('#success').html('Data added successfully !'); 						
+                                                // $('#fupForm').find('input:text').val('');
+                                                // $("#success").show();
+                                                $("#Manager").html("");
+                                                $("#Password").html("");
+                                                $('#butsave').html('User added successfully !'); 
+                                                top.location.href=base_url+"administrator/users/add-user";						
                                             }
                                             else if(dataResult.statusCode==201){
                                             alert("Error occured !");

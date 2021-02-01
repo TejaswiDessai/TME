@@ -268,7 +268,27 @@ $(function(){
                             <div class="col-sm-3">
                                 <label class="col-lable"><b>World Region</b></label>
                                 <select class="js-example-basic-multiple col-sm-12" multiple="multiple" name="region_id" id="region_id">
-                                <?php $regioncode = explode(',',$post['regioncode']);?>
+                                <?php 
+                                if($post['regioncode'] == 0)
+                                {
+                                    $regioncode = $post['regioncode'];
+                                }
+                                else
+                                {
+                                    $regioncode = explode(',',$post['regioncode']);
+                                }
+                                
+                                
+                                ?>
+                                <?php if($regioncode == 0)
+                                {
+                                    ?>
+                                    <option value="0" selected>All</option>
+                                    <?php
+                                }
+                                
+                                ?>
+
                                 <?php foreach ($regions as $region): ?>
                                     <option value="<?php echo $region['regioncode']; ?>" <?php if( in_array($region['regioncode'], $regioncode)) { echo "selected" ; } ?>><?php echo $region['region']; ?></option>
                                 <?php endforeach; ?>
@@ -295,10 +315,10 @@ $(function(){
                                 <!-- </select> -->
                             <!-- </div> -->
                             <div class="col-sm-3">
-                                <label class="col-lable"><b>Industry</b></label><?php echo form_error('industrycd'); ?>
+                                <label class="col-lable"><b>Sub Industry</b></label><?php echo form_error('industrycd'); ?>
                                 <select class="js-example-basic-multiple col-sm-12" multiple="multiple" name="industrycd[]" id="industrycd">
-                                <?php $industrycd = explode(',',$post['industrycd']);?>
-                                     <?php foreach ($industries as $industry): ?>
+                                <?php $industrycd = explode(',',$post['subindustrycd']);?>
+                                <?php foreach ($industries->result_array()  as $industry): ?>
                                     <option value="<?php echo $industry['subindustrycd']; ?>" <?php if( in_array($industry['subindustrycd'], $industrycd)){ echo "selected" ; } ?>><?php echo $industry['subindustry']; ?></option>
                                 <?php endforeach; ?>
                                 </select>

@@ -516,11 +516,12 @@
 
 		public function get_users($username = FALSE, $limit = FALSE, $offset = FALSE)
 		{
-			if ($limit) {
-				$this->db->limit($limit, $offset);
-			}
+			$emp_id = $this->session->userdata('emp_id');
+			// if ($limit) {
+			// 	$this->db->limit($limit, $offset);
+			// }
 
-			if($username === FALSE){
+			if($emp_id == 102){
 				$this->db->order_by('users.id', 'DESC');
 				//$this->db->join('categories', 'categories.id = posts.category_id');
 				$query = $this->db->get('users');

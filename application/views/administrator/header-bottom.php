@@ -1,4 +1,16 @@
 <?php
+
+if (isset($_SESSION["username"])) {
+    // only if user is logged in perform this check
+    if ((time() - $_SESSION['timeout']) > 600) { // after 10 mints session will be log out
+        redirect('administrator/logout');
+      exit;
+    } else {
+      $_SESSION['timeout'] = time();
+    }
+  }
+
+
  if ($this->session -> userdata('email') == "" && $this->session -> userdata('login') != true && $this->session -> userdata('role_id') != 1) {
       redirect('administrator/index');
     }
@@ -42,7 +54,7 @@
                 
                  <li class="nav-item">
                         <a href="#!">
-                            <i class="ti-settings"></i>
+                        <i class="icofont icofont-cop-badge"></i>
                             <span>Campaigns</span>
                         </a>
                         <ul class="tree-1">
@@ -50,14 +62,21 @@
                              <li><a href="<?php echo base_url(); ?>campaigns/campaign">Campaign List</a></li>
                         </ul>
                     </li>
+                    
                     <li class="nav-item">
                         <!-- <a href="<?php echo base_url(); ?>cdc/addlead""> -->
                         <a href="<?php echo base_url(); ?>cdc/selectCampaign">
-                        <i class="icon-call-out"></i>
+                        <i class="icofont icofont-sand-clock"></i>
                             <span>Data Lead and CDC</span>
                         </a>
                     </li>
-             
+                    <li class="nav-item">
+                        <!-- <a href="<?php echo base_url(); ?>cdc/addlead""> -->
+                        <a href="<?php echo base_url(); ?>cdc/selectCampaignforlead">
+                        <i class="ti-linkedin"></i>
+                            <span>Add Lead</span>
+                        </a>
+                    </li>
                 <li class="nav-item">
                     <a href="#!">
                         <i class="ti-layout"></i>

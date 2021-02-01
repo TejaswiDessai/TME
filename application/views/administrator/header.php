@@ -1,3 +1,10 @@
+
+<?php 
+
+
+
+?>
+
 <body class="horizontal-static">
     <!-- Pre-loader start -->
     <div class="theme-loader">

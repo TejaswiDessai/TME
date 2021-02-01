@@ -89,14 +89,7 @@
 //                         echo $this->db->last_query(); exit;
 			return $query->result_array();
 		}
-		public function get_subregions(){
-			$this->db->select('subregion,subregioncode');
-			 $this->db->group_by('subregioncode');
-			  $this->db->group_by('subregion');
-		   $query = $this->db->get('country'); 
-//                         echo $this->db->last_query(); exit;
-		   return $query->result_array();
-	   }
+		
 		public function get_industries(){
 			
 			$sql = "SELECT DISTINCT industrycd,industry FROM industry group by industry,industrycd order by industry";
@@ -112,11 +105,6 @@
 // 			return $query->result_array();
 			// $query = $this->db->get('industry');                       
 			// return $query->result_array();
-		}
-		public function get_subindustries(){
-			
-			$sql = "SELECT DISTINCT subindustrycd,subindustry FROM industry group by subindustry,subindustrycd order by subindustry";
-			return $query = $this->db->query($sql);
 		}
 		public function get_depts(){
 			$this->db->from('dept');
@@ -153,11 +141,6 @@
 // 			return $query->result_array();
 			// $query = $this->db->get('designation');                       
 			// return $query->result_array();
-		}
-		public function get_sub_designation(){
-
-			$sql = "SELECT DISTINCT joblist,jid FROM joblevels group by joblist,jid";
-			return $query = $this->db->query($sql);
 		}
 		public function getquestions_byCampaign($cnid){
 			$this->db->select('*');
@@ -479,6 +462,17 @@
                         // echo $this->db->last_query(); 
 		}
 		public function add_leadandcdc($datacdcandlead)
+		{
+                        
+			$this->db->insert('leadmaster', $datacdcandlead);
+			//  $insert_id = $this->db->insert_id();
+			// echo $this->db->last_query(); 
+			return true;
+			
+			//  return  $insert_id;
+                       
+		}
+		public function add_leaddata($datacdcandlead)
 		{
                         
 			$this->db->insert('leadmaster', $datacdcandlead);

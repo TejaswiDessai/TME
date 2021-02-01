@@ -5,10 +5,15 @@
 
 
 		function addlead($page = 'add-lead'){
+			// print_r($_SESSION['timeout']);
+			
+		
+
+
 
 			$data['title'] = 'Create Lead';
 			// print_r($_SESSION);
-			// print_r($_SESSION['emp_id']);
+			// print_r($_SESSION['timeout']);
 			if(isset($_GET['camp_id'])){
 				$postData1 = $_GET['camp_id']; 
 			}else{
@@ -87,24 +92,119 @@
 			$this->load->view('administrator/footer');
 		
 		}
+		function addleaddata($page = 'add-leaddata'){
+			
+			$data['title'] = 'Create Lead';
+			// print_r($_SESSION);
+			// print_r($_SESSION['timeout']);
+			if(isset($_GET['camp_id'])){
+				$postData1 = $_GET['camp_id']; 
+			}else{
+				$postData = $this->input->post();
+				$postData1 = $postData['campaign_id'];
+			}
+		// print_r($postData1);
+
+						$data['campaigns'] = $this->Administrator_Model->get_campaign_by_id($postData1);
+
+						foreach ($data['campaigns'] as $camp) {
+						
+						}
+						// echo $camp['cnid'];
+						$camp_id = $camp['cnid'];
+						$_SESSION['lmid'] = $camp['cids'];
+						// print_r($data['campaigns']);  
+						// print_r($_SESSION);
+						
+
+						$data['countries'] = $this->Administrator_Model->get_countriesbyCampaign($camp_id);
+				
+							foreach($data['countries'] as $co){
+							$myArray = implode(',', $co);
+							}
+
+							$myArray1 = explode(',', $myArray);
+							$data['countriesofcampaign'] = $this->Administrator_Model->get_countriesofCampaign($camp_id,$myArray1);
+							// print_r($data['countriesofcampaign']);
+
+						// $data['countries'] = $this->Administrator_Model->get_countries();
+						$data['industries1'] = $this->Administrator_Model->get_industries_byCampaign($camp_id);
+						foreach($data['industries1'] as $ind){
+							$myind = implode(',', $ind);
+							}
+							$myind1 = explode(',', $myind);
+						$data['industries'] = $this->Administrator_Model->get_industries_ofCampaign($camp_id,$myind1);
+
+						$data['industriessub'] = $this->Administrator_Model->get_subindustries_byCampaign($camp_id,$myind1);
+
+						$data['departments1'] = $this->Administrator_Model->get_departmentsbyCampaign($camp_id);
+						foreach($data['departments1'] as $dp){
+							$mydpArray = implode(',', $dp);
+							}
+							$mydpArray1 = explode(',', $mydpArray);
+							$data['departments'] = $this->Administrator_Model->get_depts_byCampaign($camp_id,$mydpArray1);
+                        // $data['departments'] = $this->Administrator_Model->get_depts_byCampaign($mydpArray1);
+                       
+						$data['designation1'] = $this->Administrator_Model->get_designation_byCampaign($camp_id);
+						foreach($data['designation1'] as $ds){
+							$mydesi = implode(',', $ds);
+							}
+							$mydesiarry = explode(',', $mydesi);
+						$data['designation'] = $this->Administrator_Model->get_designation_ofCampaign($camp_id,$mydesiarry);
+
+						$data['joblevel'] = $this->Administrator_Model->get_joblevels_byCampaign($camp_id,$mydesiarry);
+					
+					
+						$data['timezones'] = $this->Administrator_Model->get_timezonesbyCampaign($camp_id,$myArray1);
+						$data['currency'] = $this->Administrator_Model->get_currencybyCampaign($camp_id,$myArray1);
+						// print_r($data['timezones']);
+						$data['comptype'] = $this->Administrator_Model->get_comptype();
+						
+						$data['assetitle'] = $this->Administrator_Model->get_assetitle_byCampaign($camp_id);
+
+						// $data['dataforcdqa'] = $this->Administrator_Model->get_dataforCDQA_byCampaign($camp_id);
+			// print_r($data['dataforcdqa']);
+						
+
+
+			$this->load->view('administrator/header-script');
+			$this->load->view('administrator/header');
+			$this->load->view('administrator/header-bottom');
+			 $this->load->view('administrator/'.$page, $data);
+			$this->load->view('administrator/footer');
+		
+		}
 		function selectCampaign($page = 'select-campaign'){
 			$data['title'] = 'Create Lead';
 			$data['campaigns'] = $this->Administrator_Model->get_campaign();
-                        $data['clients'] = $this->Administrator_Model->get_clients();
-                        $data['countries'] = $this->Administrator_Model->get_countries();
-                        $data['regions'] = $this->Administrator_Model->get_regions();
-                        $data['industries'] = $this->Administrator_Model->get_industries();
-                        $data['departments'] = $this->Administrator_Model->get_depts();
-                        $data['empsize'] = $this->Administrator_Model->get_empsize();
-                        $data['revsize'] = $this->Administrator_Model->get_revenuesize();
-						$data['designation'] = $this->Administrator_Model->get_designation();
-						$data['timezones'] = $this->Administrator_Model->get_timezones();
-						$data['lbound'] = $this->Administrator_Model->get_empsize();
-						$data['ubound'] = $this->Administrator_Model->get_empsize();
+                        // $data['clients'] = $this->Administrator_Model->get_clients();
+                        // $data['countries'] = $this->Administrator_Model->get_countries();
+                        // $data['regions'] = $this->Administrator_Model->get_regions();
+                        // $data['industries'] = $this->Administrator_Model->get_industries();
+                        // $data['departments'] = $this->Administrator_Model->get_depts();
+                        // $data['empsize'] = $this->Administrator_Model->get_empsize();
+                        // $data['revsize'] = $this->Administrator_Model->get_revenuesize();
+						// $data['designation'] = $this->Administrator_Model->get_designation();
+						// $data['timezones'] = $this->Administrator_Model->get_timezones();
+						// $data['lbound'] = $this->Administrator_Model->get_empsize();
+						// $data['ubound'] = $this->Administrator_Model->get_empsize();
 
-						$data['revnlbound'] = $this->Administrator_Model->get_revenuesize();
-						$data['revnubound'] = $this->Administrator_Model->get_revenuesize();
+						// $data['revnlbound'] = $this->Administrator_Model->get_revenuesize();
+						// $data['revnubound'] = $this->Administrator_Model->get_revenuesize();
 						// $data['assetitle'] = $this->Administrator_Model->get_assetitle();
+			
+			
+			$this->load->view('administrator/header-script');
+			$this->load->view('administrator/header');
+			$this->load->view('administrator/header-bottom');
+			 $this->load->view('administrator/'.$page, $data);
+			$this->load->view('administrator/footer');
+		
+		}
+		function selectCampaignforlead($page = 'select-campaign-lead'){
+			$data['title'] = 'Create Lead';
+			$data['campaigns'] = $this->Administrator_Model->get_campaign();
+                      
 			
 			
 			$this->load->view('administrator/header-script');
@@ -261,32 +361,32 @@
 				'indlink' => $_GET['indlink'],
 				'revszlink' => $_GET['revszlink'],
 				'empszlink' => $_GET['empszlink'],
-				'pcomt' => $_GET['pcomt'],
+				// 'pcomt' => $_GET['pcomt'],
 
 				'othrlink' => $_GET['othrlink'],
 
 				'emailver' => $_GET['emailver'],
 				'aum' => $aum,
-				'atitle' => $_GET['assetid'],
+				// 'atitle' => $_GET['assetid'],
 
-				'optin' => $optin,
-				'optpst' => $optpost,
-				'optph' => $optph,
-				'opteml' => $opteml,
+				// 'optin' => $optin,
+				// 'optpst' => $optpost,
+				// 'optph' => $optph,
+				// 'opteml' => $opteml,
 				
 
-				'aa1' => $_GET['aa1'],
-				'aa2' => $_GET['aa2'],
-				'aa3' => $_GET['aa3'],
-				'aa4' => $_GET['aa4'],
-				'aa5' => $_GET['aa5'],
-				'aa6' => $_GET['aa6'],
-				'aa7' => $_GET['aa7'],
-				'aa8' => $_GET['aa8'],
-				'aa9' => $_GET['aa9'],
-				'aa10' => $_GET['aa10'],
-				'aa11' => $_GET['aa11'],
-				'aa12' => $_GET['aa12'],
+				// 'aa1' => $_GET['aa1'],
+				// 'aa2' => $_GET['aa2'],
+				// 'aa3' => $_GET['aa3'],
+				// 'aa4' => $_GET['aa4'],
+				// 'aa5' => $_GET['aa5'],
+				// 'aa6' => $_GET['aa6'],
+				// 'aa7' => $_GET['aa7'],
+				// 'aa8' => $_GET['aa8'],
+				// 'aa9' => $_GET['aa9'],
+				// 'aa10' => $_GET['aa10'],
+				// 'aa11' => $_GET['aa11'],
+				// 'aa12' => $_GET['aa12'],
 
 				// tag
 				'pload' => '1', // next level ready to load
@@ -445,32 +545,32 @@
 				'indlink' => $_GET['indlink'],
 				'revszlink' => $_GET['revszlink'],
 				'empszlink' => $_GET['empszlink'],
-				'pcomt' => $_GET['pcomt'],
+				// 'pcomt' => $_GET['pcomt'],
 
 				'othrlink' => $_GET['othrlink'],
 
 				'emailver' => $_GET['emailver'],
 				'aum' =>$aum,
-				'atitle' => $_GET['assetid'],
+				// 'atitle' => $_GET['assetid'],
 
-				'optin' => $optin,
-				'optpst' => $optpost,
-				'optph' => $optph,
-				'opteml' => $opteml,
+				// 'optin' => $optin,
+				// 'optpst' => $optpost,
+				// 'optph' => $optph,
+				// 'opteml' => $opteml,
 				
 
-				'aa1' => $_GET['aa1'],
-				'aa2' => $_GET['aa2'],
-				'aa3' => $_GET['aa3'],
-				'aa4' => $_GET['aa4'],
-				'aa5' => $_GET['aa5'],
-				'aa6' => $_GET['aa6'],
-				'aa7' => $_GET['aa7'],
-				'aa8' => $_GET['aa8'],
-				'aa9' => $_GET['aa9'],
-				'aa10' => $_GET['aa10'],
-				'aa11' => $_GET['aa11'],
-				'aa12' => $_GET['aa12'],
+				// 'aa1' => $_GET['aa1'],
+				// 'aa2' => $_GET['aa2'],
+				// 'aa3' => $_GET['aa3'],
+				// 'aa4' => $_GET['aa4'],
+				// 'aa5' => $_GET['aa5'],
+				// 'aa6' => $_GET['aa6'],
+				// 'aa7' => $_GET['aa7'],
+				// 'aa8' => $_GET['aa8'],
+				// 'aa9' => $_GET['aa9'],
+				// 'aa10' => $_GET['aa10'],
+				// 'aa11' => $_GET['aa11'],
+				// 'aa12' => $_GET['aa12'],
 
 				// tag
 				'pload' => '0', // No next level ready to load- save means here
@@ -685,7 +785,7 @@
 			
 					echo json_encode(array(
 						'statusCode'=>'Success',
-						// "lead_id"=>$updateleadandcdcdata,
+						"lead_id"=>$updateleadandcdcdata,
 						'message'=>'Lead added Successfully..'
 					));
 				}else{
@@ -872,7 +972,7 @@
 			
 					echo json_encode(array(
 						"statusCode"=>"Success",
-						// "lead_id"=>$updateleadandcdcdata,
+						"lead_id"=>$updateleadandcdcdata,
 						"message"=>"Lead added Successfully.."
 					));
 				}else{
@@ -885,7 +985,167 @@
 			
 		}
 
+		public function ajax_add_new_leaddata()
+		{
+			$campaign_id = $_GET['campaign_id'];
+			$cids = $_GET['campaign_idcids'];
 
+			// $revnlbound_range = '';
+			// if(!empty($_GET['revnlbound_range'])) {
+			// $revnlbound_range = $_GET['revnlbound_range'];
+			// }
+				// Concatenation Of String 
+				$trimfname=$_GET['fname'];
+				$trimlname=$_GET['lname'];
+
+				$first =substr($trimfname, 0, 4);  // abcd
+				$last = substr($trimlname, 0, 4);
+				$conname = $first.$last; 
+
+
+				$old_date = date('Y-m-d H:i:s');         // works
+				$middle = strtotime($old_date);             // returns bool(false)
+				$new_date = date('Y-m-d H:i:s', $middle);
+
+				if(!empty($_GET['aum']))
+				{
+					$aum = $_GET['aum'];
+				} else{
+				$aum = 0 ;
+				}
+				if(!empty($_GET['arevenue']))
+				{
+					$arrevenue = $_GET['arevenue'];
+				} else{
+				$arrevenue = 0 ;
+				}
+				if(!empty($_GET['phext']))
+				{
+					$phext = $_GET['phext'];
+				} else{
+				$phext = 0 ;
+				}
+			   if(!empty($_GET['sectyp']))
+				{
+					$sectype = $_GET['sectyp'];
+				} else{
+				$sectype = 0 ;
+				}
+
+
+				if(!empty($_GET['optin']))
+				{
+					$optin = 1;
+				} else{
+				    $optin = 0 ;
+				}
+				if(!empty($_GET['optpst']))
+				{
+					$optpost = 1;
+				} else{
+				    $optpost = 0 ;
+				}
+				if(!empty($_GET['optph']))
+				{
+					$optph = 1;
+				} else{
+				    $optph = 0 ;
+				}
+				if(!empty($_GET['opteml']))
+				{
+					$opteml = 1;
+				} else{
+				    $opteml = 0 ;
+				}
+				if(!empty($_GET['timezone']))
+				{
+					$timezones = $_GET['timezone'];
+				} else{
+				    $timezones = 0 ;
+				}
+
+
+				$datacdcandlead = array(
+				'cids' => $_GET['campaign_idcids'],
+				
+				'sal' => $_GET['sal'],
+				'fname' => $_GET['fname'],
+				'lname' => $_GET['lname'],
+				'conname' => $conname, //concate strings
+				'jtitle' => $_GET['jtitle'],
+				// 'desid' => $_GET['desid'],
+
+				'jlevel' => $_GET['jlevel'],
+				'dname' => $_GET['dcd'], //department
+				'email' => $_GET['email'],
+				'phone' => $_GET['phone'],
+				'altphn' => $_GET['altphn'],
+
+				'phext' => $phext,
+				'plink' => $_GET['plink'],
+				'cname' => $_GET['company_name'],
+				'address' => $_GET['address'],
+
+				'city' => $_GET['city'],
+				'state' => $_GET['state'],
+				'zipcode' => $_GET['zip_code'],
+				'country' => $_GET['country_id'],
+				'timez' => $timezones,
+				'ctyp' => $_GET['ctype'],
+			
+				'linetype' => $_GET['linetype'],
+				'indtry' => $_GET['industrycd'],
+				'sindtry' => $_GET['subindustrycd'],
+
+				'sectyp' => $sectype,
+				'empsize' => $_GET['empsize'],
+				'arevenue' =>$arrevenue,
+				'mlbl' => $_GET['mlbl'],
+				'curr' => $_GET['curr'],
+
+				'domain' => $_GET['domain'],
+				'indlink' => $_GET['indlink'],
+				'revszlink' => $_GET['revszlink'],
+				'empszlink' => $_GET['empszlink'],
+				// 'pcomt' => $_GET['pcomt'],
+
+				'othrlink' => $_GET['othrlink'],
+
+				'emailver' => $_GET['emailver'],
+				'aum' => $aum,
+				// tag
+				'pload' => '1', // next level ready to load
+
+				// 'svagtidi' => '1' // save Agent Name
+				// 'svdti' => '1' // save date time
+				'stagtidi' => $_SESSION['emp_id'], // submit agent name
+				'stdti' => $old_date  // submit date time
+								
+				);
+			
+			//   print_r($datacdcandlead);
+			//      exit();
+			
+				$addleadandcdcdata = $this->Administrator_Model->add_leaddata($datacdcandlead);
+				// print_r($addcampaigndata);  die;
+				
+
+				if($addleadandcdcdata == true){
+			
+					echo json_encode(array(
+						"statusCode"=>"Success",
+						"lead_id"=>$addleadandcdcdata,
+						"message"=>"Lead Added Successfully.."
+					));
+				}else{
+					echo json_encode(array(
+						"statusCode"=>"Fail",
+						"message"=>"Add data Lead failed.."
+					));
+				}
+								
+			
+		}
 
 
 

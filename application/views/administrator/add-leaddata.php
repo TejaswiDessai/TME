@@ -122,17 +122,17 @@ $.ajax({
 <form id="basic-form" method="POST" enctype="multipart/form-data">
 <div class="page-header">
     <div class="page-header-title col-sm-12">
-        <h4>Data Lead And CDC </h4> 
+        <h4>Add Lead</h4> 
         
       
             <div class="form-group row"> 
-             <div class="col-sm-2" style="margin-left: 200px;margin-top: -25px;">
-                                <select name="rec_type_id" id="rec_type_id"  class="form-control form-control-sm">
+               <div class="col-sm-2" style="margin-left: 200px;margin-top: -25px;">
+                                <!-- <select name="rec_type_id" id="rec_type_id"  class="form-control form-control-sm">
                                       <option value="1">Data </option>
                                       <option value="2">CDQA </option>
-                                </select>
+                                </select> -->
                   </div> 
-                <div class="col-sm-2" style="margin-top: -20px;">
+                <div class="col-sm-4" style="margin-top: -20px;">
                 <?php foreach ($campaigns as $campaign): ?>
                  <label class="col-lable"><b>Campaign Name: <?php echo $campaign['campnm']; ?></b></label>
                  <?php endforeach; ?>
@@ -144,19 +144,7 @@ $.ajax({
      <?php foreach ($campaigns as $campaign): ?>
      
       <?php endforeach; ?>
-    <!-- <div class="page-header-breadcrumb">
-        <ul class="breadcrumb-title">
-            <li class="breadcrumb-item">
-                <a href="index-2.html">
-                    <i class="icofont icofont-home"></i>
-                </a>
-            </li>
-            <li class="breadcrumb-item"><a href="#!">Data Lead And CDC</a>
-            </li>
-            <li class="breadcrumb-item"><a href="#!">Add Lead</a>
-            </li>
-        </ul>
-    </div> -->
+   
 </div>
 <!-- Page header end -->
 <!-- Page body start -->
@@ -168,13 +156,7 @@ $.ajax({
               <!-- <form id="basic-form" method="POST" enctype="multipart/form-data"> -->
                 <div class="card-header">
                  <div class="form-group row"> 
-                 <!-- <div class="col-sm-3">
-                                <select name="rec_type_id" id="rec_type_id"  class="form-control form-control-sm">
-                                      <option value="1">Data </option>
-                                      <option value="2">CDQA </option>
-                                </select>
-                            </div> -->
-                    
+                
                        
                   </div>
            
@@ -505,9 +487,9 @@ $.ajax({
                         <button type="submit" name="leadsave" class="btn btn-primary leaddisplay" style=""  id="leadsave">Save </button> 
                         <!-- <input class="submit" class ="" type="submit" value="SUBMIT"> -->
                         <!-- below buttons are for cdqa save and submit -->
-                        <button type="submit" name="submit" class="btn btn-primary cdqadisplay"   id="cdqasubmit">Submit  </button> 
-                        <button type="submit" name="submit" class="btn btn-primary cdqadisplay"  id="cdqasave">Save  </button> 
-                       
+                        <!-- <button type="submit" name="submit" class="btn btn-primary cdqadisplay"   id="cdqasubmit">Submit Lead </button> 
+                        <button type="submit" name="submit" class="btn btn-primary cdqadisplay"  id="cdqasave">Save Lead </button> 
+                        -->
 
                     </div>
                       
@@ -960,22 +942,7 @@ var arevenuevalue = $('#arevenue').val();
             }
             return isValid;
         });
-        // $("#phone").keypress(function (e) {
-        //     var keyCode = e.keyCode || e.which;
- 
-        //     $("#phone_msg").html("");
- 
-        //     //Regex for Valid Characters i.e. Alphabets and Numbers.
-          
-        //     var regex = /^[0-9]+$/;
- 
-        //     //Validate TextBox value against the Regex.
-        //     var isValid = regex.test(String.fromCharCode(keyCode));
-        //     if (!isValid) {
-        //         $("#phone_msg").html("Only Numbers allowed.");
-        //     }
-        //     return isValid;
-        // });
+       
     });
   
   // Check unique Email function // check inclusion and exclusion email in db table
@@ -984,7 +951,7 @@ var arevenuevalue = $('#arevenue').val();
       var email = $('#email').val();
       var inclistnew = $('#inclistnew').val();
       // var campaign_id = <?php  //echo $campaign['cnid']; ?>
-      // alert(campaign_id);
+      alert(inclistnew);
       var url = '<?php echo base_url("cdc/checkemail");?>';
       console.log(url+'?email='+email);
     // AJAX request
@@ -996,7 +963,6 @@ var arevenuevalue = $('#arevenue').val();
         dataType: 'json',
         success: function(response){
           $( '#email_msg' ).html("response");
-          alert(response.exclusionemail);
           if(response.inclusionemail == "true")
           {
             $("#email_msg").html("");
@@ -1405,11 +1371,11 @@ $(document).ready(function() {
             
            
             if(fname != "" && lname != "" && company_name != "" && jlevel != "" && jtitle != "" && desid != "" && dcd !="" && email != "" && phone !="" && plink !="" && address != "" && city != "" && state != ""  && country_id != "" && industrycd != "" && subindustrycd != "" && empsize != "" && domain !=""  && empszlink != "" && revszlink != ""  && zip_code !="" ){
-            var url = encodeURI("<?php echo base_url("cdc/ajax_add_new_leadandcdc");?>");
+            var url = encodeURI("<?php echo base_url("cdc/ajax_add_new_leaddata");?>");
             console.log(url+"?campaign_id="+campaign_id+"&sal="+sal+"&fname="+fname+"&lname="+lname+"&jtitle="+jtitle+"&desid="+desid+"&jlevel="+jlevel+"&dcd="+dcd+"&email="+email+"&phone="+phone+"&altphn="+altphn+"&phext="+phext+"&plink="+plink+"&company_name="+company_name+"&address="+address+"&city="+city+"&state="+state+"&zip_code="+zip_code+"&country_id="+country_id+"&timezone="+timezone+"&ctype="+ctype+"&linetype="+linetype+"&industrycd="+industrycd+"&subindustrycd="+subindustrycd+"&sectyp="+sectyp+"&empsize="+empsize+"&mlbl="+mlbl+"&curr="+curr+"&arevenue="+arevenue+"&empszlink="+empszlink+"&indlink="+indlink+"&domain="+domain+"&othrlink="+othrlink+"&revszlink="+revszlink+"&emailver="+emailver+"&aum="+aum+"&assetid="+assetid+"&optin="+optin+"&optpst="+optpst+"&optph="+optph+"&opteml="+opteml+"&optoption="+optoption+"&aa1="+aa1+"&aa2="+aa2+"&aa3="+aa3+"&aa4="+aa4+"&aa5="+aa5+"&aa6="+aa6+"&aa7="+aa7+"&aa8="+aa8+"&aa9="+aa9+"&aa10="+aa10+"&aa11="+aa11+"&aa12="+aa12+"&pcomt="+pcomt);
            
             $.ajax({
-                url :'<?php echo base_url("cdc/ajax_add_new_leadandcdc");?>',
+                url :'<?php echo base_url("cdc/ajax_add_new_leaddata");?>',
                 type: 'GET', 
                 // contentType: "application/json",
                 dataType: 'json',              
@@ -1454,47 +1420,22 @@ $(document).ready(function() {
                     othrlink:othrlink,
                     emailver:emailver,
                     aum:aum                 
-                    
-                    // assetid:assetid,
-                    // optin:optin,
-                    // optph:optph,
-                    // opteml:opteml,
-                    // optpst:optpst,
-                    // optoption:optoption,
-                    // aa1:aa1,
-                    // aa2:aa2,
-                    // aa3:aa3,
-                    // aa4:aa4,
-                    // aa5:aa5,
-                    // aa6:aa6,
-                    // aa7:aa7,
-                    // aa8:aa8,
-                    // aa9:aa9,
-                    // aa10:aa10,
-                    // aa11:aa11,
-                    // aa12:aa12,
-                    // pcomt:pcomt     
+                      
                     
                     
 				},
         async: true,
                 cache: false,
                 success: function(response){
-
-                  // $("#leadsubmit").html("Submitted!");
-                  // $("#leadsubmit").prop('disabled', true);
-                  $("#leadsave").hide();
-                  // top.location.href=base_url+"administrator/dashboard";//redirection
+                    $("#leadsave").hide();
                     var text = response.statusCode;
                     console.log("check");
-                    // var dataResult = JSON.parse(response);
                     if(response.statusCode == "Success") 
                     {         
-                      // alert("Success in success");               
+                         
                         $("#leadsubmit").html(response.message);
-                        top.location.href=base_url+"cdc/addlead?camp_id="+<?php echo $campaign['cnid']; ?>;//redirection
-                        // $("#addcampbtn").prop('disabled', true);
-                        // top.location.href=base_url+"campaigns/addsuppressionList?camp_id="+response.campaign_id;//redirection
+                        top.location.href=base_url+"cdc/addleaddata?camp_id="+<?php echo $campaign['cnid']; ?>;//redirection
+                      
                     }else if(response.data=="Fail")
                     {
                         $("#leadsubmit").html(response.message);
@@ -1519,7 +1460,7 @@ $(document).ready(function() {
 <!--  code for save data in db -->
 <script>
     $(function() {
-        $("#leadsave").on('click', function() 
+        $("#leadsavekkkkkkkkkkkk").on('click', function() 
         {
          
             var campaign_id = $('#campaign_id').val();
@@ -1651,27 +1592,7 @@ $(document).ready(function() {
                     othrlink:othrlink,
                     emailver:emailver,
                     aum:aum                 
-                    
-                    // assetid:assetid,
-                    // optin:optin,
-                    // optph:optph,
-                    // opteml:opteml,
-                    // optpst:optpst,
-                    // optoption:optoption,
-                    // aa1:aa1,
-                    // aa2:aa2,
-                    // aa3:aa3,
-                    // aa4:aa4,
-                    // aa5:aa5,
-                    // aa6:aa6,
-                    // aa7:aa7,
-                    // aa8:aa8,
-                    // aa9:aa9,
-                    // aa10:aa10,
-                    // aa11:aa11,
-                    // aa12:aa12,
-                    // pcomt:pcomt     
-                    
+                   
 				},
         // async: true,
                 // cache: false,
@@ -1689,7 +1610,7 @@ $(document).ready(function() {
                     {     
                       // alert("Success");                   
                         $("#leadsave").html(response.message);
-                        top.location.href=base_url+"cdc/addlead?camp_id="+<?php echo $campaign['cnid']; ?>;//redirection
+                        top.location.href=base_url+"cdc/addleaddata?camp_id="+<?php echo $campaign['cnid']; ?>;//redirection
                         // $("#addcampbtn").prop('disabled', true);
                         // top.location.href=base_url+"campaigns/addsuppressionList?camp_id="+response.campaign_id;//redirection
                     }else if(response.statusCode=="Fail")
@@ -1713,450 +1634,4 @@ $(document).ready(function() {
         }
         });
     });
-</script>   
-<!--  code for Submit data in CDQA -->
-<script>
-    $(function() {
-        $("#cdqasubmit").on('click', function() 
-        {
-          var campaign_id = $('#campaign_id').val();
-          var campaign_idcids = $('#campaign_idcids').val();
-           
-           var sal = $('#sal').val();
-       
-           var fname = $('#fname').val();
-           var lname = $('#lname').val();
-           var jtitle = $('#jtitle').val();
-           var desid = $('#desid').val();
-           var jlevel = $('#jlevel').val();
-          
-           var dcd = $('#dcd').val();
-           var email = $('#email').val();
-           var phone = $('#phone').val();
-           var altphn = $('#altphn').val();
-           var phext = $('#phext').val();
-           var plink = $('#plink').val();
-           var company_name = $('#company_name').val();
-           var address = $('#address').val();
-           var city = $('#city').val();
-           var state = $('#state').val();
-           var zip_code = $('#zip_code').val();
-
-           var country_id = $('#country_id').val(); 
-           var timezone = $('#timezone').val();
-           var ctype = $('#ctype').val();
-           var linetype = $('#linetype').val();
-           var industrycd = $('#industrycd').val();
-           var subindustrycd = $('#subindustrycd').val();
-           var sectyp = $('#sectyp').val();
-           
-           var empsize = $('#empsize').val();
-
-           var mlbl = $('#mlbl').val();
-           var domain = $('#domain').val();
-           var curr = $('#curr').val();
-           var empszlink = $('#empszlink').val();
-           var indlink = $('#indlink').val();
-           var revszlink = $('#revszlink').val();
-           var pcomt = $('#pcomt').val();
-
-           var arevenue = $('#arevenue').val();
-           var othrlink = $('#othrlink').val();
-           var emailver = $('#emailver').val();
-           var aum = $('#aum').val();
-           var assetid = $('#assetid').val();
-           
-           var optin = $('#optin').val();
-           var optpst = $('#optpst').val();
-           var opteml = $('#opteml').val();
-           var optph = $('#optph').val();
-           var optoption = $('#optoption').val();
-
-           var aa1 = $('#aa1').val();
-           var aa2 = $('#aa2').val();
-           var aa3 = $('#aa3').val();
-           var aa4 = $('#aa4').val();
-           var aa5 = $('#aa5').val();
-           var aa6 = $('#aa6').val();
-           var aa7 = $('#aa7').val();
-           var aa8 = $('#aa8').val();
-           var aa9 = $('#aa9').val();
-           var aa10 = $('#aa10').val();
-           var aa11 = $('#aa11').val();
-           var aa12 = $('#aa12').val();
-         
-           if(aa1 == undefined){
-            var aa1 = 0;
-           }
-           if(aa2 == undefined){
-            var aa2 = 0;
-           }
-           if(aa3 == undefined){
-            var aa3 = 0;
-           }
-           if(aa4 == undefined){
-            var aa4 = 0;
-           }
-           if(aa5 == undefined){
-            var aa5 = 0;
-           }
-           if(aa6 == undefined){
-            var aa6 = 0;
-           }
-           if(aa7 == undefined){
-            var aa7 = 0;
-           }
-           if(aa8 == undefined){
-            var aa8 = 0;
-           }
-           if(aa9 == undefined){
-            var aa9 = 0;
-           }
-           if(aa10 == undefined){
-            var aa10 = 0;
-           }
-           if(aa11 == undefined){
-            var aa11 = 0;
-           }
-           if(aa12 == undefined){
-            var aa12 = 0;
-           }
-          
-          
-           if(fname != "" && lname != "" && company_name != "" && jlevel != "" && jtitle != "" && desid != "" && dcd !="" && email != "" && phone !="" && plink !="" && address != "" && city != "" && state != ""  && country_id != "" && industrycd != "" && subindustrycd != "" && empsize != "" && domain !=""  && empszlink != "" && revszlink != ""  && zip_code !="" ){
-           var url = encodeURI("<?php echo base_url("cdc/ajax_submit_leadandcdcbyCDQA");?>");
-           console.log(url+"?campaign_id="+campaign_id+"&sal="+sal+"&fname="+fname+"&lname="+lname+"&jtitle="+jtitle+"&desid="+desid+"&jlevel="+jlevel+"&dcd="+dcd+"&email="+email+"&phone="+phone+"&altphn="+altphn+"&phext="+phext+"&plink="+plink+"&company_name="+company_name+"&address="+address+"&city="+city+"&state="+state+"&zip_code="+zip_code+"&country_id="+country_id+"&timezone="+timezone+"&ctype="+ctype+"&linetype="+linetype+"&industrycd="+industrycd+"&subindustrycd="+subindustrycd+"&sectyp="+sectyp+"&empsize="+empsize+"&mlbl="+mlbl+"&curr="+curr+"&arevenue="+arevenue+"&empszlink="+empszlink+"&indlink="+indlink+"&domain="+domain+"&othrlink="+othrlink+"&revszlink="+revszlink+"&emailver="+emailver+"&aum="+aum+"&assetid="+assetid+"&optin="+optin+"&optpst="+optpst+"&optph="+optph+"&opteml="+opteml+"&optoption="+optoption+"&aa1="+aa1+"&aa2="+aa2+"&aa3="+aa3+"&aa4="+aa4+"&aa5="+aa5+"&aa6="+aa6+"&aa7="+aa7+"&aa8="+aa8+"&aa9="+aa9+"&aa10="+aa10+"&aa11="+aa11+"&aa12="+aa12+"&pcomt="+pcomt);
-          
-            $.ajax({
-                url :'<?php echo base_url("cdc/ajax_submit_leadandcdcbyCDQA");?>',
-                type: 'GET', 
-                dataType: 'json',              
-                data: {
-                   
-                  campaign_id: campaign_id,
-                  campaign_idcids:campaign_idcids,
-                    sal:sal,
-                    fname:fname,
-                    lname: lname,
-                    jtitle:jtitle,
-                    desid:desid,
-                    jlevel:jlevel,
-                    dcd:dcd,
-                    email:email,
-                    phone:phone,
-                    altphn:altphn,
-                    phext:phext,
-                    plink:plink,
-                    company_name:company_name,
-                    address:address,
-                    city:city,
-                    state:state,
-                    zip_code:zip_code,
-                    
-                    country_id:country_id,
-                    timezone:timezone,
-                    ctype:ctype,
-                    linetype:linetype,
-                                      
-                    industrycd:industrycd,
-                    subindustrycd:subindustrycd,
-                    sectyp:sectyp,
-                    empsize:empsize,
-                    mlbl:mlbl,
-                    curr:curr,
-                    arevenue:arevenue,
-                    empszlink:empszlink,
-                    indlink:indlink,
-                    revszlink:revszlink,
-                    domain:domain,
-                    othrlink:othrlink,
-                    emailver:emailver,
-                    aum:aum,                 
-                    
-                    assetid:assetid,
-                    optin:optin,
-                    optph:optph,
-                    opteml:opteml,
-                    optpst:optpst,
-                    optoption:optoption,
-                    aa1:aa1,
-                    aa2:aa2,
-                    aa3:aa3,
-                    aa4:aa4,
-                    aa5:aa5,
-                    aa6:aa6,
-                    aa7:aa7,
-                    aa8:aa8,
-                    aa9:aa9,
-                    aa10:aa10,
-                    aa11:aa11,
-                    aa12:aa12,
-                    pcomt:pcomt     
-                    
-                    
-				},
-        async: true,
-                cache: false,
-                success: function(response){
-                  console.log("Success");
-                  $("#cdqasubmit").html("Submitted!");
-                  $("#cdqasubmit").prop('disabled', true);
-                  $("#cdqasave").hide();
-                  // top.location.href=base_url+"administrator/dashboard";//redirection
-                  // console.log(response);
-                  // var respons = JSON.parse(JSON.stringify(response));
-                  // console.log(respons);
-                    if(response.statusCode == "Success") 
-                    {        
-                          
-                        $("#cdqasubmit").html(response.message);
-                        top.location.href=base_url+"cdc/addlead?camp_id="+<?php echo $campaign['cnid']; ?>;//redirection
-                        // $("#addcampbtn").prop('disabled', true);
-                        // top.location.href=base_url+"campaigns/addsuppressionList?camp_id="+response.campaign_id;//redirection
-                    }else if(response.statusCode=="Fail")
-                    {
-                      alert("in Fail"); 
-                        $("#cdqasubmit").html(response.message);
-                        
-					          }
-
-                   
-
-                },
-                error: function (error) {
-                  alert("Error");
-                  // top.location.href=base_url+"cdc/addlead?camp_id="+<?php echo $campaign['cnid']; ?>;//redirection
-                  // location.reload();
-                  }
-              
-            });
-        }else{
-          alert("Please fill Mandatory Fields");
-        }
-        });
-    });
-</script>   
-<!--  code for Save data in CDQA -->
-<script>
-    $(function() {
-        $("#cdqasave").on('click', function() 
-        {
-         
-          var campaign_id = $('#campaign_id').val();
-          var campaign_idcids = $('#campaign_idcids').val();
-           
-           var sal = $('#sal').val();
-       
-           var fname = $('#fname').val();
-           var lname = $('#lname').val();
-           var jtitle = $('#jtitle').val();
-           var desid = $('#desid').val();
-           var jlevel = $('#jlevel').val();
-          
-           var dcd = $('#dcd').val();
-           var email = $('#email').val();
-           var phone = $('#phone').val();
-           var altphn = $('#altphn').val();
-           var phext = $('#phext').val();
-           var plink = $('#plink').val();
-           var company_name = $('#company_name').val();
-           var address = $('#address').val();
-           var city = $('#city').val();
-           var state = $('#state').val();
-           var zip_code = $('#zip_code').val();
-
-           var country_id = $('#country_id').val(); 
-           var timezone = $('#timezone').val();
-           var ctype = $('#ctype').val();
-           var linetype = $('#linetype').val();
-           var industrycd = $('#industrycd').val();
-           var subindustrycd = $('#subindustrycd').val();
-           var sectyp = $('#sectyp').val();
-           
-           var empsize = $('#empsize').val();
-
-           var mlbl = $('#mlbl').val();
-           var domain = $('#domain').val();
-           var curr = $('#curr').val();
-           var empszlink = $('#empszlink').val();
-           var indlink = $('#indlink').val();
-           var revszlink = $('#revszlink').val();
-           var pcomt = $('#pcomt').val();
-
-           var arevenue = $('#arevenue').val();
-           var othrlink = $('#othrlink').val();
-           var emailver = $('#emailver').val();
-           var aum = $('#aum').val();
-           var assetid = $('#assetid').val();
-           
-           var optin = $('#optin').val();
-           var optpst = $('#optpst').val();
-           var opteml = $('#opteml').val();
-           var optph = $('#optph').val();
-           var optoption = $('#optoption').val();
-
-           var aa1 = $('#aa1').val();
-           var aa2 = $('#aa2').val();
-           var aa3 = $('#aa3').val();
-           var aa4 = $('#aa4').val();
-           var aa5 = $('#aa5').val();
-           var aa6 = $('#aa6').val();
-           var aa7 = $('#aa7').val();
-           var aa8 = $('#aa8').val();
-           var aa9 = $('#aa9').val();
-           var aa10 = $('#aa10').val();
-           var aa11 = $('#aa11').val();
-           var aa12 = $('#aa12').val();
-         
-           if(aa1 == undefined){
-            var aa1 = 0;
-           }
-           if(aa2 == undefined){
-            var aa2 = 0;
-           }
-           if(aa3 == undefined){
-            var aa3 = 0;
-           }
-           if(aa4 == undefined){
-            var aa4 = 0;
-           }
-           if(aa5 == undefined){
-            var aa5 = 0;
-           }
-           if(aa6 == undefined){
-            var aa6 = 0;
-           }
-           if(aa7 == undefined){
-            var aa7 = 0;
-           }
-           if(aa8 == undefined){
-            var aa8 = 0;
-           }
-           if(aa9 == undefined){
-            var aa9 = 0;
-           }
-           if(aa10 == undefined){
-            var aa10 = 0;
-           }
-           if(aa11 == undefined){
-            var aa11 = 0;
-           }
-           if(aa12 == undefined){
-            var aa12 = 0;
-           }
-          
-          
-           if(fname != "" && lname != "" && company_name != "" && jlevel != "" && jtitle != "" && desid != "" && dcd !="" && email != "" && phone !="" && plink !="" && address != "" && city != "" && state != ""  && country_id != "" && industrycd != "" && subindustrycd != "" && empsize != "" && domain !=""  && empszlink != "" && revszlink != ""  && zip_code !="" ){
-            var url = encodeURI("<?php echo base_url("cdc/ajax_save_leadandcdcbyCDQA");?>");
-            console.log(url+"?campaign_id="+campaign_id+"&sal="+sal+"&fname="+fname+"&lname="+lname+"&jtitle="+jtitle+"&desid="+desid+"&jlevel="+jlevel+"&dcd="+dcd+"&email="+email+"&phone="+phone+"&altphn="+altphn+"&phext="+phext+"&plink="+plink+"&company_name="+company_name+"&address="+address+"&city="+city+"&state="+state+"&zip_code="+zip_code+"&country_id="+country_id+"&timezone="+timezone+"&ctype="+ctype+"&linetype="+linetype+"&industrycd="+industrycd+"&subindustrycd="+subindustrycd+"&sectyp="+sectyp+"&empsize="+empsize+"&mlbl="+mlbl+"&curr="+curr+"&arevenue="+arevenue+"&empszlink="+empszlink+"&indlink="+indlink+"&domain="+domain+"&othrlink="+othrlink+"&revszlink="+revszlink+"&emailver="+emailver+"&aum="+aum+"&assetid="+assetid+"&optin="+optin+"&optpst="+optpst+"&optph="+optph+"&opteml="+opteml+"&optoption="+optoption+"&aa1="+aa1+"&aa2="+aa2+"&aa3="+aa3+"&aa4="+aa4+"&aa5="+aa5+"&aa6="+aa6+"&aa7="+aa7+"&aa8="+aa8+"&aa9="+aa9+"&aa10="+aa10+"&aa11="+aa11+"&aa12="+aa12+"&pcomt="+pcomt);
-          
-            $.ajax({
-                url :'<?php echo base_url("cdc/ajax_save_leadandcdcbyCDQA");?>',
-                type: 'GET', 
-                dataType: 'json',              
-                data: {
-                   
-                  campaign_id: campaign_id,
-                  campaign_idcids:campaign_idcids,
-                    sal:sal,
-                    fname:fname,
-                    lname: lname,
-                    jtitle:jtitle,
-                    desid:desid,
-                    jlevel:jlevel,
-                    dcd:dcd,
-                    email:email,
-                    phone:phone,
-                    altphn:altphn,
-                    phext:phext,
-                    plink:plink,
-                    company_name:company_name,
-                    address:address,
-                    city:city,
-                    state:state,
-                    zip_code:zip_code,
-                    
-                    country_id:country_id,
-                    timezone:timezone,
-                    ctype:ctype,
-                    linetype:linetype,
-                                      
-                    industrycd:industrycd,
-                    subindustrycd:subindustrycd,
-                    sectyp:sectyp,
-                    empsize:empsize,
-                    mlbl:mlbl,
-                    curr:curr,
-                    arevenue:arevenue,
-                    empszlink:empszlink,
-                    indlink:indlink,
-                    revszlink:revszlink,
-                    domain:domain,
-                    othrlink:othrlink,
-                    emailver:emailver,
-                    aum:aum,                 
-                    
-                    assetid:assetid,
-                    optin:optin,
-                    optph:optph,
-                    opteml:opteml,
-                    optpst:optpst,
-                    optoption:optoption,
-                    aa1:aa1,
-                    aa2:aa2,
-                    aa3:aa3,
-                    aa4:aa4,
-                    aa5:aa5,
-                    aa6:aa6,
-                    aa7:aa7,
-                    aa8:aa8,
-                    aa9:aa9,
-                    aa10:aa10,
-                    aa11:aa11,
-                    aa12:aa12,
-                    pcomt:pcomt     
-                   
-                    
-                    
-				},
-                cache: false,
-                
-                success: function(response){
-
-                  console.log("Success");
-                  
-
-
-                  // var respons = JSON.parse(JSON.stringify(response));
-                  // var text = respons.statusCode;
-                    // console.log(text);
-                  
-                    if(response.statusCode == "Success") 
-                    {             
-                      // alert("Success");           
-                        $("#cdqasave").html(response.message);
-                        top.location.href=base_url+"cdc/addlead?camp_id="+<?php echo $campaign['cnid']; ?>;//redirection
-                    }else if(response.statusCode=="Fail")
-                    {
-                        $("#cdqasave").html(response.message);
-                        
-					          }
-
-                    
-
-                },
-                error: function (error) {
-                  alert("Error");
-                  
-                  // location.reload();
-              }
-              
-            });
-          }else{
-          alert("Please fill Mandatory Fields");
-        }
-        });
-    });
-</script>   
-
-  
+</script>     

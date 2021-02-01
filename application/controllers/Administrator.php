@@ -79,12 +79,15 @@ echo $date;
 				 				'username' => $user_id->fname,
 				 				'fname' => $user_id->fname,
 				 				'login' => true,
-				 				'role' => $user_id->role_id,
+								 'role' => $user_id->role_id,
+								 'timeout' => time(),
+								 
 //				 				'image' => $user_id->image,
 //				 				'site_logo' => $sitelogo['logo_img']
 				 	);
 
-				 	$this->session->set_userdata($user_data);
+					 $this->session->set_userdata($user_data);
+					 
 
 					//Set Message
 					$this->session->set_flashdata('success', 'Welcome to administrator Dashboard.');

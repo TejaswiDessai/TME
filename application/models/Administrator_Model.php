@@ -1446,14 +1446,15 @@ public function get_leadmasterby_campaignid($id = FALSE)
 		{
 			$this->db->where('cids', $campaign_id);
 			$this->db->update('campaign', $datacampaign);
+			echo $this->db->last_query(); 
 			return true;
 			//  $this->db->insert('campaign', $datacampaign);
 			//  return true;
                         // echo $this->db->last_query(); 
 		}
-	public function update_leadandcdcbyCDQA($updateleadandcdcdata,$campaign_id)
+	public function update_leaddata($updateleadandcdcdata,$campaign_id)
 		{
-			$this->db->where('cnid', $campaign_id);
+			$this->db->where('cids', $campaign_id);
 			$this->db->update('leadmaster', $updateleadandcdcdata);
 			return true;
 			//  $this->db->insert('campaign', $datacampaign);

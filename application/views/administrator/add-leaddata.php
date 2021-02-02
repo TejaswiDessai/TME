@@ -61,37 +61,6 @@ $(document).ready(function() {
 
           var campaign_id = $('#campaign_id').val();
 
-var urlq = '<?php echo base_url("cdc/getquestion");?>';
-console.log(urlq+'?campaign_id='+campaign_id);
-$.ajax({
-      url:'<?php echo base_url("cdc/getquestion");?>',
-      method: 'get',
-      data: {campaign_id: campaign_id},
-      dataType: 'json',
-      success: function(response){
-
-      //    Remove options 
-    //  $('#country_id').find('option').not(':first').remove();
-     
-
-      //    Add options
-     $.each(response,function(index,data){
-        // $('.questionrow').append('<select><option value="'+data['qid']+'">'+data['questions']+'</option></select');
-       
-          index++;
-        $('.questionrow').html("");
-        $('.questionrow').append('<div class="col-sm-6 card ansdiv">'+
-                                   '<p><b>'+data['questions']+'</b></p>'+
-                                      '<input type="text" value=""  name="aa' + index + '" id="aa' + index + '"  placeholder="Answer for Question 2"  class="form-control form-control-sm ">'+
-                                                                     
-                          '</div>');
-
-        
-      });
-      }
-  });
-
-
          
         }else{
           $('.commentvisible').hide();
@@ -241,24 +210,24 @@ $.ajax({
                             </div> 
                             <div class="col-sm-2">
                                 <div class="newsletter-signup">
-                                <input type="text"  name="email" id="email"  placeholder="Email"  class="form-control form-control-sm cdqadisable">
+                                <input type="text"  name="email" id="email" value ="<?php if(isset($ldmster)){  echo $ldmster['email']; }?>"  placeholder="Email"  class="form-control form-control-sm cdqadisable">
                                </div>
                                 <span style='color:#FF0000' id="email_msg"></span>
                             </div>
                             <div class="col-sm-2">
-                                <input type="text"  name="phone" id="phone"  placeholder="Phone" maxlength="15"  class="form-control form-control-sm cdqadisable">
+                                <input type="text"  name="phone" id="phone" value ="<?php if(isset($ldmster)){  echo $ldmster['phone']; }?>" placeholder="Phone" maxlength="15"  class="form-control form-control-sm cdqadisable">
                                 <span style='color:#FF0000' id="phone_msg"></span>
                             </div>
                             <div class="col-sm-2">
-                                <input type="text"  name="altphn" id="altphn"  placeholder="Alternate Phone Number" maxlength="10"  class="form-control form-control-sm cdqadisable">
+                                <input type="text"  name="altphn" id="altphn" value ="<?php if(isset($ldmster)){  echo $ldmster['altphn']; }?>" placeholder="Alternate Phone Number" maxlength="10"  class="form-control form-control-sm cdqadisable">
                             </div>
                             
                             <div class="col-sm-2">
-                                <input type="text"  name="phext" id="phext"  placeholder="Extension" maxlength="5"  class="form-control form-control-sm cdqadisable">
+                                <input type="text"  name="phext" id="phext" value ="<?php if(isset($ldmster)){  echo $ldmster['phext']; }?>" placeholder="Extension" maxlength="5"  class="form-control form-control-sm cdqadisable">
                             </div>
                             <div class="col-sm-2">
                           
-                                <input type="text"  name="plink" id="plink"  placeholder="Prospect Link"  class="form-control form-control-sm"  >
+                                <input type="text"  name="plink" id="plink"  placeholder="Prospect Link"  class="form-control form-control-sm" value ="<?php if(isset($ldmster)){  echo $ldmster['plink']; }?>" >
                                
                                 <span style='color:#FF0000' id="url_msg"></span>
                             </div>
@@ -277,7 +246,8 @@ $.ajax({
                            </div>
                               <div class="col-sm-2">
                                 <div class="compcheck">
-                                <input type="text"  name="company_name" id="company_name"  placeholder="Company Name"  class="form-control form-control-sm cdqadisable">
+                                <input type="text"  name="company_name" id="company_name"  
+                                placeholder="Company Name"  class="form-control form-control-sm cdqadisable"  value ="<?php if(isset($ldmster)){  echo $ldmster['cname']; }?>">
                                 </div>
                                 <span style='color:#FF0000' id="comp_msg"></span>
                               </div> 
@@ -285,17 +255,17 @@ $.ajax({
 
 
                             <div class="col-sm-2">
-                                <input type="text"  name="address" id="address"  placeholder="Address"  class="form-control form-control-sm cdqadisable">
+                                <input type="text"  name="address" id="address"  placeholder="Address"  value ="<?php if(isset($ldmster)){  echo $ldmster['address']; }?>" class="form-control form-control-sm cdqadisable">
                            </div>
                            <div class="col-sm-2">
-                                <input type="text"  name="city" id="city"  placeholder="City"  class="form-control form-control-sm cdqadisable">
+                                <input type="text"  name="city" id="city"  placeholder="City" value ="<?php if(isset($ldmster)){  echo $ldmster['city']; }?>"   class="form-control form-control-sm cdqadisable">
                            </div>
                            <div class="col-sm-2">
-                                <input type="text"  name="state" id="state"  placeholder="State"  class="form-control form-control-sm cdqadisable">
+                                <input type="text"  name="state" id="state"  placeholder="State" value ="<?php if(isset($ldmster)){  echo $ldmster['state']; }?>" class="form-control form-control-sm cdqadisable">
                                 </select>
                             </div>
                             <div class="col-sm-2">
-                                <input type="text"  name="zip_code" id="zip_code"  placeholder="Zip Code"  class="form-control form-control-sm cdqadisable">
+                                <input type="text"  name="zip_code" id="zip_code"  placeholder="Zip Code" value ="<?php if(isset($ldmster)){  echo $ldmster['zipcode']; }?>" class="form-control form-control-sm cdqadisable">
                            </div>
                            
                             
@@ -369,11 +339,11 @@ $.ajax({
                 <hr>
                     <div class="form-group row">
                         <div class="col-sm-2">
-                                <input type="text"  name="empsize" id="empsize" maxlength="6" placeholder="Actual Employee Size"  class="form-control form-control-sm cdqadisable">
+                                <input type="text"  name="empsize" id="empsize" maxlength="6" value ="<?php if(isset($ldmster)){  echo $ldmster['empsize']; }?>" placeholder="Actual Employee Size"  class="form-control form-control-sm cdqadisable">
                                 <span style='color:#FF0000' id="empsize_msg"></span>
                             </div>
                             <div class="col-sm-2">
-                                <input type="text"  name="arevenue" id="arevenue" maxlength="15" placeholder="Actual Revenue Size"  class="form-control form-control-sm cdqadisable">
+                                <input type="text"  name="arevenue" id="arevenue" value ="<?php if(isset($ldmster)){  echo $ldmster['arevenue']; }?>"  maxlength="15" placeholder="Actual Revenue Size"  class="form-control form-control-sm cdqadisable">
                                 <span style='color:#FF0000' id="revsize_msg"></span>
                             </div>
                             
@@ -399,13 +369,13 @@ $.ajax({
                             </div>          
                             <div class="col-sm-2">
                                 <div class="domaincheck">
-                                <input type="text"  name="domain" id="domain"  placeholder="Domain" value=""  class="form-control form-control-sm cdqadisable">
+                                <input type="text" value ="<?php if(isset($ldmster)){  echo $ldmster['domain']; }?>"   name="domain" id="domain"  placeholder="Domain" value=""  class="form-control form-control-sm cdqadisable">
                                 </div>
                                 <span style='color:#FF0000' id="domain_msg"></span>
                               </div>
                             
                             <div class="col-sm-2">
-                                <input type="text"  name="empszlink" id="empszlink" value=""   placeholder="Employee Size Link"  class="form-control form-control-sm">
+                                <input type="text" value ="<?php if(isset($ldmster)){  echo $ldmster['empszlink']; }?>"  name="empszlink" id="empszlink" value=""   placeholder="Employee Size Link"  class="form-control form-control-sm">
                             </div>
                            
                         </div>
@@ -414,13 +384,13 @@ $.ajax({
                         <div class="form-group row">
                            
                         <div class="col-sm-2 ">
-                                <input type="text"  name="indlink" id="indlink"  placeholder="Industry Link" value="" class="form-control form-control-sm">
+                                <input type="text" value ="<?php if(isset($ldmster)){  echo $ldmster['indlink']; }?>"  name="indlink" id="indlink"  placeholder="Industry Link" value="" class="form-control form-control-sm">
                             </div>
                             <div class="col-sm-2">
-                                <input type="text"  name="revszlink" id="revszlink" value=""    placeholder="Revenue Size Link"  class="form-control form-control-sm revsizehide">
+                                <input type="text"  name="revszlink" id="revszlink" value ="<?php if(isset($ldmster)){  echo $ldmster['revszlink']; }?>"     placeholder="Revenue Size Link"  class="form-control form-control-sm revsizehide">
                             </div>
                             <div class="col-sm-2">
-                                <input type="text"  name="othrlink" id="othrlink" value=""  placeholder="Other Link"  class="form-control form-control-sm">
+                                <input type="text"  name="othrlink" id="othrlink" value ="<?php if(isset($ldmster)){  echo $ldmster['othrlink']; }?>" placeholder="Other Link"  class="form-control form-control-sm">
                             </div>
                             <div class="col-sm-2">
                                 <select class="form-control form-control-sm"  name="emailver" id="emailver">
@@ -430,7 +400,7 @@ $.ajax({
                                 </select>
                             </div>
                             <div class="col-sm-2">
-                                <input type="text"  name="aum" id="aum"  placeholder="Asset Under Management"  class="form-control form-control-sm aumdis">
+                                <input type="text"  name="aum" id="aum" value ="<?php if(isset($ldmster)){  echo $ldmster['aum']; }?>" placeholder="Asset Under Management"  class="form-control form-control-sm aumdis">
                             </div>
                             <div class="col-sm-2">
                                 <select class="form-control form-control-sm commentvisible" name="assetid" id="assetid">
@@ -442,7 +412,7 @@ $.ajax({
                             </div> 
                         </div>
                         <hr>
-                          <div class="form-group row optindiv">
+                          <!-- <div class="form-group row optindiv">
                                        
                                        <div class="col-sm-2">
                                         Opt - in  <input type="checkbox" value=""  id="optin" name="optin" class="js-single optin"  />
@@ -461,13 +431,13 @@ $.ajax({
                                         <div class="col-sm-2 optoption">
                                         DND <input type="checkbox" value="" id="dnd" name="dnd" class="js-single dnd"  />
                                         </div>
-                         </div>
+                         </div> -->
                        
 
-                        <div class="form-group row questionrow">  
+                        <!-- <div class="form-group row questionrow">  
                          
                           
-                        </div> 
+                        </div>  -->
                         <br>
 
                         <div class="form-group row" >
@@ -478,13 +448,19 @@ $.ajax({
                          </div>
                         <input type = hidden name="campaign_id" id="campaign_id" value="<?php echo $campaign['cnid']; ?>">
                         <input type = hidden name="campaign_idcids" id="campaign_idcids" value="<?php echo $campaign['cids']; ?>">
+                        
+                       
                         <?php if(isset($ldmster) && $ldmster['sbsvtag'] < 6 ){ ?> 
+                          <input type = hidden name="sbsvtag" id="sbsvtag" value="<?php echo $ldmster['sbsvtag']; ?>">
                         <button type="submit" name="leadupdate" class="btn btn-primary leaddisplay" style=""  id="leadupdate">Update</button> 
-                       <?php } ?>
+                        <button type="submit" name="leadsave" class="btn btn-primary leaddisplay" style=""  id="leadsave">Save </button> 
+                       <?php } else if(isset($ldmster) && $ldmster['sbsvtag'] >= 6 )  {?>
+                        <button type="button" name="noprocess" class="btn btn-primary leaddisplay" style=""  id="noprocess">Can't Process</button> 
+                        <?php } ?>
                        <?php if(empty($ldmster)){ ?>
                         <button type="submit" name="leadsubmit" class="btn btn-primary leaddisplay" style=""  id="leadsubmit">Submit </button> 
                         <?php } ?>
-                        <button type="submit" name="leadsave" class="btn btn-primary leaddisplay" style=""  id="leadsave">Save </button> 
+                        
                         <!-- <input class="submit" class ="" type="submit" value="SUBMIT"> -->
                         <!-- below buttons are for cdqa save and submit -->
                         <!-- <button type="submit" name="submit" class="btn btn-primary cdqadisplay"   id="cdqasubmit">Submit Lead </button> 
@@ -1462,10 +1438,12 @@ $(document).ready(function() {
     $(function() {
         $("#leadupdate").on('click', function() 
         {
-         alert("update");
         
             var campaign_id = $('#campaign_id').val();
             var campaign_idcids = $('#campaign_idcids').val();
+            var sbsvtag1 = $('#sbsvtag').val();
+            var sbsvtag = parseInt(sbsvtag1)+1; // incremataion
+
           //  alert(campaign_idcids);
             var sal = $('#sal').val();
             var fname = $('#fname').val();
@@ -1546,11 +1524,11 @@ $(document).ready(function() {
             
            
             if(fname != "" && lname != "" && company_name != "" && jlevel != "" && jtitle != "" && desid != "" && dcd !="" && email != "" && phone !="" && plink !="" && address != "" && city != "" && state != ""  && country_id != "" && industrycd != "" && subindustrycd != "" && empsize != "" && domain !=""  && empszlink != "" && revszlink != ""  && zip_code !="" ){
-            var url = encodeURI("<?php echo base_url("cdc/ajax_add_new_leaddata");?>");
+            var url = encodeURI("<?php echo base_url("cdc/ajax_update_leaddata");?>");
             console.log(url+"?campaign_id="+campaign_id+"&sal="+sal+"&fname="+fname+"&lname="+lname+"&jtitle="+jtitle+"&desid="+desid+"&jlevel="+jlevel+"&dcd="+dcd+"&email="+email+"&phone="+phone+"&altphn="+altphn+"&phext="+phext+"&plink="+plink+"&company_name="+company_name+"&address="+address+"&city="+city+"&state="+state+"&zip_code="+zip_code+"&country_id="+country_id+"&timezone="+timezone+"&ctype="+ctype+"&linetype="+linetype+"&industrycd="+industrycd+"&subindustrycd="+subindustrycd+"&sectyp="+sectyp+"&empsize="+empsize+"&mlbl="+mlbl+"&curr="+curr+"&arevenue="+arevenue+"&empszlink="+empszlink+"&indlink="+indlink+"&domain="+domain+"&othrlink="+othrlink+"&revszlink="+revszlink+"&emailver="+emailver+"&aum="+aum+"&assetid="+assetid+"&optin="+optin+"&optpst="+optpst+"&optph="+optph+"&opteml="+opteml+"&optoption="+optoption+"&aa1="+aa1+"&aa2="+aa2+"&aa3="+aa3+"&aa4="+aa4+"&aa5="+aa5+"&aa6="+aa6+"&aa7="+aa7+"&aa8="+aa8+"&aa9="+aa9+"&aa10="+aa10+"&aa11="+aa11+"&aa12="+aa12+"&pcomt="+pcomt);
            
             $.ajax({
-                url :'<?php echo base_url("cdc/ajax_add_new_leaddata");?>',
+                url :'<?php echo base_url("cdc/ajax_update_leaddata");?>',
                 type: 'GET', 
                 // contentType: "application/json",
                 dataType: 'json',              
@@ -1558,6 +1536,7 @@ $(document).ready(function() {
                    
                   campaign_id: campaign_id,
                   campaign_idcids: campaign_idcids,
+                  sbsvtag :sbsvtag,
                     sal:sal,
                     fname:fname,
                     lname: lname,
@@ -1608,12 +1587,12 @@ $(document).ready(function() {
                     if(response.statusCode == "Success") 
                     {         
                          
-                        $("#leadsubmit").html(response.message);
+                        $("#leadupdate").html(response.message);
                         top.location.href=base_url+"cdc/addleaddata?camp_id="+<?php echo $campaign['cnid']; ?>;//redirection
                       
                     }else if(response.data=="Fail")
                     {
-                        $("#leadsubmit").html(response.message);
+                        $("#leadupdate").html(response.message);
                         
 					          }
 

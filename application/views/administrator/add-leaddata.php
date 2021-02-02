@@ -114,8 +114,9 @@ $(document).ready(function() {
      
       <?php endforeach; ?>
      <?php foreach ($leadmaster as $ldmster): ?>
-     
-      <?php endforeach; ?>
+      
+      <?php endforeach;  ?>
+      
    
 </div>
 <!-- Page header end -->
@@ -180,7 +181,7 @@ $(document).ready(function() {
                                 <select class="form-control form-control-sm cdqadisable" name="jlevel" id="jlevel">
                                 <option value="">Job Level</option>
                                 <?php foreach ($joblevel as $joblevel): ?>
-                                    <option value="<?php echo $joblevel['joblids']; ?>"><?php echo $joblevel['joblevel']; ?></option>
+                                    <option value="<?php echo $joblevel['joblids']; ?>"  <?php if(isset($ldmster) && $ldmster['jlevel'] == $joblevel['joblids']){ echo "selected" ; } ?> ><?php echo $joblevel['joblevel']; ?></option>
                                 <?php endforeach; ?>  
                                
                                 </select>
@@ -204,7 +205,7 @@ $(document).ready(function() {
                                  <select class="js-example-basic-single" name="dcd" id="dcd">
                                     <option value=""> Department</option>
                                 <?php foreach ($departments as $dept): ?>
-                                    <option value="<?php echo $dept['dcd']; ?>"><?php echo $dept['department']; ?></option>
+                                    <option value="<?php echo $dept['dcd']; ?>"  <?php if(isset($ldmster) && $ldmster['dname'] == $dept['dcd']){ echo "selected" ; } ?> ><?php echo $dept['department']; ?></option>
                                 <?php endforeach; ?>
                                 </select>
                             </div> 
@@ -278,7 +279,7 @@ $(document).ready(function() {
                                      <select class="js-example-basic-single" name="country_id" id="country_id">
                                      <option value="">Countries</option>
                                  <?php foreach ($countriesofcampaign as $countriesofcampaign): ?>
-                                    <option value="<?php echo $countriesofcampaign['countrycd']; ?>"  ><?php echo $countriesofcampaign['countryname']; ?></option>
+                                    <option value="<?php echo $countriesofcampaign['countrycd']; ?>" <?php if(isset($ldmster) && $ldmster['country'] == $countriesofcampaign['countrycd']){ echo "selected" ; } ?>  ><?php echo $countriesofcampaign['countryname']; ?></option>
                                 <?php endforeach; ?>
                                 </select>
                                 <span style='color:#FF0000' id="country_id_msg"></span>
@@ -308,7 +309,7 @@ $(document).ready(function() {
                               <select class="js-example-basic-single"  name="industrycd" id="industrycd">
                               <option value="">Industry</option>
                               <?php foreach ($industries as $industry): ?>
-                                    <option value="<?php echo $industry['industrycd']; ?>"><?php echo $industry['industry']; ?></option>
+                                    <option value="<?php echo $industry['industrycd']; ?>" <?php if(isset($ldmster) && $ldmster['indtry'] == $industry['industrycd']){ echo "selected" ; } ?>><?php echo $industry['industry']; ?></option>
                                 <?php endforeach; ?>
                                 </select>
                                 <span style='color:#FF0000' id="industry_id_msg"></span>
@@ -317,7 +318,7 @@ $(document).ready(function() {
                                 <select class="js-example-basic-single" name="subindustrycd" id="subindustrycd">
                                 <option value="">Sub Industry</option>
                                 <?php foreach ($industriessub as $sub): ?>
-                                    <option value="<?php echo $sub['subindustrycd']; ?>"><?php echo $sub['subindustry']; ?></option>
+                                    <option value="<?php echo $sub['subindustrycd']; ?>" <?php if(isset($ldmster) && $ldmster['sindtry'] == $sub['subindustrycd']){ echo "selected" ; } ?>><?php echo $sub['subindustry']; ?></option>
                                 <?php endforeach; ?>
                                 </select>
                                 <span style='color:#FF0000' id="subindustry_id_msg"></span>
@@ -450,15 +451,18 @@ $(document).ready(function() {
                         <input type = hidden name="campaign_idcids" id="campaign_idcids" value="<?php echo $campaign['cids']; ?>">
                         
                        
-                        <?php if(isset($ldmster) && $ldmster['sbsvtag'] < 6 ){ ?> 
+                        <?php if(isset($ldmster) ){ ?> 
+                        
+                          <input type = hidden name="lmid" id="lmid" value="<?php echo $ldmster['lmid']; ?>">
                           <input type = hidden name="sbsvtag" id="sbsvtag" value="<?php echo $ldmster['sbsvtag']; ?>">
+                          <input type = hidden name="rlc" id="rlc" value="<?php echo $ldmster['rlc']; ?>">
                         <button type="submit" name="leadupdate" class="btn btn-primary leaddisplay" style=""  id="leadupdate">Update</button> 
-                        <button type="submit" name="leadsave" class="btn btn-primary leaddisplay" style=""  id="leadsave">Save </button> 
-                       <?php } else if(isset($ldmster) && $ldmster['sbsvtag'] >= 6 )  {?>
-                        <button type="button" name="noprocess" class="btn btn-primary leaddisplay" style=""  id="noprocess">Can't Process</button> 
+                        
+                     
                         <?php } ?>
                        <?php if(empty($ldmster)){ ?>
                         <button type="submit" name="leadsubmit" class="btn btn-primary leaddisplay" style=""  id="leadsubmit">Submit </button> 
+                        <button type="submit" name="leadsave" class="btn btn-primary leaddisplay" style=""  id="leadsave">Save </button> 
                         <?php } ?>
                         
                         <!-- <input class="submit" class ="" type="submit" value="SUBMIT"> -->
@@ -525,7 +529,7 @@ $('#country_id').change(function(){
 
         //    Add options
        $.each(response,function(index,data){
-          $('#timezone').append('<option value="'+data['zoneid']+'">'+data['abbrev']+'</option>');
+          $('#timezone').append('<option value="'+data['zoneid']+'" >'+data['abbrev']+'</option>');
           
         });
         // $('#country_id').multiselect("rebuild");
@@ -1066,6 +1070,51 @@ var arevenuevalue = $('#arevenue').val();
 
 
 $(document).ready(function() {
+
+//update record lock
+var rlc = $('#rlc').val(); //lock 1
+var lmid = $('#lmid').val();
+
+
+
+if(rlc != "1"){
+var urlq = '<?php echo base_url("cdc/updaterecordlock");?>';
+console.log(urlq+'?lmid='+lmid+"&rlc="+rlc);
+$.ajax({
+      url:'<?php echo base_url("cdc/updaterecordlock");?>',
+      method: 'get',
+      data: {
+        lmid: lmid,
+        rlc:rlc
+      },
+      dataType: 'json',
+      success: function(response){
+
+        console.log("check");
+                    // var dataResult = JSON.parse(response);
+                    if(response.statusCode == "Success") 
+                    {         
+                      // alert("Success in success");
+                      console.log("Record is opened/locked now");     
+                      
+                    }else if(response.data=="Fail")
+                    {
+                      alert("fail/check if record is already opened");  
+                        
+					          }
+      }
+  });
+}else{
+  alert("record already opened");
+  top.location.href=base_url+"cdc/selectCampaignforlead";//redirection
+}
+
+
+
+
+
+
+
   
   $("#revszlink").prop('disabled', true);
   $('#revszlink').val("NA");
@@ -1348,6 +1397,7 @@ $(document).ready(function() {
             
            
             if(fname != "" && lname != "" && company_name != "" && jlevel != "" && jtitle != "" && desid != "" && dcd !="" && email != "" && phone !="" && plink !="" && address != "" && city != "" && state != ""  && country_id != "" && industrycd != "" && subindustrycd != "" && empsize != "" && domain !=""  && empszlink != "" && revszlink != ""  && zip_code !="" ){
+           
             var url = encodeURI("<?php echo base_url("cdc/ajax_add_new_leaddata");?>");
             console.log(url+"?campaign_id="+campaign_id+"&sal="+sal+"&fname="+fname+"&lname="+lname+"&jtitle="+jtitle+"&desid="+desid+"&jlevel="+jlevel+"&dcd="+dcd+"&email="+email+"&phone="+phone+"&altphn="+altphn+"&phext="+phext+"&plink="+plink+"&company_name="+company_name+"&address="+address+"&city="+city+"&state="+state+"&zip_code="+zip_code+"&country_id="+country_id+"&timezone="+timezone+"&ctype="+ctype+"&linetype="+linetype+"&industrycd="+industrycd+"&subindustrycd="+subindustrycd+"&sectyp="+sectyp+"&empsize="+empsize+"&mlbl="+mlbl+"&curr="+curr+"&arevenue="+arevenue+"&empszlink="+empszlink+"&indlink="+indlink+"&domain="+domain+"&othrlink="+othrlink+"&revszlink="+revszlink+"&emailver="+emailver+"&aum="+aum+"&assetid="+assetid+"&optin="+optin+"&optpst="+optpst+"&optph="+optph+"&opteml="+opteml+"&optoption="+optoption+"&aa1="+aa1+"&aa2="+aa2+"&aa3="+aa3+"&aa4="+aa4+"&aa5="+aa5+"&aa6="+aa6+"&aa7="+aa7+"&aa8="+aa8+"&aa9="+aa9+"&aa10="+aa10+"&aa11="+aa11+"&aa12="+aa12+"&pcomt="+pcomt);
            
@@ -1614,12 +1664,12 @@ $(document).ready(function() {
 <!--  code for save data in db -->
 <script>
     $(function() {
-        $("#leadsavekkkkkkkkkkkk").on('click', function() 
+        $("#leadsave").on('click', function() 
         {
          
-            var campaign_id = $('#campaign_id').val();
+          var campaign_id = $('#campaign_id').val();
             var campaign_idcids = $('#campaign_idcids').val();
-            // alert(campaign_idcids);
+          //  alert(campaign_idcids);
             var sal = $('#sal').val();
             var fname = $('#fname').val();
             var lname = $('#lname').val();
@@ -1654,12 +1704,13 @@ $(document).ready(function() {
             var curr = $('#curr').val();
             var empszlink = $('#empszlink').val();
             var indlink = $('#indlink').val();
-           
+
+            
+
             var pcomt = $('#pcomt').val();
 
             var arevenue = $('#arevenue').val();
             var revszlink = $('#revszlink').val();
-
             if(arevenue ==""){
               
               $("#revszlink").prop('disabled', true);
@@ -1669,7 +1720,8 @@ $(document).ready(function() {
               $("#revszlink").prop('disabled', false);
               var revszlink = $('#revszlink').val();
             }
-            
+        
+// alert(revszlink);
             var othrlink = $('#othrlink').val();
             var emailver = $('#emailver').val();
             var aum = $('#aum').val();
@@ -1695,20 +1747,21 @@ $(document).ready(function() {
             var aa12 = $('#aa12').val();
           
             
-
+           
             if(fname != "" && lname != "" && company_name != "" && jlevel != "" && jtitle != "" && desid != "" && dcd !="" && email != "" && phone !="" && plink !="" && address != "" && city != "" && state != ""  && country_id != "" && industrycd != "" && subindustrycd != "" && empsize != "" && domain !=""  && empszlink != "" && revszlink != ""  && zip_code !="" ){
-            var url = encodeURI("<?php echo base_url("cdc/ajax_save_leadandcdc");?>");
+           
+
+            var url = encodeURI("<?php echo base_url("cdc/ajax_save_leaddata");?>");
             console.log(url+"?campaign_idcids="+campaign_idcids+"&campaign_id="+campaign_id+"&sal="+sal+"&fname="+fname+"&lname="+lname+"&jtitle="+jtitle+"&desid="+desid+"&jlevel="+jlevel+"&dcd="+dcd+"&email="+email+"&phone="+phone+"&altphn="+altphn+"&phext="+phext+"&plink="+plink+"&company_name="+company_name+"&address="+address+"&city="+city+"&state="+state+"&zip_code="+zip_code+"&country_id="+country_id+"&timezone="+timezone+"&ctype="+ctype+"&linetype="+linetype+"&industrycd="+industrycd+"&subindustrycd="+subindustrycd+"&sectyp="+sectyp+"&empsize="+empsize+"&mlbl="+mlbl+"&curr="+curr+"&arevenue="+arevenue+"&empszlink="+empszlink+"&indlink="+indlink+"&domain="+domain+"&othrlink="+othrlink+"&revszlink="+revszlink+"&emailver="+emailver+"&aum="+aum+"&assetid="+assetid+"&optin="+optin+"&optpst="+optpst+"&optph="+optph+"&opteml="+opteml+"&optoption="+optoption+"&aa1="+aa1+"&aa2="+aa2+"&aa3="+aa3+"&aa4="+aa4+"&aa5="+aa5+"&aa6="+aa6+"&aa7="+aa7+"&aa8="+aa8+"&aa9="+aa9+"&aa10="+aa10+"&aa11="+aa11+"&aa12="+aa12+"&pcomt="+pcomt);
            
             $.ajax({
-                url :'<?php echo base_url("cdc/ajax_save_leadandcdc");?>',
+                url :'<?php echo base_url("cdc/ajax_save_leaddata");?>',
                 type: 'GET', 
                 dataType: 'Json',              
                 data: {
                    
                   campaign_id: campaign_id,
                   campaign_idcids: campaign_idcids,
-                
                     sal:sal,
                     fname:fname,
                     lname: lname,
@@ -1746,17 +1799,13 @@ $(document).ready(function() {
                     othrlink:othrlink,
                     emailver:emailver,
                     aum:aum                 
+                             
                    
 				},
         // async: true,
                 // cache: false,
                 success: function(response){
 
-                  // $("#leadsave").html("Saved!");
-                  // $("#leadsave").prop('disabled', true);
-                  // $("#leadsubmit").hide();
-                  // top.location.href=base_url+"administrator/dashboard";//redirection
-                  // var dataResult = JSON.parse(response);
                     var text = response.statusCode;
                     console.log("check");
                    

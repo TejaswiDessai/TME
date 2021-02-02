@@ -64,6 +64,8 @@
 					//Create Session
 					$user_data = array(
 								'user_id' => $user_id->id,
+								'emp_id' => $user_id->emp_id,
+								'manager' => $user_id->mngr,
 				 				'username' => $username,
 				 				'email' => $user_id->email,
 				 				'login' => true

@@ -362,15 +362,36 @@
 
 					 
 			$campaign_id = $_POST['campaign_id'];
+
 			$campaigncountryStr = '';
 			if(!empty($_POST['country_id'])) {
 			$campaigncountryStr = implode(',',$_POST['country_id']);
 				}
+		
 			$regionStr = '';
 			if(!empty($_POST['region_id'])) {
-			$regionStr = implode(',',$_POST['region_id']);
+				if($_POST['region_id'] == 0)
+				{
+					$regionStr = 0;
 				}
-
+				else
+				{
+					$regionStr = implode(',',$_POST['region_id']);
+				}
+				
+			}
+			$subregionStr = '';
+			if(!empty($_POST['sub_region_id'])) {
+				if($_POST['sub_region_id'] == 0)
+				{
+					$subregionStr = 0;
+				}
+				else
+				{
+					$subregionStr = implode(',',$_POST['sub_region_id']);
+				}
+				
+			}
 			$industryStr = '';
 			if(!empty($_POST['industrycd'])) {
 			$industryStr = implode(',',$_POST['industrycd']);
@@ -447,16 +468,17 @@
 			$cdate=date_create($_POST['estclosedt']);
 			$closedate = date_format($cdate,"Y/m/d");
 			$startdate = date_format($sdate,"Y/m/d");
+			$period = $_POST['period'];
 			$datacampaign = array(
 				'clientids' => $_POST['client_id'], 
 				'cids' => $_POST['campaign_id'],
 				'campnm' => $_POST['campaign_name'],
 				'countrycd' => $campaigncountryStr,
+				'subregioncode' => $subregionStr,
 				'regioncode' => $regionStr,
 				'industrycd' => $industryStr,
 				'subindustrycd' => $subindustryStr,
 				'dcd' => $deptStr,
-				// 'emplzid' => $empsizeStr,
 				'joblevelids' => $levelid,
 				'tid' => $desiStr,
 				'suplistnew' =>$_POST['checksupp'],
@@ -474,7 +496,8 @@
 				'revlbnd' => $revnlbound, 
 				'revubnd' => $revnubound,
 				'revlbdim' => $revnlbound_range,
-				'revubdim' => $revnubound_range
+				'revubdim' => $revnubound_range,
+				'period' => $period
 				// 'Modifieddt' => date("Y-m-d H:i:s")
 				
 								

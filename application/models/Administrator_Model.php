@@ -515,14 +515,14 @@
 			// 	$this->db->limit($limit, $offset);
 			// }
 
-			if($emp_id == 102){
+			if($emp_id == 103){
 				$this->db->order_by('users.id', 'DESC');
 				//$this->db->join('categories', 'categories.id = posts.category_id');
 				$query = $this->db->get('users');
 				return $query->result_array(); 
 			}
 
-			$query = $this->db->get_where('users', array('username' => $username));
+			$query = $this->db->get_where('users', array('fname' => $username));
 			return $query->row_array();
 		}
 		public function get_campaign($campaigns = FALSE, $limit = FALSE, $offset = FALSE)
@@ -1446,7 +1446,7 @@ public function get_leadmasterby_campaignid($id = FALSE)
 		{
 			$this->db->where('cids', $campaign_id);
 			$this->db->update('campaign', $datacampaign);
-			echo $this->db->last_query(); 
+			// $this->db->last_query(); 
 			return true;
 			//  $this->db->insert('campaign', $datacampaign);
 			//  return true;

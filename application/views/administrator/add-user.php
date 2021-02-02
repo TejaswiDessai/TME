@@ -141,7 +141,8 @@
                                         <label class="col-sm-2 col-form-label">Team</label>
                                         <div class="col-sm-10">
                                             <!-- <input type="text" id="user_type" name="user_type" class="form-control" placeholder="User Type"> -->
-                                            <select class="form-control form-control-default "  name="team" id="team">
+                                            <!-- <select class="form-control form-control-default "  name="team" id="team"> -->
+                                            <select class="js-example-basic-multiple col-sm-12 form-control-sm" multiple="multiple" name="team[]" id="team">
                                             <option value="0" selected>Admin</option>
                                             <option value="1">All Access</option>
                                             <option value="2">Reports</option>

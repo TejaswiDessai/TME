@@ -5,7 +5,7 @@
 	   <h1 class="text-center"><?= $title ?></h1>	
 	   <div class="form-group">
 	   	<!--  <label>Username</label> -->
-	   	 <input type="text" name="username" class="form-control" placeholder="Enter Username" required autofocus>
+	   	 <input type="text" name="username" class="form-control" placeholder="Enter First Name" required autofocus>
 	   </div>
 	   <div class="form-group">
 	   	 <!-- <label>Password</label> -->

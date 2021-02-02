@@ -31,18 +31,18 @@
                                 </div>
                                 <br>
                                 <div class="col-sm-12">
-                                    <input type="text"  name="email" id="email"  placeholder="Email"   class="form-control form-control-sm cdqadisable">
+                                    <input type="text"  name="email" id="email"  placeholder="Email"   class="form-control form-control-sm cdqadisable" required="">
                                     <span style='color:#FF0000' id="lname_msg"></span>
                                 </div>
                                 <br>
                                 <div class="col-sm-12">
-                                <select class="form-control form-control-default "  name="user_type" id="user_type">
-                                    <option value="1">Admin<option>
-                                    <option value="2">Core Team<option>
-                                    <option value="3">Manager<option>
-                                    <option value="4">Team Lead<option>
-                                    <option value="5" selected>Team Member<option>
-                                    <option value="6">Developers<option>
+                                <select class="form-control form-control-default "  name="user_type" id="user_type" required="">
+                                    <option value="1">Admin</option>
+                                    <option value="2">Core Team</option>
+                                    <option value="3">Manager</option>
+                                    <option value="4">Team Lead</option>
+                                    <option value="5" selected>Team Member</option>
+                                    <option value="6">Developers</option>
                                 </select>
                                 </div>
                                     </div>

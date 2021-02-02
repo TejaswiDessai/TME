@@ -1512,4 +1512,35 @@ public function get_leadmasterby_campaignid($id = FALSE)
 			return $ret->emp_id;
 		}
 
+		// Added by Amol
+		public function get_emp_usertype($id = FALSE)
+		{
+			$this->db->order_by('id','desc');
+			$this->db->where('emp_id', $id);
+			$query = $this->db->get('users');
+			
+			$ret = $query->row();
+			return $ret->usertype;
+		}
+		// Added by Amol
+		public function get_sub_designation(){
+
+			$sql = "SELECT DISTINCT joblist,jid FROM joblevels group by joblist,jid";
+			return $query = $this->db->query($sql);
+		}
+		// Added by Amol
+		public function get_subindustries(){
+			
+			$sql = "SELECT DISTINCT subindustrycd,subindustry FROM industry group by subindustry,subindustrycd order by subindustry";
+			return $query = $this->db->query($sql);
+		}
+		// Added by Amol
+		public function get_subregions(){
+			$this->db->select('subregion,subregioncode');
+			 $this->db->group_by('subregioncode');
+			  $this->db->group_by('subregion');
+		   $query = $this->db->get('country'); 
+//                         echo $this->db->last_query(); exit;
+		   return $query->result_array();
+	   }
 }

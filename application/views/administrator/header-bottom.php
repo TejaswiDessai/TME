@@ -54,7 +54,7 @@ $usertype = $this->Administrator_Model->get_emp_usertype($emp_id);
                         <span>Dashboard</span>
                     </a>
                 </li>
-                <?php if($usertype == 0 || $usertype == 1 || $usertype ==2){?>
+                <?php if($usertype == 0 || $usertype == 1 || $usertype ==2 || $usertype ==6){?>
                  <li class="nav-item">
                         <a href="#!">
                         <i class="icofont icofont-cop-badge"></i>
@@ -80,7 +80,7 @@ $usertype = $this->Administrator_Model->get_emp_usertype($emp_id);
                             <span>Add Lead</span>
                         </a>
                     </li>
-                    <?php if($usertype == 0 || $usertype == 1 || $usertype ==2){?>
+                    <?php if($usertype == 0 || $usertype == 1 || $usertype ==2 || $usertype ==6){?>
                     <li class="nav-item">
                         <a href="#!">
                             <i class="ti-layout"></i>

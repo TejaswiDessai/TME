@@ -8,7 +8,41 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
-    <script> var base_url = "<?php echo base_url() ?>"; </script>
+    <script> var base_url = "<?php echo base_url() ?>"; 
+    //  Get sub industry
+    $(document).ready(function()
+    {
+        $('#user_role').change(function(){
+            var user_role = $(this).val();
+            // alert(user_role);
+            if (user_role != '')
+            {
+                $('#team').prop('disabled', false);
+            }
+            // alert(sector_id);
+            // AJAX request
+            var url = '<?php echo base_url("Administrator/getPrivillage");?>';
+            console.log(url+"?user_role="+user_role);
+            $.ajax({
+                url:'<?php echo base_url("Administrator/getPrivillage");?>',
+                method: 'get',
+                data: {user_role: user_role},
+                dataType: 'json',
+                success: function(response){
+                    // alert(response);
+                //    Remove options 
+            $('#team').find('option').remove();
+
+                //    Add options
+            $.each(response,function(index,data){
+                $('#team').append('<option value="'+data['formid']+'">'+data['formnm']+'</option>');
+                });
+                // $('#team').multiselect("rebuild");
+                }
+            });
+        });
+    });
+    </script>
             <div class="page-header">
                 <div class="page-header-title">
                     <h4>Users</h4>
@@ -127,13 +161,11 @@
                                         <label class="col-sm-2 col-form-label">User Role</label>
                                         <div class="col-sm-10">
                                             <!-- <input type="text" id="user_type" name="user_type" class="form-control" placeholder="User Type"> -->
-                                            <select class="form-control form-control-default "  name="user_role" id="user_role">
-                                            <option value="0">Admin</option>
-                                            <option value="1">Core Team</option>
-                                            <option value="2">Manager</option>
-                                            <option value="3">Team Lead</option>
-                                            <option value="4" selected>Team Member</option>
-                                            <option value="5">Developers</option>
+                                            <select class="form-control form-control-default "  name="user_role[]" id="user_role">
+                                            <?php foreach ($roles as $role): ?>
+                                                <option value="<?php echo $role['rid']; ?>"><?php echo $role['rolenm']; ?></option>
+                                            <?php endforeach; ?>
+                                            
                                             </select>
                                         </div>
                                     </div>
@@ -143,19 +175,7 @@
                                             <!-- <input type="text" id="user_type" name="user_type" class="form-control" placeholder="User Type"> -->
                                             <!-- <select class="form-control form-control-default "  name="team" id="team"> -->
                                             <select class="js-example-basic-multiple col-sm-12 form-control-sm" multiple="multiple" name="team[]" id="team">
-                                            <option value="0" selected>Admin</option>
-                                            <option value="1">All Access</option>
-                                            <option value="2">Reports</option>
-                                            <option value="3">Data Collect</option>
-                                            <option value="4" >Data Verification</option>
-                                            <option value="5">Email Verification</option>
-                                            <option value="6">CDC</option>
-                                            <option value="7">Bulk Mail</option>
-                                            <option value="8">Quality Assurance</option>
-                                            <option value="9">Lead Team</option>
-                                            <option value="10" >Delivery</option>
-                                            <option value="11">Team Reports</option>
-                                            <option value="12">Mgmt Reports</option>
+                                           
                                             </select>
                                         </div>
                                     </div>

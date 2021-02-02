@@ -1543,4 +1543,24 @@ public function get_leadmasterby_campaignid($id = FALSE)
 //                         echo $this->db->last_query(); exit;
 		   return $query->result_array();
 	   }
+
+		//Added by Amol
+		public function get_roles(){
+			$this->db->order_by("rid", "ASC");
+			$query = $this->db->get('roles');
+			return $query->result_array();
+		}
+		// Addec by Amol
+		function getPrivillage($user_role)
+		{
+			$response = array();
+			// $role = (string)$user_role;
+			$sql = "SELECT formid,formnm
+			FROM
+			   privilege
+			WHERE
+			   privilege LIKE '%$user_role%'";
+			   $query = $this->db->query($sql);
+			   return $query->result_array();
+		}
 }

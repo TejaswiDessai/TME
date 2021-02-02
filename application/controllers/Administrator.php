@@ -146,7 +146,7 @@ echo $date;
 			$data['title'] = 'Create User';
 
 			$data['emp_id'] = $this->Administrator_Model->get_empid();
-
+			$data['roles'] = $this->Administrator_Model->get_roles();
 			$this->form_validation->set_rules('name', 'Name', 'required');
 			$this->form_validation->set_rules('username', 'Username', 'required|callback_check_username_exists');
 			$this->form_validation->set_rules('email', 'Email', 'required|callback_check_email_exists');
@@ -1809,6 +1809,16 @@ public function savedata()
 		));
 	// } 
 }
+// Added by Amol
+public function getPrivillage(){ 
+		
+	$user_role = $_GET['user_role'];
+	// $user_role = implode(',',$user_role);
+	// get data 
+	$data = $this->Administrator_Model->getPrivillage($user_role);
+	echo json_encode($data); 
+	}
+
 	}
 	
 

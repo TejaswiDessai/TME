@@ -128,6 +128,7 @@
 						foreach ($data['leadmaster'] as $ldmster) {
 						
 						}
+						
 						$data['countries'] = $this->Administrator_Model->get_countriesbyCampaign($camp_id);
 				
 							foreach($data['countries'] as $co){
@@ -1125,9 +1126,11 @@
 				'emailver' => $_GET['emailver'],
 				'aum' => $aum,
 				// tag
-				'ontag' => 0, // Submit and 0 = new
+				// 'ontag' => 0, // Submit and 0 = new
 				'sbsvtag' => '1', // Submit 1st time
 				'pload' => '1', // next level ready to load
+				'rlc' => 0, // record is closed
+			
 
 				// 'svagtidi' => '1' // save Agent Name
 				// 'svdti' => '1' // save date time
@@ -1159,6 +1162,168 @@
 								
 			
 		}
+		public function ajax_save_leaddata()
+		{
+			$campaign_id = $_GET['campaign_id'];
+			$cids = $_GET['campaign_idcids'];
+
+		
+				// Concatenation Of String 
+				$trimfname=$_GET['fname'];
+				$trimlname=$_GET['lname'];
+
+				$first =substr($trimfname, 0, 4);  // abcd
+				$last = substr($trimlname, 0, 4);
+				$conname = $first.$last; 
+
+
+				$old_date = date('Y-m-d H:i:s');         // works
+				$middle = strtotime($old_date);             // returns bool(false)
+				$new_date = date('Y-m-d H:i:s', $middle);
+
+				if(!empty($_GET['aum']))
+				{
+					$aum = $_GET['aum'];
+				} else{
+				$aum = 0 ;
+				}
+				if(!empty($_GET['arevenue']))
+				{
+					$arrevenue = $_GET['arevenue'];
+				} else{
+				$arrevenue = 0 ;
+				}
+				if(!empty($_GET['phext']))
+				{
+					$phext = $_GET['phext'];
+				} else{
+				$phext = 0 ;
+				}
+			   if(!empty($_GET['sectyp']))
+				{
+					$sectype = $_GET['sectyp'];
+				} else{
+				$sectype = 0 ;
+				}
+
+
+				if(!empty($_GET['optin']))
+				{
+					$optin = 1;
+				} else{
+				    $optin = 0 ;
+				}
+				if(!empty($_GET['optpst']))
+				{
+					$optpost = 1;
+				} else{
+				    $optpost = 0 ;
+				}
+				if(!empty($_GET['optph']))
+				{
+					$optph = 1;
+				} else{
+				    $optph = 0 ;
+				}
+				if(!empty($_GET['opteml']))
+				{
+					$opteml = 1;
+				} else{
+				    $opteml = 0 ;
+				}
+				if(!empty($_GET['timezone']))
+				{
+					$timezones = $_GET['timezone'];
+				} else{
+				    $timezones = 0 ;
+				}
+
+
+				$datacdcandlead = array(
+				'cids' => $_GET['campaign_idcids'],
+				
+				'sal' => $_GET['sal'],
+				'fname' => $_GET['fname'],
+				'lname' => $_GET['lname'],
+				'conname' => $conname, //concate strings
+				'jtitle' => $_GET['jtitle'],
+				// 'desid' => $_GET['desid'],
+
+				'jlevel' => $_GET['jlevel'],
+				'dname' => $_GET['dcd'], //department
+				'email' => $_GET['email'],
+				'phone' => $_GET['phone'],
+				'altphn' => $_GET['altphn'],
+
+				'phext' => $phext,
+				'plink' => $_GET['plink'],
+				'cname' => $_GET['company_name'],
+				'address' => $_GET['address'],
+
+				'city' => $_GET['city'],
+				'state' => $_GET['state'],
+				'zipcode' => $_GET['zip_code'],
+				'country' => $_GET['country_id'],
+				'timez' => $timezones,
+				'ctyp' => $_GET['ctype'],
+			
+				'linetype' => $_GET['linetype'],
+				'indtry' => $_GET['industrycd'],
+				'sindtry' => $_GET['subindustrycd'],
+
+				'sectyp' => $sectype,
+				'empsize' => $_GET['empsize'],
+				'arevenue' =>$arrevenue,
+				'mlbl' => $_GET['mlbl'],
+				'curr' => $_GET['curr'],
+
+				'domain' => $_GET['domain'],
+				'indlink' => $_GET['indlink'],
+				'revszlink' => $_GET['revszlink'],
+				'empszlink' => $_GET['empszlink'],
+				// 'pcomt' => $_GET['pcomt'],
+
+				'othrlink' => $_GET['othrlink'],
+
+				'emailver' => $_GET['emailver'],
+				'aum' => $aum,
+				// tag
+				'ontag' => 0, // Submit and 0 = new
+				'sbsvtag' => 0, // Save
+				'rlc' => 0, // Save
+				'pload' => '1', // next level ready to load
+
+				'svagtidi' => $_SESSION['emp_id'], // save Agent Name
+				'svdti' => $old_date // save date time
+				// 'stagtidi' => $_SESSION['emp_id'], // submit agent name 
+				// 'stdti' => $old_date  // submit date time
+								
+				);
+			
+			//   print_r($datacdcandlead);
+			//      exit();
+			
+				$addleadandcdcdata = $this->Administrator_Model->save_leaddata($datacdcandlead);
+				// print_r($addcampaigndata);  die;
+				
+
+				if($addleadandcdcdata == true){
+			
+					echo json_encode(array(
+						"statusCode"=>"Success",
+						"lead_id"=>$addleadandcdcdata,
+						"message"=>"Lead Saved Successfully.."
+					));
+				}else{
+					echo json_encode(array(
+						"statusCode"=>"Fail",
+						"message"=>"Lead failed.."
+					));
+				}
+								
+			
+		}
+		
 		public function ajax_update_leaddata()
 		{
 			$campaign_id = $_GET['campaign_id'];
@@ -1309,7 +1474,7 @@
 					echo json_encode(array(
 						"statusCode"=>"Success",
 						"lead_id"=>$addleadandcdcdata,
-						"message"=>"Lead Added Successfully.."
+						"message"=>"Lead Uptated Successfully.."
 					));
 				}else{
 					echo json_encode(array(
@@ -1388,6 +1553,30 @@
 			// get data 
 			$data = $this->Administrator_Model->getquestions_byCampaign($campaign_id);
 			echo json_encode($data); 
+		}
+		  public function updaterecordlock(){ 
+			
+			$lmid = $_GET['lmid'];
+			$rlc = $_GET['rlc'];
+			
+			$datarecord = array(
+				'rlc' => $rlc
+			);
+
+			// get data 
+			$data = $this->Administrator_Model->update_recordlock($lmid,$datarecord);
+			if($data == true){
+			
+				echo json_encode(array(
+					"statusCode"=>"Success",
+					"message"=>"record Updated Successfully.."
+				));
+			}else{
+				echo json_encode(array(
+					"statusCode"=>"Fail",
+					"message"=>"Update failed.."
+				));
+			}
 		}
 
 

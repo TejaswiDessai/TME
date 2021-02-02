@@ -483,6 +483,17 @@
 			//  return  $insert_id;
                        
 		}
+		public function save_leaddata($datacdcandlead)
+		{
+                        
+			$this->db->insert('leadmaster', $datacdcandlead);
+			//  $insert_id = $this->db->insert_id();
+			// echo $this->db->last_query(); 
+			return true;
+			
+			//  return  $insert_id;
+                       
+		}
 		public function add_leadandcdcbyCDQA($datacdcandlead)
 		{
                         
@@ -1452,15 +1463,24 @@ public function get_leadmasterby_campaignid($id = FALSE)
 			//  return true;
                         // echo $this->db->last_query(); 
 		}
-	public function update_leaddata($updateleadandcdcdata,$campaign_id)
+		public function update_leaddata($updateleadandcdcdata,$campaign_id)
 		{
 			$this->db->where('cids', $campaign_id);
 			$this->db->update('leadmaster', $updateleadandcdcdata);
+			return true;
+		
+		}
+		public function update_recordlock($lmid,$datarecord)
+		{
+			$this->db->where('lmid', $lmid);
+			$this->db->update('leadmaster', $datarecord);
+			// echo $this->db->last_query(); 
 			return true;
 			//  $this->db->insert('campaign', $datacampaign);
 			//  return true;
                         // echo $this->db->last_query(); 
 		}
+
 		function uploadData($filename)
 		{
 			$count=0;

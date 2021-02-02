@@ -1454,6 +1454,7 @@
 				// 'ontag' => 0, // Submit and 0 = new, 1 = needs to be reworked
 				'sbsvtag' => $sbsvtag, //  Submit till 5 times
 				'pload' => '1', // next level ready to load
+				'rlc' => 0, // record is closed
 
 				// 'svagtidi' => '1' // save Agent Name
 				// 'svdti' => '1' // save date time

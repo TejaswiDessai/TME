@@ -124,16 +124,38 @@
                                         </div>
                                     </div> -->
                                     <div class="form-group row">
-                                        <label class="col-sm-2 col-form-label">User Type</label>
+                                        <label class="col-sm-2 col-form-label">User Role</label>
                                         <div class="col-sm-10">
                                             <!-- <input type="text" id="user_type" name="user_type" class="form-control" placeholder="User Type"> -->
-                                            <select class="form-control form-control-default "  name="user_type" id="user_type">
-                                            <option value="1">Admin<option>
-                                            <option value="2">Core Team<option>
-                                            <option value="3">Manager<option>
-                                            <option value="4">Team Lead<option>
-                                            <option value="5" selected>Team Member<option>
-                                            <option value="6">Developers<option>
+                                            <select class="form-control form-control-default "  name="user_role" id="user_role">
+                                            <option value="0">Admin</option>
+                                            <option value="1">Core Team</option>
+                                            <option value="2">Manager</option>
+                                            <option value="3">Team Lead</option>
+                                            <option value="4" selected>Team Member</option>
+                                            <option value="5">Developers</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label class="col-sm-2 col-form-label">Team</label>
+                                        <div class="col-sm-10">
+                                            <!-- <input type="text" id="user_type" name="user_type" class="form-control" placeholder="User Type"> -->
+                                            <!-- <select class="form-control form-control-default "  name="team" id="team"> -->
+                                            <select class="js-example-basic-multiple col-sm-12 form-control-sm" multiple="multiple" name="team[]" id="team">
+                                            <option value="0" selected>Admin</option>
+                                            <option value="1">All Access</option>
+                                            <option value="2">Reports</option>
+                                            <option value="3">Data Collect</option>
+                                            <option value="4" >Data Verification</option>
+                                            <option value="5">Email Verification</option>
+                                            <option value="6">CDC</option>
+                                            <option value="7">Bulk Mail</option>
+                                            <option value="8">Quality Assurance</option>
+                                            <option value="9">Lead Team</option>
+                                            <option value="10" >Delivery</option>
+                                            <option value="11">Team Reports</option>
+                                            <option value="12">Mgmt Reports</option>
                                             </select>
                                         </div>
                                     </div>
@@ -168,7 +190,8 @@
                                 var Lname = $('#Lname').val();
                                 var Manager = $('#Manager').val();
                                 var status = $('#status').val();
-                                var user_type = $('#user_type').val();
+                                var user_role = $('#user_role').val();
+                                var team = $('#team').val();
                                 var Password = $('#Password').val();
                                 // alert(Password);
                                 // var userfile = $('#userfile').val();
@@ -188,7 +211,8 @@
                                             Lname: Lname,
                                             Manager: Manager,
                                             status: status,
-                                            user_type: user_type,
+                                            user_role: user_role,
+                                            team:team,
                                             Password: Password,
                                             // userfile: userfile,
                                             // dob: dob,

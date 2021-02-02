@@ -128,6 +128,7 @@ $(function () {
        $.each(response,function(index,data){
           $('#sub_region_id').append('<option value="'+data['subregioncode']+'">'+data['subregion']+'</option>');
         });
+        $('#sub_region_id').multiselect("rebuild");
         }
     });
 });
@@ -400,30 +401,10 @@ $(function(){
                             </div>
                             <div class="col-sm-3">
                                 <label class="col-lable"><b>Sub Region</b></label>
-                                <select class="js-example-basic-multiple col-sm-12" multiple="multiple" name="sub_region_id" id="sub_region_id">
-                                <?php 
-                                if($post['subregioncode'] == 0)
-                                {
-                                    $regioncode = $post['subregioncode'];
-                                }
-                                else
-                                {
-                                    $regioncode = explode(',',$post['subregioncode']);
-                                }
-                                
-                                
-                                ?>
-                                <?php if($subregioncode == 0)
-                                {
-                                    ?>
-                                    <option value="0" selected>All</option>
-                                    <?php
-                                }
-                                $myArray2 = explode(',', $post['subregioncode']);
-                                ?>
-
+                                <select class="js-example-basic multiselect col-sm-12" multiple="multiple" name="sub_region_id" id="sub_region_id">
+                                <?php $subregioncode = $post['subregioncode'];$subregioncode1 = explode(',',$subregioncode);?>
                                 <?php foreach ($subregions as $subregions): ?>
-                                    <option value="<?php echo $subregions['subregioncode']; ?>" <?php if( in_array($subregions['subregioncode'], $myArray2)) { echo "selected" ; } ?>><?php echo $subregions['subregion']; ?></option>
+                                    <option value="<?php echo $subregions['subregioncode']; ?>" <?php if( in_array($subregions['subregioncode'], $subregioncode1)) { echo "selected" ; } ?>><?php echo $subregions['subregion']; ?></option>
                                 <?php endforeach; ?>
                                 
                                 </select>
@@ -708,7 +689,18 @@ $(function(){
                                 <input type="date" id="estclosedt"  name="estclosedt" value="<?php echo $post['estclosedt'];?>" <?php echo (form_error('estclosedt')) ? 'class="form-control form-control-danger"' :'class="form-control"';?> >
                             </div>
                             
-
+                            <div class="col-sm-3">
+                                <label class="col-lable"><b>Select Period</b></label>
+                                <select class="form-control form-control-default form-control-sm "  name="period" id="period">
+                                <option value="1" <?php if($post['period'] == "1"){ echo "selected" ; } ?>>1 Month</option>
+                                <option value="2" <?php if($post['period'] == "2"){ echo "selected" ; } ?>>2 Month</option>
+                                <option value="3" <?php if($post['period'] == "3"){ echo "selected" ; } ?>>3 Month</option>
+                                <option value="4" <?php if($post['period'] == "4"){ echo "selected" ; } ?>>4 Month</option>
+                                <option value="5" <?php if($post['period'] == "5"){ echo "selected" ; } ?>>5 Month</option>
+                                <option value="6" <?php if($post['period'] == "6"){ echo "selected" ; } ?>>6 Month</option>
+                                </select>
+                            
+                            </div>
                         </div>
                         
                         
@@ -802,11 +794,13 @@ $(function(){
     $(function() {
         $("#addcampbtn").on('click', function() 
         {
+            
             var campaign_id = $('#campaign_id').val();
             var client_id = $('#client_id').val();
             var campaign_name = $('#campaign_name').val();
             var country_id = $('#country_id').val(); 
             var region_id = $('#region_id').val();
+            var sub_region_id = $('#sub_region_id').val();
             // var theRemovedElement = region_id.shift();  
             var sector_id = $('#sector_id').val(); 
             var subindustrycd = $('#subindustrycd').val(); 
@@ -907,9 +901,10 @@ $(function(){
             }
             var quantity = $('#quantity').val();
             var estclosedt = $('#estclosedt').val();
+            var period =  $('#period').val();
             var url = "<?php echo base_url("campaigns/ajax_update_campaign");?>";
-            console.log(url+"?campaign_id="+campaign_id+"&client_id="+client_id+"&campaign_name="+campaign_name+"&region_id="+region_id+"&subindustrycd="+subindustrycd+"&country_id="+country_id+"&dcd="+dcd+"&desid="+desid+"&checksupp="+checksupp+"&inclist="+inclist+"&cdqa="+cdqa+"&assetid="+assetid+"&quantity="+quantity+"&selectstatus="+selectstatus+"&estclosedt="+estclosedt+"&startdt="+startdt+"&emplbound="+emplbound+"&empubound="+empubound+"&revnlbound="+revnlbound+"&revnubound="+revnubound+"&revnlbound_range="+revnlbound_range+"&revnubound_range="+revnubound_range+"&frequency_type="+frequency_type+"&frequency="+frequency);
-
+            // console.log(url+"?campaign_id="+campaign_id+"&client_id="+client_id+"&campaign_name="+campaign_name+"&region_id="+region_id+"&subindustrycd="+subindustrycd+"&country_id="+country_id+"&dcd="+dcd+"&desid="+desid+"&checksupp="+checksupp+"&inclist="+inclist+"&cdqa="+cdqa+"&assetid="+assetid+"&quantity="+quantity+"&selectstatus="+selectstatus+"&estclosedt="+estclosedt+"&startdt="+startdt+"&emplbound="+emplbound+"&empubound="+empubound+"&revnlbound="+revnlbound+"&revnubound="+revnubound+"&revnlbound_range="+revnlbound_range+"&revnubound_range="+revnubound_range+"&frequency_type="+frequency_type+"&frequency="+frequency);
+           
             $.ajax({
                 url :'<?php echo base_url("campaigns/ajax_update_campaign");?>',
                 type: 'POST', 
@@ -920,6 +915,7 @@ $(function(){
 					campaign_name: campaign_name,
                     country_id:country_id,
                     region_id:region_id,
+                    sub_region_id:sub_region_id,
                     industrycd:sector_id,
                     subindustrycd:subindustrycd,
                     dcd:dcd,
@@ -940,22 +936,21 @@ $(function(){
                     revnlbound_range:revnlbound_range,
                     revnubound_range:revnubound_range,
                     frequency_type:frequency_type,
-                    frequency:frequency
-                    
-
+                    frequency:frequency,
+                    period:period
 				},
                 cache: false,
                 success: function(response){
                     var text = response.statusCode;
                     console.log("check");
-                   
                     if(response.statusCode == "Success") 
-                    {                        
+                    {                    
                         $("#addcampbtn").html(response.message);
                         $("#addcampbtn").prop('disabled', true);
                         // top.location.href=base_url+"campaigns/campaign";//redirection
                     }else if(response.statusCode=="Fail")
                     {
+                        alert("fail");
                         $("#addcampbtn").html(response.message);
                         
 					}
@@ -1033,6 +1028,19 @@ $('#desid')
 });
 $(function() {
 $('#dcd')
+    .multiselect({
+    // allSelectedText: 'All',
+    maxHeight: 200,
+    enableCaseInsensitiveFiltering :true,
+
+    includeSelectAllOption: true,
+    
+    })
+    .multiselect('selectAll', true)
+    .multiselect('updateButtonText');
+});
+$(function() {
+$('#sub_region_id')
     .multiselect({
     // allSelectedText: 'All',
     maxHeight: 200,

@@ -283,6 +283,7 @@ $(function () {
        $.each(response,function(index,data){
           $('#sub_region_id').append('<option value="'+data['subregioncode']+'">'+data['subregion']+'</option>');
         });
+        $('#sub_region_id').multiselect("rebuild");
         }
     });
 });
@@ -315,6 +316,20 @@ $(function () {
         $('#country_id').multiselect("rebuild");
         }
     });
+});
+
+$(function() {
+$('#sub_region_id')
+    .multiselect({
+    allSelectedText: 'All',
+    maxHeight: 200,
+    enableCaseInsensitiveFiltering :true,
+
+    includeSelectAllOption: true,
+    
+    })
+    .multiselect('selectAll', false)
+    .multiselect('updateButtonText');
 });
 
 $(function() {
@@ -597,9 +612,9 @@ $('#levelid').change(function(){
                             </div>
                             <div class="col-sm-3">
                                 <label class="col-lable"><b>Sub Region</b></label>  <?php echo form_error('country_id'); ?>
-                                <select class="js-example-basic-multiple col-sm-12 form-control-sm" multiple="multiple" name="sub_region_id[]" id="sub_region_id">
+                                <select class="js-example-basic multiselect col-sm-12 form-control-sm" multiple="multiple" name="sub_region_id[]" id="sub_region_id">
                                
-                                <option value="0">All</option>
+                                <!-- <option value="0">All</option> -->
                                 </select>
                             </div>
                             <div class="col-sm-3">

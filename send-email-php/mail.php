@@ -8,7 +8,7 @@ if(isset($_POST["emp_id"], $_POST["user_type"],$_POST['email']))
     {     
         $connect = pg_connect("host=localhost dbname=Forerunner user=postgres password=password@123");
         
-        $result1 = pg_query($connect,"SELECT * FROM users WHERE emp_id = '".$emp_id."' AND  usertype = '".$user_type."'");
+        $result1 = pg_query($connect,"SELECT * FROM users WHERE emp_id = '".$emp_id."' AND  role = '".$user_type."'");
         
         if(pg_num_rows($result1) == 0 )
         {

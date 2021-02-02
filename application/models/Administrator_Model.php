@@ -526,14 +526,14 @@
 			// 	$this->db->limit($limit, $offset);
 			// }
 
-			if($emp_id == 102){
+			if($emp_id == 103){
 				$this->db->order_by('users.id', 'DESC');
 				//$this->db->join('categories', 'categories.id = posts.category_id');
 				$query = $this->db->get('users');
 				return $query->result_array(); 
 			}
 
-			$query = $this->db->get_where('users', array('username' => $username));
+			$query = $this->db->get_where('users', array('fname' => $username));
 			return $query->row_array();
 		}
 		public function get_campaign($campaigns = FALSE, $limit = FALSE, $offset = FALSE)
@@ -1227,10 +1227,10 @@ public function is_temp_pass_valid($temp_pass){
     else return FALSE;
 }
 
-function saverecords($emp_id,$Fname,$Lname,$Manager,$status,$user_type,$Password,$register_date)
+function saverecords($emp_id,$Fname,$Lname,$Manager,$status1,$user_role,$team,$password,$register_date)
 {
-	$query="INSERT INTO users( id, emp_id, fname, lname,mngr,usertype,password,status,last_login) 
-		VALUES ('$emp_id','$emp_id','$Fname','$Lname','$Manager','$user_type','$Password',$status,'$register_date')";
+	$query="INSERT INTO users( emp_id, fname, lname,mngr,role,team,password,status,last_login) 
+		VALUES ('$emp_id','$Fname','$Lname','$Manager','$user_role','$team','$password',$status1,'$register_date')";
 		$this->db->query($query);
 }
 
@@ -1457,7 +1457,7 @@ public function get_leadmasterby_campaignid($id = FALSE)
 		{
 			$this->db->where('cids', $campaign_id);
 			$this->db->update('campaign', $datacampaign);
-			echo $this->db->last_query(); 
+			// $this->db->last_query(); 
 			return true;
 			//  $this->db->insert('campaign', $datacampaign);
 			//  return true;
@@ -1540,7 +1540,7 @@ public function get_leadmasterby_campaignid($id = FALSE)
 			$query = $this->db->get('users');
 			
 			$ret = $query->row();
-			return $ret->usertype;
+			return $ret->role;
 		}
 		// Added by Amol
 		public function get_sub_designation(){

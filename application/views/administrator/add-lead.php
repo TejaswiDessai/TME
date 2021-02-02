@@ -996,7 +996,7 @@ var arevenuevalue = $('#arevenue').val();
         dataType: 'json',
         success: function(response){
           $( '#email_msg' ).html("response");
-          alert(response.exclusionemail);
+          // alert(response.exclusionemail);
           if(response.inclusionemail == "true")
           {
             $("#email_msg").html("");

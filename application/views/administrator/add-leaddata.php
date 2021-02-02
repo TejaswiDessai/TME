@@ -1072,12 +1072,12 @@ var arevenuevalue = $('#arevenue').val();
 $(document).ready(function() {
 
 //update record lock
-var rlc = $('#rlc').val(); //lock 1
+var rlc = 1; //lock 1
 var lmid = $('#lmid').val();
 
 
 
-if(rlc != "1"){
+if(rlc == "1"){
 var urlq = '<?php echo base_url("cdc/updaterecordlock");?>';
 console.log(urlq+'?lmid='+lmid+"&rlc="+rlc);
 $.ajax({
@@ -1106,7 +1106,7 @@ $.ajax({
   });
 }else{
   alert("record already opened");
-  top.location.href=base_url+"cdc/selectCampaignforlead";//redirection
+  // top.location.href=base_url+"cdc/selectCampaignforlead";//redirection
 }
 
 

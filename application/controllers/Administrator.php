@@ -1790,7 +1790,8 @@ public function savedata()
 		$Manager = $_GET['Manager'];
 		// $status = $_GET['status'];
 		$status1 =0;
-		$user_type = $_GET['user_type'];
+		$user_role = $_GET['user_role'];
+		$team = $_GET['team'];
 		$Password =$_GET['Password'];
 		$password = md5($Password);
 
@@ -1801,7 +1802,7 @@ public function savedata()
 		// $image = $post_image;
 		// $password = $password;
 		$register_date = date("Y-m-d H:i:s");
-		$this->Administrator_Model->saverecords($emp_id,$Fname,$Lname,$Manager,$status1,$user_type,$password,$register_date);	
+		$this->Administrator_Model->saverecords($emp_id,$Fname,$Lname,$Manager,$status1,$user_role,$team,$password,$register_date);	
 		echo json_encode(array(
 			"statusCode"=>200
 		));

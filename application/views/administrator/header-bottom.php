@@ -14,6 +14,9 @@ if (isset($_SESSION["username"])) {
  if ($this->session -> userdata('email') == "" && $this->session -> userdata('login') != true && $this->session -> userdata('role_id') != 1) {
       redirect('administrator/index');
     }
+
+$emp_id = $this->session -> userdata('emp_id');
+$usertype = $this->Administrator_Model->get_emp_usertype($emp_id);
  ?>
 
      <!-- Menu aside start -->
@@ -51,7 +54,7 @@ if (isset($_SESSION["username"])) {
                         <span>Dashboard</span>
                     </a>
                 </li>
-                
+                <?php if($usertype == 0 || $usertype == 1 || $usertype ==2){?>
                  <li class="nav-item">
                         <a href="#!">
                         <i class="icofont icofont-cop-badge"></i>
@@ -62,7 +65,7 @@ if (isset($_SESSION["username"])) {
                              <li><a href="<?php echo base_url(); ?>campaigns/campaign">Campaign List</a></li>
                         </ul>
                     </li>
-                    
+                <?php } ?>
                     <li class="nav-item">
                         <!-- <a href="<?php echo base_url(); ?>cdc/addlead""> -->
                         <a href="<?php echo base_url(); ?>cdc/selectCampaign">
@@ -77,16 +80,18 @@ if (isset($_SESSION["username"])) {
                             <span>Add Lead</span>
                         </a>
                     </li>
-                <li class="nav-item">
-                    <a href="#!">
-                        <i class="ti-layout"></i>
-                        <span>Users</span>
-                    </a>
-                    <ul class="tree-1">
-                        <li><a href="<?php echo base_url(); ?>administrator/users/add-user">Add User</a></li>
-                        <li><a href="<?php echo base_url(); ?>administrator/users/users">Users</a></li>
-                    </ul>
-                </li>
+                    <?php if($usertype == 0 || $usertype == 1 || $usertype ==2){?>
+                    <li class="nav-item">
+                        <a href="#!">
+                            <i class="ti-layout"></i>
+                            <span>Users</span>
+                        </a>
+                        <ul class="tree-1">
+                            <li><a href="<?php echo base_url(); ?>administrator/users/add-user">Add User</a></li>
+                            <li><a href="<?php echo base_url(); ?>administrator/users/users">Users</a></li>
+                        </ul>
+                    </li>
+                <?php } ?>
 <!--                    <li class="nav-item">
                         <a href="#!">
                             <i class="ti-layers"></i>

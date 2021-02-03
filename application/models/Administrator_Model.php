@@ -263,11 +263,11 @@
 			
 			if($myarray[0] != 0)
 			{
-				$this->db->where_in('subindustrycd', $myarray );  //this is condition 
+				$this->db->where_in('industrycd', $myarray );  //this is condition 
 			}
 			$this->db->order_by("subindustrycd", "asc"); 
 			$query = $this->db->get('industry');
-			// echo $this->db->last_query(); 
+			// echo $this->db->last_query();
 			return $query->result_array();
 		
 
@@ -341,6 +341,7 @@
 				$this->db->OR_where('countrycd', $arr);
 			}
 			$query = $this->db->get('timezone');
+			// echo $this->db->last_query(); 
 			return $query->result_array();
 			
 		}
@@ -1451,16 +1452,18 @@ public function get_campaign_by_id($id = FALSE)
 public function get_leadmasterby_campaignid($id = FALSE)
 {
 		
-		$this->db->where('rlc !=', 1);
+		
 		$this->db->where('sbsvtag <', 6);
+		$this->db->where('sbsvtag !=', 0);
 		$this->db->where('ontag', 1);
 		$this->db->where('pload', 0);
 		$this->db->where('dvload',0);
 		$this->db->where('evload',null);
 		$this->db->where('cdcload',null);
 		$this->db->where('qaload',null);
+		$this->db->where('rlc !=', 1);
 		$query = $this->db->get_where('leadmaster', array('cids' => $id));
-		echo $this->db->last_query(); 
+		// echo $this->db->last_query(); 
 		// echo $string;
 		// die;
 		return $query->result_array();

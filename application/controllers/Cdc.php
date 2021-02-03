@@ -7,10 +7,6 @@
 		function addlead($page = 'add-lead'){
 			// print_r($_SESSION['timeout']);
 			
-		
-
-
-
 			$data['title'] = 'Create Lead';
 			// print_r($_SESSION);
 			// print_r($_SESSION['timeout']);
@@ -124,7 +120,7 @@
 						// print_r($cids);  
 						
 						$data['leadmaster'] = $this->Administrator_Model->get_leadmasterby_campaignid($cids);
-						print_r($data['leadmaster']); 
+						// print_r($data['leadmaster']); 
 						foreach ($data['leadmaster'] as $ldmster) {
 						
 						}
@@ -148,7 +144,7 @@
 						$data['industries'] = $this->Administrator_Model->get_industries_ofCampaign($camp_id,$myind1);
 
 						$data['industriessub'] = $this->Administrator_Model->get_subindustries_byCampaign($camp_id,$myind1);
-
+// print_r($data['industriessub']); 
 						$data['departments1'] = $this->Administrator_Model->get_departmentsbyCampaign($camp_id);
 						foreach($data['departments1'] as $dp){
 							$mydpArray = implode(',', $dp);
@@ -168,6 +164,7 @@
 					
 					
 						$data['timezones'] = $this->Administrator_Model->get_timezonesbyCampaign($camp_id,$myArray1);
+						
 						$data['currency'] = $this->Administrator_Model->get_currencybyCampaign($camp_id,$myArray1);
 						// print_r($data['timezones']);
 						$data['comptype'] = $this->Administrator_Model->get_comptype();
@@ -1130,6 +1127,7 @@
 				'sbsvtag' => '1', // Submit 1st time
 				'pload' => '1', // next level ready to load
 				'rlc' => 0, // record is closed
+				'dvload' => 1, // record is closed
 			
 
 				// 'svagtidi' => '1' // save Agent Name
@@ -1166,7 +1164,7 @@
 		{
 			$campaign_id = $_GET['campaign_id'];
 			$cids = $_GET['campaign_idcids'];
-
+			$lmid = $_GET['lmid'];
 		
 				// Concatenation Of String 
 				$trimfname=$_GET['fname'];
@@ -1291,7 +1289,7 @@
 				'ontag' => 0, // Submit and 0 = new
 				'sbsvtag' => 0, // Save
 				'rlc' => 0, // Save
-				'pload' => '1', // next level ready to load
+				'pload' => 0, // next level ready to load
 
 				'svagtidi' => $_SESSION['emp_id'], // save Agent Name
 				'svdti' => $old_date // save date time
@@ -1302,8 +1300,14 @@
 			
 			//   print_r($datacdcandlead);
 			//      exit();
+			if($lmid > 0){
 			
+				$addleadandcdcdata = $this->Administrator_Model->update_leaddata($datacdcandlead,$lmid);
+			}else{
 				$addleadandcdcdata = $this->Administrator_Model->save_leaddata($datacdcandlead);
+			}
+				
+				
 				// print_r($addcampaigndata);  die;
 				
 
@@ -1329,8 +1333,12 @@
 			$campaign_id = $_GET['campaign_id'];
 			$cids = $_GET['campaign_idcids'];
 			$sbsvtag = $_GET['sbsvtag'];
+			$lmid = $_GET['lmid'];
 
-			
+			// print_r($cids);
+			// print_r($sbsvtag);
+
+			// die;
 				// Concatenation Of String 
 				$trimfname=$_GET['fname'];
 				$trimlname=$_GET['lname'];
@@ -1453,8 +1461,9 @@
 				// tag
 				// 'ontag' => 0, // Submit and 0 = new, 1 = needs to be reworked
 				'sbsvtag' => $sbsvtag, //  Submit till 5 times
-				'pload' => '1', // next level ready to load
+				'pload' => 0, // next level ready to load
 				'rlc' => 0, // record is closed
+				'ontag' => 0, // record is closed
 
 				// 'svagtidi' => '1' // save Agent Name
 				// 'svdti' => '1' // save date time
@@ -1466,7 +1475,7 @@
 			//   print_r($datacdcandlead);
 			//      exit();
 			
-				$addleadandcdcdata = $this->Administrator_Model->update_leaddata($datacdcandlead,$cids);
+				$addleadandcdcdata = $this->Administrator_Model->update_leaddata($datacdcandlead,$lmid);
 				// print_r($addcampaigndata);  die;
 				
 

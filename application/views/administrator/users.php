@@ -18,25 +18,25 @@
         });
     });
 $(document).ready(function(){
-        $(".enable").click(function(e){ alert('as');
+        $(".enable").click(function(e){
             $this  = $(this);
             e.preventDefault();
             var url = $(this).attr("href");
             $.get(url, function(r){
-                if(r.success){
-                    $this.closest("tr").remove();
+                if(r){
+                    $this.closest("td").html("<button class='label label-inverse-warning desable'>Deactive</button>");
                 }
             })
         });
     });
 $(document).ready(function(){
-        $(".desable").click(function(e){ alert('as');
+        $(".desable").click(function(e){ 
             $this  = $(this);
             e.preventDefault();
             var url = $(this).attr("href");
             $.get(url, function(r){
-                if(r.success){
-                    $this.closest("tr").remove();
+                if(r){
+                    $this.closest("td").html("<button class='label label-inverse-primary enable'>Active</button>");
                 }
             })
         });
@@ -81,8 +81,8 @@ $(document).ready(function(){
                                         <th>Manager</th>
                                         <th>User Type</th>
                                         <th>Reg-Date</th>
-                                        <th>Status</th>
                                         <th>Action</th>
+                                        <th>Update</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -122,16 +122,19 @@ $(document).ready(function(){
 
                                         ?></td>
                                          <td><?php echo date("M d,Y", strtotime($post['last_login'])); ?></td>
-                                         <td><?php if($post['status'] == 0){ echo "Active";}else{ echo "Inactive";} ?></td>
+                                         <!-- <td><?php //if($post['status'] == 0){ echo "Active";}else{ echo "Inactive";} ?></td> -->
                                         <td>
-                                                <?php if($post['status'] == 1){ ?>
-                                               <a class="label label-inverse-primary enable" href='<?php echo base_url(); ?>administrator/enable/<?php echo $post['id']; ?>?table=<?php echo base64_encode('users'); ?>'>Enabled</a>
+                                                <?php if($post['status'] == 0){ ?>
+                                               <a class="label label-inverse-primary enable" href='<?php echo base_url(); ?>administrator/enable/<?php echo $post['id']; ?>?table=<?php echo base64_encode('users'); ?>'>Active</a>
                                                 <?php }else{ ?> 
-                                                <a class="label label-inverse-warning desable" href='<?php echo base_url(); ?>administrator/desable/<?php echo $post['id']; ?>?table=<?php echo base64_encode('users'); ?>'>Desabled</a>
+                                                <a class="label label-inverse-warning desable" href='<?php echo base_url(); ?>administrator/desable/<?php echo $post['id']; ?>?table=<?php echo base64_encode('users'); ?>'>Deactive</a>
                                                 <?php } ?>
-                                                <a class="label label-inverse-info" href='<?php echo base_url(); ?>administrator/users/update-user/<?php echo $post['id']; ?>'>Edit</a>
-                                                <a class="label label-inverse-danger delete" href='<?php echo base_url(); ?>administrator/delete/<?php echo $post['id']; ?>?table=<?php echo base64_encode('users'); ?>'>Delete</a>
+                                                
+                                                <!-- <a class="label label-inverse-danger delete" href='<?php echo base_url(); ?>administrator/delete/<?php echo $post['id']; ?>?table=<?php echo base64_encode('users'); ?>'>Delete</a> -->
                                             
+                                        </td>
+                                        <td>
+                                        <a class="label label-inverse-info" href='<?php echo base_url(); ?>administrator/users/update-user/<?php echo $post['id']; ?>'>Edit</a>
                                         </td>
                                     </tr>
                                 <?php endforeach; ?>

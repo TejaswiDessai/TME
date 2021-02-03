@@ -1445,9 +1445,16 @@ public function get_campaign_by_id($id = FALSE)
 public function get_leadmasterby_campaignid($id = FALSE)
 {
 		
-
+		$this->db->where('rlc !=', 1);
+		$this->db->where('sbsvtag <', 6);
+		$this->db->where('ontag', 1);
+		$this->db->where('pload', 0);
+		$this->db->where('dvload',0);
+		$this->db->where('evload',null);
+		$this->db->where('cdcload',null);
+		$this->db->where('qaload',null);
 		$query = $this->db->get_where('leadmaster', array('cids' => $id));
-		// echo $this->db->last_query(); 
+		echo $this->db->last_query(); 
 		// echo $string;
 		// die;
 		return $query->result_array();
@@ -1463,9 +1470,9 @@ public function get_leadmasterby_campaignid($id = FALSE)
 			//  return true;
                         // echo $this->db->last_query(); 
 		}
-		public function update_leaddata($updateleadandcdcdata,$campaign_id)
+		public function update_leaddata($updateleadandcdcdata,$lmid)
 		{
-			$this->db->where('cids', $campaign_id);
+			$this->db->where('lmid', $lmid);
 			$this->db->update('leadmaster', $updateleadandcdcdata);
 			return true;
 		

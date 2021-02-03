@@ -535,7 +535,7 @@
 				return $query->result_array(); 
 			}
 
-			$query = $this->db->get_where('users', array('fname' => $manager));
+			$query = $this->db->get_where('users', array('mngr' => $manager));
 			return $query->result_array();
 		}
 		public function get_campaign($campaigns = FALSE, $limit = FALSE, $offset = FALSE)

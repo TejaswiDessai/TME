@@ -1,14 +1,14 @@
 <?php
 
-if (isset($_SESSION["username"])) {
-    // only if user is logged in perform this check
-    if ((time() - $_SESSION['timeout']) > 600) { // after 10 mints session will be log out
-        redirect('administrator/logout');
-      exit;
-    } else {
-      $_SESSION['timeout'] = time();
-    }
-  }
+// if (isset($_SESSION["username"])) {
+//     // only if user is logged in perform this check
+//     if ((time() - $_SESSION['timeout']) > 600) { // after 10 mints session will be log out
+//         redirect('administrator/logout');
+//       exit;
+//     } else {
+//       $_SESSION['timeout'] = time();
+//     }
+//   }
 
 
  if ($this->session -> userdata('email') == "" && $this->session -> userdata('login') != true && $this->session -> userdata('role_id') != 1) {

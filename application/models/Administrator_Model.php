@@ -1229,10 +1229,10 @@ public function is_temp_pass_valid($temp_pass){
     else return FALSE;
 }
 
-function saverecords($emp_id,$Fname,$Lname,$Manager,$status1,$user_role,$team,$password,$register_date)
+function saverecords($emp_id,$Fname,$Lname,$Manager,$status1,$user_role,$team,$password,$register_date,$cid_type)
 {
-	$query="INSERT INTO users( emp_id, fname, lname,mngr,role,team,password,status,last_login) 
-		VALUES ('$emp_id','$Fname','$Lname','$Manager','$user_role','$team','$password',$status1,'$register_date')";
+	$query="INSERT INTO users( emp_id, fname, lname,mngr,role,team,password,status,last_login,cid_type) 
+		VALUES ('$emp_id','$Fname','$Lname','$Manager','$user_role','$team','$password',$status1,'$register_date','$cid_type')";
 		$this->db->query($query);
 }
 

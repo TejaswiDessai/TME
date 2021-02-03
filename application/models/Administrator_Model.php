@@ -522,6 +522,8 @@
 		public function get_users($username = FALSE, $limit = FALSE, $offset = FALSE)
 		{
 			$emp_id = $this->session->userdata('emp_id');
+			$manager = $this->get_manager_by_emp($emp_id);
+			
 			// if ($limit) {
 			// 	$this->db->limit($limit, $offset);
 			// }
@@ -533,8 +535,8 @@
 				return $query->result_array(); 
 			}
 
-			$query = $this->db->get_where('users', array('fname' => $username));
-			return $query->row_array();
+			$query = $this->db->get_where('users', array('mngr' => $manager));
+			return $query->result_array();
 		}
 		public function get_campaign($campaigns = FALSE, $limit = FALSE, $offset = FALSE)
 		{
@@ -1538,7 +1540,16 @@ public function get_leadmasterby_campaignid($id = FALSE)
 			$ret = $query->row();
 			return $ret->emp_id;
 		}
-
+		public function get_manager_by_emp($emp_id)
+		{
+			$this->db->order_by('id','desc');
+			$this->db->where('emp_id', $emp_id);
+			$query = $this->db->get('users');
+			
+			$ret = $query->row();
+			// show_error($this->db->last_query(), 200, "SQL");
+			return $ret->fname;
+		}
 		// Added by Amol
 		public function get_emp_usertype($id = FALSE)
 		{

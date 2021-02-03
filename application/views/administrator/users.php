@@ -95,27 +95,27 @@ $(document).ready(function(){
                                         <td><a href="edit-blog.php?id=14"><?php echo $post['fname']; ?></a></td>
                                         <td><?php echo $post['mngr']; ?></td>
                                         <td><?php 
-                                        if($post['role'] == 0)
+                                        if($post['role'] == 1)
                                         {
                                             echo "Admin";
                                         }
-                                        else if($post['role'] == 1)
+                                        else if($post['role'] == 2)
                                         {
                                             echo "Core";
                                         }
-                                        else if($post['role'] == 2)
+                                        else if($post['role'] == 3)
                                         {
                                             echo "Manager";
                                         }
-                                        else if($post['role'] == 3)
+                                        else if($post['role'] == 4)
                                         {
                                             echo "Team Leader";
                                         }
-                                        else if($post['role'] == 4)
+                                        else if($post['role'] == 5)
                                         {
                                             echo "Team Member";
                                         }
-                                        else if($post['role'] == 5)
+                                        else if($post['role'] == 6)
                                         {
                                             echo "Developer";
                                         }

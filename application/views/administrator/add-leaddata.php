@@ -288,9 +288,9 @@ $(document).ready(function() {
                             <div class="col-sm-2">
                               <select class="js-example-basic-single"  name="timezone" id="timezone">
                               <option value="">Timezone</option>
-                              <?php //foreach ($timezones as $tz): ?>
-                                    <!-- <option value="<?php //echo $tz['zoneid']; ?>"><?php// echo $tz['zonename']; ?></option> -->
-                                <?php //endforeach; ?> 
+                              <?php foreach ($timezones as $tz): ?>
+                                    <option value="<?php echo $tz['zoneid']; ?>"  <?php if(isset($ldmster) && $ldmster['timez'] == $tz['zoneid']){ echo "selected" ; } ?>><?php echo $tz['abbrev']; ?></option>
+                                <?php endforeach; ?> 
                                 </select>
                                 <span style='color:#FF0000' id="timezone_msg"></span>
                             </div>
@@ -363,10 +363,11 @@ $(document).ready(function() {
                             <div class="col-sm-2">
                                 <select class="form-control form-control-sm cdqadisable" name="curr" id="curr">
                                     <option value="1">USD</option>                                  
-                                <!-- <?php //foreach ($currency as $currency): ?> -->
-                                    <!-- <option value="<?php //echo $currency['currid']; ?>"><?php //echo $currency['currab']; ?></option> -->
-                                <!-- <?php//endforeach; ?> -->
+                                <?php foreach ($currency as $currency): ?>
+                                    <option value="<?php echo $currency['currid']; ?>"  <?php if(isset($ldmster) && $ldmster['curr'] == $currency['currid']){ echo "selected" ; } ?>><?php echo $currency['currab']; ?></option>
+                                <?php endforeach; ?>
                                    </select>
+                                
                             </div>          
                             <div class="col-sm-2">
                                 <div class="domaincheck">
@@ -457,7 +458,7 @@ $(document).ready(function() {
                           <input type = hidden name="sbsvtag" id="sbsvtag" value="<?php echo $ldmster['sbsvtag']; ?>">
                           <input type = hidden name="rlc" id="rlc" value="<?php echo $ldmster['rlc']; ?>">
                         <button type="submit" name="leadupdate" class="btn btn-primary leaddisplay" style=""  id="leadupdate">Update</button> 
-                        
+                        <button type="submit" name="leadsave" class="btn btn-primary leaddisplay" style=""  id="leadsave">Save </button> 
                      
                         <?php } ?>
                        <?php if(empty($ldmster)){ ?>
@@ -715,16 +716,16 @@ var arevenuevalue = $('#arevenue').val();
       var urevrangenumber1 = urevrangenumber*1000000;
       var lrevrangenumber1 = lrevrangenumber*1000;
     // alert("hundred and million");
-             var ch = "0"; // thousand
-              var ch1 = "1"; // million
-              var check = "2"; //billion
-              var check2 = "3"; // trillion
-              $('select').each(function() {
-                $('#mlbl').not(this).find('option[value="' + check2 + '"]').hide();
-                  $('#mlbl').not(this).find('option[value="' + ch + '"]').prop('disabled', false); 
-                  $('#mlbl').not(this).find('option[value="' + ch1 + '"]').prop('disabled', false); 
-                  $('#mlbl').not(this).find('option[value="' + check + '"]').hide();
-              });
+            //  var ch = "0"; // thousand
+            //   var ch1 = "1"; // million
+            //   var check = "2"; //billion
+            //   var check2 = "3"; // trillion
+            //   $('select').each(function() {
+            //     $('#mlbl').not(this).find('option[value="' + check2 + '"]').hide();
+            //       $('#mlbl').not(this).find('option[value="' + ch + '"]').prop('disabled', false); 
+            //       $('#mlbl').not(this).find('option[value="' + ch1 + '"]').prop('disabled', false); 
+            //       $('#mlbl').not(this).find('option[value="' + check + '"]').hide();
+            //   });
 
 
 
@@ -742,16 +743,16 @@ var arevenuevalue = $('#arevenue').val();
       var urevrangenumber1 = urevrangenumber*1000000000;
       var lrevrangenumber1 = lrevrangenumber*1000;
     // alert("hundred and billion");
-              var ch = "0"; // thousand
-              var ch1 = "1"; // million
-              var check = "2"; //billion
-              var check2 = "3"; // trillion
-              $('select').each(function() {
-                  $('#mlbl').not(this).find('option[value="' + check2 + '"]').hide();
-                  $('#mlbl').not(this).find('option[value="' + ch + '"]').prop('disabled', false); 
-                  $('#mlbl').not(this).find('option[value="' + ch1 + '"]').hide();
-                  $('#mlbl').not(this).find('option[value="' + check + '"]').prop('disabled', false); 
-              });
+              // var ch = "0"; // thousand
+              // var ch1 = "1"; // million
+              // var check = "2"; //billion
+              // var check2 = "3"; // trillion
+              // $('select').each(function() {
+              //     $('#mlbl').not(this).find('option[value="' + check2 + '"]').hide();
+              //     $('#mlbl').not(this).find('option[value="' + ch + '"]').prop('disabled', false); 
+              //     $('#mlbl').not(this).find('option[value="' + ch1 + '"]').hide();
+              //     $('#mlbl').not(this).find('option[value="' + check + '"]').prop('disabled', false); 
+              // });
     }else if(lrevrange == "hundred" && urevrange ==  "trillion"){
     
       var urevrangenumber1 = urevrangenumber*1000000000000;
@@ -782,16 +783,16 @@ var arevenuevalue = $('#arevenue').val();
       var urevrangenumber1 = urevrangenumber*1000000000;
       var lrevrangenumber1 = lrevrangenumber*1000000;
     // alert("million and bllion");
-              var ch = "0"; // thousand
-              var ch1 = "1"; // million
-              var check = "2"; //billion
-              var check2 = "3"; // trillion
-              $('select').each(function() {
-                $('#mlbl').not(this).find('option[value="' + check2 + '"]').hide();
-                  $('#mlbl').not(this).find('option[value="' + ch + '"]').hide();
-                  $('#mlbl').not(this).find('option[value="' + ch1 + '"]').prop('disabled', false); 
-                  $('#mlbl').not(this).find('option[value="' + check + '"]').prop('disabled', false); 
-              });
+              // var ch = "0"; // thousand
+              // var ch1 = "1"; // million
+              // var check = "2"; //billion
+              // var check2 = "3"; // trillion
+              // $('select').each(function() {
+              //   $('#mlbl').not(this).find('option[value="' + check2 + '"]').hide();
+              //     $('#mlbl').not(this).find('option[value="' + ch + '"]').hide();
+              //     $('#mlbl').not(this).find('option[value="' + ch1 + '"]').prop('disabled', false); 
+              //     $('#mlbl').not(this).find('option[value="' + check + '"]').prop('disabled', false); 
+              // });
 
 
     } else if(lrevrange == "million" && urevrange ==  "trillion"){
@@ -807,16 +808,16 @@ var arevenuevalue = $('#arevenue').val();
       }
       var urevrangenumber1 = urevrangenumber*1000000000000;
       var lrevrangenumber1 = lrevrangenumber*1000000;
-              var ch = "0"; // thousand
-              var ch1 = "1"; // million
-              var check = "2"; //billion
-              var check2 = "3"; // trillion
-              $('select').each(function() {
-                $('#mlbl').not(this).find('option[value="' + check2 + '"]').prop('disabled', false);
-                  $('#mlbl').not(this).find('option[value="' + ch + '"]').hide();
-                  $('#mlbl').not(this).find('option[value="' + ch1 + '"]').prop('disabled', false); 
-                  $('#mlbl').not(this).find('option[value="' + check + '"]').hide();
-              });
+              // var ch = "0"; // thousand
+              // var ch1 = "1"; // million
+              // var check = "2"; //billion
+              // var check2 = "3"; // trillion
+              // $('select').each(function() {
+              //   $('#mlbl').not(this).find('option[value="' + check2 + '"]').prop('disabled', false);
+              //     $('#mlbl').not(this).find('option[value="' + ch + '"]').hide();
+              //     $('#mlbl').not(this).find('option[value="' + ch1 + '"]').prop('disabled', false); 
+              //     $('#mlbl').not(this).find('option[value="' + check + '"]').hide();
+              // });
             
     alert("million and trillion");
     } else if(lrevrange == "billion" && urevrange ==  "trillion"){
@@ -834,16 +835,16 @@ var arevenuevalue = $('#arevenue').val();
       var lrevrangenumber1 = lrevrangenumber*1000000000;
       
       // alert("billion and trillion");
-              var ch = "0"; // thousand
-              var ch1 = "1"; // million
-              var check = "2"; //billion
-              var check2 = "3"; // trillion
-              $('select').each(function() {
-                $('#mlbl').not(this).find('option[value="' + check2 + '"]').prop('disabled', false);
-                  $('#mlbl').not(this).find('option[value="' + ch + '"]').hide();
-                  $('#mlbl').not(this).find('option[value="' + ch1 + '"]').hide();
-                  $('#mlbl').not(this).find('option[value="' + check + '"]').prop('disabled', false); 
-              });
+              // var ch = "0"; // thousand
+              // var ch1 = "1"; // million
+              // var check = "2"; //billion
+              // var check2 = "3"; // trillion
+              // $('select').each(function() {
+              //   $('#mlbl').not(this).find('option[value="' + check2 + '"]').prop('disabled', false);
+              //     $('#mlbl').not(this).find('option[value="' + ch + '"]').hide();
+              //     $('#mlbl').not(this).find('option[value="' + ch1 + '"]').hide();
+              //     $('#mlbl').not(this).find('option[value="' + check + '"]').prop('disabled', false); 
+              // });
     }
     // alert(m+" "+lrevrangenumber1+" "+urevrangenumber1);
     if(m > parseInt(urevrangenumber1) || m < parseInt(lrevrangenumber1)){
@@ -1473,7 +1474,7 @@ $.ajax({
 
                 },
                 error: function (error) {
-                 alert("Error");
+                  alert("Already exists");
                   }
               
             });
@@ -1493,8 +1494,11 @@ $.ajax({
             var campaign_idcids = $('#campaign_idcids').val();
             var sbsvtag1 = $('#sbsvtag').val();
             var sbsvtag = parseInt(sbsvtag1)+1; // incremataion
+            var lmid = $('#lmid').val();
 
           //  alert(campaign_idcids);
+          //  alert(sbsvtag);
+
             var sal = $('#sal').val();
             var fname = $('#fname').val();
             var lname = $('#lname').val();
@@ -1575,7 +1579,7 @@ $.ajax({
            
             if(fname != "" && lname != "" && company_name != "" && jlevel != "" && jtitle != "" && desid != "" && dcd !="" && email != "" && phone !="" && plink !="" && address != "" && city != "" && state != ""  && country_id != "" && industrycd != "" && subindustrycd != "" && empsize != "" && domain !=""  && empszlink != "" && revszlink != ""  && zip_code !="" ){
             var url = encodeURI("<?php echo base_url("cdc/ajax_update_leaddata");?>");
-            console.log(url+"?campaign_id="+campaign_id+"&sal="+sal+"&fname="+fname+"&lname="+lname+"&jtitle="+jtitle+"&desid="+desid+"&jlevel="+jlevel+"&dcd="+dcd+"&email="+email+"&phone="+phone+"&altphn="+altphn+"&phext="+phext+"&plink="+plink+"&company_name="+company_name+"&address="+address+"&city="+city+"&state="+state+"&zip_code="+zip_code+"&country_id="+country_id+"&timezone="+timezone+"&ctype="+ctype+"&linetype="+linetype+"&industrycd="+industrycd+"&subindustrycd="+subindustrycd+"&sectyp="+sectyp+"&empsize="+empsize+"&mlbl="+mlbl+"&curr="+curr+"&arevenue="+arevenue+"&empszlink="+empszlink+"&indlink="+indlink+"&domain="+domain+"&othrlink="+othrlink+"&revszlink="+revszlink+"&emailver="+emailver+"&aum="+aum+"&assetid="+assetid+"&optin="+optin+"&optpst="+optpst+"&optph="+optph+"&opteml="+opteml+"&optoption="+optoption+"&aa1="+aa1+"&aa2="+aa2+"&aa3="+aa3+"&aa4="+aa4+"&aa5="+aa5+"&aa6="+aa6+"&aa7="+aa7+"&aa8="+aa8+"&aa9="+aa9+"&aa10="+aa10+"&aa11="+aa11+"&aa12="+aa12+"&pcomt="+pcomt);
+            console.log(url+"?campaign_id="+campaign_id+"&lmid="+lmid+"&campaign_idcids="+campaign_idcids+"&sbsvtag="+sbsvtag+"&sal="+sal+"&fname="+fname+"&lname="+lname+"&jtitle="+jtitle+"&desid="+desid+"&jlevel="+jlevel+"&dcd="+dcd+"&email="+email+"&phone="+phone+"&altphn="+altphn+"&phext="+phext+"&plink="+plink+"&company_name="+company_name+"&address="+address+"&city="+city+"&state="+state+"&zip_code="+zip_code+"&country_id="+country_id+"&timezone="+timezone+"&ctype="+ctype+"&linetype="+linetype+"&industrycd="+industrycd+"&subindustrycd="+subindustrycd+"&sectyp="+sectyp+"&empsize="+empsize+"&mlbl="+mlbl+"&curr="+curr+"&arevenue="+arevenue+"&empszlink="+empszlink+"&indlink="+indlink+"&domain="+domain+"&othrlink="+othrlink+"&revszlink="+revszlink+"&emailver="+emailver+"&aum="+aum+"&assetid="+assetid+"&optin="+optin+"&optpst="+optpst+"&optph="+optph+"&opteml="+opteml+"&optoption="+optoption+"&aa1="+aa1+"&aa2="+aa2+"&aa3="+aa3+"&aa4="+aa4+"&aa5="+aa5+"&aa6="+aa6+"&aa7="+aa7+"&aa8="+aa8+"&aa9="+aa9+"&aa10="+aa10+"&aa11="+aa11+"&aa12="+aa12+"&pcomt="+pcomt);
            
             $.ajax({
                 url :'<?php echo base_url("cdc/ajax_update_leaddata");?>',
@@ -1586,6 +1590,7 @@ $.ajax({
                    
                   campaign_id: campaign_id,
                   campaign_idcids: campaign_idcids,
+                  lmid: lmid,
                   sbsvtag :sbsvtag,
                     sal:sal,
                     fname:fname,
@@ -1650,7 +1655,7 @@ $.ajax({
 
                 },
                 error: function (error) {
-                 alert("Error");
+                  alert("Already exists");
                   }
               
             });
@@ -1669,6 +1674,11 @@ $.ajax({
          
           var campaign_id = $('#campaign_id').val();
             var campaign_idcids = $('#campaign_idcids').val();
+            var lmid = $('#lmid').val();
+            if(lmid == undefined){
+              var lmid = "0";
+            }
+            alert(lmid);
           //  alert(campaign_idcids);
             var sal = $('#sal').val();
             var fname = $('#fname').val();
@@ -1676,6 +1686,17 @@ $.ajax({
             var jtitle = $('#jtitle').val();
             var desid = $('#desid').val();
             var jlevel = $('#jlevel').val();
+
+
+          //   var sbsvtag1 = $('#sbsvtag').val();
+          //   // var sbsvtag = parseInt(sbsvtag1)+1; // incremataion
+           
+          //  if(sbsvtag1 == undefined){
+          //   var sbsvtag = "";
+          //  }else{
+          //   var sbsvtag = parseInt(sbsvtag1)+1; // incremataion
+          //  }
+          //  alert(sbsvtag);
            
             var dcd = $('#dcd').val();
             var email = $('#email').val();
@@ -1752,7 +1773,7 @@ $.ajax({
            
 
             var url = encodeURI("<?php echo base_url("cdc/ajax_save_leaddata");?>");
-            console.log(url+"?campaign_idcids="+campaign_idcids+"&campaign_id="+campaign_id+"&sal="+sal+"&fname="+fname+"&lname="+lname+"&jtitle="+jtitle+"&desid="+desid+"&jlevel="+jlevel+"&dcd="+dcd+"&email="+email+"&phone="+phone+"&altphn="+altphn+"&phext="+phext+"&plink="+plink+"&company_name="+company_name+"&address="+address+"&city="+city+"&state="+state+"&zip_code="+zip_code+"&country_id="+country_id+"&timezone="+timezone+"&ctype="+ctype+"&linetype="+linetype+"&industrycd="+industrycd+"&subindustrycd="+subindustrycd+"&sectyp="+sectyp+"&empsize="+empsize+"&mlbl="+mlbl+"&curr="+curr+"&arevenue="+arevenue+"&empszlink="+empszlink+"&indlink="+indlink+"&domain="+domain+"&othrlink="+othrlink+"&revszlink="+revszlink+"&emailver="+emailver+"&aum="+aum+"&assetid="+assetid+"&optin="+optin+"&optpst="+optpst+"&optph="+optph+"&opteml="+opteml+"&optoption="+optoption+"&aa1="+aa1+"&aa2="+aa2+"&aa3="+aa3+"&aa4="+aa4+"&aa5="+aa5+"&aa6="+aa6+"&aa7="+aa7+"&aa8="+aa8+"&aa9="+aa9+"&aa10="+aa10+"&aa11="+aa11+"&aa12="+aa12+"&pcomt="+pcomt);
+            console.log(url+"?campaign_idcids="+campaign_idcids+"&lmid="+lmid+"&campaign_id="+campaign_id+"&sal="+sal+"&fname="+fname+"&lname="+lname+"&jtitle="+jtitle+"&desid="+desid+"&jlevel="+jlevel+"&dcd="+dcd+"&email="+email+"&phone="+phone+"&altphn="+altphn+"&phext="+phext+"&plink="+plink+"&company_name="+company_name+"&address="+address+"&city="+city+"&state="+state+"&zip_code="+zip_code+"&country_id="+country_id+"&timezone="+timezone+"&ctype="+ctype+"&linetype="+linetype+"&industrycd="+industrycd+"&subindustrycd="+subindustrycd+"&sectyp="+sectyp+"&empsize="+empsize+"&mlbl="+mlbl+"&curr="+curr+"&arevenue="+arevenue+"&empszlink="+empszlink+"&indlink="+indlink+"&domain="+domain+"&othrlink="+othrlink+"&revszlink="+revszlink+"&emailver="+emailver+"&aum="+aum+"&assetid="+assetid+"&optin="+optin+"&optpst="+optpst+"&optph="+optph+"&opteml="+opteml+"&optoption="+optoption+"&aa1="+aa1+"&aa2="+aa2+"&aa3="+aa3+"&aa4="+aa4+"&aa5="+aa5+"&aa6="+aa6+"&aa7="+aa7+"&aa8="+aa8+"&aa9="+aa9+"&aa10="+aa10+"&aa11="+aa11+"&aa12="+aa12+"&pcomt="+pcomt);
            
             $.ajax({
                 url :'<?php echo base_url("cdc/ajax_save_leaddata");?>',
@@ -1762,6 +1783,8 @@ $.ajax({
                    
                   campaign_id: campaign_id,
                   campaign_idcids: campaign_idcids,
+                  lmid: lmid,
+                  // sbsvtag :sbsvtag,
                     sal:sal,
                     fname:fname,
                     lname: lname,
@@ -1827,7 +1850,7 @@ $.ajax({
                 },
                 
                 error: function (error) {
-                alert("Error");
+                  alert("Already exists");
                   // location.reload();
                   }
               

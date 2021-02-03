@@ -391,7 +391,7 @@ $.ajax({
                 <hr>
                     <div class="form-group row">
                         <div class="col-sm-2">
-                                <input type="text"  name="empsize" id="empsize" maxlength="6" placeholder="Actual Employee Size"  class="form-control form-control-sm cdqadisable">
+                                <input type="text"  name="empsize" id="empsize" maxlength="15" placeholder="Actual Employee Size"  class="form-control form-control-sm cdqadisable">
                                 <span style='color:#FF0000' id="empsize_msg"></span>
                             </div>
                             <div class="col-sm-2">
@@ -638,16 +638,16 @@ var arevenuevalue = $('#arevenue').val();
       alert("not in range of Thousand");
       $('#arevenue').val("");
     }
-              // var ch = "0"; // thousand
-              // var ch1 = "1"; // million
-              // var check = "2"; //billion
-              // var check2 = "3"; // trillion
-              // $('select').each(function() {
-              //   $('#mlbl').not(this).find('option[value="' + ch + '"]').prop('disabled', false);
-              //     $('#mlbl').not(this).find('option[value="' + check + '"]').hide();
-              //     $('#mlbl').not(this).find('option[value="' + ch1 + '"]').hide();
-              //     $('#mlbl').not(this).find('option[value="' + check2 + '"]').hide();
-              // });
+              var ch = "0"; // thousand
+              var ch1 = "1"; // million
+              var check = "2"; //billion
+              var check2 = "3"; // trillion
+              $('select').each(function() {
+                $('#mlbl').not(this).find('option[value="' + ch + '"]').prop('disabled', false);
+                  $('#mlbl').not(this).find('option[value="' + check + '"]').hide();
+                  $('#mlbl').not(this).find('option[value="' + ch1 + '"]').hide();
+                  $('#mlbl').not(this).find('option[value="' + check2 + '"]').hide();
+              });
              
   }
   if(lrevrange == "million" && urevrange =="million" ){
@@ -667,16 +667,16 @@ var arevenuevalue = $('#arevenue').val();
       alert("not in range of Million");
       $('#arevenue').val("");
     }
-              // var ch = "0"; // thousand
-              // var ch1 = "1"; // million
-              // var check = "2"; //billion
-              // var check2 = "3"; // trillion
-              // $('select').each(function() {
-              //   $('#mlbl').not(this).find('option[value="' + ch1 + '"]').prop('disabled', false);
-              //     $('#mlbl').not(this).find('option[value="' + check + '"]').hide();
-              //     $('#mlbl').not(this).find('option[value="' + ch + '"]').hide();
-              //     $('#mlbl').not(this).find('option[value="' + check2 + '"]').hide();
-              // });
+              var ch = "0"; // thousand
+              var ch1 = "1"; // million
+              var check = "2"; //billion
+              var check2 = "3"; // trillion
+              $('select').each(function() {
+                $('#mlbl').not(this).find('option[value="' + ch1 + '"]').prop('disabled', false);
+                  $('#mlbl').not(this).find('option[value="' + check + '"]').hide();
+                  $('#mlbl').not(this).find('option[value="' + ch + '"]').hide();
+                  $('#mlbl').not(this).find('option[value="' + check2 + '"]').hide();
+              });
   }
   if(lrevrange == "billion" && urevrange =="billion" ){
     if($('#mlbl').val()==2){
@@ -695,16 +695,16 @@ var arevenuevalue = $('#arevenue').val();
       alert("not in range of Billion");
       $('#arevenue').val("");
     }
-              // var ch = "0"; // thousand
-              // var ch1 = "1"; // million
-              // var check = "2"; //billion
-              // var check2 = "3"; // trillion
-              // $('select').each(function() {
-              //   $('#mlbl').not(this).find('option[value="' + check + '"]').prop('disabled', false);
-              //     $('#mlbl').not(this).find('option[value="' + ch + '"]').hide(); 
-              //     $('#mlbl').not(this).find('option[value="' + ch1 + '"]').hide(); 
-              //     $('#mlbl').not(this).find('option[value="' + check2 + '"]').hide();
-              // });
+              var ch = "0"; // thousand
+              var ch1 = "1"; // million
+              var check = "2"; //billion
+              var check2 = "3"; // trillion
+              $('select').each(function() {
+                $('#mlbl').not(this).find('option[value="' + check + '"]').prop('disabled', false);
+                  $('#mlbl').not(this).find('option[value="' + ch + '"]').hide(); 
+                  $('#mlbl').not(this).find('option[value="' + ch1 + '"]').hide(); 
+                  $('#mlbl').not(this).find('option[value="' + check2 + '"]').hide();
+              });
 
   }
   if(lrevrange == "trillion" && urevrange =="trillion" ){
@@ -724,16 +724,16 @@ var arevenuevalue = $('#arevenue').val();
       alert("not in range of Trillion");
       $('#arevenue').val("");
     }
-              // var ch = "0"; // thousand
-              // var ch1 = "1"; // million
-              // var check = "2"; //billion
-              // var check2 = "3"; // trillion
-              // $('select').each(function() {
-              //   $('#mlbl').not(this).find('option[value="' + check2 + '"]').prop('disabled', false);
-              //     $('#mlbl').not(this).find('option[value="' + ch + '"]').hide();
-              //     $('#mlbl').not(this).find('option[value="' + ch1 + '"]').hide();
-              //     $('#mlbl').not(this).find('option[value="' + check + '"]').hide();
-              // });
+              var ch = "0"; // thousand
+              var ch1 = "1"; // million
+              var check = "2"; //billion
+              var check2 = "3"; // trillion
+              $('select').each(function() {
+                $('#mlbl').not(this).find('option[value="' + check2 + '"]').prop('disabled', false);
+                  $('#mlbl').not(this).find('option[value="' + ch + '"]').hide();
+                  $('#mlbl').not(this).find('option[value="' + ch1 + '"]').hide();
+                  $('#mlbl').not(this).find('option[value="' + check + '"]').hide();
+              });
 
   }
 

@@ -53,7 +53,7 @@ rel="Stylesheet"type="text/css"/>
         });
         $('#user_role').change(function(){
             var user_role = $(this).val();
-            alert(user_role);
+            // alert(user_role);
             if (user_role != '')
             {
                 $('#team').prop('disabled', false);

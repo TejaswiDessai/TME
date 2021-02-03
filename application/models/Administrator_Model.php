@@ -535,7 +535,7 @@
 				return $query->result_array(); 
 			}
 
-			$query = $this->db->get_where('users', array('mngr' => $manager));
+			$query = $this->db->get_where('users', array('fname' => $manager));
 			return $query->result_array();
 		}
 		public function get_campaign($campaigns = FALSE, $limit = FALSE, $offset = FALSE)
@@ -1541,7 +1541,7 @@ public function get_leadmasterby_campaignid($id = FALSE)
 			
 			$ret = $query->row();
 			// show_error($this->db->last_query(), 200, "SQL");
-			return $ret->mngr;
+			return $ret->fname;
 		}
 		// Added by Amol
 		public function get_emp_usertype($id = FALSE)

@@ -159,10 +159,10 @@
 							}
 							$mydesiarry = explode(',', $mydesi);
 						$data['designation'] = $this->Administrator_Model->get_designation_ofCampaign($camp_id,$mydesiarry);
-
+						print_r($data['designation']); 
 						$data['joblevel'] = $this->Administrator_Model->get_joblevels_byCampaign($camp_id,$mydesiarry);
 					
-					
+					// print_r($data['joblevel']); 
 						$data['timezones'] = $this->Administrator_Model->get_timezonesbyCampaign($camp_id,$myArray1);
 						
 						$data['currency'] = $this->Administrator_Model->get_currencybyCampaign($camp_id,$myArray1);
@@ -338,7 +338,7 @@
 				'jtitle' => $_GET['jtitle'],
 				// 'desid' => $_GET['desid'],
 
-				'jlevel' => $_GET['jlevel'],
+				'jlevel' => $_GET['desid'],
 				'dname' => $_GET['dcd'], //department
 				'email' => $_GET['email'],
 				'phone' => $_GET['phone'],
@@ -522,7 +522,7 @@
 				'jtitle' => $_GET['jtitle'],
 				// 'desid' => $_GET['desid'],
 
-				'jlevel' => $_GET['jlevel'],
+				'jlevel' => $_GET['desid'],
 				'dname' => $_GET['dcd'], //department
 				'email' => $_GET['email'],
 				'phone' => $_GET['phone'],
@@ -707,7 +707,7 @@
 				'jtitle' => $_GET['jtitle'],
 				// 'desid' => $_GET['desid'],
 
-				'jlevel' => $_GET['jlevel'],
+				'jlevel' => $_GET['desid'],
 				'dname' => $_GET['dcd'], //department
 				'email' => $_GET['email'],
 				'phone' => $_GET['phone'],
@@ -895,7 +895,7 @@
 				'jtitle' => $_GET['jtitle'],
 				// 'desid' => $_GET['desid'],
 
-				'jlevel' => $_GET['jlevel'],
+				'jlevel' => $_GET['desid'],
 				'dname' => $_GET['dcd'], //department
 				'email' => $_GET['email'],
 				'phone' => $_GET['phone'],
@@ -1084,7 +1084,8 @@
 				'jtitle' => $_GET['jtitle'],
 				// 'desid' => $_GET['desid'],
 
-				'jlevel' => $_GET['jlevel'],
+				// 'jlevel' => $_GET['jlevel'],
+				'jlevel' => $_GET['desid'],
 				'dname' => $_GET['dcd'], //department
 				'email' => $_GET['email'],
 				'phone' => $_GET['phone'],
@@ -1247,7 +1248,7 @@
 				'jtitle' => $_GET['jtitle'],
 				// 'desid' => $_GET['desid'],
 
-				'jlevel' => $_GET['jlevel'],
+				'jlevel' => $_GET['desid'],
 				'dname' => $_GET['dcd'], //department
 				'email' => $_GET['email'],
 				'phone' => $_GET['phone'],
@@ -1420,7 +1421,7 @@
 				'jtitle' => $_GET['jtitle'],
 				// 'desid' => $_GET['desid'],
 
-				'jlevel' => $_GET['jlevel'],
+				'jlevel' => $_GET['desid'],
 				'dname' => $_GET['dcd'], //department
 				'email' => $_GET['email'],
 				'phone' => $_GET['phone'],

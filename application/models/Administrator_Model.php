@@ -559,14 +559,16 @@
 
 		public function enable($id,$table){
 			$data = array(
-				'status' => 0
+				'status' => 1,
+				'exp_date' => date("Y-m-d H:i:s")
 			    );
 			$this->db->where('id', $id);
 			return $this->db->update($table, $data);
 		}
 		public function desable($id,$table){
 			$data = array(
-				'status' => 1
+				'status' => 0,
+				'exp_date' => date("Y-m-d H:i:s")
 			    );
 			$this->db->where('id', $id);
 			return $this->db->update($table, $data);
@@ -585,18 +587,20 @@
 
 		public function update_user_data($post_image)
 		{ 
-//			$data = array('name' => $this->input->post('name'),
-//							'zipcode' => $this->input->post('zipcode'),
-//							'contact' => $this->input->post('contact'),
-//							'address' => $this->input->post('address'),
-//							'gender' => $this->input->post('gender'),
-//							'status' => $this->input->post('status'),
-//							'dob' => $this->input->post('dob'),
-//							'image' => $post_image,
-//							'register_date' => date("Y-m-d H:i:s")
-//						  );
-                        $data = array('usertype' =>$this->input->post('usertype'));
-			$this->db->where('id', $this->input->post('id'));
+			$teamstr = implode(',',$this->input->post('team'));
+			$data = array('emp_id' => $this->input->post('emp_id'),
+							'fname' => $this->input->post('Fname'),
+							'lname' => $this->input->post('Lname'),
+							'mngr' => $this->input->post('Manager'),
+							'role' => $this->input->post('user_role'),
+							'team' => $teamstr,
+							// 'password' => $this->input->post('dob'),
+							// 'status' => $post_image,
+							'last_login' => date("Y-m-d H:i:s"),
+							'cid_type' => $this->input->post('ctype'),
+						  );
+                        // $data = array('usertype' =>$this->input->post('usertype'));
+			$this->db->where('emp_id', $this->input->post('emp_id'));
 			$d = $this->db->update('users', $data);
 		}
 
@@ -1604,4 +1608,14 @@ public function get_leadmasterby_campaignid($id = FALSE)
 			   $query = $this->db->query($sql);
 			   return $query->result_array();
 		}
+
+		//Added by Amol
+		public function get_teams(){
+			$this->db->order_by("formid", "ASC");
+			$query = $this->db->get('privilege');
+			return $query->result_array();
+		}
+		
+		
+		
 }

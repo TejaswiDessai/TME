@@ -250,8 +250,11 @@ echo $date;
 			$table = base64_decode($this->input->get('table'));
 			//$table = $this->input->post('table');
 			$this->Administrator_Model->enable($id,$table);       
-			$this->session->set_flashdata('success', 'Desabled Successfully.');
-			header('Location: ' . $_SERVER['HTTP_REFERER']);
+			// $this->session->set_flashdata('success', 'Desabled Successfully.');
+			// header('Location: ' . $_SERVER['HTTP_REFERER']);
+			echo json_encode(array(
+				"success"=>"success"
+			));
 		}
 		public function desable($id)
 		{
@@ -265,7 +268,8 @@ echo $date;
 		public function update_user($id = NULL)
 		{
 			$data['user'] = $this->Administrator_Model->get_user($id);
-			
+			$data['roles'] = $this->Administrator_Model->get_roles();
+			$data['teams'] = $this->Administrator_Model->get_teams();
 			if (empty($data['user'])) {
 				show_404();
 			}
@@ -292,7 +296,7 @@ echo $date;
 
 			//$data['add-user'] = $this->Administrator_Model->get_categories();
 
-			$this->form_validation->set_rules('name', 'Name', 'required');
+			$this->form_validation->set_rules('emp_id', 'emp_id', 'required');
 
 			if($this->form_validation->run() === FALSE){
 				 $this->load->view('administrator/header-script');

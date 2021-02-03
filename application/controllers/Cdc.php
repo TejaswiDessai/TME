@@ -159,7 +159,7 @@
 							}
 							$mydesiarry = explode(',', $mydesi);
 						$data['designation'] = $this->Administrator_Model->get_designation_ofCampaign($camp_id,$mydesiarry);
-						print_r($data['designation']); 
+						// print_r($data['designation']); 
 						$data['joblevel'] = $this->Administrator_Model->get_joblevels_byCampaign($camp_id,$mydesiarry);
 					
 					// print_r($data['joblevel']); 

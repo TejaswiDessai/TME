@@ -8,10 +8,49 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    <style>
+    .multiselect-container{position:absolute;list-style-type:none;margin:0;padding:0}.multiselect-container .input-group{margin:5px}.multiselect-container>li{padding:0}.multiselect-container>li>a.multiselect-all label{font-weight:700}.multiselect-container>li>label.multiselect-group{margin:0;padding:3px 20px;height:100%;font-weight:700}.multiselect-container>li>a{padding:0}.multiselect-container>li>a>label{margin:0;height:100%;cursor:pointer;font-weight:400;padding:3px 20px 3px 40px}.multiselect-container>li>a>label.radio,.multiselect-container>li>a>label.checkbox{margin:0}.multiselect-container>li>a>label>input[type=checkbox]{margin-bottom:5px}.btn-group>.btn-group:nth-child(2)>.multiselect.btn{border-top-left-radius:4px;border-bottom-left-radius:4px;}.form-inline .multiselect-container label.checkbox,.form-inline .multiselect-container label.radio{padding:3px 20px 3px 40px}.form-inline .multiselect-container li a label.checkbox input[type=checkbox],.form-inline .multiselect-container li a label.radio input[type=radio]{margin-left:-20px;margin-right:0}
+
+    #myModal .modal-body 
+    { 
+        min-height: 400px;
+        
+    }
+    .select2-container--default .select2-selection--multiple {
+    padding:0px 0px 0px 0px;
+    }
+    .form-control .multiselect-search input[type="text"]{
+    height:40px;
+    
+}
+.form-control .multiselect-search input[type="select"]{
+    height:40px;width:323;
+    
+}
+.multiselect{
+        width:323;
+    }
+</style>
+<link href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/themes/base/jquery-ui.css"
+rel="Stylesheet"type="text/css"/>
     <script> var base_url = "<?php echo base_url() ?>"; 
     //  Get sub industry
     $(document).ready(function()
     {
+        $(function() {
+        $('#team')
+            .multiselect({
+            allSelectedText: 'All',
+            maxHeight: 200,
+            buttonWidth: '400px',
+            enableCaseInsensitiveFiltering :true,
+
+            includeSelectAllOption: true,
+            
+            })
+            .multiselect('selectAll', false)
+            .multiselect('updateButtonText');
+        });
         $('#user_role').change(function(){
             var user_role = $(this).val();
             // alert(user_role);
@@ -37,11 +76,21 @@
             $.each(response,function(index,data){
                 $('#team').append('<option value="'+data['formid']+'">'+data['formnm']+'</option>');
                 });
-                // $('#team').multiselect("rebuild");
+                $('#team').multiselect("rebuild");
                 }
             });
         });
+
+   
     });
+    function isNumber(evt) {
+    evt = (evt) ? evt : window.event;
+    var charCode = (evt.which) ? evt.which : evt.keyCode;
+    if (charCode > 31 && (charCode < 48 || charCode > 57)) {
+        return false;
+    }
+    return true;
+}
     </script>
             <div class="page-header">
                 <div class="page-header-title">
@@ -86,9 +135,21 @@
                                <?php //echo form_open_multipart('administrator/add_user'); ?>
                                     <!-- <form id="addUser" method="post"> -->
                                     <div class="form-group row">
+                                        <label class="col-sm-2 col-form-label">Company Type</label>
+                                        <div class="col-sm-10">
+                                            <!-- <input type="text" id="user_type" name="user_type" class="form-control" placeholder="User Type"> -->
+                                            <select class="form-control form-control-default "  name="ctype" id="ctype" required>
+                                                <option value="">Select C Type</option>
+                                                <option value="TME">TME</option>
+                                                <option value="ME">ME</option>
+                                                <option value="HP">HP</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
                                         <label class="col-sm-2 col-form-label">Emp Id</label>
                                         <div class="col-sm-10">
-                                            <input type="text" name="emp_id" id="emp_id" class="form-control" placeholder="Emp Id">
+                                            <input type="text" name="emp_id" id="emp_id" class="form-control" placeholder="Emp Id" onkeypress="return isNumber(event)">
                                         </div>
                                     </div>
                                     <div class="form-group row">
@@ -162,6 +223,7 @@
                                         <div class="col-sm-10">
                                             <!-- <input type="text" id="user_type" name="user_type" class="form-control" placeholder="User Type"> -->
                                             <select class="form-control form-control-default "  name="user_role[]" id="user_role">
+                                            <option value="">Select Role</otpion>
                                             <?php foreach ($roles as $role): ?>
                                                 <option value="<?php echo $role['rid']; ?>"><?php echo $role['rolenm']; ?></option>
                                             <?php endforeach; ?>
@@ -174,7 +236,7 @@
                                         <div class="col-sm-10">
                                             <!-- <input type="text" id="user_type" name="user_type" class="form-control" placeholder="User Type"> -->
                                             <!-- <select class="form-control form-control-default "  name="team" id="team"> -->
-                                            <select class="js-example-basic-multiple col-sm-12 form-control-sm" multiple="multiple" name="team[]" id="team">
+                                            <select class="js-example-basic multiselect col-sm-12 form-control-sm" multiple="multiple" name="team[]" id="team">
                                            
                                             </select>
                                         </div>
@@ -214,7 +276,7 @@
                                 var team = $('#team').val();
                                 var Password = $('#Password').val();
                                 // alert(Password);
-                                // var userfile = $('#userfile').val();
+                                var cid_type = $('#ctype').val();
                                 // var dob = $('#dropper-default').val();
                                 // var status = $('#status').val();
                                 // var address = $('#address').val();
@@ -226,6 +288,7 @@
                                         type: "GET",
                                         data: {
                                             type: 1,
+                                            cid_type:cid_type,
                                             emp_id: emp_id,
                                             Fname: Fname,
                                             Lname: Lname,

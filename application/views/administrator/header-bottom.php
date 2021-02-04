@@ -178,7 +178,7 @@ $usertype = $this->Administrator_Model->get_emp_usertype($emp_id);
                         </a>
                         <ul class="tree-1">
                             <!-- <li><a href="<?php //echo base_url(); ?>administrator/team/add" data-i18n="nav.basic-components.alert">Add Team</a></li> -->
-                            <li><a href="<?php echo base_url(); ?>administrator/team/list" data-i18n="nav.basic-components.breadcrumbs">Campaign Status</a></li>
+                            <!-- <li><a href="<?php //echo base_url(); ?>administrator/team/list" data-i18n="nav.basic-components.breadcrumbs">Campaign Status</a></li> -->
                         </ul>
                     </li>
                     <!--<li class="nav-item">

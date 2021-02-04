@@ -1,0 +1,170 @@
+<link rel="stylesheet" type="text/css" href="<?php echo base_url(); ?>admintemplate/bower_components/datatables.net-bs4/css/dataTables.bootstrap4.min.css">
+    <link rel="stylesheet" type="text/css" href="<?php echo base_url(); ?>admintemplate/assets/pages/data-table/css/buttons.dataTables.min.css">
+    <link rel="stylesheet" type="text/css" href="<?php echo base_url(); ?>admintemplate/bower_components/datatables.net-responsive-bs4/css/responsive.bootstrap4.min.css">
+    <link rel="stylesheet" type="text/css" href="<?php echo base_url(); ?>admintemplate/bower_components/ekko-lightbox/dist/ekko-lightbox.css">
+    <link rel="stylesheet" type="text/css" href="<?php echo base_url(); ?>admintemplate/bower_components/lightbox2/dist/css/lightbox.css">
+
+<script type="text/javascript">
+ $(document).ready(function(){
+        $(".delete").click(function(e){ alert('as');
+            $this  = $(this);
+            e.preventDefault();
+            var url = $(this).attr("href");
+            $.get(url, function(r){
+                if(r.success){
+                    $this.closest("tr").remove();
+                }
+            })
+        });
+    });
+$(document).ready(function(){
+        $(".enable").click(function(e){
+            $this  = $(this);
+            e.preventDefault();
+            var url = $(this).attr("href");
+            $.get(url, function(r){
+                if(r){
+                    $this.closest("td").html("<button class='label label-inverse-warning desable'>Deactive</button>");
+                }
+            })
+        });
+    });
+$(document).ready(function(){
+        $(".desable").click(function(e){ 
+            $this  = $(this);
+            e.preventDefault();
+            var url = $(this).attr("href");
+            $.get(url, function(r){
+                if(r){
+                    $this.closest("td").html("<button class='label label-inverse-primary enable'>Active</button>");
+                }
+            })
+        });
+    });
+</script>
+
+
+
+            <div class="page-header">
+                <div class="page-header-title">
+                    <h4>List Users</h4>
+                </div>
+                <div class="page-header-breadcrumb">
+                    <ul class="breadcrumb-title">
+                        <li class="breadcrumb-item">
+                            <a href="index-2.html">
+                                <i class="icofont icofont-home"></i>
+                            </a>
+                        </li>
+                        <li class="breadcrumb-item"><a href="#!">Users</a>
+                        </li>
+                        <li class="breadcrumb-item"><a href="#!">List Users</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+           
+            <!-- Page-header end -->
+            <!-- Page-body start -->
+            <div class="page-body">
+                <!-- DOM/Jquery table start -->
+               
+                <div class="card">
+                    <div class="card-block">
+                        <form action="<?php echo base_url();?>administrator/user_report" method="post" >
+                            <table style="margin-bottom:10px;">
+                            <tr>
+                            <td>
+                                <select class="form-control form-control-default "  name="campid" id="campid">
+                                    <option value="">Select Campaign</option>
+                                    <?php foreach ($campaigns as $campaign): ?>
+                                        <option value="<?php echo $campaign['cids']; ?>"><?php echo $campaign['campnm']; ?></option>
+                                    <?php endforeach; ?>
+                                </select>
+                            </td>
+                            <td>
+                                <select class="form-control form-control-default "  name="user_id" id="user_id">
+                                    <option value="">Select User</option>
+                                    <?php foreach ($users as $campaign): ?>
+                                        <option value="<?php echo $campaign['emp_id']; ?>"><?php echo $campaign['fname']; ?></option>
+                                    <?php endforeach; ?>
+                                </select>
+                            </td>
+                            <td>
+                                <select class="form-control form-control-default "  name="stage" id="stage">
+                                    <option value="">Select Stage</option>
+                                    <option value="Verified">Verified</option>
+                                    <option value="Rejection">Rejection</option>
+                                    <option value="Accepted">Accepted</option>
+
+                                    <!-- <?php //foreach ($users as $campaign): ?>
+                                        <option value="<?php //echo $campaign['emp_id']; ?>"><?php //echo $campaign['fname']; ?></option>
+                                    <?php //endforeach; ?> -->
+                                </select>
+                            </td>
+                            <td>
+                            From: </td><td><input class="form-control" type="datetime-local" name="from"  id="example-datetime-local-input">
+                            </td>
+                            <td>
+                            To: </td><td><input class="form-control" type="datetime-local"    name="to" id="example-datetime-local-input">
+                            </td>
+                            <td>
+                                <input  class="btn btn-primary" type="submit" name="submit">
+                            </td>
+                            </tr>
+                            </form>
+                       
+                    </div>
+                    <br><br>
+                        <div class="table-responsive dt-responsive">
+                            <table id="dom-jqry" class="table table-striped table-bordered nowrap">
+                                <thead>
+                                    <tr>
+                                        <th>Date</th>
+                                        <!-- <th>Image</th> -->
+                                        <th>Username</th>
+                                        <th>Campaign Name</th>
+                                        <th>No. Of Records</th>
+                                        <th>Verified</th>
+                                        <th>Rejection</th>
+                                        <th>Accepted</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                <?php foreach($users as $post) : ?>
+                                 <tr>
+                                        <td><?php echo date("M d,Y", strtotime($post['last_login'])); ?></td>
+                                        <td><a href="edit-blog.php?id=14"><?php echo $post['fname']; ?></a></td>
+                                        <td><?php
+                                        echo $post['campnm'];
+                                        // echo $campnam = $this->Administrator_Model->get_camp_name($post['emp_id']);
+                                        ?></td>
+                                        <td><?php 
+                                        echo $post['number'];
+                                        // $query = $this->db->query("SELECT * FROM leadmaster where stagtidi = '".$post['emp_id']."'");
+                                        // echo $query->num_rows();
+
+                                        ?></td>
+                                         <td><?php echo ""; ?></td>
+                                        <td>
+                                        <?php echo ""; ?>
+                                        </td>
+                                        <td>
+                                        <?php echo ""; ?>
+                                        </td>
+                                    </tr>
+                                <?php endforeach; ?>
+
+                                <!-- <div class="paginate-link">
+                                    <?php //echo $this->pagination->create_links(); ?>
+                                </div>  -->
+
+                                 </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <!-- DOM/Jquery table end -->
+            </div>
+
+  

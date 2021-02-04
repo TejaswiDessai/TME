@@ -227,7 +227,36 @@ $usertype = $this->Administrator_Model->get_emp_usertype($emp_id);
     <?php if($this->session->flashdata('match_old_password')): ?>
       <?php echo '<p class="alert alert-success">'.$this->session->flashdata('match_old_password').'</p>'; ?>
     <?php endif; ?>
+   
+    <script>
+    var base_url = "<?php echo base_url() ?>";
+   
+        var timeSinceLastMove = 0;
 
+        $(document).mousemove(function() {
+
+            timeSinceLastMove = 0;
+        });
+
+        $(document).keyup(function() {
+
+            timeSinceLastMove = 0;
+        });
+
+        checkTime();
+
+        function checkTime() {
+
+            timeSinceLastMove++;
+
+            if (timeSinceLastMove > 10 * 60 ) {
+                alert("Session is Out");
+                window.location = base_url+"administrator/logout";
+            }
+
+            setTimeout(checkTime, 1000);
+        }
+</script>
 
      
 

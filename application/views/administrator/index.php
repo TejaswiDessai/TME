@@ -76,7 +76,7 @@
                                     </select>
                                 </div>
                                 <div class="input-group">
-                                    <input type="text" name="emp_id" class="form-control" placeholder="Your Employee Id" onkeypress="return isNumber(event)">
+                                    <input type="text" name="emp_id" id="emp_id" class="form-control" placeholder="Your Employee Id" onkeypress="return isNumber(event)" autocomplete="off">
                                     <span class="md-line"></span>
                                 </div>
                                 <div class="input-group">

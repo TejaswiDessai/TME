@@ -54,7 +54,7 @@
 		public function adminLogin(){
 			$data['title'] = 'Admin Login';
 
-			$this->form_validation->set_rules('emp_id', 'Username', 'required');
+			$this->form_validation->set_rules('emp_id', 'Employee Id', 'numeric|xss_clean');
 			$this->form_validation->set_rules('password', 'Password', 'required');
 			$this->form_validation->set_rules('ctype', 'Company Type', 'required');
 			if($this->form_validation->run() === FALSE){

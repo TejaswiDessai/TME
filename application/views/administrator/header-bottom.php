@@ -170,7 +170,7 @@ $usertype = $this->Administrator_Model->get_emp_usertype($emp_id);
                             <li><a href="<?php echo base_url(); ?>administrator/galleries/add" data-i18n="nav.basic-components.alert">Add Gallery</a></li>
                             <li><a href="<?php echo base_url(); ?>administrator/galleries" data-i18n="nav.basic-components.breadcrumbs">List Gallery</a></li>
                         </ul>
-                    </li>
+                    </li>-->
                     <li class="nav-item">
                         <a href="#!">
                             <i class="ti-layout-grid2-thumb"></i>
@@ -181,7 +181,7 @@ $usertype = $this->Administrator_Model->get_emp_usertype($emp_id);
                             <li><a href="<?php echo base_url(); ?>administrator/team/list" data-i18n="nav.basic-components.breadcrumbs">List Teams</a></li>
                         </ul>
                     </li>
-                    <li class="nav-item">
+                    <!--<li class="nav-item">
                         <a href="#!">
                             <i class="ti-direction-alt"></i>
                             <span data-i18n="nav.basic-components.main">Testimonials</span>

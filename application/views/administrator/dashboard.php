@@ -17,7 +17,12 @@
                 </div>
             </div>
             <div class="page-body">
+            <?php 
+            $type = $this->db->select('rolenm')->from('roles')->where(array('rid'=> $this->session->userdata('role')))->get()->row_array();
+            
+            ?>
                 <div class="row">
+                <?php if( $type['rolenm'] == "Administrator"){?>
                     <div class="col-md-12 col-xl-4">
                         <!-- table card start -->
                         <div class="card table-card">
@@ -29,19 +34,25 @@
                                                 <i class="icofont icofont-eye-alt text-success"></i>
                                             </div>
                                             <div class="col-sm-8 text-center">
-                                                <h5>10k</h5>
-                                                <span>Visitors</span>
+                                                <h5>
+                                                <?php $query = $this->db->query('SELECT * FROM users');
+                                                    echo $query->num_rows();?>
+                                                </h5>
+                                                <span>All Employees</span>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="col-sm-6 card-block-big">
                                         <div class="row">
                                             <div class="col-sm-4">
-                                                <i class="icofont icofont-ui-music text-danger"></i>
+                                                <i class="icofont icofont-ui-user text-danger"></i>
                                             </div>
                                             <div class="col-sm-8 text-center">
-                                                <h5>100%</h5>
-                                                <span>Volume</span>
+                                                <h5>
+                                                <?php $query = $this->db->query("SELECT * FROM users where cid_type='TME'");
+                                                    echo $query->num_rows();?>
+                                                </h5>
+                                                <span>TME</span>
                                             </div>
                                         </div>
                                     </div>
@@ -52,22 +63,28 @@
                                     <div class="col-sm-6 card-block-big br">
                                         <div class="row">
                                             <div class="col-sm-4">
-                                                <i class="icofont icofont-files text-info"></i>
+                                                <i class="icofont icofont-user text-info"></i>
                                             </div>
                                             <div class="col-sm-8 text-center">  
-                                                <h5>2000 +</h5>
-                                                <span>Files</span>
+                                                <h5>
+                                                <?php $query = $this->db->query("SELECT * FROM users where cid_type='ME'");
+                                                    echo $query->num_rows();?>
+                                                </h5>
+                                                <span>ME</span>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="col-sm-6 card-block-big">
                                         <div class="row">
                                             <div class="col-sm-4">
-                                                <i class="icofont icofont-envelope-open text-warning"></i>
+                                                <i class="icofont icofont-user text-warning"></i>
                                             </div>
                                             <div class="col-sm-8 text-center">
-                                                <h5>120</h5>
-                                                <span>Mails</span>
+                                                <h5>
+                                                <?php $query = $this->db->query("SELECT * FROM users where cid_type='HP'");
+                                                    echo $query->num_rows();?>
+                                                </h5>
+                                                <span>HP</span>
                                             </div>
                                         </div>
                                     </div>
@@ -87,8 +104,12 @@
                                                 <div id="barchart" style="height:40px;width:40px;"></div>
                                             </div>
                                             <div class="col-sm-8 text-center">
-                                                <h5>1000</h5>
-                                                <span>Shares</span>
+                                                <h5>
+                                                <?php $query = $this->db->query("SELECT * FROM campaign ");
+                                                    echo $query->num_rows();?>
+                                                </h5>
+                                                </h5>
+                                                <span>Campaigns</span>
                                             </div>
                                         </div>
                                     </div>
@@ -113,8 +134,12 @@
                                                 <div id="barchart2" style="height:40px;width:40px;"></div>
                                             </div>
                                             <div class="col-sm-8 text-center">
-                                                <h5>350</h5>
-                                                <span>Returns</span>
+                                                <h5>
+                                                <?php $query = $this->db->query("SELECT * FROM leadmaster ");
+                                                    echo $query->num_rows();?>
+                                                </h5>
+                                                </h5>
+                                                <span>Leads</span>
                                             </div>
                                         </div>
                                     </div>
@@ -143,8 +168,8 @@
                                         <i class="icofont icofont-star"></i>
                                     </div>
                                     <div class="col-sm-9">
-                                        <h4>4000 +</h4>
-                                        <h6>Ratings Received</h6>
+                                        <h4>1000 +</h4>
+                                        <h6>Campaigns Completed</h6>
                                     </div>
                                 </div>
                             </div>
@@ -158,15 +183,15 @@
                                         <i class="icofont icofont-trophy-alt"></i>
                                     </div>
                                     <div class="col-sm-9">
-                                        <h4>17</h4>
-                                        <h6>Achievements</h6>
+                                        <h4>150000+</h4>
+                                        <h6>Leads Delivered</h6>
                                     </div>
                                 </div>
                             </div>
                         </div>
                         <!-- widget-success-card end -->
                     </div>
-                   
+                    <?php } ?>
                     <div class="col-lg-12">
                         <div class="row">
                             <div class="col-lg-12">
@@ -177,18 +202,26 @@
                                                 <thead>
                                                     <tr class="text-capitalize">
                                                         <th>Type</th>
-                                                        <th>Lead Name</th>
-                                                        <th>Views</th>
+                                                        <th>User Name</th>
+                                                        <!-- <th>Views</th> -->
                                                         <th>Last Date</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
                                                     <tr>
-                                                        <td><a href="#!">Buyer</a>
+                                                        <td><a href="#!"><?php 
+                                                        $type = $this->db->select('rolenm')->from('roles')->where(array('rid'=> $this->session->userdata('role')))->get()->row_array();
+                                                        print_r($type['rolenm']);
+                                                        ?></a>
                                                         </td>
-                                                        <td>Denish Ann</td>
-                                                        <td>9.23 A.M.</td>
-                                                        <td>9/27/2015</td>
+                                                        <td><?php echo $this->session -> userdata('username')?></td>
+                                                        <!-- <td>9.23 A.M.</td> -->
+                                                        <td>
+                                                        <?php 
+                                                        $type = $this->db->select('login')->from('userlog')->where(array('empid'=> $this->session->userdata('emp_id')))->get()->row_array();
+                                                        print_r($type['login']);
+                                                        ?>
+                                                        </td>
                                                     </tr>
                                                    
                                                 </tbody>
@@ -197,8 +230,9 @@
                                     </div>
                                 </div>
                             </div>
-                          
+                         
                         </div>
+                        
                     </div>
                    
                     <div class="col-md-6 col-xl-3">

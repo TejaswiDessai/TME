@@ -6,21 +6,21 @@
 			$this->load->database();
 		}
 
-		public function adminLogin($fname, $encrypt_password){
+		public function adminLogin($emp_id, $encrypt_password,$ctype)
+		{
 			//Validate
-			$this->db->where('fname', $fname);
+			$this->db->where('cid_type', $ctype);
+			$this->db->where('emp_id', $emp_id);
 			$this->db->where('password', $encrypt_password);
-//                        $this->db->join('userlog', 'userlog.empid = users.emp_id');
+          	//$this->db->join('userlog', 'userlog.empid = users.emp_id');
 			$result = $this->db->get('users');
-
-
-			if ($result->num_rows() == 1) {
-                       
+			if ($result->num_rows() == 1) 
+			{
 
 //                            print_r($result->row(0));
 //                            echo $this->db->last_query(); exit;
-                            $this->db->where('empid', '101');
-                            $this->db->update('userlog', array('login'=> date('Y-m-d H:i:s'))); 
+                            // $this->db->where('empid', '101');
+				$this->db->insert('userlog', array('empid' => $fname,'login'=> date('Y-m-d H:i:s'))); 
 				return $result->row(0);
                                
 			}else{

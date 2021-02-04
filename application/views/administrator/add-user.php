@@ -83,14 +83,15 @@ rel="Stylesheet"type="text/css"/>
 
    
     });
-    function isNumber(evt) {
-    evt = (evt) ? evt : window.event;
-    var charCode = (evt.which) ? evt.which : evt.keyCode;
-    if (charCode > 31 && (charCode < 48 || charCode > 57)) {
-        return false;
+    function isNumber(evt) 
+    {
+        evt = (evt) ? evt : window.event;
+        var charCode = (evt.which) ? evt.which : evt.keyCode;
+        if (charCode > 31 && (charCode < 48 || charCode > 57)) {
+            return false;
+        }
+        return true;
     }
-    return true;
-}
     </script>
             <div class="page-header">
                 <div class="page-header-title">
@@ -244,7 +245,8 @@ rel="Stylesheet"type="text/css"/>
                                     <div class="form-group row">
                                         <label class="col-sm-2 col-form-label">Password</label>
                                         <div class="col-sm-10">
-                                            <input type="Password" id="Password" name="Password" class="form-control" placeholder="Password" autocomlete="off">
+                                            <input type="Password" id="Password" name="Password" minlength="8"  class="form-control" placeholder="Password" autocomlete="off">
+                                            <span id="pass" style="color:red;"></span>
                                         </div>
                                     </div>
                                     
@@ -265,6 +267,19 @@ rel="Stylesheet"type="text/css"/>
                         </div>
                         <!-- Basic Form Inputs card end -->
                         <script>
+                          $(document).ready(function() {
+                        $('#butsave').prop('disabled', true);
+                        
+                         $('#Password').on('change', function(e) {
+                            $('#pass').html("");
+                            if(this.value.length >= 6) {
+                                $('#butsave').prop('disabled', false);
+                            } else {
+                                $('#pass').html("Password should greater than or equal to 6 character!");
+                                $('#butsave').prop('disabled', true);
+                            }
+                        });
+                    });
                         $(document).ready(function() {
                             $('#butsave').on('click', function() {
                                 var emp_id = $('#emp_id').val();

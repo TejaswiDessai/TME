@@ -54,9 +54,9 @@
 		public function adminLogin(){
 			$data['title'] = 'Admin Login';
 
-			$this->form_validation->set_rules('fname', 'Username', 'required');
+			$this->form_validation->set_rules('emp_id', 'Username', 'required');
 			$this->form_validation->set_rules('password', 'Password', 'required');
-
+			$this->form_validation->set_rules('ctype', 'Company Type', 'required');
 			if($this->form_validation->run() === FALSE){
 				//$data['title'] = ucfirst($page);
 				$this->load->view('administrator/header-script');
@@ -66,11 +66,11 @@
 				$this->load->view('administrator/footer');
 			}else{
 				// get email and Encrypt Password
-				$fname = $this->input->post('fname');
+				$emp_id = $this->input->post('emp_id');
 				$encrypt_password = md5($this->input->post('password'));
+				$ctype = $this->input->post('ctype');
 
-
-				$user_id = $this->Administrator_Model->adminLogin($fname, $encrypt_password);
+				$user_id = $this->Administrator_Model->adminLogin($emp_id, $encrypt_password,$ctype);
 //				$sitelogo = $this->Administrator_Model->update_siteconfiguration(1);
 		if ($user_id) {
                     $tt=date_default_timezone_get();
@@ -84,7 +84,7 @@ echo $date;
 				 				'username' => $user_id->fname,
 				 				'fname' => $user_id->fname,
 				 				'login' => true,
-								 'role' => $user_id->role_id,
+								 'role' => $user_id->role,
 								 'timeout' => time(),
 								 
 //				 				'image' => $user_id->image,
@@ -108,11 +108,14 @@ echo $date;
 				// log admin out
 		public function logout(){
 			// unset user data
+			$this->db->where('empid',  $this->session -> userdata('emp_id'));
+			$this->db->update('userlog', array('empid' => $this->session -> userdata('emp_id'),'logout'=> date('Y-m-d H:i:s'))); 
+
 			$this->session->unset_userdata('login');
 			$this->session->unset_userdata('user_id');
 			$this->session->unset_userdata('username');
 			$this->session->unset_userdata('role_id');
-			$this->session->unset_userdata('email');
+			$this->session->unset_userdata('emp_id');
 			$this->session->unset_userdata('image');
 			$this->session->unset_userdata('site_logo');
 
@@ -1379,19 +1382,20 @@ echo $date;
 		}
 
 		public function list_team($offset = 0){
+			$this->load->model('Administrator_Model');
 			// Pagination Config
-			$config['base_url'] = base_url(). 'administrator/team/';
-			$config['total_rows'] = $this->db->count_all('teams');
-			$config['per_page'] = 3;
+			$config['base_url'] = base_url(). 'campaigns/campaign/';
+			$config['total_rows'] = $this->db->count_all('campaign');
+			$config['per_page'] = '';
 			$config['uri_segment'] = 3;
 			$config['attributes'] = array('class' => 'paginate-link');
 
 			// Init Pagination
 			$this->pagination->initialize($config);
 
-			$data['title'] = 'List of Teams';
+			$data['title'] = 'Latest Campaigns';
 
-			$data['teams'] = $this->Administrator_Model->listteams(FALSE, $config['per_page'], $offset);
+			$data['campaigns'] = $this->Administrator_Model->get_campaign(FALSE, $config['per_page'], $offset);
 
 			$this->load->view('administrator/header-script');
 			$this->load->view('administrator/header');
@@ -1791,7 +1795,7 @@ public function savedata()
 		$emp_id=$_GET['emp_id'];
 		$Fname=$_GET['Fname'];
 		$Lname=$_GET['Lname'];
-		
+  
 		$Manager = $_GET['Manager'];
 		// $status = $_GET['status'];
 		$status1 =0;

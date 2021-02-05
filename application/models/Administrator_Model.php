@@ -1321,15 +1321,15 @@ function check_unique_email($email)
 			}
 
 }
-function check_inclusion_email($email)
+function check_inclusion_email($email,$campaign_id)
 {
 	// Select record
 	$this->db->select('emailids');
 	$this->db->where('emailids', $email);
-	// $this->db->where('emailids', 'test@test.com');
+	$this->db->where('cid', $campaign_id);
 	$this->db->where('exclincl', 1 ); // check inclusion
 	$result = $this->db->get('emaillist');
-	// echo $this->db->last_query(); 
+	// echo $this->db->last_query();  
 			if ($result->num_rows() >= 1) {
                return "true";        
 			}else{
@@ -1337,12 +1337,12 @@ function check_inclusion_email($email)
 			}
 
 }
-function check_suppression_email($email)
+function check_suppression_email($email,$campaign_id)
 {
 	// Select record
 	$this->db->select('emailids');
 	$this->db->where('emailids', $email);
-	// $this->db->where('emailids', 'test@test.com');
+	$this->db->where('cid', $campaign_id);
 	$this->db->where('exclincl', 0 ); // check Exclusion
 	$result = $this->db->get('emaillist');
 	// echo $this->db->last_query(); 
@@ -1353,12 +1353,12 @@ function check_suppression_email($email)
 			}
 
 }
-function check_domain_suppression($domain)
+function check_domain_suppression($domain,$campaign_id)
 {
 	// Select record
 	$this->db->select('domainnms');
 	$this->db->where('domainnms', $domain);
-	// $this->db->where('emailids', 'test@test.com');
+	$this->db->where('cid', $campaign_id);
 	$this->db->where('inclexcl', 0 ); // check Exclusion
 	$result = $this->db->get('domainlist');
 	// echo $this->db->last_query(); 
@@ -1369,12 +1369,12 @@ function check_domain_suppression($domain)
 			}
 
 }
-function check_domain_incl($domain)
+function check_domain_incl($domain,$campaign_id)
 {
 	// Select record
 	$this->db->select('domainnms');
 	$this->db->where('domainnms', $domain);
-	// $this->db->where('emailids', 'test@test.com');
+	$this->db->where('cid', $campaign_id);
 	$this->db->where('inclexcl', 1 ); // check inclusion
 	$result = $this->db->get('domainlist');
 	// echo $this->db->last_query(); 
@@ -1385,12 +1385,12 @@ function check_domain_incl($domain)
 			}
 
 }
-function check_company_incl($company_name)
+function check_company_incl($company_name,$campaign_id)
 {
 	// Select record
 	$this->db->select('companynms');
 	$this->db->where('companynms', $company_name);
-	// $this->db->where('emailids', 'test@test.com');
+	$this->db->where('cid', $campaign_id);
 	$this->db->where('exlincl', 1 ); // check inclusion
 	$result = $this->db->get('complist');
 	// echo $this->db->last_query(); 
@@ -1401,12 +1401,12 @@ function check_company_incl($company_name)
 			}
 
 }
-function check_company_suppression($company_name)
+function check_company_suppression($company_name,$campaign_id)
 {
 	// Select record
 	$this->db->select('companynms');
 	$this->db->where('companynms', $company_name);
-	// $this->db->where('emailids', 'test@test.com');
+	$this->db->where('cid', $campaign_id);
 	$this->db->where('exlincl', 0 ); // check Exclusion
 	$result = $this->db->get('complist');
 	// echo $this->db->last_query(); 

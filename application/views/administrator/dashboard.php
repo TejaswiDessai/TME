@@ -203,10 +203,10 @@
                                             <table class="table">
                                                 <thead>
                                                     <tr class="text-capitalize">
-                                                        <th>Lead Added</th>
+                                                        <th>Lead Added / Updated</th>
                                                         <!-- <th>User Name</th> -->
                                                         <!-- <th>Views</th> -->
-                                                        <th>Lead Saved/Updated</th>
+                                                        <th>Lead Saved</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>

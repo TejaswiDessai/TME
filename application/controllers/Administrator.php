@@ -1847,6 +1847,7 @@ public function getPrivillage(){
 		$data['title'] = 'Latest Campaigns';
 	
 		$data['users'] = $this->Administrator_Model->get_user_report($campid,$user_id,$from,$to,$stage);
+		$data['users_name'] = $this->Administrator_Model->get_users(FALSE, $config['per_page'], $offset);
 		$data['campaigns'] = $this->Administrator_Model->get_campaign();
 		$data['user_id'] = $user_id;
 		$data['Campid'] = $campid;

@@ -19,7 +19,8 @@
             <div class="page-body">
             <?php 
             $type = $this->db->select('rolenm')->from('roles')->where(array('rid'=> $this->session->userdata('role')))->get()->row_array();
-            
+            $empid = $this->session->userdata('emp_id');
+            $Role = $this->session->userdata('role');
             ?>
                 <div class="row">
                 <?php if( $type['rolenm'] == "Administrator" || $this->session->userdata('role') == 0){?>
@@ -192,6 +193,7 @@
                         <!-- widget-success-card end -->
                     </div>
                     <?php } ?>
+                    <?php if( $type['rolenm'] == "Team Member" || $this->session->userdata('role') == 4 || $this->session->userdata('role') == 5 || $this->session->userdata('role') == 6){?>
                     <div class="col-lg-12">
                         <div class="row">
                             <div class="col-lg-12">
@@ -201,25 +203,24 @@
                                             <table class="table">
                                                 <thead>
                                                     <tr class="text-capitalize">
-                                                        <th>Type</th>
-                                                        <th>User Name</th>
+                                                        <th>Lead Added</th>
+                                                        <!-- <th>User Name</th> -->
                                                         <!-- <th>Views</th> -->
-                                                        <th>Last Date</th>
+                                                        <th>Lead Saved/Updated</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
                                                     <tr>
-                                                        <td><a href="#!"><?php 
-                                                        $type = $this->db->select('rolenm')->from('roles')->where(array('rid'=> $this->session->userdata('role')))->get()->row_array();
-                                                        print_r($type['rolenm']);
+                                                        <td><a href="#!"><?php    
+                                                        $query = $this->db->query("SELECT * FROM leadmaster where stagtidi = $empid ");
+                                                        echo $query->num_rows();
                                                         ?></a>
                                                         </td>
-                                                        <td><?php echo $this->session -> userdata('username')?></td>
-                                                        <!-- <td>9.23 A.M.</td> -->
+                                                        <!-- <td><?php //echo $this->session -> userdata('username')?></td><td> -->
                                                         <td>
                                                         <?php 
-                                                        $type = $this->db->select('login')->from('userlog')->where(array('empid'=> $this->session->userdata('emp_id')))->get()->row_array();
-                                                        print_r($type['login']);
+                                                        $query = $this->db->query("SELECT * FROM leadmaster where svagtidi  = $empid ");
+                                                        echo $query->num_rows();
                                                         ?>
                                                         </td>
                                                     </tr>
@@ -234,7 +235,7 @@
                         </div>
                         
                     </div>
-                   
+                    <?php } ?>
                     <div class="col-md-6 col-xl-3">
                         <div class="card social-widget-card">
                             <div class="card-block-big bg-facebook">

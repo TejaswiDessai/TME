@@ -102,7 +102,7 @@
                             <td>
                                 <select class="form-control form-control-default "  name="user_id" id="user_id">
                                     <option value="">Select User</option>
-                                    <?php foreach ($users as $user): ?>
+                                    <?php foreach ($users_name as $user): ?>
                                         <option value="<?php echo $user['emp_id']; ?>" <?php if( isset($user_id) && $user_id == $user['emp_id'] ) { echo "selected" ; } ?>><?php echo $user['fname']; ?></option>
                                     <?php endforeach; ?>
                                 </select>
@@ -136,7 +136,7 @@
                             </form>
                        
                     </div>
-                    <br><br>
+                    <br>
 
                         <div class="table-responsive dt-responsive">
                             <table id="dom-jqry" class="table table-striped table-bordered nowrap table1">

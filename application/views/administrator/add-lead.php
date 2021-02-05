@@ -980,19 +980,23 @@ var arevenuevalue = $('#arevenue').val();
   
   // Check unique Email function // check inclusion and exclusion email in db table
     // $('.newsletter-signup input:first').on('keyup', function(){ 
-    $('.newsletter-signup input:first').blur(function(){
+    $('.newsletter-signup input:first').focusout(function(){
       var email = $('#email').val();
       var inclistnew = $('#inclistnew').val();
-      // var campaign_id = <?php  //echo $campaign['cnid']; ?>
-      // alert(campaign_id);
+      var campaign_id = <?php  echo $campaign['cnid']; ?>;
+    
       var url = '<?php echo base_url("cdc/checkemail");?>';
-      console.log(url+'?email='+email);
+      console.log(url+'?email='+email+"&campaign_id="+campaign_id);
     // AJAX request
     $.ajax({
 
         url:'<?php echo base_url("cdc/checkemail");?>',
         method: 'get',
-        data: {email: email,inclistnew:inclistnew},
+        data: {
+          email: email,
+          campaign_id: campaign_id,
+          inclistnew:inclistnew
+          },
         dataType: 'json',
         success: function(response){
           $( '#email_msg' ).html("response");
@@ -1006,7 +1010,7 @@ var arevenuevalue = $('#arevenue').val();
           {
             $("#email_msg").html("Not in Inclusion Email List");
             console.log("false");
-            $('#email').val("");
+            // $('#email').val("");
             // return false;	
           }
           else if(response.exclusionemail == "true")
@@ -1032,15 +1036,20 @@ var arevenuevalue = $('#arevenue').val();
     $('.domaincheck input:first').blur(function(){
       var domain = $('#domain').val();
       var inclistnew = $('#inclistnew').val();
-     
+      var campaign_id = <?php  echo $campaign['cnid']; ?>;
       var url = '<?php echo base_url("cdc/checkdomain");?>';
-      console.log(url+'?domain='+domain);
+      console.log(url+'?domain='+domain+"&campaign_id="+campaign_id);
     // AJAX request
     $.ajax({
 
         url:'<?php echo base_url("cdc/checkdomain");?>',
         method: 'get',
-        data: {domain: domain,inclistnew:inclistnew},
+        data: {
+          domain: domain,
+          campaign_id: campaign_id,
+          inclistnew:inclistnew
+          
+          },
         dataType: 'json',
         success: function(response){
           $( '#domain_msg' ).html(response);
@@ -1078,16 +1087,20 @@ var arevenuevalue = $('#arevenue').val();
  // Check unique Company
  $('.compcheck input:first').blur(function(){
       var company_name = $('#company_name').val();
-     
-     
+      var inclistnew = $('#inclistnew').val();
+      var campaign_id = <?php  echo $campaign['cnid']; ?>;
       var url = '<?php echo base_url("cdc/checkcompanylist");?>';
-      console.log(url+'?company_name='+company_name);
+      console.log(url+'?company_name='+company_name+"&campaign_id="+campaign_id);
     // AJAX request
     $.ajax({
 
         url:'<?php echo base_url("cdc/checkcompanylist");?>',
         method: 'get',
-        data: {company_name: company_name,inclistnew:inclistnew},
+        data: {
+        company_name: company_name,
+        campaign_id: campaign_id,
+        inclistnew:inclistnew
+        },
         dataType: 'json',
         success: function(response){
           $( '#comp_msg' ).html(response);

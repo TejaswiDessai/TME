@@ -219,7 +219,7 @@
                                                         <!-- <td><?php //echo $this->session -> userdata('username')?></td><td> -->
                                                         <td>
                                                         <?php 
-                                                        $query = $this->db->query("SELECT * FROM leadmaster where stagtidi = $empid AND  stdti >= current_timestamp - interval '1 day'");
+                                                        $query = $this->db->query("SELECT * FROM leadmaster where stagtidi = $empid AND  svdti >= current_timestamp - interval '1 day'");
                                                         echo $query->num_rows();
                                                         ?>
                                                         </td>

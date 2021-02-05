@@ -3,21 +3,38 @@
     <link rel="stylesheet" type="text/css" href="<?php echo base_url(); ?>admintemplate/bower_components/datatables.net-responsive-bs4/css/responsive.bootstrap4.min.css">
     <link rel="stylesheet" type="text/css" href="<?php echo base_url(); ?>admintemplate/bower_components/ekko-lightbox/dist/ekko-lightbox.css">
     <link rel="stylesheet" type="text/css" href="<?php echo base_url(); ?>admintemplate/bower_components/lightbox2/dist/css/lightbox.css">
+    <style>
+    body
+    {
+        counter-reset: Serial;  
+    }
+    .table1
+    {
+        border-collapse: separate;
+        height: 10px; overflow-y: auto; overflow-x: hidden;
+    }
 
-<script type="text/javascript">
- $(document).ready(function(){
-        $(".delete").click(function(e){ alert('as');
-            $this  = $(this);
-            e.preventDefault();
-            var url = $(this).attr("href");
-            $.get(url, function(r){
-                if(r.success){
-                    $this.closest("tr").remove();
-                }
-            })
+    .table1 tr td:first-child:before
+    {
+        content: "" counter(Serial);
+        counter-increment: Serial;      /* Increment the Serial counter */
+    
+    }
+    </style>
+    <script type="text/javascript">
+    $(document).ready(function(){
+            $(".delete").click(function(e){ alert('as');
+                $this  = $(this);
+                e.preventDefault();
+                var url = $(this).attr("href");
+                $.get(url, function(r){
+                    if(r.success){
+                        $this.closest("tr").remove();
+                    }
+                })
+            });
         });
-    });
-$(document).ready(function(){
+    $(document).ready(function(){
         $(".enable").click(function(e){
             $this  = $(this);
             e.preventDefault();
@@ -29,7 +46,7 @@ $(document).ready(function(){
             })
         });
     });
-$(document).ready(function(){
+    $(document).ready(function(){
         $(".desable").click(function(e){ 
             $this  = $(this);
             e.preventDefault();
@@ -41,7 +58,7 @@ $(document).ready(function(){
             })
         });
     });
-</script>
+    </script>
 
 
 
@@ -78,24 +95,24 @@ $(document).ready(function(){
                                 <select class="form-control form-control-default "  name="campid" id="campid">
                                     <option value="">Select Campaign</option>
                                     <?php foreach ($campaigns as $campaign): ?>
-                                        <option value="<?php echo $campaign['cids']; ?>"><?php echo $campaign['campnm']; ?></option>
+                                        <option value="<?php echo $campaign['cids']; ?>" <?php if( isset($Campid) && $Campid == $campaign['cids']) { echo "selected" ; } ?>><?php echo $campaign['campnm']; ?></option>
                                     <?php endforeach; ?>
                                 </select>
                             </td>
                             <td>
                                 <select class="form-control form-control-default "  name="user_id" id="user_id">
                                     <option value="">Select User</option>
-                                    <?php foreach ($users as $campaign): ?>
-                                        <option value="<?php echo $campaign['emp_id']; ?>"><?php echo $campaign['fname']; ?></option>
+                                    <?php foreach ($users as $user): ?>
+                                        <option value="<?php echo $user['emp_id']; ?>" <?php if( isset($user_id) && $user_id == $user['emp_id'] ) { echo "selected" ; } ?>><?php echo $user['fname']; ?></option>
                                     <?php endforeach; ?>
                                 </select>
                             </td>
                             <td>
                                 <select class="form-control form-control-default "  name="stage" id="stage">
                                     <option value="">Select Stage</option>
-                                    <option value="Verified">Verified</option>
-                                    <option value="Rejection">Rejection</option>
-                                    <option value="Accepted">Accepted</option>
+                                    <option value="Verified" <?php if( isset($Stage) && $Stage == "Verified") { echo "selected" ; } ?>>Verified</option>
+                                    <option value="Rejection" <?php if( isset($Stage) && $Stage == "Rejection") { echo "selected" ; } ?>>Rejection</option>
+                                    <option value="Accepted" <?php if( isset($Stage) && $Stage == "Accepted") { echo "selected" ; } ?>>Accepted</option>
 
                                     <!-- <?php //foreach ($users as $campaign): ?>
                                         <option value="<?php //echo $campaign['emp_id']; ?>"><?php //echo $campaign['fname']; ?></option>
@@ -103,24 +120,30 @@ $(document).ready(function(){
                                 </select>
                             </td>
                             <td>
-                            From: </td><td><input class="form-control" type="datetime-local" name="from"  id="example-datetime-local-input">
+                            From: </td><td><input class="form-control" type="datetime-local" value="<?php if(isset($From)){ echo $From;}?>" name="from"  id="example-datetime-local-input">
                             </td>
                             <td>
-                            To: </td><td><input class="form-control" type="datetime-local"    name="to" id="example-datetime-local-input">
+                            To: </td><td><input class="form-control" type="datetime-local"  value="<?php if(isset($To)){ echo $To;}?>"  name="to" id="example-datetime-local-input1">
                             </td>
                             <td>
                                 <input  class="btn btn-primary" type="submit" name="submit">
                             </td>
+                            <td>
+                                <a class="btn btn-primary" href="">Refresh</a>
+                            </td>
                             </tr>
+                            </table>
                             </form>
                        
                     </div>
                     <br><br>
+
                         <div class="table-responsive dt-responsive">
-                            <table id="dom-jqry" class="table table-striped table-bordered nowrap">
+                            <table id="dom-jqry" class="table table-striped table-bordered nowrap table1">
                                 <thead>
                                     <tr>
-                                        <th>Date</th>
+                                        <th>S.no</th>
+                                        <!-- <th>Date</th> -->
                                         <!-- <th>Image</th> -->
                                         <th>Username</th>
                                         <th>Campaign Name</th>
@@ -130,10 +153,11 @@ $(document).ready(function(){
                                         <th>Accepted</th>
                                     </tr>
                                 </thead>
-                                <tbody>
+                                <tbody >
                                 <?php foreach($users as $post) : ?>
                                  <tr>
-                                        <td><?php echo date("M d,Y", strtotime($post['last_login'])); ?></td>
+                                        <td></td>
+                                        <!-- <td><?php //echo date("M d,Y", strtotime($post['last_login'])); ?></td> -->
                                         <td><a href="edit-blog.php?id=14"><?php echo $post['fname']; ?></a></td>
                                         <td><?php
                                         echo $post['campnm'];

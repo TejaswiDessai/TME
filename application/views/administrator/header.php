@@ -13,7 +13,7 @@
         </div>
     </div>
 
-    <nav class="navbar header-navbar">
+    <nav class="navbar header-navbar" style="border:1px solid black;">
         <div class="navbar-wrapper">
             <div class="navbar-logo">
                 <a class="mobile-menu" id="mobile-collapse" href="#!">

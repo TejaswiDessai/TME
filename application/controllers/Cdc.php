@@ -1501,20 +1501,20 @@
 
 		public function checkemail(){ 
 			
-			
+			$campaign_id = $_GET['campaign_id'];
 			$email = $_GET['email'];
 			$inclistnew = $_GET['inclistnew'];
 			// get data 
 			// $data = $this->Administrator_Model->check_unique_email($email);
 			if($inclistnew == 1)
 			{
-				$data['inclusionemail'] = $this->Administrator_Model->check_inclusion_email($email);
+				$data['inclusionemail'] = $this->Administrator_Model->check_inclusion_email($email,$campaign_id);
 			}
 			
 
 
 			// if ($data['inclusionemail'] == true){
-				$data['exclusionemail'] = $this->Administrator_Model->check_suppression_email($email);
+				$data['exclusionemail'] = $this->Administrator_Model->check_suppression_email($email,$campaign_id);
 				// print_r($data['exclusionemail']);
 			// }
 			
@@ -1523,16 +1523,16 @@
 		  }
 		public function checkdomain(){ 
 			
-			
+			$campaign_id = $_GET['campaign_id'];
 			$domain = $_GET['domain'];
 			$inclistnew = $_GET['inclistnew'];
 			// get data 
 			// $data = $this->Administrator_Model->check_unique_email($email);
 
-			$data['domainchecksupp'] = $this->Administrator_Model->check_domain_suppression($domain);
+			$data['domainchecksupp'] = $this->Administrator_Model->check_domain_suppression($domain,$campaign_id);
 			if($inclistnew == 1)
 			{
-				$data['domaincheckincl'] = $this->Administrator_Model->check_domain_incl($domain);
+				$data['domaincheckincl'] = $this->Administrator_Model->check_domain_incl($domain,$campaign_id);
 			}
 			// print_r($data['domainchecksupp']); die;
 			
@@ -1540,16 +1540,16 @@
 		  }
 		public function checkcompanylist(){ 
 			
-			
+			$campaign_id = $_GET['campaign_id'];
 			$company_name = $_GET['company_name'];
 			$inclistnew = $_GET['inclistnew'];
 			// get data 
 			// $data = $this->Administrator_Model->check_unique_email($email);
 
-			$data['companychecksupp'] = $this->Administrator_Model->check_company_suppression($company_name);
+			$data['companychecksupp'] = $this->Administrator_Model->check_company_suppression($company_name,$campaign_id);
 			if($inclistnew == 1)
 			{
-				$data['companycheckincl'] = $this->Administrator_Model->check_company_incl($company_name);
+				$data['companycheckincl'] = $this->Administrator_Model->check_company_incl($company_name,$campaign_id);
 			}
 			// print_r($data['domainchecksupp']); die;
 			

@@ -174,7 +174,7 @@ $(document).ready(function() {
                                 </select>
                             </div>
                             <div class="col-sm-2">
-                                <input type="text"  name="fname" id="fname"  placeholder="First Name"   class="form-control form-control-sm cdqadisable <?php// if(isset($ldmster) && in_array($ldmster['dvrejectreason'], fname)) { echo "fielderrors" ; } ?>"
+                                <input type="text"  name="fname" id="fname"  placeholder="First Name"   class="form-control form-control-sm cdqadisable"                             
                                  value ="<?php if(isset($ldmster)){  echo $ldmster['fname']; }?>" >
                                 <input type="hidden" name="inclistnew" id="inclistnew" value="<?php echo $campaign['inclistnew']; ?>">
                                 <span style='color:#FF0000' id="fname_msg"></span>

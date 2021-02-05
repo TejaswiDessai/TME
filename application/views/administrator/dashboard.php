@@ -211,15 +211,15 @@
                                                 </thead>
                                                 <tbody>
                                                     <tr>
-                                                        <td><a href="#!"><?php    
-                                                        $query = $this->db->query("SELECT * FROM leadmaster where stagtidi = $empid ");
+                                                        <td><a href="#!"><?php  $startdate =  date('Y-m-d 00:00:00');  $enddate =  date('Y-m-d H:i:s'); //'stdti >=', date('Y-m-d 00:00:00') 'stdti <=', date('Y-m-d H:i:s')
+                                                        $query = $this->db->query("SELECT * FROM leadmaster where stagtidi = $empid AND  stdti >= current_timestamp - interval '1 day' ");
                                                         echo $query->num_rows();
                                                         ?></a>
                                                         </td>
                                                         <!-- <td><?php //echo $this->session -> userdata('username')?></td><td> -->
                                                         <td>
                                                         <?php 
-                                                        $query = $this->db->query("SELECT * FROM leadmaster where svagtidi  = $empid ");
+                                                        $query = $this->db->query("SELECT * FROM leadmaster where stagtidi = $empid AND  stdti >= current_timestamp - interval '1 day'");
                                                         echo $query->num_rows();
                                                         ?>
                                                         </td>

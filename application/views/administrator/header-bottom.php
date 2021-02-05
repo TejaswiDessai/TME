@@ -91,6 +91,16 @@ $usertype = $this->Administrator_Model->get_emp_usertype($emp_id);
                             <li><a href="<?php echo base_url(); ?>administrator/users/users">Users</a></li>
                         </ul>
                     </li>
+                    <li class="nav-item">
+                        <a href="#!">
+                            <i class="ti-layout-grid2-thumb"></i>
+                            <span data-i18n="nav.basic-components.main">Reports</span>
+                        </a>
+                        <ul class="tree-1">
+                            <li><a href="<?php echo base_url(); ?>administrator/user_report" data-i18n="nav.basic-components.alert">User Status</a></li>
+                            <!-- <li><a href="<?php //echo base_url(); ?>administrator/team/list" data-i18n="nav.basic-components.breadcrumbs">Campaign Status</a></li> -->
+                        </ul>
+                    </li>
                 <?php } ?>
 <!--                    <li class="nav-item">
                         <a href="#!">
@@ -170,18 +180,9 @@ $usertype = $this->Administrator_Model->get_emp_usertype($emp_id);
                             <li><a href="<?php echo base_url(); ?>administrator/galleries/add" data-i18n="nav.basic-components.alert">Add Gallery</a></li>
                             <li><a href="<?php echo base_url(); ?>administrator/galleries" data-i18n="nav.basic-components.breadcrumbs">List Gallery</a></li>
                         </ul>
-                    </li>
-                    <li class="nav-item">
-                        <a href="#!">
-                            <i class="ti-layout-grid2-thumb"></i>
-                            <span data-i18n="nav.basic-components.main">Teams</span>
-                        </a>
-                        <ul class="tree-1">
-                            <li><a href="<?php echo base_url(); ?>administrator/team/add" data-i18n="nav.basic-components.alert">Add Team</a></li>
-                            <li><a href="<?php echo base_url(); ?>administrator/team/list" data-i18n="nav.basic-components.breadcrumbs">List Teams</a></li>
-                        </ul>
-                    </li>
-                    <li class="nav-item">
+                    </li>-->
+                   
+                    <!--<li class="nav-item">
                         <a href="#!">
                             <i class="ti-direction-alt"></i>
                             <span data-i18n="nav.basic-components.main">Testimonials</span>

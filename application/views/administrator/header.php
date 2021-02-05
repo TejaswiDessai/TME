@@ -24,7 +24,7 @@
                 </a>
                 <a href="<?php echo base_url(); ?>administrator/dashboard">
                  
-                         <img class="img-fluid" src="<?php echo base_url(); ?>assets/images/ME-Logo-new-new-logo-white-1536x400-1.png" alt="Theme-Logo" />
+                         <img class="img-fluid" width="200" src="<?php echo base_url(); ?>assets/images/4wmkfa.gif" alt="Theme-Logo" />
                    
                 </a>
                 <a class="mobile-options">

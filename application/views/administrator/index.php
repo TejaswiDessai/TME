@@ -9,6 +9,17 @@
     text-align: left;
     }
 </style>
+<script>
+  function isNumber(evt) 
+    {
+        evt = (evt) ? evt : window.event;
+        var charCode = (evt.which) ? evt.which : evt.keyCode;
+        if (charCode > 31 && (charCode < 48 || charCode > 57)) {
+            return false;
+        }
+        return true;
+    }
+</script>
             <section class="login p-fixed d-flex text-center bg-primary common-img-bg">
         <!-- Container-fluid starts -->
         <div class="container-fluid">
@@ -56,8 +67,16 @@
                                 </div>
                                 <hr/>
                                   <?php echo form_open('administrator/adminLogin'); ?>
+                                  <div class="input-group">
+                                    <select class="form-control form-control-default "  name="ctype" id="ctype" required>
+                                        <option value="">Select C Type</option>
+                                        <option value="TME">TME</option>
+                                        <option value="ME">ME</option>
+                                        <option value="HP">HP</option>
+                                    </select>
+                                </div>
                                 <div class="input-group">
-                                    <input type="text" name="fname" class="form-control" placeholder="Your Username">
+                                    <input type="text" name="emp_id" id="emp_id" class="form-control" placeholder="Your Employee Id" onkeypress="return isNumber(event)" autocomplete="off">
                                     <span class="md-line"></span>
                                 </div>
                                 <div class="input-group">

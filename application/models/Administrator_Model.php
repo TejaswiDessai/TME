@@ -6,21 +6,21 @@
 			$this->load->database();
 		}
 
-		public function adminLogin($fname, $encrypt_password){
+		public function adminLogin($emp_id, $encrypt_password,$ctype)
+		{
 			//Validate
-			$this->db->where('fname', $fname);
+			$this->db->where('cid_type', $ctype);
+			$this->db->where('emp_id', $emp_id);
 			$this->db->where('password', $encrypt_password);
-//                        $this->db->join('userlog', 'userlog.empid = users.emp_id');
+          	//$this->db->join('userlog', 'userlog.empid = users.emp_id');
 			$result = $this->db->get('users');
-
-
-			if ($result->num_rows() == 1) {
-                       
+			if ($result->num_rows() == 1) 
+			{
 
 //                            print_r($result->row(0));
 //                            echo $this->db->last_query(); exit;
-                            $this->db->where('empid', '101');
-                            $this->db->update('userlog', array('login'=> date('Y-m-d H:i:s'))); 
+                            // $this->db->where('empid', '101');
+				$this->db->insert('userlog', array('empid' => $fname,'login'=> date('Y-m-d H:i:s'))); 
 				return $result->row(0);
                                
 			}else{
@@ -1616,6 +1616,41 @@ public function get_leadmasterby_campaignid($id = FALSE)
 			return $query->result_array();
 		}
 		
-		
+		public function get_user_report($campid,$user_id,$from,$to,$stage)
+		{
+			$this->db->select('leadmaster.cids,users.fname,users.emp_id,users.last_login,campaign.campnm,count(leadmaster.stagtidi) as number');
+			$this->db->from('leadmaster');
+			$this->db->join('users', 'users.emp_id = leadmaster.stagtidi','left');
+			$this->db->join('campaign', 'campaign.cids = leadmaster.cids','left');
+			if(isset($campid) && $campid != null)
+			{
+				$this->db->where('leadmaster.cids', $campid);
+			}
+			if(isset($stage) && $stage != null)
+			{
+				$this->db->where('leadmaster.aa10', $stage);
+			}
+			if(isset($user_id) && $user_id != null)
+			{
+				$this->db->where('users.emp_id', $user_id);
+			}
+			if(isset($from) && isset($to) && $from != '' && $to != '')
+			{
+				$this->db->where('stdti >=', $from);
+				$this->db->where('stdti <=', $to);
+			}
+			$this->db->group_by('leadmaster.cids');
+			$this->db->group_by('users.fname');
+			$this->db->group_by('users.emp_id');
+			$this->db->group_by('users.last_login');
+			// $this->db->group_by('campaign.cnid');
+			// $this->db->group_by('campaign.clientids');
+			$this->db->group_by('campaign.cids');
+			$this->db->group_by('campaign.campnm');
+			$query=$this->db->get();
+			// show_error($this->db->last_query(), 200, "SQL");
+			return $data=$query->result_array();
+
+		}	
 		
 }

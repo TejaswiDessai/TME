@@ -88,7 +88,7 @@ $(document).ready(function(){
                                 <tbody>
                                 <?php foreach($users as $post) : ?>
                                  <tr>
-                                        <td><?php echo $post['emp_id']; ?></td>
+                                        <td><?php  if(isset($post['cid_type'])){ echo $post['cid_type']."-";} echo $post['emp_id']; ?></td>
                                         <!-- <td>
                                             <img width="20px;" src="<?php echo site_url();?>assets/images/users/<?php echo $post['image']; ?> ">                                           
                                         </td> -->

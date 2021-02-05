@@ -121,7 +121,7 @@ $(document).ready(function() {
       <?php endforeach; ?>
      <?php foreach ($leadmaster as $ldmster): 
       // print_r($ldmster['unverified_fields']);
-      $tid = explode(',',$ldmster['dvrejectreason']);
+      // $tid = explode(',',$ldmster['dvrejectreason']);
       // print_r($tid);
       ?>
       

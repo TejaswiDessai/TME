@@ -201,10 +201,11 @@ $.ajax({
                            
                             <div class="col-sm-1">
                                  <select name="sal" id="sal"  class="form-control  form-control-sm cdqadisable">
-                                      <option value="1">Mr.</option>
-                                      <option value="2">Ms.</option>
-                                      <option value="3">Mrs.</option>
-                                      <option value="4">Other</option>
+                                      <option value="Mr">Mr.</option>
+                                      <option value="Ms">Ms.</option>
+                                      <option value="Mrs">Mrs.</option>
+                                      <option value="Dr">Dr.</option>
+                                      <option value="Other">Other</option>
                                 </select>
                             </div>
                             <div class="col-sm-2">

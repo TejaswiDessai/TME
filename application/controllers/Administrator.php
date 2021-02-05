@@ -71,6 +71,7 @@
 				$ctype = $this->input->post('ctype');
 
 				$user_id = $this->Administrator_Model->adminLogin($emp_id, $encrypt_password,$ctype);
+				// print_r($ctype); exit();
 //				$sitelogo = $this->Administrator_Model->update_siteconfiguration(1);
 		if ($user_id) {
                     $tt=date_default_timezone_get();

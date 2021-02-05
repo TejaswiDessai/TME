@@ -1848,6 +1848,11 @@ public function getPrivillage(){
 	
 		$data['users'] = $this->Administrator_Model->get_user_report($campid,$user_id,$from,$to,$stage);
 		$data['campaigns'] = $this->Administrator_Model->get_campaign();
+		$data['user_id'] = $user_id;
+		$data['Campid'] = $campid;
+		$data['Stage'] = $stage;
+		$data['From'] = $from;
+		$data['To'] = $to;
 		$this->load->view('administrator/header-script');
 		$this->load->view('administrator/header');
 		$this->load->view('administrator/header-bottom');

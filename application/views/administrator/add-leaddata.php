@@ -48,6 +48,16 @@ $(document).ready(function () {
     }, 'slow');
 });
 
+$(document).ready(function() {
+ 
+ $(window).keydown(function(event){
+   if(event.keyCode == 13) { // disable Enter key on form submission
+     event.preventDefault();
+     return false;
+   }
+ });
+});
+
 //below code for retreive button on change on rect type
 $(document).ready(function() { 
   $(".aumdis").attr("disabled", true);   // aum disable

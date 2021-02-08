@@ -82,6 +82,7 @@ echo $date;
 					//Create Session
 					$user_data = array(
 								'emp_id' => $user_id->emp_id,
+								'empcode' => $user_id->empcode,
 				 				'username' => $user_id->fname,
 				 				'fname' => $user_id->fname,
 				 				'login' => true,
@@ -1813,15 +1814,21 @@ public function savedata()
 		$teamStr = implode(',',$team);
 		$Password =$_GET['Password'];
 		$password = md5($Password);
-
-		// $gender = $this->input->post('gender');
-		// $role_id = '2';
-		// $status = $this->input->post('status');
-		// $dob = $this->input->post('dob');
-		// $image = $post_image;
-		// $password = $password;
+		if($cid_type == 'TMB')
+		{
+			$code = 93;
+		}
+		else if($cid_type == 'ME')
+		{
+			$code = 91;
+		}
+		else if($cid_type == 'HP')
+		{
+			$code = 92;
+		}
+		$empcode = $code.$emp_id;
 		$register_date = date("Y-m-d H:i:s");
-		$this->Administrator_Model->saverecords($emp_id,$Fname,$Lname,$Manager,$status1,$user_role,$teamStr,$password,$register_date,$cid_type);	
+		$this->Administrator_Model->saverecords($emp_id,$Fname,$Lname,$Manager,$status1,$user_role,$teamStr,$password,$register_date,$cid_type,$empcode);	
 		echo json_encode(array(
 			"statusCode"=>200
 		));

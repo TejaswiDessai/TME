@@ -592,9 +592,22 @@
 
 		public function update_user_data($post_image)
 		{ 
+			$cid_type = $this->input->post('ctype');
+			if($cid_type == 'TMB')
+			{
+				$code = 93;
+			}
+			else if($cid_type == 'ME')
+			{
+				$code = 91;
+			}
+			else if($cid_type == 'HP')
+			{
+				$code = 92;
+			}
+			$empcode = $code.$this->input->post('emp_id');
 			$teamstr = implode(',',$this->input->post('team'));
-			$data = array('emp_id' => $this->input->post('emp_id'),
-							'fname' => $this->input->post('Fname'),
+			$data = array('fname' => $this->input->post('Fname'),
 							'lname' => $this->input->post('Lname'),
 							'mngr' => $this->input->post('Manager'),
 							'role' => $this->input->post('user_role'),
@@ -603,6 +616,7 @@
 							// 'status' => $post_image,
 							'last_login' => date("Y-m-d H:i:s"),
 							'cid_type' => $this->input->post('ctype'),
+							'empcode' => $empcode,
 						  );
                         // $data = array('usertype' =>$this->input->post('usertype'));
 			$this->db->where('emp_id', $this->input->post('emp_id'));
@@ -1239,10 +1253,10 @@ public function is_temp_pass_valid($temp_pass){
     else return FALSE;
 }
 
-function saverecords($emp_id,$Fname,$Lname,$Manager,$status1,$user_role,$team,$password,$register_date,$cid_type)
+function saverecords($emp_id,$Fname,$Lname,$Manager,$status1,$user_role,$team,$password,$register_date,$cid_type,$empcode)
 {
-	$query="INSERT INTO users( emp_id, fname, lname,mngr,role,team,password,status,last_login,cid_type) 
-		VALUES ('$emp_id','$Fname','$Lname','$Manager','$user_role','$team','$password',$status1,'$register_date','$cid_type')";
+	$query="INSERT INTO users( emp_id, fname, lname,mngr,role,team,password,status,last_login,cid_type,empcode) 
+		VALUES ('$emp_id','$Fname','$Lname','$Manager','$user_role','$team','$password',$status1,'$register_date','$cid_type',$empcode)";
 		$this->db->query($query);
 }
 

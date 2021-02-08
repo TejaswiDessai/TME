@@ -1869,6 +1869,39 @@ public function getPrivillage(){
 		$this->load->view('administrator/footer');
 	}
 
+	public function email_verification($offset = 0){
+		$this->load->model('Administrator_Model');
+		// Pagination Config
+		$config['base_url'] = base_url(). 'campaigns/campaign/';
+		$config['total_rows'] = $this->db->count_all('campaign');
+		$config['per_page'] = '';
+		$config['uri_segment'] = 3;
+		$config['attributes'] = array('class' => 'paginate-link');
+		$campid =$this->input->post('campid');
+		$user_id =$this->input->post('user_id');
+		$stage =$this->input->post('stage');
+		$from =$this->input->post('from');
+		$to =$this->input->post('to');
+		// Init Pagination
+		$this->pagination->initialize($config);
+	
+		$data['title'] = 'Latest Campaigns';
+	
+		$data['email_list'] = $this->Administrator_Model->get_email_list($campid,$user_id,$from,$to,$stage);
+		$data['users_name'] = $this->Administrator_Model->get_users(FALSE, $config['per_page'], $offset);
+		$data['campaigns'] = $this->Administrator_Model->get_campaign();
+		$data['user_id'] = $user_id;
+		$data['Campid'] = $campid;
+		$data['Stage'] = $stage;
+		$data['From'] = $from;
+		$data['To'] = $to;
+		$this->load->view('administrator/header-script');
+		$this->load->view('administrator/header');
+		$this->load->view('administrator/header-bottom');
+		$this->load->view('administrator/email-verification', $data);
+		$this->load->view('administrator/footer');
+	}
+
 }
 
 

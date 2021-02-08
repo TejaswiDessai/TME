@@ -20,7 +20,7 @@
 //                            print_r($result->row(0));
 //                            echo $this->db->last_query(); exit;
                             // $this->db->where('empid', '101');
-				$this->db->insert('userlog', array('empid' => $fname,'login'=> date('Y-m-d H:i:s'))); 
+				$this->db->insert('userlog', array('empid' => $emp_id,'login'=> date('Y-m-d H:i:s'))); 
 				return $result->row(0);
                                
 			}else{

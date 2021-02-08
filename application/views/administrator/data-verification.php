@@ -493,13 +493,13 @@ $(document).ready(function() {
                           <input type = hidden name="lmid" id="lmid" value="<?php echo $ldmster['lmid']; ?>">
                           <input type = hidden name="sbsvtag" id="sbsvtag" value="<?php echo $ldmster['sbsvtag']; ?>">
                           <input type = hidden name="rlc" id="rlc" value="<?php echo $ldmster['rlc']; ?>">
-                        <button type="submit" name="leadupdate" class="btn btn-primary leaddisplay" style=""  id="leadupdate">Update</button> 
-                        <button type="submit" name="leadsave" class="btn btn-primary leaddisplay" style=""  id="leadsave">Save </button> 
+                        <button type="submit" name="leadupdatedv" class="btn btn-primary leaddisplay" style=""  id="leadupdatedv">Update</button> 
+                        <button type="submit" name="leadsavedv" class="btn btn-primary leaddisplay" style=""  id="leadsavedv">Save </button> 
                      
                         <?php } ?>
                        <?php if(empty($ldmster)){ ?>
-                        <button type="submit" name="leadsubmit" class="btn btn-primary leaddisplay" style=""  id="leadsubmit">Submit </button> 
-                        <button type="submit" name="leadsave" class="btn btn-primary leaddisplay" style=""  id="leadsave">Save </button> 
+                        <button type="submit" name="leadsubmitdv" class="btn btn-primary leaddisplay" style=""  id="leadsubmit">Submit </button> 
+                        <button type="submit" name="leadsavedv" class="btn btn-primary leaddisplay" style=""  id="leadsave">Save </button> 
                         <?php } ?>
                         
                         <!-- <input class="submit" class ="" type="submit" value="SUBMIT"> -->

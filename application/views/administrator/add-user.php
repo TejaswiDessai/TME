@@ -141,7 +141,7 @@ rel="Stylesheet"type="text/css"/>
                                             <!-- <input type="text" id="user_type" name="user_type" class="form-control" placeholder="User Type"> -->
                                             <select class="form-control form-control-default "  name="ctype" id="ctype" required>
                                                 <option value="">Select C Type</option>
-                                                <option value="TME">TME</option>
+                                                <option value="TMB">TMB</option>
                                                 <option value="ME">ME</option>
                                                 <option value="HP">HP</option>
                                             </select>

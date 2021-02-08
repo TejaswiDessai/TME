@@ -50,10 +50,10 @@
                                             </div>
                                             <div class="col-sm-8 text-center">
                                                 <h5>
-                                                <?php $query = $this->db->query("SELECT * FROM users where cid_type='TME'");
+                                                <?php $query = $this->db->query("SELECT * FROM users where cid_type='TMB'");
                                                     echo $query->num_rows();?>
                                                 </h5>
-                                                <span>TME</span>
+                                                <span>TMB</span>
                                             </div>
                                         </div>
                                     </div>

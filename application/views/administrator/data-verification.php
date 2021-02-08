@@ -184,42 +184,80 @@ $(document).ready(function() {
                                       <option value="Other">Other</option>
                                 </select>
                             </div>
+                           
                             <div class="col-sm-2">
                                 <!-- <input type="text"  name="fname" id="fname"  placeholder="First Name"   class="form-control form-control-sm cdqadisable"                             
                                  value ="<?php //if(isset($ldmster)){  echo $ldmster['fname']; }?>" > -->
-                                <input type="hidden" name="inclistnew" id="inclistnew" value="<?php echo $campaign['inclistnew']; ?>">
+                                 <input type="hidden" name="inclistnew" id="inclistnew" value="<?php echo $campaign['inclistnew']; ?>">
                                 <span style='color:#FF0000' id="fname_msg"></span>
                                
                                 <div class="to-do-list">
-                                        <div class="checkbox-fade fade-in-primary">
+                                        <div class="checkbox-fade fade-in-primary  col-sm-12">
                                             <label class="check-task">
-                                                <input type="checkbox" name="fname" id="fname"  value="<?php if(isset($ldmster)){  echo $ldmster['fname']; }else { echo "fnamess" ;} ?>">
-                                               <span  class="form-control form-control-sm cdqadisable"><?php if(isset($ldmster)){  echo $ldmster['fname']; }else { echo "fname" ;} ?>
+                                                <input type="checkbox" name="fname" id="fname"  value="fname">
+                                               <span  class="form-control form-control-sm cdqadisable"><?php if(isset($ldmster)){  echo $ldmster['fname']; }else { echo "Fname is Empty" ;} ?>
                                                
                                                 </span>
                                             </label>
                                         </div>
-                                      
-                                    </div>
+                                </div>
                               
                             </div>
                             
                             <div class="col-sm-2">
-                                <input type="text"  name="lname" id="lname"  placeholder="Last Name" value ="<?php if(isset($ldmster)){  echo $ldmster['lname']; }?>"   class="form-control form-control-sm cdqadisable">
-                                <span style='color:#FF0000' id="lname_msg"></span>
+                                <!-- <input type="text"  name="lname" id="lname"  placeholder="Last Name" value ="<?php if(isset($ldmster)){  echo $ldmster['lname']; }?>"   class="form-control form-control-sm cdqadisable">
+                                <span style='color:#FF0000' id="lname_msg"></span> -->
+                               
+                                <div class="to-do-list">
+                                        <div class="checkbox-fade fade-in-primary  col-sm-12">
+                                            <label class="check-task">
+                                                <input type="checkbox" name="lname" id="lname"  value="lname">
+                                               <span  class="form-control form-control-sm cdqadisable"><?php if(isset($ldmster)){  echo $ldmster['lname']; }else { echo "Lname is Empty" ;} ?>
+                                               
+                                                </span>
+                                            </label>
+                                        </div>
+                                  </div>
+
+
                             </div>
                             <div class="col-sm-3">
-                                <input type="text"  name="jtitle" id="jtitle"  placeholder="Job Title" value ="<?php if(isset($ldmster)){  echo $ldmster['jtitle']; }?>"  class="form-control form-control-sm cdqadisable">
+                                <!-- <input type="text"  name="jtitle" id="jtitle"  placeholder="Job Title" value ="<?php //if(isset($ldmster)){  echo $ldmster['jtitle']; }?>"  class="form-control form-control-sm cdqadisable"> -->
+                                <div class="to-do-list">
+                                        <div class="checkbox-fade fade-in-primary  col-sm-12">
+                                            <label class="check-task">
+                                                <input type="checkbox" name="jtitle" id="jtitle"  value="jtitle">
+                                               <span  class="form-control form-control-sm cdqadisable"><?php if(isset($ldmster)){  echo $ldmster['jtitle']; }else { echo "Job Title is Empty" ;} ?>
+                                               
+                                                </span>
+                                            </label>
+                                        </div>
+                                  </div>
                             </div>
                             <div class="col-sm-2">
                                 <!-- <select class="js-example-basic-multiple col-sm-12 cdqadisable" multiple="multiple" name="desid[]" id="desid"> -->
-                                <select class="form-control form-control-sm cdqadisable" name="jlevel" id="jlevel">
+                                <!-- <select class="form-control form-control-sm cdqadisable" name="jlevel" id="jlevel">
                                 <option value="">Job Level</option>
-                                <?php foreach ($joblevel as $joblevel): ?>
-                                    <option value="<?php echo $joblevel['joblids']; ?>"  <?php if(isset($ldmster) && $ldmster['jlevel'] == $joblevel['joblids']){ echo "selected" ; } ?> ><?php echo $joblevel['joblevel']; ?></option>
-                                <?php endforeach; ?>  
+                                <?php //foreach ($joblevel as $joblevel): ?>
+                                    <option value="<?php// echo $joblevel['joblids']; ?>"  <?php //if(isset($ldmster) && $ldmster['jlevel'] == $joblevel['joblids']){ echo "selected" ; } ?> ><?php// echo $joblevel['joblevel']; ?></option>
+                                <?php //endforeach; ?>  
                                
-                                </select>
+                                </select> -->
+
+                                <div class="to-do-list">
+                                        <div class="checkbox-fade fade-in-primary  col-sm-12">
+                                            <label class="check-task">
+                                                <input type="checkbox" name="jlevel" id="jlevel"  value="jlevel">
+                                                <?php// foreach ($joblevel as $joblevel): ?>
+                                               <span  class="form-control form-control-sm cdqadisable"><?php if(isset($ldmster)){ echo $ldmster['jlevel']; } else { echo "Job level is Empty" ; } ?>
+                                               
+                                                </span>
+                                                <?php// endforeach; ?>  
+                                            </label>
+                                        </div>
+                                  </div>
+
+
                             </div>
                             <div class="col-sm-2">
                                 <!-- <select class="js-example-basic-multiple col-sm-12 cdqadisable" multiple="multiple" name="desid[]" id="desid"> -->
@@ -229,6 +267,7 @@ $(document).ready(function() {
                                     <option value="<?php echo $designation['jid']; ?>" <?php if(isset($ldmster) && $ldmster['jlevel'] == $designation['jid']){ echo "selected" ; } ?>><?php echo $designation['joblist']; ?></option>
                                 <?php endforeach; ?>  
                                 </select>
+                                
                             </div>
                             
                            
@@ -246,16 +285,53 @@ $(document).ready(function() {
                             </div> 
                             <div class="col-sm-2">
                                 <div class="newsletter-signup">
-                                <input type="text"  name="email" id="email" value ="<?php if(isset($ldmster)){  echo $ldmster['email']; }?>"  placeholder="Email"  class="form-control form-control-sm cdqadisable">
+                                <!-- <input type="text"  name="email" id="email" value ="<?php //if(isset($ldmster)){  echo $ldmster['email']; }?>"  placeholder="Email"  class="form-control form-control-sm cdqadisable"> -->
+                                  <div class="to-do-list">
+                                          <div class="checkbox-fade fade-in-primary  col-sm-12">
+                                              <label class="check-task">
+                                                  <input type="checkbox" name="email" id="email"  value="email">
+                                                <span  class="form-control form-control-sm cdqadisable"><?php if(isset($ldmster)){  echo $ldmster['email']; }else { echo "Email is Empty" ;} ?>
+                                                
+                                                  </span>
+                                              </label>
+                                          </div>
+                                    </div>
+                               
+                               
+                               
                                </div>
                                 <span style='color:#FF0000' id="email_msg"></span>
                             </div>
                             <div class="col-sm-2">
-                                <input type="text"  name="phone" id="phone" value ="<?php if(isset($ldmster)){  echo $ldmster['phone']; }?>" placeholder="Phone" maxlength="15"  class="form-control form-control-sm cdqadisable">
+                                <!-- <input type="text"  name="phone" id="phone" value ="<?php //if(isset($ldmster)){  echo $ldmster['phone']; }?>" placeholder="Phone" maxlength="15"  class="form-control form-control-sm cdqadisable"> -->
                                 <span style='color:#FF0000' id="phone_msg"></span>
+                                <div class="to-do-list">
+                                          <div class="checkbox-fade fade-in-primary  col-sm-12">
+                                              <label class="check-task">
+                                                  <input type="checkbox" name="phone" id="phone"  value="phone">
+                                                <span  class="form-control form-control-sm cdqadisable"><?php if(isset($ldmster)){  echo $ldmster['phone']; }else { echo "Phone is Empty" ;} ?>
+                                                
+                                                  </span>
+                                              </label>
+                                          </div>
+                                    </div>
+
+
+
                             </div>
                             <div class="col-sm-2">
-                                <input type="text"  name="altphn" id="altphn" value ="<?php if(isset($ldmster)){  echo $ldmster['altphn']; }?>" placeholder="Alternate Phone Number" maxlength="10"  class="form-control form-control-sm cdqadisable">
+                                <!-- <input type="text"  name="altphn" id="altphn" value ="<?php //if(isset($ldmster)){  echo $ldmster['altphn']; }?>" placeholder="Alternate Phone Number" maxlength="10"  class="form-control form-control-sm cdqadisable"> -->
+                                <div class="to-do-list">
+                                          <div class="checkbox-fade fade-in-primary  col-sm-12">
+                                              <label class="check-task">
+                                                  <input type="checkbox" name="altphn" id="altphn"  value="altphn">
+                                                <span  class="form-control form-control-sm cdqadisable"><?php if(isset($ldmster)){  echo $ldmster['altphn']; }else { echo "Alt Phone is Empty" ;} ?>
+                                                
+                                                  </span>
+                                              </label>
+                                          </div>
+                                    </div>
+                            
                             </div>
                             
                             <div class="col-sm-2">
@@ -498,8 +574,8 @@ $(document).ready(function() {
                      
                         <?php } ?>
                        <?php if(empty($ldmster)){ ?>
-                        <button type="submit" name="leadsubmitdv" class="btn btn-primary leaddisplay" style=""  id="leadsubmit">Submit </button> 
-                        <button type="submit" name="leadsavedv" class="btn btn-primary leaddisplay" style=""  id="leadsave">Save </button> 
+                        <button type="submit" name="leadsubmitdv" class="btn btn-primary leaddisplay" style=""  id="leadsubmitdv">Submit </button> 
+                        <button type="submit" name="leadsavedv" class="btn btn-primary leaddisplay" style=""  id="leadsavedv">Save </button> 
                         <?php } ?>
                         
                         <!-- <input class="submit" class ="" type="submit" value="SUBMIT"> -->
@@ -1130,18 +1206,20 @@ $(document).ready(function() {
 //update record lock
 var rlc = 1; //lock 1
 var lmid = $('#lmid').val();
+var emp_id = $('#emp_id').val();
+// $this->session -> userdata('email')
 
-
-
+// alert(emp_id);
 if(rlc == "1"){
 var urlq = '<?php echo base_url("cdc/updaterecordlock");?>';
-console.log(urlq+'?lmid='+lmid+"&rlc="+rlc);
+console.log(urlq+'?lmid='+lmid+"&rlc="+rlc+"&emp_id="+emp_id);
 $.ajax({
       url:'<?php echo base_url("cdc/updaterecordlock");?>',
       method: 'get',
       data: {
         lmid: lmid,
-        rlc:rlc
+        rlc:rlc,
+        emp_id:emp_id
       },
       dataType: 'json',
       success: function(response){
@@ -1164,6 +1242,8 @@ $.ajax({
   alert("record already opened");
   // top.location.href=base_url+"cdc/selectCampaignforlead";//redirection
 }
+
+
 
 
 
@@ -1366,28 +1446,36 @@ $.ajax({
  </script>
 
 <script>
+
 /* add lead submit initial*/
     $(function() {
-        $("#leadsubmit").on('click', function() 
+        $("#leadsubmitdv").on('click', function() 
         {
          
             var campaign_id = $('#campaign_id').val();
             var campaign_idcids = $('#campaign_idcids').val();
           //  alert(campaign_idcids);
             var sal = $('#sal').val();
-            var fname = $('#fname').val();
+            // var fname = $('#fname').val();
 
-            var checksupp = $('#fname').prop('checked');
-            if(checksupp == true)
-            {
-                checksupp = 1;
-            }
-            else
-            {
-                checksupp = 0;
-            }
-            alert(fname);
-            alert(checksupp);
+            var notChecked = [], checked = [];
+            $(":checkbox").map(function() {
+            
+                this.checked ? checked.push(this.id) : notChecked.push(this.id);
+            });
+   
+            alert("checked: " + checked);
+
+            // var checksupp = $('#fname').prop('checked');
+            // if(checksupp == true)
+            // {
+            //     checksupp = "fname";
+            // }
+            // else
+            // {
+            //     checksupp = 0;
+            // }
+           
             var lname = $('#lname').val();
             var jtitle = $('#jtitle').val();
             var desid = $('#desid').val();
@@ -1554,8 +1642,17 @@ $.ajax({
 <script>
 /* update lead submit*/
     $(function() {
-        $("#leadupdate").on('click', function() 
+        $("#leadupdatedv").on('click', function() 
         {
+
+          var notChecked = [], checked = [];
+            $(":checkbox").map(function() {
+            
+                this.checked ? checked.push(this.id) : notChecked.push(this.id);
+            });
+   
+            alert("checked: " + checked);
+
         
             var campaign_id = $('#campaign_id').val();
             var campaign_idcids = $('#campaign_idcids').val();
@@ -1645,11 +1742,11 @@ $.ajax({
             
            
             if(fname != "" && lname != "" && company_name != ""  && jtitle != "" && desid != "" && dcd !="" && email != "" && phone !="" && plink !="" && address != "" && city != "" && state != ""  && country_id != "" && industrycd != "" && subindustrycd != "" && empsize != "" && domain !=""  && empszlink != "" && revszlink != ""  && zip_code !="" ){
-            var url = encodeURI("<?php echo base_url("cdc/ajax_update_leaddata");?>");
+            var url = encodeURI("<?php echo base_url("cdc/ajax_update_leaddatadv");?>");
             console.log(url+"?campaign_id="+campaign_id+"&lmid="+lmid+"&campaign_idcids="+campaign_idcids+"&sbsvtag="+sbsvtag+"&sal="+sal+"&fname="+fname+"&lname="+lname+"&jtitle="+jtitle+"&desid="+desid+"&jlevel="+jlevel+"&dcd="+dcd+"&email="+email+"&phone="+phone+"&altphn="+altphn+"&phext="+phext+"&plink="+plink+"&company_name="+company_name+"&address="+address+"&city="+city+"&state="+state+"&zip_code="+zip_code+"&country_id="+country_id+"&timezone="+timezone+"&ctype="+ctype+"&linetype="+linetype+"&industrycd="+industrycd+"&subindustrycd="+subindustrycd+"&sectyp="+sectyp+"&empsize="+empsize+"&mlbl="+mlbl+"&curr="+curr+"&arevenue="+arevenue+"&empszlink="+empszlink+"&indlink="+indlink+"&domain="+domain+"&othrlink="+othrlink+"&revszlink="+revszlink+"&emailver="+emailver+"&aum="+aum+"&assetid="+assetid+"&optin="+optin+"&optpst="+optpst+"&optph="+optph+"&opteml="+opteml+"&optoption="+optoption+"&aa1="+aa1+"&aa2="+aa2+"&aa3="+aa3+"&aa4="+aa4+"&aa5="+aa5+"&aa6="+aa6+"&aa7="+aa7+"&aa8="+aa8+"&aa9="+aa9+"&aa10="+aa10+"&aa11="+aa11+"&aa12="+aa12+"&pcomt="+pcomt);
            
             $.ajax({
-                url :'<?php echo base_url("cdc/ajax_update_leaddata");?>',
+                url :'<?php echo base_url("cdc/ajax_update_leaddatadv");?>',
                 type: 'GET', 
                 // contentType: "application/json",
                 dataType: 'json',              
@@ -1839,11 +1936,11 @@ $.ajax({
             if(fname != "" && lname != "" && company_name != ""  && jtitle != "" && desid != "" && dcd !="" && email != "" && phone !="" && plink !="" && address != "" && city != "" && state != ""  && country_id != "" && industrycd != "" && subindustrycd != "" && empsize != "" && domain !=""  && empszlink != "" && revszlink != ""  && zip_code !="" ){
            
 
-            var url = encodeURI("<?php echo base_url("cdc/ajax_save_leaddata");?>");
+            var url = encodeURI("<?php echo base_url("cdc/ajax_save_leaddatadv");?>");
             console.log(url+"?campaign_idcids="+campaign_idcids+"&lmid="+lmid+"&campaign_id="+campaign_id+"&sal="+sal+"&fname="+fname+"&lname="+lname+"&jtitle="+jtitle+"&desid="+desid+"&jlevel="+jlevel+"&dcd="+dcd+"&email="+email+"&phone="+phone+"&altphn="+altphn+"&phext="+phext+"&plink="+plink+"&company_name="+company_name+"&address="+address+"&city="+city+"&state="+state+"&zip_code="+zip_code+"&country_id="+country_id+"&timezone="+timezone+"&ctype="+ctype+"&linetype="+linetype+"&industrycd="+industrycd+"&subindustrycd="+subindustrycd+"&sectyp="+sectyp+"&empsize="+empsize+"&mlbl="+mlbl+"&curr="+curr+"&arevenue="+arevenue+"&empszlink="+empszlink+"&indlink="+indlink+"&domain="+domain+"&othrlink="+othrlink+"&revszlink="+revszlink+"&emailver="+emailver+"&aum="+aum+"&assetid="+assetid+"&optin="+optin+"&optpst="+optpst+"&optph="+optph+"&opteml="+opteml+"&optoption="+optoption+"&aa1="+aa1+"&aa2="+aa2+"&aa3="+aa3+"&aa4="+aa4+"&aa5="+aa5+"&aa6="+aa6+"&aa7="+aa7+"&aa8="+aa8+"&aa9="+aa9+"&aa10="+aa10+"&aa11="+aa11+"&aa12="+aa12+"&pcomt="+pcomt);
            
             $.ajax({
-                url :'<?php echo base_url("cdc/ajax_save_leaddata");?>',
+                url :'<?php echo base_url("cdc/ajax_save_leaddatadv");?>',
                 type: 'GET', 
                 dataType: 'Json',              
                 data: {

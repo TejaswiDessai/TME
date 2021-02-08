@@ -76,7 +76,7 @@ $usertype = $this->Administrator_Model->get_emp_usertype($emp_id);
                     <li class="nav-item">
                         <!-- <a href="<?php echo base_url(); ?>cdc/addlead""> -->
                         <a href="<?php echo base_url(); ?>cdc/selectCampaignforlead">
-                        <i class="ti-linkedin"></i>
+                        <i class="icofont icofont-architecture-alt"></i>
                             <span>Add Lead</span>
                         </a>
                     </li>

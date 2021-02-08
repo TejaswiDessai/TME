@@ -93,7 +93,7 @@
                             <tr>
                             <td>
                                 <select class="form-control form-control-default "  name="campid" id="campid">
-                                    <option value="">Select Campaign</option>
+                                    <option value="">Campaign</option>
                                     <?php foreach ($campaigns as $campaign): ?>
                                         <option value="<?php echo $campaign['cids']; ?>" <?php if( isset($Campid) && $Campid == $campaign['cids']) { echo "selected" ; } ?>><?php echo $campaign['campnm']; ?></option>
                                     <?php endforeach; ?>
@@ -101,7 +101,7 @@
                             </td>
                             <td>
                                 <select class="form-control form-control-default "  name="user_id" id="user_id">
-                                    <option value="">Select User</option>
+                                    <option value="">User</option>
                                     <?php foreach ($users_name as $user): ?>
                                         <option value="<?php echo $user['emp_id']; ?>" <?php if( isset($user_id) && $user_id == $user['emp_id'] ) { echo "selected" ; } ?>><?php echo $user['fname']; ?></option>
                                     <?php endforeach; ?>
@@ -109,7 +109,7 @@
                             </td>
                             <td>
                                 <select class="form-control form-control-default "  name="stage" id="stage">
-                                    <option value="">Select Stage</option>
+                                    <option value="">Stage</option>
                                     <option value="Verified" <?php if( isset($Stage) && $Stage == "Verified") { echo "selected" ; } ?>>Verified</option>
                                     <option value="Rejection" <?php if( isset($Stage) && $Stage == "Rejection") { echo "selected" ; } ?>>Rejection</option>
                                     <option value="Accepted" <?php if( isset($Stage) && $Stage == "Accepted") { echo "selected" ; } ?>>Accepted</option>

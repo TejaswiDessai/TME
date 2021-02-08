@@ -80,6 +80,8 @@ $usertype = $this->Administrator_Model->get_emp_usertype($emp_id);
                             <span>Add Lead</span>
                         </a>
                     </li>
+                    
+                    <?php if($usertype == 0 || $usertype == 1 || $usertype ==2 || $usertype ==6){?>
                     <li class="nav-item">
                       
                         <a href="<?php echo base_url(); ?>cdc/selectCampaignforDataVerification">
@@ -87,7 +89,6 @@ $usertype = $this->Administrator_Model->get_emp_usertype($emp_id);
                             <span>Data verification</span>
                         </a>
                     </li>
-                    <?php if($usertype == 0 || $usertype == 1 || $usertype ==2 || $usertype ==6){?>
                     <li class="nav-item">
                         <a href="#!">
                             <i class="ti-layout"></i>

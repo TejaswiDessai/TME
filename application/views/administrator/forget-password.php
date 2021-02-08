@@ -37,12 +37,12 @@
                                 <br>
                                 <div class="col-sm-12">
                                 <select class="form-control form-control-default "  name="user_type" id="user_type" required="">
-                                    <option value="0">Admin</option>
-                                    <option value="1">Core Team</option>
-                                    <option value="2">Manager</option>
-                                    <option value="3">Team Lead</option>
-                                    <option value="4" selected>Team Member</option>
-                                    <option value="5">Developers</option>
+                                    <option value="1">Admin</option>
+                                    <option value="2">Core Team</option>
+                                    <option value="3">Manager</option>
+                                    <option value="4">Team Lead</option>
+                                    <option value="5" selected>Team Member</option>
+                                    <option value="6">Developers</option>
                                 </select>
                                 </div>
                                     </div>

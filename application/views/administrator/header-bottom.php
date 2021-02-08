@@ -99,6 +99,7 @@ $usertype = $this->Administrator_Model->get_emp_usertype($emp_id);
                         <ul class="tree-1">
                             <li><a href="<?php echo base_url(); ?>administrator/user_report" data-i18n="nav.basic-components.alert">User Status</a></li>
                             <!-- <li><a href="<?php //echo base_url(); ?>administrator/team/list" data-i18n="nav.basic-components.breadcrumbs">Campaign Status</a></li> -->
+                            <!-- <li><a href="<?php echo base_url(); ?>administrator/email_verification" data-i18n="nav.basic-components.alert">Email Verification</a></li> -->
                         </ul>
                     </li>
                 <?php } ?>

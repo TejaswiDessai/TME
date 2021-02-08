@@ -80,6 +80,13 @@ $usertype = $this->Administrator_Model->get_emp_usertype($emp_id);
                             <span>Add Lead</span>
                         </a>
                     </li>
+                    <li class="nav-item">
+                      
+                        <a href="<?php echo base_url(); ?>cdc/selectCampaignforDataVerification">
+                        <i class="icofont icofont-check-circled"></i>
+                            <span>Data verification</span>
+                        </a>
+                    </li>
                     <?php if($usertype == 0 || $usertype == 1 || $usertype ==2 || $usertype ==6){?>
                     <li class="nav-item">
                         <a href="#!">
@@ -102,85 +109,9 @@ $usertype = $this->Administrator_Model->get_emp_usertype($emp_id);
                         </ul>
                     </li>
                 <?php } ?>
-<!--                    <li class="nav-item">
-                        <a href="#!">
-                            <i class="ti-layers"></i>
-                            <span>Blogs</span>
-                        </a>
-                        <ul class="tree-1">
-                            <li class="nav-sub-item"><a href="#">Blogs</a>
-                                <ul class="tree-2">
-                                    <li><a href="<?php echo base_url(); ?>administrator/blogs/add-blog">Add Blogs</a></li>
-                                    <li><a href="<?php echo base_url(); ?>administrator/blogs/list-blog">List Blogs</a></li>
-                                </ul>
-                            </li>
-                           <li><a href="<?php echo base_url(); ?>administrator/blogs/blog-comments">Comments</a></li>
-                        </ul>
-
-                    </li>
-                    <li class="nav-item">
-                        <a href="#!">
-                            <i class="ti-pencil-alt"></i>
-                            <span>Products</span>
-                        </a>
-                        <ul class="tree-1">
-                           
-                            <li class="nav-sub-item"><a href="#">Category</a>
-                                <ul class="tree-2">
-                                    <li><a href="<?php echo base_url(); ?>administrator/product-categories/create">Add Category</a></li>
-                                    <li><a href="<?php echo base_url(); ?>administrator/product-categories">List Category</a></li>
-                                </ul>
-                            </li>
-                            <li class="nav-sub-item"><a href="#">Products</a>
-                                <ul class="tree-2">
-                                    <li><a href="<?php echo base_url(); ?>administrator/products/create">Add Products</a></li>
-                                    <li><a href="<?php echo base_url(); ?>administrator/products">List Products</a></li>
-                                </ul>
-                            </li>
-                        </ul>
-                    </li>
-                    <li class="nav-item">
-                        <a href="#!">
-                            <i class="ti-write"></i>
-                            <span>FAQ</span>
-                        </a>
-                        <ul class="tree-1">
-                            <li class="nav-sub-item"><a href="#">FAQ Category</a>
-                                <ul class="tree-2">
-                                    <li><a href="<?php echo base_url(); ?>administrator/faq-categories/create">Add FAQ Category</a></li>
-                                    <li><a href="<?php echo base_url(); ?>administrator/faq-categories">List FAQ Category </a></li>
-                                </ul>
-                            </li>
-                            <li class="nav-sub-item"><a href="#">FAQ</a>
-                                <ul class="tree-2">
-                                    <li><a href="<?php echo base_url(); ?>administrator/faq/create">Add FAQ</a></li>
-                                    <li><a href="<?php echo base_url(); ?>administrator/faq">List FAQ</a></li>
-                                </ul>
-                            </li>
-                        </ul>
-                    </li>
-                
+                  
                    
-                    <li class="nav-item">
-                        <a href="#!">
-                            <i class="ti-layout-slider"></i>
-                            <span data-i18n="nav.basic-components.main">Sliders</span>
-                        </a>
-                        <ul class="tree-1">
-                            <li><a href="<?php echo base_url(); ?>administrator/sliders/create" data-i18n="nav.basic-components.alert">Add slider</a></li>
-                            <li><a href="<?php echo base_url(); ?>administrator/sliders" data-i18n="nav.basic-components.breadcrumbs">List slider</a></li>
-                        </ul>
-                    </li>
-                     <li class="nav-item">
-                        <a href="#!">
-                            <i class="ti-layout-slider"></i>
-                            <span data-i18n="nav.basic-components.main">Gallery</span>
-                        </a>
-                        <ul class="tree-1">
-                            <li><a href="<?php echo base_url(); ?>administrator/galleries/add" data-i18n="nav.basic-components.alert">Add Gallery</a></li>
-                            <li><a href="<?php echo base_url(); ?>administrator/galleries" data-i18n="nav.basic-components.breadcrumbs">List Gallery</a></li>
-                        </ul>
-                    </li>-->
+                  
                    
                     <!--<li class="nav-item">
                         <a href="#!">

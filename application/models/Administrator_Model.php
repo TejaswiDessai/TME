@@ -16,13 +16,18 @@
 			$result = $this->db->get('users');
 			if ($result->num_rows() == 1) 
 			{
+					$this->db->where('agent', $emp_id);
+					$this->db->where('rlc', 1);
+					$this->db->update('leadmaster', array('rlc' => 0));
+				
 
 //                            print_r($result->row(0));
 //                            echo $this->db->last_query(); exit;
                             // $this->db->where('empid', '101');
 				$this->db->insert('userlog', array('empid' => $fname,'login'=> date('Y-m-d H:i:s'))); 
 				return $result->row(0);
-                               
+
+			             
 			}else{
 				return false;
 			}

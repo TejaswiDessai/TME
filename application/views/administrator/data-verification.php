@@ -35,6 +35,17 @@
     border-color: gray;
     outline:none;
 } */
+.done-task span, .done-task .captions {
+    text-decoration: None;
+    background-color: #e74c3c;
+    border-radius: 4px;
+
+    padding: 4px 7px;
+    margin-right: 5px;
+    font-weight: 700;
+    color: #fff !important;
+}
+
 
  </style>
 <script>
@@ -97,7 +108,7 @@ $(document).ready(function() {
 <form id="basic-form" method="POST" enctype="multipart/form-data">
 <div class="page-header">
     <div class="page-header-title col-sm-12">
-        <h4>Add Lead</h4> 
+        <h4>Data Verification</h4> 
         
       
             <div class="form-group row"> 
@@ -121,7 +132,7 @@ $(document).ready(function() {
       <?php endforeach; ?>
      <?php foreach ($leadmaster as $ldmster): 
       // print_r($ldmster['unverified_fields']);
-      // $tid = explode(',',$ldmster['dvrejectreason']);
+      $tid = explode(',',$ldmster['dvrejectreason']);
       // print_r($tid);
       ?>
       
@@ -174,10 +185,23 @@ $(document).ready(function() {
                                 </select>
                             </div>
                             <div class="col-sm-2">
-                                <input type="text"  name="fname" id="fname"  placeholder="First Name"   class="form-control form-control-sm cdqadisable"                             
-                                 value ="<?php if(isset($ldmster)){  echo $ldmster['fname']; }?>" >
+                                <!-- <input type="text"  name="fname" id="fname"  placeholder="First Name"   class="form-control form-control-sm cdqadisable"                             
+                                 value ="<?php //if(isset($ldmster)){  echo $ldmster['fname']; }?>" > -->
                                 <input type="hidden" name="inclistnew" id="inclistnew" value="<?php echo $campaign['inclistnew']; ?>">
                                 <span style='color:#FF0000' id="fname_msg"></span>
+                               
+                                <div class="to-do-list">
+                                        <div class="checkbox-fade fade-in-primary">
+                                            <label class="check-task">
+                                                <input type="checkbox" name="fname" id="fname"  value="<?php if(isset($ldmster)){  echo $ldmster['fname']; }else { echo "fnamess" ;} ?>">
+                                               <span  class="form-control form-control-sm cdqadisable"><?php if(isset($ldmster)){  echo $ldmster['fname']; }else { echo "fname" ;} ?>
+                                               
+                                                </span>
+                                            </label>
+                                        </div>
+                                      
+                                    </div>
+                              
                             </div>
                             
                             <div class="col-sm-2">
@@ -467,7 +491,6 @@ $(document).ready(function() {
                         <?php if(isset($ldmster) ){ ?> 
                         
                           <input type = hidden name="lmid" id="lmid" value="<?php echo $ldmster['lmid']; ?>">
-                          <input type = hidden name="emp_id" id="emp_id" value="<?php echo  $_SESSION['emp_id']; ?>">
                           <input type = hidden name="sbsvtag" id="sbsvtag" value="<?php echo $ldmster['sbsvtag']; ?>">
                           <input type = hidden name="rlc" id="rlc" value="<?php echo $ldmster['rlc']; ?>">
                         <button type="submit" name="leadupdate" class="btn btn-primary leaddisplay" style=""  id="leadupdate">Update</button> 
@@ -1107,20 +1130,18 @@ $(document).ready(function() {
 //update record lock
 var rlc = 1; //lock 1
 var lmid = $('#lmid').val();
-var emp_id = $('#emp_id').val();
-// $this->session -> userdata('email')
 
-// alert(emp_id);
+
+
 if(rlc == "1"){
 var urlq = '<?php echo base_url("cdc/updaterecordlock");?>';
-console.log(urlq+'?lmid='+lmid+"&rlc="+rlc+"&emp_id="+emp_id);
+console.log(urlq+'?lmid='+lmid+"&rlc="+rlc);
 $.ajax({
       url:'<?php echo base_url("cdc/updaterecordlock");?>',
       method: 'get',
       data: {
         lmid: lmid,
-        rlc:rlc,
-        emp_id:emp_id
+        rlc:rlc
       },
       dataType: 'json',
       success: function(response){
@@ -1355,6 +1376,18 @@ $.ajax({
           //  alert(campaign_idcids);
             var sal = $('#sal').val();
             var fname = $('#fname').val();
+
+            var checksupp = $('#fname').prop('checked');
+            if(checksupp == true)
+            {
+                checksupp = 1;
+            }
+            else
+            {
+                checksupp = 0;
+            }
+            alert(fname);
+            alert(checksupp);
             var lname = $('#lname').val();
             var jtitle = $('#jtitle').val();
             var desid = $('#desid').val();
@@ -1894,4 +1927,8 @@ $.ajax({
         }
         });
     });
+   
+   
+   
 </script>     
+<script type="text/javascript" src="<?php echo base_url(); ?>admintemplate/assets/pages/todo/todo.js"></script>

@@ -183,6 +183,101 @@
 			$this->load->view('administrator/footer');
 		
 		}
+		function dataverfication($page = 'data-verification'){
+			
+			$data['title'] = 'Create Lead';
+			// print_r($_SESSION);
+			// print_r($_SESSION['timeout']);
+			if(isset($_GET['camp_id'])){
+				$postData1 = $_GET['camp_id']; 
+			}else{
+				$postData = $this->input->post();
+				$postData1 = $postData['campaign_id'];
+			}
+		// print_r($postData1);
+
+						$data['campaigns'] = $this->Administrator_Model->get_campaign_by_id($postData1);
+
+						foreach ($data['campaigns'] as $camp) {
+						
+						}
+						// echo $camp['cnid'];
+						$camp_id = $camp['cnid'];
+						// if(isset($_SESSION['lmid']) && $_SESSION['lmid'] == $camp['cids']){
+						// 	session_abort();
+						// 	print_r($_SESSION);
+						// }else {
+						// 	$_SESSION['lmid'] = $camp['cids'];
+						// }
+						// $_SESSION['lmid'] = $camp['cids'];
+						$cids = $camp['cids'];
+						// print_r($data['campaigns']);  
+						// print_r($cids);  
+						
+						$data['leadmaster'] = $this->Administrator_Model->get_leadmasterby_campaignid($cids);
+						// print_r($data['leadmaster']); 
+						foreach ($data['leadmaster'] as $ldmster) {
+						
+						}
+						
+						$data['countries'] = $this->Administrator_Model->get_countriesbyCampaign($camp_id);
+				
+							foreach($data['countries'] as $co){
+							$myArray = implode(',', $co);
+							}
+
+							$myArray1 = explode(',', $myArray);
+							$data['countriesofcampaign'] = $this->Administrator_Model->get_countriesofCampaign($camp_id,$myArray1);
+							// print_r($data['countriesofcampaign']);
+
+						// $data['countries'] = $this->Administrator_Model->get_countries();
+						$data['industries1'] = $this->Administrator_Model->get_industries_byCampaign($camp_id);
+						foreach($data['industries1'] as $ind){
+							$myind = implode(',', $ind);
+							}
+							$myind1 = explode(',', $myind);
+						$data['industries'] = $this->Administrator_Model->get_industries_ofCampaign($camp_id,$myind1);
+
+						$data['industriessub'] = $this->Administrator_Model->get_subindustries_byCampaign($camp_id,$myind1);
+// print_r($data['industriessub']); 
+						$data['departments1'] = $this->Administrator_Model->get_departmentsbyCampaign($camp_id);
+						foreach($data['departments1'] as $dp){
+							$mydpArray = implode(',', $dp);
+							}
+							$mydpArray1 = explode(',', $mydpArray);
+							$data['departments'] = $this->Administrator_Model->get_depts_byCampaign($camp_id,$mydpArray1);
+                        // $data['departments'] = $this->Administrator_Model->get_depts_byCampaign($mydpArray1);
+                       
+						$data['designation1'] = $this->Administrator_Model->get_designation_byCampaign($camp_id);
+						foreach($data['designation1'] as $ds){
+							$mydesi = implode(',', $ds);
+							}
+							$mydesiarry = explode(',', $mydesi);
+						$data['designation'] = $this->Administrator_Model->get_designation_ofCampaign($camp_id,$mydesiarry);
+						// print_r($data['designation']); 
+						$data['joblevel'] = $this->Administrator_Model->get_joblevels_byCampaign($camp_id,$mydesiarry);
+					
+					// print_r($data['joblevel']); 
+						$data['timezones'] = $this->Administrator_Model->get_timezonesbyCampaign($camp_id,$myArray1);
+						
+						$data['currency'] = $this->Administrator_Model->get_currencybyCampaign($camp_id,$myArray1);
+						// print_r($data['timezones']);
+						$data['comptype'] = $this->Administrator_Model->get_comptype();
+						
+						$data['assetitle'] = $this->Administrator_Model->get_assetitle_byCampaign($camp_id);
+
+						// $data['dataforcdqa'] = $this->Administrator_Model->get_dataforCDQA_byCampaign($camp_id);
+			// print_r($data['dataforcdqa']);
+						
+
+
+			$this->load->view('administrator/header-script');
+			$this->load->view('administrator/header');
+			$this->load->view('administrator/header-bottom');
+			 $this->load->view('administrator/'.$page, $data);
+			$this->load->view('administrator/footer');
+		
+		}
 		function selectCampaign($page = 'select-campaign'){
 			$data['title'] = 'Create Lead';
 			$data['campaigns'] = $this->Administrator_Model->get_campaign();
@@ -211,6 +306,19 @@
 		
 		}
 		function selectCampaignforlead($page = 'select-campaign-lead'){
+			$data['title'] = 'Create Lead';
+			$data['campaigns'] = $this->Administrator_Model->get_campaign();
+                      
+			
+			
+			$this->load->view('administrator/header-script');
+			$this->load->view('administrator/header');
+			$this->load->view('administrator/header-bottom');
+			 $this->load->view('administrator/'.$page, $data);
+			$this->load->view('administrator/footer');
+		
+		}
+		function selectCampaignforDataVerification($page = 'select-campaign-dataverification'){
 			$data['title'] = 'Create Lead';
 			$data['campaigns'] = $this->Administrator_Model->get_campaign();
                       
@@ -1569,9 +1677,11 @@
 			
 			$lmid = $_GET['lmid'];
 			$rlc = $_GET['rlc'];
+			$emp_id = $_GET['emp_id'];
 			
 			$datarecord = array(
-				'rlc' => $rlc
+				'rlc' => $rlc,
+				'agent' => $emp_id
 			);
 
 			// get data 

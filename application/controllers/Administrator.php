@@ -98,6 +98,13 @@ echo $date;
 					//Set Message
 					$this->session->set_flashdata('success', 'Welcome to administrator Dashboard.');
 					redirect('administrator/dashboard');
+
+					 
+
+
+
+
+
 				}else{
 					$this->session->set_flashdata('danger', 'Login Credential in invalid!');
 					redirect('administrator/index');

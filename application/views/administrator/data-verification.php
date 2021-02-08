@@ -64,13 +64,13 @@ $(document).ready(function() {
   $(".aumdis").attr("disabled", true);   // aum disable
   $(".ansdiv").hide();   // ans div hide
   $('.cdqadisplay').hide();
-  $('.commentvisible').hide();
+  // $('.commentvisible').hide();
   $('.optindiv').hide();
     $('#rec_type_id').bind('change', function() {
      
         var value = $(this).val();
         if (value == 2) { // if cdqa is selected
-          $('.commentvisible').show();
+          // $('.commentvisible').show();
           $('.optindiv').show();
           $('.cdqadisplay').show();
           $('.leaddisplay').hide();
@@ -80,7 +80,7 @@ $(document).ready(function() {
 
          
         }else{
-          $('.commentvisible').hide();
+          // $('.commentvisible').hide();
           $('.optindiv').hide();
           $(".ansdiv").hide(); 
           $('.leaddisplay').show();
@@ -325,9 +325,9 @@ $(document).ready(function() {
                                           <div class="checkbox-fade fade-in-primary  col-sm-12">
                                               <label class="check-task">
                                                   <input type="checkbox" name="altphn" id="altphn"  value="altphn">
-                                                <span  class="form-control form-control-sm cdqadisable"><?php if(isset($ldmster)){  echo $ldmster['altphn']; }else { echo "Alt Phone is Empty" ;} ?>
+                                                  <span  class="form-control form-control-sm cdqadisable"><?php if(isset($ldmster['altphn']) && $ldmster['altphn'] != "0"){  echo $ldmster['altphn']; }else { echo "Phone EXT Empty" ;} ?>
                                                 
-                                                  </span>
+                                                </span>
                                               </label>
                                           </div>
                                     </div>
@@ -335,11 +335,33 @@ $(document).ready(function() {
                             </div>
                             
                             <div class="col-sm-2">
-                                <input type="text"  name="phext" id="phext" value ="<?php if(isset($ldmster)){  echo $ldmster['phext']; }?>" placeholder="Extension" maxlength="5"  class="form-control form-control-sm cdqadisable">
+                                <!-- <input type="text"  name="phext" id="phext" value ="<?php //if(isset($ldmster)){  echo $ldmster['phext']; }?>" placeholder="Extension" maxlength="5"  class="form-control form-control-sm cdqadisable"> -->
+                                <div class="to-do-list">
+                                          <div class="checkbox-fade fade-in-primary  col-sm-12">
+                                              <label class="check-task">
+                                                  <input type="checkbox" name="phext" id="phext"  value="phext">
+                                                <span  class="form-control form-control-sm cdqadisable"><?php if(isset($ldmster['phext'])){  echo $ldmster['phext']; }else { echo "Phone EXT Empty" ;} ?>
+                                                
+                                                  </span>
+                                              </label>
+                                          </div>
+                                    </div>
+                           
+                           
                             </div>
                             <div class="col-sm-2">
                           
-                                <input type="text"  name="plink" id="plink"  placeholder="Prospect Link"  class="form-control form-control-sm" value ="<?php if(isset($ldmster)){  echo $ldmster['plink']; }?>" >
+                                <!-- <input type="text"  name="plink" id="plink"  placeholder="Prospect Link"  class="form-control form-control-sm" value ="<?php // if(isset($ldmster)){  echo $ldmster['plink']; }?>" > -->
+                                <div class="to-do-list">
+                                          <div class="checkbox-fade fade-in-primary  col-sm-12">
+                                              <label class="check-task">
+                                                  <input type="checkbox" name="plink" id="plink"  value="plink">
+                                                <span  class=""><?php if(isset($ldmster['plink'])){  echo $ldmster['plink']; }else { echo "Link Empty" ;} ?>
+                                                
+                                                  </span>
+                                              </label>
+                                          </div>
+                                    </div>
                                
                                 <span style='color:#FF0000' id="url_msg"></span>
                             </div>
@@ -358,27 +380,72 @@ $(document).ready(function() {
                            </div>
                               <div class="col-sm-2">
                                 <div class="compcheck">
-                                <input type="text"  name="company_name" id="company_name"  
-                                placeholder="Company Name"  class="form-control form-control-sm cdqadisable"  value ="<?php if(isset($ldmster)){  echo $ldmster['cname']; }?>">
+                                <!-- <input type="text"  name="company_name" id="company_name"  
+                                placeholder="Company Name"  class="form-control form-control-sm cdqadisable"  value ="<?php //if(isset($ldmster)){  echo $ldmster['cname']; }?>"> -->
+                                <div class="to-do-list">
+                                          <div class="checkbox-fade fade-in-primary  col-sm-12">
+                                              <label class="check-task">
+                                                  <input type="checkbox" name="company_name" id="company_name"  value="company_name">
+                                                <span  class="form-control form-control-sm cdqadisable"><?php if(isset($ldmster['cname'])){  echo $ldmster['cname']; }else { echo "Comapny Name Empty" ;} ?>
+                                                </span>
+                                              </label>
+                                          </div>
+                                   
                                 </div>
                                 <span style='color:#FF0000' id="comp_msg"></span>
                               </div> 
-
+                          </div>
 
 
                             <div class="col-sm-2">
-                                <input type="text"  name="address" id="address"  placeholder="Address"  value ="<?php if(isset($ldmster)){  echo $ldmster['address']; }?>" class="form-control form-control-sm cdqadisable">
+                                <!-- <input type="text"  name="address" id="address"  placeholder="Address"  value ="<?php// if(isset($ldmster)){  echo $ldmster['address']; }?>" class="form-control form-control-sm cdqadisable"> -->
+                                <div class="to-do-list">
+                                          <div class="checkbox-fade fade-in-primary  col-sm-12">
+                                              <label class="check-task">
+                                                  <input type="checkbox" name="address" id="address"  value="address">
+                                                <span  class="form-control form-control-sm cdqadisable"><?php if(isset($ldmster['address'])){  echo $ldmster['address']; }else { echo "Address is Empty" ;} ?>
+                                                </span>
+                                              </label>
+                                          </div>
+                                </div>
                            </div>
                            <div class="col-sm-2">
-                                <input type="text"  name="city" id="city"  placeholder="City" value ="<?php if(isset($ldmster)){  echo $ldmster['city']; }?>"   class="form-control form-control-sm cdqadisable">
+                                <!-- <input type="text"  name="city" id="city"  placeholder="City" value ="<?php //if(isset($ldmster)){  echo $ldmster['city']; }?>"   class="form-control form-control-sm cdqadisable"> -->
+                                <div class="to-do-list">
+                                          <div class="checkbox-fade fade-in-primary  col-sm-12">
+                                              <label class="check-task">
+                                                  <input type="checkbox" name="city" id="city"  value="city">
+                                                <span  class="form-control form-control-sm cdqadisable"><?php if(isset($ldmster['city'])){  echo $ldmster['city']; }else { echo "city is Empty" ;} ?>
+                                                </span>
+                                              </label>
+                                          </div>
+                                </div>
                            </div>
                            <div class="col-sm-2">
-                                <input type="text"  name="state" id="state"  placeholder="State" value ="<?php if(isset($ldmster)){  echo $ldmster['state']; }?>" class="form-control form-control-sm cdqadisable">
-                                </select>
+                                <!-- <input type="text"  name="state" id="state"  placeholder="State" value ="<?php if(isset($ldmster)){  echo $ldmster['state']; }?>" class="form-control form-control-sm cdqadisable"> -->
+                                <div class="to-do-list">
+                                          <div class="checkbox-fade fade-in-primary  col-sm-12">
+                                              <label class="check-task">
+                                                  <input type="checkbox" name="state" id="state"  value="state">
+                                                <span  class="form-control form-control-sm cdqadisable"><?php if(isset($ldmster['city'])){  echo $ldmster['state']; }else { echo "state is Empty" ;} ?>
+                                                </span>
+                                              </label>
+                                          </div>
+                                   
+                                </div>
                             </div>
                             <div class="col-sm-2">
-                                <input type="text"  name="zip_code" id="zip_code"  placeholder="Zip Code" value ="<?php if(isset($ldmster)){  echo $ldmster['zipcode']; }?>" class="form-control form-control-sm cdqadisable">
-                           </div>
+                                <!-- <input type="text"  name="zip_code" id="zip_code"  placeholder="Zip Code" value ="<?php //if(isset($ldmster)){  echo $ldmster['zipcode']; }?>" class="form-control form-control-sm cdqadisable"> -->
+                                <div class="to-do-list">
+                                          <div class="checkbox-fade fade-in-primary  col-sm-12">
+                                              <label class="check-task">
+                                                  <input type="checkbox" name="zip_code" id="zip_code"  value="zip_code">
+                                                <span  class="form-control form-control-sm cdqadisable"><?php if(isset($ldmster['zipcode'])){  echo $ldmster['zipcode']; }else { echo "zipcode is Empty" ;} ?>
+                                                </span>
+                                              </label>
+                                          </div>
+                                  </div>
+                             </div>
                            
                             
                         </div>
@@ -386,7 +453,7 @@ $(document).ready(function() {
 
                         <div class="form-group row">
 
-                        <div class="col-sm-2">
+                          <div class="col-sm-2">
                                      <select class="js-example-basic-single" name="country_id" id="country_id">
                                      <option value="">Countries</option>
                                  <?php foreach ($countriesofcampaign as $countriesofcampaign): ?>
@@ -451,12 +518,31 @@ $(document).ready(function() {
                 <hr>
                     <div class="form-group row">
                         <div class="col-sm-2">
-                                <input type="text"  name="empsize" id="empsize" maxlength="6" value ="<?php if(isset($ldmster)){  echo $ldmster['empsize']; }?>" placeholder="Actual Employee Size"  class="form-control form-control-sm cdqadisable">
+                                <!-- <input type="text"  name="empsize" id="empsize" maxlength="6" value ="<?php// if(isset($ldmster)){  echo $ldmster['empsize']; }?>" placeholder="Actual Employee Size"  class="form-control form-control-sm cdqadisable"> -->
+                                <div class="to-do-list">
+                                          <div class="checkbox-fade fade-in-primary  col-sm-12">
+                                              <label class="check-task">
+                                                  <input type="checkbox" name="empsize" id="empsize"  value="empsize">
+                                                <span  class="form-control form-control-sm cdqadisable"><?php if(isset($ldmster['empsize'])){  echo $ldmster['empsize']; }else { echo "Emp Size is Empty" ;} ?>
+                                                </span>
+                                              </label>
+                                          </div>
+                                 </div>
                                 <span style='color:#FF0000' id="empsize_msg"></span>
                             </div>
                             <div class="col-sm-2">
-                                <input type="text"  name="arevenue" id="arevenue" value ="<?php if(isset($ldmster)){  echo $ldmster['arevenue']; }?>"  maxlength="15" placeholder="Actual Revenue Size"  class="form-control form-control-sm cdqadisable">
+                                <!-- <input type="text"  name="arevenue" id="arevenue" value ="<?php //if(isset($ldmster)){  echo $ldmster['arevenue']; }?>"  maxlength="15" placeholder="Actual Revenue Size"  class="form-control form-control-sm cdqadisable"> -->
                                 <span style='color:#FF0000' id="revsize_msg"></span>
+                                <div class="to-do-list">
+                                          <div class="checkbox-fade fade-in-primary  col-sm-12">
+                                              <label class="check-task">
+                                                  <input type="checkbox" name="arevenue" id="arevenue"  value="arevenue">
+                                                <span  class="form-control form-control-sm cdqadisable"><?php if(isset($ldmster['arevenue'])){  echo $ldmster['arevenue']; }else { echo "Revenue is Empty" ;} ?>
+                                                </span>
+                                              </label>
+                                          </div>
+                                </div>
+                            
                             </div>
                             
                             
@@ -483,13 +569,31 @@ $(document).ready(function() {
                             </div>          
                             <div class="col-sm-2">
                                 <div class="domaincheck">
-                                <input type="text" value ="<?php if(isset($ldmster)){  echo $ldmster['domain']; }?>"   name="domain" id="domain"  placeholder="Domain" value=""  class="form-control form-control-sm cdqadisable">
+                                <!-- <input type="text" value ="<?php //if(isset($ldmster)){  echo $ldmster['domain']; }?>"   name="domain" id="domain"  placeholder="Domain" value=""  class="form-control form-control-sm cdqadisable"> -->
+                                  <div class="to-do-list">
+                                            <div class="checkbox-fade fade-in-primary  col-sm-12">
+                                                <label class="check-task">
+                                                    <input type="checkbox" name="domain" id="domain"  value="domain">
+                                                  <span  class=""><?php if(isset($ldmster['domain'])){  echo $ldmster['domain']; }else { echo "Domain is Empty" ;} ?>
+                                                  </span>
+                                                </label>
+                                            </div>
+                                  </div>
                                 </div>
                                 <span style='color:#FF0000' id="domain_msg"></span>
                               </div>
                             
                             <div class="col-sm-2">
-                                <input type="text" value ="<?php if(isset($ldmster)){  echo $ldmster['empszlink']; }?>"  name="empszlink" id="empszlink" value=""   placeholder="Employee Size Link"  class="form-control form-control-sm">
+                                <!-- <input type="text" value ="<?php // if(isset($ldmster)){  echo $ldmster['empszlink']; }?>"  name="empszlink" id="empszlink" value=""   placeholder="Employee Size Link"  class="form-control form-control-sm"> -->
+                                <div class="to-do-list">
+                                            <div class="checkbox-fade fade-in-primary  col-sm-12">
+                                                <label class="check-task">
+                                                    <input type="checkbox" name="empszlink" id="empszlink"  value="empszlink">
+                                                  <span  class=""><?php if(isset($ldmster['empszlink'])){  echo $ldmster['empszlink']; }else { echo "link is Empty" ;} ?>
+                                                  </span>
+                                                </label>
+                                            </div>
+                                  </div>
                             </div>
                            
                         </div>
@@ -498,13 +602,41 @@ $(document).ready(function() {
                         <div class="form-group row">
                            
                         <div class="col-sm-2 ">
-                                <input type="text" value ="<?php if(isset($ldmster)){  echo $ldmster['indlink']; }?>"  name="indlink" id="indlink"  placeholder="Industry Link" value="" class="form-control form-control-sm">
+                                <!-- <input type="text" value ="<?php // if(isset($ldmster)){  echo $ldmster['indlink']; }?>"  name="indlink" id="indlink"  placeholder="Industry Link" value="" class="form-control form-control-sm"> -->
+                                <div class="to-do-list">
+                                            <div class="checkbox-fade fade-in-primary  col-sm-12">
+                                                <label class="check-task">
+                                                    <input type="checkbox" name="indlink" id="indlink"  value="indlink">
+                                                  <span  class=""><?php if(isset($ldmster['indlink'])){  echo $ldmster['indlink']; }else { echo "Industry link is Empty" ;} ?>
+                                                  </span>
+                                                </label>
+                                            </div>
+                                  </div>
                             </div>
                             <div class="col-sm-2">
-                                <input type="text"  name="revszlink" id="revszlink" value ="<?php if(isset($ldmster)){  echo $ldmster['revszlink']; }?>"     placeholder="Revenue Size Link"  class="form-control form-control-sm revsizehide">
+                                <!-- <input type="text"  name="revszlink" id="revszlink" value ="<?php // if(isset($ldmster)){  echo $ldmster['revszlink']; }?>"     placeholder="Revenue Size Link"  class="form-control form-control-sm revsizehide"> -->
+                                <div class="to-do-list">
+                                            <div class="checkbox-fade fade-in-primary  col-sm-12">
+                                                <label class="check-task">
+                                                    <input type="checkbox" name="revszlink" id="revszlink"  value="revszlink">
+                                                  <span  class=""><?php if(isset($ldmster['revszlink'])){  echo $ldmster['revszlink']; }else { echo "revenue Sizelink is Empty" ;} ?>
+                                                  </span>
+                                                </label>
+                                            </div>
+                                  </div>
                             </div>
                             <div class="col-sm-2">
-                                <input type="text"  name="othrlink" id="othrlink" value ="<?php if(isset($ldmster)){  echo $ldmster['othrlink']; }?>" placeholder="Other Link"  class="form-control form-control-sm">
+                                <!-- <input type="text"  name="othrlink" id="othrlink" value ="<?php //if(isset($ldmster)){  echo $ldmster['othrlink']; }?>" placeholder="Other Link"  class="form-control form-control-sm"> -->
+                                <div class="to-do-list">
+                                            <div class="checkbox-fade fade-in-primary  col-sm-12">
+                                                <label class="check-task">
+                                                    <input type="checkbox" name="othrlink" id="othrlink"  value="othrlink">
+                                                  <span  class=""><?php if(isset($ldmster['othrlink'])){  echo $ldmster['othrlink']; }else { echo "Other link is Empty" ;} ?>
+                                                  </span>
+                                                </label>
+                                            </div>
+                                  </div>
+                            
                             </div>
                             <div class="col-sm-2">
                                 <select class="form-control form-control-sm"  name="emailver" id="emailver">
@@ -514,7 +646,16 @@ $(document).ready(function() {
                                 </select>
                             </div>
                             <div class="col-sm-2">
-                                <input type="text"  name="aum" id="aum" value ="<?php if(isset($ldmster)){  echo $ldmster['aum']; }?>" placeholder="Asset Under Management"  class="form-control form-control-sm aumdis">
+                                <!-- <input type="text"  name="aum" id="aum" value ="<?php // if(isset($ldmster)){  echo $ldmster['aum']; }?>" placeholder="Asset Under Management"  class="form-control form-control-sm aumdis"> -->
+                                <div class="to-do-list">
+                                            <div class="checkbox-fade fade-in-primary  col-sm-12">
+                                                <label class="check-task">
+                                                    <input type="checkbox" name="aum" id="aum"  value="aum">
+                                                  <span  class=""><?php if(isset($ldmster['aum'])){  echo $ldmster['aum']; }else { echo " AUM is Empty" ;} ?>
+                                                  </span>
+                                                </label>
+                                            </div>
+                                  </div>
                             </div>
                             <div class="col-sm-2">
                                 <select class="form-control form-control-sm commentvisible" name="assetid" id="assetid">
@@ -567,6 +708,7 @@ $(document).ready(function() {
                         <?php if(isset($ldmster) ){ ?> 
                         
                           <input type = hidden name="lmid" id="lmid" value="<?php echo $ldmster['lmid']; ?>">
+                          <input type = hidden name="emp_id" id="emp_id" value="<?php echo  $_SESSION['emp_id']; ?>">
                           <input type = hidden name="sbsvtag" id="sbsvtag" value="<?php echo $ldmster['sbsvtag']; ?>">
                           <input type = hidden name="rlc" id="rlc" value="<?php echo $ldmster['rlc']; ?>">
                         <button type="submit" name="leadupdatedv" class="btn btn-primary leaddisplay" style=""  id="leadupdatedv">Update</button> 
@@ -1198,7 +1340,15 @@ var arevenuevalue = $('#arevenue').val();
    
 });
 
-
+$(document).ready(function() {
+ 
+  $(window).keydown(function(event){
+    if(event.keyCode == 13) {
+      event.preventDefault();
+      return false;
+    }
+  });
+});
 
 
 $(document).ready(function() {
@@ -1209,7 +1359,7 @@ var lmid = $('#lmid').val();
 var emp_id = $('#emp_id').val();
 // $this->session -> userdata('email')
 
-// alert(emp_id);
+alert(emp_id);
 if(rlc == "1"){
 var urlq = '<?php echo base_url("cdc/updaterecordlock");?>';
 console.log(urlq+'?lmid='+lmid+"&rlc="+rlc+"&emp_id="+emp_id);
@@ -1255,7 +1405,7 @@ $.ajax({
   $("#revszlink").prop('disabled', true);
   $('#revszlink').val("NA");
 
-  $('.commentvisible').hide();
+  // $('.commentvisible').hide();
   // $('.revsizehide').hide();
 
   $('.leaddisplay').show(); //buttons

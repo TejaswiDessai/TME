@@ -20,6 +20,7 @@
             <?php 
             $type = $this->db->select('rolenm')->from('roles')->where(array('rid'=> $this->session->userdata('role')))->get()->row_array();
             $empid = $this->session->userdata('emp_id');
+            $empcode = $this->session->userdata('empcode');
             $Role = $this->session->userdata('role');
             ?>
                 <div class="row">
@@ -212,14 +213,14 @@
                                                 <tbody>
                                                     <tr>
                                                         <td><a href="#!"><?php  $startdate =  date('Y-m-d 00:00:00');  $enddate =  date('Y-m-d H:i:s'); //'stdti >=', date('Y-m-d 00:00:00') 'stdti <=', date('Y-m-d H:i:s')
-                                                        $query = $this->db->query("SELECT * FROM leadmaster where stagtidi = $empid AND  stdti >= now()::date + interval '1h' ");
+                                                        $query = $this->db->query("SELECT * FROM leadmaster where (stagtidi = $empid OR stagtidi = $empcode ) AND  stdti >= now()::date + interval '1h' ");
                                                         echo $query->num_rows();
                                                         ?></a>
                                                         </td>
                                                         <!-- <td><?php //echo $this->session -> userdata('username')?></td><td> -->
                                                         <td>
                                                         <?php 
-                                                        $query = $this->db->query("SELECT * FROM leadmaster where stagtidi = $empid AND  svdti >= current_timestamp - interval '1 day'");
+                                                        $query = $this->db->query("SELECT * FROM leadmaster where (stagtidi = $empid OR stagtidi = $empcode ) AND  svdti >= current_timestamp - interval '1 day'");
                                                         echo $query->num_rows();
                                                         ?>
                                                         </td>

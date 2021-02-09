@@ -18,6 +18,7 @@
                 </div>
             </div>
             <!-- Page header end -->
+            <?php $emp_id = $this->session->userdata('emp_id');?>
             <!-- Page body start -->
             <div class="page-body">
                 <div class="row">
@@ -53,7 +54,14 @@
                                     <div class="form-group row">
                                         <label class="col-sm-2 col-form-label">User Type</label>
                                         <div class="col-sm-10">
-                                            <input type="text" name="usertype" value="<?php echo $user['usertype']; ?>" class="form-control" placeholder="User Type" required="">
+                                        <select class="form-control form-control-default "  name="usertype" id="usertype" disabled>
+                                            <option value="">Select Role</otpion>
+                                            <?php foreach ($roles as $role): ?>
+                                                <option value="<?php echo $role['rid']; ?>" <?php if($role['rid'] == $user['role']){ echo "Selected";} ?>><?php echo $role['rolenm']; ?></option>
+                                            <?php endforeach; ?>
+                                            
+                                            </select>
+                                            <!-- <input type="text" name="usertype" value="<?php echo $user['usertype']; ?>" class="form-control" placeholder="User Type" required=""> -->
                                         </div>
                                     </div>
 <!--                                    <div class="form-group row">
@@ -91,9 +99,9 @@
                                             <input type="hidden" value="<?php echo $user['status']; ?>" name="status" class="js-single" />
                                         
                                     <div class="form-group row">
-                                        <label class="col-sm-2 col-form-label"></label>
+                                        <label class="col-sm-1 col-form-label"></label>
                                         <div class="col-sm-10">
-                                            <button type="submit" name="submit" class="btn btn-primary">Update</button>
+                                            <a href="<?php echo base_url();?>administrator/users/update-user/<?php echo $emp_id;?>"><button type="button" name="submit" class="btn btn-primary">Update</button>
                                         </div>
                                     </div>
                                     <textarea id="description" style="visibility: hidden;"></textarea>

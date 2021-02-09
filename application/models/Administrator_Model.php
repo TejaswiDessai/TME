@@ -1190,13 +1190,13 @@
 
 		public function get_admin_data()
 		{
-			$id = $this->session -> userdata('user_id');
+			$id = $this->session -> userdata('emp_id');
 			if($id === FALSE){
 				$query = $this->db->get('users');
 				return $query->result_array(); 
 			}
 
-			$query = $this->db->get_where('users', array('id' => $id));
+			$query = $this->db->get_where('users', array('emp_id' => $id));
 			return $query->row_array();
 		}
 

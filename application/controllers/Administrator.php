@@ -1910,6 +1910,14 @@ public function getPrivillage(){
 		$this->load->view('administrator/footer');
 	}
 
+	public function checkempid()
+	{
+		$emp_id = $_GET['emp_id'];
+		$cid_type = $_GET['cid_type'];
+		$data['isEmpExist'] = $this->Administrator_Model->check_suppression_email($emp_id,$cid_type);
+		echo json_encode($data); 
+	}
+
 }
 
 

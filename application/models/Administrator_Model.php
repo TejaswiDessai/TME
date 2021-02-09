@@ -1663,11 +1663,11 @@ public function get_leadmasterby_campaignid($id = FALSE)
 				$this->db->where('stdti >=', $from);
 				$this->db->where('stdti <=', $to);
 			}
-			// else
-			// {
-			// 	$this->db->where('stdti >=', date('Y-m-d 00:00:00'));
-			// 	$this->db->where('stdti <=', date('Y-m-d H:i:s'));
-			// }
+			else
+			{
+				$this->db->where("stdti >= now()::date + interval '1h'");
+				// $this->db->where('stdti <=', date('Y-m-d H:i:s'));
+			}
 			$this->db->group_by('leadmaster.cids');
 			$this->db->group_by('users.fname');
 			$this->db->group_by('users.emp_id');

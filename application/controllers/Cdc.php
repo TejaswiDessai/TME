@@ -205,7 +205,7 @@
 						$camp_id = $camp['cnid'];
 						// if(isset($_SESSION['lmid']) && $_SESSION['lmid'] == $camp['cids']){
 						// 	session_abort();
-						// 	print_r($_SESSION);
+							// print_r($_SESSION);
 						// }else {
 						// 	$_SESSION['lmid'] = $camp['cids'];
 						// }
@@ -215,7 +215,7 @@
 						// print_r($cids);  
 						
 						$data['leadmaster'] = $this->Administrator_Model->get_leadmasterby_campaignid($cids);
-						// print_r($data['leadmaster']); 
+						print_r($data['leadmaster']); 
 						foreach ($data['leadmaster'] as $ldmster) {
 						
 						}
@@ -512,7 +512,7 @@
 
 				// 'svagtidi' => '1' // save Agent Name
 				// 'svdti' => '1' // save date time
-				'stagtidi' => $_SESSION['emp_id'], // submit agent name
+				'stagtidi' => $_SESSION['empcode'], // submit agent name
 				'stdti' => $old_date  // submit date time
 								
 				);
@@ -694,7 +694,7 @@
 
 				
 
-				'svagtidi' => $_SESSION['emp_id'], // save Agent Name
+				'svagtidi' => $_SESSION['empcode'], // save Agent Name
 				'svdti' => $old_date // save date time
 				//'stagtidi' => '1', // submit agent name
 				//'stdti' => $new_date // submit date time
@@ -881,7 +881,7 @@
 
 				
 
-				'cdcsbagti' => $_SESSION['emp_id'], // save Agent Name
+				'cdcsbagti' => $_SESSION['empcode'], // save Agent Name
 				'cdcsbdti' => $old_date // save date time
 				//'stagtidi' => '1', // submit agent name
 				//'stdti' => $new_date // submit date time
@@ -1068,7 +1068,7 @@
 
 				
 
-				'cdcsvagti' => $_SESSION['emp_id'], // save Agent Name
+				'cdcsvagti' => $_SESSION['empcode'], // save Agent Name
 				'cdcsvdti' => $old_date // save date time
 				//'stagtidi' => '1', // submit agent name
 				//'stdti' => $new_date // submit date time
@@ -1235,13 +1235,13 @@
 				// 'ontag' => 0, // Submit and 0 = new
 				'sbsvtag' => '1', // Submit 1st time
 				'pload' => '1', // next level ready to load
-				'rlc' => 0, // record is closed
-				'dvload' => 1, // record is closed
+				'rlc' => '0', // record is closed
+				'dvload' => '1', // record is closed
 			
 
 				// 'svagtidi' => '1' // save Agent Name
 				// 'svdti' => '1' // save date time
-				'stagtidi' => $_SESSION['emp_id'], // submit agent name 
+				'stagtidi' => $_SESSION['empcode'], // submit agent name 
 				'stdti' => $old_date  // submit date time
 								
 				);
@@ -1395,14 +1395,14 @@
 				'emailver' => $_GET['emailver'],
 				'aum' => $aum,
 				// tag
-				'ontag' => 0, // Submit and 0 = new
-				'sbsvtag' => 0, // Save
-				'rlc' => 0, // Save
-				'pload' => 0, // next level ready to load
+				'ontag' => '0', // Submit and 0 = new
+				'sbsvtag' => '0', // Save
+				'rlc' => '0', // Save
+				'pload' => '0', // next level ready to load
 
-				'svagtidi' => $_SESSION['emp_id'], // save Agent Name
+				'svagtidi' => $_SESSION['empcode'], // save Agent Name
 				'svdti' => $old_date // save date time
-				// 'stagtidi' => $_SESSION['emp_id'], // submit agent name 
+				// 'stagtidi' => $_SESSION['empcode'], // submit agent name 
 				// 'stdti' => $old_date  // submit date time
 								
 				);
@@ -1570,13 +1570,13 @@
 				// tag
 				// 'ontag' => 0, // Submit and 0 = new, 1 = needs to be reworked
 				'sbsvtag' => $sbsvtag, //  Submit till 5 times
-				'pload' => 1, // next level ready to load
-				'rlc' => 0, // record is closed
-				'ontag' => 0, // record is closed
+				'pload' => '1', // next level ready to load
+				'rlc' => '0', // record is closed
+				'ontag' => '0', // record is closed
 
 				// 'svagtidi' => '1' // save Agent Name
 				// 'svdti' => '1' // save date time
-				'stagtidi' => $_SESSION['emp_id'], // submit agent name 
+				'stagtidi' => $_SESSION['empcode'], // submit agent name 
 				'stdti' => $old_date  // submit date time
 								
 				);

@@ -130,7 +130,8 @@ echo $date;
 
 			//Set Message
 			$this->session->set_flashdata('success', 'You are logged out.');
-			redirect(base_url().'administrator/index');
+			// redirect(base_url().'administrator/index');
+			redirect(base_url());
 		}
 
 		public function forget_password($page = 'forget-password'){

@@ -477,7 +477,7 @@ $(document).ready(function() {
                         <?php if(isset($ldmster) ){ ?> 
                         
                           <input type = hidden name="lmid" id="lmid" value="<?php echo $ldmster['lmid']; ?>">
-                          <input type = hidden name="emp_id" id="emp_id" value="<?php echo  $_SESSION['emp_id']; ?>">
+                          <input type = hidden name="emp_id" id="emp_id" value="<?php echo  $_SESSION['empcode']; ?>">
                           <input type = hidden name="sbsvtag" id="sbsvtag" value="<?php echo $ldmster['sbsvtag']; ?>">
                           <input type = hidden name="rlc" id="rlc" value="<?php echo $ldmster['rlc']; ?>">
                         <button type="submit" name="leadupdate" class="btn btn-primary leaddisplay" style=""  id="leadupdate">Update</button> 

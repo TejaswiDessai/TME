@@ -212,7 +212,7 @@
                                                 <tbody>
                                                     <tr>
                                                         <td><a href="#!"><?php  $startdate =  date('Y-m-d 00:00:00');  $enddate =  date('Y-m-d H:i:s'); //'stdti >=', date('Y-m-d 00:00:00') 'stdti <=', date('Y-m-d H:i:s')
-                                                        $query = $this->db->query("SELECT * FROM leadmaster where stagtidi = $empid AND  stdti >= current_timestamp - interval '1 day' ");
+                                                        $query = $this->db->query("SELECT * FROM leadmaster where stagtidi = $empid AND  stdti >= now()::date + interval '1h' ");
                                                         echo $query->num_rows();
                                                         ?></a>
                                                         </td>

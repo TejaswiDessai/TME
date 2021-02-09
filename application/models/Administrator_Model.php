@@ -1644,7 +1644,7 @@ public function get_leadmasterby_campaignid($id = FALSE)
 		{
 			$this->db->select('leadmaster.cids,users.fname,users.emp_id,users.last_login,campaign.campnm,count(leadmaster.stagtidi) as number');
 			$this->db->from('leadmaster');
-			$this->db->join('users', 'users.emp_id = leadmaster.stagtidi','left');
+			$this->db->join('users', 'users.emp_id = leadmaster.stagtidi OR users.empcode = leadmaster.stagtidi','left ');
 			$this->db->join('campaign', 'campaign.cids = leadmaster.cids','left');
 			if(isset($campid) && $campid != null)
 			{

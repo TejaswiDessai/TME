@@ -178,7 +178,7 @@ $(document).ready(function() {
      <?php foreach ($leadmaster as $ldmster): 
       // print_r($ldmster['dvrejectreason']);
       $dvrejectreason = explode(',',$ldmster['dvrejectreason']);
-      print_r($dvrejectreason);
+      // print_r($dvrejectreason);
       ?>
       
       <?php endforeach;

@@ -208,8 +208,8 @@
 						$cids = $camp['cids'];
 					
 						
-						$data['leadmaster'] = $this->Administrator_Model->get_leadmasterby_campaignid($cids);
-						print_r($data['leadmaster']); 
+						$data['leadmaster'] = $this->Administrator_Model->get_leadmasterby_campaigniddv($cids);
+						// print_r($data['leadmaster']); 
 						if(empty($data['leadmaster'])){
 							$this->session->set_flashdata('success', 'Data verification id finished for this campaign.');
 							redirect('cdc/selectCampaignforDataVerification');

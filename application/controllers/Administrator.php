@@ -1674,6 +1674,7 @@ echo $date;
 		public function update_admin_profile()
 		{
 			$data['user'] = $this->Administrator_Model->get_admin_data();
+			$data['roles'] = $this->Administrator_Model->get_roles();
 			$data['title'] = 'Update Profile';
 
 			$this->load->view('administrator/header-script');

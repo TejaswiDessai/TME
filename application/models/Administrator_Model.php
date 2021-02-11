@@ -1325,13 +1325,13 @@
 
 		public function get_admin_data()
 		{
-			$id = $this->session -> userdata('user_id');
+			$id = $this->session -> userdata('emp_id');
 			if($id === FALSE){
 				$query = $this->db->get('users');
 				return $query->result_array(); 
 			}
 
-			$query = $this->db->get_where('users', array('id' => $id));
+			$query = $this->db->get_where('users', array('emp_id' => $id));
 			return $query->row_array();
 		}
 
@@ -1818,7 +1818,7 @@ public function get_campaign_fordataverification()
 		{
 			$this->db->select('leadmaster.cids,users.fname,users.emp_id,users.last_login,campaign.campnm,count(leadmaster.stagtidi) as number');
 			$this->db->from('leadmaster');
-			$this->db->join('users', 'users.emp_id = leadmaster.stagtidi','left');
+			$this->db->join('users', 'users.emp_id = leadmaster.stagtidi OR users.empcode = leadmaster.stagtidi','left ');
 			$this->db->join('campaign', 'campaign.cids = leadmaster.cids','left');
 			if(isset($campid) && $campid != null)
 			{
@@ -1837,11 +1837,11 @@ public function get_campaign_fordataverification()
 				$this->db->where('stdti >=', $from);
 				$this->db->where('stdti <=', $to);
 			}
-			// else
-			// {
-			// 	$this->db->where('stdti >=', date('Y-m-d 00:00:00'));
-			// 	$this->db->where('stdti <=', date('Y-m-d H:i:s'));
-			// }
+			else
+			{
+				$this->db->where("stdti >= now()::date + interval '1h'");
+				// $this->db->where('stdti <=', date('Y-m-d H:i:s'));
+			}
 			$this->db->group_by('leadmaster.cids');
 			$this->db->group_by('users.fname');
 			$this->db->group_by('users.emp_id');

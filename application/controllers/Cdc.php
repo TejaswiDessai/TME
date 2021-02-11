@@ -1425,16 +1425,19 @@
 		
 		
 			$mychecked2 = implode(',', $checked);
-			if($mychecked2 == "0"){ 
+			if($mychecked2 == "0"){  // Accept
 				$dvload = "1"; // go to next level-- Accept
 				$dvstat ="1"; //Data Verification|Tag for On Accept / Reject /Discard
 				// $ontag =""; //null = new, 0 = needs to be reworked
+				$dvagtidi = $_SESSION['empcode'];
+				$dvragtidi = "0";
 				
 			}else{
 				$dvload = "0"; // Reject
 				$dvstat ="2";
 				$dvrejtg = $_POST['dvrejtg'];
-				
+				$dvragtidi = $_SESSION['empcode'];
+				$dvagtidi = "0";
 				// $ontag ="0"; //null = new, 0 = needs to be reworked
 			}
 
@@ -1455,7 +1458,8 @@
 				'dvload' => $dvload, //  next level
 				// 'svagtidi' => '1' // save Agent Name
 				// 'svdti' => '1' // save date time
-				'dvagtidi' => $_SESSION['empcode'], // submit agent name 
+				'dvagtidi' => $dvagtidi, // submit agent name 
+				'dvragtidi' => $dvragtidi, // submit agent name 
 				'dvdti' => $old_date  // submit date time
 			
 								

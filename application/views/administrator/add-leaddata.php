@@ -20,6 +20,10 @@
     .select2-container--default .select2-selection--single .select2-selection__rendered{
       line-height :15px;
     }
+    .select2-container--default .select2-selection--single .select2-selection__rendered .erro{
+      /* line-height :15px; */
+      background-color: black;
+    }
     .select2-container--default .select2-selection--single .select2-selection__arrow {
     top: 3px;
     right: 15px;
@@ -35,7 +39,43 @@
     border-color: gray;
     outline:none;
 } */
+.tooltips {
+  position: relative;
+  display: inline-block;
+  border-bottom: 1px dotted black;
+}
+.tooltips .tooltiptext {
+  visibility: hidden;
+  width: 120px;
+  background-color: #555;
+  color: #fff;
+  text-align: center;
+  border-radius: 6px;
+  padding: 5px 0;
+  position: absolute;
+  z-index: 1;
+  bottom: 125%;
+  left: 50%;
+  margin-left: -60px;
+  opacity: 0;
+  transition: opacity 0.3s;
+}
 
+.tooltips .tooltiptext::after {
+  content: "";
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  margin-left: -5px;
+  border-width: 5px;
+  border-style: solid;
+  border-color: #555 transparent transparent transparent;
+}
+
+.tooltips:hover .tooltiptext {
+  visibility: visible;
+  opacity: 1;
+}
  </style>
 <script>
 
@@ -60,6 +100,12 @@ $(document).ready(function() {
 
 //below code for retreive button on change on rect type
 $(document).ready(function() { 
+  var sbsvtag1 = $('#sbsvtag').val();
+  if (sbsvtag1 > 0) {
+    $('.comt').show();
+  }
+
+
   $(".aumdis").attr("disabled", true);   // aum disable
   $(".ansdiv").hide();   // ans div hide
   $('.cdqadisplay').hide();
@@ -130,12 +176,13 @@ $(document).ready(function() {
      
       <?php endforeach; ?>
      <?php foreach ($leadmaster as $ldmster): 
-      // print_r($ldmster['unverified_fields']);
-      // $tid = explode(',',$ldmster['dvrejectreason']);
-      // print_r($tid);
+      // print_r($ldmster['dvrejectreason']);
+      $dvrejectreason = explode(',',$ldmster['dvrejectreason']);
+      print_r($dvrejectreason);
       ?>
       
-      <?php endforeach;  ?>
+      <?php endforeach;
+      ?>
       
    
 </div>
@@ -184,18 +231,27 @@ $(document).ready(function() {
                                 </select>
                             </div>
                             <div class="col-sm-2">
-                                <input type="text"  name="fname" id="fname"  placeholder="First Name"   class="form-control form-control-sm cdqadisable"                             
+                                <input type="text"  name="fname" id="fname"  placeholder="First Name"   class="form-control form-control-sm cdqadisable  
+                                <?php
+                                 if(isset($ldmster) && in_array('fname',$dvrejectreason)) { echo "form-bg-inverse" ; } 
+                                 ?>"                             
                                  value ="<?php if(isset($ldmster)){  echo $ldmster['fname']; }?>" >
                                 <input type="hidden" name="inclistnew" id="inclistnew" value="<?php echo $campaign['inclistnew']; ?>">
                                 <span style='color:#FF0000' id="fname_msg"></span>
                             </div>
                             
                             <div class="col-sm-2">
-                                <input type="text"  name="lname" id="lname"  placeholder="Last Name" value ="<?php if(isset($ldmster)){  echo $ldmster['lname']; }?>"   class="form-control form-control-sm cdqadisable">
+                                <input type="text"  name="lname" id="lname"  placeholder="Last Name" value ="<?php if(isset($ldmster)){  echo $ldmster['lname']; }?>"   class="form-control form-control-sm cdqadisable
+                                <?php
+                                 if(isset($ldmster) && in_array('lname',$dvrejectreason)) { echo "form-bg-inverse" ; } 
+                                 ?>">
                                 <span style='color:#FF0000' id="lname_msg"></span>
                             </div>
                             <div class="col-sm-3">
-                                <input type="text"  name="jtitle" id="jtitle"  placeholder="Job Title" value ="<?php if(isset($ldmster)){  echo $ldmster['jtitle']; }?>"  class="form-control form-control-sm cdqadisable">
+                                <input type="text"  name="jtitle" id="jtitle"  placeholder="Job Title" value ="<?php if(isset($ldmster)){  echo $ldmster['jtitle']; }?>"  class="form-control form-control-sm cdqadisable
+                                <?php
+                                 if(isset($ldmster) && in_array('jtitle',$dvrejectreason)) { echo "form-bg-inverse" ; } 
+                                 ?>">
                             </div>
                             <div class="col-sm-2">
                                 <!-- <select class="js-example-basic-multiple col-sm-12 cdqadisable" multiple="multiple" name="desid[]" id="desid"> -->
@@ -207,9 +263,13 @@ $(document).ready(function() {
                                
                                 </select>
                             </div>
-                            <div class="col-sm-2">
+                            <div class="col-sm-2 <?php
+                                 if(isset($ldmster) && in_array('desid',$dvrejectreason)) { echo "form-bg-inverse" ; } 
+                                 ?>">
                                 <!-- <select class="js-example-basic-multiple col-sm-12 cdqadisable" multiple="multiple" name="desid[]" id="desid"> -->
-                                <select class="js-example-basic-single" name="desid" id="desid">
+                                <select class="js-example-basic-single <?php
+                                 if(isset($ldmster) && in_array('desid',$dvrejectreason)) { echo "form-bg-inverse" ; } 
+                                 ?>" name="desid" id="desid">
                                 <option value="">Designation</option>
                                 <?php foreach ($designation as $designation): ?>
                                     <option value="<?php echo $designation['jid']; ?>" <?php if(isset($ldmster) && $ldmster['jlevel'] == $designation['jid']){ echo "selected" ; } ?>><?php echo $designation['joblist']; ?></option>
@@ -222,8 +282,12 @@ $(document).ready(function() {
 
                         <hr>
                         <div class="form-group row">
-                        <div class="col-sm-2">
-                                 <select class="js-example-basic-single" name="dcd" id="dcd">
+                        <div class="col-sm-2  <?php
+                                 if(isset($ldmster) && in_array('dcd',$dvrejectreason)) { echo "form-bg-inverse" ; } 
+                                 ?>">
+                                 <select class="js-example-basic-single <?php
+                                 if(isset($ldmster) && in_array('dcd',$dvrejectreason)) { echo "form-bg-inverse" ; } 
+                                 ?>" name="dcd" id="dcd">
                                     <option value=""> Department</option>
                                 <?php foreach ($departments as $dept): ?>
                                     <option value="<?php echo $dept['dcd']; ?>"  <?php if(isset($ldmster) && $ldmster['dname'] == $dept['dcd']){ echo "selected" ; } ?> ><?php echo $dept['department']; ?></option>
@@ -232,24 +296,39 @@ $(document).ready(function() {
                             </div> 
                             <div class="col-sm-2">
                                 <div class="newsletter-signup">
-                                <input type="text"  name="email" id="email" value ="<?php if(isset($ldmster)){  echo $ldmster['email']; }?>"  placeholder="Email"  class="form-control form-control-sm cdqadisable">
+                                <input type="text"  name="email" id="email" value ="<?php if(isset($ldmster)){  echo $ldmster['email']; }?>"  placeholder="Email"  class="form-control form-control-sm cdqadisable
+                                <?php
+                                 if(isset($ldmster) && in_array('email',$dvrejectreason)) { echo "form-bg-inverse" ; } 
+                                 ?>">
                                </div>
                                 <span style='color:#FF0000' id="email_msg"></span>
                             </div>
                             <div class="col-sm-2">
-                                <input type="text"  name="phone" id="phone" value ="<?php if(isset($ldmster)){  echo $ldmster['phone']; }?>" placeholder="Phone" maxlength="15"  class="form-control form-control-sm cdqadisable">
+                                <input type="text"  name="phone" id="phone" value ="<?php if(isset($ldmster)){  echo $ldmster['phone']; }?>" placeholder="Phone" maxlength="15"  class="form-control form-control-sm cdqadisable
+                                <?php
+                                 if(isset($ldmster) && in_array('phone',$dvrejectreason)) { echo "form-bg-inverse" ; } 
+                                 ?>">
                                 <span style='color:#FF0000' id="phone_msg"></span>
                             </div>
                             <div class="col-sm-2">
-                                <input type="text"  name="altphn" id="altphn" value ="<?php if(isset($ldmster)){  echo $ldmster['altphn']; }?>" placeholder="Alternate Phone Number" maxlength="10"  class="form-control form-control-sm cdqadisable">
+                                <input type="text"  name="altphn" id="altphn" value ="<?php if(isset($ldmster)){  echo $ldmster['altphn']; }?>" placeholder="Alternate Phone Number" maxlength="10"  class="form-control form-control-sm cdqadisable
+                                <?php
+                                 if(isset($ldmster) && in_array('altphn',$dvrejectreason)) { echo "form-bg-inverse" ; } 
+                                 ?>">
                             </div>
                             
                             <div class="col-sm-2">
-                                <input type="text"  name="phext" id="phext" value ="<?php if(isset($ldmster)){  echo $ldmster['phext']; }?>" placeholder="Extension" maxlength="5"  class="form-control form-control-sm cdqadisable">
+                                <input type="text"  name="phext" id="phext" value ="<?php if(isset($ldmster)){  echo $ldmster['phext']; }?>" placeholder="Extension" maxlength="5"  class="form-control form-control-sm cdqadisable
+                                <?php
+                                 if(isset($ldmster) && in_array('phext',$dvrejectreason)) { echo "form-bg-inverse" ; } 
+                                 ?>">
                             </div>
                             <div class="col-sm-2">
                           
-                                <input type="text"  name="plink" id="plink"  placeholder="Prospect Link"  class="form-control form-control-sm" value ="<?php if(isset($ldmster)){  echo $ldmster['plink']; }?>" >
+                                <input type="text"  name="plink" id="plink"  placeholder="Prospect Link"  class="form-control form-control-sm 
+                                <?php
+                                 if(isset($ldmster) && in_array('plink',$dvrejectreason)) { echo "form-bg-inverse" ; } 
+                                 ?>" value ="<?php if(isset($ldmster)){  echo $ldmster['plink']; }?>" >
                                
                                 <span style='color:#FF0000' id="url_msg"></span>
                             </div>
@@ -259,17 +338,22 @@ $(document).ready(function() {
                         <div class="form-group row">
                              
                               <div class="col-sm-2">
-                               <select name="linetype" id="linetype"  class="form-control  form-control-sm cdqadisable">
+                               <select name="linetype" id="linetype"  class="form-control  form-control-sm cdqadisable <?php
+                                 if(isset($ldmster) && in_array('linetype',$dvrejectreason)) { echo "form-bg-inverse" ; } 
+                                 ?>">
                                      <option value="0">Line Type</option>
                                      <option value="0">unknown</option>
                                      <option value="1">Direct</option>
                                      <option value="2">Board</option>  
                                </select>
+                              
                            </div>
                               <div class="col-sm-2">
                                 <div class="compcheck">
                                 <input type="text"  name="company_name" id="company_name"  
-                                placeholder="Company Name"  class="form-control form-control-sm cdqadisable"  value ="<?php if(isset($ldmster)){  echo $ldmster['cname']; }?>">
+                                placeholder="Company Name"  class="form-control form-control-sm cdqadisable <?php
+                                 if(isset($ldmster) && in_array('company_name',$dvrejectreason)) { echo "form-bg-inverse" ; } 
+                                 ?>"  value ="<?php if(isset($ldmster)){  echo $ldmster['cname']; }?>">
                                 </div>
                                 <span style='color:#FF0000' id="comp_msg"></span>
                               </div> 
@@ -277,17 +361,29 @@ $(document).ready(function() {
 
 
                             <div class="col-sm-2">
-                                <input type="text"  name="address" id="address"  placeholder="Address"  value ="<?php if(isset($ldmster)){  echo $ldmster['address']; }?>" class="form-control form-control-sm cdqadisable">
+                                <input type="text"  name="address" id="address"  placeholder="Address"  value ="<?php if(isset($ldmster)){  echo $ldmster['address']; }?>"
+                                 class="form-control form-control-sm cdqadisable <?php
+                                 if(isset($ldmster) && in_array('address',$dvrejectreason)) { echo "form-bg-inverse" ; } 
+                                 ?>">
                            </div>
                            <div class="col-sm-2">
-                                <input type="text"  name="city" id="city"  placeholder="City" value ="<?php if(isset($ldmster)){  echo $ldmster['city']; }?>"   class="form-control form-control-sm cdqadisable">
+                                <input type="text"  name="city" id="city"  placeholder="City" value ="<?php if(isset($ldmster)){  echo $ldmster['city']; }?>"   class="form-control form-control-sm cdqadisable
+                                <?php
+                                 if(isset($ldmster) && in_array('city',$dvrejectreason)) { echo "form-bg-inverse" ; } 
+                                 ?>">
                            </div>
                            <div class="col-sm-2">
-                                <input type="text"  name="state" id="state"  placeholder="State" value ="<?php if(isset($ldmster)){  echo $ldmster['state']; }?>" class="form-control form-control-sm cdqadisable">
+                                <input type="text"  name="state" id="state"  placeholder="State" value ="<?php if(isset($ldmster)){  echo $ldmster['state']; }?>" class="form-control form-control-sm cdqadisable
+                                <?php
+                                 if(isset($ldmster) && in_array('state',$dvrejectreason)) { echo "form-bg-inverse" ; } 
+                                 ?>">
                                 </select>
                             </div>
                             <div class="col-sm-2">
-                                <input type="text"  name="zip_code" id="zip_code"  placeholder="Zip Code" value ="<?php if(isset($ldmster)){  echo $ldmster['zipcode']; }?>" class="form-control form-control-sm cdqadisable">
+                                <input type="text"  name="zip_code" id="zip_code"  placeholder="Zip Code" value ="<?php if(isset($ldmster)){  echo $ldmster['zipcode']; }?>" class="form-control form-control-sm cdqadisable
+                                <?php
+                                 if(isset($ldmster) && in_array('zip_code',$dvrejectreason)) { echo "form-bg-inverse" ; } 
+                                 ?>">
                            </div>
                            
                             
@@ -296,8 +392,12 @@ $(document).ready(function() {
 
                         <div class="form-group row">
 
-                        <div class="col-sm-2">
-                                     <select class="js-example-basic-single" name="country_id" id="country_id">
+                        <div class="col-sm-2 <?php
+                                 if(isset($ldmster) && in_array('country_id',$dvrejectreason)) { echo "form-bg-inverse" ; } 
+                                 ?>">
+                                     <select class="js-example-basic-single <?php
+                                 if(isset($ldmster) && in_array('country_id',$dvrejectreason)) { echo "form-bg-inverse" ; } 
+                                 ?>" name="country_id" id="country_id">
                                      <option value="">Countries</option>
                                  <?php foreach ($countriesofcampaign as $countriesofcampaign): ?>
                                     <option value="<?php echo $countriesofcampaign['countrycd']; ?>" <?php if(isset($ldmster) && $ldmster['country'] == $countriesofcampaign['countrycd']){ echo "selected" ; } ?>  ><?php echo $countriesofcampaign['countryname']; ?></option>
@@ -306,8 +406,12 @@ $(document).ready(function() {
                                 <span style='color:#FF0000' id="country_id_msg"></span>
                             </div>
                             
-                            <div class="col-sm-2">
-                              <select class="js-example-basic-single"  name="timezone" id="timezone">
+                            <div class="col-sm-2 <?php
+                                 if(isset($ldmster) && in_array('timezone',$dvrejectreason)) { echo "form-bg-inverse" ; } 
+                                 ?>">
+                              <select class="js-example-basic-single <?php
+                                 if(isset($ldmster) && in_array('timezone',$dvrejectreason)) { echo "form-bg-inverse" ; } 
+                                 ?>"  name="timezone" id="timezone">
                               <option value="">Timezone</option>
                               <?php foreach ($timezones as $tz): ?>
                                     <option value="<?php echo $tz['zoneid']; ?>"  <?php if(isset($ldmster) && $ldmster['timez'] == $tz['zoneid']){ echo "selected" ; } ?>><?php echo $tz['abbrev']; ?></option>
@@ -317,7 +421,9 @@ $(document).ready(function() {
                             </div>
 
                             <div class="col-sm-2">
-                               <select name="ctype" id="ctype"  class="form-control  form-control-sm cdqadisable"> 
+                               <select name="ctype" id="ctype"  class="form-control  form-control-sm cdqadisable <?php
+                                 if(isset($ldmster) && in_array('ctype',$dvrejectreason)) { echo "form-bg-inverse" ; } 
+                                 ?>"> 
                                      <option value="0">Company Type</option>
                                      <?php foreach ($comptype as $comptype): ?>
                                     <option value="<?php echo $comptype['ctypid']; ?>"><?php echo $comptype['ctypname']; ?></option>
@@ -326,8 +432,12 @@ $(document).ready(function() {
                            </div>
                            
                          
-                            <div class="col-sm-2">
-                              <select class="js-example-basic-single"  name="industrycd" id="industrycd">
+                            <div class="col-sm-2  <?php
+                                 if(isset($ldmster) && in_array('industrycd',$dvrejectreason)) { echo "form-bg-inverse" ; } 
+                                 ?>">
+                              <select class="js-example-basic-single <?php
+                                 if(isset($ldmster) && in_array('industrycd',$dvrejectreason)) { echo "form-bg-inverse" ; } 
+                                 ?>"  name="industrycd" id="industrycd">
                               <option value="">Industry</option>
                               <?php foreach ($industries as $industry): ?>
                                     <option value="<?php echo $industry['industrycd']; ?>" <?php if(isset($ldmster) && $ldmster['indtry'] == $industry['industrycd']){ echo "selected" ; } ?>><?php echo $industry['industry']; ?></option>
@@ -335,8 +445,12 @@ $(document).ready(function() {
                                 </select>
                                 <span style='color:#FF0000' id="industry_id_msg"></span>
                             </div>
-                            <div class="col-sm-2">
-                                <select class="js-example-basic-single" name="subindustrycd" id="subindustrycd">
+                            <div class="col-sm-2 <?php
+                                 if(isset($ldmster) && in_array('subindustrycd',$dvrejectreason)) { echo "form-bg-inverse" ; } 
+                                 ?>">
+                                <select class="js-example-basic-single  <?php
+                                 if(isset($ldmster) && in_array('subindustrycd',$dvrejectreason)) { echo "form-bg-inverse" ; } 
+                                 ?>" name="subindustrycd" id="subindustrycd">
                                 <option value="">Sub Industry</option>
                                 <?php foreach ($industriessub as $sub): ?>
                                     <option value="<?php echo $sub['subindustrycd']; ?>" <?php if(isset($ldmster) && $ldmster['sindtry'] == $sub['subindustrycd']){ echo "selected" ; } ?>><?php echo $sub['subindustry']; ?></option>
@@ -345,7 +459,9 @@ $(document).ready(function() {
                                 <span style='color:#FF0000' id="subindustry_id_msg"></span>
                             </div>
                             <div class="col-sm-2">
-                                <select class="form-control form-control-sm cdqadisable" name="sectyp" id="sectyp">
+                                <select class="form-control form-control-sm cdqadisable <?php
+                                 if(isset($ldmster) && in_array('sectyp',$dvrejectreason)) { echo "form-bg-inverse" ; } 
+                                 ?>" name="sectyp" id="sectyp">
                                   
                                     <option value="0">Sector Type</option>
                                     <option value="0">Unknown</option>
@@ -361,17 +477,37 @@ $(document).ready(function() {
                 <hr>
                     <div class="form-group row">
                         <div class="col-sm-2">
-                                <input type="text"  name="empsize" id="empsize" maxlength="6" value ="<?php if(isset($ldmster)){  echo $ldmster['empsize']; }?>" placeholder="Actual Employee Size"  class="form-control form-control-sm cdqadisable">
+                        <div class="tooltips">
+                          <input  type="text"  name="empsize" id="empsize" maxlength="6" value ="<?php if(isset($ldmster)){  echo $ldmster['empsize']; }?>" placeholder="Actual Employee Size"  
+                                class="form-control form-control-sm cdqadisable <?php
+                                 if(isset($ldmster) && in_array('empsize',$dvrejectreason)) { echo "form-bg-inverse" ; } 
+                                 ?>">
+                                <span class="tooltiptext"> Select range  between <?php echo $campaign['emplbnd']; ?> & <?php echo $campaign['empubnd']; ?></span>
+                        </div>
+
+                               
+                                
                                 <span style='color:#FF0000' id="empsize_msg"></span>
+                               
                             </div>
                             <div class="col-sm-2">
-                                <input type="text"  name="arevenue" id="arevenue" value ="<?php if(isset($ldmster)){  echo $ldmster['arevenue']; }?>"  maxlength="15" placeholder="Actual Revenue Size"  class="form-control form-control-sm cdqadisable">
+                              <div class="tooltips">
+                                <input type="text"  name="arevenue" id="arevenue" value ="<?php if(isset($ldmster)){  echo $ldmster['arevenue']; }?>"  maxlength="15" placeholder="Actual Revenue Size" 
+                                 class="form-control form-control-sm cdqadisable <?php
+                                 if(isset($ldmster) && in_array('arevenue',$dvrejectreason)) { echo "form-bg-inverse" ; } 
+                                 ?>">
+                                
+                                <span class="tooltiptext"> Select range  between <?php echo $campaign['revlbnd']; ?> <?php echo $campaign['revlbdim']; ?> 
+                          & <?php echo $campaign['revubnd']; ?> <?php echo $campaign['revubdim']; ?></span>
+                              </div>
                                 <span style='color:#FF0000' id="revsize_msg"></span>
                             </div>
                             
                             
                             <div class="col-sm-2">
-                                <select class="form-control form-control-sm cdqadisable" name="mlbl" id="mlbl">
+                                <select class="form-control form-control-sm cdqadisable <?php
+                                 if(isset($ldmster) && in_array('mlbl',$dvrejectreason)) { echo "form-bg-inverse" ; } 
+                                 ?>" name="mlbl" id="mlbl">
                                 
                                
                                     <option value="0">K</option>
@@ -382,7 +518,9 @@ $(document).ready(function() {
                                     </select>
                             </div>          
                             <div class="col-sm-2">
-                                <select class="form-control form-control-sm cdqadisable" name="curr" id="curr">
+                                <select class="form-control form-control-sm cdqadisable <?php
+                                 if(isset($ldmster) && in_array('curr',$dvrejectreason)) { echo "form-bg-inverse" ; } 
+                                 ?>" name="curr" id="curr">
                                     <option value="1">USD</option>                                  
                                 <?php foreach ($currency as $currency): ?>
                                     <option value="<?php echo $currency['currid']; ?>"  <?php if(isset($ldmster) && $ldmster['curr'] == $currency['currid']){ echo "selected" ; } ?>><?php echo $currency['currab']; ?></option>
@@ -393,13 +531,19 @@ $(document).ready(function() {
                             </div>          
                             <div class="col-sm-2">
                                 <div class="domaincheck">
-                                <input type="text" value ="<?php if(isset($ldmster)){  echo $ldmster['domain']; }?>"   name="domain" id="domain"  placeholder="Domain" value=""  class="form-control form-control-sm cdqadisable">
+                                <input type="text" value ="<?php if(isset($ldmster)){  echo $ldmster['domain']; }?>"   name="domain" id="domain"  placeholder="Domain" value="" 
+                                 class="form-control form-control-sm cdqadisable  <?php
+                                 if(isset($ldmster) && in_array('domain',$dvrejectreason)) { echo "form-bg-inverse" ; } 
+                                 ?>">
                                 </div>
                                 <span style='color:#FF0000' id="domain_msg"></span>
                               </div>
                             
                             <div class="col-sm-2">
-                                <input type="text" value ="<?php if(isset($ldmster)){  echo $ldmster['empszlink']; }?>"  name="empszlink" id="empszlink" value=""   placeholder="Employee Size Link"  class="form-control form-control-sm">
+                                <input type="text" value ="<?php if(isset($ldmster)){  echo $ldmster['empszlink']; }?>"  name="empszlink" id="empszlink" value=""   placeholder="Employee Size Link" 
+                                 class="form-control form-control-sm  <?php
+                                 if(isset($ldmster) && in_array('empszlink',$dvrejectreason)) { echo "form-bg-inverse" ; } 
+                                 ?>">
                             </div>
                            
                         </div>
@@ -408,13 +552,22 @@ $(document).ready(function() {
                         <div class="form-group row">
                            
                         <div class="col-sm-2 ">
-                                <input type="text" value ="<?php if(isset($ldmster)){  echo $ldmster['indlink']; }?>"  name="indlink" id="indlink"  placeholder="Industry Link" value="" class="form-control form-control-sm">
+                                <input type="text" value ="<?php if(isset($ldmster)){  echo $ldmster['indlink']; }?>"  name="indlink" 
+                                id="indlink"  placeholder="Industry Link" value="" class="form-control form-control-sm <?php
+                                 if(isset($ldmster) && in_array('indlink',$dvrejectreason)) { echo "form-bg-inverse" ; } 
+                                 ?>">
                             </div>
                             <div class="col-sm-2">
-                                <input type="text"  name="revszlink" id="revszlink" value ="<?php if(isset($ldmster)){  echo $ldmster['revszlink']; }?>"     placeholder="Revenue Size Link"  class="form-control form-control-sm revsizehide">
+                                <input type="text"  name="revszlink" id="revszlink" value ="<?php if(isset($ldmster)){  echo $ldmster['revszlink']; }?>"     placeholder="Revenue Size Link"  
+                                class="form-control form-control-sm revsizehide <?php
+                                 if(isset($ldmster) && in_array('revszlink',$dvrejectreason)) { echo "form-bg-inverse" ; } 
+                                 ?>">
                             </div>
                             <div class="col-sm-2">
-                                <input type="text"  name="othrlink" id="othrlink" value ="<?php if(isset($ldmster)){  echo $ldmster['othrlink']; }?>" placeholder="Other Link"  class="form-control form-control-sm">
+                                <input type="text"  name="othrlink" id="othrlink" value ="<?php if(isset($ldmster)){  echo $ldmster['othrlink']; }?>" placeholder="Other Link"  
+                                class="form-control form-control-sm <?php
+                                 if(isset($ldmster) && in_array('othrlink',$dvrejectreason)) { echo "form-bg-inverse" ; } 
+                                 ?>">
                             </div>
                             <div class="col-sm-2">
                                 <select class="form-control form-control-sm"  name="emailver" id="emailver">
@@ -424,10 +577,15 @@ $(document).ready(function() {
                                 </select>
                             </div>
                             <div class="col-sm-2">
-                                <input type="text"  name="aum" id="aum" value ="<?php if(isset($ldmster)){  echo $ldmster['aum']; }?>" placeholder="Asset Under Management"  class="form-control form-control-sm aumdis">
+                                <input type="text"  name="aum" id="aum" value ="<?php if(isset($ldmster)){  echo $ldmster['aum']; }?>" placeholder="Asset Under Management" 
+                                 class="form-control form-control-sm aumdis <?php
+                                 if(isset($ldmster) && in_array('aum',$dvrejectreason)) { echo "form-bg-inverse" ; } 
+                                 ?>">
                             </div>
                             <div class="col-sm-2">
-                                <select class="form-control form-control-sm commentvisible" name="assetid" id="assetid">
+                                <select class="form-control form-control-sm commentvisible <?php
+                                 if(isset($ldmster) && in_array('assetid',$dvrejectreason)) { echo "form-bg-inverse" ; } 
+                                 ?>" name="assetid" id="assetid">
                                     <option value="0">Asset</option>
                                     <?php foreach ($assetitle as $assetitle): ?>
                                     <option value="<?php echo $assetitle['assetid']; ?>"><?php echo $assetitle['title']; ?></option>
@@ -464,17 +622,18 @@ $(document).ready(function() {
                         </div>  -->
                         <br>
 
-                        <div class="form-group row" >
-                             <div class="col-sm-12 commentvisible">
-                                <label class="col-lable"><b>Comment</b></label>
-                                <input type="text"  name="pcomt" id="pcomt"  placeholder="Comment"  class="form-control form-control-sm">
-                            </div> 
-                         </div>
+                        
                         <input type = hidden name="campaign_id" id="campaign_id" value="<?php echo $campaign['cnid']; ?>">
                         <input type = hidden name="campaign_idcids" id="campaign_idcids" value="<?php echo $campaign['cids']; ?>">
                         
                        
                         <?php if(isset($ldmster) ){ ?> 
+                          <div class="form-group row" >
+                             <div class="col-sm-12  comt">
+                                <label class="col-lable"><b>Comment</b></label>
+                                <input type="text"  name="pcomt" id="pcomt"  placeholder="Comment"  class="form-control form-control-sm" value="<?php echo $ldmster['pcomt']; ?>">
+                            </div> 
+                         </div>
                         
                           <input type = hidden name="lmid" id="lmid" value="<?php echo $ldmster['lmid']; ?>">
                           <input type = hidden name="emp_id" id="emp_id" value="<?php echo  $_SESSION['empcode']; ?>">
@@ -1672,6 +1831,7 @@ $.ajax({
                     domain:domain,
                     othrlink:othrlink,
                     emailver:emailver,
+                    pcomt:pcomt,
                     aum:aum                 
                       
                     
@@ -1773,6 +1933,9 @@ $.ajax({
             
 
             var pcomt = $('#pcomt').val();
+            if(pcomt == undefined){
+              var pcomt = "0";
+            }
 
             var arevenue = $('#arevenue').val();
             var revszlink = $('#revszlink').val();
@@ -1865,6 +2028,7 @@ $.ajax({
                     domain:domain,
                     othrlink:othrlink,
                     emailver:emailver,
+                    pcomt:pcomt,
                     aum:aum                 
                              
                    

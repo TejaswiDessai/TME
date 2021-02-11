@@ -208,7 +208,7 @@
 			// $this->db->where('campaign.cnid', $cnid);
 			// $query = $this->db->get('campaign');
 			// return $query->result_array(); 
-			// echo $this->db->last_query(); 
+			echo $this->db->last_query(); 
 		}
 		public function get_depts_byCampaign($cnid,$myarray){
 			$this->db->select('*');
@@ -327,6 +327,141 @@
 		// 	// echo $this->db->last_query(); 
 			
 
+		}
+		public function get_countriesbyCampaigndv($lmid){
+			$this->db->select('countryname');
+			$this->db->join('country', 'country.countrycd = leadmaster.country');
+			
+			$this->db->where('lmid', $lmid);
+			$query = $this->db->get('leadmaster');
+			
+		
+			$response = $query->result_array();
+			return $response;
+			// echo $this->db->last_query(); 
+
+			
+		}
+		public function get_industries_ofleadmaster($lmid){
+			$this->db->select('industry');
+			$this->db->join('industry', 'industry.industrycd = leadmaster.indtry');
+			
+			$this->db->where('lmid', $lmid);
+			$query = $this->db->get('leadmaster');
+			
+		
+			$response = $query->result_array();
+			return $response;
+			// echo $this->db->last_query(); 
+
+			
+		}
+		public function get_subindustries_ofleadmaster($lmid){
+			$this->db->select('subindustry');
+			$this->db->join('industry', 'industry.subindustrycd = leadmaster.sindtry');
+			
+			$this->db->where('lmid', $lmid);
+			$query = $this->db->get('leadmaster');
+			
+		
+			$response = $query->result_array();
+			return $response;
+			// echo $this->db->last_query(); 
+
+			
+		}
+		public function get_designation_ofleadmaster($lmid){
+			$this->db->select('joblist');
+			$this->db->join('joblevels', 'joblevels.jid = leadmaster.jlevel');
+			
+			$this->db->where('lmid', $lmid);
+			$query = $this->db->get('leadmaster');
+			
+		
+			$response = $query->result_array();
+			return $response;
+			// echo $this->db->last_query(); 
+
+			
+		}
+		public function get_depts_byleadmaster($lmid){
+			$this->db->select('department');
+			$this->db->join('dept', 'dept.dcd = leadmaster.dname');
+			
+			$this->db->where('lmid', $lmid);
+			$query = $this->db->get('leadmaster');
+			
+		
+			$response = $query->result_array();
+			return $response;
+			// echo $this->db->last_query(); 
+
+			
+		}
+		public function get_comptype_byleadmaster($lmid){
+			$this->db->select('ctypname');
+			$this->db->join('comptype', 'comptype.ctypid = leadmaster.ctyp');
+			
+			$this->db->where('lmid', $lmid);
+			$query = $this->db->get('leadmaster');
+			
+		
+			$response = $query->result_array();
+			return $response;
+			// echo $this->db->last_query(); 
+
+			
+		}
+		public function get_assetitle_byleadmaster($lmid){
+			$this->db->select('title');
+			$this->db->join('assettitle', 'assettitle.assetid = leadmaster.atitle');
+			
+			$this->db->where('lmid', $lmid);
+			$query = $this->db->get('leadmaster');
+			
+		
+			$response = $query->result_array();
+			return $response;
+			// echo $this->db->last_query(); 
+
+			
+		}
+		public function get_currency_ofleadmaster($lmid){
+			
+			$this->db->select('country.currab,country.currnme,country.currid');
+			$this->db->group_by('country.currab');
+			$this->db->group_by('country.currnme');
+			$this->db->group_by('country.currid');
+			
+			$this->db->join('country', 'country.currid = leadmaster.curr');
+			
+			$this->db->where('lmid', $lmid);
+			$query = $this->db->get('leadmaster');
+			
+		
+			$response = $query->result_array();
+			return $response;
+			// echo $this->db->last_query(); 
+
+			
+		}
+		public function get_timezone_ofleadmaster($lmid){
+			
+			$this->db->select('timezone.zoneid,timezone.abbrev');
+			$this->db->group_by('timezone.zoneid');
+			$this->db->group_by('timezone.abbrev');
+			
+			$this->db->join('timezone', 'timezone.zoneid = leadmaster.timez');
+			
+			$this->db->where('lmid', $lmid);
+			$query = $this->db->get('leadmaster');
+			
+		
+			$response = $query->result_array();
+			return $response;
+			// echo $this->db->last_query(); 
+
+			
 		}
 		public function get_departmentsbyCampaign($cnid){
 
@@ -1479,8 +1614,8 @@ public function get_leadmasterby_campaignid($id = FALSE)
 		
 		$this->db->where('sbsvtag <', 6);
 		$this->db->where('sbsvtag !=', 0);
-		$this->db->where('ontag', 1);
-		$this->db->where('pload', 0);
+		$this->db->where('ontag', 0);
+		$this->db->where('pload', 1);
 		$this->db->where('dvload',0);
 		$this->db->where('evload',null);
 		$this->db->where('cdcload',null);
@@ -1491,6 +1626,45 @@ public function get_leadmasterby_campaignid($id = FALSE)
 		// echo $string;
 		// die;
 		return $query->result_array();
+	}
+public function get_campaign_fordataverification()
+{
+	// $this->db->select('subregion,subregioncode');
+	// $this->db->group_by('subregioncode');
+	//  $this->db->group_by('subregion');
+	 
+		$this->db->select('campaign.cids,campaign.cnid,campaign.campnm');
+		$this->db->group_by('campaign.cids');
+		$this->db->group_by('campaign.campnm');
+		$this->db->group_by('campaign.cnid');
+		$this->db->where('leadmaster.sbsvtag <', 6);
+		$this->db->where('leadmaster.sbsvtag !=', 0);
+		$this->db->where('leadmaster.ontag', 0);
+		$this->db->where('leadmaster.pload', 1);
+		$this->db->where('leadmaster.dvload',0);
+		$this->db->where('leadmaster.evload',null);
+		$this->db->where('leadmaster.cdcload',null);
+		$this->db->where('leadmaster.qaload',null);
+		$this->db->where('leadmaster.rlc !=', 1);	
+		$this->db->join('leadmaster', 'leadmaster.cids = campaign.cids');
+		// echo $this->db->last_query(); 
+	
+	$query = $this->db->get('campaign');
+		
+		// $this->db->where('sbsvtag <', 6);
+		// $this->db->where('sbsvtag !=', 0);
+		// $this->db->where('ontag', 1);
+		// $this->db->where('pload', 0);
+		// $this->db->where('dvload',0);
+		// $this->db->where('evload',null);
+		// $this->db->where('cdcload',null);
+		// $this->db->where('qaload',null);
+		// $this->db->where('rlc !=', 1);
+		// $query = $this->db->get_where('leadmaster', array('cids' => $id));
+		// echo $this->db->last_query(); 
+		// echo $string;
+		// die;
+		 return $query->result_array();
 	}
 
 	public function update_Campaign($datacampaign,$campaign_id)
@@ -1508,7 +1682,7 @@ public function get_leadmasterby_campaignid($id = FALSE)
 			$this->db->where('lmid', $lmid);
 			$this->db->update('leadmaster', $updateleadandcdcdata);
 			return true;
-		
+			// echo $this->db->last_query(); 
 		}
 		public function update_recordlock($lmid,$datarecord)
 		{

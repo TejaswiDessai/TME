@@ -14,8 +14,12 @@
     <link rel="icon" href="<?php echo base_url(); ?>admintemplate/assets/images/auth/favicon.png" type="image/x-icon">
     <!-- Google font-->
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700,800" rel="stylesheet">
+    
+    
+   
     <!-- Required Fremwork -->
     <link rel="stylesheet" type="text/css" href="<?php echo base_url(); ?>admintemplate/bower_components/bootstrap/dist/css/bootstrap.min.css">
+    
     <!-- themify icon -->
     <link rel="stylesheet" type="text/css" href="<?php echo base_url(); ?>admintemplate/assets/icon/themify-icons/themify-icons.css">
      <link rel="stylesheet" type="text/css" href="<?php echo base_url(); ?>admintemplate/assets/css/bootstrap.icon-large.css">
@@ -45,13 +49,14 @@
     <link href="<?php echo base_url(); ?>admintemplate/bower_components/jquery.filer/css/jquery.filer.css" type="text/css" rel="stylesheet" />
     <link href="<?php echo base_url(); ?>admintemplate/bower_components/jquery.filer/css/themes/jquery.filer-dragdropbox-theme.css" type="text/css" rel="stylesheet" />
     
-    
+     <!-- toolbar css -->
+     <link rel="stylesheet" type="text/css" href="<?php echo base_url(); ?>admintemplate/assets/pages/toolbar/jquery.toolbar.css">
+    <link rel="stylesheet" type="text/css" href="<?php echo base_url(); ?>admintemplate/assets/pages/toolbar/custom-toolbar.css">
     <!-- Style.css -->
     <link rel="stylesheet" type="text/css" href="<?php echo base_url(); ?>admintemplate/assets/css/style.css">
     <!--color css-->
     <link rel="stylesheet" type="text/css" href="<?php echo base_url(); ?>admintemplate/assets/css/color/color-1.css" id="color"/>
     <!--<script src="http://cdn.ckeditor.com/4.7.1/full/ckeditor.js"></script>-->
-    
     
     
      <!-- Required Jqurey -->
@@ -61,7 +66,10 @@
     <script type="text/javascript" src="<?php echo base_url(); ?>admintemplate/bower_components/tether/dist/js/tether.min.js"></script>
     <script type="text/javascript" src="<?php echo base_url(); ?>admintemplate/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="<?php echo base_url(); ?>admintemplate/assets/pages/form-validation/validate.js"></script>
+   
+
     <script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.11.1/jquery.validate.min.js"></script>
+
 </head>
 <style>
 body{

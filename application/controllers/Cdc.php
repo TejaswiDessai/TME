@@ -70,6 +70,7 @@
 					
 					
 						$data['timezones'] = $this->Administrator_Model->get_timezonesbyCampaign($camp_id,$myArray1);
+
 						$data['currency'] = $this->Administrator_Model->get_currencybyCampaign($camp_id,$myArray1);
 						// print_r($data['timezones']);
 						$data['comptype'] = $this->Administrator_Model->get_comptype();
@@ -203,71 +204,37 @@
 						}
 						// echo $camp['cnid'];
 						$camp_id = $camp['cnid'];
-						// if(isset($_SESSION['lmid']) && $_SESSION['lmid'] == $camp['cids']){
-						// 	session_abort();
-							// print_r($_SESSION);
-						// }else {
-						// 	$_SESSION['lmid'] = $camp['cids'];
-						// }
-						// $_SESSION['lmid'] = $camp['cids'];
+						
 						$cids = $camp['cids'];
-						// print_r($data['campaigns']);  
-						// print_r($cids);  
+					
 						
 						$data['leadmaster'] = $this->Administrator_Model->get_leadmasterby_campaignid($cids);
 						print_r($data['leadmaster']); 
+						if(empty($data['leadmaster'])){
+							$this->session->set_flashdata('success', 'Data verification id finished for this campaign.');
+							redirect('cdc/selectCampaignforDataVerification');
+							
+						}
+
 						foreach ($data['leadmaster'] as $ldmster) {
 						
 						}
-						
-						$data['countries'] = $this->Administrator_Model->get_countriesbyCampaign($camp_id);
-				
-							foreach($data['countries'] as $co){
-							$myArray = implode(',', $co);
-							}
-
-							$myArray1 = explode(',', $myArray);
-							$data['countriesofcampaign'] = $this->Administrator_Model->get_countriesofCampaign($camp_id,$myArray1);
-							// print_r($data['countriesofcampaign']);
-
-						// $data['countries'] = $this->Administrator_Model->get_countries();
-						$data['industries1'] = $this->Administrator_Model->get_industries_byCampaign($camp_id);
-						foreach($data['industries1'] as $ind){
-							$myind = implode(',', $ind);
-							}
-							$myind1 = explode(',', $myind);
-						$data['industries'] = $this->Administrator_Model->get_industries_ofCampaign($camp_id,$myind1);
-
-						$data['industriessub'] = $this->Administrator_Model->get_subindustries_byCampaign($camp_id,$myind1);
-// print_r($data['industriessub']); 
-						$data['departments1'] = $this->Administrator_Model->get_departmentsbyCampaign($camp_id);
-						foreach($data['departments1'] as $dp){
-							$mydpArray = implode(',', $dp);
-							}
-							$mydpArray1 = explode(',', $mydpArray);
-							$data['departments'] = $this->Administrator_Model->get_depts_byCampaign($camp_id,$mydpArray1);
-                        // $data['departments'] = $this->Administrator_Model->get_depts_byCampaign($mydpArray1);
-                       
-						$data['designation1'] = $this->Administrator_Model->get_designation_byCampaign($camp_id);
-						foreach($data['designation1'] as $ds){
-							$mydesi = implode(',', $ds);
-							}
-							$mydesiarry = explode(',', $mydesi);
-						$data['designation'] = $this->Administrator_Model->get_designation_ofCampaign($camp_id,$mydesiarry);
-						// print_r($data['designation']); 
-						$data['joblevel'] = $this->Administrator_Model->get_joblevels_byCampaign($camp_id,$mydesiarry);
 					
-					// print_r($data['joblevel']); 
-						$data['timezones'] = $this->Administrator_Model->get_timezonesbyCampaign($camp_id,$myArray1);
-						
-						$data['currency'] = $this->Administrator_Model->get_currencybyCampaign($camp_id,$myArray1);
-						// print_r($data['timezones']);
-						$data['comptype'] = $this->Administrator_Model->get_comptype();
-						
-						$data['assetitle'] = $this->Administrator_Model->get_assetitle_byCampaign($camp_id);
+						if (isset($data['leadmaster'])){
+							$data['countriesdv'] = $this->Administrator_Model->get_countriesbyCampaigndv($ldmster['lmid']);
+							$data['industriesdv'] = $this->Administrator_Model->get_industries_ofleadmaster($ldmster['lmid']);
+							$data['subindustriesdv'] = $this->Administrator_Model->get_subindustries_ofleadmaster($ldmster['lmid']);
+							$data['currencydv'] = $this->Administrator_Model->get_currency_ofleadmaster($ldmster['lmid']);
+							$data['timezonedv'] = $this->Administrator_Model->get_timezone_ofleadmaster($ldmster['lmid']);
+							$data['designationdv'] = $this->Administrator_Model->get_designation_ofleadmaster($ldmster['lmid']);
+							$data['departmentsdv'] = $this->Administrator_Model->get_depts_byleadmaster($ldmster['lmid']);
+							$data['assetitledv'] = $this->Administrator_Model->get_assetitle_byleadmaster($ldmster['lmid']);
+							$data['comptypedv'] = $this->Administrator_Model->get_comptype_byleadmaster($ldmster['lmid']);
+						}else if(empty($data['leadmaster'])){
+							// $this->session->set_flashdata('success', 'Data verification id finished.');
+							redirect('administrator/dashboard');
+						}
 
-						// $data['dataforcdqa'] = $this->Administrator_Model->get_dataforCDQA_byCampaign($camp_id);
-			// print_r($data['dataforcdqa']);
 						
 
 
@@ -320,7 +287,7 @@
 		}
 		function selectCampaignforDataVerification($page = 'select-campaign-dataverification'){
 			$data['title'] = 'Create Lead';
-			$data['campaigns'] = $this->Administrator_Model->get_campaign();
+			$data['campaigns'] = $this->Administrator_Model->get_campaign_fordataverification();
                       
 			
 			
@@ -1388,7 +1355,7 @@
 				'indlink' => $_GET['indlink'],
 				'revszlink' => $_GET['revszlink'],
 				'empszlink' => $_GET['empszlink'],
-				// 'pcomt' => $_GET['pcomt'],
+				'pcomt' => $_GET['pcomt'],
 
 				'othrlink' => $_GET['othrlink'],
 
@@ -1437,6 +1404,86 @@
 			
 		}
 		
+		public function ajax_update_dataverification()
+		{
+			$campaign_id = $_POST['campaign_id'];
+			$cids = $_POST['campaign_idcids'];
+			$sbsvtag = $_POST['sbsvtag'];
+			$dvrejtg = $_POST['dvrejtg'];
+			$lmid = $_POST['lmid'];
+			$checked = $_POST['checked'];
+			
+
+			
+
+
+				$old_date = date('Y-m-d H:i:s');         // works
+				$middle = strtotime($old_date);             // returns bool(false)
+				$new_date = date('Y-m-d H:i:s', $middle);
+
+			// $mychecked = explode(',', $checked);
+		
+		
+			$mychecked2 = implode(',', $checked);
+			if($mychecked2 == "0"){ 
+				$dvload = "1"; // go to next level-- Accept
+				$dvstat ="1"; //Data Verification|Tag for On Accept / Reject /Discard
+				// $ontag =""; //null = new, 0 = needs to be reworked
+				
+			}else{
+				$dvload = "0"; // Reject
+				$dvstat ="2";
+				$dvrejtg = $_POST['dvrejtg'];
+				
+				// $ontag ="0"; //null = new, 0 = needs to be reworked
+			}
+
+
+		
+				$datacdcandlead = array(
+				'dvrejectreason' => $mychecked2,
+				'pcomt' => $_POST['pcomt'],
+				
+				
+				// tag
+				// 'ontag' => 0, // Submit and 0 = new, 1 = needs to be reworked
+				'sbsvtag' => $sbsvtag, //  Submit till 5 times
+				'pload' => '0', // next level ready to load
+				'rlc' => '0', // record is closed
+				'dvrejtg' => $dvrejtg, // record is closed
+				// 'ontag' => $ontag, 
+				'dvload' => $dvload, //  next level
+				// 'svagtidi' => '1' // save Agent Name
+				// 'svdti' => '1' // save date time
+				'dvagtidi' => $_SESSION['empcode'], // submit agent name 
+				'dvdti' => $old_date  // submit date time
+			
+								
+				);
+			
+			//   print_r($datacdcandlead);
+			//      exit();
+			
+				$addleadandcdcdata = $this->Administrator_Model->update_leaddata($datacdcandlead,$lmid);
+				// print_r($addcampaigndata);  die;
+				
+
+				if($addleadandcdcdata == true){
+			
+					echo json_encode(array(
+						"statusCode"=>"Success",
+						// "lead_id"=>$addleadandcdcdata,
+						"message"=>"Lead Uptated Successfully.."
+					));
+				}else{
+					echo json_encode(array(
+						"statusCode"=>"Fail",
+						"message"=>"Add data Lead failed.."
+					));
+				}
+								
+			
+		}
 		public function ajax_update_leaddata()
 		{
 			$campaign_id = $_GET['campaign_id'];
@@ -1561,7 +1608,7 @@
 				'indlink' => $_GET['indlink'],
 				'revszlink' => $_GET['revszlink'],
 				'empszlink' => $_GET['empszlink'],
-				// 'pcomt' => $_GET['pcomt'],
+				'pcomt' => $_GET['pcomt'],
 
 				'othrlink' => $_GET['othrlink'],
 

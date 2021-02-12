@@ -974,6 +974,7 @@ $(document).ready(function() {
                      
                         <?php } else{ ?>
                           <button type="submit" name="" class="btn btn-primary leaddisplay" style=""  id="">Limit Crossed</button> 
+                          <button type="submit" name="leadsavedv" class="btn btn-primary leaddisplay" style=""  id="leadsavedv">Discard </button> 
                            <?php }?>
                        <?php if(empty($ldmster)){ ?>
                         
@@ -1942,19 +1943,24 @@ $.ajax({
         $("#leadsavedv").on('click', function() 
         {
 
-          var notChecked = [], checked = [];
-            $(":checkbox").map(function() {
+          // var notChecked = [], checked = [];
+          //   $(":checkbox").map(function() {
             
-                this.checked ? checked.push(this.id) : notChecked.push(this.id);
-            });
-          if(checked == ""){ // if unchecked any field
-            checked = [0];
-          }
-           
+          //       this.checked ? checked.push(this.id) : notChecked.push(this.id);
+          //   });
+          // if(checked == ""){ // if unchecked any field
+          //   checked = [0];
+          // }
+           var checked = [0];
             var campaign_id = $('#campaign_id').val();
             var campaign_idcids = $('#campaign_idcids').val();
             // var sbsvtag1 = $('#sbsvtag').val();
             var sbsvtag = '0'; // discard
+            var dvrejtg = '0';
+            // alert(sbsvtag);
+            // alert(lmid);
+            // alert(dvrejtg);
+            // alert(sbsvtag);
             var lmid = $('#lmid').val();
 
             var pcomt = $('#pcomt').val();
@@ -1974,8 +1980,9 @@ $.ajax({
                   campaign_idcids: campaign_idcids,
                   lmid: lmid,
                   sbsvtag :sbsvtag,
+                  dvrejtg :dvrejtg,
                   pcomt :pcomt,
-                  checked:checked,
+                  checked:checked
                    
 				},
         async: true,

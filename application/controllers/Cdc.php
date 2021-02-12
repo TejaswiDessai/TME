@@ -1408,11 +1408,11 @@
 		{
 			$campaign_id = $_POST['campaign_id'];
 			$cids = $_POST['campaign_idcids'];
-			$sbsvtag = $_POST['sbsvtag'];
-			$dvrejtg = $_POST['dvrejtg'];
+			
 			$lmid = $_POST['lmid'];
 			$checked = $_POST['checked'];
-			
+			$sbsvtag = $_POST['sbsvtag'];
+			$dvrejtg = $_POST['dvrejtg'];
 
 			
 
@@ -1425,11 +1425,13 @@
 		
 		
 			$mychecked2 = implode(',', $checked);
+
 			if($mychecked2 == "0"){  // Accept
 				$dvload = "1"; // go to next level-- Accept
 				$dvstat ="1"; //Data Verification|Tag for On Accept / Reject /Discard
 				 $ontag = "1"; //null = new, 0 = needs to be reworked
-				$dvagtidi = $_SESSION['empcode']; //Data Verification Accept|Agent ID_I
+				 $dvrejtg = null;
+				 $dvagtidi = $_SESSION['empcode']; //Data Verification Accept|Agent ID_I
 				$dvragtidi = "0";
 				$dvdti = $old_date; //Data Verification Accept|date and time_I
 				$dvrdti = NULL;
@@ -1466,18 +1468,20 @@
 				'dvagtidi' => $dvagtidi, // submit agent name 
 				'dvragtidi' => $dvragtidi, // submit agent name 
 				'dvdti' => $dvdti,  // submit date time
-				'dvrdti' => $dvrdti,  // Data Verification|Rej_date and time_I
+				'dvrdti' => $dvrdti // Data Verification|Rej_date and time_I
 			
 								
 				);
-			
+			// 	print_r($lmid); echo "Hiii";
+			// 	print_r($_POST['sbsvtag']); echo "Hiii";
 			//   print_r($datacdcandlead);
-			//      exit();
+			 
+			    
 			
 				$addleadandcdcdata = $this->Administrator_Model->update_leaddata($datacdcandlead,$lmid);
 				// print_r($addcampaigndata);  die;
 				
-
+				// exit();
 				if($addleadandcdcdata == true){
 			
 					echo json_encode(array(

@@ -1658,6 +1658,8 @@ public function get_campaign_fordataverification()
 		$this->db->group_by('campaign.cnid');
 		$this->db->where('leadmaster.sbsvtag <', 6);
 		$this->db->where('leadmaster.sbsvtag !=', 0);
+		// $this->db->where('leadmaster.dvrejtg <=', 3);
+		// $this->db->where('leadmaster.dvrejtg ', null);
 		$this->db->where('leadmaster.ontag', 0);
 		$this->db->where('leadmaster.pload', 1);
 		$this->db->where('leadmaster.dvload',0);
@@ -1700,8 +1702,9 @@ public function get_campaign_fordataverification()
 		{
 			$this->db->where('lmid', $lmid);
 			$this->db->update('leadmaster', $updateleadandcdcdata);
-			return true;
 			// echo $this->db->last_query(); 
+			return true;
+			
 		}
 		public function update_recordlock($lmid,$datarecord)
 		{

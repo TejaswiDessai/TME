@@ -75,6 +75,8 @@
 .tooltips:hover .tooltiptext {
   visibility: visible;
   opacity: 1;
+  font-size: 12px;
+  padding:5px;
 }
  </style>
 <script>
@@ -639,7 +641,7 @@ $(document).ready(function() {
                           <input type = hidden name="emp_id" id="emp_id" value="<?php echo  $_SESSION['empcode']; ?>">
                           <input type = hidden name="sbsvtag" id="sbsvtag" value="<?php echo $ldmster['sbsvtag']; ?>">
                           <input type = hidden name="rlc" id="rlc" value="<?php echo $ldmster['rlc']; ?>">
-                        <button type="submit" name="leadupdate" class="btn btn-primary leaddisplay" style=""  id="leadupdate">Update</button> 
+                        <button type="submit" name="leadupdate" class="btn btn-primary leaddisplay" style=""  id="leadupdate">Submit</button> 
                         <button type="submit" name="leadsave" class="btn btn-primary leaddisplay" style=""  id="leadsave">Save </button> 
                      
                         <?php } ?>

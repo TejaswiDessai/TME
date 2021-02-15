@@ -16,19 +16,13 @@
 			$result = $this->db->get('users');
 			if ($result->num_rows() == 1) 
 			{
-				$emp_code = $this->session->userdata('empcode'); 
-
-					$this->db->where('agent', $emp_code);
-					$this->db->where('rlc', 1);
-					$this->db->update('leadmaster', array('rlc' => 0));
 				
-
-//                            print_r($result->row(0));
-                        //    echo $this->db->last_query();
+	
+// //                            print_r($result->row(0));
+//                            echo $this->db->last_query();
+						//    die;
 						   
-						   
-						  
-                            // $this->db->where('empid', '101');
+						
 				$this->db->insert('userlog', array('empid' => $emp_id,'login'=> date('Y-m-d H:i:s'))); 
 				return $result->row(0);
 
@@ -1621,6 +1615,7 @@ public function get_leadmasterby_campaignid($id = FALSE)
 		$this->db->where('cdcload',null);
 		$this->db->where('qaload',null);
 		$this->db->where('rlc !=', 1);
+		$this->db->order_by('dvdti','ASC');
 		$query = $this->db->get_where('leadmaster', array('cids' => $id));
 		// echo $this->db->last_query(); 
 		// echo $string;
@@ -1640,6 +1635,7 @@ public function get_leadmasterby_campaigniddv($id = FALSE)
 		$this->db->where('cdcload',null);
 		$this->db->where('qaload',null);
 		$this->db->where('rlc !=', 1);
+		$this->db->order_by('stdti','ASC');
 		$query = $this->db->get_where('leadmaster', array('cids' => $id));
 		// echo $this->db->last_query(); 
 		// echo $string;
@@ -1710,6 +1706,17 @@ public function get_campaign_fordataverification()
 		{
 			$this->db->where('lmid', $lmid);
 			$this->db->update('leadmaster', $datarecord);
+			// echo $this->db->last_query(); 
+			return true;
+			//  $this->db->insert('campaign', $datacampaign);
+			//  return true;
+                        // echo $this->db->last_query(); 
+		}
+		public function update_recordlockonlogin($empcode)
+		{
+			$this->db->where('agent', $empcode);
+			$this->db->where('rlc', 1);
+			$this->db->update('leadmaster', array('rlc' => 0));
 			// echo $this->db->last_query(); 
 			return true;
 			//  $this->db->insert('campaign', $datacampaign);

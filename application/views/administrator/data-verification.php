@@ -39,11 +39,15 @@
     text-decoration: None;
     background-color: #797373e3;
     border-radius: 4px;
+    word-wrap: anywhere; /*wrapping in a div */
 
     padding: 4px 7px;
     margin-right: 5px;
     font-weight: 700;
     color: #fff !important;
+}
+.form-control{
+  word-wrap: anywhere; /*wrapping in a div */ 
 }
 .tooltips {
   position: relative;
@@ -82,6 +86,32 @@
   visibility: visible;
   opacity: 1;
 }
+
+.tooltip {
+  position: relative;
+  display: inline-block;
+  border-bottom: 1px dotted black;
+}
+
+.tooltip .tooltiptext {
+  visibility: hidden;
+  width: 120px;
+  background-color: black;
+  color: #fff;
+  text-align: center;
+  border-radius: 6px;
+  padding: 5px 0;
+
+  /* Position the tooltip */
+  position: absolute;
+  z-index: 1;
+}
+
+.tooltip:hover .tooltiptext {
+  visibility: visible;
+}
+
+
 
  </style>
 <script>
@@ -256,16 +286,18 @@ $(document).ready(function() {
                                  value ="<?php //if(isset($ldmster)){  echo $ldmster['fname']; }?>" > -->
                                  <input type="hidden" name="inclistnew" id="inclistnew" value="<?php echo $campaign['inclistnew']; ?>">
                                 <span style='color:#FF0000' id="fname_msg"></span>
-                               
+                                <div class="col-sm-12">
                                 <div class="to-do-list">
                                         <div class="checkbox-fade fade-in-primary  col-sm-12">
                                             <label class="check-task">
                                                 <input type="checkbox" name="fname" id="fname"  value="fname">
-                                               <span  class="form-control form-control-sm cdqadisable"><?php if(isset($ldmster)){  echo $ldmster['fname']; }else { echo "Fname is Empty" ;} ?>
-                                               
+                                               <span  class="form-control form-control-sm cdqadisable tooltips">
+                                               <?php if(isset($ldmster)){  echo $ldmster['fname']; }else { echo "Fname is Empty" ;} ?>
+                                               <span class="tooltiptext">First Name</span>
                                                 </span>
                                             </label>
                                         </div>
+                                  </div>
                                 </div>
                               
                             </div>
@@ -278,8 +310,8 @@ $(document).ready(function() {
                                         <div class="checkbox-fade fade-in-primary  col-sm-12">
                                             <label class="check-task">
                                                 <input type="checkbox" name="lname" id="lname"  value="lname">
-                                               <span  class="form-control form-control-sm cdqadisable"><?php if(isset($ldmster)){  echo $ldmster['lname']; }else { echo "Lname is Empty" ;} ?>
-                                               
+                                               <span  class="form-control form-control-sm cdqadisable tooltips"><?php if(isset($ldmster)){  echo $ldmster['lname']; }else { echo "Lname is Empty" ;} ?>
+                                               <span class="tooltiptext">Last Name</span>
                                                 </span>
                                             </label>
                                         </div>
@@ -293,8 +325,8 @@ $(document).ready(function() {
                                         <div class="checkbox-fade fade-in-primary  col-sm-12">
                                             <label class="check-task">
                                                 <input type="checkbox" name="jtitle" id="jtitle"  value="jtitle">
-                                               <span  class="form-control form-control-sm cdqadisable"><?php if(isset($ldmster)){  echo $ldmster['jtitle']; }else { echo "Job Title is Empty" ;} ?>
-                                               
+                                               <span  class="form-control form-control-sm cdqadisable tooltips"><?php if(isset($ldmster)){  echo $ldmster['jtitle']; }else { echo "Job Title is Empty" ;} ?>
+                                               <span class="tooltiptext">Job Title</span>
                                                 </span>
                                             </label>
                                         </div>
@@ -341,7 +373,8 @@ $(document).ready(function() {
                                           <div class="checkbox-fade fade-in-primary  col-sm-12">
                                               <label class="check-task">
                                                   <input type="checkbox" name="desid" id="desid"  value="desid">
-                                                <span  class="form-control form-control-sm cdqadisable"><?php if(isset($ldmster['jlevel'])){  echo $designationdv['joblist']; }else { echo "Designation is Empty" ;} ?>
+                                                <span  class="form-control form-control-sm cdqadisable tooltips"><?php if(isset($ldmster['jlevel'])){  echo $designationdv['joblist']; }else { echo "Designation is Empty" ;} ?>
+                                                <span class="tooltiptext">Designation</span>
                                                 </span>
                                               </label>
                                           </div>
@@ -368,7 +401,8 @@ $(document).ready(function() {
                                           <div class="checkbox-fade fade-in-primary  col-sm-12">
                                               <label class="check-task">
                                                   <input type="checkbox" name="dcd" id="dcd"  value="dcd">
-                                                <span  class="form-control form-control-sm cdqadisable"><?php if(isset($ldmster['dname'])){  echo $departmentsdv['department']; }else { echo "Department is Empty" ;} ?>
+                                                <span  class="form-control form-control-sm cdqadisable tooltips"><?php if(isset($ldmster['dname'])){  echo $departmentsdv['department']; }else { echo "Department is Empty" ;} ?>
+                                                <span class="tooltiptext">Department</span>
                                                 </span>
                                               </label>
                                           </div>
@@ -381,8 +415,8 @@ $(document).ready(function() {
                                           <div class="checkbox-fade fade-in-primary  col-sm-12">
                                               <label class="check-task">
                                                   <input type="checkbox" name="email" id="email"  value="email">
-                                                <span  class="form-control form-control-sm cdqadisable"><?php if(isset($ldmster)){  echo $ldmster['email']; }else { echo "Email is Empty" ;} ?>
-                                                
+                                                <span  class="form-control form-control-sm cdqadisable tooltips"><?php if(isset($ldmster)){  echo $ldmster['email']; }else { echo "Email is Empty" ;} ?>
+                                                <span class="tooltiptext">Email</span>
                                                   </span>
                                               </label>
                                           </div>
@@ -400,8 +434,8 @@ $(document).ready(function() {
                                           <div class="checkbox-fade fade-in-primary  col-sm-12">
                                               <label class="check-task">
                                                   <input type="checkbox" name="phone" id="phone"  value="phone">
-                                                <span  class="form-control form-control-sm cdqadisable"><?php if(isset($ldmster)){  echo $ldmster['phone']; }else { echo "Phone is Empty" ;} ?>
-                                                
+                                                <span  class="form-control form-control-sm cdqadisable tooltips"><?php if(isset($ldmster)){  echo $ldmster['phone']; }else { echo "Phone is Empty" ;} ?>
+                                                <span class="tooltiptext">Phone</span>
                                                   </span>
                                               </label>
                                           </div>
@@ -416,8 +450,8 @@ $(document).ready(function() {
                                           <div class="checkbox-fade fade-in-primary  col-sm-12">
                                               <label class="check-task">
                                                   <input type="checkbox" name="altphn" id="altphn"  value="altphn">
-                                                  <span  class="form-control form-control-sm cdqadisable"><?php if(isset($ldmster) && $ldmster['altphn'] != ""){  echo $ldmster['altphn']; }else { echo "ALT Phone Empty" ;} ?>
-                                                
+                                                  <span  class="form-control form-control-sm cdqadisable tooltips"><?php if(isset($ldmster) && $ldmster['altphn'] != ""){  echo $ldmster['altphn']; }else { echo "ALT Phone Empty" ;} ?>
+                                                  <span class="tooltiptext">Alt Phone</span>
                                                 </span>
                                               </label>
                                           </div>
@@ -431,8 +465,8 @@ $(document).ready(function() {
                                           <div class="checkbox-fade fade-in-primary  col-sm-12">
                                               <label class="check-task">
                                                   <input type="checkbox" name="phext" id="phext"  value="phext">
-                                                <span  class="form-control form-control-sm cdqadisable"><?php if($ldmster['phext'] != '0'){  echo $ldmster['phext']; }else { echo "Phone EXT Empty" ;} ?>
-                                                
+                                                <span  class="form-control form-control-sm cdqadisable tooltips"><?php if($ldmster['phext'] != '0'){  echo $ldmster['phext']; }else { echo "Phone EXT Empty" ;} ?>
+                                                <span class="tooltiptext">Phone EXT</span>
                                                   </span>
                                               </label>
                                           </div>
@@ -473,7 +507,7 @@ $(document).ready(function() {
                                             <div class="checkbox-fade fade-in-primary  col-sm-12">
                                                 <label class="check-task">
                                                     <input type="checkbox" name="linetype" id="linetype"  value="linetype">
-                                                  <span  class="form-control form-control-sm cdqadisable"><?php 
+                                                  <span  class="form-control form-control-sm cdqadisable tooltips"><?php 
                                                     if($ldmster['linetype'] == "0"){ 
                                                      echo "Unknown Linetype"; 
                                                     }else if($ldmster['linetype'] == "1") { 
@@ -482,31 +516,28 @@ $(document).ready(function() {
                                                       echo "Board Linetype";
                                                     }
                                                       ?>
+                                                      <span class="tooltiptext">Line Type</span>
                                                   </span>
                                                 </label>
                                             </div>
                                   </div>
 
-
-
-
                            </div>
                               <div class="col-sm-2">
-                                <div class="compcheck">
                                 <!-- <input type="text"  name="company_name" id="company_name"  
                                 placeholder="Company Name"  class="form-control form-control-sm cdqadisable"  value ="<?php //if(isset($ldmster)){  echo $ldmster['cname']; }?>"> -->
                                 <div class="to-do-list">
                                           <div class="checkbox-fade fade-in-primary  col-sm-12">
                                               <label class="check-task">
                                                   <input type="checkbox" name="company_name" id="company_name"  value="company_name">
-                                                <span  class="form-control form-control-sm cdqadisable"><?php if(isset($ldmster['cname'])){  echo $ldmster['cname']; }else { echo "Comapny Name Empty" ;} ?>
+                                                <span  class="form-control form-control-sm cdqadisable tooltips"><?php if(isset($ldmster['cname'])){  echo $ldmster['cname']; }else { echo "Comapny Name Empty" ;} ?>
+                                                <span class="tooltiptext">Company Name</span>
                                                 </span>
                                               </label>
                                           </div>
-                                   
                                 </div>
-                                <span style='color:#FF0000' id="comp_msg"></span>
-                              </div> 
+                               
+                           
                           </div>
 
 
@@ -516,7 +547,8 @@ $(document).ready(function() {
                                           <div class="checkbox-fade fade-in-primary  col-sm-12">
                                               <label class="check-task">
                                                   <input type="checkbox" name="address" id="address"  value="address">
-                                                <span  class="form-control form-control-sm cdqadisable"><?php if(isset($ldmster['address'])){  echo $ldmster['address']; }else { echo "Address is Empty" ;} ?>
+                                                <span  class="form-control form-control-sm cdqadisable tooltips"><?php if(isset($ldmster['address'])){  echo $ldmster['address']; }else { echo "Address is Empty" ;} ?>
+                                                <span class="tooltiptext">Address</span>
                                                 </span>
                                               </label>
                                           </div>
@@ -528,7 +560,8 @@ $(document).ready(function() {
                                           <div class="checkbox-fade fade-in-primary  col-sm-12">
                                               <label class="check-task">
                                                   <input type="checkbox" name="city" id="city"  value="city">
-                                                <span  class="form-control form-control-sm cdqadisable"><?php if(isset($ldmster['city'])){  echo $ldmster['city']; }else { echo "city is Empty" ;} ?>
+                                                <span  class="form-control form-control-sm cdqadisable tooltips"><?php if(isset($ldmster['city'])){  echo $ldmster['city']; }else { echo "city is Empty" ;} ?>
+                                                <span class="tooltiptext">City</span>
                                                 </span>
                                               </label>
                                           </div>
@@ -540,7 +573,8 @@ $(document).ready(function() {
                                           <div class="checkbox-fade fade-in-primary  col-sm-12">
                                               <label class="check-task">
                                                   <input type="checkbox" name="state" id="state"  value="state">
-                                                <span  class="form-control form-control-sm cdqadisable"><?php if(isset($ldmster['city'])){  echo $ldmster['state']; }else { echo "state is Empty" ;} ?>
+                                                <span  class="form-control form-control-sm cdqadisable tooltips"><?php if(isset($ldmster['city'])){  echo $ldmster['state']; }else { echo "state is Empty" ;} ?>
+                                                <span class="tooltiptext">State</span>
                                                 </span>
                                               </label>
                                           </div>
@@ -553,7 +587,8 @@ $(document).ready(function() {
                                           <div class="checkbox-fade fade-in-primary  col-sm-12">
                                               <label class="check-task">
                                                   <input type="checkbox" name="zip_code" id="zip_code"  value="zip_code">
-                                                <span  class="form-control form-control-sm cdqadisable"><?php if(isset($ldmster['zipcode'])){  echo $ldmster['zipcode']; }else { echo "zipcode is Empty" ;} ?>
+                                                <span  class="form-control form-control-sm cdqadisable tooltips"><?php if(isset($ldmster['zipcode'])){  echo $ldmster['zipcode']; }else { echo "zipcode is Empty" ;} ?>
+                                                <span class="tooltiptext">Zip Code</span>
                                                 </span>
                                               </label>
                                           </div>
@@ -572,13 +607,14 @@ $(document).ready(function() {
                                           <div class="checkbox-fade fade-in-primary  col-sm-12">
                                               <label class="check-task">
                                                   <input type="checkbox" name="country_id" id="country_id"  value="country_id">
-                                                <span  class="form-control form-control-sm cdqadisable"><?php if(isset($ldmster['country'])){  echo $countriesdv['countryname']; }else { echo "Country is Empty" ;} ?>
+                                                <span  class="form-control form-control-sm cdqadisable tooltips"><?php if(isset($ldmster['country'])){  echo $countriesdv['countryname']; }else { echo "Country is Empty" ;} ?>
+                                                <span class="tooltiptext">Country</span>
                                                 </span>
                                               </label>
                                           </div>
                                   </div>     
-                                 
-                                <span style='color:#FF0000' id="country_id_msg"></span>
+<!--                                  
+                                <span style='color:#FF0000' id="country_id_msg"></span> -->
                         </div>
                             
                             <div class="col-sm-2">
@@ -587,7 +623,8 @@ $(document).ready(function() {
                                           <div class="checkbox-fade fade-in-primary  col-sm-12">
                                               <label class="check-task">
                                                   <input type="checkbox" name="timezone" id="timezone"  value="timezone">
-                                                <span  class="form-control form-control-sm cdqadisable"><?php if(isset($ldmster['timez']) && $ldmster['timez'] != "0"){  echo $tz['abbrev']; }else { echo "Timezone is Empty" ;} ?>
+                                                <span  class="form-control form-control-sm cdqadisable tooltips"><?php if(isset($ldmster['timez']) && $ldmster['timez'] != "0"){  echo $tz['abbrev']; }else { echo "Timezone is Empty" ;} ?>
+                                                <span class="tooltiptext">Timezone</span>
                                                 </span>
                                               </label>
                                           </div>
@@ -600,7 +637,7 @@ $(document).ready(function() {
                                     <?php //echo $tz['abbrev']; ?></option>
                                 <?php //endforeach; ?> 
                                 </select> -->
-                                <span style='color:#FF0000' id="timezone_msg"></span>
+                                <!-- <span style='color:#FF0000' id="timezone_msg"></span> -->
                             </div>
 
                             <div class="col-sm-2">
@@ -614,7 +651,8 @@ $(document).ready(function() {
                                           <div class="checkbox-fade fade-in-primary  col-sm-12">
                                               <label class="check-task">
                                                   <input type="checkbox" name="ctype" id="ctype"  value="ctype">
-                                                <span  class="form-control form-control-sm cdqadisable"><?php if($ldmster['ctyp'] != "0"){  echo $comptypedv['ctypname']; }else { echo "Comp Type is Empty" ;} ?>
+                                                <span  class="form-control form-control-sm cdqadisable tooltips"><?php if($ldmster['ctyp'] != "0"){  echo $comptypedv['ctypname']; }else { echo "Comp Type is Empty" ;} ?>
+                                                <span class="tooltiptext">Company Type</span>
                                                 </span>
                                               </label>
                                           </div>
@@ -627,7 +665,8 @@ $(document).ready(function() {
                                           <div class="checkbox-fade fade-in-primary  col-sm-12">
                                               <label class="check-task">
                                                   <input type="checkbox" name="industrycd" id="industrycd"  value="industrycd">
-                                                <span  class="form-control form-control-sm cdqadisable"><?php if(isset($ldmster['indtry'])){  echo $industriesdv['industry']; }else { echo "industry is Empty" ;} ?>
+                                                <span  class="form-control form-control-sm cdqadisable tooltips"><?php if(isset($ldmster['indtry'])){  echo $industriesdv['industry']; }else { echo "industry is Empty" ;} ?>
+                                                <span class="tooltiptext">Industry</span>
                                                 </span>
                                               </label>
                                           </div>
@@ -641,7 +680,7 @@ $(document).ready(function() {
                                     <?php// echo $industry['industry']; ?></option>
                                 <?php //endforeach; ?>
                                 </select> -->
-                                <span style='color:#FF0000' id="industry_id_msg"></span>
+                                <!-- <span style='color:#FF0000' id="industry_id_msg"></span> -->
                             </div>
                             
                             <div class="col-sm-2">
@@ -649,7 +688,8 @@ $(document).ready(function() {
                                           <div class="checkbox-fade fade-in-primary  col-sm-12">
                                               <label class="check-task">
                                                   <input type="checkbox" name="subindustrycd" id="subindustrycd"  value="subindustrycd">
-                                                <span  class="form-control form-control-sm cdqadisable"><?php if(isset($ldmster['sindtry'])){  echo $subindustriesdv['subindustry']; }else { echo "Sub industry is Empty" ;} ?>
+                                                <span  class="form-control form-control-sm cdqadisable tooltips"><?php if(isset($ldmster['sindtry'])){  echo $subindustriesdv['subindustry']; }else { echo "Sub industry is Empty" ;} ?>
+                                                <span class="tooltiptext">Sub Industry</span>
                                                 </span>
                                               </label>
                                           </div>
@@ -661,7 +701,7 @@ $(document).ready(function() {
                                     <?php //echo $sub['subindustry']; ?></option>
                                 <?php //endforeach; ?>
                                 </select> -->
-                                <span style='color:#FF0000' id="subindustry_id_msg"></span>
+                                <!-- <span style='color:#FF0000' id="subindustry_id_msg"></span> -->
                             </div>
                             <div class="col-sm-2">
                                 <!-- <select class="form-control form-control-sm cdqadisable" name="sectyp" id="sectyp">
@@ -679,7 +719,7 @@ $(document).ready(function() {
                                             <div class="checkbox-fade fade-in-primary  col-sm-12">
                                                 <label class="check-task">
                                                     <input type="checkbox" name="sectyp" id="sectyp"  value="sectyp">
-                                                  <span  class="form-control form-control-sm cdqadisable"><?php 
+                                                  <span  class="form-control form-control-sm cdqadisable tooltips"><?php 
                                                     if($ldmster['sectyp'] == "0"){ 
                                                      echo "Unknown"; 
                                                     }else if($ldmster['sectyp'] == "1") { 
@@ -692,7 +732,9 @@ $(document).ready(function() {
 
                                                     }
                                                       ?>
+                                                       <span class="tooltiptext">Sector Type</span>
                                                   </span>
+                                                 
                                                 </label>
                                             </div>
                                   </div>
@@ -708,12 +750,13 @@ $(document).ready(function() {
                                           <div class="checkbox-fade fade-in-primary  col-sm-12">
                                               <label class="check-task">
                                                   <input type="checkbox" name="empsize" id="empsize"  value="empsize">
-                                                <span  class="form-control form-control-sm cdqadisable"><?php if(isset($ldmster['empsize'])){  echo $ldmster['empsize']; }else { echo "Emp Size is Empty" ;} ?>
+                                                <span  class="form-control form-control-sm cdqadisable tooltips"><?php if(isset($ldmster['empsize'])){  echo $ldmster['empsize']; }else { echo "Emp Size is Empty" ;} ?>
+                                                <span class="tooltiptext">Emp size</span>
                                                 </span>
                                               </label>
                                           </div>
                                  </div>
-                                <span style='color:#FF0000' id="empsize_msg"></span>
+                                <!-- <span style='color:#FF0000' id="empsize_msg"></span> -->
                             </div>
                             <div class="col-sm-2">
                                 <!-- <input type="text"  name="arevenue" id="arevenue" value ="<?php //if(isset($ldmster)){  echo $ldmster['arevenue']; }?>"  maxlength="15" placeholder="Actual Revenue Size"  class="form-control form-control-sm cdqadisable"> -->
@@ -722,7 +765,8 @@ $(document).ready(function() {
                                           <div class="checkbox-fade fade-in-primary  col-sm-12">
                                               <label class="check-task">
                                                   <input type="checkbox" name="arevenue" id="arevenue"  value="arevenue">
-                                                <span  class="form-control form-control-sm cdqadisable"><?php if(isset($ldmster['arevenue'])){  echo $ldmster['arevenue']; }else { echo "Revenue is Empty" ;} ?>
+                                                <span  class="form-control form-control-sm cdqadisable tooltips"><?php if(isset($ldmster['arevenue'])){  echo $ldmster['arevenue']; }else { echo "Revenue is Empty" ;} ?>
+                                                <span class="tooltiptext">Revenue</span>
                                                 </span>
                                               </label>
                                           </div>
@@ -743,7 +787,7 @@ $(document).ready(function() {
                                             <div class="checkbox-fade fade-in-primary  col-sm-12">
                                                 <label class="check-task">
                                                     <input type="checkbox" name="mlbl" id="mlbl"  value="mlbl">
-                                                  <span  class="form-control form-control-sm cdqadisable"><?php 
+                                                  <span  class="form-control form-control-sm cdqadisable tooltips"><?php 
                                                     if($ldmster['mlbl'] == "0"){ 
                                                      echo "K"; 
                                                     }else if($ldmster['mlbl'] == "1") { 
@@ -756,6 +800,7 @@ $(document).ready(function() {
 
                                                     }
                                                       ?>
+                                                      <span class="tooltiptext">Revenue Range</span>
                                                   </span>
                                                 </label>
                                             </div>
@@ -770,7 +815,8 @@ $(document).ready(function() {
                                           <div class="checkbox-fade fade-in-primary  col-sm-12">
                                               <label class="check-task">
                                                   <input type="checkbox" name="curr" id="curr"  value="curr">
-                                                <span  class="form-control form-control-sm cdqadisable"><?php if(isset($ldmster['curr'])){  echo $currencydv['currab']; }else { echo "currency is Empty" ;} ?>
+                                                <span  class="form-control form-control-sm cdqadisable tooltips"><?php if(isset($ldmster['curr'])){  echo $currencydv['currab']; }else { echo "currency is Empty" ;} ?>
+                                                <span class="tooltiptext">Currency</span>
                                                 </span>
                                               </label>
                                           </div>
@@ -795,14 +841,19 @@ $(document).ready(function() {
                                                 <label class="check-task">
                                                     <input type="checkbox" name="domain" id="domain"  value="domain">
                                                     <span  class="form-control form-control-sm cdqadisable">Domain link</span>
-                                                    <span class="tooltiptext"> <a href="<?php if($ldmster['domain'] != ""){ echo $ldmster['domain'];} else{ echo "#";} ?>" target="_blank">Go to Link</a>
+                                                    <span class="tooltiptext"> 
+                                                    <?php if($ldmster['domain'] != ""){ ?>
+                                                    <a href="http:\\<?php if($ldmster['domain'] != ""){ echo $ldmster['domain'];}?>" target="_blank">Go to Link</a>
+                                                    <?php } else{ ?>
+                                                      <a href="" target="_blank">Link Unavailable</a>
+                                                    <?php } ?>
                                                     </span>
                                                 </label>
                                            </div>
                                     </div>
                                 </div> <!--end of tooltip -->
                                 </div>
-                                <span style='color:#FF0000' id="domain_msg"></span>
+                                <!-- <span style='color:#FF0000' id="domain_msg"></span> -->
                               </div>
                             
                             <div class="col-sm-2">
@@ -855,7 +906,13 @@ $(document).ready(function() {
                                                 <label class="check-task">
                                                     <input type="checkbox" name="revszlink" id="revszlink"  value="revszlink">
                                                     <span  class="form-control form-control-sm cdqadisable">Revenue Link</span>
-                                                    <span class="tooltiptext"> <a href="<?php if($ldmster['revszlink'] != "NA"){ echo $ldmster['revszlink'];} else{ echo "#";} ?>" target="_blank">Go to Link</a>
+                                                    <span class="tooltiptext"> 
+                                                    <!-- <a href="<?php// if($ldmster['revszlink'] != "NA"){ echo $ldmster['revszlink'];} else{ echo "#";} ?>" target="_blank">Go to Link</a> -->
+                                                    <?php if($ldmster['revszlink'] != "NA"){ ?>
+                                                    <a href="<?php if($ldmster['revszlink'] != ""){ echo $ldmster['revszlink'];}?> " target="_blank">Go to Link</a>
+                                                    <?php } else{ ?>
+                                                      <a href="#" target="_blank">Link Unavailable</a>
+                                                    <?php } ?>
                                                     </span>
                                                 </label>
                                            </div>
@@ -871,7 +928,13 @@ $(document).ready(function() {
                                                 <label class="check-task">
                                                     <input type="checkbox" name="othrlink" id="othrlink"  value="othrlink">
                                                     <span  class="form-control form-control-sm cdqadisable">other Link</span>
-                                                    <span class="tooltiptext"> <a href="<?php if($ldmster['othrlink'] != ""){ echo $ldmster['othrlink']; } else { echo "#" ;}  ?>" target="_blank">Go to Link</a>
+                                                    <span class="tooltiptext"> 
+                                                    <!-- <a href="<?php //if($ldmster['othrlink'] != ""){ echo $ldmster['othrlink']; } else { echo "#" ;}  ?>" target="_blank">Go to Link</a> -->
+                                                    <?php if($ldmster['othrlink'] != ""){ ?>
+                                                    <a href="<?php if($ldmster['othrlink'] != ""){ echo $ldmster['othrlink'];}?> " target="_blank">Go to Link</a>
+                                                    <?php } else{ ?>
+                                                      <a href="#" target="_blank">Link Unavailable</a>
+                                                    <?php } ?>
                                                     </span>
                                                 </label>
                                            </div>
@@ -879,26 +942,27 @@ $(document).ready(function() {
                                 </div>
                             
                             </div>
-                            <div class="col-sm-2">
+                            <!-- <div class="col-sm-2">
                                 <select class="form-control form-control-sm"  name="emailver" id="emailver">
                                     <option value="0">Email Verification</option>
                                     <option value="1">Yes</option>
                                     <option value="0">No</option>
                                 </select>
-                            </div>
+                            </div> -->
                             <div class="col-sm-2">
                                 <!-- <input type="text"  name="aum" id="aum" value ="<?php // if(isset($ldmster)){  echo $ldmster['aum']; }?>" placeholder="Asset Under Management"  class="form-control form-control-sm aumdis"> -->
                                 <div class="to-do-list">
                                             <div class="checkbox-fade fade-in-primary  col-sm-12">
                                                 <label class="check-task">
                                                     <input type="checkbox" name="aum" id="aum"  value="aum">
-                                                  <span  class="form-control form-control-sm cdqadisable"><?php if($ldmster['aum'] != '0'){  echo $ldmster['aum']; }else { echo " AUM is Empty" ;} ?>
+                                                  <span  class="form-control form-control-sm cdqadisable tooltips"><?php if($ldmster['aum'] != '0'){  echo $ldmster['aum']; }else { echo " AUM is Empty" ;} ?>
+                                                  <span class="tooltiptext">AUM</span>
                                                   </span>
                                                 </label>
                                             </div>
                                   </div>
                             </div>
-                            <div class="col-sm-2">
+                            <div class="col-sm-4">
                                 <!-- <select class="form-control form-control-sm commentvisible" name="assetid" id="assetid">
                                     <option value="0">Asset</option>
                                     <?php //foreach ($assetitle as $assetitle): ?>
@@ -911,8 +975,8 @@ $(document).ready(function() {
                                             <label class="check-task">
                                                 <input type="checkbox" name="assetid" id="assetid"  value="assetid">
                                                 <?php// foreach ($joblevel as $joblevel): ?>
-                                               <span  class="form-control form-control-sm cdqadisable"><?php if($ldmster['atitle'] != ""){ echo $assetitledv['title']; } else { echo "Asset title is Empty" ; } ?>
-                                               
+                                               <span  class="form-control form-control-sm cdqadisable tooltips"><?php if($ldmster['atitle'] != ""){ echo $assetitledv['title']; } else { echo "Asset title is Empty" ; } ?>
+                                               <span class="tooltiptext">Asset Title</span>
                                                 </span>
                                                 <?php// endforeach; ?>  
                                             </label>
@@ -969,7 +1033,7 @@ $(document).ready(function() {
                           <input type = hidden name="sbsvtag" id="sbsvtag" value="<?php echo $ldmster['sbsvtag']; ?>">
                           <input type = hidden name="dvrejtg" id="dvrejtg" value="<?php echo $ldmster['dvrejtg']; ?>">
                           <input type = hidden name="rlc" id="rlc" value="<?php echo $ldmster['rlc']; ?>">
-                        <button type="submit" name="leadupdatedv" class="btn btn-primary leaddisplay" style=""  id="leadupdatedv">Update</button> 
+                        <button type="submit" name="leadupdatedv" class="btn btn-primary leaddisplay" style=""  id="leadupdatedv">Submit</button> 
                         <button type="submit" name="leadsavedv" class="btn btn-primary leaddisplay" style=""  id="leadsavedv">Discard </button> 
                      
                         <?php } else{ ?>
@@ -1079,12 +1143,12 @@ $('#country_id').change(function(){
 
 
 // check revenue range for campaign
-$('#arevenue').change(function(){
+// $('#arevenue').change(function(){
 
-  $("#revszlink").prop('disabled', false);
-  $('#revszlink').val("");
+//   $("#revszlink").prop('disabled', false);
+//   $('#revszlink').val("");
   
-});
+// });
 
 $('#mlbl').blur(function(){   // revenue range change
 // $('#arevenue').blur(function(){   // revenue range change
@@ -1654,16 +1718,8 @@ $.ajax({
 }
 
 
-
-
-
-
-
-
-
-  
-  $("#revszlink").prop('disabled', true);
-  $('#revszlink').val("NA");
+  // $("#revszlink").prop('disabled', true);
+  // $('#revszlink').val("NA");
 
   // $('.commentvisible').hide();
   // $('.revsizehide').hide();

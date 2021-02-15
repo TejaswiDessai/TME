@@ -1413,10 +1413,9 @@
 			$checked = $_POST['checked'];
 			$sbsvtag = $_POST['sbsvtag'];
 			$dvrejtg = $_POST['dvrejtg'];
+			$dvsbtg = $_POST['dvsbtg'];
 
 			
-
-
 				$old_date = date('Y-m-d H:i:s');         // works
 				$middle = strtotime($old_date);             // returns bool(false)
 				$new_date = date('Y-m-d H:i:s', $middle);
@@ -1433,6 +1432,9 @@
 				 $dvrejtg = null;
 				 $dvagtidi = $_SESSION['empcode']; //Data Verification Accept|Agent ID_I
 				$dvragtidi = "0";
+				$dvsbtg = $_POST['dvsbtg']; //Data Verification|Submission Tag
+
+				
 				$dvdti = $old_date; //Data Verification Accept|date and time_I
 				$dvrdti = NULL;
 
@@ -1441,6 +1443,7 @@
 				$dvload = "0"; // Reject
 				$dvstat ="2";
 				$dvrejtg = $_POST['dvrejtg'];
+				$dvsbtg = "0";
 				$dvragtidi = $_SESSION['empcode'];
 				$dvagtidi = NULL;
 				$ontag = "1"; //null = new, 0 = needs to be reworked
@@ -1460,7 +1463,8 @@
 				'sbsvtag' => $sbsvtag, //  Submit till 5 times
 				'pload' => '0', // next level ready to load
 				'rlc' => '0', // record is closed
-				'dvrejtg' => $dvrejtg, // record is closed
+				'dvrejtg' => $dvrejtg, 
+				'dvsbtg' => $dvsbtg, 
 				 'ontag' => $ontag, 
 				'dvload' => $dvload, //  next level
 				// 'svagtidi' => '1' // save Agent Name

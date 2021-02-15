@@ -1628,6 +1628,8 @@ public function get_leadmasterby_campaigniddv($id = FALSE)
 		
 		$this->db->where('sbsvtag <', 6);
 		$this->db->where('sbsvtag !=', 0);
+		$this->db->where('dvrejtg <', '3');
+		$this->db->where('dvsbtg <', '3');
 		$this->db->where('ontag', 0);
 		$this->db->where('pload', 1);
 		$this->db->where('dvload',0);
@@ -1654,8 +1656,9 @@ public function get_campaign_fordataverification()
 		$this->db->group_by('campaign.cnid');
 		$this->db->where('leadmaster.sbsvtag <', 6);
 		$this->db->where('leadmaster.sbsvtag !=', 0);
-		// $this->db->where('leadmaster.dvrejtg <=', 3);
-		// $this->db->where('leadmaster.dvrejtg ', null);
+		$this->db->where('leadmaster.dvrejtg <', 3);
+		// $this->db->where('leadmaster.dvsbtg', Null);
+		$this->db->where('leadmaster.dvsbtg <', '3');
 		$this->db->where('leadmaster.ontag', 0);
 		$this->db->where('leadmaster.pload', 1);
 		$this->db->where('leadmaster.dvload',0);
@@ -1664,20 +1667,11 @@ public function get_campaign_fordataverification()
 		$this->db->where('leadmaster.qaload',null);
 		$this->db->where('leadmaster.rlc !=', 1);	
 		$this->db->join('leadmaster', 'leadmaster.cids = campaign.cids');
-		// echo $this->db->last_query(); 
+		
 	
 	$query = $this->db->get('campaign');
 		
-		// $this->db->where('sbsvtag <', 6);
-		// $this->db->where('sbsvtag !=', 0);
-		// $this->db->where('ontag', 1);
-		// $this->db->where('pload', 0);
-		// $this->db->where('dvload',0);
-		// $this->db->where('evload',null);
-		// $this->db->where('cdcload',null);
-		// $this->db->where('qaload',null);
-		// $this->db->where('rlc !=', 1);
-		// $query = $this->db->get_where('leadmaster', array('cids' => $id));
+	
 		// echo $this->db->last_query(); 
 		// echo $string;
 		// die;

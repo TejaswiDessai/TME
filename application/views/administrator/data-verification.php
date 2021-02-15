@@ -52,11 +52,11 @@
 .tooltips {
   position: relative;
   display: inline-block;
-  border-bottom: 1px dotted black;
+  /* border-bottom: 1px dotted black; */
 }
 .tooltips .tooltiptext {
   visibility: hidden;
-  width: 120px;
+  width: 80px;
   background-color:#FF5722;
   color: #fff;
   text-align: center;
@@ -69,6 +69,7 @@
   margin-left: -60px;
   opacity: 0;
   transition: opacity 0.3s;
+  font-size: 12px;
 }
 
 .tooltips .tooltiptext::after {
@@ -111,7 +112,16 @@
   visibility: visible;
 }
 
-
+.to-do-list:hover i {
+  color: #0e11b9;
+    /* opacity: 1; */
+    /* transition: opacity ease-in 0.3s; */
+}
+.to-do-list i {
+  color: #0e11b9;
+  opacity: unset;
+  font-size: 18px;
+}
 
  </style>
 <script>
@@ -272,7 +282,7 @@ $(document).ready(function() {
                                         <div class="checkbox-fade fade-in-primary  col-sm-12">
                                             <label class="check-task">
                                                 <input type="checkbox" name="sal" id="sal"  value="sal">
-                                               <span  class="form-control form-control-sm cdqadisable">
+                                               <span  class="form-control form-control-sm cdqadisable" style=" word-wrap: Normal;padding-left: 0px;" >
                                                <?php if(isset($ldmster)){  echo $ldmster['sal']; }else { echo "Salutation is Empty" ;} ?>
                                                
                                                 </span>
@@ -475,21 +485,21 @@ $(document).ready(function() {
                            
                             </div>
                             <div class="col-sm-2">
-                           
-                              <div class="tooltips">
-                           
-                                  <div class="to-do-list">
-                                            <div class="checkbox-fade fade-in-primary  col-sm-12">
-                                                <label class="check-task">
-                                                    <input type="checkbox" name="plink" id="plink"  value="plink">
-                                                    <span  class="form-control form-control-sm cdqadisable">Prospect Link</span>
-                                                    <span class="tooltiptext"> <a href="<?php echo $ldmster['plink'] ?>" target="_blank">Go to Link</a>
-                                                    </span>
-                                                </label>
-                                           </div>
-                                  </div>
-                             </div>
-                                <span style='color:#FF0000' id="url_msg"></span>
+                            
+                            <div class="to-do-list">
+                                          <div class="checkbox-fade fade-in-primary  col-sm-12">
+                                              <label class="check-task">
+                                                  <input type="checkbox" name="plink" id="plink"  value="plink">
+                                                <span  class="form-control form-control-sm cdqadisable tooltips">Prospect Link  
+                                                <a href="<?php echo $ldmster['plink'] ?>" target="_blank" style="float:right"><i class="icofont icofont-link"></i></a>
+                                                  <span class="tooltiptext">Prospect Link</span>
+                                                </span>
+                                              </label>
+                                             
+                                          </div>
+                                    </div>
+                            
+                             
                             </div>
                         
                       </div>
@@ -835,41 +845,34 @@ $(document).ready(function() {
                             <div class="col-sm-2">
                                 <div class="domaincheck">
                                 <!-- <input type="text" value ="<?php //if(isset($ldmster)){  echo $ldmster['domain']; }?>"   name="domain" id="domain"  placeholder="Domain" value=""  class="form-control form-control-sm cdqadisable"> -->
-                                <div class="tooltips">
-                                  <div class="to-do-list">
-                                            <div class="checkbox-fade fade-in-primary  col-sm-12">
-                                                <label class="check-task">
-                                                    <input type="checkbox" name="domain" id="domain"  value="domain">
-                                                    <span  class="form-control form-control-sm cdqadisable">Domain link</span>
-                                                    <span class="tooltiptext"> 
-                                                    <?php if($ldmster['domain'] != ""){ ?>
-                                                    <a href="http:\\<?php if($ldmster['domain'] != ""){ echo $ldmster['domain'];}?>" target="_blank">Go to Link</a>
-                                                    <?php } else{ ?>
-                                                      <a href="" target="_blank">Link Unavailable</a>
-                                                    <?php } ?>
-                                                    </span>
-                                                </label>
-                                           </div>
+                                <div class="to-do-list">
+                                          <div class="checkbox-fade fade-in-primary  col-sm-12">
+                                              <label class="check-task">
+                                                  <input type="checkbox" name="domain" id="domain"  value="domain">
+                                                <span  class="form-control form-control-sm cdqadisable tooltips">Domain Link  
+                                                <a href="http://<?php echo $ldmster['domain'] ?>" target="_blank" style="float:right"><i class="icofont icofont-link"></i></a>
+                                                  <span class="tooltiptext">Domain Link</span>
+                                                </span>
+                                              </label>
+                                          </div>
                                     </div>
-                                </div> <!--end of tooltip -->
                                 </div>
                                 <!-- <span style='color:#FF0000' id="domain_msg"></span> -->
                               </div>
                             
                             <div class="col-sm-2">
                                 <!-- <input type="text" value ="<?php // if(isset($ldmster)){  echo $ldmster['empszlink']; }?>"  name="empszlink" id="empszlink" value=""   placeholder="Employee Size Link"  class="form-control form-control-sm"> -->
-                                <div class="tooltips">
-                                  <div class="to-do-list">
-                                            <div class="checkbox-fade fade-in-primary  col-sm-12">
-                                                <label class="check-task">
-                                                    <input type="checkbox" name="empszlink" id="empszlink"  value="empszlink">
-                                                    <span  class="form-control form-control-sm cdqadisable">Emp size link</span>
-                                                    <span class="tooltiptext"> <a href="<?php if($ldmster['empszlink'] != ""){ echo $ldmster['empszlink'];} else{ echo "#";} ?>" target="_blank">Go to Link</a>
-                                                    </span>
-                                                </label>
-                                           </div>
+                                <div class="to-do-list">
+                                          <div class="checkbox-fade fade-in-primary  col-sm-12">
+                                              <label class="check-task">
+                                                  <input type="checkbox" name="empszlink" id="empszlink"  value="empszlink">
+                                                <span  class="form-control form-control-sm cdqadisable tooltips">Emp Size Link  
+                                                <a href="<?php if($ldmster['empszlink'] != ""){ echo $ldmster['empszlink']; } else{  echo "#"; } ?>" target="_blank" style="float:right"><i class="icofont icofont-link"></i></a>
+                                                  <span class="tooltiptext">Emp Size Link</span>
+                                                </span>
+                                              </label>
+                                          </div>
                                     </div>
-                                </div> <!--end of tooltip -->
                             </div>
                            
                         </div>
@@ -884,62 +887,47 @@ $(document).ready(function() {
                                 </a>
                             
                                   <input type="checkbox" value=""  id="indlink" name="indlink" class="js-single"  /> -->
-                               <div class="tooltips">
                                   <div class="to-do-list">
-                                            <div class="checkbox-fade fade-in-primary  col-sm-12">
-                                                <label class="check-task">
-                                                    <input type="checkbox" name="indlink" id="indlink"  value="indlink">
-                                                    <span  class="form-control form-control-sm cdqadisable">Industry Link</span>
-                                                    <span class="tooltiptext"> <a href="<?php echo $ldmster['indlink'] ?>" target="_blank">Go to Link</a>
-                                                    </span>
-                                                </label>
-                                           </div>
+                                          <div class="checkbox-fade fade-in-primary  col-sm-12">
+                                              <label class="check-task">
+                                                  <input type="checkbox" name="indlink" id="indlink"  value="indlink">
+                                                <span  class="form-control form-control-sm cdqadisable tooltips">Industry Link  
+                                                <a href="<?php if($ldmster['indlink'] != "NA"){ echo $ldmster['indlink']; } else{  echo "#"; } ?>" target="_blank" style="float:right"><i class="icofont icofont-link"></i></a>
+                                                  <span class="tooltiptext">Industry Link</span>
+                                                </span>
+                                              </label>
+                                          </div>
                                     </div>
-                                </div>
                               
                             </div>
                             <div class="col-sm-2">
                                 <!-- <input type="text"  name="revszlink" id="revszlink" value ="<?php // if(isset($ldmster)){  echo $ldmster['revszlink']; }?>"  placeholder="Revenue Size Link"  class="form-control form-control-sm revsizehide"> -->
-                                <div class="tooltips">
-                                  <div class="to-do-list">
-                                            <div class="checkbox-fade fade-in-primary  col-sm-12">
-                                                <label class="check-task">
-                                                    <input type="checkbox" name="revszlink" id="revszlink"  value="revszlink">
-                                                    <span  class="form-control form-control-sm cdqadisable">Revenue Link</span>
-                                                    <span class="tooltiptext"> 
-                                                    <!-- <a href="<?php// if($ldmster['revszlink'] != "NA"){ echo $ldmster['revszlink'];} else{ echo "#";} ?>" target="_blank">Go to Link</a> -->
-                                                    <?php if($ldmster['revszlink'] != "NA"){ ?>
-                                                    <a href="<?php if($ldmster['revszlink'] != ""){ echo $ldmster['revszlink'];}?> " target="_blank">Go to Link</a>
-                                                    <?php } else{ ?>
-                                                      <a href="#" target="_blank">Link Unavailable</a>
-                                                    <?php } ?>
-                                                    </span>
-                                                </label>
-                                           </div>
+                                <div class="to-do-list">
+                                          <div class="checkbox-fade fade-in-primary  col-sm-12">
+                                              <label class="check-task">
+                                                  <input type="checkbox" name="revszlink" id="revszlink"  value="revszlink">
+                                                <span  class="form-control form-control-sm cdqadisable tooltips">Revenue Link  
+                                                <a href="<?php if($ldmster['revszlink'] != "NA"){ echo $ldmster['revszlink']; } else{  echo "#"; } ?>" target="_blank" style="float:right"><i class="icofont icofont-link"></i></a>
+                                                  <span class="tooltiptext">Revenue Link</span>
+                                                </span>
+                                              </label>
+                                          </div>
                                     </div>
-                                </div>
                             </div>
                             
                             <div class="col-sm-2">
                                 <!-- <input type="text"  name="othrlink" id="othrlink" value ="<?php //if(isset($ldmster)){  echo $ldmster['othrlink']; }?>" placeholder="Other Link"  class="form-control form-control-sm"> -->
-                                <div class="tooltips">
-                                  <div class="to-do-list">
-                                            <div class="checkbox-fade fade-in-primary  col-sm-12">
-                                                <label class="check-task">
-                                                    <input type="checkbox" name="othrlink" id="othrlink"  value="othrlink">
-                                                    <span  class="form-control form-control-sm cdqadisable">other Link</span>
-                                                    <span class="tooltiptext"> 
-                                                    <!-- <a href="<?php //if($ldmster['othrlink'] != ""){ echo $ldmster['othrlink']; } else { echo "#" ;}  ?>" target="_blank">Go to Link</a> -->
-                                                    <?php if($ldmster['othrlink'] != ""){ ?>
-                                                    <a href="<?php if($ldmster['othrlink'] != ""){ echo $ldmster['othrlink'];}?> " target="_blank">Go to Link</a>
-                                                    <?php } else{ ?>
-                                                      <a href="#" target="_blank">Link Unavailable</a>
-                                                    <?php } ?>
-                                                    </span>
-                                                </label>
-                                           </div>
+                                <div class="to-do-list">
+                                          <div class="checkbox-fade fade-in-primary  col-sm-12">
+                                              <label class="check-task">
+                                                  <input type="checkbox" name="othrlink" id="othrlink"  value="othrlink">
+                                                <span  class="form-control form-control-sm cdqadisable tooltips">Other Link  
+                                                <a href="<?php if($ldmster['othrlink'] != ""){ echo $ldmster['othrlink']; } else{  echo "#"; } ?>" target="_blank" style="float:right"><i class="icofont icofont-link"></i></a>
+                                                  <span class="tooltiptext">other Link</span>
+                                                </span>
+                                              </label>
+                                          </div>
                                     </div>
-                                </div>
                             
                             </div>
                             <!-- <div class="col-sm-2">
@@ -1026,12 +1014,14 @@ $(document).ready(function() {
                         <input type = hidden name="campaign_idcids" id="campaign_idcids" value="<?php echo $campaign['cids']; ?>">
                         
                        
-                        <?php if(isset($ldmster) && $ldmster['dvrejtg'] <= 2){ ?> 
+                        <!-- <?php// if(isset($ldmster) && $ldmster['dvrejtg'] <= 2){ ?>  -->
+                        <?php if(isset($ldmster) && $ldmster['dvrejtg'] <= '2' && $ldmster['dvsbtg'] <= '2'){ ?> 
                         
                           <input type = hidden name="lmid" id="lmid" value="<?php echo $ldmster['lmid']; ?>">
                           <input type = hidden name="emp_id" id="emp_id" value="<?php echo  $_SESSION['empcode']; ?>">
                           <input type = hidden name="sbsvtag" id="sbsvtag" value="<?php echo $ldmster['sbsvtag']; ?>">
                           <input type = hidden name="dvrejtg" id="dvrejtg" value="<?php echo $ldmster['dvrejtg']; ?>">
+                          <input type = hidden name="dvsbtg" id="dvsbtg" value="<?php echo $ldmster['dvsbtg']; ?>">
                           <input type = hidden name="rlc" id="rlc" value="<?php echo $ldmster['rlc']; ?>">
                         <button type="submit" name="leadupdatedv" class="btn btn-primary leaddisplay" style=""  id="leadupdatedv">Submit</button> 
                         <button type="submit" name="leadsavedv" class="btn btn-primary leaddisplay" style=""  id="leadsavedv">Discard </button> 
@@ -1938,6 +1928,24 @@ $.ajax({
               var dvrejtg = parseInt(dvrejtg1)+1; // incremataion for dv  rejection
             }
  
+            if(dvrejtg == '3'){
+              var dvrejtg = '3';
+              var sbsvtag = '0';
+            }
+
+            var dvsbtg1 = $('#dvsbtg').val();
+            if(dvsbtg1 == ""){
+              var dvsbtg = 1;
+            }else{
+              var dvsbtg = parseInt(dvsbtg1)+1; // incremataion for dv  rejection
+            }
+ 
+            if(dvsbtg == '3'){
+              var dvsbtg = '3';
+              var sbsvtag = '0';
+            }
+
+            
             var lmid = $('#lmid').val();
 
             var pcomt = $('#pcomt').val();
@@ -1958,6 +1966,7 @@ $.ajax({
                   lmid: lmid,
                   sbsvtag :sbsvtag,
                   dvrejtg :dvrejtg,
+                  dvsbtg :dvsbtg,
                   pcomt :pcomt,
                   checked:checked,
                    
@@ -2013,6 +2022,7 @@ $.ajax({
             // var sbsvtag1 = $('#sbsvtag').val();
             var sbsvtag = '0'; // discard
             var dvrejtg = '0';
+            var dvsbtg = '0';
             // alert(sbsvtag);
             // alert(lmid);
             // alert(dvrejtg);
@@ -2037,6 +2047,7 @@ $.ajax({
                   lmid: lmid,
                   sbsvtag :sbsvtag,
                   dvrejtg :dvrejtg,
+                  dvsbtg :dvsbtg,
                   pcomt :pcomt,
                   checked:checked
                    

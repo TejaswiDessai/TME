@@ -180,11 +180,11 @@ $(document).ready(function() {
      <?php foreach ($leadmaster as $ldmster): 
       // print_r($ldmster['dvrejectreason']);
       $dvrejectreason = explode(',',$ldmster['dvrejectreason']);
-      // print_r($dvrejectreason);
+      // print_r($ldmster);
+     
       ?>
       
-      <?php endforeach;
-      ?>
+      
       
    
 </div>
@@ -629,7 +629,7 @@ $(document).ready(function() {
                         <input type = hidden name="campaign_idcids" id="campaign_idcids" value="<?php echo $campaign['cids']; ?>">
                         
                        
-                        <?php if(isset($ldmster) ){ ?> 
+                        <?php if(isset($ldmster) && $ldmster != 1 ){ ?> 
                           <div class="form-group row" >
                              <div class="col-sm-12  comt">
                                 <label class="col-lable"><b>Comment</b></label>
@@ -645,7 +645,7 @@ $(document).ready(function() {
                         <button type="submit" name="leadsave" class="btn btn-primary leaddisplay" style=""  id="leadsave">Save </button> 
                      
                         <?php } ?>
-                       <?php if(empty($ldmster)){ ?>
+                       <?php if($ldmster == 1){ ?>
                         <button type="submit" name="leadsubmit" class="btn btn-primary leaddisplay" style=""  id="leadsubmit">Submit </button> 
                         <button type="submit" name="leadsave" class="btn btn-primary leaddisplay" style=""  id="leadsave">Save </button> 
                         <?php } ?>
@@ -671,7 +671,8 @@ $(document).ready(function() {
 <input type="hidden" id="revubndmlbl" value="<?php echo $campaign['revubnd']; ?>"/>
 <input type="hidden" id="revlbdimmlbl" value="<?php echo $campaign['revlbdim']; ?>"/>
 <input type="hidden" id="revubdimmlbl" value="<?php echo $campaign['revubdim']; ?>"/>
-
+<?php endforeach;
+      ?>
    
      <script>
 $('#empsize').blur(function(){

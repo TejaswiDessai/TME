@@ -206,13 +206,6 @@ $(document).ready(function() {
      <?php foreach ($campaigns as $campaign): ?>
      
       <?php endforeach; ?>
-     <?php foreach ($leadmaster as $ldmster): 
-      // print_r($ldmster['unverified_fields']);
-      $tid = explode(',',$ldmster['dvrejectreason']);
-      // print_r($tid);
-      ?>
-      
-      <?php endforeach;  ?>
       <?php foreach ($countriesdv as $countriesdv): ?>
       <?php endforeach;    ?>
      
@@ -232,6 +225,15 @@ $(document).ready(function() {
      <?php endforeach;    ?>
       <?php foreach ($comptypedv as $comptypedv): ?>
      <?php endforeach;    ?>
+     <?php foreach ($leadmaster as $ldmster): 
+      // print_r($ldmster['unverified_fields']);
+      $tid = explode(',',$ldmster['dvrejectreason']);
+      // print_r($tid);
+      ?>
+      
+      <?php //endforeach;  ?>
+
+      
      
    
 </div>
@@ -1023,9 +1025,14 @@ $(document).ready(function() {
                           <input type = hidden name="dvrejtg" id="dvrejtg" value="<?php echo $ldmster['dvrejtg']; ?>">
                           <input type = hidden name="dvsbtg" id="dvsbtg" value="<?php echo $ldmster['dvsbtg']; ?>">
                           <input type = hidden name="rlc" id="rlc" value="<?php echo $ldmster['rlc']; ?>">
-                        <button type="submit" name="leadupdatedv" class="btn btn-primary leaddisplay" style=""  id="leadupdatedv">Submit</button> 
-                        <button type="submit" name="leadsavedv" class="btn btn-primary leaddisplay" style=""  id="leadsavedv">Discard </button> 
-                     
+                          <div class="form-group row" >
+                            <div class="col-sm-12">
+                             <center>
+                              <button type="submit" name="leadupdatedv" class="btn btn-primary leaddisplay" style=""  id="leadupdatedv">Accept</button> 
+                             
+                             
+                              <button type="submit" name="leadsavedv" class="btn btn-primary leaddisplay" style="margin-left:50px"  id="leadsavedv">Discard </button> 
+                             </center>
                         <?php } else{ ?>
                           <button type="submit" name="" class="btn btn-primary leaddisplay" style=""  id="">Limit Crossed</button> 
                           <button type="submit" name="leadsavedv" class="btn btn-primary leaddisplay" style=""  id="leadsavedv">Discard </button> 
@@ -1033,7 +1040,8 @@ $(document).ready(function() {
                        <?php if(empty($ldmster)){ ?>
                         
                         <?php } ?>
-                        
+                        </div>
+                          </div>
                         <!-- <input class="submit" class ="" type="submit" value="SUBMIT"> -->
                         <!-- below buttons are for cdqa save and submit -->
                         <!-- <button type="submit" name="submit" class="btn btn-primary cdqadisplay"   id="cdqasubmit">Submit Lead </button> 
@@ -1055,7 +1063,7 @@ $(document).ready(function() {
 <input type="hidden" id="revubndmlbl" value="<?php echo $campaign['revubnd']; ?>"/>
 <input type="hidden" id="revlbdimmlbl" value="<?php echo $campaign['revlbdim']; ?>"/>
 <input type="hidden" id="revubdimmlbl" value="<?php echo $campaign['revubdim']; ?>"/>
-
+<?php endforeach;  ?>
    
      <script>
 $('#empsize').blur(function(){
@@ -1902,6 +1910,21 @@ $.ajax({
  </script>
 
 <script>
+
+$("input:checkbox").change(function() {
+  var notChecked = [], checked = [];
+            $(":checkbox").map(function() {
+            
+                this.checked ? checked.push(this.id) : notChecked.push(this.id);
+            });
+          if(checked == ""){ // if unchecked any field
+            checked = [0];
+            $("#leadupdatedv").html("Accept");
+          }else{
+            $("#leadupdatedv").html("Reject");
+          }
+          
+});
 /* update lead submit*/
     $(function() {
         $("#leadupdatedv").on('click', function() 

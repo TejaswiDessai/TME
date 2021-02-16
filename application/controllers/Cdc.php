@@ -122,10 +122,12 @@
 						
 						$data['leadmaster'] = $this->Administrator_Model->get_leadmasterby_campaignid($cids);
 						// print_r($data['leadmaster']); 
-						foreach ($data['leadmaster'] as $ldmster) {
+						// foreach ($data['leadmaster'] as $ldmster) {
 						
+						// }
+						if($data['leadmaster'] == Null){
+							$data['leadmaster'] = [1];
 						}
-						
 						$data['countries'] = $this->Administrator_Model->get_countriesbyCampaign($camp_id);
 				
 							foreach($data['countries'] as $co){
@@ -1429,7 +1431,7 @@
 				$dvload = "1"; // go to next level-- Accept
 				$dvstat ="1"; //Data Verification|Tag for On Accept / Reject /Discard
 				 $ontag = "1"; //null = new, 0 = needs to be reworked
-				 $dvrejtg = null;
+				 $dvrejtg = $_POST['dvrejtg'];
 				 $dvagtidi = $_SESSION['empcode']; //Data Verification Accept|Agent ID_I
 				$dvragtidi = "0";
 				$dvsbtg = $_POST['dvsbtg']; //Data Verification|Submission Tag
@@ -1443,7 +1445,7 @@
 				$dvload = "0"; // Reject
 				$dvstat ="2";
 				$dvrejtg = $_POST['dvrejtg'];
-				$dvsbtg = "0";
+				$dvsbtg = $_POST['dvsbtg'];
 				$dvragtidi = $_SESSION['empcode'];
 				$dvagtidi = NULL;
 				$ontag = "1"; //null = new, 0 = needs to be reworked
@@ -1491,12 +1493,12 @@
 					echo json_encode(array(
 						"statusCode"=>"Success",
 						// "lead_id"=>$addleadandcdcdata,
-						"message"=>"Lead Uptated Successfully.."
+						"message"=>"Data Verified Successfully.."
 					));
 				}else{
 					echo json_encode(array(
 						"statusCode"=>"Fail",
-						"message"=>"Add data Lead failed.."
+						"message"=>"Lead failed.."
 					));
 				}
 								

@@ -137,11 +137,19 @@
     var lastVal = sp_email.pop(); 
     // console.log(sp[0]); // john.doe
     // console.log(sp[1]); // email.com
+    if (flname.match('.')) {
+    // alert("found");
     var option1 = sp_email[0]+"."+lastVal+"@"+sp[1];
     var option2 = lastVal+"."+sp_email[0]+"@"+sp[1];
     var option3 = sp_email[0]+"@"+sp[1];
     var option4 = lastVal+"@"+sp[1];
     var values = [option1, option2, option3, option4];
+    }
+    else
+    {
+        var values = [ids];
+    }
+    
 
     var select = $('<select>').prop('id', 'email_123')
                     .prop('name', 'email').prop('class', 'form-control');
@@ -302,8 +310,8 @@
                                         ?>
                                         <!-- </td> -->
                                         <td>
-                                        <input type="text" name="row_id" id="row_id_<?php echo $post['lmid'];?>" value="<?php echo $post['lmid'];?>">
-                                        <input type="text" name="leadid" id="leadid_<?php echo  $i;?>" value="<?php echo $post['lmid'];?>">
+                                        <input type="hidden" name="row_id" id="row_id_<?php echo $post['lmid'];?>" value="<?php echo $post['lmid'];?>">
+                                        <input type="hidden" name="leadid" id="leadid_<?php echo  $i;?>" value="<?php echo $post['lmid'];?>">
                                         <?php echo $post['fname']; ?></td>
                                         <td><?php echo $post['lname']; ?></td>
                                         <td><?php 
@@ -436,7 +444,7 @@
             alert("test");
             var someObj = {};
             someObj.fruitsGranted = [];
-            someObj.fruitsDenied = [];
+            
             someObj.leads = [];
             $("input:checkbox").each(function() {
                 if ($(this).is(":checked")) {
@@ -447,12 +455,12 @@
                     var leadid = $('#leadid_'+checked).val();
                     someObj.leads.push(leadid);
                 } else {
-                    someObj.fruitsDenied.push(checked);
+                    // someObj.fruitsDenied.push(checked);
                 }
             });
             var change_status_of = someObj.fruitsGranted;
             var leadid = someObj.leads;
-           alert(leadid);
+        //    alert(leadid);
             var email_status = $('#email_status').val();
             var campid = $('#campnm').val();
             // var leadid = $('#leadid_'+leadid_obj).val();
@@ -501,10 +509,8 @@
 
         $("#update_email").on('click', function() 
         {
-            alert("test");
             var someObj = {};
             someObj.fruitsGranted = [];
-            someObj.fruitsDenied = [];
             someObj.leads = [];
             $("input:checkbox").each(function() {
                 if ($(this).is(":checked")) {
@@ -518,15 +524,13 @@
                     someObj.leads.push(leadid);
 
                 } else {
-                    someObj.fruitsDenied.push(checked);
+                    
                 }
             });
             var change_status_of = someObj.fruitsGranted;
-            alert(change_status_of);
             var email_status = $('#email_status').val();
             var campid = $('#campnm').val();
             var leadid = someObj.leads;
-            alert(leadid);
             var from = $('#from').val();
             var sub = $('#sub').val();
             var body = $('#body').val();
@@ -543,10 +547,6 @@
                     email_status:email_status,
 					campid:campid,
                     leadid:leadid,
-                    from:from,
-                    sub:sub,
-                    body:body
-                    
 				},
                 cache: false,
                 success: function(response){

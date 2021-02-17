@@ -2142,11 +2142,7 @@ public function getPrivillage(){
 		// $comp_proSplit= explode(",", $email1);
 		$cnt=count($lmid);
 		$email_status = $_GET['email_status'];
-		$campid = $_GET['campid'];
 		$startdate = date("Y-m-d H:i:s");
-		$from = $_GET['from'];
-		$sub = $_GET['sub'];
-		$body = $_GET['body'];
 		for($i=0;$i<$cnt;$i++)
 		{
 			$datacampaign = array(

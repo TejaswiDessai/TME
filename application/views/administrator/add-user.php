@@ -83,6 +83,48 @@ rel="Stylesheet"type="text/css"/>
 
    
     });
+
+//     $('#emp_id').change(function(){
+//       var emp_id = $('#emp_id').val();
+//       var cid_type = $('#ctype').val();
+//       alert(emp_id);
+    
+//       var url = '<?php //echo base_url("administrator/checkempid");?>';
+//       console.log(url+'?email='+email+"&campaign_id="+campaign_id);
+//     // AJAX request
+//     $.ajax({
+
+//         url:'<?php //echo base_url("administrator/checkempid");?>',
+//         method: 'get',
+//         data: {
+//             emp_id: emp_id,
+//             cid_type: cid_type,
+//           },
+//         dataType: 'json',
+//         success: function(response){
+//             $( '#email_msg' ).html("response");
+//             // alert(response.exclusionemail);
+            
+//             if(response.isEmpExist == "true")
+//             {
+//                 $("#email_msg").html("Emp ID is already exist!");
+//                 $('#email').val("");
+//                 console.log("true");
+                
+
+//             } else 
+//             {
+//                 $("#email_msg").html("");
+//                 console.log("true");
+//                 return false;	
+//             }
+          
+//         }
+//     });
+    
+   
+// });
+
     function isNumber(evt) 
     {
         evt = (evt) ? evt : window.event;

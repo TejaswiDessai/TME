@@ -37,15 +37,91 @@
 } */
 .done-task span, .done-task .captions {
     text-decoration: None;
-    background-color: #e74c3c;
+    background-color: #797373e3;
     border-radius: 4px;
+    word-wrap: anywhere; /*wrapping in a div */
 
     padding: 4px 7px;
     margin-right: 5px;
     font-weight: 700;
     color: #fff !important;
 }
+.form-control{
+  word-wrap: anywhere; /*wrapping in a div */ 
+}
+.tooltips {
+  position: relative;
+  display: inline-block;
+  /* border-bottom: 1px dotted black; */
+}
+.tooltips .tooltiptext {
+  visibility: hidden;
+  width: 80px;
+  background-color:#FF5722;
+  color: #fff;
+  text-align: center;
+  border-radius: 6px;
+  padding: 5px 0;
+  position: absolute;
+  z-index: 1;
+  bottom: 125%;
+  left: 50%;
+  margin-left: -60px;
+  opacity: 0;
+  transition: opacity 0.3s;
+  font-size: 12px;
+}
 
+.tooltips .tooltiptext::after {
+  content: "";
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  margin-left: -5px;
+  border-width: 5px;
+  border-style: solid;
+  border-color: #555 transparent transparent transparent;
+}
+
+.tooltips:hover .tooltiptext {
+  visibility: visible;
+  opacity: 1;
+}
+
+.tooltip {
+  position: relative;
+  display: inline-block;
+  border-bottom: 1px dotted black;
+}
+
+.tooltip .tooltiptext {
+  visibility: hidden;
+  width: 120px;
+  background-color: black;
+  color: #fff;
+  text-align: center;
+  border-radius: 6px;
+  padding: 5px 0;
+
+  /* Position the tooltip */
+  position: absolute;
+  z-index: 1;
+}
+
+.tooltip:hover .tooltiptext {
+  visibility: visible;
+}
+
+.to-do-list:hover i {
+  color: #0e11b9;
+    /* opacity: 1; */
+    /* transition: opacity ease-in 0.3s; */
+}
+.to-do-list i {
+  color: #0e11b9;
+  opacity: unset;
+  font-size: 18px;
+}
 
  </style>
 <script>
@@ -130,14 +206,35 @@ $(document).ready(function() {
      <?php foreach ($campaigns as $campaign): ?>
      
       <?php endforeach; ?>
+      <?php foreach ($countriesdv as $countriesdv): ?>
+      <?php endforeach;    ?>
+     
+      <?php foreach ($industriesdv as $industriesdv): ?>
+     <?php endforeach;    ?>
+      <?php foreach ($subindustriesdv as $subindustriesdv): ?>
+     <?php endforeach;    ?>
+      <?php foreach ($currencydv as $currencydv): ?>
+     <?php endforeach;    ?>
+      <?php foreach ($timezonedv as $tz): ?>
+     <?php endforeach;    ?>
+      <?php foreach ($designationdv as $designationdv): ?>
+     <?php endforeach;    ?>
+      <?php foreach ($departmentsdv as $departmentsdv): ?>
+     <?php endforeach;    ?>
+      <?php foreach ($assetitledv as $assetitledv): ?>
+     <?php endforeach;    ?>
+      <?php foreach ($comptypedv as $comptypedv): ?>
+     <?php endforeach;    ?>
      <?php foreach ($leadmaster as $ldmster): 
       // print_r($ldmster['unverified_fields']);
       $tid = explode(',',$ldmster['dvrejectreason']);
       // print_r($tid);
       ?>
       
-      <?php endforeach;  ?>
+      <?php //endforeach;  ?>
+
       
+     
    
 </div>
 <!-- Page header end -->
@@ -176,13 +273,24 @@ $(document).ready(function() {
                         <div class="form-group row">
                            
                             <div class="col-sm-1">
-                                 <select name="sal" id="sal"  class="form-control  form-control-sm cdqadisable">
+                                 <!-- <select name="sal" id="sal"  class="form-control  form-control-sm cdqadisable">
                                  <option value="Mr">Mr.</option>
                                       <option value="Ms">Ms.</option>
                                       <option value="Mrs">Mrs.</option>
                                       <option value="Dr">Dr.</option>
                                       <option value="Other">Other</option>
-                                </select>
+                                </select> -->
+                                <div class="to-do-list">
+                                        <div class="checkbox-fade fade-in-primary  col-sm-12">
+                                            <label class="check-task">
+                                                <input type="checkbox" name="sal" id="sal"  value="sal">
+                                               <span  class="form-control form-control-sm cdqadisable" style=" word-wrap: Normal;padding-left: 0px;" >
+                                               <?php if(isset($ldmster)){  echo $ldmster['sal']; }else { echo "Salutation is Empty" ;} ?>
+                                               
+                                                </span>
+                                            </label>
+                                        </div>
+                                </div>
                             </div>
                            
                             <div class="col-sm-2">
@@ -190,16 +298,18 @@ $(document).ready(function() {
                                  value ="<?php //if(isset($ldmster)){  echo $ldmster['fname']; }?>" > -->
                                  <input type="hidden" name="inclistnew" id="inclistnew" value="<?php echo $campaign['inclistnew']; ?>">
                                 <span style='color:#FF0000' id="fname_msg"></span>
-                               
+                                <div class="col-sm-12">
                                 <div class="to-do-list">
                                         <div class="checkbox-fade fade-in-primary  col-sm-12">
                                             <label class="check-task">
                                                 <input type="checkbox" name="fname" id="fname"  value="fname">
-                                               <span  class="form-control form-control-sm cdqadisable"><?php if(isset($ldmster)){  echo $ldmster['fname']; }else { echo "Fname is Empty" ;} ?>
-                                               
+                                               <span  class="form-control form-control-sm cdqadisable tooltips">
+                                               <?php if(isset($ldmster)){  echo $ldmster['fname']; }else { echo "Fname is Empty" ;} ?>
+                                               <span class="tooltiptext">First Name</span>
                                                 </span>
                                             </label>
                                         </div>
+                                  </div>
                                 </div>
                               
                             </div>
@@ -212,8 +322,8 @@ $(document).ready(function() {
                                         <div class="checkbox-fade fade-in-primary  col-sm-12">
                                             <label class="check-task">
                                                 <input type="checkbox" name="lname" id="lname"  value="lname">
-                                               <span  class="form-control form-control-sm cdqadisable"><?php if(isset($ldmster)){  echo $ldmster['lname']; }else { echo "Lname is Empty" ;} ?>
-                                               
+                                               <span  class="form-control form-control-sm cdqadisable tooltips"><?php if(isset($ldmster)){  echo $ldmster['lname']; }else { echo "Lname is Empty" ;} ?>
+                                               <span class="tooltiptext">Last Name</span>
                                                 </span>
                                             </label>
                                         </div>
@@ -227,14 +337,14 @@ $(document).ready(function() {
                                         <div class="checkbox-fade fade-in-primary  col-sm-12">
                                             <label class="check-task">
                                                 <input type="checkbox" name="jtitle" id="jtitle"  value="jtitle">
-                                               <span  class="form-control form-control-sm cdqadisable"><?php if(isset($ldmster)){  echo $ldmster['jtitle']; }else { echo "Job Title is Empty" ;} ?>
-                                               
+                                               <span  class="form-control form-control-sm cdqadisable tooltips"><?php if(isset($ldmster)){  echo $ldmster['jtitle']; }else { echo "Job Title is Empty" ;} ?>
+                                               <span class="tooltiptext">Job Title</span>
                                                 </span>
                                             </label>
                                         </div>
                                   </div>
                             </div>
-                            <div class="col-sm-2">
+                            <!-- <div class="col-sm-2"> -->
                                 <!-- <select class="js-example-basic-multiple col-sm-12 cdqadisable" multiple="multiple" name="desid[]" id="desid"> -->
                                 <!-- <select class="form-control form-control-sm cdqadisable" name="jlevel" id="jlevel">
                                 <option value="">Job Level</option>
@@ -244,29 +354,43 @@ $(document).ready(function() {
                                
                                 </select> -->
 
-                                <div class="to-do-list">
+                                <!-- <div class="to-do-list">
                                         <div class="checkbox-fade fade-in-primary  col-sm-12">
                                             <label class="check-task">
                                                 <input type="checkbox" name="jlevel" id="jlevel"  value="jlevel">
                                                 <?php// foreach ($joblevel as $joblevel): ?>
-                                               <span  class="form-control form-control-sm cdqadisable"><?php if(isset($ldmster)){ echo $ldmster['jlevel']; } else { echo "Job level is Empty" ; } ?>
+                                               <span  class="form-control form-control-sm cdqadisable">
+                                               <?php// if(isset($ldmster)){ echo $ldmster['jlevel']; } else { echo "Job level is Empty" ; } ?>
                                                
                                                 </span>
                                                 <?php// endforeach; ?>  
                                             </label>
                                         </div>
-                                  </div>
+                                  </div> -->
 
 
-                            </div>
-                            <div class="col-sm-2">
+                            <!-- </div> -->
+                            <div class="col-sm-4">
                                 <!-- <select class="js-example-basic-multiple col-sm-12 cdqadisable" multiple="multiple" name="desid[]" id="desid"> -->
-                                <select class="js-example-basic-single" name="desid" id="desid">
-                                <option value="">Designation</option>
-                                <?php foreach ($designation as $designation): ?>
-                                    <option value="<?php echo $designation['jid']; ?>" <?php if(isset($ldmster) && $ldmster['jlevel'] == $designation['jid']){ echo "selected" ; } ?>><?php echo $designation['joblist']; ?></option>
-                                <?php endforeach; ?>  
-                                </select>
+                                <!-- <select class="js-example-basic-single" name="desid" id="desid">
+                                <option value="">Designation</option> -->
+                                <?php //foreach ($designation as $designation): ?>
+                                    <!-- <option value="<?php// echo $designation['jid']; ?>" <?php //if(isset($ldmster) && $ldmster['jlevel'] == $designation['jid']){ echo "selected" ; } ?>>
+                                    <?php //echo $designation['joblist']; ?></option> -->
+                                <?php //endforeach; ?>  
+                                <!-- </select> -->
+
+
+                                   <div class="to-do-list">
+                                          <div class="checkbox-fade fade-in-primary  col-sm-12">
+                                              <label class="check-task">
+                                                  <input type="checkbox" name="desid" id="desid"  value="desid">
+                                                <span  class="form-control form-control-sm cdqadisable tooltips"><?php if(isset($ldmster['jlevel'])){  echo $designationdv['joblist']; }else { echo "Designation is Empty" ;} ?>
+                                                <span class="tooltiptext">Designation</span>
+                                                </span>
+                                              </label>
+                                          </div>
+                                  </div>   
                                 
                             </div>
                             
@@ -276,12 +400,25 @@ $(document).ready(function() {
                         <hr>
                         <div class="form-group row">
                         <div class="col-sm-2">
-                                 <select class="js-example-basic-single" name="dcd" id="dcd">
+                                 <!-- <select class="js-example-basic-single" name="dcd" id="dcd">
                                     <option value=""> Department</option>
-                                <?php foreach ($departments as $dept): ?>
-                                    <option value="<?php echo $dept['dcd']; ?>"  <?php if(isset($ldmster) && $ldmster['dname'] == $dept['dcd']){ echo "selected" ; } ?> ><?php echo $dept['department']; ?></option>
-                                <?php endforeach; ?>
-                                </select>
+                                <?php// foreach ($departments as $dept): ?>
+                                    <option value="<?php //echo $dept['dcd']; ?>"  
+                                    <?php// if(isset($ldmster) && $ldmster['dname'] == $dept['dcd']){ echo "selected" ; } ?> ><?php //echo $dept['department']; ?></option>
+                                <?php// endforeach; ?>
+                                </select> -->
+
+                                
+                                <div class="to-do-list">
+                                          <div class="checkbox-fade fade-in-primary  col-sm-12">
+                                              <label class="check-task">
+                                                  <input type="checkbox" name="dcd" id="dcd"  value="dcd">
+                                                <span  class="form-control form-control-sm cdqadisable tooltips"><?php if(isset($ldmster['dname'])){  echo $departmentsdv['department']; }else { echo "Department is Empty" ;} ?>
+                                                <span class="tooltiptext">Department</span>
+                                                </span>
+                                              </label>
+                                          </div>
+                                  </div>   
                             </div> 
                             <div class="col-sm-2">
                                 <div class="newsletter-signup">
@@ -290,8 +427,8 @@ $(document).ready(function() {
                                           <div class="checkbox-fade fade-in-primary  col-sm-12">
                                               <label class="check-task">
                                                   <input type="checkbox" name="email" id="email"  value="email">
-                                                <span  class="form-control form-control-sm cdqadisable"><?php if(isset($ldmster)){  echo $ldmster['email']; }else { echo "Email is Empty" ;} ?>
-                                                
+                                                <span  class="form-control form-control-sm cdqadisable tooltips"><?php if(isset($ldmster)){  echo $ldmster['email']; }else { echo "Email is Empty" ;} ?>
+                                                <span class="tooltiptext">Email</span>
                                                   </span>
                                               </label>
                                           </div>
@@ -309,8 +446,8 @@ $(document).ready(function() {
                                           <div class="checkbox-fade fade-in-primary  col-sm-12">
                                               <label class="check-task">
                                                   <input type="checkbox" name="phone" id="phone"  value="phone">
-                                                <span  class="form-control form-control-sm cdqadisable"><?php if(isset($ldmster)){  echo $ldmster['phone']; }else { echo "Phone is Empty" ;} ?>
-                                                
+                                                <span  class="form-control form-control-sm cdqadisable tooltips"><?php if(isset($ldmster)){  echo $ldmster['phone']; }else { echo "Phone is Empty" ;} ?>
+                                                <span class="tooltiptext">Phone</span>
                                                   </span>
                                               </label>
                                           </div>
@@ -325,8 +462,8 @@ $(document).ready(function() {
                                           <div class="checkbox-fade fade-in-primary  col-sm-12">
                                               <label class="check-task">
                                                   <input type="checkbox" name="altphn" id="altphn"  value="altphn">
-                                                  <span  class="form-control form-control-sm cdqadisable"><?php if(isset($ldmster['altphn']) && $ldmster['altphn'] != "0"){  echo $ldmster['altphn']; }else { echo "Phone EXT Empty" ;} ?>
-                                                
+                                                  <span  class="form-control form-control-sm cdqadisable tooltips"><?php if(isset($ldmster) && $ldmster['altphn'] != ""){  echo $ldmster['altphn']; }else { echo "ALT Phone Empty" ;} ?>
+                                                  <span class="tooltiptext">Alt Phone</span>
                                                 </span>
                                               </label>
                                           </div>
@@ -340,8 +477,8 @@ $(document).ready(function() {
                                           <div class="checkbox-fade fade-in-primary  col-sm-12">
                                               <label class="check-task">
                                                   <input type="checkbox" name="phext" id="phext"  value="phext">
-                                                <span  class="form-control form-control-sm cdqadisable"><?php if(isset($ldmster['phext'])){  echo $ldmster['phext']; }else { echo "Phone EXT Empty" ;} ?>
-                                                
+                                                <span  class="form-control form-control-sm cdqadisable tooltips"><?php if($ldmster['phext'] != '0'){  echo $ldmster['phext']; }else { echo "Phone EXT Empty" ;} ?>
+                                                <span class="tooltiptext">Phone EXT</span>
                                                   </span>
                                               </label>
                                           </div>
@@ -350,20 +487,21 @@ $(document).ready(function() {
                            
                             </div>
                             <div class="col-sm-2">
-                          
-                                <!-- <input type="text"  name="plink" id="plink"  placeholder="Prospect Link"  class="form-control form-control-sm" value ="<?php // if(isset($ldmster)){  echo $ldmster['plink']; }?>" > -->
-                                <div class="to-do-list">
+                            
+                            <div class="to-do-list">
                                           <div class="checkbox-fade fade-in-primary  col-sm-12">
                                               <label class="check-task">
                                                   <input type="checkbox" name="plink" id="plink"  value="plink">
-                                                <span  class=""><?php if(isset($ldmster['plink'])){  echo $ldmster['plink']; }else { echo "Link Empty" ;} ?>
-                                                
-                                                  </span>
+                                                <span  class="form-control form-control-sm cdqadisable tooltips">Prospect Link  
+                                                <a href="<?php echo $ldmster['plink'] ?>" target="_blank" style="float:right"><i class="icofont icofont-link"></i></a>
+                                                  <span class="tooltiptext">Prospect Link</span>
+                                                </span>
                                               </label>
+                                             
                                           </div>
                                     </div>
-                               
-                                <span style='color:#FF0000' id="url_msg"></span>
+                            
+                             
                             </div>
                         
                       </div>
@@ -371,29 +509,47 @@ $(document).ready(function() {
                         <div class="form-group row">
                              
                               <div class="col-sm-2">
-                               <select name="linetype" id="linetype"  class="form-control  form-control-sm cdqadisable">
+                               <!-- <select name="linetype" id="linetype"  class="form-control  form-control-sm cdqadisable">
                                      <option value="0">Line Type</option>
                                      <option value="0">unknown</option>
                                      <option value="1">Direct</option>
                                      <option value="2">Board</option>  
-                               </select>
+                               </select> -->
+                               <div class="to-do-list">
+                                            <div class="checkbox-fade fade-in-primary  col-sm-12">
+                                                <label class="check-task">
+                                                    <input type="checkbox" name="linetype" id="linetype"  value="linetype">
+                                                  <span  class="form-control form-control-sm cdqadisable tooltips"><?php 
+                                                    if($ldmster['linetype'] == "0"){ 
+                                                     echo "Unknown Linetype"; 
+                                                    }else if($ldmster['linetype'] == "1") { 
+                                                      echo "Direct Linetype";
+                                                    }else if($ldmster['linetype'] == "2"){
+                                                      echo "Board Linetype";
+                                                    }
+                                                      ?>
+                                                      <span class="tooltiptext">Line Type</span>
+                                                  </span>
+                                                </label>
+                                            </div>
+                                  </div>
+
                            </div>
                               <div class="col-sm-2">
-                                <div class="compcheck">
                                 <!-- <input type="text"  name="company_name" id="company_name"  
                                 placeholder="Company Name"  class="form-control form-control-sm cdqadisable"  value ="<?php //if(isset($ldmster)){  echo $ldmster['cname']; }?>"> -->
                                 <div class="to-do-list">
                                           <div class="checkbox-fade fade-in-primary  col-sm-12">
                                               <label class="check-task">
                                                   <input type="checkbox" name="company_name" id="company_name"  value="company_name">
-                                                <span  class="form-control form-control-sm cdqadisable"><?php if(isset($ldmster['cname'])){  echo $ldmster['cname']; }else { echo "Comapny Name Empty" ;} ?>
+                                                <span  class="form-control form-control-sm cdqadisable tooltips"><?php if(isset($ldmster['cname'])){  echo $ldmster['cname']; }else { echo "Comapny Name Empty" ;} ?>
+                                                <span class="tooltiptext">Company Name</span>
                                                 </span>
                                               </label>
                                           </div>
-                                   
                                 </div>
-                                <span style='color:#FF0000' id="comp_msg"></span>
-                              </div> 
+                               
+                           
                           </div>
 
 
@@ -403,7 +559,8 @@ $(document).ready(function() {
                                           <div class="checkbox-fade fade-in-primary  col-sm-12">
                                               <label class="check-task">
                                                   <input type="checkbox" name="address" id="address"  value="address">
-                                                <span  class="form-control form-control-sm cdqadisable"><?php if(isset($ldmster['address'])){  echo $ldmster['address']; }else { echo "Address is Empty" ;} ?>
+                                                <span  class="form-control form-control-sm cdqadisable tooltips"><?php if(isset($ldmster['address'])){  echo $ldmster['address']; }else { echo "Address is Empty" ;} ?>
+                                                <span class="tooltiptext">Address</span>
                                                 </span>
                                               </label>
                                           </div>
@@ -415,7 +572,8 @@ $(document).ready(function() {
                                           <div class="checkbox-fade fade-in-primary  col-sm-12">
                                               <label class="check-task">
                                                   <input type="checkbox" name="city" id="city"  value="city">
-                                                <span  class="form-control form-control-sm cdqadisable"><?php if(isset($ldmster['city'])){  echo $ldmster['city']; }else { echo "city is Empty" ;} ?>
+                                                <span  class="form-control form-control-sm cdqadisable tooltips"><?php if(isset($ldmster['city'])){  echo $ldmster['city']; }else { echo "city is Empty" ;} ?>
+                                                <span class="tooltiptext">City</span>
                                                 </span>
                                               </label>
                                           </div>
@@ -427,7 +585,8 @@ $(document).ready(function() {
                                           <div class="checkbox-fade fade-in-primary  col-sm-12">
                                               <label class="check-task">
                                                   <input type="checkbox" name="state" id="state"  value="state">
-                                                <span  class="form-control form-control-sm cdqadisable"><?php if(isset($ldmster['city'])){  echo $ldmster['state']; }else { echo "state is Empty" ;} ?>
+                                                <span  class="form-control form-control-sm cdqadisable tooltips"><?php if(isset($ldmster['city'])){  echo $ldmster['state']; }else { echo "state is Empty" ;} ?>
+                                                <span class="tooltiptext">State</span>
                                                 </span>
                                               </label>
                                           </div>
@@ -440,7 +599,8 @@ $(document).ready(function() {
                                           <div class="checkbox-fade fade-in-primary  col-sm-12">
                                               <label class="check-task">
                                                   <input type="checkbox" name="zip_code" id="zip_code"  value="zip_code">
-                                                <span  class="form-control form-control-sm cdqadisable"><?php if(isset($ldmster['zipcode'])){  echo $ldmster['zipcode']; }else { echo "zipcode is Empty" ;} ?>
+                                                <span  class="form-control form-control-sm cdqadisable tooltips"><?php if(isset($ldmster['zipcode'])){  echo $ldmster['zipcode']; }else { echo "zipcode is Empty" ;} ?>
+                                                <span class="tooltiptext">Zip Code</span>
                                                 </span>
                                               </label>
                                           </div>
@@ -454,55 +614,109 @@ $(document).ready(function() {
                         <div class="form-group row">
 
                           <div class="col-sm-2">
-                                     <select class="js-example-basic-single" name="country_id" id="country_id">
-                                     <option value="">Countries</option>
-                                 <?php foreach ($countriesofcampaign as $countriesofcampaign): ?>
-                                    <option value="<?php echo $countriesofcampaign['countrycd']; ?>" <?php if(isset($ldmster) && $ldmster['country'] == $countriesofcampaign['countrycd']){ echo "selected" ; } ?>  ><?php echo $countriesofcampaign['countryname']; ?></option>
-                                <?php endforeach; ?>
-                                </select>
-                                <span style='color:#FF0000' id="country_id_msg"></span>
-                            </div>
+
+                          <div class="to-do-list">
+                                          <div class="checkbox-fade fade-in-primary  col-sm-12">
+                                              <label class="check-task">
+                                                  <input type="checkbox" name="country_id" id="country_id"  value="country_id">
+                                                <span  class="form-control form-control-sm cdqadisable tooltips"><?php if(isset($ldmster['country'])){  echo $countriesdv['countryname']; }else { echo "Country is Empty" ;} ?>
+                                                <span class="tooltiptext">Country</span>
+                                                </span>
+                                              </label>
+                                          </div>
+                                  </div>     
+<!--                                  
+                                <span style='color:#FF0000' id="country_id_msg"></span> -->
+                        </div>
                             
                             <div class="col-sm-2">
-                              <select class="js-example-basic-single"  name="timezone" id="timezone">
+
+                            <div class="to-do-list">
+                                          <div class="checkbox-fade fade-in-primary  col-sm-12">
+                                              <label class="check-task">
+                                                  <input type="checkbox" name="timezone" id="timezone"  value="timezone">
+                                                <span  class="form-control form-control-sm cdqadisable tooltips"><?php if(isset($ldmster['timez']) && $ldmster['timez'] != "0"){  echo $tz['abbrev']; }else { echo "Timezone is Empty" ;} ?>
+                                                <span class="tooltiptext">Timezone</span>
+                                                </span>
+                                              </label>
+                                          </div>
+                                  </div>
+
+                              <!-- <select class="js-example-basic-single"  name="timezone" id="timezone">
                               <option value="">Timezone</option>
-                              <?php foreach ($timezones as $tz): ?>
-                                    <option value="<?php echo $tz['zoneid']; ?>"  <?php if(isset($ldmster) && $ldmster['timez'] == $tz['zoneid']){ echo "selected" ; } ?>><?php echo $tz['abbrev']; ?></option>
-                                <?php endforeach; ?> 
-                                </select>
-                                <span style='color:#FF0000' id="timezone_msg"></span>
+                              <?php //foreach ($timezones as $tz): ?>
+                                    <option value="<?php// echo $tz['zoneid']; ?>"  <?php //if(isset($ldmster) && $ldmster['timez'] == $tz['zoneid']){ echo "selected" ; } ?>>
+                                    <?php //echo $tz['abbrev']; ?></option>
+                                <?php //endforeach; ?> 
+                                </select> -->
+                                <!-- <span style='color:#FF0000' id="timezone_msg"></span> -->
                             </div>
 
                             <div class="col-sm-2">
-                               <select name="ctype" id="ctype"  class="form-control  form-control-sm cdqadisable"> 
+                               <!-- <select name="ctype" id="ctype"  class="form-control  form-control-sm cdqadisable"> 
                                      <option value="0">Company Type</option>
-                                     <?php foreach ($comptype as $comptype): ?>
-                                    <option value="<?php echo $comptype['ctypid']; ?>"><?php echo $comptype['ctypname']; ?></option>
-                                <?php endforeach; ?> 
-                               </select>
+                                     <?php// foreach ($comptype as $comptype): ?>
+                                    <option value="<?php //echo $comptype['ctypid']; ?>"><?php //echo $comptype['ctypname']; ?></option>
+                                <?php //endforeach; ?> 
+                               </select> -->
+                               <div class="to-do-list">
+                                          <div class="checkbox-fade fade-in-primary  col-sm-12">
+                                              <label class="check-task">
+                                                  <input type="checkbox" name="ctype" id="ctype"  value="ctype">
+                                                <span  class="form-control form-control-sm cdqadisable tooltips"><?php if($ldmster['ctyp'] != "0"){  echo $comptypedv['ctypname']; }else { echo "Comp Type is Empty" ;} ?>
+                                                <span class="tooltiptext">Company Type</span>
+                                                </span>
+                                              </label>
+                                          </div>
+                                  </div> 
                            </div>
                            
                          
                             <div class="col-sm-2">
-                              <select class="js-example-basic-single"  name="industrycd" id="industrycd">
+                            <div class="to-do-list">
+                                          <div class="checkbox-fade fade-in-primary  col-sm-12">
+                                              <label class="check-task">
+                                                  <input type="checkbox" name="industrycd" id="industrycd"  value="industrycd">
+                                                <span  class="form-control form-control-sm cdqadisable tooltips"><?php if(isset($ldmster['indtry'])){  echo $industriesdv['industry']; }else { echo "industry is Empty" ;} ?>
+                                                <span class="tooltiptext">Industry</span>
+                                                </span>
+                                              </label>
+                                          </div>
+                                  </div> 
+
+
+                              <!-- <select class="js-example-basic-single"  name="industrycd" id="industrycd">
                               <option value="">Industry</option>
-                              <?php foreach ($industries as $industry): ?>
-                                    <option value="<?php echo $industry['industrycd']; ?>" <?php if(isset($ldmster) && $ldmster['indtry'] == $industry['industrycd']){ echo "selected" ; } ?>><?php echo $industry['industry']; ?></option>
-                                <?php endforeach; ?>
-                                </select>
-                                <span style='color:#FF0000' id="industry_id_msg"></span>
+                              <?php// foreach ($industries as $industry): ?>
+                                    <option value="<?php //echo $industry['industrycd']; ?>" <?php //if(isset($ldmster) && $ldmster['indtry'] == $industry['industrycd']){ echo "selected" ; } ?>>
+                                    <?php// echo $industry['industry']; ?></option>
+                                <?php //endforeach; ?>
+                                </select> -->
+                                <!-- <span style='color:#FF0000' id="industry_id_msg"></span> -->
                             </div>
+                            
                             <div class="col-sm-2">
-                                <select class="js-example-basic-single" name="subindustrycd" id="subindustrycd">
+                            <div class="to-do-list">
+                                          <div class="checkbox-fade fade-in-primary  col-sm-12">
+                                              <label class="check-task">
+                                                  <input type="checkbox" name="subindustrycd" id="subindustrycd"  value="subindustrycd">
+                                                <span  class="form-control form-control-sm cdqadisable tooltips"><?php if(isset($ldmster['sindtry'])){  echo $subindustriesdv['subindustry']; }else { echo "Sub industry is Empty" ;} ?>
+                                                <span class="tooltiptext">Sub Industry</span>
+                                                </span>
+                                              </label>
+                                          </div>
+                                  </div> 
+                                <!-- <select class="js-example-basic-single" name="subindustrycd" id="subindustrycd">
                                 <option value="">Sub Industry</option>
-                                <?php foreach ($industriessub as $sub): ?>
-                                    <option value="<?php echo $sub['subindustrycd']; ?>" <?php if(isset($ldmster) && $ldmster['sindtry'] == $sub['subindustrycd']){ echo "selected" ; } ?>><?php echo $sub['subindustry']; ?></option>
-                                <?php endforeach; ?>
-                                </select>
-                                <span style='color:#FF0000' id="subindustry_id_msg"></span>
+                                <?php //foreach ($industriessub as $sub): ?>
+                                    <option value="<?php //echo $sub['subindustrycd']; ?>" <?php //if(isset($ldmster) && $ldmster['sindtry'] == $sub['subindustrycd']){ echo "selected" ; } ?>>
+                                    <?php //echo $sub['subindustry']; ?></option>
+                                <?php //endforeach; ?>
+                                </select> -->
+                                <!-- <span style='color:#FF0000' id="subindustry_id_msg"></span> -->
                             </div>
                             <div class="col-sm-2">
-                                <select class="form-control form-control-sm cdqadisable" name="sectyp" id="sectyp">
+                                <!-- <select class="form-control form-control-sm cdqadisable" name="sectyp" id="sectyp">
                                   
                                     <option value="0">Sector Type</option>
                                     <option value="0">Unknown</option>
@@ -511,7 +725,32 @@ $(document).ready(function() {
                                     <option value="3">Government</option>
                                     <option value="4">Non -Profit </option>
                                
-                                    </select>
+                                    </select> -->
+
+                                    <div class="to-do-list">
+                                            <div class="checkbox-fade fade-in-primary  col-sm-12">
+                                                <label class="check-task">
+                                                    <input type="checkbox" name="sectyp" id="sectyp"  value="sectyp">
+                                                  <span  class="form-control form-control-sm cdqadisable tooltips"><?php 
+                                                    if($ldmster['sectyp'] == "0"){ 
+                                                     echo "Unknown"; 
+                                                    }else if($ldmster['sectyp'] == "1") { 
+                                                      echo "Public";
+                                                    }else if($ldmster['sectyp'] == "2"){
+                                                      echo "Private";
+                                                    }else if($ldmster['sectyp'] == "3"){
+                                                      echo "Government";
+                                                    }else{
+
+                                                    }
+                                                      ?>
+                                                       <span class="tooltiptext">Sector Type</span>
+                                                  </span>
+                                                 
+                                                </label>
+                                            </div>
+                                  </div>
+
                             </div>
 
                         </div>
@@ -523,12 +762,13 @@ $(document).ready(function() {
                                           <div class="checkbox-fade fade-in-primary  col-sm-12">
                                               <label class="check-task">
                                                   <input type="checkbox" name="empsize" id="empsize"  value="empsize">
-                                                <span  class="form-control form-control-sm cdqadisable"><?php if(isset($ldmster['empsize'])){  echo $ldmster['empsize']; }else { echo "Emp Size is Empty" ;} ?>
+                                                <span  class="form-control form-control-sm cdqadisable tooltips"><?php if(isset($ldmster['empsize'])){  echo $ldmster['empsize']; }else { echo "Emp Size is Empty" ;} ?>
+                                                <span class="tooltiptext">Emp size</span>
                                                 </span>
                                               </label>
                                           </div>
                                  </div>
-                                <span style='color:#FF0000' id="empsize_msg"></span>
+                                <!-- <span style='color:#FF0000' id="empsize_msg"></span> -->
                             </div>
                             <div class="col-sm-2">
                                 <!-- <input type="text"  name="arevenue" id="arevenue" value ="<?php //if(isset($ldmster)){  echo $ldmster['arevenue']; }?>"  maxlength="15" placeholder="Actual Revenue Size"  class="form-control form-control-sm cdqadisable"> -->
@@ -537,7 +777,8 @@ $(document).ready(function() {
                                           <div class="checkbox-fade fade-in-primary  col-sm-12">
                                               <label class="check-task">
                                                   <input type="checkbox" name="arevenue" id="arevenue"  value="arevenue">
-                                                <span  class="form-control form-control-sm cdqadisable"><?php if(isset($ldmster['arevenue'])){  echo $ldmster['arevenue']; }else { echo "Revenue is Empty" ;} ?>
+                                                <span  class="form-control form-control-sm cdqadisable tooltips"><?php if(isset($ldmster['arevenue'])){  echo $ldmster['arevenue']; }else { echo "Revenue is Empty" ;} ?>
+                                                <span class="tooltiptext">Revenue</span>
                                                 </span>
                                               </label>
                                           </div>
@@ -547,53 +788,93 @@ $(document).ready(function() {
                             
                             
                             <div class="col-sm-2">
-                                <select class="form-control form-control-sm cdqadisable" name="mlbl" id="mlbl">
-                                
-                               
+                                <!-- <select class="form-control form-control-sm cdqadisable" name="mlbl" id="mlbl">
                                     <option value="0">K</option>
-                                    <!-- <option value="1">Hundred Thousand</option> -->
-                                    <option value="1">M</option>
+                                    <option value="1">Hundred Thousand</option> -->
+                                    <!-- <option value="1">M</option>
                                     <option value="2">B</option>
                                     <option value="3">T</option>
-                                    </select>
+                                    </select> --> 
+                                    <div class="to-do-list">
+                                            <div class="checkbox-fade fade-in-primary  col-sm-12">
+                                                <label class="check-task">
+                                                    <input type="checkbox" name="mlbl" id="mlbl"  value="mlbl">
+                                                  <span  class="form-control form-control-sm cdqadisable tooltips"><?php 
+                                                    if($ldmster['mlbl'] == "0"){ 
+                                                     echo "K"; 
+                                                    }else if($ldmster['mlbl'] == "1") { 
+                                                      echo "M";
+                                                    }else if($ldmster['mlbl'] == "2"){
+                                                      echo "B";
+                                                    }else if($ldmster['mlbl'] == "3"){
+                                                      echo "T";
+                                                    }else{
+
+                                                    }
+                                                      ?>
+                                                      <span class="tooltiptext">Revenue Range</span>
+                                                  </span>
+                                                </label>
+                                            </div>
+                                  </div>
+
+
+
                             </div>          
                             <div class="col-sm-2">
-                                <select class="form-control form-control-sm cdqadisable" name="curr" id="curr">
+                            
+                            <div class="to-do-list">
+                                          <div class="checkbox-fade fade-in-primary  col-sm-12">
+                                              <label class="check-task">
+                                                  <input type="checkbox" name="curr" id="curr"  value="curr">
+                                                <span  class="form-control form-control-sm cdqadisable tooltips"><?php if(isset($ldmster['curr'])){  echo $currencydv['currab']; }else { echo "currency is Empty" ;} ?>
+                                                <span class="tooltiptext">Currency</span>
+                                                </span>
+                                              </label>
+                                          </div>
+                                  </div>
+
+                                <!-- <select class="form-control form-control-sm cdqadisable" name="curr" id="curr">
                                     <option value="1">USD</option>                                  
-                                <?php foreach ($currency as $currency): ?>
-                                    <option value="<?php echo $currency['currid']; ?>"  <?php if(isset($ldmster) && $ldmster['curr'] == $currency['currid']){ echo "selected" ; } ?>><?php echo $currency['currab']; ?></option>
-                                <?php endforeach; ?>
-                                   </select>
+                                <?php //foreach ($currency as $currency): ?>
+                                    <option value="<?php //echo $currency['currid']; ?>"  
+                                    <?php //if(isset($ldmster) && $ldmster['curr'] == $currency['currid']){ echo "selected" ; } ?>><?php echo $currency['currab']; ?></option>
+                                <?php //endforeach; ?>
+                                   </select> -->
                                 
 
                             </div>          
                             <div class="col-sm-2">
                                 <div class="domaincheck">
                                 <!-- <input type="text" value ="<?php //if(isset($ldmster)){  echo $ldmster['domain']; }?>"   name="domain" id="domain"  placeholder="Domain" value=""  class="form-control form-control-sm cdqadisable"> -->
-                                  <div class="to-do-list">
-                                            <div class="checkbox-fade fade-in-primary  col-sm-12">
-                                                <label class="check-task">
-                                                    <input type="checkbox" name="domain" id="domain"  value="domain">
-                                                  <span  class=""><?php if(isset($ldmster['domain'])){  echo $ldmster['domain']; }else { echo "Domain is Empty" ;} ?>
-                                                  </span>
-                                                </label>
-                                            </div>
-                                  </div>
+                                <div class="to-do-list">
+                                          <div class="checkbox-fade fade-in-primary  col-sm-12">
+                                              <label class="check-task">
+                                                  <input type="checkbox" name="domain" id="domain"  value="domain">
+                                                <span  class="form-control form-control-sm cdqadisable tooltips">Domain Link  
+                                                <a href="http://<?php echo $ldmster['domain'] ?>" target="_blank" style="float:right"><i class="icofont icofont-link"></i></a>
+                                                  <span class="tooltiptext">Domain Link</span>
+                                                </span>
+                                              </label>
+                                          </div>
+                                    </div>
                                 </div>
-                                <span style='color:#FF0000' id="domain_msg"></span>
+                                <!-- <span style='color:#FF0000' id="domain_msg"></span> -->
                               </div>
                             
                             <div class="col-sm-2">
                                 <!-- <input type="text" value ="<?php // if(isset($ldmster)){  echo $ldmster['empszlink']; }?>"  name="empszlink" id="empszlink" value=""   placeholder="Employee Size Link"  class="form-control form-control-sm"> -->
                                 <div class="to-do-list">
-                                            <div class="checkbox-fade fade-in-primary  col-sm-12">
-                                                <label class="check-task">
-                                                    <input type="checkbox" name="empszlink" id="empszlink"  value="empszlink">
-                                                  <span  class=""><?php if(isset($ldmster['empszlink'])){  echo $ldmster['empszlink']; }else { echo "link is Empty" ;} ?>
-                                                  </span>
-                                                </label>
-                                            </div>
-                                  </div>
+                                          <div class="checkbox-fade fade-in-primary  col-sm-12">
+                                              <label class="check-task">
+                                                  <input type="checkbox" name="empszlink" id="empszlink"  value="empszlink">
+                                                <span  class="form-control form-control-sm cdqadisable tooltips">Emp Size Link  
+                                                <a href="<?php if($ldmster['empszlink'] != ""){ echo $ldmster['empszlink']; } else{  echo "#"; } ?>" target="_blank" style="float:right"><i class="icofont icofont-link"></i></a>
+                                                  <span class="tooltiptext">Emp Size Link</span>
+                                                </span>
+                                              </label>
+                                          </div>
+                                    </div>
                             </div>
                            
                         </div>
@@ -601,69 +882,99 @@ $(document).ready(function() {
                         <hr>
                         <div class="form-group row">
                            
-                        <div class="col-sm-2 ">
-                                <!-- <input type="text" value ="<?php // if(isset($ldmster)){  echo $ldmster['indlink']; }?>"  name="indlink" id="indlink"  placeholder="Industry Link" value="" class="form-control form-control-sm"> -->
-                                <div class="to-do-list">
-                                            <div class="checkbox-fade fade-in-primary  col-sm-12">
-                                                <label class="check-task">
-                                                    <input type="checkbox" name="indlink" id="indlink"  value="indlink">
-                                                  <span  class=""><?php if(isset($ldmster['indlink'])){  echo $ldmster['indlink']; }else { echo "Industry link is Empty" ;} ?>
-                                                  </span>
-                                                </label>
-                                            </div>
-                                  </div>
+                            <div class="col-sm-2 ">
+                               
+                                <!-- <a href="<?php //if(isset($ldmster['indlink'])){ echo $ldmster['indlink']; } ?> "target="_blank"> 
+                                <?php //if(isset($ldmster['indlink'])){  echo $ldmster['indlink']; }else { echo "Industry Link Empty" ;} ?>
+                                </a>
+                            
+                                  <input type="checkbox" value=""  id="indlink" name="indlink" class="js-single"  /> -->
+                                  <div class="to-do-list">
+                                          <div class="checkbox-fade fade-in-primary  col-sm-12">
+                                              <label class="check-task">
+                                                  <input type="checkbox" name="indlink" id="indlink"  value="indlink">
+                                                <span  class="form-control form-control-sm cdqadisable tooltips">Industry Link  
+                                                <a href="<?php if($ldmster['indlink'] != "NA"){ echo $ldmster['indlink']; } else{  echo "#"; } ?>" target="_blank" style="float:right"><i class="icofont icofont-link"></i></a>
+                                                  <span class="tooltiptext">Industry Link</span>
+                                                </span>
+                                              </label>
+                                          </div>
+                                    </div>
+                              
                             </div>
                             <div class="col-sm-2">
-                                <!-- <input type="text"  name="revszlink" id="revszlink" value ="<?php // if(isset($ldmster)){  echo $ldmster['revszlink']; }?>"     placeholder="Revenue Size Link"  class="form-control form-control-sm revsizehide"> -->
+                                <!-- <input type="text"  name="revszlink" id="revszlink" value ="<?php // if(isset($ldmster)){  echo $ldmster['revszlink']; }?>"  placeholder="Revenue Size Link"  class="form-control form-control-sm revsizehide"> -->
                                 <div class="to-do-list">
-                                            <div class="checkbox-fade fade-in-primary  col-sm-12">
-                                                <label class="check-task">
-                                                    <input type="checkbox" name="revszlink" id="revszlink"  value="revszlink">
-                                                  <span  class=""><?php if(isset($ldmster['revszlink'])){  echo $ldmster['revszlink']; }else { echo "revenue Sizelink is Empty" ;} ?>
-                                                  </span>
-                                                </label>
-                                            </div>
-                                  </div>
+                                          <div class="checkbox-fade fade-in-primary  col-sm-12">
+                                              <label class="check-task">
+                                                  <input type="checkbox" name="revszlink" id="revszlink"  value="revszlink">
+                                                <span  class="form-control form-control-sm cdqadisable tooltips">Revenue Link  
+                                                <a href="<?php if($ldmster['revszlink'] != "NA"){ echo $ldmster['revszlink']; } else{  echo "#"; } ?>" target="_blank" style="float:right"><i class="icofont icofont-link"></i></a>
+                                                  <span class="tooltiptext">Revenue Link</span>
+                                                </span>
+                                              </label>
+                                          </div>
+                                    </div>
                             </div>
+                            
                             <div class="col-sm-2">
                                 <!-- <input type="text"  name="othrlink" id="othrlink" value ="<?php //if(isset($ldmster)){  echo $ldmster['othrlink']; }?>" placeholder="Other Link"  class="form-control form-control-sm"> -->
                                 <div class="to-do-list">
-                                            <div class="checkbox-fade fade-in-primary  col-sm-12">
-                                                <label class="check-task">
-                                                    <input type="checkbox" name="othrlink" id="othrlink"  value="othrlink">
-                                                  <span  class=""><?php if(isset($ldmster['othrlink'])){  echo $ldmster['othrlink']; }else { echo "Other link is Empty" ;} ?>
-                                                  </span>
-                                                </label>
-                                            </div>
-                                  </div>
+                                          <div class="checkbox-fade fade-in-primary  col-sm-12">
+                                              <label class="check-task">
+                                                  <input type="checkbox" name="othrlink" id="othrlink"  value="othrlink">
+                                                <span  class="form-control form-control-sm cdqadisable tooltips">Other Link  
+                                                <a href="<?php if($ldmster['othrlink'] != ""){ echo $ldmster['othrlink']; } else{  echo "#"; } ?>" target="_blank" style="float:right"><i class="icofont icofont-link"></i></a>
+                                                  <span class="tooltiptext">other Link</span>
+                                                </span>
+                                              </label>
+                                          </div>
+                                    </div>
                             
                             </div>
-                            <div class="col-sm-2">
+                            <!-- <div class="col-sm-2">
                                 <select class="form-control form-control-sm"  name="emailver" id="emailver">
                                     <option value="0">Email Verification</option>
                                     <option value="1">Yes</option>
                                     <option value="0">No</option>
                                 </select>
-                            </div>
+                            </div> -->
                             <div class="col-sm-2">
                                 <!-- <input type="text"  name="aum" id="aum" value ="<?php // if(isset($ldmster)){  echo $ldmster['aum']; }?>" placeholder="Asset Under Management"  class="form-control form-control-sm aumdis"> -->
                                 <div class="to-do-list">
                                             <div class="checkbox-fade fade-in-primary  col-sm-12">
                                                 <label class="check-task">
                                                     <input type="checkbox" name="aum" id="aum"  value="aum">
-                                                  <span  class=""><?php if(isset($ldmster['aum'])){  echo $ldmster['aum']; }else { echo " AUM is Empty" ;} ?>
+                                                  <span  class="form-control form-control-sm cdqadisable tooltips"><?php if($ldmster['aum'] != '0'){  echo $ldmster['aum']; }else { echo " AUM is Empty" ;} ?>
+                                                  <span class="tooltiptext">AUM</span>
                                                   </span>
                                                 </label>
                                             </div>
                                   </div>
                             </div>
-                            <div class="col-sm-2">
-                                <select class="form-control form-control-sm commentvisible" name="assetid" id="assetid">
+                            <div class="col-sm-4">
+                                <!-- <select class="form-control form-control-sm commentvisible" name="assetid" id="assetid">
                                     <option value="0">Asset</option>
-                                    <?php foreach ($assetitle as $assetitle): ?>
-                                    <option value="<?php echo $assetitle['assetid']; ?>"><?php echo $assetitle['title']; ?></option>
-                                <?php endforeach; ?>
-                                   </select>
+                                    <?php //foreach ($assetitle as $assetitle): ?>
+                                    <option value="<?php// echo $assetitle['assetid']; ?>"><?php// echo $assetitle['title']; ?></option>
+                                <?php //endforeach; ?>
+                                   </select> -->
+
+                                   <div class="to-do-list">
+                                        <div class="checkbox-fade fade-in-primary  col-sm-12">
+                                            <label class="check-task">
+                                                <input type="checkbox" name="assetid" id="assetid"  value="assetid">
+                                                <?php// foreach ($joblevel as $joblevel): ?>
+                                               <span  class="form-control form-control-sm cdqadisable tooltips"><?php if($ldmster['atitle'] != ""){ echo $assetitledv['title']; } else { echo "Asset title is Empty" ; } ?>
+                                               <span class="tooltiptext">Asset Title</span>
+                                                </span>
+                                                <?php// endforeach; ?>  
+                                            </label>
+                                        </div>
+                                  </div>
+
+
+
                             </div> 
                         </div>
                         <hr>
@@ -698,28 +1009,39 @@ $(document).ready(function() {
                         <div class="form-group row" >
                              <div class="col-sm-12 commentvisible">
                                 <label class="col-lable"><b>Comment</b></label>
-                                <input type="text"  name="pcomt" id="pcomt"  placeholder="Comment"  class="form-control form-control-sm">
+                                <input type="text"  name="pcomt" id="pcomt"  placeholder="Comment"  class="form-control form-control-sm" value="<?php echo $ldmster['pcomt']; ?>" >
                             </div> 
                          </div>
                         <input type = hidden name="campaign_id" id="campaign_id" value="<?php echo $campaign['cnid']; ?>">
                         <input type = hidden name="campaign_idcids" id="campaign_idcids" value="<?php echo $campaign['cids']; ?>">
                         
                        
-                        <?php if(isset($ldmster) ){ ?> 
+                        <!-- <?php// if(isset($ldmster) && $ldmster['dvrejtg'] <= 2){ ?>  -->
+                        <?php if(isset($ldmster) && $ldmster['dvrejtg'] <= '2' && $ldmster['dvsbtg'] <= '2'){ ?> 
                         
                           <input type = hidden name="lmid" id="lmid" value="<?php echo $ldmster['lmid']; ?>">
                           <input type = hidden name="emp_id" id="emp_id" value="<?php echo  $_SESSION['empcode']; ?>">
                           <input type = hidden name="sbsvtag" id="sbsvtag" value="<?php echo $ldmster['sbsvtag']; ?>">
+                          <input type = hidden name="dvrejtg" id="dvrejtg" value="<?php echo $ldmster['dvrejtg']; ?>">
+                          <input type = hidden name="dvsbtg" id="dvsbtg" value="<?php echo $ldmster['dvsbtg']; ?>">
                           <input type = hidden name="rlc" id="rlc" value="<?php echo $ldmster['rlc']; ?>">
-                        <button type="submit" name="leadupdatedv" class="btn btn-primary leaddisplay" style=""  id="leadupdatedv">Update</button> 
-                        <button type="submit" name="leadsavedv" class="btn btn-primary leaddisplay" style=""  id="leadsavedv">Save </button> 
-                     
-                        <?php } ?>
+                          <div class="form-group row" >
+                            <div class="col-sm-12">
+                             <center>
+                              <button type="submit" name="leadupdatedv" class="btn btn-primary leaddisplay" style=""  id="leadupdatedv">Accept</button> 
+                             
+                             
+                              <button type="submit" name="leadsavedv" class="btn btn-primary leaddisplay" style="margin-left:50px"  id="leadsavedv">Save </button> 
+                             </center>
+                        <?php } else{ ?>
+                          <button type="submit" name="" class="btn btn-primary leaddisplay" style=""  id="">Limit Crossed</button> 
+                          <button type="submit" name="leadsavedv" class="btn btn-primary leaddisplay" style=""  id="leadsavedv">Discard </button> 
+                           <?php }?>
                        <?php if(empty($ldmster)){ ?>
-                        <button type="submit" name="leadsubmitdv" class="btn btn-primary leaddisplay" style=""  id="leadsubmitdv">Submit </button> 
-                        <button type="submit" name="leadsavedv" class="btn btn-primary leaddisplay" style=""  id="leadsavedv">Save </button> 
-                        <?php } ?>
                         
+                        <?php } ?>
+                        </div>
+                          </div>
                         <!-- <input class="submit" class ="" type="submit" value="SUBMIT"> -->
                         <!-- below buttons are for cdqa save and submit -->
                         <!-- <button type="submit" name="submit" class="btn btn-primary cdqadisplay"   id="cdqasubmit">Submit Lead </button> 
@@ -741,7 +1063,7 @@ $(document).ready(function() {
 <input type="hidden" id="revubndmlbl" value="<?php echo $campaign['revubnd']; ?>"/>
 <input type="hidden" id="revlbdimmlbl" value="<?php echo $campaign['revlbdim']; ?>"/>
 <input type="hidden" id="revubdimmlbl" value="<?php echo $campaign['revubdim']; ?>"/>
-
+<?php endforeach;  ?>
    
      <script>
 $('#empsize').blur(function(){
@@ -819,12 +1141,12 @@ $('#country_id').change(function(){
 
 
 // check revenue range for campaign
-$('#arevenue').change(function(){
+// $('#arevenue').change(function(){
 
-  $("#revszlink").prop('disabled', false);
-  $('#revszlink').val("");
+//   $("#revszlink").prop('disabled', false);
+//   $('#revszlink').val("");
   
-});
+// });
 
 $('#mlbl').blur(function(){   // revenue range change
 // $('#arevenue').blur(function(){   // revenue range change
@@ -1359,7 +1681,7 @@ var lmid = $('#lmid').val();
 var emp_id = $('#emp_id').val();
 // $this->session -> userdata('email')
 
-alert(emp_id);
+// alert(emp_id);
 if(rlc == "1"){
 var urlq = '<?php echo base_url("cdc/updaterecordlock");?>';
 console.log(urlq+'?lmid='+lmid+"&rlc="+rlc+"&emp_id="+emp_id);
@@ -1394,16 +1716,8 @@ $.ajax({
 }
 
 
-
-
-
-
-
-
-
-  
-  $("#revszlink").prop('disabled', true);
-  $('#revszlink').val("NA");
+  // $("#revszlink").prop('disabled', true);
+  // $('#revszlink').val("NA");
 
   // $('.commentvisible').hide();
   // $('.revsizehide').hide();
@@ -1597,199 +1911,20 @@ $.ajax({
 
 <script>
 
-/* add lead submit initial*/
-    $(function() {
-        $("#leadsubmitdv").on('click', function() 
-        {
-         
-            var campaign_id = $('#campaign_id').val();
-            var campaign_idcids = $('#campaign_idcids').val();
-          //  alert(campaign_idcids);
-            var sal = $('#sal').val();
-            // var fname = $('#fname').val();
-
-            var notChecked = [], checked = [];
+$("input:checkbox").change(function() {
+  var notChecked = [], checked = [];
             $(":checkbox").map(function() {
             
                 this.checked ? checked.push(this.id) : notChecked.push(this.id);
             });
-   
-            alert("checked: " + checked);
-
-            // var checksupp = $('#fname').prop('checked');
-            // if(checksupp == true)
-            // {
-            //     checksupp = "fname";
-            // }
-            // else
-            // {
-            //     checksupp = 0;
-            // }
-           
-            var lname = $('#lname').val();
-            var jtitle = $('#jtitle').val();
-            var desid = $('#desid').val();
-            var jlevel = $('#jlevel').val();
-           
-            var dcd = $('#dcd').val();
-            var email = $('#email').val();
-            var phone = $('#phone').val();
-            var altphn = $('#altphn').val();
-            var phext = $('#phext').val();
-            var plink = $('#plink').val();
-            var company_name = $('#company_name').val();
-            var address = $('#address').val();
-            var city = $('#city').val();
-            var state = $('#state').val();
-            var zip_code = $('#zip_code').val();
-
-            var country_id = $('#country_id').val(); 
-            var timezone = $('#timezone').val();
-            var ctype = $('#ctype').val();
-            var linetype = $('#linetype').val();
-            var industrycd = $('#industrycd').val();
-            var subindustrycd = $('#subindustrycd').val();
-            var sectyp = $('#sectyp').val();
-            
-            var empsize = $('#empsize').val();
-
-            var mlbl = $('#mlbl').val();
-            var domain = $('#domain').val();
-            var curr = $('#curr').val();
-            var empszlink = $('#empszlink').val();
-            var indlink = $('#indlink').val();
-
-            
-
-            var pcomt = $('#pcomt').val();
-
-            var arevenue = $('#arevenue').val();
-            var revszlink = $('#revszlink').val();
-            if(arevenue ==""){
-              
-              $("#revszlink").prop('disabled', true);
-              $('#revszlink').val("NA");
-            }else if(arevenue != ""){
-              
-              $("#revszlink").prop('disabled', false);
-              var revszlink = $('#revszlink').val();
-            }
-        
-// alert(revszlink);
-            var othrlink = $('#othrlink').val();
-            var emailver = $('#emailver').val();
-            var aum = $('#aum').val();
-            var assetid = $('#assetid').val();
-            
-            var optin = $('#optin').val();
-            var optpst = $('#optpst').val();
-            var opteml = $('#opteml').val();
-            var optph = $('#optph').val();
-            var optoption = $('#optoption').val();
-
-            var aa1 = $('#aa1').val();
-            var aa2 = $('#aa2').val();
-            var aa3 = $('#aa3').val();
-            var aa4 = $('#aa4').val();
-            var aa5 = $('#aa5').val();
-            var aa6 = $('#aa6').val();
-            var aa7 = $('#aa7').val();
-            var aa8 = $('#aa8').val();
-            var aa9 = $('#aa9').val();
-            var aa10 = $('#aa10').val();
-            var aa11 = $('#aa11').val();
-            var aa12 = $('#aa12').val();
+          if(checked == ""){ // if unchecked any field
+            checked = [0];
+            $("#leadupdatedv").html("Accept");
+          }else{
+            $("#leadupdatedv").html("Reject");
+          }
           
-            
-           
-            if(fname != "" && lname != "" && company_name != "" && jlevel != "" && jtitle != "" && desid != "" && dcd !="" && email != "" && phone !="" && plink !="" && address != "" && city != "" && state != ""  && country_id != "" && industrycd != "" && subindustrycd != "" && empsize != "" && domain !=""  && empszlink != "" && revszlink != ""  && zip_code !="" ){
-           
-            var url = encodeURI("<?php echo base_url("cdc/ajax_add_new_leaddata");?>");
-            console.log(url+"?campaign_id="+campaign_id+"&sal="+sal+"&fname="+fname+"&lname="+lname+"&jtitle="+jtitle+"&desid="+desid+"&jlevel="+jlevel+"&dcd="+dcd+"&email="+email+"&phone="+phone+"&altphn="+altphn+"&phext="+phext+"&plink="+plink+"&company_name="+company_name+"&address="+address+"&city="+city+"&state="+state+"&zip_code="+zip_code+"&country_id="+country_id+"&timezone="+timezone+"&ctype="+ctype+"&linetype="+linetype+"&industrycd="+industrycd+"&subindustrycd="+subindustrycd+"&sectyp="+sectyp+"&empsize="+empsize+"&mlbl="+mlbl+"&curr="+curr+"&arevenue="+arevenue+"&empszlink="+empszlink+"&indlink="+indlink+"&domain="+domain+"&othrlink="+othrlink+"&revszlink="+revszlink+"&emailver="+emailver+"&aum="+aum+"&assetid="+assetid+"&optin="+optin+"&optpst="+optpst+"&optph="+optph+"&opteml="+opteml+"&optoption="+optoption+"&aa1="+aa1+"&aa2="+aa2+"&aa3="+aa3+"&aa4="+aa4+"&aa5="+aa5+"&aa6="+aa6+"&aa7="+aa7+"&aa8="+aa8+"&aa9="+aa9+"&aa10="+aa10+"&aa11="+aa11+"&aa12="+aa12+"&pcomt="+pcomt);
-           
-            $.ajax({
-                url :'<?php echo base_url("cdc/ajax_add_new_leaddata");?>',
-                type: 'GET', 
-                // contentType: "application/json",
-                dataType: 'json',              
-                data: {
-                   
-                  campaign_id: campaign_id,
-                  campaign_idcids: campaign_idcids,
-                    sal:sal,
-                    fname:fname,
-                    lname: lname,
-                    jtitle:jtitle,
-                    desid:desid,
-                    jlevel:jlevel,
-                    dcd:dcd,
-                    email:email,
-                    phone:phone,
-                    altphn:altphn,
-                    phext:phext,
-                    plink:plink,
-                    company_name:company_name,
-                    address:address,
-                    city:city,
-                    state:state,
-                    zip_code:zip_code,
-                    
-                    country_id:country_id,
-                    timezone:timezone,
-                    ctype:ctype,
-                    linetype:linetype,
-                                      
-                    industrycd:industrycd,
-                    subindustrycd:subindustrycd,
-                    sectyp:sectyp,
-                    empsize:empsize,
-                    mlbl:mlbl,
-                    curr:curr,
-                    arevenue:arevenue,
-                    empszlink:empszlink,
-                    indlink:indlink,
-                    revszlink:revszlink,
-                    domain:domain,
-                    othrlink:othrlink,
-                    emailver:emailver,
-                    aum:aum                 
-                      
-                    
-                    
-				},
-        async: true,
-                cache: false,
-                success: function(response){
-                    $("#leadsave").hide();
-                    var text = response.statusCode;
-                    console.log("check");
-                    if(response.statusCode == "Success") 
-                    {         
-                         
-                        $("#leadsubmit").html(response.message);
-                        top.location.href=base_url+"cdc/addleaddata?camp_id="+<?php echo $campaign['cnid']; ?>;//redirection
-                      
-                    }else if(response.data=="Fail")
-                    {
-                        $("#leadsubmit").html(response.message);
-                        
-					          }
-
-                   
-
-                },
-                error: function (error) {
-                  alert("Already exists");
-                  }
-              
-            });
-        } else{
-          alert("Please fill Mandatory fields");
-        }
-        });
-    });
-</script>
-<script>
+});
 /* update lead submit*/
     $(function() {
         $("#leadupdatedv").on('click', function() 
@@ -1800,104 +1935,51 @@ $.ajax({
             
                 this.checked ? checked.push(this.id) : notChecked.push(this.id);
             });
-   
-            alert("checked: " + checked);
-
-        
+          if(checked == ""){ // if unchecked any field
+            checked = [0];
+          }
+           
             var campaign_id = $('#campaign_id').val();
             var campaign_idcids = $('#campaign_idcids').val();
             var sbsvtag1 = $('#sbsvtag').val();
             var sbsvtag = parseInt(sbsvtag1)+1; // incremataion
+
+            var dvrejtg1 = $('#dvrejtg').val();
+            if(dvrejtg1 == ""){
+              var dvrejtg = 1;
+            }else{
+              var dvrejtg = parseInt(dvrejtg1)+1; // incremataion for dv  rejection
+            }
+ 
+            if(dvrejtg == '3'){
+              var dvrejtg = '3';
+              var sbsvtag = '0';
+            }
+
+            var dvsbtg1 = $('#dvsbtg').val();
+            if(dvsbtg1 == ""){
+              var dvsbtg = 1;
+            }else{
+              var dvsbtg = parseInt(dvsbtg1)+1; // incremataion for dv  rejection
+            }
+ 
+            if(dvsbtg == '3'){
+              var dvsbtg = '3';
+              var sbsvtag = '0';
+            }
+
+            
             var lmid = $('#lmid').val();
-
-          //  alert(campaign_idcids);
-          //  alert(sbsvtag);
-
-            var sal = $('#sal').val();
-            var fname = $('#fname').val();
-            var lname = $('#lname').val();
-            var jtitle = $('#jtitle').val();
-            var desid = $('#desid').val();
-            var jlevel = $('#jlevel').val();
-           
-            var dcd = $('#dcd').val();
-            var email = $('#email').val();
-            var phone = $('#phone').val();
-            var altphn = $('#altphn').val();
-            var phext = $('#phext').val();
-            var plink = $('#plink').val();
-            var company_name = $('#company_name').val();
-            var address = $('#address').val();
-            var city = $('#city').val();
-            var state = $('#state').val();
-            var zip_code = $('#zip_code').val();
-
-            var country_id = $('#country_id').val(); 
-            var timezone = $('#timezone').val();
-            var ctype = $('#ctype').val();
-            var linetype = $('#linetype').val();
-            var industrycd = $('#industrycd').val();
-            var subindustrycd = $('#subindustrycd').val();
-            var sectyp = $('#sectyp').val();
-            
-            var empsize = $('#empsize').val();
-
-            var mlbl = $('#mlbl').val();
-            var domain = $('#domain').val();
-            var curr = $('#curr').val();
-            var empszlink = $('#empszlink').val();
-            var indlink = $('#indlink').val();
-
-            
 
             var pcomt = $('#pcomt').val();
 
-            var arevenue = $('#arevenue').val();
-            var revszlink = $('#revszlink').val();
-            if(arevenue ==""){
-              
-              $("#revszlink").prop('disabled', true);
-              $('#revszlink').val("NA");
-            }else if(arevenue != ""){
-              
-              $("#revszlink").prop('disabled', false);
-              var revszlink = $('#revszlink').val();
-            }
-        
-// alert(revszlink);
-            var othrlink = $('#othrlink').val();
-            var emailver = $('#emailver').val();
-            var aum = $('#aum').val();
-            var assetid = $('#assetid').val();
-            
-            var optin = $('#optin').val();
-            var optpst = $('#optpst').val();
-            var opteml = $('#opteml').val();
-            var optph = $('#optph').val();
-            var optoption = $('#optoption').val();
-
-            var aa1 = $('#aa1').val();
-            var aa2 = $('#aa2').val();
-            var aa3 = $('#aa3').val();
-            var aa4 = $('#aa4').val();
-            var aa5 = $('#aa5').val();
-            var aa6 = $('#aa6').val();
-            var aa7 = $('#aa7').val();
-            var aa8 = $('#aa8').val();
-            var aa9 = $('#aa9').val();
-            var aa10 = $('#aa10').val();
-            var aa11 = $('#aa11').val();
-            var aa12 = $('#aa12').val();
+            var url = encodeURI("<?php echo base_url("cdc/ajax_update_dataverification");?>");
           
-            
-           
-            if(fname != "" && lname != "" && company_name != ""  && jtitle != "" && desid != "" && dcd !="" && email != "" && phone !="" && plink !="" && address != "" && city != "" && state != ""  && country_id != "" && industrycd != "" && subindustrycd != "" && empsize != "" && domain !=""  && empszlink != "" && revszlink != ""  && zip_code !="" ){
-            var url = encodeURI("<?php echo base_url("cdc/ajax_update_leaddatadv");?>");
-            console.log(url+"?campaign_id="+campaign_id+"&lmid="+lmid+"&campaign_idcids="+campaign_idcids+"&sbsvtag="+sbsvtag+"&sal="+sal+"&fname="+fname+"&lname="+lname+"&jtitle="+jtitle+"&desid="+desid+"&jlevel="+jlevel+"&dcd="+dcd+"&email="+email+"&phone="+phone+"&altphn="+altphn+"&phext="+phext+"&plink="+plink+"&company_name="+company_name+"&address="+address+"&city="+city+"&state="+state+"&zip_code="+zip_code+"&country_id="+country_id+"&timezone="+timezone+"&ctype="+ctype+"&linetype="+linetype+"&industrycd="+industrycd+"&subindustrycd="+subindustrycd+"&sectyp="+sectyp+"&empsize="+empsize+"&mlbl="+mlbl+"&curr="+curr+"&arevenue="+arevenue+"&empszlink="+empszlink+"&indlink="+indlink+"&domain="+domain+"&othrlink="+othrlink+"&revszlink="+revszlink+"&emailver="+emailver+"&aum="+aum+"&assetid="+assetid+"&optin="+optin+"&optpst="+optpst+"&optph="+optph+"&opteml="+opteml+"&optoption="+optoption+"&aa1="+aa1+"&aa2="+aa2+"&aa3="+aa3+"&aa4="+aa4+"&aa5="+aa5+"&aa6="+aa6+"&aa7="+aa7+"&aa8="+aa8+"&aa9="+aa9+"&aa10="+aa10+"&aa11="+aa11+"&aa12="+aa12+"&pcomt="+pcomt);
+            console.log(url+"?campaign_id="+campaign_id+"&lmid="+lmid+"&campaign_idcids="+campaign_idcids+"&checked="+checked+"&sbsvtag="+sbsvtag+"&pcomt="+pcomt);
            
             $.ajax({
-                url :'<?php echo base_url("cdc/ajax_update_leaddatadv");?>',
-                type: 'GET', 
+                url :'<?php echo base_url("cdc/ajax_update_dataverification");?>',
+                type: 'POST', 
                 // contentType: "application/json",
                 dataType: 'json',              
                 data: {
@@ -1906,62 +1988,27 @@ $.ajax({
                   campaign_idcids: campaign_idcids,
                   lmid: lmid,
                   sbsvtag :sbsvtag,
-                    sal:sal,
-                    fname:fname,
-                    lname: lname,
-                    jtitle:jtitle,
-                    desid:desid,
-                    jlevel:jlevel,
-                    dcd:dcd,
-                    email:email,
-                    phone:phone,
-                    altphn:altphn,
-                    phext:phext,
-                    plink:plink,
-                    company_name:company_name,
-                    address:address,
-                    city:city,
-                    state:state,
-                    zip_code:zip_code,
-                    
-                    country_id:country_id,
-                    timezone:timezone,
-                    ctype:ctype,
-                    linetype:linetype,
-                                      
-                    industrycd:industrycd,
-                    subindustrycd:subindustrycd,
-                    sectyp:sectyp,
-                    empsize:empsize,
-                    mlbl:mlbl,
-                    curr:curr,
-                    arevenue:arevenue,
-                    empszlink:empszlink,
-                    indlink:indlink,
-                    revszlink:revszlink,
-                    domain:domain,
-                    othrlink:othrlink,
-                    emailver:emailver,
-                    aum:aum                 
-                      
-                    
-                    
+                  dvrejtg :dvrejtg,
+                  dvsbtg :dvsbtg,
+                  pcomt :pcomt,
+                  checked:checked,
+                   
 				},
         async: true,
                 cache: false,
                 success: function(response){
-                    $("#leadsave").hide();
+                    $("#leadsavedv").hide();
                     var text = response.statusCode;
                     console.log("check");
                     if(response.statusCode == "Success") 
                     {         
                          
-                        $("#leadupdate").html(response.message);
-                        top.location.href=base_url+"cdc/addleaddata?camp_id="+<?php echo $campaign['cnid']; ?>;//redirection
+                        $("#leadupdatedv").html(response.message);
+                        top.location.href=base_url+"cdc/dataverfication?camp_id="+<?php echo $campaign['cnid']; ?>;//redirection
                       
                     }else if(response.data=="Fail")
                     {
-                        $("#leadupdate").html(response.message);
+                        $("#leadupdatedv").html(response.message);
                         
 					          }
 
@@ -1969,213 +2016,94 @@ $.ajax({
 
                 },
                 error: function (error) {
-                  alert("Already exists");
+                  alert("Error");
                   }
               
             });
-        } else{
-          alert("Please fill Mandatory fields");
-        }
+       
         });
     });
 </script>
 
-<!--  code for save data in db -->
 <script>
+/* Save /Discard lead*/
     $(function() {
-        $("#leadsave").on('click', function() 
+        $("#leadsavedv").on('click', function() 
         {
-         
-          var campaign_id = $('#campaign_id').val();
+
+          // var notChecked = [], checked = [];
+          //   $(":checkbox").map(function() {
+            
+          //       this.checked ? checked.push(this.id) : notChecked.push(this.id);
+          //   });
+          // if(checked == ""){ // if unchecked any field
+          //   checked = [0];
+          // }
+           var checked = [0];
+            var campaign_id = $('#campaign_id').val();
             var campaign_idcids = $('#campaign_idcids').val();
+            // var sbsvtag1 = $('#sbsvtag').val();
+            var sbsvtag = '0'; // discard
+            var dvrejtg = '0';
+            var dvsbtg = '0';
+            // alert(sbsvtag);
+            // alert(lmid);
+            // alert(dvrejtg);
+            // alert(sbsvtag);
             var lmid = $('#lmid').val();
-            if(lmid == undefined){
-              var lmid = "0";
-            }
-           
-          //  alert(campaign_idcids);
-            var sal = $('#sal').val();
-            var fname = $('#fname').val();
-            var lname = $('#lname').val();
-            var jtitle = $('#jtitle').val();
-            var desid = $('#desid').val();
-            var jlevel = $('#jlevel').val();
-
-
-          //   var sbsvtag1 = $('#sbsvtag').val();
-          //   // var sbsvtag = parseInt(sbsvtag1)+1; // incremataion
-           
-          //  if(sbsvtag1 == undefined){
-          //   var sbsvtag = "";
-          //  }else{
-          //   var sbsvtag = parseInt(sbsvtag1)+1; // incremataion
-          //  }
-          //  alert(sbsvtag);
-           
-            var dcd = $('#dcd').val();
-            var email = $('#email').val();
-            var phone = $('#phone').val();
-            var altphn = $('#altphn').val();
-            var phext = $('#phext').val();
-            var plink = $('#plink').val();
-            var company_name = $('#company_name').val();
-            var address = $('#address').val();
-            var city = $('#city').val();
-            var state = $('#state').val();
-            var zip_code = $('#zip_code').val();
-
-            var country_id = $('#country_id').val(); 
-            var timezone = $('#timezone').val();
-            var ctype = $('#ctype').val();
-            var linetype = $('#linetype').val();
-            var industrycd = $('#industrycd').val();
-            var subindustrycd = $('#subindustrycd').val();
-            var sectyp = $('#sectyp').val();
-            
-            var empsize = $('#empsize').val();
-
-            var mlbl = $('#mlbl').val();
-            var domain = $('#domain').val();
-            var curr = $('#curr').val();
-            var empszlink = $('#empszlink').val();
-            var indlink = $('#indlink').val();
-
-            
 
             var pcomt = $('#pcomt').val();
 
-            var arevenue = $('#arevenue').val();
-            var revszlink = $('#revszlink').val();
-            if(arevenue ==""){
-              
-              $("#revszlink").prop('disabled', true);
-              $('#revszlink').val("NA");
-            }else if(arevenue != ""){
-              
-              $("#revszlink").prop('disabled', false);
-              var revszlink = $('#revszlink').val();
-            }
-        
-// alert(revszlink);
-            var othrlink = $('#othrlink').val();
-            var emailver = $('#emailver').val();
-            var aum = $('#aum').val();
-            var assetid = $('#assetid').val();
-            
-            var optin = $('#optin').val();
-            var optpst = $('#optpst').val();
-            var opteml = $('#opteml').val();
-            var optph = $('#optph').val();
-            var optoption = $('#optoption').val();
-
-            var aa1 = $('#aa1').val();
-            var aa2 = $('#aa2').val();
-            var aa3 = $('#aa3').val();
-            var aa4 = $('#aa4').val();
-            var aa5 = $('#aa5').val();
-            var aa6 = $('#aa6').val();
-            var aa7 = $('#aa7').val();
-            var aa8 = $('#aa8').val();
-            var aa9 = $('#aa9').val();
-            var aa10 = $('#aa10').val();
-            var aa11 = $('#aa11').val();
-            var aa12 = $('#aa12').val();
+            var url = encodeURI("<?php echo base_url("cdc/ajax_update_dataverification");?>");
           
-            
-           
-            if(fname != "" && lname != "" && company_name != ""  && jtitle != "" && desid != "" && dcd !="" && email != "" && phone !="" && plink !="" && address != "" && city != "" && state != ""  && country_id != "" && industrycd != "" && subindustrycd != "" && empsize != "" && domain !=""  && empszlink != "" && revszlink != ""  && zip_code !="" ){
-           
-
-            var url = encodeURI("<?php echo base_url("cdc/ajax_save_leaddatadv");?>");
-            console.log(url+"?campaign_idcids="+campaign_idcids+"&lmid="+lmid+"&campaign_id="+campaign_id+"&sal="+sal+"&fname="+fname+"&lname="+lname+"&jtitle="+jtitle+"&desid="+desid+"&jlevel="+jlevel+"&dcd="+dcd+"&email="+email+"&phone="+phone+"&altphn="+altphn+"&phext="+phext+"&plink="+plink+"&company_name="+company_name+"&address="+address+"&city="+city+"&state="+state+"&zip_code="+zip_code+"&country_id="+country_id+"&timezone="+timezone+"&ctype="+ctype+"&linetype="+linetype+"&industrycd="+industrycd+"&subindustrycd="+subindustrycd+"&sectyp="+sectyp+"&empsize="+empsize+"&mlbl="+mlbl+"&curr="+curr+"&arevenue="+arevenue+"&empszlink="+empszlink+"&indlink="+indlink+"&domain="+domain+"&othrlink="+othrlink+"&revszlink="+revszlink+"&emailver="+emailver+"&aum="+aum+"&assetid="+assetid+"&optin="+optin+"&optpst="+optpst+"&optph="+optph+"&opteml="+opteml+"&optoption="+optoption+"&aa1="+aa1+"&aa2="+aa2+"&aa3="+aa3+"&aa4="+aa4+"&aa5="+aa5+"&aa6="+aa6+"&aa7="+aa7+"&aa8="+aa8+"&aa9="+aa9+"&aa10="+aa10+"&aa11="+aa11+"&aa12="+aa12+"&pcomt="+pcomt);
+            console.log(url+"?campaign_id="+campaign_id+"&lmid="+lmid+"&campaign_idcids="+campaign_idcids+"&checked="+checked+"&sbsvtag="+sbsvtag+"&pcomt="+pcomt);
            
             $.ajax({
-                url :'<?php echo base_url("cdc/ajax_save_leaddatadv");?>',
-                type: 'GET', 
-                dataType: 'Json',              
+                url :'<?php echo base_url("cdc/ajax_update_dataverification");?>',
+                type: 'POST', 
+                // contentType: "application/json",
+                dataType: 'json',              
                 data: {
                    
                   campaign_id: campaign_id,
                   campaign_idcids: campaign_idcids,
                   lmid: lmid,
-                  // sbsvtag :sbsvtag,
-                    sal:sal,
-                    fname:fname,
-                    lname: lname,
-                    jtitle:jtitle,
-                    desid:desid,
-                    jlevel:jlevel,
-                    dcd:dcd,
-                    email:email,
-                    phone:phone,
-                    altphn:altphn,
-                    phext:phext,
-                    plink:plink,
-                    company_name:company_name,
-                    address:address,
-                    city:city,
-                    state:state,
-                    zip_code:zip_code,
-                    
-                    country_id:country_id,
-                    timezone:timezone,
-                    ctype:ctype,
-                    linetype:linetype,
-                                      
-                    industrycd:industrycd,
-                    subindustrycd:subindustrycd,
-                    sectyp:sectyp,
-                    empsize:empsize,
-                    mlbl:mlbl,
-                    curr:curr,
-                    arevenue:arevenue,
-                    empszlink:empszlink,
-                    indlink:indlink,
-                    revszlink:revszlink,
-                    domain:domain,
-                    othrlink:othrlink,
-                    emailver:emailver,
-                    aum:aum                 
-                             
+                  sbsvtag :sbsvtag,
+                  dvrejtg :dvrejtg,
+                  dvsbtg :dvsbtg,
+                  pcomt :pcomt,
+                  checked:checked
                    
 				},
-        // async: true,
-                // cache: false,
+        async: true,
+                cache: false,
                 success: function(response){
-
+                    $("#leadsavedv").hide();
                     var text = response.statusCode;
                     console.log("check");
-                   
                     if(response.statusCode == "Success") 
-                    {     
-                      // alert("Success");                   
-                        $("#leadsave").html(response.message);
-                        top.location.href=base_url+"cdc/addleaddata?camp_id="+<?php echo $campaign['cnid']; ?>;//redirection
-                        // $("#addcampbtn").prop('disabled', true);
-                        // top.location.href=base_url+"campaigns/addsuppressionList?camp_id="+response.campaign_id;//redirection
-                    }else if(response.statusCode=="Fail")
+                    {         
+                         
+                        $("#leadupdatedv").html(response.message);
+                        top.location.href=base_url+"cdc/dataverfication?camp_id="+<?php echo $campaign['cnid']; ?>;//redirection
+                      
+                    }else if(response.data=="Fail")
                     {
-                        $("#leadsave").html(response.message);
+                        $("#leadupdatedv").html(response.message);
                         
 					          }
 
                    
 
                 },
-                
                 error: function (error) {
-                  alert("Already exists");
-                  // location.reload();
+                  alert("Error");
                   }
               
             });
-        }else{
-          alert("Please fill Mandatory Fields");
-        }
+       
         });
     });
-   
-   
-   
-</script>     
+</script>
+
 <script type="text/javascript" src="<?php echo base_url(); ?>admintemplate/assets/pages/todo/todo.js"></script>

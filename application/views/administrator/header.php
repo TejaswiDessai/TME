@@ -56,11 +56,11 @@
                       
                         <li class="user-profile header-notification">
                             <a href="#!">
-                            <?php if($this->session->userdata('image')){ ?>
-                                <img src="<?php echo base_url(); ?>assets/images/<?php echo $this->session->userdata('image'); ?>" alt="User-Profile-Image" style="border-radius: 25px;">
-                            <?php }else{ ?>
-                                <img src="<?php echo base_url(); ?>admintemplate/assets/images/user.png" alt="User-Profile-Image">
-                            <?php } ?>
+                            <!-- <?php //if($this->session->userdata('image')){ ?>
+                                <img src="<?php //echo base_url(); ?>assets/images/<?php //echo $this->session->userdata('image'); ?>" alt="User-Profile-Image" style="border-radius: 25px;">
+                            <?php// }else{ ?>
+                                <img src="<?php //echo base_url(); ?>admintemplate/assets/images/user.png" alt="User-Profile-Image">
+                            <?php //} ?> -->
                                 <span><?php echo $this->session->userdata('username'); ?></span>
                                 <i class="ti-angle-down"></i>
                             </a>

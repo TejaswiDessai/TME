@@ -94,8 +94,10 @@ echo $date;
 				 	);
 
 					 $this->session->set_userdata($user_data);
-					 
-
+					
+					$empcode = $this->session -> userdata('empcode');
+					$this->Administrator_Model->update_recordlockonlogin($empcode);
+					
 					//Set Message
 					$this->session->set_flashdata('success', 'Welcome to administrator Dashboard.');
 					redirect('administrator/dashboard');

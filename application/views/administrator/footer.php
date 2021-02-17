@@ -41,13 +41,15 @@
     <script type="text/javascript" src="<?php echo base_url(); ?>admintemplate/bower_components/multiselect/js/jquery.multi-select.js"></script>
     <script type="text/javascript" src="<?php echo base_url(); ?>admintemplate/assets/js/jquery.quicksearch.js"></script>
     
-    
+      
+    <script type="text/javascript" src="<?php echo base_url(); ?>admintemplate/assets/pages/toolbar/custom-toolbar.js"></script>
+      <script type="text/javascript"src="<?php echo base_url(); ?>admintemplate/assets/pages/toolbar/jquery.toolbar.min.js"></script>
     <!-- Custom js -->
     <script type="text/javascript" src="<?php echo base_url(); ?>admintemplate/assets/pages/dashboard/custom-dashboard.js"></script>
     <script type="text/javascript" src="<?php echo base_url(); ?>admintemplate/assets/js/script.js"></script>
       <script type="text/javascript" src="<?php echo base_url(); ?>admintemplate/assets/pages/advance-elements/select2-custom.js"></script>
-
-   <script src="<?php echo base_url(); ?>admintemplate/bower_components/datatables.net/js/jquery.dataTables.min.js"></script>
+   
+      <script src="<?php echo base_url(); ?>admintemplate/bower_components/datatables.net/js/jquery.dataTables.min.js"></script>
     <script src="<?php echo base_url(); ?>admintemplate/bower_components/datatables.net-buttons/js/dataTables.buttons.min.js"></script>
     <script src="<?php echo base_url(); ?>admintemplate/assets/pages/data-table/js/jszip.min.js"></script>
     <script src="<?php echo base_url(); ?>admintemplate/assets/pages/data-table/js/pdfmake.min.js"></script>

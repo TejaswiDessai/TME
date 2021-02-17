@@ -69,7 +69,7 @@
                                   <?php echo form_open('administrator/adminLogin'); ?>
                                   <div class="input-group">
                                     <select class="form-control form-control-default "  name="ctype" id="ctype" required>
-                                        <option value="">Select C Type</option>
+                                        <option value="">Select Division</option>
                                         <option value="TMB">TMB</option>
                                         <option value="ME">ME</option>
                                         <option value="HP">HP</option>

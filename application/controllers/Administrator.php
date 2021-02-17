@@ -1919,6 +1919,327 @@ public function getPrivillage(){
 		echo json_encode($data); 
 	}
 
+	function selectCampaignForEmailVerification($page = 'select-campaign-email'){
+		$data['title'] = 'Create Lead';
+		$data['campaigns'] = $this->Administrator_Model->get_campaign();
+				  
+		
+		
+		$this->load->view('administrator/header-script');
+		$this->load->view('administrator/header');
+		$this->load->view('administrator/header-bottom');
+		 $this->load->view('administrator/'.$page, $data);
+		$this->load->view('administrator/footer');
+	
+	}
+
+	function emailVerfication($page = 'email-verification'){
+			
+		$data['title'] = 'Create Lead';
+			// print_r($_SESSION);
+			// print_r($_SESSION['timeout']);
+			if(isset($_GET['campaign_id'])){
+				$postData1 = $_GET['campaign_id']; 
+			}else{
+				$postData = $this->input->post('campaign_id');
+				// $postData1 = $postData['campaign_id'];
+			}
+		// print_r($postData1);
+
+						$data['campaigns'] = $this->Administrator_Model->get_campaign_by_id($postData);
+
+						foreach ($data['campaigns'] as $camp) {
+						
+						}
+						// echo $camp['cnid'];
+						$camp_id = $camp['cnid'];
+						// if(isset($_SESSION['lmid']) && $_SESSION['lmid'] == $camp['cids']){
+						// 	session_abort();
+							// print_r($_SESSION);
+						// }else {
+						// 	$_SESSION['lmid'] = $camp['cids'];
+						// }
+						// $_SESSION['lmid'] = $camp['cids'];
+						$cids = $camp['cids'];
+						// print_r($data['campaigns']);  
+						// print_r($cids);  
+						
+						$data['leadmaster'] = $this->Administrator_Model->get_leadmasterby_campaignid_for_email($cids);
+						// print_r($data['leadmaster']); 
+						foreach ($data['leadmaster'] as $ldmster) {
+						
+						}
+						
+						$data['countries'] = $this->Administrator_Model->get_countriesbyCampaign($camp_id);
+				
+							foreach($data['countries'] as $co){
+							$myArray = implode(',', $co);
+							}
+
+							$myArray1 = explode(',', $myArray);
+							$data['countriesofcampaign'] = $this->Administrator_Model->get_countriesofCampaign($camp_id,$myArray1);
+							// print_r($data['countriesofcampaign']);
+
+						// $data['countries'] = $this->Administrator_Model->get_countries();
+						$data['industries1'] = $this->Administrator_Model->get_industries_byCampaign($camp_id);
+						foreach($data['industries1'] as $ind){
+							$myind = implode(',', $ind);
+							}
+							$myind1 = explode(',', $myind);
+						$data['industries'] = $this->Administrator_Model->get_industries_ofCampaign($camp_id,$myind1);
+
+						$data['industriessub'] = $this->Administrator_Model->get_subindustries_byCampaign($camp_id,$myind1);
+// print_r($data['industriessub']); 
+						$data['departments1'] = $this->Administrator_Model->get_departmentsbyCampaign($camp_id);
+						foreach($data['departments1'] as $dp){
+							$mydpArray = implode(',', $dp);
+							}
+							$mydpArray1 = explode(',', $mydpArray);
+							$data['departments'] = $this->Administrator_Model->get_depts_byCampaign($camp_id,$mydpArray1);
+                        // $data['departments'] = $this->Administrator_Model->get_depts_byCampaign($mydpArray1);
+                       
+						$data['designation1'] = $this->Administrator_Model->get_designation_byCampaign($camp_id);
+						foreach($data['designation1'] as $ds){
+							$mydesi = implode(',', $ds);
+							}
+							$mydesiarry = explode(',', $mydesi);
+						$data['designation'] = $this->Administrator_Model->get_designation_ofCampaign($camp_id,$mydesiarry);
+						// print_r($data['designation']); 
+						$data['joblevel'] = $this->Administrator_Model->get_joblevels_byCampaign($camp_id,$mydesiarry);
+					
+					// print_r($data['joblevel']); 
+						$data['timezones'] = $this->Administrator_Model->get_timezonesbyCampaign($camp_id,$myArray1);
+						
+						$data['currency'] = $this->Administrator_Model->get_currencybyCampaign($camp_id,$myArray1);
+						// print_r($data['timezones']);
+						$data['comptype'] = $this->Administrator_Model->get_comptype();
+						
+						$data['assetitle'] = $this->Administrator_Model->get_assetitle_byCampaign($camp_id);
+
+						// $data['dataforcdqa'] = $this->Administrator_Model->get_dataforCDQA_byCampaign($camp_id);
+			// print_r($data['dataforcdqa']);
+						
+		$config['base_url'] = base_url(). 'campaigns/campaign/';
+		$config['total_rows'] = $this->db->count_all('campaign');
+		$config['per_page'] = '';
+		$config['uri_segment'] = 3;
+		$config['attributes'] = array('class' => 'paginate-link');
+		$campid =$this->input->post('campid');
+		$user_id =$this->input->post('user_id');
+		$stage =$this->input->post('stage');
+		$from =$this->input->post('from');
+		$to =$this->input->post('to');
+		// Init Pagination
+		$this->pagination->initialize($config);
+	
+		$data['title'] = 'Latest Campaigns';
+		$offset = 0;
+		$data['email_list'] = $this->Administrator_Model->get_email_list($campid,$user_id,$from,$to,$stage);
+		$data['users_name'] = $this->Administrator_Model->get_users(FALSE, $config['per_page'], $offset);
+		// $data['campaigns'] = $this->Administrator_Model->get_campaign();
+		$data['user_id'] = $user_id;
+		$data['Campid'] = $campid;
+		$data['Stage'] = $stage;
+		$data['From'] = $from;
+		$data['To'] = $to;
+
+
+		$this->load->view('administrator/header-script');
+		$this->load->view('administrator/header');
+		$this->load->view('administrator/header-bottom');
+		 $this->load->view('administrator/'.$page, $data);
+		$this->load->view('administrator/footer');
+	
+	}
+	// add by Amol
+	public function send_email_status()
+	{
+		// $leadid = $_GET['leadid'];
+		$leadid= explode(",", $_GET['leadid']);
+		// echo $_GET['leadid'];
+		$email1 = $_GET['change_status_of'];
+		$comp_proSplit= explode(",", $email1);
+		$cnt=count($comp_proSplit);
+		$email_status = $_GET['email_status'];
+		$campid = $_GET['campid'];
+		$startdate = date("Y-m-d H:i:s");
+		$from = $_GET['from'];
+		$sub = $_GET['sub'];
+		$body = $_GET['body'];
+		for($i=0;$i<$cnt;$i++)
+		{
+			$datacampaign = array(
+				'lmid' => $leadid[$i], 
+				'evagnt' => $this->session -> userdata('emp_id'),
+				'email' => $comp_proSplit[$i],
+				'status' =>$email_status,
+				'fmail' =>$from,
+				'comment' => 'Test',
+				'loaddt' => $startdate,
+				'mailsub' => $sub,
+				'mailby' => $body,
+				'statdt' => $startdate
+								
+				);
+			$addcampaigndata = $this->Administrator_Model->send_email_status($datacampaign);
+			require_once "send-email-php/phpmailer/class.phpmailer.php";
+			require_once "send-email-php/phpmailer/PHPMailerAutoload.php";
+			$mail = new PHPMailer(true);
+			try {
+				//  $mail->Host       = "mail.gmail.com"; // SMTP server
+				//  $mail->SMTPDebug  = 2;                     // enables SMTP debug information (for testing)
+				 $mail->SMTPAuth   = true;                  // enable SMTP authentication
+				 $mail->SMTPSecure = "ssl";                 // sets the prefix to the servier
+				 $mail->Host       = "smtp.gmail.com";      // sets GMAIL as the SMTP server
+				 $mail->Port       = 465;   // set the SMTP port for the GMAIL server
+				 $mail->SMTPKeepAlive = true;
+				 $mail->Mailer = "smtp";
+				 $mail->Username   = "ammyrock529@gmail.com";  // GMAIL username
+				 $mail->Password   = "Ammy7387853214";            // GMAIL password
+				 $mail->addAddress($comp_proSplit[$i], 'Receiver Name');
+				 $mail->setFrom('ammyrock529@gmail.com', 'User');
+				 $mail->Subject = $sub;
+				 $mail->AltBody = $body; // optional - MsgHTML will create an alternate automatically
+				 $mail->MsgHTML($body);
+				 $mail->Send();
+				 
+				//  echo "Message Sent OK</p>\n";
+				//  header("location: ../administrator/emailVerfication");
+
+				} catch (phpmailerException $e) {
+				//  echo $e->errorMessage(); //Pretty error messages from PHPMailer
+				} catch (Exception $e) {
+				//  echo $e->getMessage(); //Boring error messages from anything else!
+				}
+
+				
+			}
+			if($addcampaigndata == true){
+				
+				echo json_encode(array(
+					"statusCode"=>"Success",
+					"campaign_id"=>$addcampaigndata,
+					"message"=>"Mail Sent Successfully.."
+				));
+			}else{
+				
+				echo json_encode(array(
+					"statusCode"=>"Fail",
+					"message"=>"Mail Sent failed.."
+				));
+			}
+			
+	}
+
+	public function update_email_status()
+	{
+		// $leadid = $_GET['leadid'];
+		// $leadid= explode(",", $_GET['leadid']);
+		$lmid = explode(",", $_GET['change_status_of']); 
+		
+		// $comp_proSplit= explode(",", $email1);
+		$cnt=count($lmid);
+		$email_status = $_GET['email_status'];
+		$campid = $_GET['campid'];
+		$startdate = date("Y-m-d H:i:s");
+		$from = $_GET['from'];
+		$sub = $_GET['sub'];
+		$body = $_GET['body'];
+		for($i=0;$i<$cnt;$i++)
+		{
+			$datacampaign = array(
+				'status' =>$email_status,
+				'statdt' => $startdate
+								
+				);
+			$addcampaigndata = $this->Administrator_Model->update_email_status($datacampaign,$lmid[$i]);
+			// require_once "send-email-php/phpmailer/class.phpmailer.php";
+			// require_once "send-email-php/phpmailer/PHPMailerAutoload.php";
+			// $mail = new PHPMailer(true);
+			// try {
+			// 	//  $mail->Host       = "mail.gmail.com"; // SMTP server
+			// 	//  $mail->SMTPDebug  = 2;                     // enables SMTP debug information (for testing)
+			// 	 $mail->SMTPAuth   = true;                  // enable SMTP authentication
+			// 	 $mail->SMTPSecure = "ssl";                 // sets the prefix to the servier
+			// 	 $mail->Host       = "smtp.gmail.com";      // sets GMAIL as the SMTP server
+			// 	 $mail->Port       = 465;   // set the SMTP port for the GMAIL server
+			// 	 $mail->SMTPKeepAlive = true;
+			// 	 $mail->Mailer = "smtp";
+			// 	 $mail->Username   = "ammyrock529@gmail.com";  // GMAIL username
+			// 	 $mail->Password   = "Ammy7387853214";            // GMAIL password
+			// 	 $mail->addAddress($comp_proSplit[$i], 'Receiver Name');
+			// 	 $mail->setFrom('ammyrock529@gmail.com', 'User');
+			// 	 $mail->Subject = $sub;
+			// 	 $mail->AltBody = $body; // optional - MsgHTML will create an alternate automatically
+			// 	 $mail->MsgHTML($body);
+			// 	 $mail->Send();
+			// 	 if($addcampaigndata == true){
+				
+			// 		echo json_encode(array(
+			// 			"statusCode"=>"Success",
+			// 			"campaign_id"=>$addcampaigndata,
+			// 			"message"=>"Mail Sent Successfully.."
+			// 		));
+			// 	}else{
+					
+			// 		echo json_encode(array(
+			// 			"statusCode"=>"Fail",
+			// 			"message"=>"Mail Sent failed.."
+			// 		));
+			// 	}
+			// 	//  echo "Message Sent OK</p>\n";
+			// 	//  header("location: ../administrator/emailVerfication");
+
+			// 	} catch (phpmailerException $e) {
+			// 	//  echo $e->errorMessage(); //Pretty error messages from PHPMailer
+			// 	} catch (Exception $e) {
+			// 	//  echo $e->getMessage(); //Boring error messages from anything else!
+			// 	}
+
+				
+			}
+			
+	}
+
+	
+	public function intialise_count($page = 'initialise_counter')
+	{
+		if (!file_exists(APPPATH.'views/administrator/'.$page.'.php')) {
+		show_404();
+	   }
+		// Check login
+		if(!$this->session->userdata('login')) {
+			redirect('administrator/index');
+		}
+
+		$data['title'] = 'Create User';
+
+		$data['emp_id'] = $this->Administrator_Model->get_empid();
+		$data['roles'] = $this->Administrator_Model->get_roles();
+		$this->form_validation->set_rules('name', 'Name', 'required');
+		$this->form_validation->set_rules('username', 'Username', 'required|callback_check_username_exists');
+		$this->form_validation->set_rules('email', 'Email', 'required|callback_check_email_exists');
+
+		if($this->form_validation->run() === FALSE){
+			 $this->load->view('administrator/header-script');
+			   $this->load->view('administrator/header');
+			   $this->load->view('administrator/header-bottom');
+				$this->load->view('administrator/'.$page, $data);
+			   $this->load->view('administrator/footer');
+		}else{
+			
+			$post_image = 'noimage.jpg';
+			$password = md5('Test@123');
+
+			$this->Administrator_Model->add_user($post_image,$password);
+
+			echo json_encode(array(
+				"statusCode"=>200
+			));
+			
+		}
+		
+	}
 }
 
 

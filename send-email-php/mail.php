@@ -102,7 +102,7 @@ if(isset($_POST["emp_id"], $_POST["user_type"],$_POST['email']))
                 
                 // send mail
                 $mail->Send();
-                $msg = "Mail send successfully";
+                $msg = "Mail sent successfully";
             } catch (phpmailerException $e) {
                 $msg = $e->getMessage();
             } catch (Exception $e) {

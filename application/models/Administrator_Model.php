@@ -1492,7 +1492,26 @@ public function get_leadmasterby_campaignid($id = FALSE)
 		// die;
 		return $query->result_array();
 	}
-
+	public function get_leadmasterby_campaignid_for_email($id = FALSE)
+	{
+			
+			
+			$this->db->where('sbsvtag <', 6);
+			$this->db->where('sbsvtag !=', 0);
+			$this->db->where('ontag', 1);
+			$this->db->where('pload', 0);
+			$this->db->where('dvload',0);
+			$this->db->where('evload',null);
+			$this->db->where('cdcload',null);
+			$this->db->where('qaload',null);
+			$this->db->where('rlc !=', 1);
+			$this->db->limit(10);
+			$query = $this->db->get_where('leadmaster', array('cids' => $id));
+			// echo $this->db->last_query(); 
+			// echo $string;
+			// die;
+			return $query->result_array();
+		}
 	public function update_Campaign($datacampaign,$campaign_id)
 		{
 			$this->db->where('cids', $campaign_id);
@@ -1684,10 +1703,11 @@ public function get_leadmasterby_campaignid($id = FALSE)
 
 		public function get_email_list($campid,$user_id,$from,$to,$stage)
 		{
-			$this->db->select('leadmaster.cids,leadmaster.plink,leadmaster.jtitle,leadmaster.empsize,leadmaster.email,leadmaster.city,leadmaster.state,leadmaster.domain,leadmaster.fname,leadmaster.lname,users.emp_id,users.last_login,campaign.campnm,count(leadmaster.stagtidi) as number');
+			$this->db->select('leadmaster.cids,leadmaster.plink,leadmaster.jtitle,leadmaster.empsize,leadmaster.email,leadmaster.city,leadmaster.state,leadmaster.domain,leadmaster.fname,leadmaster.lname,users.emp_id,users.last_login,campaign.campnm,count(leadmaster.stagtidi) as number,ev.status as mailstatus');
 			$this->db->from('leadmaster');
 			$this->db->join('users', 'users.emp_id = leadmaster.stagtidi','left');
 			$this->db->join('campaign', 'campaign.cids = leadmaster.cids','left');
+			$this->db->join('ev', 'ev.lmid = leadmaster.lmid','left');
 			if(isset($campid) && $campid != null)
 			{
 				$this->db->where('leadmaster.cids', $campid);
@@ -1724,11 +1744,38 @@ public function get_leadmasterby_campaignid($id = FALSE)
 			$this->db->group_by('leadmaster.email');
 			$this->db->group_by('leadmaster.plink');
 			$this->db->group_by('leadmaster.jtitle');
+			$this->db->group_by('ev.status');
 			$this->db->limit(10);
 			$query=$this->db->get();
 			// show_error($this->db->last_query(), 200, "SQL");
 			return $data=$query->result_array();
 
 		}	
+		
+		public function send_email_status($datacampaign)
+		{
+			// $this->db->where('cids', $campaign_id);
+			$this->db->insert('ev', $datacampaign);
+			// $this->db->last_query(); 
+			return true;
+			//  $this->db->insert('campaign', $datacampaign);
+			//  return true;
+                        // echo $this->db->last_query(); 
+		}
+
+		public function update_email_status($datacampaign,$lmid)
+		{
+			// echo $lmid."<br>";
+			// for($i=0;$i<$cnt;$i++)
+			// {
+				$this->db->where('lmid', $lmid);
+				$this->db->update('ev', $datacampaign);
+			// $this->db->last_query(); 
+			// }
+			return true;
+			//  $this->db->insert('campaign', $datacampaign);
+			//  return true;
+                        // echo $this->db->last_query(); 
+		}
 		
 }

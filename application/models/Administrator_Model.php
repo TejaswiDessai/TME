@@ -169,10 +169,10 @@
 			// 	$this->db->OR_where('jid', $arr);
 			// }
 
-			// if($myarray[0] != 0)
-			// {
+			if($myarray[0] != 0)
+			{
 				$this->db->where_in('jid', $myarray );  //this is condition 
-			// }
+			}
 			$this->db->order_by("jid", "asc"); 
 
 			$query = $this->db->get('joblevels');

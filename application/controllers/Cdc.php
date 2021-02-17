@@ -163,6 +163,7 @@
 							$mydesiarry = explode(',', $mydesi);
 						$data['designation'] = $this->Administrator_Model->get_designation_ofCampaign($camp_id,$mydesiarry);
 						// print_r($data['designation']); 
+						// print_r($mydesiarry); 
 						$data['joblevel'] = $this->Administrator_Model->get_joblevels_byCampaign($camp_id,$mydesiarry);
 					
 					// print_r($data['joblevel']); 
@@ -300,6 +301,15 @@
 			$this->load->view('administrator/footer');
 		
 		}
+		public function getJobTitle(){ 
+		
+			$levelid = $_GET['jlevel'];
+			// $desiStr = implode(',',$levelid);
+			// get data 
+			$data = $this->Administrator_Model->getJobTitle($levelid);
+			echo json_encode($data); 
+		}
+		
 		public function gettimezones(){ 
 			
 			$country_id = $_GET['country_id'];
@@ -1378,7 +1388,7 @@
 			
 			//   print_r($datacdcandlead);
 			//      exit();
-			if($lmid > 0){
+			if($lmid > 1){
 			
 				$addleadandcdcdata = $this->Administrator_Model->update_leaddata($datacdcandlead,$lmid);
 			}else{

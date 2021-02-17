@@ -140,7 +140,7 @@ rel="Stylesheet"type="text/css"/>
                                         <div class="col-sm-10">
                                             <!-- <input type="text" id="user_type" name="user_type" class="form-control" placeholder="User Type"> -->
                                             <select class="form-control form-control-default "  name="ctype" id="ctype" required>
-                                                <option value="">Select C Type</option>
+                                                <option value="">Select Division</option>
                                                 <option value="TMB">TMB</option>
                                                 <option value="ME">ME</option>
                                                 <option value="HP">HP</option>

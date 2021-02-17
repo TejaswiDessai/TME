@@ -183,8 +183,8 @@ $usertype = $this->Administrator_Model->get_emp_usertype($emp_id);
 
             timeSinceLastMove++;
 
-            if (timeSinceLastMove > 10 * 60 ) {
-                alert("Session is Out");
+            if (timeSinceLastMove > 10 * 60 ) {  //10 mints
+                // alert("Session is Out");
                 window.location = base_url+"administrator/logout";
             }
 

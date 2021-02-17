@@ -129,7 +129,7 @@
                                         <label class="col-sm-2 col-form-label">Company Type</label>
                                         <div class="col-sm-10">
                                         <select class="form-control form-control-default "  name="ctype" id="ctype" required>
-                                                <option value="">Select C Type<?php echo $user['cid_type'];?></option>
+                                                <option value="">Select Division <?php echo $user['cid_type'];?></option>
                                                 <option value="TMB" <?php if($user['cid_type'] == 'TMB'){ echo "Selected";} ?>>TMB</option>
                                                 <option value="ME" <?php if($user['cid_type'] == 'ME'){ echo "Selected";} ?>>ME</option>
                                                 <option value="HP" <?php if($user['cid_type'] == 'HP'){ echo "Selected";} ?>>HP</option>

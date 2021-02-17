@@ -169,14 +169,14 @@
 			// 	$this->db->OR_where('jid', $arr);
 			// }
 
-			if($myarray[0] != 0)
-			{
+			// if($myarray[0] != 0)
+			// {
 				$this->db->where_in('jid', $myarray );  //this is condition 
-			}
+			// }
 			$this->db->order_by("jid", "asc"); 
 
 			$query = $this->db->get('joblevels');
-			
+			// echo $this->db->last_query(); 
 			return $query->result_array();
 			
 			
@@ -193,6 +193,7 @@
 			$this->db->order_by("joblids", "asc"); 
 
 			$query = $this->db->get('joblevels');
+			// echo $this->db->last_query(); 
 			return $query->result_array();
 
 			// $this->db->select('joblids,joblevel');
@@ -202,7 +203,7 @@
 			// $this->db->where('campaign.cnid', $cnid);
 			// $query = $this->db->get('campaign');
 			// return $query->result_array(); 
-			echo $this->db->last_query(); 
+			
 		}
 		public function get_depts_byCampaign($cnid,$myarray){
 			$this->db->select('*');

@@ -175,8 +175,22 @@ $(document).ready(function() {
                            
     </div>
      <?php foreach ($campaigns as $campaign): ?>
+      
+      <?php endforeach;
+      //  print_r($campaign['tid']);
+       
+       ?>
+     <?php// foreach ($designation as $designationss): ?>
      
-      <?php endforeach; ?>
+      <?php  
+      // print_r($designationss['jid']); 
+      // $desicamp = explode(' ',$designationss['jid']);
+      // print_r($desicamp); 
+      // print_r(implode(',',$designationss['jid'])); 
+      //  explode(',',$designationss['jid']);
+    
+   // endforeach; ?>
+
      <?php foreach ($leadmaster as $ldmster): 
       // print_r($ldmster['dvrejectreason']);
       $dvrejectreason = explode(',',$ldmster['dvrejectreason']);
@@ -646,6 +660,7 @@ $(document).ready(function() {
                      
                         <?php } ?>
                        <?php if($ldmster == 1){ ?>
+                        <input type = hidden name="emp_id" id="emp_id" value="<?php echo  $_SESSION['empcode']; ?>">
                         <button type="submit" name="leadsubmit" class="btn btn-primary leaddisplay" style=""  id="leadsubmit">Submit </button> 
                         <button type="submit" name="leadsave" class="btn btn-primary leaddisplay" style=""  id="leadsave">Save </button> 
                         <?php } ?>
@@ -694,6 +709,33 @@ $('#empsize').blur(function(){
 
 
 
+});
+
+// jlevel change -- get Sub Industry
+$('#jlevel').change(function(){
+    var jlevel = $(this).val();
+   
+    // AJAX request to get timezones
+    var urlq = '<?php echo base_url("cdc/getJobTitle");?>';
+    console.log(urlq+'?jlevel='+jlevel);
+    $.ajax({
+        url:'<?php echo base_url("cdc/getJobTitle");?>',
+        method: 'get',
+        data: {jlevel: jlevel},
+        dataType: 'json',
+        success: function(response){
+
+        //    Remove options 
+       $('#desid').find('option').not(':first').remove();
+
+        //    Add options
+       $.each(response,function(index,data){
+          $('#desid').append('<option value="'+data['jid']+'" >'+data['joblist']+'</option>');
+          
+        });
+     
+      }
+    });
 });
 
 // Country change -- get timezones
@@ -1521,7 +1563,11 @@ $.ajax({
     $(function() {
         $("#leadsubmit").on('click', function() 
         {
-         
+          var empid = $('#emp_id').val();
+          if(empid == undefined){
+            window.location = base_url+"administrator/logout";
+          }
+          //  alert(empid);
             var campaign_id = $('#campaign_id').val();
             var campaign_idcids = $('#campaign_idcids').val();
           //  alert(campaign_idcids);
@@ -1692,6 +1738,7 @@ $.ajax({
 </script>
 <script>
 /* update lead submit*/
+
     $(function() {
         $("#leadupdate").on('click', function() 
         {
@@ -1701,8 +1748,7 @@ $.ajax({
             var sbsvtag1 = $('#sbsvtag').val();
             var sbsvtag = parseInt(sbsvtag1)+1; // incremataion
             var lmid = $('#lmid').val();
-
-          //  alert(campaign_idcids);
+           
           //  alert(sbsvtag);
 
             var sal = $('#sal').val();
@@ -1883,8 +1929,12 @@ $.ajax({
             var campaign_idcids = $('#campaign_idcids').val();
             var lmid = $('#lmid').val();
             if(lmid == undefined){
-              var lmid = "0";
+              var lmid = "1";
             }
+            var empid = $('#emp_id').val();
+          if(empid == undefined){
+            window.location = base_url+"administrator/logout";
+          }
            
           //  alert(campaign_idcids);
             var sal = $('#sal').val();

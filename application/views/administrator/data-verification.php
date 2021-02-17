@@ -1936,13 +1936,21 @@ $("input:checkbox").change(function() {
                 this.checked ? checked.push(this.id) : notChecked.push(this.id);
             });
           if(checked == ""){ // if unchecked any field
-            checked = [0];
-          }
-           
-            var campaign_id = $('#campaign_id').val();
-            var campaign_idcids = $('#campaign_idcids').val();
-            var sbsvtag1 = $('#sbsvtag').val();
-            var sbsvtag = parseInt(sbsvtag1)+1; // incremataion
+                checked = [0];
+                var dvsbtg1 = $('#dvsbtg').val();
+                if(dvsbtg1 == ""){
+                  var dvsbtg = 1;
+                }else{
+                  var dvsbtg = parseInt(dvsbtg1)+1; // incremataion for dv  Accept
+                }
+    
+                if(dvsbtg == '3'){
+                  var dvsbtg = '3';
+                  var sbsvtag = '0';
+                }
+                var dvrejtg = $('#dvrejtg').val(); 
+          }else{ //checked -rejected
+            var dvsbtg =$('#dvsbtg').val();
 
             var dvrejtg1 = $('#dvrejtg').val();
             if(dvrejtg1 == ""){
@@ -1956,17 +1964,15 @@ $("input:checkbox").change(function() {
               var sbsvtag = '0';
             }
 
-            var dvsbtg1 = $('#dvsbtg').val();
-            if(dvsbtg1 == ""){
-              var dvsbtg = 1;
-            }else{
-              var dvsbtg = parseInt(dvsbtg1)+1; // incremataion for dv  rejection
-            }
- 
-            if(dvsbtg == '3'){
-              var dvsbtg = '3';
-              var sbsvtag = '0';
-            }
+          }
+           
+            var campaign_id = $('#campaign_id').val();
+            var campaign_idcids = $('#campaign_idcids').val();
+            var sbsvtag1 = $('#sbsvtag').val();
+            var sbsvtag = parseInt(sbsvtag1)+1; // incremataion
+
+          
+          
 
             
             var lmid = $('#lmid').val();

@@ -452,11 +452,16 @@ $(document).ready(function() {
                                 <?php endforeach; ?> 
                                </select>
                            </div>
-                           
-                         
+                            <!-- toolbar options -->
+                            <div id="toolbar-options" class="hidden">
+                                <a href="#myModalemail" data-target="#myModalemail" data-toggle="modal"><i class="icofont icofont-info-circle"></i></a>
+                               
+                            </div>
+                          
                             <div class="col-sm-2  <?php
                                  if(isset($ldmster) && in_array('industrycd',$dvrejectreason)) { echo "form-bg-inverse" ; } 
                                  ?>">
+                                  <div data-toolbar="user-options"  id="info-toolbar">
                               <select class="js-example-basic-single <?php
                                  if(isset($ldmster) && in_array('industrycd',$dvrejectreason)) { echo "form-bg-inverse" ; } 
                                  ?>"  name="industrycd" id="industrycd">
@@ -467,6 +472,8 @@ $(document).ready(function() {
                                 </select>
                                 <span style='color:#FF0000' id="industry_id_msg"></span>
                             </div>
+                           </div>      
+                            
                             <div class="col-sm-2 <?php
                                  if(isset($ldmster) && in_array('subindustrycd',$dvrejectreason)) { echo "form-bg-inverse" ; } 
                                  ?>">
@@ -695,7 +702,79 @@ $(document).ready(function() {
 <?php endforeach;
       ?>
    
+ <!-- Modal -->
+ <div class="modal fade" id="myModalemail" role="dialog">
+    <div class="modal-dialog">
+    
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <!-- <h4 class="modal-title">Modal Header</h4> -->
+        </div>
+        <div class="modal-body">
+        <div class="mail-body-content">
+                                        <form>
+                                            <div class="form-group row">
+                                               
+                                                <div class="col-sm-6">
+                                                <select class="form-control form-control-sm cdqadisable" name="" id="">
+                                                    <option value="1">Industry</option>                                  
+                                            
+                                                    <option value="2">Sub Industry</option>
+                                              
+                                                </select>
+                                              </div>
+                                                <div class="col-sm-6">
+                                                  <input type ="text"  id= "searchid" class="form-control form-control-sm" placeholder="Search here...">
+                                                </div>
+                                            </div>
+                                           
+                                        </form>
+                                    </div>
+        </div>
+        <div class="modal-footer">
+        <button type="button" id=""  class="btn btn-primary" >Send</button>
+          <button type="button" class="btn btn-danger " data-dismiss="modal">Close</button>
+        </div>
+      </div>
+      
+    </div>
+  </div>
+
+
+   
      <script>
+// Search key up change -- get timezones
+$('#searchid').keyup(function(){
+
+  alert();
+    // var country_id = $(this).val();
+   
+    // // AJAX request to get timezones
+    // var urlq = '<?php echo base_url("cdc/gettimezones");?>';
+    // console.log(urlq+'?country_id='+country_id);
+    // $.ajax({
+    //     url:'<?php echo base_url("cdc/gettimezones");?>',
+    //     method: 'get',
+    //     data: {country_id: country_id},
+    //     dataType: 'json',
+    //     success: function(response){
+
+    //     //    Remove options 
+    //   //  $('#timezone').find('option').not(':first').remove();
+
+    //     //    Add options
+    //    $.each(response,function(index,data){
+    //       // $('#timezone').append('<option value="'+data['zids']+'" >'+data['abbrev']+'</option>');
+          
+    //     });
+     
+
+    //     }
+    // });
+});
+
 $('#empsize').blur(function(){
   var lbound = $('#php_lbound').val();
   // var lbound = 1;
@@ -1572,7 +1651,7 @@ $.ajax({
 
   $.validator.addMethod("customvalidation",
            function(value, element) {
-                   return /^[A-Za-z\d=#$%!*&()+@_ -]+$/.test(value); // validation for RÃ¤feldstrasse word
+                   return /^[A-Za-z\d=#$%!*&()+',?./><@_ -]+$/.test(value); // validation for RÃ¤feldstrasse word
            },
    "Sorry, no special characters allowed"
    );

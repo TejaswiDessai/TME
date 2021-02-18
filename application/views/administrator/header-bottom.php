@@ -17,6 +17,7 @@
 
 $emp_id = $this->session -> userdata('emp_id');
 $usertype = $this->Administrator_Model->get_emp_usertype($emp_id);
+
  ?>
 
      <!-- Menu aside start -->
@@ -81,7 +82,7 @@ $usertype = $this->Administrator_Model->get_emp_usertype($emp_id);
                         </a>
                     </li>
                     
-                    <?php if($usertype == 0 || $usertype == 1 || $usertype ==2 || $usertype ==6){?>
+                    <?php if($usertype == 0 || $usertype == 1 || $usertype ==2 || $usertype ==6 ||  $usertype == 7){?>
                     <li class="nav-item">
                       
                         <a href="<?php echo base_url(); ?>cdc/selectCampaignforDataVerification">
@@ -101,13 +102,24 @@ $usertype = $this->Administrator_Model->get_emp_usertype($emp_id);
                     </li>
                     <li class="nav-item">
                         <a href="#!">
+                        <i class="icofont icofont-email"></i>
+                            <span data-i18n="nav.basic-components.main">Email Verification</span>
+                        </a>
+                        <ul class="tree-1">
+                            <!-- <li><a href="<?php //echo base_url(); ?>administrator/user_report" data-i18n="nav.basic-components.alert">User Status</a></li> -->
+                            <!-- <li><a href="<?php //echo base_url(); ?>administrator/team/list" data-i18n="nav.basic-components.breadcrumbs">Campaign Status</a></li> -->
+                            <li><a href="<?php echo base_url(); ?>administrator/selectCampaignForEmailVerification" data-i18n="nav.basic-components.alert">Email Verification</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#!">
                             <i class="ti-layout-grid2-thumb"></i>
                             <span data-i18n="nav.basic-components.main">Reports</span>
                         </a>
                         <ul class="tree-1">
                             <li><a href="<?php echo base_url(); ?>administrator/user_report" data-i18n="nav.basic-components.alert">User Status</a></li>
                             <!-- <li><a href="<?php //echo base_url(); ?>administrator/team/list" data-i18n="nav.basic-components.breadcrumbs">Campaign Status</a></li> -->
-                            <li><a href="<?php echo base_url(); ?>administrator/selectCampaignForEmailVerification" data-i18n="nav.basic-components.alert">Email Verification</a></li>
+                            <!-- <li><a href="<?php echo base_url(); ?>administrator/selectCampaignForEmailVerification" data-i18n="nav.basic-components.alert">Email Verification</a></li> -->
                         </ul>
                     </li>
                 <?php } ?>

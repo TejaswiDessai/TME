@@ -1765,7 +1765,10 @@ $.ajax({
     $(function() {
         $("#leadupdate").on('click', function() 
         {
-        
+          var empid = $('#emp_id').val();
+          if(empid == undefined){
+            window.location = base_url+"administrator/logout";
+          }
             var campaign_id = $('#campaign_id').val();
             var campaign_idcids = $('#campaign_idcids').val();
             var sbsvtag1 = $('#sbsvtag').val();

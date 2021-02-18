@@ -41,7 +41,11 @@
     <script type="text/javascript" src="<?php echo base_url(); ?>admintemplate/bower_components/multiselect/js/jquery.multi-select.js"></script>
     <script type="text/javascript" src="<?php echo base_url(); ?>admintemplate/assets/js/jquery.quicksearch.js"></script>
     
-      
+      <!-- Summernote js -->
+    <script type="text/javascript" src="<?php echo base_url(); ?>admintemplate/bower_components/summernote/dist/summernote.js"></script>
+    <script type="text/javascript" src="<?php echo base_url(); ?>admintemplate/bower_components/summernote/lang/summernote-ko-KR.js"></script>
+    <script type="text/javascript" src="<?php echo base_url(); ?>admintemplate/assets/pages/summernote/custom-note.js"></script>
+
     <script type="text/javascript" src="<?php echo base_url(); ?>admintemplate/assets/pages/toolbar/custom-toolbar.js"></script>
       <script type="text/javascript"src="<?php echo base_url(); ?>admintemplate/assets/pages/toolbar/jquery.toolbar.min.js"></script>
     <!-- Custom js -->

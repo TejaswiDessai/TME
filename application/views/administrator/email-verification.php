@@ -21,9 +21,20 @@
         counter-increment: Serial;      /* Increment the Serial counter */
     
     }
+    .note-toolbar{
+        display: none;
+    }
+    .note-popover{
+        display: none;
+    }
+
     </style>
     <script type="text/javascript">
     $(document).ready(function(){
+        
+        $("#send_email").attr("disabled", true);
+        $("#update_email").attr("disabled", true);
+
             $(".delete").click(function(e){ alert('as');
                 $this  = $(this);
                 e.preventDefault();
@@ -346,10 +357,10 @@
                                         </td>
                                         <td>
                                             <!-- <input type="checkbox"> -->
-                                            <input type="checkbox" value="<?php echo $i;?>" name="email_list_<?php echo $i;?>" id="email_list_<?php echo $i;?>"><?php //echo $i;?>
+                                            <input type="checkbox" class ="emailclass" value="<?php echo $i;?>" name="email_list_<?php echo $i;?>" id="email_list_<?php echo $i;?>"><?php //echo $i;?>
                                         </td>
                                         <td>
-                                            <input type="checkbox" value="<?php echo $post['lmid'];?>" name="email_status_<?php echo $i;?>" id="email_status_<?php echo $i;?>"><?php //echo $i;?>
+                                            <input type="checkbox" class ="emailstatus"  value="<?php echo $post['lmid'];?>" name="email_status_<?php echo $i;?>" id="email_status_<?php echo $i;?>"><?php //echo $i;?>
                                         </td>
                                         <td>
                                             
@@ -399,7 +410,76 @@
                 </div>
             </div>
 
+
+   <!-- Modal -->
+   <div class="modal fade" id="myModalemail" role="dialog">
+    <div class="modal-dialog">
+    
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <!-- <h4 class="modal-title">Modal Header</h4> -->
+        </div>
+        <div class="modal-body">
+        <div class="mail-body-content">
+                                        <form>
+                                            <div class="form-group">
+                                                <input type="text" class="form-control" placeholder="Subject">
+                                            </div>
+                                            <div class="summernote email-summernote">Hello Summernote</div>
+                                        </form>
+                                    </div>
+        </div>
+        <div class="modal-footer">
+        <button type="button" id=""  class="btn btn-primary" >Send</button>
+          <button type="button" class="btn btn-danger " data-dismiss="modal">Close</button>
+        </div>
+      </div>
+      
+    </div>
+  </div>
+
+
+
             <script>
+// $("input:checkbox").change(function() {
+$(".emailclass").click(function() {
+    
+  var notChecked = [], checked = [];
+            // $(":checkbox").map(function() {
+            $(".emailclass").map(function() {
+            
+                this.checked ? checked.push(this.id) : notChecked.push(this.id);
+            });
+            // alert();
+          if(checked == ""){ // if unchecked any field
+            $("#send_email").attr("disabled", true);
+          }else{
+            $("#send_email").attr("disabled", false);
+          }
+          
+});
+$(".emailstatus").click(function() {
+    
+    var notChecked = [], checked = [];
+              // $(":checkbox").map(function() {
+              $(".emailstatus").map(function() {
+              
+                  this.checked ? checked.push(this.id) : notChecked.push(this.id);
+              });
+              // alert();
+            if(checked == ""){ // if unchecked any field
+              $("#update_email").attr("disabled", true);
+            }else{
+              $("#update_email").attr("disabled", false);
+            }
+            
+  });
+
+
+
+
         //      $( document ).ready(function() {
         //     $("#format").on('click', function() 
         //         {
@@ -439,7 +519,13 @@
     //     // alert("test"+email_123);
     // });
     // $(document).ready(function() {
+
         $("#send_email").on('click', function() 
+        {
+            $('#myModalemail').modal('show');
+        });
+
+        $("#send_email1").on('click', function() 
         {
             alert("test");
             var someObj = {};
@@ -460,7 +546,7 @@
             });
             var change_status_of = someObj.fruitsGranted;
             var leadid = someObj.leads;
-        //    alert(leadid);
+         //    alert(leadid);
             var email_status = $('#email_status').val();
             var campid = $('#campnm').val();
             // var leadid = $('#leadid_'+leadid_obj).val();

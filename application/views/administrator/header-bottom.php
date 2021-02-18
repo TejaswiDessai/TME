@@ -17,6 +17,7 @@
 
 $emp_id = $this->session -> userdata('emp_id');
 $usertype = $this->Administrator_Model->get_emp_usertype($emp_id);
+$userteam = explode(',',$usertype);
 
  ?>
 
@@ -81,8 +82,16 @@ $usertype = $this->Administrator_Model->get_emp_usertype($emp_id);
                             <span>Add Lead</span>
                         </a>
                     </li>
-                    
-                    <?php if($usertype == 0 || $usertype == 1 || $usertype ==2 || $usertype ==6 ||  $usertype == 7){?>
+                    <?php if(in_array('7',$userteam)){?>
+                        <li class="nav-item">
+                        
+                            <a href="<?php echo base_url(); ?>cdc/selectCampaignforDataVerification">
+                            <i class="icofont icofont-check-circled"></i>
+                                <span>Data verification</span>
+                            </a>
+                        </li>
+                        <?php } ?>
+                    <?php if($usertype == 0 || $usertype == 1 || $usertype ==2 || $usertype ==6){?>
                     <li class="nav-item">
                       
                         <a href="<?php echo base_url(); ?>cdc/selectCampaignforDataVerification">

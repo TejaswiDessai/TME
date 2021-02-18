@@ -48,7 +48,8 @@
    <!-- jquery file upload Frame work -->
     <link href="<?php echo base_url(); ?>admintemplate/bower_components/jquery.filer/css/jquery.filer.css" type="text/css" rel="stylesheet" />
     <link href="<?php echo base_url(); ?>admintemplate/bower_components/jquery.filer/css/themes/jquery.filer-dragdropbox-theme.css" type="text/css" rel="stylesheet" />
-    
+     <!-- Summernote css -->
+     <link rel="stylesheet" type="text/css" href="<?php echo base_url(); ?>admintemplate/bower_components/summernote/dist/summernote.css">
      <!-- toolbar css -->
      <link rel="stylesheet" type="text/css" href="<?php echo base_url(); ?>admintemplate/assets/pages/toolbar/jquery.toolbar.css">
     <link rel="stylesheet" type="text/css" href="<?php echo base_url(); ?>admintemplate/assets/pages/toolbar/custom-toolbar.css">

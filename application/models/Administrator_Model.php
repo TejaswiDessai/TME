@@ -442,9 +442,10 @@
 		}
 		public function get_timezone_ofleadmaster($lmid){
 			
-			$this->db->select('timezone.zoneid,timezone.abbrev');
+			$this->db->select('timezone.zoneid,timezone.abbrev,timezone.zids');
 			$this->db->group_by('timezone.zoneid');
 			$this->db->group_by('timezone.abbrev');
+			$this->db->group_by('timezone.zids');
 			
 			$this->db->join('timezone', 'timezone.zoneid = leadmaster.timez');
 			
@@ -473,9 +474,10 @@
 		}
 		public function get_timezonesbyCampaign($cnid,$myarray){
 			// $this->db->select('*');
-			$this->db->select('timezone.zoneid,timezone.abbrev');
+			$this->db->select('timezone.zoneid,timezone.abbrev,timezone.zids');
 			$this->db->group_by('timezone.zoneid');
 			$this->db->group_by('timezone.abbrev');
+			$this->db->group_by('timezone.zids');
 			foreach ($myarray as $arr)
 			{	
 				$this->db->OR_where('countrycd', $arr);
@@ -491,9 +493,10 @@
 			$response = array();
 			
 			// Select record
-			$this->db->select('timezone.zoneid,timezone.abbrev');
+			$this->db->select('timezone.zoneid,timezone.abbrev,timezone.zids');
 			$this->db->group_by('timezone.zoneid');
 			$this->db->group_by('timezone.abbrev');
+			$this->db->group_by('timezone.zids');
 			$this->db->where('countrycd', $country_id);
 		
 			$q = $this->db->get('timezone');
@@ -1811,7 +1814,8 @@ public function get_campaign_fordataverification()
 			$query = $this->db->get('users');
 			
 			$ret = $query->row();
-			return $ret->role;
+			// echo $this->db->last_query(); exit;
+			return $ret->team;
 		}
 		// Added by Amol
 		public function get_sub_designation(){

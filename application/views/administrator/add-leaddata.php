@@ -428,10 +428,16 @@ $(document).ready(function() {
                               <select class="js-example-basic-single <?php
                                  if(isset($ldmster) && in_array('timezone',$dvrejectreason)) { echo "form-bg-inverse" ; } 
                                  ?>"  name="timezone" id="timezone">
+                            <?php  if(!isset($ldmster['lmid'])){ ?>
                               <option value="">Timezone</option>
-                              <?php foreach ($timezones as $tz): ?>
-                                    <option value="<?php echo $tz['zoneid']; ?>"  <?php if(isset($ldmster) && $ldmster['timez'] == $tz['zoneid']){ echo "selected" ; } ?>><?php echo $tz['abbrev']; ?></option>
-                                <?php endforeach; ?> 
+                            <?php } else{ ?>
+                             <option value="">Timezone</option>
+                              <?php foreach ($timezones as $tz):
+                                 ?>
+                                    <option value="<?php echo $tz['zids']; ?>"  <?php if(isset($ldmster) && $ldmster['timez'] == $tz['zids']){ echo "selected" ; } ?>><?php echo $tz['abbrev']; ?></option>
+                                <?php endforeach;  }?>
+                                
+                                
                                 </select>
                                 <span style='color:#FF0000' id="timezone_msg"></span>
                             </div>
@@ -757,7 +763,7 @@ $('#country_id').change(function(){
 
         //    Add options
        $.each(response,function(index,data){
-          $('#timezone').append('<option value="'+data['zoneid']+'" >'+data['abbrev']+'</option>');
+          $('#timezone').append('<option value="'+data['zids']+'" >'+data['abbrev']+'</option>');
           
         });
         // $('#country_id').multiselect("rebuild");
@@ -1117,7 +1123,7 @@ var arevenuevalue = $('#arevenue').val();
 
      // Campaign Name no special character allowed validation code
     $(function () {
-        $("#fname").keypress(function (e) {
+        $("#fname").keyup(function (e) {
             var keyCode = e.keyCode || e.which;
  
             $("#fname_msg").html("");
@@ -1130,6 +1136,7 @@ var arevenuevalue = $('#arevenue').val();
             var isValid = regex.test(String.fromCharCode(keyCode));
             if (!isValid) {
                 $("#fname_msg").html("Only Alphabets allowed.");
+                
             }
  
             return isValid;
@@ -1421,20 +1428,24 @@ $.ajax({
       },
       fname : {
         required: true,
-        minlength: 2
+        minlength: 2,
+        customvalidation: true
       },
       lname : {
         required: true,
-        minlength: 2
+        minlength: 2,
+        customvalidation: true
       },
       jtitle : {
-        required: true
+        required: true,
+        customvalidation: true
       },
       jlevel : {
         required: true
       },
         company_name : {
-        required: true
+        required: true,
+        customvalidation: true
         // minlength: 3
       },
       dcd : {
@@ -1449,15 +1460,18 @@ $.ajax({
         required: true        
       },
       address : {
-        required: true
+        required: true,
+        customvalidation: true
         // minlength: 4
       },
       city : {
-        required: true
+        required: true,
+        customvalidation: true
         // minlength: 5
       },
       state : {
-        required: true
+        required: true,
+        customvalidation: true
         // minlength: 5
       },
       zip_code : {
@@ -1555,7 +1569,16 @@ $.ajax({
       }
     }
   });
+
+  $.validator.addMethod("customvalidation",
+           function(value, element) {
+                   return /^[A-Za-z\d=#$%!*&()+@_ -]+$/.test(value); // validation for RÃ¤feldstrasse word
+           },
+   "Sorry, no special characters allowed"
+   );
 });
+
+
  </script>
 
 <script>

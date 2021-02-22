@@ -447,7 +447,7 @@
 			$this->db->group_by('timezone.abbrev');
 			$this->db->group_by('timezone.zids');
 			
-			$this->db->join('timezone', 'timezone.zoneid = leadmaster.timez');
+			$this->db->join('timezone', 'timezone.zids = leadmaster.timez');
 			
 			$this->db->where('lmid', $lmid);
 			$query = $this->db->get('leadmaster');
@@ -1865,6 +1865,24 @@ public function get_campaign_fordataverification()
 			$query = $this->db->get('privilege');
 			return $query->result_array();
 		}
+
+		//Added by Tejaswi
+		// public function fetch_data($postquery){
+			function fetch_data($postquery)
+			{
+			$this->db->select("*");
+			$this->db->from("industry");
+			if($postquery != '')
+			{
+			$this->db->like('industry', $postquery);
+			$this->db->or_like('description', $postquery);
+			$this->db->or_like('subindustry', $postquery);
+			
+			}
+			$this->db->order_by('industrycd', 'DESC');
+			return $this->db->get();
+			}
+		// }
 		
 		public function get_user_report($campid,$user_id,$from,$to,$stage)
 		{

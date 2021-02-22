@@ -477,6 +477,7 @@ $(document).ready(function() {
                             <div class="col-sm-2 <?php
                                  if(isset($ldmster) && in_array('subindustrycd',$dvrejectreason)) { echo "form-bg-inverse" ; } 
                                  ?>">
+                                   <div data-toolbar="user-options"  id="grow-toolbar">
                                 <select class="js-example-basic-single  <?php
                                  if(isset($ldmster) && in_array('subindustrycd',$dvrejectreason)) { echo "form-bg-inverse" ; } 
                                  ?>" name="subindustrycd" id="subindustrycd">
@@ -486,6 +487,7 @@ $(document).ready(function() {
                                 <?php endforeach; ?>
                                 </select>
                                 <span style='color:#FF0000' id="subindustry_id_msg"></span>
+                                </div>
                             </div>
                             <div class="col-sm-2">
                                 <select class="form-control form-control-sm cdqadisable <?php
@@ -717,24 +719,27 @@ $(document).ready(function() {
                                         <form>
                                             <div class="form-group row">
                                                
-                                                <div class="col-sm-6">
+                                                <!-- <div class="col-sm-6">
                                                 <select class="form-control form-control-sm cdqadisable" name="" id="">
                                                     <option value="1">Industry</option>                                  
                                             
                                                     <option value="2">Sub Industry</option>
                                               
                                                 </select>
-                                              </div>
-                                                <div class="col-sm-6">
-                                                  <input type ="text"  id= "searchid" class="form-control form-control-sm" placeholder="Search here...">
+                                              </div> -->
+                                                <div class="col-sm-12">
+                                                  <input type ="text"  id="search_text" name="search_text" class="form-control form-control-sm" placeholder="Search here...">
                                                 </div>
                                             </div>
                                            
                                         </form>
+                                        <div id="resultdiv"></div>
+                                        <div style="clear:both"></div>
+		                                    <br />
                                     </div>
         </div>
         <div class="modal-footer">
-        <button type="button" id=""  class="btn btn-primary" >Send</button>
+        <button type="button" id="searchbtn" name ="searchbtn" class="btn btn-primary">Search</button>
           <button type="button" class="btn btn-danger " data-dismiss="modal">Close</button>
         </div>
       </div>
@@ -744,36 +749,38 @@ $(document).ready(function() {
 
 
    
-     <script>
-// Search key up change -- get timezones
-$('#searchid').keyup(function(){
-
-  alert();
-    // var country_id = $(this).val();
    
-    // // AJAX request to get timezones
-    // var urlq = '<?php echo base_url("cdc/gettimezones");?>';
-    // console.log(urlq+'?country_id='+country_id);
-    // $.ajax({
-    //     url:'<?php echo base_url("cdc/gettimezones");?>',
-    //     method: 'get',
-    //     data: {country_id: country_id},
-    //     dataType: 'json',
-    //     success: function(response){
-
-    //     //    Remove options 
-    //   //  $('#timezone').find('option').not(':first').remove();
-
-    //     //    Add options
-    //    $.each(response,function(index,data){
-    //       // $('#timezone').append('<option value="'+data['zids']+'" >'+data['abbrev']+'</option>');
-          
-    //     });
-     
-
-    //     }
-    // });
+<!-- // Search result for industry -->
+<script>
+$(document).ready(function(){
+	// load_data();
+	function load_data(query)
+	{
+		$.ajax({
+			// url:"fetch.php",
+      url:'<?php echo base_url("cdc/getsearcresultofindustry");?>',
+			method:"post",
+			data:{query:query},
+			success:function(data)
+			{
+				$('#resultdiv').html(data);
+			}
+		});
+	}
+	
+	$('#search_text').keyup(function(){
+		var search = $(this).val();
+		if(search != '')
+		{
+			load_data(search);
+		}
+		else
+		{
+			// load_data();			
+		}
+	});
 });
+// end of search result
 
 $('#empsize').blur(function(){
   var lbound = $('#php_lbound').val();
@@ -784,7 +791,6 @@ $('#empsize').blur(function(){
   
   
   if ( value > parseInt(ubound) || value < parseInt(lbound)) 
- 
  {
   $("#empsize_msg").html("Not in Range");
   $(this).val("");

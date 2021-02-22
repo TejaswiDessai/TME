@@ -310,6 +310,77 @@
 			echo json_encode($data); 
 		}
 		
+		public function getsearcresultofindustry(){ 
+			
+			// $postquery = $_POST['query'];
+			
+			// // get data 
+			// $data = $this->Administrator_Model->getsearchresult($postquery);
+			// return $data;
+			// echo json_encode($data); 
+
+
+
+			$output = '';
+			$query = '';
+			// $this->load->model('ajaxsearch_model');
+			if($this->input->post('query'))
+			{
+			 $query = $this->input->post('query');
+			}
+			$data = $this->Administrator_Model->fetch_data($query);
+			$output .= '
+			<div class="table-responsive">
+			   <table class="table table-bordered table-striped">
+				<tr>
+				 <th>Industry</th>
+				 <th>Sub Industry</th>
+				 <th>Description</th>
+				 
+				</tr>
+			';
+			if($data->num_rows() > 0)
+			{
+			 foreach($data->result() as $row)
+			 {
+			  $output .= '
+				<tr>
+				 <td>'.$row->industry.'</td>
+				 <td>'.$row->subindustry.'</td>
+				 <td>'.$row->description.'</td>
+				
+				</tr>
+			  ';
+			 }
+			}
+			else
+			{
+			 $output .= '<tr>
+				 <td colspan="5">No Data Found</td>
+				</tr>';
+			}
+			$output .= '</table>';
+			echo $output;
+		
+
+
+
+
+		}
+
+		function fetch($page = 'fetch'){
+			// $data['title'] = 'Create Lead';
+			// $data['campaigns'] = $this->Administrator_Model->get_campaign();
+                      
+			
+			
+			// $this->load->view('administrator/header-script');
+			// $this->load->view('administrator/header');
+			// $this->load->view('administrator/header-bottom');
+			//  $this->load->view('administrator/'.$page, $data);
+			// $this->load->view('administrator/footer');
+		
+		}
 		public function gettimezones(){ 
 			
 			$country_id = $_GET['country_id'];

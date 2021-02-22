@@ -670,18 +670,24 @@ $(document).ready(function() {
                                           </div>
                                   </div> 
                            </div>
-                           
+                           <!-- toolbar options -->
+                           <div id="toolbar-options" class="hidden">
+                                <a href="#myModalemail" data-target="#myModalemail" data-toggle="modal"><i class="icofont icofont-info-circle"></i></a>
+                               
+                            </div>
                          
                             <div class="col-sm-2">
+                            <div data-toolbar="user-options"  id="info-toolbar">
                             <div class="to-do-list">
                                           <div class="checkbox-fade fade-in-primary  col-sm-12">
                                               <label class="check-task">
                                                   <input type="checkbox" name="industrycd" id="industrycd"  value="industrycd">
                                                 <span  class="form-control form-control-sm cdqadisable tooltips"><?php if(isset($ldmster['indtry'])){  echo $industriesdv['industry']; }else { echo "industry is Empty" ;} ?>
-                                                <span class="tooltiptext">Industry</span>
+                                                <span class="tooltiptext" style="margin-left: -100px;">Industry</span>
                                                 </span>
                                               </label>
                                           </div>
+                                    </div> 
                                   </div> 
 
 
@@ -696,16 +702,18 @@ $(document).ready(function() {
                             </div>
                             
                             <div class="col-sm-2">
-                            <div class="to-do-list">
+                            <div data-toolbar="user-options"  id="grow-toolbar">
+                              <div class="to-do-list">
                                           <div class="checkbox-fade fade-in-primary  col-sm-12">
                                               <label class="check-task">
                                                   <input type="checkbox" name="subindustrycd" id="subindustrycd"  value="subindustrycd">
                                                 <span  class="form-control form-control-sm cdqadisable tooltips"><?php if(isset($ldmster['sindtry'])){  echo $subindustriesdv['subindustry']; }else { echo "Sub industry is Empty" ;} ?>
-                                                <span class="tooltiptext">Sub Industry</span>
+                                                <span class="tooltiptext" style="margin-left: -100px;">Sub Industry</span>
                                                 </span>
                                               </label>
                                           </div>
                                   </div> 
+                                </div> 
                                 <!-- <select class="js-example-basic-single" name="subindustrycd" id="subindustrycd">
                                 <option value="">Sub Industry</option>
                                 <?php //foreach ($industriessub as $sub): ?>
@@ -1087,8 +1095,88 @@ $(document).ready(function() {
 <input type="hidden" id="revlbdimmlbl" value="<?php echo $campaign['revlbdim']; ?>"/>
 <input type="hidden" id="revubdimmlbl" value="<?php echo $campaign['revubdim']; ?>"/>
 <?php endforeach;  ?>
-   
+  
+  <!-- Modal -->
+  <div class="modal fade" id="myModalemail" role="dialog">
+    <div class="modal-dialog">
+    
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <!-- <h4 class="modal-title">Modal Header</h4> -->
+        </div>
+        <div class="modal-body">
+        <div class="mail-body-content">
+                                        <form>
+                                            <div class="form-group row">
+                                               
+                                                <!-- <div class="col-sm-6">
+                                                <select class="form-control form-control-sm cdqadisable" name="" id="">
+                                                    <option value="1">Industry</option>                                  
+                                            
+                                                    <option value="2">Sub Industry</option>
+                                              
+                                                </select>
+                                              </div> -->
+                                                <div class="col-sm-12">
+                                                  <input type ="text"  id="search_text" name="search_text" class="form-control form-control-sm" placeholder="Search here...">
+                                                </div>
+                                            </div>
+                                           
+                                        </form>
+                                        <div id="resultdiv"></div>
+                                        <div style="clear:both"></div>
+		                                    <br />
+                                    </div>
+        </div>
+        <div class="modal-footer">
+        <button type="button" id="searchbtn" name ="searchbtn" class="btn btn-primary">Search</button>
+          <button type="button" class="btn btn-danger " data-dismiss="modal">Close</button>
+        </div>
+      </div>
+      
+    </div>
+  </div> 
+
+
+
+
+
      <script>
+// <!-- // Search result for industry -->
+
+    $(document).ready(function(){
+      // load_data();
+      function load_data(query)
+      {
+        $.ajax({
+          // url:"fetch.php",
+          url:'<?php echo base_url("cdc/getsearcresultofindustry");?>',
+          method:"post",
+          data:{query:query},
+          success:function(data)
+          {
+            $('#resultdiv').html(data);
+          }
+        });
+      }
+      
+      $('#search_text').keyup(function(){
+        var search = $(this).val();
+        if(search != '')
+        {
+          load_data(search);
+        }
+        else
+        {
+          // load_data();			
+        }
+      });
+    });
+    // end of search result
+
+
 $('#empsize').blur(function(){
   var lbound = $('#php_lbound').val();
   // var lbound = 1;

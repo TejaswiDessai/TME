@@ -852,7 +852,12 @@ $(document).ready(function() {
                                               <label class="check-task">
                                                   <input type="checkbox" name="domain" id="domain"  value="domain">
                                                 <span  class="form-control form-control-sm cdqadisable tooltips">Domain Link  
+                                                <?php if($ldmster['domain'] != ""){ ?>
                                                 <a href="http://<?php echo $ldmster['domain'] ?>" target="_blank" style="float:right"><i class="icofont icofont-link"></i></a>
+                                                <?php } else{ ?>
+                                                  <a style="float:right"><i class="icofont icofont-close-line"></i></a>     
+                                                <?php } ?>
+                                                 
                                                   <span class="tooltiptext">Domain Link</span>
                                                 </span>
                                               </label>
@@ -869,7 +874,11 @@ $(document).ready(function() {
                                               <label class="check-task">
                                                   <input type="checkbox" name="empszlink" id="empszlink"  value="empszlink">
                                                 <span  class="form-control form-control-sm cdqadisable tooltips">Emp Size Link  
+                                                <?php if($ldmster['empszlink'] != ""){ ?>
                                                 <a href="<?php if($ldmster['empszlink'] != ""){ echo $ldmster['empszlink']; } else{  echo "#"; } ?>" target="_blank" style="float:right"><i class="icofont icofont-link"></i></a>
+                                                 <?php } else{ ?>
+                                                  <a style="float:right"><i class="icofont icofont-close-line"></i></a>       
+                                                 <?php } ?>
                                                   <span class="tooltiptext">Emp Size Link</span>
                                                 </span>
                                               </label>
@@ -894,7 +903,11 @@ $(document).ready(function() {
                                               <label class="check-task">
                                                   <input type="checkbox" name="indlink" id="indlink"  value="indlink">
                                                 <span  class="form-control form-control-sm cdqadisable tooltips">Industry Link  
-                                                <a href="<?php if($ldmster['indlink'] != "NA"){ echo $ldmster['indlink']; } else{  echo "#"; } ?>" target="_blank" style="float:right"><i class="icofont icofont-link"></i></a>
+                                                <?php if($ldmster['indlink'] != ""){ ?>
+                                                <a href="<?php echo $ldmster['indlink'];?>" target="_blank" style="float:right"><i class="icofont icofont-link"></i></a>
+                                                  <?php } else { ?>
+                                                   <a style="float:right"><i class="icofont icofont-close-line"></i></a>       
+                                                <?php  } ?>
                                                   <span class="tooltiptext">Industry Link</span>
                                                 </span>
                                               </label>
@@ -909,7 +922,12 @@ $(document).ready(function() {
                                               <label class="check-task">
                                                   <input type="checkbox" name="revszlink" id="revszlink"  value="revszlink">
                                                 <span  class="form-control form-control-sm cdqadisable tooltips">Revenue Link  
-                                                <a href="<?php if($ldmster['revszlink'] != "NA"){ echo $ldmster['revszlink']; } else{  echo "#"; } ?>" target="_blank" style="float:right"><i class="icofont icofont-link"></i></a>
+                                                <!-- <a href="<?php// if($ldmster['revszlink'] != "NA"){ echo $ldmster['revszlink']; } else{  echo ""; } ?>" target="_blank" style="float:right"><i class="icofont icofont-link"></i></a> -->
+                                                <?php if($ldmster['revszlink'] != "NA"){ ?>
+                                                <a href=" <?php echo $ldmster['revszlink']; ?>" target="_blank" style="float:right"><i class="icofont icofont-link"></i></a>
+                                                  <?php } else{ ?>
+                                                     <a style="float:right"><i class="icofont icofont-close-line"></i></a>
+                                                <?php  } ?>
                                                   <span class="tooltiptext">Revenue Link</span>
                                                 </span>
                                               </label>
@@ -924,7 +942,12 @@ $(document).ready(function() {
                                               <label class="check-task">
                                                   <input type="checkbox" name="othrlink" id="othrlink"  value="othrlink">
                                                 <span  class="form-control form-control-sm cdqadisable tooltips">Other Link  
-                                                <a href="<?php if($ldmster['othrlink'] != ""){ echo $ldmster['othrlink']; } else{  echo "#"; } ?>" target="_blank" style="float:right"><i class="icofont icofont-link"></i></a>
+                                                <?php if($ldmster['othrlink'] != ""){ ?>
+                                                <!-- <a href="<?php //if($ldmster['othrlink'] != ""){ echo $ldmster['othrlink']; } else{  echo "#"; } ?>" target="_blank" style="float:right"><i class="icofont icofont-link"></i></a> -->
+                                                <a href="<?php echo $ldmster['othrlink']; ?>" target="_blank" style="float:right"><i class="icofont icofont-link"></i></a> 
+                                                  <?php } else{ ?>
+                                                    <a style="float:right"><i class="icofont icofont-close-line"></i></a>
+                                                 <?php } ?>
                                                   <span class="tooltiptext">other Link</span>
                                                 </span>
                                               </label>

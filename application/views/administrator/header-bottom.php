@@ -68,6 +68,7 @@ $userteam = explode(',',$usertype);
                         </ul>
                     </li>
                 <?php } ?>
+                <?php if($usertype == 0 || $usertype == 1 || $usertype ==2 || $usertype ==6){?>
                     <li class="nav-item">
                         <!-- <a href="<?php echo base_url(); ?>cdc/addlead""> -->
                         <a href="<?php echo base_url(); ?>cdc/selectCampaign">
@@ -75,6 +76,7 @@ $userteam = explode(',',$usertype);
                             <span>Data Lead and CDC</span>
                         </a>
                     </li>
+                    <?php } ?>
                     <li class="nav-item">
                         <!-- <a href="<?php echo base_url(); ?>cdc/addlead""> -->
                         <a href="<?php echo base_url(); ?>cdc/selectCampaignforlead">

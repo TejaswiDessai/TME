@@ -855,7 +855,7 @@ $(document).ready(function() {
                                                 <?php if($ldmster['domain'] != ""){ ?>
                                                 <a href="http://<?php echo $ldmster['domain'] ?>" target="_blank" style="float:right"><i class="icofont icofont-link"></i></a>
                                                 <?php } else{ ?>
-                                                  <a style="float:right"><i class="icofont icofont-close-line"></i></a>     
+                                                  <a style="float:right"><i class="icofont icofont-unlink"></i></a>     
                                                 <?php } ?>
                                                  
                                                   <span class="tooltiptext">Domain Link</span>
@@ -877,7 +877,7 @@ $(document).ready(function() {
                                                 <?php if($ldmster['empszlink'] != ""){ ?>
                                                 <a href="<?php if($ldmster['empszlink'] != ""){ echo $ldmster['empszlink']; } else{  echo "#"; } ?>" target="_blank" style="float:right"><i class="icofont icofont-link"></i></a>
                                                  <?php } else{ ?>
-                                                  <a style="float:right"><i class="icofont icofont-close-line"></i></a>       
+                                                  <a style="float:right"><i class="icofont icofont-unlink"></i></a>       
                                                  <?php } ?>
                                                   <span class="tooltiptext">Emp Size Link</span>
                                                 </span>
@@ -906,7 +906,7 @@ $(document).ready(function() {
                                                 <?php if($ldmster['indlink'] != ""){ ?>
                                                 <a href="<?php echo $ldmster['indlink'];?>" target="_blank" style="float:right"><i class="icofont icofont-link"></i></a>
                                                   <?php } else { ?>
-                                                   <a style="float:right"><i class="icofont icofont-close-line"></i></a>       
+                                                   <a style="float:right"><i class="icofont icofont-unlink"></i></a>       
                                                 <?php  } ?>
                                                   <span class="tooltiptext">Industry Link</span>
                                                 </span>
@@ -926,7 +926,7 @@ $(document).ready(function() {
                                                 <?php if($ldmster['revszlink'] != "NA"){ ?>
                                                 <a href=" <?php echo $ldmster['revszlink']; ?>" target="_blank" style="float:right"><i class="icofont icofont-link"></i></a>
                                                   <?php } else{ ?>
-                                                     <a style="float:right"><i class="icofont icofont-close-line"></i></a>
+                                                     <a style="float:right"><i class="icofont icofont-unlink"></i></a>
                                                 <?php  } ?>
                                                   <span class="tooltiptext">Revenue Link</span>
                                                 </span>
@@ -946,7 +946,7 @@ $(document).ready(function() {
                                                 <!-- <a href="<?php //if($ldmster['othrlink'] != ""){ echo $ldmster['othrlink']; } else{  echo "#"; } ?>" target="_blank" style="float:right"><i class="icofont icofont-link"></i></a> -->
                                                 <a href="<?php echo $ldmster['othrlink']; ?>" target="_blank" style="float:right"><i class="icofont icofont-link"></i></a> 
                                                   <?php } else{ ?>
-                                                    <a style="float:right"><i class="icofont icofont-close-line"></i></a>
+                                                    <a style="float:right"><i class="icofont icofont-unlink"></i></a>
                                                  <?php } ?>
                                                   <span class="tooltiptext">other Link</span>
                                                 </span>

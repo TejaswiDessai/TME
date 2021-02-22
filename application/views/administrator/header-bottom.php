@@ -17,8 +17,11 @@
 
 $emp_id = $this->session -> userdata('emp_id');
 $usertype = $this->Administrator_Model->get_emp_usertype($emp_id);
-$userteam = explode(',',$usertype);
-
+$userteam1 = $this->Administrator_Model->get_emp_team($emp_id);
+$userteam = explode(',',$userteam1);
+// print_r($usertype);
+// echo "----";
+// print_r($userteam1);
  ?>
 
      <!-- Menu aside start -->
@@ -76,7 +79,6 @@ $userteam = explode(',',$usertype);
                             <span>Data Lead and CDC</span>
                         </a>
                     </li>
-                    <?php } ?>
                     <li class="nav-item">
                         <!-- <a href="<?php echo base_url(); ?>cdc/addlead""> -->
                         <a href="<?php echo base_url(); ?>cdc/selectCampaignforlead">
@@ -84,15 +86,50 @@ $userteam = explode(',',$usertype);
                             <span>Add Lead</span>
                         </a>
                     </li>
-                    <?php if(in_array('7',$userteam)){?>
+                    <?php } ?>
+                    <?php if($usertype == 5 && (in_array('3',$userteam))){?>
+                    <li class="nav-item">
+                        <!-- <a href="<?php echo base_url(); ?>cdc/addlead""> -->
+                        <a href="<?php echo base_url(); ?>cdc/selectCampaign">
+                        <i class="icofont icofont-sand-clock"></i>
+                            <span>Data Lead and CDC</span>
+                        </a>
+                    </li>
+                    <?php } ?>
+                    <?php if($usertype == 5 && (in_array('6',$userteam))){?>
                         <li class="nav-item">
-                        
+                        <!-- <a href="<?php echo base_url(); ?>cdc/addlead""> -->
+                        <a href="<?php echo base_url(); ?>cdc/selectCampaignforlead">
+                        <i class="icofont icofont-architecture-alt"></i>
+                            <span>Add Lead</span>
+                        </a>
+                    </li>
+                    <?php } ?>
+                    <?php if($usertype == 5 && (in_array('7',$userteam))){?>
+                        <li class="nav-item">
+                      
                             <a href="<?php echo base_url(); ?>cdc/selectCampaignforDataVerification">
                             <i class="icofont icofont-check-circled"></i>
                                 <span>Data verification</span>
                             </a>
                         </li>
-                        <?php } ?>
+                    <?php } ?>
+                    <?php if($usertype == 5 && (in_array('8',$userteam))){?>
+                        <li class="nav-item">
+                        <a href="#!">
+                        <i class="icofont icofont-email"></i>
+                            <span data-i18n="nav.basic-components.main">Email Verification</span>
+                        </a>
+                        <ul class="tree-1">
+                            <!-- <li><a href="<?php //echo base_url(); ?>administrator/user_report" data-i18n="nav.basic-components.alert">User Status</a></li> -->
+                            <!-- <li><a href="<?php //echo base_url(); ?>administrator/team/list" data-i18n="nav.basic-components.breadcrumbs">Campaign Status</a></li> -->
+                            <li><a href="<?php echo base_url(); ?>administrator/selectCampaignForEmailVerification" data-i18n="nav.basic-components.alert">Email Verification</a></li>
+                        </ul>
+                    </li>
+                    <?php } ?>
+
+                   
+                   
                     <?php if($usertype == 0 || $usertype == 1 || $usertype ==2 || $usertype ==6){?>
                     <li class="nav-item">
                       

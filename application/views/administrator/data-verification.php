@@ -2042,6 +2042,10 @@ $("input:checkbox").change(function() {
     $(function() {
         $("#leadupdatedv").on('click', function() 
         {
+          var empid = $('#emp_id').val();
+          if(empid == undefined){
+            window.location = base_url+"administrator/logout";
+          }
 
           var notChecked = [], checked = [];
             $(":checkbox").map(function() {

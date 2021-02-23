@@ -670,14 +670,21 @@ $(document).ready(function() {
                           <input type = hidden name="emp_id" id="emp_id" value="<?php echo  $_SESSION['empcode']; ?>">
                           <input type = hidden name="sbsvtag" id="sbsvtag" value="<?php echo $ldmster['sbsvtag']; ?>">
                           <input type = hidden name="rlc" id="rlc" value="<?php echo $ldmster['rlc']; ?>">
-                        <button type="submit" name="leadupdate" class="btn btn-primary leaddisplay" style=""  id="leadupdate">Submit</button> 
-                        <button type="submit" name="leadsave" class="btn btn-primary leaddisplay" style=""  id="leadsave">Save </button> 
-                     
+                          <div class="col-sm-12">
+                             <center>
+                              <button type="submit" name="leadupdate" class="btn btn-primary leaddisplay" style=""  id="leadupdate">Submit</button> 
+                              <button type="submit" name="leadsave" class="btn btn-primary leaddisplay" style="margin-left:50px"  id="leadsave">Save </button> 
+                            </center>
+                            </div>
                         <?php } ?>
                        <?php if($ldmster == 1){ ?>
                         <input type = hidden name="emp_id" id="emp_id" value="<?php echo  $_SESSION['empcode']; ?>">
-                        <button type="submit" name="leadsubmit" class="btn btn-primary leaddisplay" style=""  id="leadsubmit">Submit </button> 
-                        <button type="submit" name="leadsave" class="btn btn-primary leaddisplay" style=""  id="leadsave">Save </button> 
+                        <div class="col-sm-12">
+                             <center>
+                              <button type="submit" name="leadsubmit" class="btn btn-primary leaddisplay" style=""  id="leadsubmit">Submit </button> 
+                              <button type="submit" name="leadsave" class="btn btn-primary leaddisplay" style="margin-left:50px"  id="leadsave">Save </button> 
+                             </center>
+                            </div>
                         <?php } ?>
                         
                         <!-- <input class="submit" class ="" type="submit" value="SUBMIT"> -->

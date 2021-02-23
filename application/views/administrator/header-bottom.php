@@ -165,7 +165,7 @@ $userteam = explode(',',$userteam1);
                             <span data-i18n="nav.basic-components.main">Reports</span>
                         </a>
                         <ul class="tree-1">
-                            <li><a href="<?php echo base_url(); ?>administrator/user_report" data-i18n="nav.basic-components.alert">User Status</a></li>
+                            <li><a href="<?php echo base_url(); ?>administrator/user_report" data-i18n="nav.basic-components.alert">User Report</a></li>
                             <!-- <li><a href="<?php //echo base_url(); ?>administrator/team/list" data-i18n="nav.basic-components.breadcrumbs">Campaign Status</a></li> -->
                             <!-- <li><a href="<?php echo base_url(); ?>administrator/selectCampaignForEmailVerification" data-i18n="nav.basic-components.alert">Email Verification</a></li> -->
                         </ul>
@@ -240,7 +240,7 @@ $userteam = explode(',',$userteam1);
         checkTime();
 
         function checkTime() {
-
+console.log(timeSinceLastMove);
             timeSinceLastMove++;
 
             if (timeSinceLastMove > 10 * 60 ) {  //10 mints

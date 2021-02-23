@@ -358,9 +358,9 @@ $(document).ready(function() {
                                  if(isset($ldmster) && in_array('linetype',$dvrejectreason)) { echo "form-bg-inverse" ; } 
                                  ?>">
                                      <option value="0">Line Type</option>
-                                     <option value="0">unknown</option>
-                                     <option value="1">Direct</option>
-                                     <option value="2">Board</option>  
+                                     <option value="0" <?php if(isset($ldmster) && $ldmster['linetype'] == 0){ echo "selected" ; } ?> >unknown</option>
+                                     <option value="1" <?php if(isset($ldmster) && $ldmster['linetype'] == 1){ echo "selected" ; } ?>>Direct</option>
+                                     <option value="2" <?php if(isset($ldmster) && $ldmster['linetype'] == 2){ echo "selected" ; } ?>>Board</option>  
                                </select>
                               
                            </div>
@@ -495,11 +495,11 @@ $(document).ready(function() {
                                  ?>" name="sectyp" id="sectyp">
                                   
                                     <option value="0">Sector Type</option>
-                                    <option value="0">Unknown</option>
-                                    <option value="1">Public</option>
-                                    <option value="2">Private</option>
-                                    <option value="3">Government</option>
-                                    <option value="4">Non -Profit </option>
+                                    <option value="0"  <?php if(isset($ldmster) && $ldmster['sectyp'] == 0){ echo "selected" ; } ?>>Unknown</option>
+                                    <option value="1"  <?php if(isset($ldmster) && $ldmster['sectyp'] == 1){ echo "selected" ; } ?>>Public</option>
+                                    <option value="2" <?php if(isset($ldmster) && $ldmster['sectyp'] == 2){ echo "selected" ; } ?>>Private</option>
+                                    <option value="3" <?php if(isset($ldmster) && $ldmster['sectyp'] == 3){ echo "selected" ; } ?>>Government</option>
+                                    <option value="4" <?php if(isset($ldmster) && $ldmster['sectyp'] == 4){ echo "selected" ; } ?>>Non -Profit </option>
                                
                                     </select>
                             </div>

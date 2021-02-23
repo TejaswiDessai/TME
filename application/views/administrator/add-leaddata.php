@@ -448,7 +448,7 @@ $(document).ready(function() {
                                  ?>"> 
                                      <option value="0">Company Type</option>
                                      <?php foreach ($comptype as $comptype): ?>
-                                    <option value="<?php echo $comptype['ctypid']; ?>"><?php echo $comptype['ctypname']; ?></option>
+                                    <option value="<?php echo $comptype['ctypid']; ?>" <?php if(isset($ldmster) && $ldmster['ctyp'] == $comptype['ctypid']){ echo "selected" ; } ?>><?php echo $comptype['ctypname']; ?></option>
                                 <?php endforeach; ?> 
                                </select>
                            </div>
@@ -499,7 +499,7 @@ $(document).ready(function() {
                                     <option value="1"  <?php if(isset($ldmster) && $ldmster['sectyp'] == 1){ echo "selected" ; } ?>>Public</option>
                                     <option value="2" <?php if(isset($ldmster) && $ldmster['sectyp'] == 2){ echo "selected" ; } ?>>Private</option>
                                     <option value="3" <?php if(isset($ldmster) && $ldmster['sectyp'] == 3){ echo "selected" ; } ?>>Government</option>
-                                    <option value="4" <?php if(isset($ldmster) && $ldmster['sectyp'] == 4){ echo "selected" ; } ?>>Non -Profit </option>
+                                    <option value="4" <?php if(isset($ldmster) && $ldmster['sectyp'] == 4){ echo "selected" ; } ?>>Non-Profit </option>
                                
                                     </select>
                             </div>
@@ -541,11 +541,11 @@ $(document).ready(function() {
                                  ?>" name="mlbl" id="mlbl">
                                 
                                
-                                    <option value="0">K</option>
+                                    <option value="0" <?php if(isset($ldmster) && $ldmster['mlbl'] == 0){ echo "selected" ; } ?> >K</option>
                                     <!-- <option value="1">Hundred Thousand</option> -->
-                                    <option value="1">M</option>
-                                    <option value="2">B</option>
-                                    <option value="3">T</option>
+                                    <option value="1" <?php if(isset($ldmster) && $ldmster['mlbl'] == 1){ echo "selected" ; } ?>>M</option>
+                                    <option value="2"<?php if(isset($ldmster) && $ldmster['mlbl'] == 2){ echo "selected" ; } ?>>B</option>
+                                    <option value="3"<?php if(isset($ldmster) && $ldmster['mlbl'] == 3){ echo "selected" ; } ?>>T</option>
                                     </select>
                             </div>          
                             <div class="col-sm-2">
@@ -603,8 +603,8 @@ $(document).ready(function() {
                             <div class="col-sm-2">
                                 <select class="form-control form-control-sm"  name="emailver" id="emailver">
                                     <option value="0">Email Verification</option>
-                                    <option value="1">Yes</option>
-                                    <option value="0">No</option>
+                                    <option value="1"<?php if(isset($ldmster) && $ldmster['emailver'] == 1){ echo "selected" ; } ?>>Yes</option>
+                                    <option value="0"<?php if(isset($ldmster) && $ldmster['emailver'] == 0){ echo "selected" ; } ?>>No</option>
                                 </select>
                             </div>
                             <div class="col-sm-2">

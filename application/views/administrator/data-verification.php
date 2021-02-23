@@ -748,6 +748,8 @@ $(document).ready(function() {
                                                       echo "Private";
                                                     }else if($ldmster['sectyp'] == "3"){
                                                       echo "Government";
+                                                    }else if($ldmster['sectyp'] == "4"){
+                                                      echo "Non-Profit";
                                                     }else{
 
                                                     }

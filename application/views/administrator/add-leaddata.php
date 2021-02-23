@@ -1416,7 +1416,7 @@ var lmid = $('#lmid').val();
 var emp_id = $('#emp_id').val();
 // $this->session -> userdata('email')
 
-// alert(emp_id);
+
 if(rlc == "1"){
 var urlq = '<?php echo base_url("cdc/updaterecordlock");?>';
 console.log(urlq+'?lmid='+lmid+"&rlc="+rlc+"&emp_id="+emp_id);
@@ -1451,15 +1451,13 @@ $.ajax({
 }
 
 
-
-
-
-
-
-  
+// alert(lmid);
+if(lmid == undefined){
   $("#revszlink").prop('disabled', true);
   $('#revszlink').val("NA");
 
+}
+ 
   $('.commentvisible').hide();
   // $('.revsizehide').hide();
 

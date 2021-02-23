@@ -767,16 +767,19 @@ $(document).ready(function() {
                 <hr>
                     <div class="form-group row">
                         <div class="col-sm-2">
+                        <!-- <div class="tooltips"> -->
                                 <!-- <input type="text"  name="empsize" id="empsize" maxlength="6" value ="<?php// if(isset($ldmster)){  echo $ldmster['empsize']; }?>" placeholder="Actual Employee Size"  class="form-control form-control-sm cdqadisable"> -->
                                 <div class="to-do-list">
                                           <div class="checkbox-fade fade-in-primary  col-sm-12">
                                               <label class="check-task">
                                                   <input type="checkbox" name="empsize" id="empsize"  value="empsize">
                                                 <span  class="form-control form-control-sm cdqadisable tooltips"><?php if(isset($ldmster['empsize'])){  echo $ldmster['empsize']; }else { echo "Emp Size is Empty" ;} ?>
-                                                <span class="tooltiptext">Emp size</span>
+                                                <!-- <span class="tooltiptext">Emp size</span> -->
+                                                 <span class="tooltiptext"> Emp size range  should be in <?php echo $campaign['emplbnd']; ?> & <?php echo $campaign['empubnd']; ?></span>
                                                 </span>
                                               </label>
                                           </div>
+                                 <!-- </div> -->
                                  </div>
                                 <!-- <span style='color:#FF0000' id="empsize_msg"></span> -->
                             </div>
@@ -788,7 +791,9 @@ $(document).ready(function() {
                                               <label class="check-task">
                                                   <input type="checkbox" name="arevenue" id="arevenue"  value="arevenue">
                                                 <span  class="form-control form-control-sm cdqadisable tooltips"><?php if(isset($ldmster['arevenue'])){  echo $ldmster['arevenue']; }else { echo "Revenue is Empty" ;} ?>
-                                                <span class="tooltiptext">Revenue</span>
+                                                <!-- <span class="tooltiptext">Revenue</span> -->
+                                                <span class="tooltiptext"> Revenue should be in <?php echo $campaign['revlbnd']; ?> <?php echo $campaign['revlbdim']; ?> 
+                          & <?php echo $campaign['revubnd']; ?> <?php echo $campaign['revubdim']; ?></span>
                                                 </span>
                                               </label>
                                           </div>

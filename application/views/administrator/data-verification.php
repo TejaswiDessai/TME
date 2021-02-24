@@ -2051,6 +2051,7 @@ $("input:checkbox").change(function() {
           var empid = $('#emp_id').val();
           if(empid == undefined){
             window.location = base_url+"administrator/logout";
+            exit;
           }
 
           var notChecked = [], checked = [];

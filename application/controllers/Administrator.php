@@ -1869,7 +1869,7 @@ public function getPrivillage(){
 		
 
 		// print_r($data['users']);
-		//  print_r($stage);
+		//  print_r($user_id);
 		$data['users_name'] = $this->Administrator_Model->get_users(FALSE, $config['per_page'], $offset);
 		$data['campaigns'] = $this->Administrator_Model->get_campaign();
 		$data['user_id'] = $user_id;

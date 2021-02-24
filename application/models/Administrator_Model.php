@@ -680,6 +680,27 @@
 			}
 
 			$query = $this->db->get_where('users', array('mngr' => $manager));
+			echo $this->db->last_query(); 
+			return $query->result_array();
+		}
+		public function get_usersforreport($username = FALSE, $limit = FALSE, $offset = FALSE)
+		{
+			$emp_id = $this->session->userdata('emp_id');
+			$empcode = $this->session->userdata('empcode');
+			$manager = $this->get_manager_by_emp($emp_id);
+			
+			// if ($limit) {
+			// 	$this->db->limit($limit, $offset);
+			// }
+
+			if($emp_id == 103){
+				$this->db->order_by('users.id', 'DESC');
+				//$this->db->join('categories', 'categories.id = posts.category_id');
+				$query = $this->db->get('users');
+				return $query->result_array(); 
+			}
+
+			$query = $this->db->get_where('users', array('mngr' => $manager));
 			return $query->result_array();
 		}
 		public function get_campaign($campaigns = FALSE, $limit = FALSE, $offset = FALSE)
@@ -1900,12 +1921,12 @@ public function get_campaign_fordataverification()
 		
 		public function get_user_report($campid,$user_id,$from,$to,$stage)
 		{
-			$this->db->select('leadmaster.cids,users.fname,users.emp_id,users.last_login,campaign.campnm,
+			$this->db->select('leadmaster.cids,users.fname,users.empcode,users.last_login,campaign.campnm,
 			count(leadmaster.stagtidi) as number,count(leadmaster.dvagtidi)+count(leadmaster.dvragtidi) as numberveri,
 			count(leadmaster.stagtidi) - (count(leadmaster.dvagtidi)+count(leadmaster.dvragtidi)) as pending,
 			count(leadmaster.dvagtidi) as numberdv ,count(leadmaster.dvragtidi) as numberdvrej');
 			$this->db->from('leadmaster');
-			$this->db->join('users', 'users.emp_id = leadmaster.stagtidi OR users.empcode = leadmaster.stagtidi','left OR users.emp_id = leadmaster.dvagtidi OR users.empcode = leadmaster.dvagtidi','left');
+			$this->db->join('users', 'users.empcode = leadmaster.stagtidi OR users.empcode = leadmaster.stagtidi','left OR users.emp_id = leadmaster.dvagtidi OR users.empcode = leadmaster.dvagtidi','left');
 			$this->db->join('campaign', 'campaign.cids = leadmaster.cids','left');
 			if(isset($campid) && $campid != null)
 			{
@@ -1947,7 +1968,7 @@ public function get_campaign_fordataverification()
 			}
 			if(isset($user_id) && $user_id != null)
 			{
-				$this->db->where('users.emp_id', $user_id);
+				$this->db->where('users.empcode', $user_id);
 			}
 			if(isset($from) && isset($to) && $from != '' && $to != '')
 			{
@@ -1966,7 +1987,7 @@ public function get_campaign_fordataverification()
 			}
 			$this->db->group_by('leadmaster.cids');
 			$this->db->group_by('users.fname');
-			$this->db->group_by('users.emp_id');
+			$this->db->group_by('users.empcode');
 			$this->db->group_by('users.last_login');
 			// $this->db->group_by('campaign.cnid');
 			// $this->db->group_by('campaign.clientids');

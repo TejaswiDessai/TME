@@ -1679,6 +1679,7 @@ if(lmid == undefined){
           var empid = $('#emp_id').val();
           if(empid == undefined){
             window.location = base_url+"administrator/logout";
+            exit;
           }
           //  alert(empid);
             var campaign_id = $('#campaign_id').val();
@@ -1858,6 +1859,7 @@ if(lmid == undefined){
           var empid = $('#emp_id').val();
           if(empid == undefined){
             window.location = base_url+"administrator/logout";
+            exit;
           }
             var campaign_id = $('#campaign_id').val();
             var campaign_idcids = $('#campaign_idcids').val();
@@ -2050,6 +2052,7 @@ if(lmid == undefined){
             var empid = $('#emp_id').val();
           if(empid == undefined){
             window.location = base_url+"administrator/logout";
+            exit;
           }
            
           //  alert(campaign_idcids);

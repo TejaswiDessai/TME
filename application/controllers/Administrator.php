@@ -1864,8 +1864,14 @@ public function getPrivillage(){
 		$this->pagination->initialize($config);
 	
 		$data['title'] = 'Latest Campaigns';
+		// print_r($stage);
+		if($stage =='Verified'){
+			$data['users'] = $this->Administrator_Model->get_user_reportfordv($campid,$user_id,$from,$to,$stage);
+		}else{
+			$data['users'] = $this->Administrator_Model->get_user_report($campid,$user_id,$from,$to,$stage);
+		}
 		
-		$data['users'] = $this->Administrator_Model->get_user_report($campid,$user_id,$from,$to,$stage);
+		
 		
 
 		// print_r($data['users']);

@@ -110,9 +110,14 @@
                             <td>
                                 <select class="form-control form-control-default "  name="stage" id="stage">
                                     <option value="">Stage</option>
-                                    <option value="Verified" <?php if( isset($Stage) && $Stage == "Verified") { echo "selected" ; } ?>>Verified</option>
-                                    <option value="Rejection" <?php if( isset($Stage) && $Stage == "Rejection") { echo "selected" ; } ?>>Rejection</option>
-                                    <option value="Accepted" <?php if( isset($Stage) && $Stage == "Accepted") { echo "selected" ; } ?>>Accepted</option>
+                                    <option value="datacollect" <?php if( isset($Stage) && $Stage == "datacollect") { echo "selected" ; } ?>>Data Collection</option>
+                                    <option value="Verified" <?php if( isset($Stage) && $Stage == "Verified") { echo "selected" ; } ?>>Data Verified</option>
+                                    <option value="pending" <?php if( isset($Stage) && $Stage == "Rejection") { echo "selected" ; } ?>>Pending</option>
+                                    <!-- <option value="Accepted" <?php if( isset($Stage) && $Stage == "Accepted") { echo "selected" ; } ?>>Data Accepted</option> -->
+                                    <!-- <option value="unverified" <?php if( isset($Stage) && $Stage == "unverified") { echo "selected" ; } ?>>Data Unverified</option> --> 
+                                    <!-- <option value="emailVerified" <?php if( isset($Stage) && $Stage == "emailVerified") { echo "selected" ; } ?>>Email Verified</option> -->
+                                    
+                                    <!-- <option value="All">All</option> -->
 
                                     <!-- <?php //foreach ($users as $campaign): ?>
                                         <option value="<?php //echo $campaign['emp_id']; ?>"><?php //echo $campaign['fname']; ?></option>
@@ -148,6 +153,7 @@
                                         <th>Username</th>
                                         <th>Campaign Name</th>
                                         <th>No. Of Records</th>
+                                        <th>Pending</th>
                                         <th>Verified</th>
                                         <th>Rejection</th>
                                         <th>Accepted</th>
@@ -158,7 +164,7 @@
                                  <tr>
                                         <td></td>
                                         <!-- <td><?php //echo date("M d,Y", strtotime($post['last_login'])); ?></td> -->
-                                        <td><a href="edit-blog.php?id=14"><?php echo $post['fname']; ?></a></td>
+                                        <td><a href=""><?php echo $post['fname']; ?></a></td>
                                         <td><?php
                                         echo $post['campnm'];
                                         // echo $campnam = $this->Administrator_Model->get_camp_name($post['emp_id']);
@@ -169,12 +175,13 @@
                                         // echo $query->num_rows();
 
                                         ?></td>
-                                         <td><?php echo ""; ?></td>
+                                         <td><?php echo $post['pending']; ?></td>
+                                         <td><?php echo $post['numberveri']; ?></td>
                                         <td>
-                                        <?php echo ""; ?>
+                                        <?php echo $post['numberdvrej']; ?>
                                         </td>
                                         <td>
-                                        <?php echo ""; ?>
+                                        <?php  echo $post['numberdv']; ?>
                                         </td>
                                     </tr>
                                 <?php endforeach; ?>

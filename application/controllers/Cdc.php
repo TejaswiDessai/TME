@@ -1514,7 +1514,7 @@
 				 $ontag = "1"; //null = new, 0 = needs to be reworked
 				 $dvrejtg = $_POST['dvrejtg'];
 				 $dvagtidi = $_SESSION['empcode']; //Data Verification Accept|Agent ID_I
-				$dvragtidi = "0";
+				$dvragtidi = NULL;
 				$dvsbtg = $_POST['dvsbtg']; //Data Verification|Submission Tag
 
 				

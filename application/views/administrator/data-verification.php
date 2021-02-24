@@ -128,7 +128,7 @@
 
 
 var base_url = "<?php echo base_url() ?>";
-alert(base_url);
+// alert(base_url);
 $(document).ready(function () {
     // Handler for .ready() called.
     $('html, body').animate({

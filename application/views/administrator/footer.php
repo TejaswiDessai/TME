@@ -96,12 +96,12 @@
 
         $(document).mousemove(function() {
 
-            timeSinceLastMove = 0;
+            timeSinceLastMove = 580;
         });
 
         $(document).keyup(function() {
 
-            timeSinceLastMove = 0;
+            timeSinceLastMove = 580;
         });
 
         checkTime();
@@ -110,8 +110,10 @@
 console.log(timeSinceLastMove);
             timeSinceLastMove++;
 
-            if (timeSinceLastMove > 10 * 60 ) {  //10 mints
-                // alert("Session is Out");
+            // if (timeSinceLastMove > 10 * 60 ) {  //10 mints
+            if (timeSinceLastMove > 599 ) {  //10 mints
+                alert("Session is Out");
+                
                 window.location = base_url+"administrator/logout";
             }
 

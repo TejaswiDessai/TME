@@ -103,7 +103,7 @@
                                 <select class="form-control form-control-default "  name="user_id" id="user_id">
                                     <option value="">User</option>
                                     <?php foreach ($users_name as $user): ?>
-                                        <option value="<?php echo $user['emp_id']; ?>" <?php if( isset($user_id) && $user_id == $user['emp_id'] ) { echo "selected" ; } ?>><?php echo $user['fname']; ?></option>
+                                        <option value="<?php echo $user['empcode']; ?>" <?php if( isset($user_id) && $user_id == $user['empcode'] ) { echo "selected" ; } ?>><?php echo $user['fname']; ?></option>
                                     <?php endforeach; ?>
                                 </select>
                             </td>
@@ -111,8 +111,8 @@
                                 <select class="form-control form-control-default "  name="stage" id="stage">
                                     <option value="">Stage</option>
                                     <option value="datacollect" <?php if( isset($Stage) && $Stage == "datacollect") { echo "selected" ; } ?>>Data Collection</option>
-                                    <option value="Verified" <?php if( isset($Stage) && $Stage == "Verified") { echo "selected" ; } ?>>Data Verified</option>
-                                    <option value="pending" <?php if( isset($Stage) && $Stage == "Rejection") { echo "selected" ; } ?>>Pending</option>
+                                    <option value="rejected" <?php if( isset($Stage) && $Stage == "rejected") { echo "selected" ; } ?>>Data Rejected</option>
+                                    <option value="accepeted" <?php if( isset($Stage) && $Stage == "accepeted") { echo "selected" ; } ?>>Data Accepted</option>
                                     <!-- <option value="Accepted" <?php if( isset($Stage) && $Stage == "Accepted") { echo "selected" ; } ?>>Data Accepted</option> -->
                                     <!-- <option value="unverified" <?php if( isset($Stage) && $Stage == "unverified") { echo "selected" ; } ?>>Data Unverified</option> --> 
                                     <!-- <option value="emailVerified" <?php if( isset($Stage) && $Stage == "emailVerified") { echo "selected" ; } ?>>Email Verified</option> -->

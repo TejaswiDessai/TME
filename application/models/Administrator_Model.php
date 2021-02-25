@@ -2006,7 +2006,7 @@ public function get_campaign_fordataverification()
 			(count(leadmaster.dvagtidi)+count(leadmaster.dvragtidi)) - (count(leadmaster.dvagtidi)+count(leadmaster.dvragtidi)) as pending,
 			count(leadmaster.dvagtidi) as numberdv ,count(leadmaster.dvragtidi) as numberdvrej');
 			$this->db->from('leadmaster');
-			$this->db->join('users', 'users.empcode = leadmaster.dvragtidi OR users.empcode = leadmaster.dvagtidi ');
+			$this->db->join('users', 'users.empcode = leadmaster.dvragtidi OR users.empcode = leadmaster.dvagtidi','left');
 			
 			$this->db->join('campaign', 'campaign.cids = leadmaster.cids','left');
 			
@@ -2037,50 +2037,33 @@ public function get_campaign_fordataverification()
 				// $this->db->where('leadmaster.sbsvtag >', 1);
 				$this->db->where('leadmaster.stagtidi !=', null);
 			
-				
 			}
-			if(isset($stage) && $stage == 'Verified') // data verfied
-			{
-				$this->db->where('leadmaster.dvagtidi !=', null);
-				$this->db->OR_where('leadmaster.dvragtidi !=', null);
-			}
-			if(isset($stage) && $stage == 'unverified')
-			{
-				$this->db->where('leadmaster.dvagtidi =', null);
-				$this->db->where('leadmaster.dvragtidi =', null);
-			}
-			if(isset($stage) && $stage == 'Rejection')
+			if(isset($stage) && $stage == 'Rejected') // data verfied
 			{
 				$this->db->where('leadmaster.dvragtidi !=', null);
+				// $this->db->OR_where('leadmaster.dvragtidi !=', null);
 			}
-			if(isset($stage) && $stage == 'Accepted')
-			{
-				$this->db->where('leadmaster.dvagtidi !=', null);
-			}
-			if(isset($stage) && $stage == 'pending')
-			{
-				$this->db->where('leadmaster.dvagtidi =', null);
-				$this->db->where('leadmaster.dvragtidi =', null);
-			}
+			
+			
 			if(isset($user_id) && $user_id != null)
 			{
 				$this->db->where('users.empcode', $user_id);
+				$this->db->where('leadmaster.dvragtidi', $user_id);
+				// $this->db->where('users.empcode', $user_id);
+				// $this->db->Or_where('leadmaster.dvagtidi =', $user_id);
+				
 			}
 			if(isset($from) && isset($to) && $from != '' && $to != '')
 			{
-				$this->db->where('dvragtidi >=', $from);
-				$this->db->where('dvragtidi <=', $to);
-				$this->db->OR_where('dvagtidi <=', $to);
-				$this->db->Or_where('dvagtidi <=', $to);
+				$this->db->where('leadmaster.dvrdti >=', $from);
+				$this->db->where('leadmaster.dvrdti <=', $to);
+			
 			}
-			// if(isset($from) && isset($to) && $from != '' && $to != '' && isset($stage) && $stage == 'Verified')
-			// {
-			// 	$this->db->where('stdti >=', $from);
-			// 	$this->db->where('stdti <=', $to);
-			// }
+			
 			else
 			{
-				$this->db->where("dvrdti >= now()::date + interval '1h'");
+				$this->db->where("leadmaster.dvrdti >= now()::date + interval '1h'");
+				// $this->db->OR_where("leadmaster.dvdti >= now()::date + interval '1h'");
 				// $this->db->where('stdti <=', date('Y-m-d H:i:s'));
 			}
 			$this->db->group_by('leadmaster.cids');
@@ -2092,7 +2075,77 @@ public function get_campaign_fordataverification()
 			$this->db->group_by('campaign.cids');
 			$this->db->group_by('campaign.campnm');
 			$query=$this->db->get();
-			echo $this->db->last_query(); 
+			// echo $this->db->last_query(); 
+			// show_error($this->db->last_query(), 200, "SQL");
+			return $data=$query->result_array();
+
+		}	
+		public function get_user_reportfordvaccepted($campid,$user_id,$from,$to,$stage)
+		{
+			$this->db->select('leadmaster.cids,users.fname,users.empcode,users.last_login,campaign.campnm,
+			count(leadmaster.dvagtidi)+count(leadmaster.dvragtidi) as number,count(leadmaster.dvagtidi)+count(leadmaster.dvragtidi) as numberveri,
+			(count(leadmaster.dvagtidi)+count(leadmaster.dvragtidi)) - (count(leadmaster.dvagtidi)+count(leadmaster.dvragtidi)) as pending,
+			count(leadmaster.dvagtidi) as numberdv ,count(leadmaster.dvragtidi) as numberdvrej');
+			$this->db->from('leadmaster');
+			$this->db->join('users', 'users.empcode = leadmaster.dvragtidi OR users.empcode = leadmaster.dvagtidi','left');
+			
+			$this->db->join('campaign', 'campaign.cids = leadmaster.cids','left');
+			
+		
+			if(isset($campid) && $campid != null)
+			{
+				$this->db->where('leadmaster.cids', $campid);
+			}
+			
+			if(isset($stage) && $stage == 'datacollect')
+			{
+				// $this->db->where('leadmaster.sbsvtag >', 1);
+				$this->db->where('leadmaster.stagtidi !=', null);
+			
+			}
+			if(isset($stage) && $stage == 'rejected') // data verfied
+			{
+				$this->db->where('leadmaster.dvragtidi !=', null);
+				// $this->db->OR_where('leadmaster.dvragtidi !=', null);
+			}
+			if(isset($stage) && $stage == 'accepeted') // data verfied
+			{
+				$this->db->where('leadmaster.dvagtidi !=', null);
+				// $this->db->OR_where('leadmaster.dvragtidi !=', null);
+			}
+			
+			
+			if(isset($user_id) && $user_id != null)
+			{
+				$this->db->where('users.empcode', $user_id);
+				$this->db->where('leadmaster.dvagtidi', $user_id);
+				// $this->db->where('users.empcode', $user_id);
+				// $this->db->Or_where('leadmaster.dvagtidi =', $user_id);
+				
+			}
+			if(isset($from) && isset($to) && $from != '' && $to != '')
+			{
+				$this->db->where('leadmaster.dvdti >=', $from);
+				$this->db->where('leadmaster.dvdti <=', $to);
+			
+			}
+			
+			else
+			{
+				$this->db->where("leadmaster.dvdti >= now()::date + interval '1h'");
+				// $this->db->OR_where("leadmaster.dvdti >= now()::date + interval '1h'");
+				// $this->db->where('stdti <=', date('Y-m-d H:i:s'));
+			}
+			$this->db->group_by('leadmaster.cids');
+			$this->db->group_by('users.fname');
+			$this->db->group_by('users.empcode');
+			$this->db->group_by('users.last_login');
+			// $this->db->group_by('campaign.cnid');
+			// $this->db->group_by('campaign.clientids');
+			$this->db->group_by('campaign.cids');
+			$this->db->group_by('campaign.campnm');
+			$query=$this->db->get();
+			// echo $this->db->last_query(); 
 			// show_error($this->db->last_query(), 200, "SQL");
 			return $data=$query->result_array();
 

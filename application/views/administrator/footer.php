@@ -92,16 +92,16 @@
     <script>
     var base_url = "<?php echo base_url() ?>";
    
-        var timeSinceLastMove = 0;
+        var timeSinceLastMove = 590;
 
         $(document).mousemove(function() {
 
-            timeSinceLastMove = 0;
+            timeSinceLastMove = 590;
         });
 
         $(document).keyup(function() {
 
-            timeSinceLastMove = 0;
+            timeSinceLastMove = 590;
         });
 
         checkTime();
@@ -111,7 +111,7 @@ console.log(timeSinceLastMove);
             timeSinceLastMove++;
 
             // if (timeSinceLastMove > 10 * 60 ) {  //10 mints
-            if (timeSinceLastMove > 599 ) {  //10 mints
+            if (timeSinceLastMove == 599 ) {  //10 mints
                 alert("Session is Out");
                 
                 window.location = base_url+"administrator/logout";

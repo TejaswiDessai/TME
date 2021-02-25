@@ -96,12 +96,12 @@
 
         $(document).mousemove(function() {
 
-            timeSinceLastMove = 580;
+            timeSinceLastMove = 0;
         });
 
         $(document).keyup(function() {
 
-            timeSinceLastMove = 580;
+            timeSinceLastMove = 0;
         });
 
         checkTime();

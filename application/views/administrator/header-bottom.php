@@ -222,19 +222,19 @@ $userteam = explode(',',$userteam1);
       <?php echo '<p class="alert alert-success">'.$this->session->flashdata('match_old_password').'</p>'; ?>
     <?php endif; ?>
    
-    <script>
-    var base_url = "<?php echo base_url() ?>";
+    <!-- <script>
+    var base_url = "<?php// echo base_url() ?>";
    
-        var timeSinceLastMove = 0;
+        var timeSinceLastMove = 400;
 
         $(document).mousemove(function() {
 
-            timeSinceLastMove = 0;
+            timeSinceLastMove = 400;
         });
 
         $(document).keyup(function() {
 
-            timeSinceLastMove = 0;
+            timeSinceLastMove = 400;
         });
 
         checkTime();
@@ -250,7 +250,7 @@ console.log(timeSinceLastMove);
 
             setTimeout(checkTime, 1000);
         }
-</script>
+</script> -->
 
      
 

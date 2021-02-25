@@ -87,6 +87,36 @@
         'resizeDuration': 200,
         'wrapAround': true
     })
-    </script>  
+    </script> 
+
+    <script>
+    var base_url = "<?php echo base_url() ?>";
+   
+        var timeSinceLastMove = 0;
+
+        $(document).mousemove(function() {
+
+            timeSinceLastMove = 0;
+        });
+
+        $(document).keyup(function() {
+
+            timeSinceLastMove = 0;
+        });
+
+        checkTime();
+
+        function checkTime() {
+console.log(timeSinceLastMove);
+            timeSinceLastMove++;
+
+            if (timeSinceLastMove > 10 * 60 ) {  //10 mints
+                // alert("Session is Out");
+                window.location = base_url+"administrator/logout";
+            }
+
+            setTimeout(checkTime, 1000);
+        }
+</script> 
     </body>
 </html>

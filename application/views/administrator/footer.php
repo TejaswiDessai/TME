@@ -92,16 +92,16 @@
     <script>
     var base_url = "<?php echo base_url() ?>";
    
-        var timeSinceLastMove = 590;
+        var timeSinceLastMove = 0;
 
         $(document).mousemove(function() {
 
-            timeSinceLastMove = 590;
+            timeSinceLastMove = 0;
         });
 
         $(document).keyup(function() {
 
-            timeSinceLastMove = 590;
+            timeSinceLastMove = 0;
         });
 
         checkTime();

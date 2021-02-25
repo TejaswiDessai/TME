@@ -1865,7 +1865,7 @@ public function getPrivillage(){
 		$this->pagination->initialize($config);
 	
 		$data['title'] = 'Latest Campaigns';
-		print_r($user_id);
+		// print_r($user_id);
 		if($stage =='rejected'){
 			$data['users'] = $this->Administrator_Model->get_user_reportfordv($campid,$user_id,$from,$to,$stage);
 		}else if($stage =='accepeted'){

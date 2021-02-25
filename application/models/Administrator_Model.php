@@ -2008,6 +2008,16 @@ public function get_campaign_fordataverification()
 			$this->db->from('leadmaster');
 			$this->db->join('users', 'users.empcode = leadmaster.dvagtidi','left OR users.empcode = leadmaster.dvagtidi','left');
 			$this->db->join('campaign', 'campaign.cids = leadmaster.cids','left');
+			
+			// $sql = "select l1.id, l1.reject, l2.accepted from
+			// (select dvagtidi as id, count(dvagtidi) as reject  from leadmaster where dvagtidi is not null
+			// group by dvagtidi ) as l1
+			// inner join 
+			// (select dvragtidi as ids, count(dvragtidi)as accepted from leadmaster where dvragtidi is not null
+			// group by dvragtidi ) as l2
+			// on l1.id = l2.ids"
+
+
 			if(isset($campid) && $campid != null)
 			{
 				$this->db->where('leadmaster.cids', $campid);
@@ -2052,8 +2062,10 @@ public function get_campaign_fordataverification()
 			}
 			if(isset($from) && isset($to) && $from != '' && $to != '')
 			{
-				$this->db->where('stdti >=', $from);
-				$this->db->where('stdti <=', $to);
+				$this->db->where('dvrdti >=', $from);
+				$this->db->where('dvrdti <=', $to);
+				$this->db->OR_where('dvrdti <=', $to);
+				$this->db->Or_where('dvrdti <=', $to);
 			}
 			// if(isset($from) && isset($to) && $from != '' && $to != '' && isset($stage) && $stage == 'Verified')
 			// {
@@ -2062,7 +2074,7 @@ public function get_campaign_fordataverification()
 			// }
 			else
 			{
-				$this->db->where("stdti >= now()::date + interval '1h'");
+				$this->db->where("dvrdti >= now()::date + interval '1h'");
 				// $this->db->where('stdti <=', date('Y-m-d H:i:s'));
 			}
 			$this->db->group_by('leadmaster.cids');

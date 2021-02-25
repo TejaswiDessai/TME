@@ -127,6 +127,7 @@ echo $date;
 			$this->session->unset_userdata('username');
 			$this->session->unset_userdata('role_id');
 			$this->session->unset_userdata('emp_id');
+			$this->session->unset_userdata('empcode');
 			$this->session->unset_userdata('image');
 			$this->session->unset_userdata('site_logo');
 

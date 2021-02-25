@@ -2049,7 +2049,7 @@ $("input:checkbox").change(function() {
         $("#leadupdatedv").on('click', function() 
         {
           var empid = $('#emp_id').val();
-          if(empid == undefined){
+          if(empid == 'undefined'){
             window.location = base_url+"administrator/logout";
             exit;
           }
@@ -2161,7 +2161,7 @@ $("input:checkbox").change(function() {
         $("#leadsavedv").on('click', function() 
         {
           var empid = $('#emp_id').val();
-          if(empid == undefined){
+          if(empid == 'undefined'){
             window.location = base_url+"administrator/logout";
             exit;
           }

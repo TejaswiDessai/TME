@@ -1677,7 +1677,7 @@ if(lmid == undefined){
         $("#leadsubmit").on('click', function() 
         {
           var empid = $('#emp_id').val();
-          if(empid == undefined){
+          if(empid == 'undefined'){
             window.location = base_url+"administrator/logout";
             exit;
           }
@@ -1857,7 +1857,7 @@ if(lmid == undefined){
         $("#leadupdate").on('click', function() 
         {
           var empid = $('#emp_id').val();
-          if(empid == undefined){
+          if(empid == 'undefined'){
             window.location = base_url+"administrator/logout";
             exit;
           }
@@ -2050,7 +2050,7 @@ if(lmid == undefined){
               var lmid = "1";
             }
             var empid = $('#emp_id').val();
-          if(empid == undefined){
+          if(empid == 'undefined'){
             window.location = base_url+"administrator/logout";
             exit;
           }

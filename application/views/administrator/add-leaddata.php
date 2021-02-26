@@ -1596,16 +1596,21 @@ if(lmid == undefined){
         number: true,
         min: 6
       },
+      empsize: {
+        required: true,
+        number: true,
+       
+      },
       altphn: {
         number: true
       },
       aum: {
         number: true
       },
-      empsize: {
-        required: true,
-        number: true
-      },
+      // empsize: {
+      //   required: true,
+      //   number: true
+      // },
       email: {
         required: true,
         email: true

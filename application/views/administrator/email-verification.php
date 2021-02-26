@@ -27,6 +27,9 @@
     .note-popover{
         display: none;
     }
+    .dataTables_filter {
+    display: none;
+    } 
 
     </style>
     <script type="text/javascript">
@@ -254,7 +257,9 @@
                                     <option value="Accepted" >All</option>
                                 </select>
                             </td>
-                           
+                            <td>
+                            <input type="text" class="form-control form-control-default " name="from" id="from" placeholder="Enter send from Email..">
+                            </td>
                             <td>
                                 <input  class="btn btn-primary" type="submit" name="submit">
                             </td>
@@ -264,13 +269,13 @@
                             </tr>
                             <tr>
                             <td>
-                            <input type="text" class="form-control form-control-default " name="from" id="from" placeholder="Enter send from Email..">
+                            <!-- <input type="text" class="form-control form-control-default " name="from" id="from" placeholder="Enter send from Email.."> -->
                             </td>
                             <td>
-                            <input type="text" class="form-control form-control-default " name="sub" id="sub" placeholder="Email Subject">
+                            <!-- <input type="text" class="form-control form-control-default " name="sub" id="sub" placeholder="Email Subject"> -->
                             </td>
                             <td>
-                            <textarea name="body" id="body" placeholder="Email Body"></textarea>
+                            <!-- <textarea name="body" id="body" placeholder="Email Body"></textarea> -->
                             </td>
                             </tr>
                             </table>

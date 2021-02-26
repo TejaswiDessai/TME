@@ -1922,9 +1922,9 @@ public function get_campaign_fordataverification()
 		public function get_user_report($campid,$user_id,$from,$to,$stage)
 		{
 			$this->db->select('leadmaster.cids,users.fname,users.empcode,users.last_login,campaign.campnm,
-			count(leadmaster.stagtidi) as number,count(leadmaster.dvagtidi)+count(leadmaster.dvragtidi) as numberveri,
+			count(leadmaster.stagtidi) as numbers,count(leadmaster.dvagtidi)+count(leadmaster.dvragtidi) as numberveri,
 			count(leadmaster.stagtidi) - (count(leadmaster.dvagtidi)+count(leadmaster.dvragtidi)) as pending,
-			count(leadmaster.dvagtidi) as numberdv ,count(leadmaster.dvragtidi) as numberdvrej');
+			count(leadmaster.dvagtidi) as accepted ,count(leadmaster.dvragtidi) as rejected');
 			$this->db->from('leadmaster');
 			$this->db->join('users', 'users.empcode = leadmaster.stagtidi OR users.empcode = leadmaster.stagtidi','left OR users.emp_id = leadmaster.dvagtidi OR users.empcode = leadmaster.dvagtidi','left');
 			$this->db->join('campaign', 'campaign.cids = leadmaster.cids','left');
@@ -1999,7 +1999,7 @@ public function get_campaign_fordataverification()
 			return $data=$query->result_array();
 
 		}	
-		public function get_user_reportfordv($campid,$user_id,$from,$to,$stage)
+		public function get_user_reportfordv($campid,$user_id,$from,$to,$stage) //rejection
 		{
 			$this->db->select('leadmaster.cids,users.fname,users.empcode,users.last_login,campaign.campnm,
 			count(leadmaster.dvagtidi)+count(leadmaster.dvragtidi) as number,count(leadmaster.dvagtidi)+count(leadmaster.dvragtidi) as numberveri,
@@ -2080,10 +2080,60 @@ public function get_campaign_fordataverification()
 			return $data=$query->result_array();
 
 		}	
+		public function get_user_reportfordvverified($campid,$user_id,$from,$to,$stage)
+		{
+			$this->db->select('lms.id, lms.rejected, lms.accepted, (lms.accepted+lms.rejected) as numbers,(lms.accepted+lms.rejected) as numberveri, (lms.accepted+lms.rejected)-(lms.accepted+lms.rejected) as pending, users.fname, campaign.cids,campaign.campnm from
+			(select l1.cids, l1.id, l1.accepted, l2.rejected,l2.rdate,l1.adate  from
+			(select cids, dvagtidi as id, dvdti as adate, count(dvagtidi) as accepted  from leadmaster where dvagtidi is not null
+			group by dvagtidi, cids,dvdti ) as l1
+			inner join 
+			(select cids, dvragtidi as ids, dvrdti as rdate, count(dvragtidi)as rejected from leadmaster where dvragtidi is not null
+			group by dvragtidi, cids,dvrdti ) as l2
+			on l1.id = l2.ids) as lms');
+		
+			$this->db->join('users', 'lms.id = users.empcode');
+			
+			$this->db->join('campaign', 'lms.cids = campaign.cids');
+			
+		
+
+			if(isset($user_id) && $user_id != null)
+			{
+				
+				$this->db->where('users.empcode', $user_id);
+			}
+			
+			if(isset($campid) && $campid != null)
+			{
+				$this->db->where('campaign.cids', $campid);
+			}
+			
+			
+			if(isset($from) && isset($to) && $from != '' && $to != '')
+			{
+				$this->db->where('lms.rdate >=', $from);
+				$this->db->where('lms.rdate <=', $to);
+				$this->db->where('lms.adate >=', $from);
+				$this->db->where('lms.adate <=', $to);
+			
+			}
+			
+			else
+			{
+				
+				$this->db->where("lms.rdate >= now()::date + interval '1h'");
+				$this->db->where("lms.adate >= now()::date + interval '1h'");
+				
+			}
+		
+			$query=$this->db->get();
+			return $data=$query->result_array();
+
+		}	
 		public function get_user_reportfordvaccepted($campid,$user_id,$from,$to,$stage)
 		{
 			$this->db->select('leadmaster.cids,users.fname,users.empcode,users.last_login,campaign.campnm,
-			count(leadmaster.dvagtidi)+count(leadmaster.dvragtidi) as number,count(leadmaster.dvagtidi)+count(leadmaster.dvragtidi) as numberveri,
+			count(leadmaster.dvagtidi)+count(leadmaster.dvragtidi) as numbers,count(leadmaster.dvagtidi)+count(leadmaster.dvragtidi) as numberveri,
 			(count(leadmaster.dvagtidi)+count(leadmaster.dvragtidi)) - (count(leadmaster.dvagtidi)+count(leadmaster.dvragtidi)) as pending,
 			count(leadmaster.dvagtidi) as numberdv ,count(leadmaster.dvragtidi) as numberdvrej');
 			$this->db->from('leadmaster');

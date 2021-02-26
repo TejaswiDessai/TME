@@ -1867,11 +1867,12 @@ public function getPrivillage(){
 		$data['title'] = 'Latest Campaigns';
 		// print_r($user_id);
 		if($stage =='rejected'){
-			$data['users'] = $this->Administrator_Model->get_user_reportfordv($campid,$user_id,$from,$to,$stage);
+			$data['users'] = $this->Administrator_Model->get_user_reportfordv($campid,$user_id,$from,$to,$stage); //reject
 		}else if($stage =='accepeted'){
 			$data['users'] = $this->Administrator_Model->get_user_reportfordvaccepted($campid,$user_id,$from,$to,$stage);
-		}
-		else{
+		}else if($stage =='verified'){
+			$data['users'] = $this->Administrator_Model->get_user_reportfordvverified($campid,$user_id,$from,$to,$stage);
+		}else{
 			$data['users'] = $this->Administrator_Model->get_user_report($campid,$user_id,$from,$to,$stage);
 		}
 		

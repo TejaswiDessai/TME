@@ -2083,12 +2083,12 @@ public function get_campaign_fordataverification()
 		public function get_user_reportfordvverified($campid,$user_id,$from,$to,$stage)
 		{
 			$this->db->select("lms.id, lms.rejected, lms.accepted, (lms.accepted+lms.rejected) as numbers,(lms.accepted+lms.rejected) as numberveri, (lms.accepted+lms.rejected)-(lms.accepted+lms.rejected) as pending, users.fname, campaign.cids,campaign.campnm from
-			(select l1.cids, l1.id, l1.accepted, l2.rejected,l2.rdate,l1.adate  from
-			(select cids, dvagtidi as id, dvdti as adate, count(dvagtidi) as accepted  from leadmaster where dvagtidi is not null
-			and dvdti >= now()::date + interval '1h' group by dvagtidi, cids,dvdti ) as l1
+			(select l1.cids, l1.id, l1.accepted, l2.rejected from
+			(select cids, dvagtidi as id, count(dvagtidi) as accepted  from leadmaster where dvagtidi is not null
+			and dvdti >= now()::date + interval '1h' group by dvagtidi, cids ) as l1
 			inner join 
-			(select cids, dvragtidi as ids, dvrdti as rdate, count(dvragtidi)as rejected from leadmaster where dvragtidi is not null
-			and dvrdti >= now()::date + interval '1h' group by dvragtidi, cids,dvrdti ) as l2
+			(select cids, dvragtidi as ids, count(dvragtidi)as rejected from leadmaster where dvragtidi is not null
+			and dvrdti >= now()::date + interval '1h' group by dvragtidi, cids) as l2
 			on l1.id = l2.ids) as lms");
 		
 			$this->db->join('users', 'lms.id = users.empcode');
@@ -2111,10 +2111,10 @@ public function get_campaign_fordataverification()
 			
 			if(isset($from) && isset($to) && $from != '' && $to != '')
 			{
-				$this->db->where('lms.rdate >=', $from);
-				$this->db->where('lms.rdate <=', $to);
-				$this->db->where('lms.adate >=', $from);
-				$this->db->where('lms.adate <=', $to);
+				$this->db->where('lms.dvrdti >=', $from);
+				$this->db->where('lms.dvrdti <=', $to);
+				$this->db->where('lms.dvdti >=', $from);
+				$this->db->where('lms.dvdti <=', $to);
 			
 			}
 			

@@ -2125,12 +2125,12 @@ public function get_campaign_fordataverification()
 				// $this->db->where("lms.adate >= now()::date + interval '1h'");
 				
 			}
-			$this->db->group_by('users.fname');
-			$this->db->group_by('lms.id');
-			$this->db->group_by('lms.rejected');
-			$this->db->group_by('lms.accepted');
-			$this->db->group_by('campaign.cids');
-			$this->db->group_by('campaign.campnm');
+			// $this->db->group_by('users.fname');
+			// $this->db->group_by('lms.id');
+			// $this->db->group_by('lms.rejected');
+			// $this->db->group_by('lms.accepted');
+			// $this->db->group_by('campaign.cids');
+			// $this->db->group_by('campaign.campnm');
 			
 			$query=$this->db->get();
 			// echo $this->db->last_query(); 

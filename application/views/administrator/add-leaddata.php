@@ -1421,8 +1421,18 @@ $(document).ready(function() {
 var rlc = 1; //lock 1
 var lmid = $('#lmid').val();
 var emp_id = $('#emp_id').val();
+// alert(emp_id);
 // $this->session -> userdata('email')
-
+if(emp_id === undefined){
+  
+            window.location = base_url+"administrator/logout";
+            exit;
+  }
+if(emp_id == NULL){
+  // alert("Null");
+  window.location = base_url+"administrator/logout";
+  exit;
+}
 
 if(rlc == "1"){
 var urlq = '<?php echo base_url("cdc/updaterecordlock");?>';
@@ -1677,7 +1687,12 @@ if(lmid == undefined){
         $("#leadsubmit").on('click', function() 
         {
           var empid = $('#emp_id').val();
-          if(empid == 'undefined'){
+          if(empid  === undefined){
+            window.location = base_url+"administrator/logout";
+            exit;
+          }
+          if(empid == NULL){
+            // alert("Null");
             window.location = base_url+"administrator/logout";
             exit;
           }
@@ -1857,7 +1872,12 @@ if(lmid == undefined){
         $("#leadupdate").on('click', function() 
         {
           var empid = $('#emp_id').val();
-          if(empid == 'undefined'){
+          if(empid  === undefined){
+            window.location = base_url+"administrator/logout";
+            exit;
+          }
+          if(empid == NULL){
+            // alert("Null");
             window.location = base_url+"administrator/logout";
             exit;
           }
@@ -2050,7 +2070,12 @@ if(lmid == undefined){
               var lmid = "1";
             }
             var empid = $('#emp_id').val();
-          if(empid == 'undefined'){
+          if(empid  === undefined){
+            window.location = base_url+"administrator/logout";
+            exit;
+          }
+          if(empid == NULL){
+            // alert("Null");
             window.location = base_url+"administrator/logout";
             exit;
           }

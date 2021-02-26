@@ -1799,7 +1799,14 @@ var rlc = 1; //lock 1
 var lmid = $('#lmid').val();
 var emp_id = $('#emp_id').val();
 // $this->session -> userdata('email')
-
+if(emp_id === undefined){
+            window.location = base_url+"administrator/logout";
+            exit;
+  }
+if(emp_id == NULL){
+  window.location = base_url+"administrator/logout";
+  exit;
+}
 // alert(emp_id);
 if(rlc == "1"){
 var urlq = '<?php echo base_url("cdc/updaterecordlock");?>';
@@ -2049,7 +2056,11 @@ $("input:checkbox").change(function() {
         $("#leadupdatedv").on('click', function() 
         {
           var empid = $('#emp_id').val();
-          if(empid == 'undefined'){
+          if(empid === undefined){
+            window.location = base_url+"administrator/logout";
+            exit;
+          }
+          if(empid == NULL){
             window.location = base_url+"administrator/logout";
             exit;
           }

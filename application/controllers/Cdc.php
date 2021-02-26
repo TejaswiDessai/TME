@@ -410,7 +410,12 @@
 		{
 			$campaign_id = $_GET['campaign_id'];
 			$cids = $_GET['campaign_idcids'];
-
+			if(!isset($_SESSION['empcode'])){
+				
+			
+				redirect('administrator/logout');
+				Exit();
+			}
 			// $revnlbound_range = '';
 			// if(!empty($_GET['revnlbound_range'])) {
 			// $revnlbound_range = $_GET['revnlbound_range'];
@@ -1156,6 +1161,14 @@
 		{
 			$campaign_id = $_GET['campaign_id'];
 			$cids = $_GET['campaign_idcids'];
+			
+			// $_SESSION['empcode']= NULL;
+			if(!isset($_SESSION['empcode'])){
+				
+			
+				redirect('administrator/logout');
+				Exit();
+			}
 
 			// $revnlbound_range = '';
 			// if(!empty($_GET['revnlbound_range'])) {
@@ -1324,6 +1337,13 @@
 			$campaign_id = $_GET['campaign_id'];
 			$cids = $_GET['campaign_idcids'];
 			$lmid = $_GET['lmid'];
+
+			if(!isset($_SESSION['empcode'])){
+				
+			
+				redirect('administrator/logout');
+				Exit();
+			}
 		
 				// Concatenation Of String 
 				$trimfname=$_GET['fname'];
@@ -1505,7 +1525,13 @@
 
 			// $mychecked = explode(',', $checked);
 		
-		
+			if(!isset($_SESSION['empcode'])){
+				
+			
+				redirect('administrator/logout');
+				Exit();
+			}
+			
 			$mychecked2 = implode(',', $checked);
 
 			if($mychecked2 == "0"){  // Accept
@@ -1591,6 +1617,13 @@
 			$cids = $_GET['campaign_idcids'];
 			$sbsvtag = $_GET['sbsvtag'];
 			$lmid = $_GET['lmid'];
+
+			if(!isset($_SESSION['empcode'])){
+				
+			
+				redirect('administrator/logout');
+				Exit();
+			}
 
 			// print_r($cids);
 			// print_r($sbsvtag);

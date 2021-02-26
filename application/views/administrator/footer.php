@@ -110,14 +110,14 @@
 console.log(timeSinceLastMove);
             timeSinceLastMove++;
 
-            // if (timeSinceLastMove > 10 * 60 ) {  //10 mints
-            if (timeSinceLastMove == 599 ) {  //10 mints
+            if (timeSinceLastMove > 10 * 60 ) {  //10 mints
+            // if (timeSinceLastMove == 599 ) {  //10 mints
                 alert("Session is Out");
                 
                 window.location = base_url+"administrator/logout";
             }
 
-            setTimeout(checkTime, 1000);
+            setTimeout(checkTime, 1000); // check evry 1 second
         }
 </script> 
     </body>

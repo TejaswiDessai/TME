@@ -1803,7 +1803,7 @@ if(emp_id === undefined){
             window.location = base_url+"administrator/logout";
             exit;
   }
-if(emp_id == NULL){
+if(emp_id == ''){
   window.location = base_url+"administrator/logout";
   exit;
 }
@@ -2060,7 +2060,7 @@ $("input:checkbox").change(function() {
             window.location = base_url+"administrator/logout";
             exit;
           }
-          if(empid == NULL){
+          if(empid == ''){
             window.location = base_url+"administrator/logout";
             exit;
           }

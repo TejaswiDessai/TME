@@ -1428,7 +1428,7 @@ if(emp_id === undefined){
             window.location = base_url+"administrator/logout";
             exit;
   }
-if(emp_id == NULL){
+if(emp_id == ''){
   // alert("Null");
   window.location = base_url+"administrator/logout";
   exit;
@@ -1691,7 +1691,7 @@ if(lmid == undefined){
             window.location = base_url+"administrator/logout";
             exit;
           }
-          if(empid == NULL){
+          if(empid == ''){
             // alert("Null");
             window.location = base_url+"administrator/logout";
             exit;
@@ -1876,7 +1876,7 @@ if(lmid == undefined){
             window.location = base_url+"administrator/logout";
             exit;
           }
-          if(empid == NULL){
+          if(empid == ''){
             // alert("Null");
             window.location = base_url+"administrator/logout";
             exit;
@@ -2074,7 +2074,7 @@ if(lmid == undefined){
             window.location = base_url+"administrator/logout";
             exit;
           }
-          if(empid == NULL){
+          if(empid == ''){
             // alert("Null");
             window.location = base_url+"administrator/logout";
             exit;

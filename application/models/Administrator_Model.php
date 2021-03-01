@@ -1726,6 +1726,37 @@ public function get_campaign_fordataverification()
 		// die;
 		 return $query->result_array();
 	}
+	public function get_campaignforCDC()
+	{
+		
+		
+			$this->db->select('campaign.cids,campaign.cnid,campaign.campnm');
+			$this->db->group_by('campaign.cids');
+			$this->db->group_by('campaign.campnm');
+			$this->db->group_by('campaign.cnid');
+			$this->db->where('leadmaster.sbsvtag <', '6');
+			$this->db->where('leadmaster.sbsvtag !=', 0);
+			$this->db->where('leadmaster.dvrejtg <', '3');
+			// $this->db->where('leadmaster.dvsbtg', Null);
+			$this->db->where('leadmaster.dvsbtg <', '3');
+			$this->db->where('leadmaster.ontag', 0);
+			$this->db->where('leadmaster.pload', 1);
+			$this->db->where('leadmaster.dvload',0);
+			$this->db->where('leadmaster.evload',null);
+			$this->db->where('leadmaster.cdcload',null);
+			$this->db->where('leadmaster.qaload',null);
+			$this->db->where('leadmaster.rlc !=', 1);	
+			$this->db->join('leadmaster', 'leadmaster.cids = campaign.cids');
+			
+		
+			$query = $this->db->get('campaign');
+			
+		
+			// echo $this->db->last_query(); 
+			// echo $string;
+			// die;
+			return $query->result_array();
+		}
 
 	public function update_Campaign($datacampaign,$campaign_id)
 		{
@@ -2090,7 +2121,7 @@ public function get_campaign_fordataverification()
 			group by dvagtidi, cids ) as l1
 			inner join 
 			(select cids, dvragtidi as ids, count(dvragtidi)as rejected from leadmaster where dvragtidi is not null
-			  AND  dvrdti >= '$from' AND dvrdti <= '$to'  group by dvragtidi, cids) as l2
+			  AND  dvrdti >= '$from' AND dvrdti <= '$to' AND  dvdti >= '$from' AND dvdti <= '$to'  group by dvragtidi, cids) as l2
 			on l1.id = l2.ids) as lms");
 			}else{
 				$this->db->select("lms.id, lms.rejected, lms.accepted, (lms.accepted+lms.rejected) as numbers,(lms.accepted+lms.rejected) as numberveri, (lms.accepted+lms.rejected)-(lms.accepted+lms.rejected) as pending, users.fname, campaign.cids,campaign.campnm from
@@ -2147,7 +2178,7 @@ public function get_campaign_fordataverification()
 			// $this->db->group_by('campaign.campnm');
 			
 			$query=$this->db->get();
-			// echo $this->db->last_query(); 
+			echo $this->db->last_query(); 
 			return $data=$query->result_array();
 
 		}	

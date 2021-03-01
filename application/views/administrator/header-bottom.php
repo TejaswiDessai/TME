@@ -11,7 +11,7 @@
 //   }
 
 
- if ($this->session -> userdata('email') == "" && $this->session -> userdata('login') != true && $this->session -> userdata('role_id') != 1) {
+ if ($this->session -> userdata('email') == "" && $this->session -> userdata('login') != true && $this->session -> userdata('empcoode') == NULL  && $this->session -> userdata('role_id') != 1) {
       redirect('administrator/index');
     }
 
@@ -19,6 +19,7 @@ $emp_id = $this->session -> userdata('emp_id');
 $usertype = $this->Administrator_Model->get_emp_usertype($emp_id);
 $userteam1 = $this->Administrator_Model->get_emp_team($emp_id);
 $userteam = explode(',',$userteam1);
+// print_r($_SESSION);
 // print_r($usertype);
 // echo "----";
 // print_r($userteam1);
@@ -222,19 +223,26 @@ $userteam = explode(',',$userteam1);
       <?php echo '<p class="alert alert-success">'.$this->session->flashdata('match_old_password').'</p>'; ?>
     <?php endif; ?>
    
-    <!-- <script>
-    var base_url = "<?php// echo base_url() ?>";
    
-        var timeSinceLastMove = 400;
+    <input type = "hidden" name="emp_id" id="emp_id" value="<?php echo  $_SESSION['emp_id']; ?>">
+    <script>
+var emp_id = $('#emp_id').val();
+
+    var base_url = "<?php echo base_url() ?>";
+   
+        var timeSinceLastMove = 0;
 
         $(document).mousemove(function() {
 
-            timeSinceLastMove = 400;
+            timeSinceLastMove = 0;
         });
+        $(document).click(function() {
 
+        timeSinceLastMove = 0;
+        });
         $(document).keyup(function() {
 
-            timeSinceLastMove = 400;
+            timeSinceLastMove = 0;
         });
 
         checkTime();
@@ -244,13 +252,18 @@ console.log(timeSinceLastMove);
             timeSinceLastMove++;
 
             if (timeSinceLastMove > 10 * 60 ) {  //10 mints
-                // alert("Session is Out");
+            // if (timeSinceLastMove == 599 ) {  //10 mints
+                alert("Session is Out");
+                
                 window.location = base_url+"administrator/logout";
             }
-
-            setTimeout(checkTime, 1000);
+            if(emp_id === undefined)
+            {
+                window.location = base_url+"administrator/logout"; 
+            }
+            setTimeout(checkTime, 1000); // check evry 1 second
         }
-</script> -->
+</script> 
 
      
 

@@ -88,8 +88,10 @@
         'wrapAround': true
     })
     </script> 
-
+<!-- <input type = hidden name="emp_id" id="emp_id" value="<?php echo  $_SESSION['empcode']; ?>">
     <script>
+var emp_id = $('#emp_id').val();
+alert(emp_id);
     var base_url = "<?php echo base_url() ?>";
    
         var timeSinceLastMove = 0;
@@ -98,7 +100,10 @@
 
             timeSinceLastMove = 0;
         });
+        $(document).click(function() {
 
+        timeSinceLastMove = 0;
+        });
         $(document).keyup(function() {
 
             timeSinceLastMove = 0;
@@ -116,9 +121,12 @@ console.log(timeSinceLastMove);
                 
                 window.location = base_url+"administrator/logout";
             }
-
+            if(emp_id === undefined)
+            {
+                window.location = base_url+"administrator/logout"; 
+            }
             setTimeout(checkTime, 1000); // check evry 1 second
         }
-</script> 
+</script>  -->
     </body>
 </html>

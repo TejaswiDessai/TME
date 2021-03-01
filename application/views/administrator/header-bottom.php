@@ -59,7 +59,7 @@ $userteam = explode(',',$userteam1);
                         <span>Dashboard</span>
                     </a>
                 </li>
-                <?php if($usertype == 0 || $usertype == 1 || $usertype ==2 || $usertype ==6){?>
+                <?php if((in_array('1',$userteam)) || (in_array('2',$userteam))){?>
                  <li class="nav-item">
                         <a href="#!">
                         <i class="icofont icofont-cop-badge"></i>
@@ -71,23 +71,8 @@ $userteam = explode(',',$userteam1);
                         </ul>
                     </li>
                 <?php } ?>
-                <?php if($usertype == 0 || $usertype == 1 || $usertype ==2 || $usertype ==6){?>
-                    <li class="nav-item">
-                        <!-- <a href="<?php echo base_url(); ?>cdc/addlead""> -->
-                        <a href="<?php echo base_url(); ?>cdc/selectCampaign">
-                        <i class="icofont icofont-sand-clock"></i>
-                            <span>Data Lead and CDC</span>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <!-- <a href="<?php echo base_url(); ?>cdc/addlead""> -->
-                        <a href="<?php echo base_url(); ?>cdc/selectCampaignforlead">
-                        <i class="icofont icofont-architecture-alt"></i>
-                            <span>Add Lead</span>
-                        </a>
-                    </li>
-                    <?php } ?>
-                    <?php if($usertype == 5 && (in_array('3',$userteam))){?>
+                
+                    <?php if( (in_array('3',$userteam))){?>
                     <li class="nav-item">
                         <!-- <a href="<?php echo base_url(); ?>cdc/addlead""> -->
                         <a href="<?php echo base_url(); ?>cdc/selectCampaign">
@@ -96,7 +81,7 @@ $userteam = explode(',',$userteam1);
                         </a>
                     </li>
                     <?php } ?>
-                    <?php if($usertype == 5 && (in_array('6',$userteam))){?>
+                    <?php if( (in_array('6',$userteam))){?>
                         <li class="nav-item">
                         <!-- <a href="<?php echo base_url(); ?>cdc/addlead""> -->
                         <a href="<?php echo base_url(); ?>cdc/selectCampaignforlead">
@@ -105,7 +90,7 @@ $userteam = explode(',',$userteam1);
                         </a>
                     </li>
                     <?php } ?>
-                    <?php if($usertype == 5 && (in_array('7',$userteam))){?>
+                    <?php if( (in_array('7',$userteam))){?>
                         <li class="nav-item">
                       
                             <a href="<?php echo base_url(); ?>cdc/selectCampaignforDataVerification">
@@ -114,7 +99,7 @@ $userteam = explode(',',$userteam1);
                             </a>
                         </li>
                     <?php } ?>
-                    <?php if($usertype == 5 && (in_array('8',$userteam))){?>
+                    <?php if((in_array('8',$userteam))){?>
                         <li class="nav-item">
                         <a href="#!">
                         <i class="icofont icofont-email"></i>
@@ -131,13 +116,13 @@ $userteam = explode(',',$userteam1);
                    
                    
                     <?php if($usertype == 0 || $usertype == 1 || $usertype ==2 || $usertype ==6){?>
-                    <li class="nav-item">
+                    <!-- <li class="nav-item">
                       
-                        <a href="<?php echo base_url(); ?>cdc/selectCampaignforDataVerification">
+                        <a href="<?php //echo base_url(); ?>cdc/selectCampaignforDataVerification">
                         <i class="icofont icofont-check-circled"></i>
                             <span>Data verification</span>
                         </a>
-                    </li>
+                    </li> -->
                     <li class="nav-item">
                         <a href="#!">
                             <i class="ti-layout"></i>
@@ -148,17 +133,17 @@ $userteam = explode(',',$userteam1);
                             <li><a href="<?php echo base_url(); ?>administrator/users/users">Users</a></li>
                         </ul>
                     </li>
-                    <li class="nav-item">
+                    <!-- <li class="nav-item">
                         <a href="#!">
                         <i class="icofont icofont-email"></i>
                             <span data-i18n="nav.basic-components.main">Email Verification</span>
-                        </a>
-                        <ul class="tree-1">
+                        </a> -->
+                        <!-- <ul class="tree-1"> -->
                             <!-- <li><a href="<?php //echo base_url(); ?>administrator/user_report" data-i18n="nav.basic-components.alert">User Status</a></li> -->
                             <!-- <li><a href="<?php //echo base_url(); ?>administrator/team/list" data-i18n="nav.basic-components.breadcrumbs">Campaign Status</a></li> -->
-                            <li><a href="<?php echo base_url(); ?>administrator/selectCampaignForEmailVerification" data-i18n="nav.basic-components.alert">Email Verification</a></li>
-                        </ul>
-                    </li>
+                            <!-- <li><a href="<?php //echo base_url(); ?>administrator/selectCampaignForEmailVerification" data-i18n="nav.basic-components.alert">Email Verification</a></li> -->
+                        <!-- </ul> -->
+                    <!-- </li> -->
                     <li class="nav-item">
                         <a href="#!">
                             <i class="ti-layout-grid2-thumb"></i>

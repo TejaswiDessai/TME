@@ -248,6 +248,94 @@
 			$this->load->view('administrator/footer');
 		
 		}
+		// function cdcform($page = 'cdc-form'){
+		function cdcform(){
+			
+			$data['title'] = 'Create Lead';
+			// print_r($_SESSION);
+			// print_r($_SESSION['timeout']);
+
+
+
+			if(isset($_GET['camp_id'])){
+				$postData1 = $_GET['camp_id']; 
+			}else{
+				$postData = $this->input->post();
+				$postData1 = $postData['campaign_id'];
+				// $postData2 = $postData['campaign_idcids'];
+			}
+
+		
+			if(isset($_GET['lmid'])){
+				$postDatalmid = $_GET['lmid']; 
+			}
+		
+
+						$data['campaigns'] = $this->Administrator_Model->get_campaign_by_id($postData1);
+
+						foreach ($data['campaigns'] as $camp) {
+						
+						}
+						// echo $camp['cnid'];
+						$camp_id = $camp['cnid'];
+						$cids = $camp['cids'];
+						
+						// $_SESSION['campaign_id'] = $camp_id;
+						
+			// $data['cids_camp'] = $camp_id;
+			// $data['campaign_id'] = $camp_id;
+						
+						$data['leadmaster'] = $this->Administrator_Model->get_leadmasterby_campaigniddv($cids);
+						// print_r($data['leadmaster']); 
+						if(empty($data['leadmaster'])){
+							$this->session->set_flashdata('success', 'Data verification id finished for this campaign.');
+							// redirect('cdc/selectCampaignforDataVerification');
+							
+						}
+						// print_r($postDatalmid);
+						foreach ($data['leadmaster'] as $ldmster) {
+						
+						}
+					
+						if (isset($data['leadmaster'])){
+							$data['countriesdv'] = $this->Administrator_Model->get_countriesbyCampaigndv($ldmster['lmid']);
+							$data['industriesdv'] = $this->Administrator_Model->get_industries_ofleadmaster($ldmster['lmid']);
+							$data['subindustriesdv'] = $this->Administrator_Model->get_subindustries_ofleadmaster($ldmster['lmid']);
+							$data['currencydv'] = $this->Administrator_Model->get_currency_ofleadmaster($ldmster['lmid']);
+							$data['timezonedv'] = $this->Administrator_Model->get_timezone_ofleadmaster($ldmster['lmid']);
+							$data['designationdv'] = $this->Administrator_Model->get_designation_ofleadmaster($ldmster['lmid']);
+							$data['departmentsdv'] = $this->Administrator_Model->get_depts_byleadmaster($ldmster['lmid']);
+							$data['assetitledv'] = $this->Administrator_Model->get_assetitle_byleadmaster($ldmster['lmid']);
+							$data['comptypedv'] = $this->Administrator_Model->get_comptype_byleadmaster($ldmster['lmid']);
+						}else if(empty($data['leadmaster'])){
+							// $this->session->set_flashdata('success', 'Data verification id finished.');
+							redirect('administrator/dashboard');
+						}
+
+						
+
+
+			$this->load->view('administrator/header-script');
+			$this->load->view('administrator/header');
+			$this->load->view('administrator/header-bottom');
+			if(isset($_GET['rec_type_id']) && $_GET['rec_type_id']== 2 ){
+				$rectype = $_GET['rec_type_id'];
+			}else{
+				$rectype=0;	
+			}
+			// print_R($rectype);
+			if($rectype == 2){
+				// print_r($data['leadmaster']); exit();
+				$this->load->view('administrator/add-leaddata-cdc', $data);
+				// $this->load->view('administrator/cdc-form', $data);
+			}else{
+				$this->load->view('administrator/cdc-form', $data);
+				
+			}
+			//  $this->load->view('administrator/'.$page, $data);
+			$this->load->view('administrator/footer');
+		
+		}
 		function selectCampaign($page = 'select-campaign'){
 			$data['title'] = 'Create Lead';
 			$data['campaigns'] = $this->Administrator_Model->get_campaign();
@@ -292,6 +380,20 @@
 			$data['title'] = 'Create Lead';
 			$data['campaigns'] = $this->Administrator_Model->get_campaign_fordataverification();
                       
+			
+			
+			$this->load->view('administrator/header-script');
+			$this->load->view('administrator/header');
+			$this->load->view('administrator/header-bottom');
+			 $this->load->view('administrator/'.$page, $data);
+			$this->load->view('administrator/footer');
+		
+		}
+
+		function selectCampaignForCDC($page = 'select-campaign-cdc'){
+			$data['title'] = 'Create Lead';
+			$data['campaigns'] = $this->Administrator_Model->get_campaign_fordataverification();
+			// $data['campaigns'] = $this->Administrator_Model->get_campaignforCDC();		  
 			
 			
 			$this->load->view('administrator/header-script');

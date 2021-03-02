@@ -1085,14 +1085,14 @@ $(document).ready(function() {
                           <div class="form-group row" >
                             <div class="col-sm-12">
                              <center>
-                              <button type="submit" name="leadupdatedv" class="btn btn-primary leaddisplay" style=""  id="leadupdatedv">Accept</button> 
+                              <button type="submit" name="leadupdatedvcdc" class="btn btn-primary leaddisplay" style=""  id="leadupdatedv">Accept</button> 
                              
                              
-                              <button type="submit" name="leadsavedv" class="btn btn-primary leaddisplay" style="margin-left:50px"  id="leadsavedv">Save </button> 
+                              <button type="submit" name="leadsavedvcdc" class="btn btn-primary leaddisplay" style="margin-left:50px"  id="leadsavedv">Save </button> 
                              </center>
                         <?php } else{ ?>
                           <button type="submit" name="" class="btn btn-primary leaddisplay" style=""  id="">Limit Crossed</button> 
-                          <button type="submit" name="leadsavedv" class="btn btn-primary leaddisplay" style=""  id="leadsavedv">Discard </button> 
+                          <button type="submit" name="leadsavedvcdc" class="btn btn-primary leaddisplay" style=""  id="leadsavedv">Discard </button> 
                            <?php }?>
                        <?php if(empty($ldmster)){ ?>
                         

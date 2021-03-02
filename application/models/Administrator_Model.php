@@ -2179,7 +2179,7 @@ public function get_campaign_fordataverification()
 			// $this->db->group_by('campaign.campnm');
 			
 			$query=$this->db->get();
-			echo $this->db->last_query(); 
+			// echo $this->db->last_query(); 
 			return $data=$query->result_array();
 
 		}	

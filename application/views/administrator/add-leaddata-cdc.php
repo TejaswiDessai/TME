@@ -108,33 +108,38 @@ $(document).ready(function() {
   }
 
 
-  $(".aumdis").attr("disabled", true);   // aum disable
-  $(".ansdiv").hide();   // ans div hide
-  $('.cdqadisplay').hide();
-  $('.commentvisible').hide();
-  $('.optindiv').hide();
-    $('#rec_type_id').bind('change', function() {
+  // $(".aumdis").attr("disabled", true);   // aum disable
+  // $(".ansdiv").hide();   // ans div hide
+  // $('.cdqadisplay').hide();
+  // $('.commentvisible').hide();
+  // $('.optindiv').hide();
+  $("#gotocdc").on('click', function() 
+        {
+          window.location = base_url+"cdc/cdcform?rec_type_id=0&camp_id=<?php echo $_SESSION['campaign_id']; ?>&lmid=<?php echo $_SESSION['lmid']; ?>";
+        }
+  )
+    // $('#rec_type_id').bind('change', function() {
      
-        var value = $(this).val();
-        if (value == 2) { // if cdqa is selected
-          $('.commentvisible').show();
-          $('.optindiv').show();
-          $('.cdqadisplay').show();
-          $('.leaddisplay').hide();
-          $(".ansdiv").show(); 
+    //     var value = $(this).val();
+    //     if (value == 2) { // if cdqa is selected
+    //       // $('.commentvisible').show();
+    //       // $('.optindiv').show();
+    //       // $('.cdqadisplay').show();
+    //       // $('.leaddisplay').hide();
+    //       // $(".ansdiv").show(); 
 
-          var campaign_id = $('#campaign_id').val();
+    //       var campaign_id = $('#campaign_id').val();
 
          
-        }else{
-          $('.commentvisible').hide();
-          $('.optindiv').hide();
-          $(".ansdiv").hide(); 
-          $('.leaddisplay').show();
-          $('.cdqadisplay').hide();
+    //     }else{
+    //       // $('.commentvisible').hide();
+    //       // $('.optindiv').hide();
+    //       // $(".ansdiv").hide(); 
+    //       // $('.leaddisplay').show();
+    //       // $('.cdqadisplay').hide();
             
-        }
-    }).trigger('change');
+    //     }
+    // }).trigger('change');
  
     $('#ctype').bind('change', function() {
       var value = $(this).val();
@@ -149,13 +154,45 @@ $(document).ready(function() {
     })
 
 
+    var campaign_id = $('#campaign_id').val();
+    var urlq = '<?php echo base_url("cdc/getquestion");?>';
+console.log(urlq+'?campaign_id='+campaign_id);
+$.ajax({
+      url:'<?php echo base_url("cdc/getquestion");?>',
+      method: 'get',
+      data: {campaign_id: campaign_id},
+      dataType: 'json',
+      success: function(response){
+
+      //    Remove options 
+    //  $('#country_id').find('option').not(':first').remove();
+     
+
+      //    Add options
+     $.each(response,function(index,data){
+        // $('.questionrow').append('<select><option value="'+data['qid']+'">'+data['questions']+'</option></select');
+       
+          index++;
+        // $('.questionrow').html("");
+        $('.questionrow').append('<div class="col-sm-6 card">'+
+                                   '<p id='+ index +'><b>'+data['questions']+'</b></p>'+
+                                      '<input type="text" value=""  name="aa' + index + '" id="aa' + index + '"  placeholder="Answer for question ' + index + '"  class="form-control form-control-sm ">'+
+                                                                     
+                          '</div>');
+
+        
+      });
+      }
+  });
+//end question
+
 });
 
 </script>
 <form id="basic-form" method="POST" enctype="multipart/form-data">
 <div class="page-header">
     <div class="page-header-title col-sm-12">
-        <h4>Add Lead</h4> 
+        <h4>Update Lead</h4> 
         
       
             <div class="form-group row"> 
@@ -164,6 +201,7 @@ $(document).ready(function() {
                                       <option value="1">Data </option>
                                       <option value="2">CDQA </option>
                                 </select> -->
+                                <button type="submit" name="gotocdc" class="btn btn-primary" style="" id="gotocdc">Go To CDC form</button>
                   </div> 
                 <div class="col-sm-4" style="margin-top: -20px;">
                 <?php foreach ($campaigns as $campaign): ?>
@@ -625,7 +663,7 @@ $(document).ready(function() {
                             </div> 
                         </div>
                         <hr>
-                          <!-- <div class="form-group row optindiv">
+                          <div class="form-group row optindiv">
                                        
                                        <div class="col-sm-2">
                                         Opt - in  <input type="checkbox" value=""  id="optin" name="optin" class="js-single optin"  />
@@ -644,13 +682,13 @@ $(document).ready(function() {
                                         <div class="col-sm-2 optoption">
                                         DND <input type="checkbox" value="" id="dnd" name="dnd" class="js-single dnd"  />
                                         </div>
-                         </div> -->
+                         </div>
                        
 
-                        <!-- <div class="form-group row questionrow">  
+                        <div class="form-group row questionrow">  
                          
                           
-                        </div>  -->
+                        </div> 
                         <br>
 
                         
@@ -1418,7 +1456,7 @@ var arevenuevalue = $('#arevenue').val();
 $(document).ready(function() {
 
 //update record lock
-var rlc = 1; //lock 1
+var rlc = 0; //lock 1
 var lmid = $('#lmid').val();
 var emp_id = $('#emp_id').val();
 // alert(emp_id);

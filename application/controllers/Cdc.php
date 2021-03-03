@@ -280,7 +280,7 @@
 						$camp_id = $camp['cnid'];
 						$cids = $camp['cids'];
 						
-						// $_SESSION['campaign_id'] = $camp_id;
+						$_SESSION['campaign_id'] = $camp_id;
 						
 			// $data['cids_camp'] = $camp_id;
 			// $data['campaign_id'] = $camp_id;
@@ -296,7 +296,10 @@
 						foreach ($data['leadmaster'] as $ldmster) {
 						
 						}
-					
+						$lmid = $ldmster['lmid'];
+						
+						$_SESSION['lmid'] = $lmid;
+
 						if (isset($data['leadmaster'])){
 							$data['countriesdv'] = $this->Administrator_Model->get_countriesbyCampaigndv($ldmster['lmid']);
 							$data['industriesdv'] = $this->Administrator_Model->get_industries_ofleadmaster($ldmster['lmid']);
@@ -325,10 +328,11 @@
 			}
 			// print_R($rectype);
 			if($rectype == 2){
-				// print_r($data['leadmaster']); exit();
+				// print_r($data['leadmaster']); 
 				$this->load->view('administrator/add-leaddata-cdc', $data);
 				// $this->load->view('administrator/cdc-form', $data);
 			}else{
+				// print_r($data['leadmaster']);
 				$this->load->view('administrator/cdc-form', $data);
 				
 			}
@@ -1642,12 +1646,13 @@
 				 $ontag = "1"; //null = new, 0 = needs to be reworked
 				 $dvrejtg = $_POST['dvrejtg'];
 				 $dvagtidi = $_SESSION['empcode']; //Data Verification Accept|Agent ID_I
-				$dvragtidi = NULL;
+				// $dvragtidi = NULL;
+				$dvragtidi = $_POST['dvragtidi'];
 				$dvsbtg = $_POST['dvsbtg']; //Data Verification|Submission Tag
 
 				
 				$dvdti = $old_date; //Data Verification Accept|date and time_I
-				$dvrdti = NULL;
+				$dvrdti = $_POST['dvrdti'];
 
 				
 			}else{
@@ -1656,9 +1661,9 @@
 				$dvrejtg = $_POST['dvrejtg'];
 				$dvsbtg = $_POST['dvsbtg'];
 				$dvragtidi = $_SESSION['empcode'];
-				$dvagtidi = NULL;
+				$dvagtidi = $_POST['dvagtidi'];
 				$ontag = "1"; //null = new, 0 = needs to be reworked
-				$dvdti = NULL ;
+				$dvdti = $_POST['dvdti'];
 				$dvrdti = $old_date; //Data Verification|Rej_date and time_I
 			}
 
@@ -1678,6 +1683,7 @@
 				'dvsbtg' => $dvsbtg, 
 				 'ontag' => $ontag, 
 				'dvload' => $dvload, //  next level
+				'dvstat' => $dvstat, //  dvstat
 				// 'svagtidi' => '1' // save Agent Name
 				// 'svdti' => '1' // save date time
 				'dvagtidi' => $dvagtidi, // submit agent name 

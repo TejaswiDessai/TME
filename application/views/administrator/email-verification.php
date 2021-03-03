@@ -224,11 +224,11 @@
                                 <input type="hidden" value="<?php echo $campaign['cids']; ?>" id="campnm">
                             <?php endforeach; ?>
                             </td>
-                            <td>
+                            <!-- <td>
                                 <select class="form-control form-control-default "  name="agent" id="agent">
-                                        <option value="<?php echo $this->session->userdata('emp_id'); ?>"><?php echo $this->session->userdata('username'); ?></option>
+                                        <option value="<?php //echo $this->session->userdata('emp_id'); ?>"><?php //echo $this->session->userdata('username'); ?></option>
                                 </select>
-                            </td>
+                            </td> -->
                             <!-- <td>
                                 <select class="form-control form-control-default "  name="stage" id="stage">
                                     <option value="">Numbers</option>
@@ -267,22 +267,27 @@
                                 <a class="btn btn-primary" href="">Refresh</a>
                             </td> -->
                             </tr>
-                            <tr>
-                            <td>
+                            <!-- <tr> -->
+                            <!-- <td> -->
                             <!-- <input type="text" class="form-control form-control-default " name="from" id="from" placeholder="Enter send from Email.."> -->
-                            </td>
-                            <td>
+                            <!-- </td> -->
+                            <!-- <td> -->
                             <!-- <input type="text" class="form-control form-control-default " name="sub" id="sub" placeholder="Email Subject"> -->
-                            </td>
-                            <td>
+                            <!-- </td> -->
+                            <!-- <td> -->
                             <!-- <textarea name="body" id="body" placeholder="Email Body"></textarea> -->
-                            </td>
-                            </tr>
+                            <!-- </td>
+                            </tr> -->
                             </table>
                             </form>
                        
                     </div>
                     <br>
+                    <!-- Image loader -->
+<div id='loader' style='display: none;'>
+  <img src='<?php echo base_url(); ?>assets/images.download.png' width='32px' height='32px'>
+</div>
+<!-- Image loader -->
                         <div class="table-responsive dt-responsive">
                             <table id="dom-jqry" class="table table-striped table-bordered nowrap table1">
                                 <thead>
@@ -368,13 +373,13 @@
                                             <input type="checkbox" class ="emailstatus"  value="<?php echo $post['lmid'];?>" name="email_status_<?php echo $i;?>" id="email_status_<?php echo $i;?>"><?php //echo $i;?>
                                         </td>
                                         <td>
-                                            
+                                            <?php //echo $post['sent_mail_date'];?>
                                         </td>
                                         <td>
                                             
                                         </td>
                                         <td>
-                                           
+                                        <?php //echo $post['evcomment']; ?>
                                         </td>
                                     </tr>
                                 <?php endforeach; ?>
@@ -412,6 +417,9 @@
                         <option value="Refused" >Refused</option>
                     </select>
                     </div>
+                    <div class="col-sm-2">
+                        <textarea id="comment" placeholder="Enter comment"></textarea>
+                    </div>
                 </div>
             </div>
 
@@ -430,14 +438,17 @@
         <div class="mail-body-content">
                                         <form>
                                             <div class="form-group">
-                                                <input type="text" class="form-control" placeholder="Subject">
+                                                <input type="text" id="sub" class="form-control" placeholder="Subject">
                                             </div>
-                                            <div class="summernote email-summernote">Hello Summernote</div>
+                                            <div class="form-group">
+                                            <textarea name="mail_body" id="mail_body" placeholder="Email Body"></textarea>
+                                            <!-- <input type="text" id="mail_body" class="form-control" placeholder="Subject">     -->
+                                        </div>
                                         </form>
                                     </div>
         </div>
         <div class="modal-footer">
-        <button type="button" id=""  class="btn btn-primary" >Send</button>
+        <button type="button" id="send_email1"  class="btn btn-primary" data-dismiss="modal">Send</button>
           <button type="button" class="btn btn-danger " data-dismiss="modal">Close</button>
         </div>
       </div>
@@ -532,7 +543,7 @@ $(".emailstatus").click(function() {
 
         $("#send_email1").on('click', function() 
         {
-            alert("test");
+            // alert("test");
             var someObj = {};
             someObj.fruitsGranted = [];
             
@@ -551,24 +562,27 @@ $(".emailstatus").click(function() {
             });
             var change_status_of = someObj.fruitsGranted;
             var leadid = someObj.leads;
-         //    alert(leadid);
+            // alert(change_status_of);
             var email_status = $('#email_status').val();
             var campid = $('#campnm').val();
             // var leadid = $('#leadid_'+leadid_obj).val();
             // alert(leadid);
             var from = $('#from').val();
             var sub = $('#sub').val();
-            var body = $('#body').val();
+            var body = $('#mail_body').val();
             // alert("from"+from+"sub= "+sub+"body= "+body);
-            
+            // return;
+            $("#loader").show();
             var url = "<?php echo base_url("administrator/send_email_status");?>";
             console.log(url+"?change_status_of="+change_status_of+"&email_status="+email_status+"&campid="+campid+"&leadid="+leadid+"&from="+from+"&sub="+sub+"&body="+body);
             $.ajax({
                 url :'<?php echo base_url("administrator/send_email_status");?>',
                 type: 'GET', 
-                dataType: 'json',              
+                dataType: 'json',
+                // jsonpCallback: 'onJSONPLoad',  
+                contentType:'application/json; charset=utf-8',
                 data: {
-					change_status_of:leadid,
+					change_status_of:change_status_of,
                     email_status:email_status,
 					campid:campid,
                     leadid:leadid,
@@ -581,8 +595,8 @@ $(".emailstatus").click(function() {
                 success: function(response){
                     var text = response.statusCode;
                     console.log("check"+text);
-                    alert(text);
-                    
+                    // alert(text);
+                    $("#loader").hide();
                     if(response.statusCode == "Success") 
                     {                        
                         $("#send_email").html(response.message);
@@ -594,7 +608,11 @@ $(".emailstatus").click(function() {
                         $("#send_email").html(response.message);
                         
 					}
-                }
+                },
+                error:function(xhr, status, error){
+                    var errorMessage = xhr.status + ': ' + xhr.statusText
+                    alert('Error - ' + errorMessage);
+                },
             });
         });
 
@@ -607,7 +625,7 @@ $(".emailstatus").click(function() {
                 if ($(this).is(":checked")) {
                     var checked = ($(this).val());
                     var leadid = $('#row_id_'+checked).val();
-                    alert(leadid);
+                    // alert(leadid);
                     // var email = $("#email_status_"+checked).val();
                     // alert(email);
                     someObj.fruitsGranted.push(checked);
@@ -624,7 +642,8 @@ $(".emailstatus").click(function() {
             var leadid = someObj.leads;
             var from = $('#from').val();
             var sub = $('#sub').val();
-            var body = $('#body').val();
+            var body = $('#mail_body').val();
+            var comment = $('#comment').val();
             // alert("from"+from+"sub= "+sub+"body= "+body);
             
             var url = "<?php echo base_url("administrator/update_email_status");?>";
@@ -632,12 +651,14 @@ $(".emailstatus").click(function() {
             $.ajax({
                 url :'<?php echo base_url("administrator/update_email_status");?>',
                 type: 'GET', 
-                dataType: 'json',              
+                dataType: 'json', 
+                contentType:'application/json; charset=utf-8',             
                 data: {
 					change_status_of:change_status_of,
                     email_status:email_status,
 					campid:campid,
                     leadid:leadid,
+                    comment:comment
 				},
                 cache: false,
                 success: function(response){
@@ -656,7 +677,11 @@ $(".emailstatus").click(function() {
                         $("#update_email").html(response.message);
                         
 					}
-                }
+                },
+                error:function(xhr, status, error){
+                    var errorMessage = xhr.status + ': ' + xhr.statusText
+                    alert(' ' + errorMessage);
+                },
             });
         });
     });

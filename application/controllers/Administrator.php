@@ -1903,7 +1903,7 @@ public function getPrivillage(){
 		$config['per_page'] = '';
 		$config['uri_segment'] = 3;
 		$config['attributes'] = array('class' => 'paginate-link');
-		$campid =$this->input->post('campid');
+		$campid =$this->input->post('campaign_id');
 		$user_id =$this->input->post('user_id');
 		$stage =$this->input->post('stage');
 		$from =$this->input->post('from');
@@ -1913,9 +1913,9 @@ public function getPrivillage(){
 	
 		$data['title'] = 'Latest Campaigns';
 	
-		$data['email_list'] = $this->Administrator_Model->get_email_list($campid,$user_id,$from,$to,$stage);
+		$data['leadmaster'] = $this->Administrator_Model->get_email_list($campid,$user_id,$from,$to,$stage);
 		$data['users_name'] = $this->Administrator_Model->get_users(FALSE, $config['per_page'], $offset);
-		$data['campaigns'] = $this->Administrator_Model->get_campaign();
+		$data['campaigns'] = $this->Administrator_Model->get_campaign_by_id($campid);
 		$data['user_id'] = $user_id;
 		$data['Campid'] = $campid;
 		$data['Stage'] = $stage;
@@ -2072,11 +2072,14 @@ public function getPrivillage(){
 	public function send_email_status()
 	{
 		// $leadid = $_GET['leadid'];
-		$leadid= explode(",", $_GET['leadid']);
+		$string_version= implode(",", $_GET['leadid']);
+		$leadid = explode(',', $string_version);
 		// echo $_GET['leadid'];
 		$email1 = $_GET['change_status_of'];
-		$comp_proSplit= explode(",", $email1);
+		$string_version1= implode(",", $email1);
+		$comp_proSplit= explode(",", $string_version1);
 		$cnt=count($comp_proSplit);
+		// $cnt = 5;
 		$email_status = $_GET['email_status'];
 		$campid = $_GET['campid'];
 		$startdate = date("Y-m-d H:i:s");
@@ -2099,6 +2102,7 @@ public function getPrivillage(){
 								
 				);
 			$addcampaigndata = $this->Administrator_Model->send_email_status($datacampaign);
+			
 			require_once "send-email-php/phpmailer/class.phpmailer.php";
 			require_once "send-email-php/phpmailer/PHPMailerAutoload.php";
 			$mail = new PHPMailer(true);
@@ -2133,6 +2137,7 @@ public function getPrivillage(){
 			}
 			if($addcampaigndata == true){
 				
+				// return "{\"statusCode\":\"Success\"}";
 				echo json_encode(array(
 					"statusCode"=>"Success",
 					"campaign_id"=>$addcampaigndata,
@@ -2140,6 +2145,7 @@ public function getPrivillage(){
 				));
 			}else{
 				
+				// return "{\"statusCode\":\"Fail\"}";
 				echo json_encode(array(
 					"statusCode"=>"Fail",
 					"message"=>"Mail Sent failed.."
@@ -2152,16 +2158,20 @@ public function getPrivillage(){
 	{
 		// $leadid = $_GET['leadid'];
 		// $leadid= explode(",", $_GET['leadid']);
-		$lmid = explode(",", $_GET['change_status_of']); 
-		
+		$string_version= implode(",", $_GET['change_status_of']);
+		$lmid = explode(",", $string_version); 
+		// print_r($lmid);
 		// $comp_proSplit= explode(",", $email1);
-		$cnt=count($lmid);
+		$cnt=count($string_version);
+		
 		$email_status = $_GET['email_status'];
+		$comment = $_GET['comment'];
 		$startdate = date("Y-m-d H:i:s");
 		for($i=0;$i<$cnt;$i++)
 		{
 			$datacampaign = array(
 				'status' =>$email_status,
+				'comment' => $comment,
 				'statdt' => $startdate
 								
 				);
@@ -2211,7 +2221,20 @@ public function getPrivillage(){
 
 				
 			}
-			
+			if($addcampaigndata == true){
+				
+						echo json_encode(array(
+							"statusCode"=>"Success",
+							"campaign_id"=>$addcampaigndata,
+							"message"=>"Mail Sent Successfully.."
+						));
+					}else{
+						
+						echo json_encode(array(
+							"statusCode"=>"Fail",
+							"message"=>"Mail Sent failed.."
+						));
+					}
 	}
 
 	

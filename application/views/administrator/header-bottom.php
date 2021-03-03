@@ -11,7 +11,8 @@
 //   }
 
 
- if ($this->session -> userdata('email') == "" && $this->session -> userdata('login') != true && $this->session -> userdata('empcoode') == NULL  && $this->session -> userdata('role_id') != 1) {
+//  if ($this->session -> userdata('email') == "" && $this->session -> userdata('login') != true && $this->session -> userdata('empcoode') == NULL  && $this->session -> userdata('role_id') != 1) {
+ if ($this->session -> userdata('email') == "" && $this->session -> userdata('login') != true   && $this->session -> userdata('role_id') != 1) {
       redirect('administrator/index');
     }
 
@@ -222,7 +223,7 @@ $userteam = explode(',',$userteam1);
     <?php endif; ?>
    
    
-    <input type = "hidden" name="emp_id" id="emp_id" value="<?php echo  $_SESSION['empcode']; ?>">
+    <!-- <input type = "hidden" name="emp_id" id="emp_id" value="<?php echo  $_SESSION['empcode']; ?>"> -->
     <script>
 var emp_id = $('#emp_id').val();
 
@@ -255,10 +256,10 @@ console.log(timeSinceLastMove);
                 
                 window.location = base_url+"administrator/logout";
             }
-            if(emp_id === undefined)
-            {
-                window.location = base_url+"administrator/logout"; 
-            }
+            // if(emp_id === undefined)
+            // {
+            //     window.location = base_url+"administrator/logout"; 
+            // }
             setTimeout(checkTime, 1000); // check evry 1 second
         }
 </script> 

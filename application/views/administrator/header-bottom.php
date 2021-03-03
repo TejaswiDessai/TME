@@ -11,7 +11,8 @@
 //   }
 
 
- if ($this->session -> userdata('email') == "" && $this->session -> userdata('login') != true && $this->session -> userdata('empcoode') == NULL  && $this->session -> userdata('role_id') != 1) {
+//  if ($this->session -> userdata('email') == "" && $this->session -> userdata('login') != true && $this->session -> userdata('empcoode') == NULL  && $this->session -> userdata('role_id') != 1) {
+ if ($this->session -> userdata('email') == "" && $this->session -> userdata('login') != true   && $this->session -> userdata('role_id') != 1) {
       redirect('administrator/index');
     }
 
@@ -113,6 +114,19 @@ $userteam = explode(',',$userteam1);
                         </ul>
                     </li>
                     <?php } ?>
+                    <?php if((in_array('9',$userteam))){?>
+                        <li class="nav-item">
+                        <a href="#!">
+                        <i class="icofont icofont-ui-call"></i>
+                            <span data-i18n="nav.basic-components.main">CDC</span>
+                        </a>
+                        <ul class="tree-1">
+                            <!-- <li><a href="<?php //echo base_url(); ?>administrator/user_report" data-i18n="nav.basic-components.alert">User Status</a></li> -->
+                            <!-- <li><a href="<?php //echo base_url(); ?>administrator/team/list" data-i18n="nav.basic-components.breadcrumbs">Campaign Status</a></li> -->
+                            <li><a href="<?php echo base_url(); ?>cdc/selectCampaignForCDC" data-i18n="nav.basic-components.alert">CDC</a></li>
+                        </ul>
+                    </li>
+                    <?php } ?>
 
                    
                    
@@ -209,9 +223,9 @@ $userteam = explode(',',$userteam1);
     <?php endif; ?>
    
    
-    <input type = "hidden" name="emp_id" id="emp_id" value="<?php echo  $_SESSION['empcode']; ?>">
+    <!-- <input type = "hidden" name="emp_id" id="emp_id" value="<?php echo  $_SESSION['empcode']; ?>"> -->
     <script>
-var emp_id = $('#emp_id').val();
+// var emp_id = $('#emp_id').val();
 
     var base_url = "<?php echo base_url() ?>";
    
@@ -242,10 +256,10 @@ console.log(timeSinceLastMove);
                 
                 window.location = base_url+"administrator/logout";
             }
-            if(emp_id === undefined)
-            {
-                window.location = base_url+"administrator/logout"; 
-            }
+            // if(emp_id === undefined)
+            // {
+            //     window.location = base_url+"administrator/logout"; 
+            // }
             setTimeout(checkTime, 1000); // check evry 1 second
         }
 </script> 

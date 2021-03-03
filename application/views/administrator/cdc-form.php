@@ -124,25 +124,49 @@
 }
 
  </style>
+
+
+<?php foreach ($leadmaster as $ldmster):  
+      // print_r($ldmster['dvrejectreason']);
+      // $dvrejectreason = explode(',',$ldmster['dvrejectreason']);
+      // print_r($ldmster);
+     
+    endforeach;
+      //  print_r($campaign['tid']);
+       
+       ?>
+ 
 <script>
 
 
 var base_url = "<?php echo base_url() ?>";
 // alert(base_url);
 $(document).ready(function () {
+
+  
     // Handler for .ready() called.
     $('html, body').animate({
         scrollTop: $('#camp_form').offset().top
     }, 'slow');
 });
 
+
+
+
+
 //below code for retreive button on change on rect type
 $(document).ready(function() { 
   $(".aumdis").attr("disabled", true);   // aum disable
-  $(".ansdiv").hide();   // ans div hide
+  // $(".ansdiv").hide();   // ans div hide
   $('.cdqadisplay').hide();
   // $('.commentvisible').hide();
-  $('.optindiv').hide();
+  // $('.optindiv').hide();
+
+  $("#gotoupdate").on('click', function() 
+        {
+          window.location = base_url+"cdc/cdcform?rec_type_id=2&camp_id=<?php echo $_SESSION['campaign_id']; ?>&lmid=<?php echo $ldmster['lmid']; ?>";
+        }
+  )
     $('#rec_type_id').bind('change', function() {
      
         var value = $(this).val();
@@ -152,7 +176,7 @@ $(document).ready(function() {
           $('.cdqadisplay').show();
           $('.leaddisplay').hide();
           $(".ansdiv").show(); 
-
+          // window.location = base_url+"cdc/cdcform?rec_type_id=2&camp_id=<?php echo $_SESSION['campaign_id']; ?>&lmid=<?php echo $ldmster['lmid']; ?>";
           var campaign_id = $('#campaign_id').val();
 
          
@@ -179,6 +203,38 @@ $(document).ready(function() {
     })
 
 
+    var campaign_id = $('#campaign_id').val();
+    var urlq = '<?php echo base_url("cdc/getquestion");?>';
+console.log(urlq+'?campaign_id='+campaign_id);
+$.ajax({
+      url:'<?php echo base_url("cdc/getquestion");?>',
+      method: 'get',
+      data: {campaign_id: campaign_id},
+      dataType: 'json',
+      success: function(response){
+
+      //    Remove options 
+    //  $('#country_id').find('option').not(':first').remove();
+     
+
+      //    Add options
+     $.each(response,function(index,data){
+        // $('.questionrow').append('<select><option value="'+data['qid']+'">'+data['questions']+'</option></select');
+       
+          index++;
+        // $('.questionrow').html("");
+        $('.questionrow').append('<div class="col-sm-6 card">'+
+                                   '<p id='+ index +'><b>'+data['questions']+'</b></p>'+
+                                      '<input type="text" value=""  name="aa' + index + '" id="aa' + index + '"  placeholder="Answer for question ' + index + '"  class="form-control form-control-sm ">'+
+                                                                     
+                          '</div>');
+
+        
+      });
+      }
+  });
+//end question
+
 });
 
 </script>
@@ -190,6 +246,9 @@ $(document).ready(function() {
       
             <div class="form-group row"> 
                <div class="col-sm-2" style="margin-left: 200px;margin-top: -25px;">
+
+               <button type="submit" name="gotoupdate" class="btn btn-primary" style="" id="gotoupdate">Go To Update</button>
+               
                                 <!-- <select name="rec_type_id" id="rec_type_id"  class="form-control form-control-sm">
                                       <option value="1">Data </option>
                                       <option value="2">CDQA </option>
@@ -971,13 +1030,30 @@ $(document).ready(function() {
                                     </div>
                             
                             </div>
-                            <!-- <div class="col-sm-2">
-                                <select class="form-control form-control-sm"  name="emailver" id="emailver">
+                            <div class="col-sm-2">
+                                <!-- <select class="form-control form-control-sm"  name="emailver" id="emailver">
                                     <option value="0">Email Verification</option>
                                     <option value="1">Yes</option>
                                     <option value="0">No</option>
-                                </select>
-                            </div> -->
+                                </select> -->
+                                <div class="to-do-list">
+                                            <div class="checkbox-fade fade-in-primary  col-sm-12">
+                                                <label class="check-task">
+                                                    <input type="checkbox" name="emailver" id="lineemailvertype"  value="linetype">
+                                                  <span  class="form-control form-control-sm cdqadisable tooltips"><?php 
+                                                    if($ldmster['emailver'] == "0"){ 
+                                                     echo "Not Email verified"; 
+                                                    }else if($ldmster['emailver'] == "1") { 
+                                                      echo "Email verified";
+                                                    
+                                                    }
+                                                      ?>
+                                                      <span class="tooltiptext">Email verified</span>
+                                                  </span>
+                                                </label>
+                                            </div>
+                                  </div>
+                            </div>
                             <div class="col-sm-2">
                                 <!-- <input type="text"  name="aum" id="aum" value ="<?php // if(isset($ldmster)){  echo $ldmster['aum']; }?>" placeholder="Asset Under Management"  class="form-control form-control-sm aumdis"> -->
                                 <div class="to-do-list">
@@ -991,7 +1067,7 @@ $(document).ready(function() {
                                             </div>
                                   </div>
                             </div>
-                            <div class="col-sm-4">
+                            <div class="col-sm-2">
                                 <!-- <select class="form-control form-control-sm commentvisible" name="assetid" id="assetid">
                                     <option value="0">Asset</option>
                                     <?php //foreach ($assetitle as $assetitle): ?>
@@ -1017,7 +1093,7 @@ $(document).ready(function() {
                             </div> 
                         </div>
                         <hr>
-                          <!-- <div class="form-group row optindiv">
+                          <div class="form-group row optindiv">
                                        
                                        <div class="col-sm-2">
                                         Opt - in  <input type="checkbox" value=""  id="optin" name="optin" class="js-single optin"  />
@@ -1036,13 +1112,13 @@ $(document).ready(function() {
                                         <div class="col-sm-2 optoption">
                                         DND <input type="checkbox" value="" id="dnd" name="dnd" class="js-single dnd"  />
                                         </div>
-                         </div> -->
+                         </div>
                        
 
-                        <!-- <div class="form-group row questionrow">  
+                        <div class="form-group row questionrow">  
                          
                           
-                        </div>  -->
+                        </div> 
                         <br>
 
                         <div class="form-group row" >
@@ -1063,22 +1139,18 @@ $(document).ready(function() {
                           <input type = hidden name="sbsvtag" id="sbsvtag" value="<?php echo $ldmster['sbsvtag']; ?>">
                           <input type = hidden name="dvrejtg" id="dvrejtg" value="<?php echo $ldmster['dvrejtg']; ?>">
                           <input type = hidden name="dvsbtg" id="dvsbtg" value="<?php echo $ldmster['dvsbtg']; ?>">
-                          <input type = hidden name="dvragtidi" id="dvragtidi" value="<?php echo $ldmster['dvragtidi']; ?>">
-                          <input type = hidden name="dvagtidi" id="dvagtidi" value="<?php echo $ldmster['dvagtidi']; ?>">
-                          <input type = hidden name="dvdti" id="dvdti" value="<?php echo $ldmster['dvdti']; ?>">
-                          <input type = hidden name="dvrdti" id="dvrdti" value="<?php echo $ldmster['dvrdti']; ?>">
                           <input type = hidden name="rlc" id="rlc" value="<?php echo $ldmster['rlc']; ?>">
                           <div class="form-group row" >
                             <div class="col-sm-12">
                              <center>
-                              <button type="submit" name="leadupdatedv" class="btn btn-primary leaddisplay" style=""  id="leadupdatedv">Accept</button> 
+                              <button type="submit" name="leadupdatecdc" class="btn btn-primary leaddisplay" style=""  id="leadupdatecdc">Accept</button> 
                              
                              
-                              <button type="submit" name="leadsavedv" class="btn btn-primary leaddisplay" style="margin-left:50px"  id="leadsavedv">Save </button> 
+                              <button type="submit" name="leadsavecdc" class="btn btn-primary leaddisplay" style="margin-left:50px"  id="leadsavecdc">Save </button> 
                              </center>
                         <?php } else{ ?>
                           <button type="submit" name="" class="btn btn-primary leaddisplay" style=""  id="">Limit Crossed</button> 
-                          <button type="submit" name="leadsavedv" class="btn btn-primary leaddisplay" style=""  id="leadsavedv">Discard </button> 
+                          <button type="submit" name="leadsavecdc" class="btn btn-primary leaddisplay" style=""  id="leadsavecdc">Discard </button> 
                            <?php }?>
                        <?php if(empty($ldmster)){ ?>
                         
@@ -1799,7 +1871,7 @@ $(document).ready(function() {
 $(document).ready(function() {
 
 //update record lock
-var rlc = 1; //lock 1
+var rlc = 0; //lock 1
 var lmid = $('#lmid').val();
 var emp_id = $('#emp_id').val();
 // $this->session -> userdata('email')
@@ -1860,14 +1932,21 @@ $.ajax({
     $('.optin').change(function()
       {
         if ($('#optin').is(':checked')) {
+          $("#opteml").prop('checked', true);
+          $("#optph").prop('checked', true);
+          $("#optpst").prop('checked', true);
             $('#optin').val("1");
             $('#opteml').val("1");
             $('#optph').val("1");
             $('#optpst').val("1");
             $('.optoption').show();
-          
-               
+            $("#dnd").prop('checked', false);
+            $('#dnd').val("0");
         }else{
+
+          $("#optph").prop('checked', false);
+          $("#opteml").prop('checked', false);
+          $("#optpst").prop('checked', false);
             $('#optin').val("0");
             $('#opteml').val("0");
             $('#optph').val("0");
@@ -1875,20 +1954,74 @@ $.ajax({
             $('.optoption').hide();
                
         };
+
       });
+
+      $('#opteml').change(function()
+      {
+        var checksupp = $('#opteml').prop('checked');
+       
+            if(checksupp == true)
+            {
+              $('#opteml').val("1");
+            }
+            else
+            {
+              $('#opteml').val("0");
+            }
+
+          });
+     
+      $('#optph').change(function()
+      {
+        var checksupp = $('#optph').prop('checked');
+        
+            if(checksupp == true)
+            {
+              $('#optph').val("1");
+            }
+            else
+            {
+              $('#optph').val("0");
+            }
+
+          });
+     
+      $('#optpst').change(function()
+      {
+        var checksupp = $('#optpst').prop('checked');
+        
+            if(checksupp == true)
+            {
+              $('#optpst').val("1");
+            }
+            else
+            {
+              $('#optpst').val("0");
+            }
+
+          });
+     
+               
       $('.dnd').change(function()
       {
         if ($('#dnd').is(':checked')) {
+          $("#optin").prop('checked', false);
+          $('.dnd').val("1");
             $('#optin').val("0");
             $('#opteml').val("0");
             $('#optph').val("0");
             $('#optpst').val("0");
+            $("#optin").prop('checked', false);
+            
             $('.optoption').hide();   
         }else{
             $('#optin').val("1");
             $('#opteml').val("1");
             $('#optph').val("1");
             $('#optpst').val("1");
+            $("#optin").prop('checked', true);
+            $('.dnd').val("0");
             $('.optoption').show();
                
         };
@@ -2049,15 +2182,15 @@ $("input:checkbox").change(function() {
             });
           if(checked == ""){ // if unchecked any field
             checked = [0];
-            $("#leadupdatedv").html("Accept");
+            $("#leadupdatecdc").html("Accept");
           }else{
-            $("#leadupdatedv").html("Reject");
+            $("#leadupdatecdc").html("Reject");
           }
           
 });
 /* update lead submit*/
     $(function() {
-        $("#leadupdatedv").on('click', function() 
+        $("#leadupdatecdc").on('click', function() 
         {
           var empid = $('#emp_id').val();
           if(empid === undefined){
@@ -2074,6 +2207,9 @@ $("input:checkbox").change(function() {
             
                 this.checked ? checked.push(this.id) : notChecked.push(this.id);
             });
+
+            alert(checked); exit;
+
           if(checked == ""){ // if unchecked any field
                 checked = [0];
                 var dvsbtg1 = $('#dvsbtg').val();
@@ -2105,12 +2241,6 @@ $("input:checkbox").change(function() {
 
           }
            
-            var dvragtidi = $('#dvragtidi').val();
-            var dvagtidi = $('#dvagtidi').val();
-
-            var dvrdti = $('#dvrdti').val();
-            var dvdti = $('#dvdti').val();
-
             var campaign_id = $('#campaign_id').val();
             var campaign_idcids = $('#campaign_idcids').val();
             var sbsvtag = $('#sbsvtag').val();
@@ -2129,7 +2259,7 @@ $("input:checkbox").change(function() {
             console.log(url+"?campaign_id="+campaign_id+"&lmid="+lmid+"&campaign_idcids="+campaign_idcids+"&checked="+checked+"&sbsvtag="+sbsvtag+"&pcomt="+pcomt);
            
             $.ajax({
-                url :'<?php echo base_url("cdc/ajax_update_dataverification");?>',
+                // url :'<?php echo base_url("cdc/ajax_update_dataverification");?>',
                 type: 'POST', 
                 // contentType: "application/json",
                 dataType: 'json',              
@@ -2143,10 +2273,6 @@ $("input:checkbox").change(function() {
                   dvsbtg :dvsbtg,
                   pcomt :pcomt,
                   checked:checked,
-                  dvragtidi:dvragtidi,
-                  dvagtidi:dvagtidi,
-                  dvdti:dvdti,
-                  dvrdti:dvrdti,
                    
 				},
         async: true,
@@ -2199,13 +2325,6 @@ $("input:checkbox").change(function() {
           //   checked = [0];
           // }
            var checked = [0];
-
-           var dvragtidi = $('#dvragtidi').val();
-            var dvagtidi = $('#dvagtidi').val();
-
-            var dvrdti = $('#dvrdti').val();
-            var dvdti = $('#dvdti').val();
-            
             var campaign_id = $('#campaign_id').val();
             var campaign_idcids = $('#campaign_idcids').val();
             // var sbsvtag1 = $('#sbsvtag').val();
@@ -2238,11 +2357,7 @@ $("input:checkbox").change(function() {
                   dvrejtg :dvrejtg,
                   dvsbtg :dvsbtg,
                   pcomt :pcomt,
-                  checked:checked,
-                  dvragtidi:dvragtidi,
-                  dvagtidi:dvagtidi,
-                  dvdti:dvdti,
-                  dvrdti:dvrdti,
+                  checked:checked
                    
 				},
         async: true,

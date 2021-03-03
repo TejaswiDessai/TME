@@ -2103,8 +2103,8 @@ $("input:checkbox").change(function() {
            
             var campaign_id = $('#campaign_id').val();
             var campaign_idcids = $('#campaign_idcids').val();
-            var sbsvtag1 = $('#sbsvtag').val();
-            var sbsvtag = parseInt(sbsvtag1)+1; // incremataion
+            var sbsvtag = $('#sbsvtag').val();
+            // var sbsvtag = parseInt(sbsvtag1)+1; // incremataion
 
           
           

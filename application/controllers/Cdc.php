@@ -1640,6 +1640,27 @@
 			
 			$mychecked2 = implode(',', $checked);
 
+			if(isset($_POST['dvrdti'])){
+				$dvrdtirej=$_POST['dvrdti'];
+			}else{
+				$dvrdtirej = NULL;
+			}
+			if(isset($_POST['dvragtidi'])){
+				$dvrdtirejagent=$_POST['dvragtidi'];
+			}else{
+				$dvrdtirejagent = NULL;
+			}
+			if(isset($_POST['dvagtidi'])){
+				$dvagtidiaccept=$_POST['dvagtidi'];
+			}else{
+				$dvagtidiaccept = NULL;
+			}
+			if(isset($_POST['dvdti'])){
+				$dvdtiaccept=$_POST['dvdti'];
+			}else{
+				$dvdtiaccept = NULL;
+			}
+
 			if($mychecked2 == "0"){  // Accept
 				$dvload = "1"; // go to next level-- Accept
 				$dvstat ="1"; //Data Verification|Tag for On Accept / Reject /Discard
@@ -1647,12 +1668,12 @@
 				 $dvrejtg = $_POST['dvrejtg'];
 				 $dvagtidi = $_SESSION['empcode']; //Data Verification Accept|Agent ID_I
 				// $dvragtidi = NULL;
-				$dvragtidi = $_POST['dvragtidi'];
+				$dvragtidi = $dvrdtirejagent;
 				$dvsbtg = $_POST['dvsbtg']; //Data Verification|Submission Tag
 
 				
 				$dvdti = $old_date; //Data Verification Accept|date and time_I
-				$dvrdti = $_POST['dvrdti'];
+				$dvrdti = $dvrdtirej;
 
 				
 			}else{
@@ -1661,9 +1682,9 @@
 				$dvrejtg = $_POST['dvrejtg'];
 				$dvsbtg = $_POST['dvsbtg'];
 				$dvragtidi = $_SESSION['empcode'];
-				$dvagtidi = $_POST['dvagtidi'];
+				$dvagtidi = $dvagtidiaccept;
 				$ontag = "1"; //null = new, 0 = needs to be reworked
-				$dvdti = $_POST['dvdti'];
+				$dvdti = $dvdtiaccept
 				$dvrdti = $old_date; //Data Verification|Rej_date and time_I
 			}
 

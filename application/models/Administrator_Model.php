@@ -2223,7 +2223,7 @@ public function get_campaign_fordataverification()
 		}	
 		public function get_email_list($campid,$user_id,$from,$to,$stage)
 		{
-			$this->db->select('leadmaster.cids,leadmaster.plink,leadmaster.jtitle,leadmaster.empsize,leadmaster.email,leadmaster.city,leadmaster.state,leadmaster.domain,leadmaster.fname,leadmaster.lname,users.emp_id,users.last_login,campaign.campnm,count(leadmaster.stagtidi) as number,ev.status as mailstatus');
+			$this->db->select('leadmaster.cids,leadmaster.lmid,leadmaster.plink,leadmaster.jtitle,leadmaster.empsize,leadmaster.email,leadmaster.city,leadmaster.state,leadmaster.domain,leadmaster.fname,leadmaster.lname,users.emp_id,users.last_login,campaign.campnm,count(leadmaster.stagtidi) as number,ev.status as mailstatus,ev.comment as evcomment,ev.loaddt as sent_mail_date');
 			$this->db->from('leadmaster');
 			$this->db->join('users', 'users.emp_id = leadmaster.stagtidi','left');
 			$this->db->join('campaign', 'campaign.cids = leadmaster.cids','left');
@@ -2251,6 +2251,7 @@ public function get_campaign_fordataverification()
 			// 	$this->db->where('stdti <=', date('Y-m-d H:i:s'));
 			// }
 			$this->db->group_by('leadmaster.cids');
+			$this->db->group_by('leadmaster.lmid');
 			$this->db->group_by('leadmaster.fname');
 			$this->db->group_by('leadmaster.lname');
 			$this->db->group_by('users.emp_id');
@@ -2265,6 +2266,8 @@ public function get_campaign_fordataverification()
 			$this->db->group_by('leadmaster.plink');
 			$this->db->group_by('leadmaster.jtitle');
 			$this->db->group_by('ev.status');
+			$this->db->group_by('ev.loaddt');
+			$this->db->group_by('ev.comment');
 			$this->db->limit(10);
 			$query=$this->db->get();
 			// show_error($this->db->last_query(), 200, "SQL");

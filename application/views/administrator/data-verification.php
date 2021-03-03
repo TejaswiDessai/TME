@@ -1063,10 +1063,6 @@ $(document).ready(function() {
                           <input type = hidden name="sbsvtag" id="sbsvtag" value="<?php echo $ldmster['sbsvtag']; ?>">
                           <input type = hidden name="dvrejtg" id="dvrejtg" value="<?php echo $ldmster['dvrejtg']; ?>">
                           <input type = hidden name="dvsbtg" id="dvsbtg" value="<?php echo $ldmster['dvsbtg']; ?>">
-                          <input type = hidden name="dvragtidi" id="dvragtidi" value="<?php echo $ldmster['dvragtidi']; ?>">
-                          <input type = hidden name="dvagtidi" id="dvagtidi" value="<?php echo $ldmster['dvagtidi']; ?>">
-                          <input type = hidden name="dvdti" id="dvdti" value="<?php echo $ldmster['dvdti']; ?>">
-                          <input type = hidden name="dvrdti" id="dvrdti" value="<?php echo $ldmster['dvrdti']; ?>">
                           <input type = hidden name="rlc" id="rlc" value="<?php echo $ldmster['rlc']; ?>">
                           <div class="form-group row" >
                             <div class="col-sm-12">
@@ -2105,16 +2101,10 @@ $("input:checkbox").change(function() {
 
           }
            
-            var dvragtidi = $('#dvragtidi').val();
-            var dvagtidi = $('#dvagtidi').val();
-
-            var dvrdti = $('#dvrdti').val();
-            var dvdti = $('#dvdti').val();
-
             var campaign_id = $('#campaign_id').val();
             var campaign_idcids = $('#campaign_idcids').val();
-            var sbsvtag = $('#sbsvtag').val();
-            // var sbsvtag = parseInt(sbsvtag1)+1; // incremataion
+            var sbsvtag1 = $('#sbsvtag').val();
+            var sbsvtag = parseInt(sbsvtag1)+1; // incremataion
 
           
           
@@ -2143,10 +2133,6 @@ $("input:checkbox").change(function() {
                   dvsbtg :dvsbtg,
                   pcomt :pcomt,
                   checked:checked,
-                  // dvragtidi:dvragtidi,
-                  // dvagtidi:dvagtidi,
-                  // dvdti:dvdti,
-                  // dvrdti:dvrdti,
                    
 				},
         async: true,
@@ -2199,13 +2185,6 @@ $("input:checkbox").change(function() {
           //   checked = [0];
           // }
            var checked = [0];
-
-           var dvragtidi = $('#dvragtidi').val();
-            var dvagtidi = $('#dvagtidi').val();
-
-            var dvrdti = $('#dvrdti').val();
-            var dvdti = $('#dvdti').val();
-            
             var campaign_id = $('#campaign_id').val();
             var campaign_idcids = $('#campaign_idcids').val();
             // var sbsvtag1 = $('#sbsvtag').val();
@@ -2238,11 +2217,7 @@ $("input:checkbox").change(function() {
                   dvrejtg :dvrejtg,
                   dvsbtg :dvsbtg,
                   pcomt :pcomt,
-                  checked:checked,
-                  // dvragtidi:dvragtidi,
-                  // dvagtidi:dvagtidi,
-                  // dvdti:dvdti,
-                  // dvrdti:dvrdti,
+                  checked:checked
                    
 				},
         async: true,

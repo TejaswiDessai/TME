@@ -225,7 +225,7 @@ $userteam = explode(',',$userteam1);
    
     <!-- <input type = "hidden" name="emp_id" id="emp_id" value="<?php echo  $_SESSION['empcode']; ?>"> -->
     <script>
-var emp_id = $('#emp_id').val();
+// var emp_id = $('#emp_id').val();
 
     var base_url = "<?php echo base_url() ?>";
    

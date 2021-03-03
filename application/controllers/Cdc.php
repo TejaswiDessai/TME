@@ -1646,13 +1646,12 @@
 				 $ontag = "1"; //null = new, 0 = needs to be reworked
 				 $dvrejtg = $_POST['dvrejtg'];
 				 $dvagtidi = $_SESSION['empcode']; //Data Verification Accept|Agent ID_I
-				// $dvragtidi = NULL;
-				$dvragtidi = $_POST['dvragtidi'];
+				$dvragtidi = NULL;
 				$dvsbtg = $_POST['dvsbtg']; //Data Verification|Submission Tag
 
 				
 				$dvdti = $old_date; //Data Verification Accept|date and time_I
-				$dvrdti = $_POST['dvrdti'];
+				$dvrdti = NULL;
 
 				
 			}else{
@@ -1661,9 +1660,9 @@
 				$dvrejtg = $_POST['dvrejtg'];
 				$dvsbtg = $_POST['dvsbtg'];
 				$dvragtidi = $_SESSION['empcode'];
-				$dvagtidi = $_POST['dvagtidi'];
+				$dvagtidi = NULL;
 				$ontag = "1"; //null = new, 0 = needs to be reworked
-				$dvdti = $_POST['dvdti'];
+				$dvdti = NULL ;
 				$dvrdti = $old_date; //Data Verification|Rej_date and time_I
 			}
 
@@ -1683,7 +1682,6 @@
 				'dvsbtg' => $dvsbtg, 
 				 'ontag' => $ontag, 
 				'dvload' => $dvload, //  next level
-				'dvstat' => $dvstat, //  dvstat
 				// 'svagtidi' => '1' // save Agent Name
 				// 'svdti' => '1' // save date time
 				'dvagtidi' => $dvagtidi, // submit agent name 

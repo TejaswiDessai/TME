@@ -1682,6 +1682,7 @@
 				'dvsbtg' => $dvsbtg, 
 				 'ontag' => $ontag, 
 				'dvload' => $dvload, //  next level
+				'dvstat' => $dvstat, //  dvstat
 				// 'svagtidi' => '1' // save Agent Name
 				// 'svdti' => '1' // save date time
 				'dvagtidi' => $dvagtidi, // submit agent name 

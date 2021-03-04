@@ -2101,10 +2101,11 @@ $("input:checkbox").change(function() {
 
           }
            
+        
             var campaign_id = $('#campaign_id').val();
             var campaign_idcids = $('#campaign_idcids').val();
-            var sbsvtag1 = $('#sbsvtag').val();
-            var sbsvtag = parseInt(sbsvtag1)+1; // incremataion
+            var sbsvtag = $('#sbsvtag').val();
+            // var sbsvtag = parseInt(sbsvtag1)+1; // incremataion
 
           
           
@@ -2133,7 +2134,7 @@ $("input:checkbox").change(function() {
                   dvsbtg :dvsbtg,
                   pcomt :pcomt,
                   checked:checked,
-                   
+                
 				},
         async: true,
                 cache: false,
@@ -2185,6 +2186,7 @@ $("input:checkbox").change(function() {
           //   checked = [0];
           // }
            var checked = [0];
+
             var campaign_id = $('#campaign_id').val();
             var campaign_idcids = $('#campaign_idcids').val();
             // var sbsvtag1 = $('#sbsvtag').val();
@@ -2217,7 +2219,8 @@ $("input:checkbox").change(function() {
                   dvrejtg :dvrejtg,
                   dvsbtg :dvsbtg,
                   pcomt :pcomt,
-                  checked:checked
+                  checked:checked,
+                
                    
 				},
         async: true,

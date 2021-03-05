@@ -300,6 +300,53 @@
 						
 						$_SESSION['lmid'] = $lmid;
 
+
+						$data['countries'] = $this->Administrator_Model->get_countriesbyCampaign($camp_id);
+				
+							foreach($data['countries'] as $co){
+							$myArray = implode(',', $co);
+							}
+
+							$myArray1 = explode(',', $myArray);
+							$data['countriesofcampaign'] = $this->Administrator_Model->get_countriesofCampaign($camp_id,$myArray1);
+							// print_r($data['countriesofcampaign']);
+							$data['industries1'] = $this->Administrator_Model->get_industries_byCampaign($camp_id);
+							foreach($data['industries1'] as $ind){
+								$myind = implode(',', $ind);
+								}
+								$myind1 = explode(',', $myind);
+							$data['industries'] = $this->Administrator_Model->get_industries_ofCampaign($camp_id,$myind1);
+	
+							$data['industriessub'] = $this->Administrator_Model->get_subindustries_byCampaign($camp_id,$myind1);
+	// print_r($data['industriessub']); 
+							$data['departments1'] = $this->Administrator_Model->get_departmentsbyCampaign($camp_id);
+							foreach($data['departments1'] as $dp){
+								$mydpArray = implode(',', $dp);
+								}
+								$mydpArray1 = explode(',', $mydpArray);
+								$data['departments'] = $this->Administrator_Model->get_depts_byCampaign($camp_id,$mydpArray1);
+							// $data['departments'] = $this->Administrator_Model->get_depts_byCampaign($mydpArray1);
+						   
+							$data['designation1'] = $this->Administrator_Model->get_designation_byCampaign($camp_id);
+							foreach($data['designation1'] as $ds){
+								$mydesi = implode(',', $ds);
+								}
+								$mydesiarry = explode(',', $mydesi);
+							$data['designation'] = $this->Administrator_Model->get_designation_ofCampaign($camp_id,$mydesiarry);
+							// print_r($data['designation']); 
+							// print_r($mydesiarry); 
+							$data['joblevel'] = $this->Administrator_Model->get_joblevels_byCampaign($camp_id,$mydesiarry);
+						
+						// print_r($data['joblevel']); 
+							$data['timezones'] = $this->Administrator_Model->get_timezonesbyCampaign($camp_id,$myArray1);
+							
+							$data['currency'] = $this->Administrator_Model->get_currencybyCampaign($camp_id,$myArray1);
+							// print_r($data['timezones']);
+							$data['comptype'] = $this->Administrator_Model->get_comptype();
+							
+							$data['assetitle'] = $this->Administrator_Model->get_assetitle_byCampaign($camp_id);
+							
+
 						if (isset($data['leadmaster'])){
 							$data['countriesdv'] = $this->Administrator_Model->get_countriesbyCampaigndv($ldmster['lmid']);
 							$data['industriesdv'] = $this->Administrator_Model->get_industries_ofleadmaster($ldmster['lmid']);
@@ -1637,16 +1684,301 @@
 				redirect('administrator/logout');
 				Exit();
 			}
+			if(!empty($_POST['dvragtidi']))
+				{
+					$postagent1 =  $_POST['dvragtidi'];
+				} else{
+				$postagent1 = NULL;
+				}
+			if(!empty($_POST['dvrdti']))
+				{
+					$postdate1 =  $_POST['dvrdti'];
+				} else{
+				$postdate1 = NULL;
+				}
+
+			if(!empty($_POST['dvragtidii']))
+				{
+					$postagent2 =  $_POST['dvragtidii'];
+				} else{
+				$postagent2 = NULL;
+				}
+			if(!empty($_POST['dvrdtii']))
+				{
+					$postdate2 =  $_POST['dvrdtii'];
+				} else{
+				$postdate2 = NULL;
+				}
+
+
+
+				if(!empty($_POST['dvagtidi']))
+				{
+					$postagentaccept1 =  $_POST['dvagtidi'];
+				} else{
+				$postagentaccept1 = NULL;
+				}
+				if(!empty($_POST['dvdti']))
+				{
+					$postdateaccept1 =  $_POST['dvdti'];
+				} else{
+				$postdateaccept1 = NULL;
+				}
+				if(!empty($_POST['dvagtidii']))
+				{
+					$postagentaccept2 =  $_POST['dvagtidii'];
+				} else{
+				$postagentaccept2 = NULL;
+				}
+				if(!empty($_POST['dvdtii']))
+				{
+					$postdateaccept2 =  $_POST['dvdtii'];
+				} else{
+				$postdateaccept2 = NULL;
+				}
+
+
+			$mychecked2 = implode(',', $checked);
+			
+			if(($_POST['dvrejtg'] > '1') OR ($_POST['dvsbtg'] > '1' ))
+			// if(!empty($_POST['dvdti'] ) AND !empty($_POST['dvrdti'] ))
+			{
+			if($mychecked2 == "0"){  // Accept
+				$dvload = "1"; // go to next level-- Accept
+				$dvstat ="1"; //Data Verification|Tag for On Accept / Reject /Discard
+				 $ontag = "1"; //null = new, 0 = needs to be reworked
+				 $dvrejtg = $_POST['dvrejtg'];
+				 $dvsbtg = $_POST['dvsbtg']; //Data Verification|Submission Tag
+				
+				 $dvagtidii = $_SESSION['empcode']; //Data Verification Accept|Agent ID_I
+				// $dvragtidi = NULL;
+				$dvragtidii = $postagent2;
+				
+				$dvdtii = $old_date; //Data Verification Accept|date and time_I
+				// $dvrdti = NULL;
+				$dvrdtii = $postdate2;
+				$dvragtidi = $postagent1;
+				$dvrdti = $postdate1;
+
+				$dvagtidi = $postagentaccept1;
+				$dvdti = $postdateaccept1;
+
+				
+			}else{
+				$dvload = "0"; // Reject
+				$dvstat ="2";
+				$dvrejtg = $_POST['dvrejtg'];
+				$dvsbtg = $_POST['dvsbtg'];
+				$ontag = "1"; //null = new, 0 = needs to be reworked
+
+				$dvragtidii = $_SESSION['empcode'];
+				// $dvagtidi = NULL;
+				$dvagtidii = $postagentaccept2;
+				
+				// $dvdti = NULL ;
+				$dvdtii = $postdateaccept2;
+				$dvrdtii = $old_date; //Data Verification|Rej_date and time_I
+				
+				$dvragtidi = $postagent1;
+				$dvrdti = $postdate1;
+				
+
+				$dvagtidi = $postagentaccept1;
+				$dvdti = $postdateaccept1;
+
+			}
+		}
+		else{ 
+			if($mychecked2 == "0"){  // Accept
+				$dvload = "1"; // go to next level-- Accept
+				$dvstat ="1"; //Data Verification|Tag for On Accept / Reject /Discard
+				 $ontag = "1"; //null = new, 0 = needs to be reworked
+				 $dvsbtg = $_POST['dvsbtg']; //Data Verification|Submission Tag
+				 $dvrejtg = $_POST['dvrejtg'];
+
+				$dvagtidi = $_SESSION['empcode']; //Data Verification Accept|Agent ID_I
+				// $dvragtidi = NULL;
+				$dvragtidi = $postagent1;
+				$dvdti = $old_date; //Data Verification Accept|date and time_I
+				// $dvrdti = NULL;
+				$dvrdti = $postdate1;
+				$dvrdtii = $postdate2;
+				$dvdtii = $postdateaccept2;
+				$dvagtidii = $postagentaccept2;
+				$dvragtidii = $postagent2;
+				
+			
+				
+			}else{
+				$dvload = "0"; // Reject
+				$dvstat ="2";
+				$dvrejtg = $_POST['dvrejtg'];
+				$dvsbtg = $_POST['dvsbtg'];
+				$ontag = "1"; //null = new, 0 = needs to be reworked
+
+				$dvragtidi = $_SESSION['empcode'];
+				// $dvagtidi = NULL;
+				$dvagtidi = $postagentaccept1;
+				
+				// $dvdti = NULL ;
+				$dvdti = $postdateaccept1;
+				$dvrdti = $old_date; //Data Verification|Rej_date and time_I
+				$dvrdtii = $postdate2;
+				$dvdtii = $postdateaccept2;
+				$dvagtidii = $postagentaccept2;
+				$dvragtidii = $postagent2;
+
+				
+			}
+		}
+				// if($_POST['dvrejtg'] > 2 || ($_POST['dvsbtg'] > 2))
+				// {
+
+				// 	$datacdcandlead = array(
+				// 		'dvrejectreason' => $mychecked2,
+				// 		'pcomt' => $_POST['pcomt'],
+						
+						
+				// 		// tag
+				// 		// 'ontag' => 0, // Submit and 0 = new, 1 = needs to be reworked
+				// 		'sbsvtag' => $sbsvtag, //  Submit till 5 times
+				// 		'pload' => '0', // next level ready to load
+				// 		'rlc' => '0', // record is closed
+				// 		'dvrejtg' => $dvrejtg, 
+				// 		'dvsbtg' => $dvsbtg, 
+				// 		'ontag' => $ontag, 
+				// 		'dvload' => $dvload, //  next level
+				// 		'dvstat' => $dvstat, //  dvstat
+				// 		// 'svagtidi' => '1' // save Agent Name
+				// 		// 'svdti' => '1' // save date time
+				// 		// 'dvagtidii' => $dvagtidi, // submit agent name 
+				// 		'dvagtidii' => $postagentaccept2, // submit agent name 
+				// 		'dvragtidii' => $postagent2, // submit agent name 
+				// 		'dvdtii' => $postdateaccept2,  // submit date time
+				// 		'dvrdtii' => $postdate2 // Data Verification|Rej_date and time_I
+					
+										
+				// 	);
+				// }else{
+					
+					$datacdcandlead = array(
+						'dvrejectreason' => $mychecked2,
+						'pcomt' => $_POST['pcomt'],
+						
+						
+						// tag
+						// 'ontag' => 0, // Submit and 0 = new, 1 = needs to be reworked
+						'sbsvtag' => $sbsvtag, //  Submit till 5 times
+						'pload' => '0', // next level ready to load
+						'rlc' => '0', // record is closed
+						'dvrejtg' => $dvrejtg, 
+						'dvsbtg' => $dvsbtg, 
+						'ontag' => $ontag, 
+						'dvload' => $dvload, //  next level
+						'dvstat' => $dvstat, //  dvstat
+						// 'svagtidi' => '1' // save Agent Name
+						// 'svdti' => '1' // save date time
+						'dvagtidi' => $dvagtidi, // submit agent name 
+						'dvragtidi' => $dvragtidi, // submit agent name 
+						'dvdti' => $dvdti,  // submit date time
+						'dvrdti' => $dvrdti, // Data Verification|Rej_date and time_I
+
+						'dvagtidii' => $dvagtidii, // submit agent name 
+						'dvragtidii' => $dvragtidii, // submit agent name 
+						'dvdtii' => $dvdtii,  // submit date time
+						'dvrdtii' => $dvrdtii // Data Verification|Rej_date and time_I
+					
+										
+					);
+				// }
+		
+				// $datacdcandlead = array(
+				// 'dvrejectreason' => $mychecked2,
+				// 'pcomt' => $_POST['pcomt'],
+				
+				
+				// // tag
+				// // 'ontag' => 0, // Submit and 0 = new, 1 = needs to be reworked
+				// 'sbsvtag' => $sbsvtag, //  Submit till 5 times
+				// 'pload' => '0', // next level ready to load
+				// 'rlc' => '0', // record is closed
+				// 'dvrejtg' => $dvrejtg, 
+				// 'dvsbtg' => $dvsbtg, 
+				//  'ontag' => $ontag, 
+				// 'dvload' => $dvload, //  next level
+				// 'dvstat' => $dvstat, //  dvstat
+				// // 'svagtidi' => '1' // save Agent Name
+				// // 'svdti' => '1' // save date time
+				// 'dvagtidi' => $dvagtidi, // submit agent name 
+				// 'dvragtidi' => $dvragtidi, // submit agent name 
+				// 'dvdti' => $dvdti,  // submit date time
+				// 'dvrdti' => $dvrdti // Data Verification|Rej_date and time_I
+			
+								
+				// );
+			// 	print_r($lmid); echo "Hiii";
+			// 	print_r($_POST['sbsvtag']); echo "Hiii";
+			//   print_r($datacdcandlead);
+			 
+			    
+			
+				$addleadandcdcdata = $this->Administrator_Model->update_leaddata($datacdcandlead,$lmid);
+				// print_r($addcampaigndata);  die;
+				
+				// exit();
+				if($addleadandcdcdata == true){
+			
+					echo json_encode(array(
+						"statusCode"=>"Success",
+						// "lead_id"=>$addleadandcdcdata,
+						"message"=>"Data Verified Successfully.."
+					));
+				}else{
+					echo json_encode(array(
+						"statusCode"=>"Fail",
+						"message"=>"Lead failed.."
+					));
+				}
+								
+			
+		}
+		public function ajax_update_datacdc()
+		{
+			
+			$campaign_id = $_POST['campaign_id'];
+			$cids = $_POST['campaign_idcids'];
+			
+			$lmid = $_POST['lmid'];
+			$checked = $_POST['checked'];
+			$sbsvtag = $_POST['sbsvtag'];
+			$dvrejtg = $_POST['dvrejtg'];
+			$dvsbtg = $_POST['dvsbtg'];
+			// echo "Hiiiiiiiiiiiiiiiiii";
+			// print_r($_POST['checked']);
+			// // exit();
+			
+				$old_date = date('Y-m-d H:i:s');         // works
+				$middle = strtotime($old_date);             // returns bool(false)
+				$new_date = date('Y-m-d H:i:s', $middle);
+
+			// $mychecked = explode(',', $checked);
+		
+			if(!isset($_SESSION['empcode'])){
+				
+			
+				redirect('administrator/logout');
+				Exit();
+			}
 			
 			$mychecked2 = implode(',', $checked);
-
+			
 			if($mychecked2 == "0"){  // Accept
 				$dvload = "1"; // go to next level-- Accept
 				$dvstat ="1"; //Data Verification|Tag for On Accept / Reject /Discard
 				 $ontag = "1"; //null = new, 0 = needs to be reworked
 				 $dvrejtg = $_POST['dvrejtg'];
 				 $dvagtidi = $_SESSION['empcode']; //Data Verification Accept|Agent ID_I
-				$dvragtidi = NULL;
+				$dvragtidi = 0;
 				$dvsbtg = $_POST['dvsbtg']; //Data Verification|Submission Tag
 
 				
@@ -1660,7 +1992,7 @@
 				$dvrejtg = $_POST['dvrejtg'];
 				$dvsbtg = $_POST['dvsbtg'];
 				$dvragtidi = $_SESSION['empcode'];
-				$dvagtidi = NULL;
+				$dvagtidi = 0;
 				$ontag = "1"; //null = new, 0 = needs to be reworked
 				$dvdti = NULL ;
 				$dvrdti = $old_date; //Data Verification|Rej_date and time_I
@@ -1671,7 +2003,6 @@
 				$datacdcandlead = array(
 				'dvrejectreason' => $mychecked2,
 				'pcomt' => $_POST['pcomt'],
-				
 				
 				// tag
 				// 'ontag' => 0, // Submit and 0 = new, 1 = needs to be reworked
@@ -1688,7 +2019,31 @@
 				'dvagtidi' => $dvagtidi, // submit agent name 
 				'dvragtidi' => $dvragtidi, // submit agent name 
 				'dvdti' => $dvdti,  // submit date time
-				'dvrdti' => $dvrdti // Data Verification|Rej_date and time_I
+				'dvrdti' => $dvrdti, // Data Verification|Rej_date and time_I
+
+
+				'dvcomt' => 1, //accept/rejection by cdc
+				 'optin' => $_POST['optin'],
+				'optpst' => $_POST['optpst'],
+				'optph' => $_POST['optph'],
+				'opteml' => $_POST['opteml'],
+				'dnd' => $_POST['dnd'],
+				
+
+				'aa1' => $_POST['aa1'],
+				'aa2' => $_POST['aa2'],
+				'aa3' => $_POST['aa3'],
+				'aa4' => $_POST['aa4'],
+				'aa5' => $_POST['aa5'],
+				'aa6' => $_POST['aa6'],
+				'aa7' => $_POST['aa7'],
+				'aa8' => $_POST['aa8'],
+				'aa9' => $_POST['aa9'],
+				'aa10' => $_POST['aa10'],
+				'aa11' => $_POST['aa11'],
+				'aa12' => $_POST['aa12']
+
+
 			
 								
 				);
@@ -1696,7 +2051,7 @@
 			// 	print_r($_POST['sbsvtag']); echo "Hiii";
 			//   print_r($datacdcandlead);
 			 
-			    
+			    // exit();
 			
 				$addleadandcdcdata = $this->Administrator_Model->update_leaddata($datacdcandlead,$lmid);
 				// print_r($addcampaigndata);  die;
@@ -1864,6 +2219,204 @@
 
 				// 'svagtidi' => '1' // save Agent Name
 				// 'svdti' => '1' // save date time
+				'stagtidii' => $_SESSION['empcode'], // submit agent name 
+				'stdtii' => $old_date  // submit date time
+								
+				);
+			
+			//   print_r($datacdcandlead);
+			//      exit();
+			
+				$addleadandcdcdata = $this->Administrator_Model->update_leaddata($datacdcandlead,$lmid);
+				// print_r($addcampaigndata);  die;
+				
+
+				if($addleadandcdcdata == true){
+			
+					echo json_encode(array(
+						"statusCode"=>"Success",
+						"lead_id"=>$addleadandcdcdata,
+						"message"=>"Lead Uptated Successfully.."
+					));
+				}else{
+					echo json_encode(array(
+						"statusCode"=>"Fail",
+						"message"=>"Add data Lead failed.."
+					));
+				}
+								
+			
+		}
+		public function ajax_update_leaddatacdc()
+		{
+			$campaign_id = $_GET['campaign_id'];
+			$cids = $_GET['campaign_idcids'];
+			$sbsvtag = $_GET['sbsvtag'];
+			$lmid = $_GET['lmid'];
+
+			if(!isset($_SESSION['empcode'])){
+				
+			
+				redirect('administrator/logout');
+				Exit();
+			}
+
+			// print_r($cids);
+			// print_r($sbsvtag);
+
+			// die;
+				// Concatenation Of String 
+				$trimfname=$_GET['fname'];
+				$trimlname=$_GET['lname'];
+
+				$first =substr($trimfname, 0, 4);  // abcd
+				$last = substr($trimlname, 0, 4);
+				$conname = $first.$last; 
+
+
+				$old_date = date('Y-m-d H:i:s');         // works
+				$middle = strtotime($old_date);             // returns bool(false)
+				$new_date = date('Y-m-d H:i:s', $middle);
+
+				if(!empty($_GET['aum']))
+				{
+					$aum = $_GET['aum'];
+				} else{
+				$aum = 0 ;
+				}
+				if(!empty($_GET['arevenue']))
+				{
+					$arrevenue = $_GET['arevenue'];
+				} else{
+				$arrevenue = 0 ;
+				}
+				if(!empty($_GET['phext']))
+				{
+					$phext = $_GET['phext'];
+				} else{
+				$phext = 0 ;
+				}
+			   if(!empty($_GET['sectyp']))
+				{
+					$sectype = $_GET['sectyp'];
+				} else{
+				$sectype = 0 ; 
+				}  
+
+
+				if(!empty($_GET['optin']))
+				{
+					$optin = 1;
+				} else{
+				    $optin = 0 ;
+				}
+				if(!empty($_GET['optpst']))
+				{
+					$optpost = 1;
+				} else{
+				    $optpost = 0 ;
+				}
+				if(!empty($_GET['optph']))
+				{
+					$optph = 1;
+				} else{
+				    $optph = 0 ;
+				}
+				if(!empty($_GET['opteml']))
+				{
+					$opteml = 1;
+				} else{
+				    $opteml = 0 ;
+				}
+				if(!empty($_GET['timezone']))
+				{
+					$timezones = $_GET['timezone'];
+				} else{
+				    $timezones = 0 ;
+				}
+
+
+				$datacdcandlead = array(
+				'cids' => $_GET['campaign_idcids'],
+				
+				'sal' => $_GET['sal'],
+				'fname' => $_GET['fname'],
+				'lname' => $_GET['lname'],
+				'conname' => $conname, //concate strings
+				'jtitle' => $_GET['jtitle'],
+				// 'desid' => $_GET['desid'],
+
+				'jlevel' => $_GET['desid'],
+				'dname' => $_GET['dcd'], //department
+				'email' => $_GET['email'],
+				'phone' => $_GET['phone'],
+				'altphn' => $_GET['altphn'],
+
+				'phext' => $phext,
+				'plink' => $_GET['plink'],
+				'cname' => $_GET['company_name'],
+				'address' => $_GET['address'],
+
+				'city' => $_GET['city'],
+				'state' => $_GET['state'],
+				'zipcode' => $_GET['zip_code'],
+				'country' => $_GET['country_id'],
+				'timez' => $timezones,
+				'ctyp' => $_GET['ctype'],
+			
+				'linetype' => $_GET['linetype'],
+				'indtry' => $_GET['industrycd'],
+				'sindtry' => $_GET['subindustrycd'],
+
+				'sectyp' => $sectype,
+				'empsize' => $_GET['empsize'],
+				'arevenue' =>$arrevenue,
+				'mlbl' => $_GET['mlbl'],
+				'curr' => $_GET['curr'],
+
+				'domain' => $_GET['domain'],
+				'indlink' => $_GET['indlink'],
+				'revszlink' => $_GET['revszlink'],
+				'empszlink' => $_GET['empszlink'],
+				'pcomt' => $_GET['pcomt'],
+
+				'othrlink' => $_GET['othrlink'],
+
+				'emailver' => $_GET['emailver'],
+				'aum' => $aum,
+				
+				'optin' => $optin,
+				'optpst' => $optpost,
+				'optph' => $optph,
+				'opteml' => $opteml,
+				'dnd' => $_GET['dnd'],
+				
+
+				'aa1' => $_GET['aa1'],
+				'aa2' => $_GET['aa2'],
+				'aa3' => $_GET['aa3'],
+				'aa4' => $_GET['aa4'],
+				'aa5' => $_GET['aa5'],
+				'aa6' => $_GET['aa6'],
+				'aa7' => $_GET['aa7'],
+				'aa8' => $_GET['aa8'],
+				'aa9' => $_GET['aa9'],
+				'aa10' => $_GET['aa10'],
+				'aa11' => $_GET['aa11'],
+				'aa12' => $_GET['aa12'],
+
+
+
+
+				// tag
+				// 'ontag' => 0, // Submit and 0 = new, 1 = needs to be reworked
+				'sbsvtag' => $sbsvtag, //  Submit till 5 times
+				'pload' => '1', // next level ready to load
+				'rlc' => '0', // record is closed
+				'ontag' => '0', // record is closed
+
+				// 'svagtidi' => '1' // save Agent Name
+				// 'svdti' => '1' // save date time
 				'stagtidi' => $_SESSION['empcode'], // submit agent name 
 				'stdti' => $old_date  // submit date time
 								
@@ -1890,6 +2443,334 @@
 					));
 				}
 								
+			
+		}
+		public function ajax_save_updateleaddatacdc()
+		{
+			$campaign_id = $_GET['campaign_id'];
+			$cids = $_GET['campaign_idcids'];
+			// $sbsvtag = $_GET['sbsvtag'];
+			$lmid = $_GET['lmid'];
+
+			if(!isset($_SESSION['empcode'])){
+				
+			
+				redirect('administrator/logout');
+				Exit();
+			}
+
+			// print_r($cids);
+			// print_r($sbsvtag);
+
+			// die;
+				// Concatenation Of String 
+				$trimfname=$_GET['fname'];
+				$trimlname=$_GET['lname'];
+
+				$first =substr($trimfname, 0, 4);  // abcd
+				$last = substr($trimlname, 0, 4);
+				$conname = $first.$last; 
+
+
+				$old_date = date('Y-m-d H:i:s');         // works
+				$middle = strtotime($old_date);             // returns bool(false)
+				$new_date = date('Y-m-d H:i:s', $middle);
+
+				if(!empty($_GET['aum']))
+				{
+					$aum = $_GET['aum'];
+				} else{
+				$aum = 0 ;
+				}
+				if(!empty($_GET['arevenue']))
+				{
+					$arrevenue = $_GET['arevenue'];
+				} else{
+				$arrevenue = 0 ;
+				}
+				if(!empty($_GET['phext']))
+				{
+					$phext = $_GET['phext'];
+				} else{
+				$phext = 0 ;
+				}
+			   if(!empty($_GET['sectyp']))
+				{
+					$sectype = $_GET['sectyp'];
+				} else{
+				$sectype = 0 ; 
+				}  
+
+
+				if(!empty($_GET['optin']))
+				{
+					$optin = 1;
+				} else{
+				    $optin = 0 ;
+				}
+				if(!empty($_GET['optpst']))
+				{
+					$optpost = 1;
+				} else{
+				    $optpost = 0 ;
+				}
+				if(!empty($_GET['optph']))
+				{
+					$optph = 1;
+				} else{
+				    $optph = 0 ;
+				}
+				if(!empty($_GET['opteml']))
+				{
+					$opteml = 1;
+				} else{
+				    $opteml = 0 ;
+				}
+				if(!empty($_GET['timezone']))
+				{
+					$timezones = $_GET['timezone'];
+				} else{
+				    $timezones = 0 ;
+				}
+
+
+				$datacdcandlead = array(
+				'cids' => $_GET['campaign_idcids'],
+				
+				'sal' => $_GET['sal'],
+				'fname' => $_GET['fname'],
+				'lname' => $_GET['lname'],
+				'conname' => $conname, //concate strings
+				'jtitle' => $_GET['jtitle'],
+				// 'desid' => $_GET['desid'],
+
+				'jlevel' => $_GET['desid'],
+				'dname' => $_GET['dcd'], //department
+				'email' => $_GET['email'],
+				'phone' => $_GET['phone'],
+				'altphn' => $_GET['altphn'],
+
+				'phext' => $phext,
+				'plink' => $_GET['plink'],
+				'cname' => $_GET['company_name'],
+				'address' => $_GET['address'],
+
+				'city' => $_GET['city'],
+				'state' => $_GET['state'],
+				'zipcode' => $_GET['zip_code'],
+				'country' => $_GET['country_id'],
+				'timez' => $timezones,
+				'ctyp' => $_GET['ctype'],
+			
+				'linetype' => $_GET['linetype'],
+				'indtry' => $_GET['industrycd'],
+				'sindtry' => $_GET['subindustrycd'],
+
+				'sectyp' => $sectype,
+				'empsize' => $_GET['empsize'],
+				'arevenue' =>$arrevenue,
+				'mlbl' => $_GET['mlbl'],
+				'curr' => $_GET['curr'],
+
+				'domain' => $_GET['domain'],
+				'indlink' => $_GET['indlink'],
+				'revszlink' => $_GET['revszlink'],
+				'empszlink' => $_GET['empszlink'],
+				'pcomt' => $_GET['pcomt'],
+
+				'othrlink' => $_GET['othrlink'],
+
+				'emailver' => $_GET['emailver'],
+				'aum' => $aum,
+				
+				'optin' => $optin,
+				'optpst' => $optpost,
+				'optph' => $optph,
+				'opteml' => $opteml,
+				'dnd' => $_GET['dnd'],
+				
+
+				'aa1' => $_GET['aa1'],
+				'aa2' => $_GET['aa2'],
+				'aa3' => $_GET['aa3'],
+				'aa4' => $_GET['aa4'],
+				'aa5' => $_GET['aa5'],
+				'aa6' => $_GET['aa6'],
+				'aa7' => $_GET['aa7'],
+				'aa8' => $_GET['aa8'],
+				'aa9' => $_GET['aa9'],
+				'aa10' => $_GET['aa10'],
+				'aa11' => $_GET['aa11'],
+				'aa12' => $_GET['aa12'],
+
+
+
+
+				// tag
+				// 'ontag' => 0, // Submit and 0 = new, 1 = needs to be reworked
+				'sbsvtag' => '0', //  Submit till 5 times
+				'pload' => '1', // next level ready to load
+				'rlc' => '0', // record is closed
+				'ontag' => '0', // record is closed
+
+				// 'svagtidi' => '1' // save Agent Name
+				// 'svdti' => '1' // save date time
+				'stagtidi' => $_SESSION['empcode'], // submit agent name 
+				'stdti' => $old_date  // submit date time
+								
+				);
+			
+			//   print_r($datacdcandlead);
+			//      exit();
+			
+				$addleadandcdcdata = $this->Administrator_Model->update_leaddata($datacdcandlead,$lmid);
+				// print_r($addcampaigndata);  die;
+				
+
+				if($addleadandcdcdata == true){
+			
+					echo json_encode(array(
+						"statusCode"=>"Success",
+						"lead_id"=>$addleadandcdcdata,
+						"message"=>"Lead Uptated Successfully.."
+					));
+				}else{
+					echo json_encode(array(
+						"statusCode"=>"Fail",
+						"message"=>"Add data Lead failed.."
+					));
+				}
+								
+			
+		}
+
+		public function ajax_save_leaddatacdc()
+		{
+			$campaign_id = $_POST['campaign_id'];
+			$cids = $_POST['campaign_idcids'];
+			
+			$lmid = $_POST['lmid'];
+			$checked = $_POST['checked'];
+			$sbsvtag = $_POST['sbsvtag'];
+			$dvrejtg = $_POST['dvrejtg'];
+			$dvsbtg = $_POST['dvsbtg'];
+			// echo "Hiiiiiiiiiiiiiiiiii";
+			// print_r($_POST['checked']);
+			// // exit();
+			
+				$old_date = date('Y-m-d H:i:s');         // works
+				$middle = strtotime($old_date);             // returns bool(false)
+				$new_date = date('Y-m-d H:i:s', $middle);
+
+			// $mychecked = explode(',', $checked);
+		
+			if(!isset($_SESSION['empcode'])){
+				
+			
+				redirect('administrator/logout');
+				Exit();
+			}
+			
+			$mychecked2 = implode(',', $checked);
+			
+			if($mychecked2 == "0"){  // Accept
+				$dvload = "1"; // go to next level-- Accept
+				$dvstat ="1"; //Data Verification|Tag for On Accept / Reject /Discard
+				 $ontag = "1"; //null = new, 0 = needs to be reworked
+				 $dvrejtg = $_POST['dvrejtg'];
+				 $dvagtidi = $_SESSION['empcode']; //Data Verification Accept|Agent ID_I
+				$dvragtidi = 0;
+				$dvsbtg = $_POST['dvsbtg']; //Data Verification|Submission Tag
+
+				
+				$dvdti = $old_date; //Data Verification Accept|date and time_I
+				$dvrdti = NULL;
+
+				
+			}else{
+				$dvload = "0"; // Reject
+				$dvstat ="2";
+				$dvrejtg = $_POST['dvrejtg'];
+				$dvsbtg = $_POST['dvsbtg'];
+				$dvragtidi = $_SESSION['empcode'];
+				$dvagtidi = 0;
+				$ontag = "1"; //null = new, 0 = needs to be reworked
+				$dvdti = NULL ;
+				$dvrdti = $old_date; //Data Verification|Rej_date and time_I
+			}
+
+
+		
+				$datacdcandlead = array(
+				'dvrejectreason' => $mychecked2,
+				'pcomt' => $_POST['pcomt'],
+				
+				// tag
+				// 'ontag' => 0, // Submit and 0 = new, 1 = needs to be reworked
+				'sbsvtag' => $sbsvtag, //  Submit till 5 times
+				'pload' => '0', // next level ready to load
+				'rlc' => '0', // record is closed
+				'dvrejtg' => $dvrejtg, 
+				'dvsbtg' => $dvsbtg, 
+				 'ontag' => $ontag, 
+				'dvload' => $dvload, //  next level
+				'dvstat' => $dvstat, //  dvstat
+				// 'svagtidi' => '1' // save Agent Name
+				// 'svdti' => '1' // save date time
+				'dvagtidi' => $dvagtidi, // submit agent name 
+				'dvragtidi' => $dvragtidi, // submit agent name 
+				'dvdti' => $dvdti,  // submit date time
+				'dvrdti' => $dvrdti, // Data Verification|Rej_date and time_I
+
+
+				'dvcomt' => 1, //accept/rejection by cdc
+				 'optin' => $_POST['optin'],
+				'optpst' => $_POST['optpst'],
+				'optph' => $_POST['optph'],
+				'opteml' => $_POST['opteml'],
+				'dnd' => $_POST['dnd'],
+				
+
+				'aa1' => $_POST['aa1'],
+				'aa2' => $_POST['aa2'],
+				'aa3' => $_POST['aa3'],
+				'aa4' => $_POST['aa4'],
+				'aa5' => $_POST['aa5'],
+				'aa6' => $_POST['aa6'],
+				'aa7' => $_POST['aa7'],
+				'aa8' => $_POST['aa8'],
+				'aa9' => $_POST['aa9'],
+				'aa10' => $_POST['aa10'],
+				'aa11' => $_POST['aa11'],
+				'aa12' => $_POST['aa12']
+
+
+			
+								
+				);
+			// 	print_r($lmid); echo "Hiii";
+			// 	print_r($_POST['sbsvtag']); echo "Hiii";
+			//   print_r($datacdcandlead);
+			 
+			    // exit();
+			
+				$addleadandcdcdata = $this->Administrator_Model->update_leaddata($datacdcandlead,$lmid);
+				// print_r($addcampaigndata);  die;
+				
+				// exit();
+				if($addleadandcdcdata == true){
+			
+					echo json_encode(array(
+						"statusCode"=>"Success",
+						// "lead_id"=>$addleadandcdcdata,
+						"message"=>"Data Verified Successfully.."
+					));
+				}else{
+					echo json_encode(array(
+						"statusCode"=>"Fail",
+						"message"=>"Lead failed.."
+					));
+				}
 			
 		}
 

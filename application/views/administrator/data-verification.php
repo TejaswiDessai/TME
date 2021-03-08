@@ -2124,6 +2124,12 @@ $("input:checkbox").change(function() {
             var dvrdtii = $('#dvrdtii').val();
             var dvragtidii = $('#dvragtidii').val();
 
+            var dvdti = $('#dvdti').val();
+            var dvagtidi = $('#dvagtidi').val();
+
+            var dvdtii = $('#dvdtii').val();
+            var dvagtidii = $('#dvagtidii').val();
+
 
             var campaign_id = $('#campaign_id').val();
             var campaign_idcids = $('#campaign_idcids').val();
@@ -2162,6 +2168,11 @@ $("input:checkbox").change(function() {
 
                   dvragtidii:dvragtidii,
                   dvrdtii:dvrdtii,
+
+                  dvdti:dvdti,
+                  dvagtidi:dvagtidi,
+                  dvdtii:dvdtii,
+                  dvagtidii:dvagtidii,
                 
 				},
         async: true,

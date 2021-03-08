@@ -1740,126 +1740,101 @@
 
 			$mychecked2 = implode(',', $checked);
 			
-			if(($_POST['dvrejtg'] > '1') OR ($_POST['dvsbtg'] > '1' ))
+			// if((($_POST['dvrejtg'] >= 1) AND ($_POST['dvsbtg'] != 0) ) OR (($_POST['dvrejtg'] != 0) AND ($_POST['dvsbtg'] >= 1 )))
+			
+			if((($_POST['dvsbtg'] == 1) AND ($_POST['dvrejtg'] == 0)) OR (($_POST['dvsbtg'] == 0) AND ($_POST['dvrejtg'] == 1)))
 			// if(!empty($_POST['dvdti'] ) AND !empty($_POST['dvrdti'] ))
 			{
 			if($mychecked2 == "0"){  // Accept
-				$dvload = "1"; // go to next level-- Accept
-				$dvstat ="1"; //Data Verification|Tag for On Accept / Reject /Discard
-				 $ontag = "1"; //null = new, 0 = needs to be reworked
-				 $dvrejtg = $_POST['dvrejtg'];
-				 $dvsbtg = $_POST['dvsbtg']; //Data Verification|Submission Tag
-				
-				 $dvagtidii = $_SESSION['empcode']; //Data Verification Accept|Agent ID_I
-				// $dvragtidi = NULL;
-				$dvragtidii = $postagent2;
-				
-				$dvdtii = $old_date; //Data Verification Accept|date and time_I
-				// $dvrdti = NULL;
-				$dvrdtii = $postdate2;
-				$dvragtidi = $postagent1;
-				$dvrdti = $postdate1;
+						$dvload = "1"; // go to next level-- Accept
+						$dvstat ="1"; //Data Verification|Tag for On Accept / Reject /Discard
+						$ontag = "1"; //null = new, 0 = needs to be reworked
+						$dvsbtg = $_POST['dvsbtg']; //Data Verification|Submission Tag
+						$dvrejtg = $_POST['dvrejtg'];
 
-				$dvagtidi = $postagentaccept1;
-				$dvdti = $postdateaccept1;
-
-				
-			}else{
-				$dvload = "0"; // Reject
-				$dvstat ="2";
-				$dvrejtg = $_POST['dvrejtg'];
-				$dvsbtg = $_POST['dvsbtg'];
-				$ontag = "1"; //null = new, 0 = needs to be reworked
-
-				$dvragtidii = $_SESSION['empcode'];
-				// $dvagtidi = NULL;
-				$dvagtidii = $postagentaccept2;
-				
-				// $dvdti = NULL ;
-				$dvdtii = $postdateaccept2;
-				$dvrdtii = $old_date; //Data Verification|Rej_date and time_I
-				
-				$dvragtidi = $postagent1;
-				$dvrdti = $postdate1;
-				
-
-				$dvagtidi = $postagentaccept1;
-				$dvdti = $postdateaccept1;
-
-			}
-		}
-		else{ 
-			if($mychecked2 == "0"){  // Accept
-				$dvload = "1"; // go to next level-- Accept
-				$dvstat ="1"; //Data Verification|Tag for On Accept / Reject /Discard
-				 $ontag = "1"; //null = new, 0 = needs to be reworked
-				 $dvsbtg = $_POST['dvsbtg']; //Data Verification|Submission Tag
-				 $dvrejtg = $_POST['dvrejtg'];
-
-				$dvagtidi = $_SESSION['empcode']; //Data Verification Accept|Agent ID_I
-				// $dvragtidi = NULL;
-				$dvragtidi = $postagent1;
-				$dvdti = $old_date; //Data Verification Accept|date and time_I
-				// $dvrdti = NULL;
-				$dvrdti = $postdate1;
-				$dvrdtii = $postdate2;
-				$dvdtii = $postdateaccept2;
-				$dvagtidii = $postagentaccept2;
-				$dvragtidii = $postagent2;
-				
-			
-				
-			}else{
-				$dvload = "0"; // Reject
-				$dvstat ="2";
-				$dvrejtg = $_POST['dvrejtg'];
-				$dvsbtg = $_POST['dvsbtg'];
-				$ontag = "1"; //null = new, 0 = needs to be reworked
-
-				$dvragtidi = $_SESSION['empcode'];
-				// $dvagtidi = NULL;
-				$dvagtidi = $postagentaccept1;
-				
-				// $dvdti = NULL ;
-				$dvdti = $postdateaccept1;
-				$dvrdti = $old_date; //Data Verification|Rej_date and time_I
-				$dvrdtii = $postdate2;
-				$dvdtii = $postdateaccept2;
-				$dvagtidii = $postagentaccept2;
-				$dvragtidii = $postagent2;
-
-				
-			}
-		}
-				// if($_POST['dvrejtg'] > 2 || ($_POST['dvsbtg'] > 2))
-				// {
-
-				// 	$datacdcandlead = array(
-				// 		'dvrejectreason' => $mychecked2,
-				// 		'pcomt' => $_POST['pcomt'],
+						$dvagtidi = $_SESSION['empcode']; //Data Verification Accept|Agent ID_I
+						// $dvragtidi = NULL;
+						$dvragtidi = $postagent1;
+						$dvdti = $old_date; //Data Verification Accept|date and time_I
+						// $dvrdti = NULL;
+						$dvrdti = $postdate1;
+						$dvrdtii = $postdate2;
+						$dvdtii = $postdateaccept2;
+						$dvagtidii = $postagentaccept2;
+						$dvragtidii = $postagent2;
 						
-						
-				// 		// tag
-				// 		// 'ontag' => 0, // Submit and 0 = new, 1 = needs to be reworked
-				// 		'sbsvtag' => $sbsvtag, //  Submit till 5 times
-				// 		'pload' => '0', // next level ready to load
-				// 		'rlc' => '0', // record is closed
-				// 		'dvrejtg' => $dvrejtg, 
-				// 		'dvsbtg' => $dvsbtg, 
-				// 		'ontag' => $ontag, 
-				// 		'dvload' => $dvload, //  next level
-				// 		'dvstat' => $dvstat, //  dvstat
-				// 		// 'svagtidi' => '1' // save Agent Name
-				// 		// 'svdti' => '1' // save date time
-				// 		// 'dvagtidii' => $dvagtidi, // submit agent name 
-				// 		'dvagtidii' => $postagentaccept2, // submit agent name 
-				// 		'dvragtidii' => $postagent2, // submit agent name 
-				// 		'dvdtii' => $postdateaccept2,  // submit date time
-				// 		'dvrdtii' => $postdate2 // Data Verification|Rej_date and time_I
 					
-										
-				// 	);
-				// }else{
+						
+					}else{
+						$dvload = "0"; // Reject
+						$dvstat ="2";
+						$dvrejtg = $_POST['dvrejtg'];
+						$dvsbtg = $_POST['dvsbtg'];
+						$ontag = "1"; //null = new, 0 = needs to be reworked
+
+						$dvragtidi = $_SESSION['empcode'];
+						// $dvagtidi = NULL;
+						$dvagtidi = $postagentaccept1;
+						
+						// $dvdti = NULL ;
+						$dvdti = $postdateaccept1;
+						$dvrdti = $old_date; //Data Verification|Rej_date and time_I
+						$dvrdtii = $postdate2;
+						$dvdtii = $postdateaccept2;
+						$dvagtidii = $postagentaccept2;
+						$dvragtidii = $postagent2;
+
+						
+					}
+
+			}else{
+				if($mychecked2 == "0"){  // Accept
+							$dvload = "1"; // go to next level-- Accept
+							$dvstat ="1"; //Data Verification|Tag for On Accept / Reject /Discard
+							 $ontag = "1"; //null = new, 0 = needs to be reworked
+							 $dvrejtg = $_POST['dvrejtg'];
+							 $dvsbtg = $_POST['dvsbtg']; //Data Verification|Submission Tag
+							
+							 $dvagtidii = $_SESSION['empcode']; //Data Verification Accept|Agent ID_I
+							// $dvragtidi = NULL;
+							$dvragtidii = $postagent2;
+							
+							$dvdtii = $old_date; //Data Verification Accept|date and time_I
+							// $dvrdti = NULL;
+							$dvrdtii = $postdate2;
+							$dvragtidi = $postagent1;
+							$dvrdti = $postdate1;
+			
+							$dvagtidi = $postagentaccept1;
+							$dvdti = $postdateaccept1;
+			
+							
+						}else{
+							$dvload = "0"; // Reject
+							$dvstat ="2";
+							$dvrejtg = $_POST['dvrejtg'];
+							$dvsbtg = $_POST['dvsbtg'];
+							$ontag = "1"; //null = new, 0 = needs to be reworked
+			
+							$dvragtidii = $_SESSION['empcode'];
+							// $dvagtidi = NULL;
+							$dvagtidii = $postagentaccept2;
+							
+							// $dvdti = NULL ;
+							$dvdtii = $postdateaccept2;
+							$dvrdtii = $old_date; //Data Verification|Rej_date and time_I
+							
+							$dvragtidi = $postagent1;
+							$dvrdti = $postdate1;
+							
+			
+							$dvagtidi = $postagentaccept1;
+							$dvdti = $postdateaccept1;
+			
+						}
+			}
+
+		
 					
 					$datacdcandlead = array(
 						'dvrejectreason' => $mychecked2,
@@ -1890,32 +1865,7 @@
 					
 										
 					);
-				// }
-		
-				// $datacdcandlead = array(
-				// 'dvrejectreason' => $mychecked2,
-				// 'pcomt' => $_POST['pcomt'],
-				
-				
-				// // tag
-				// // 'ontag' => 0, // Submit and 0 = new, 1 = needs to be reworked
-				// 'sbsvtag' => $sbsvtag, //  Submit till 5 times
-				// 'pload' => '0', // next level ready to load
-				// 'rlc' => '0', // record is closed
-				// 'dvrejtg' => $dvrejtg, 
-				// 'dvsbtg' => $dvsbtg, 
-				//  'ontag' => $ontag, 
-				// 'dvload' => $dvload, //  next level
-				// 'dvstat' => $dvstat, //  dvstat
-				// // 'svagtidi' => '1' // save Agent Name
-				// // 'svdti' => '1' // save date time
-				// 'dvagtidi' => $dvagtidi, // submit agent name 
-				// 'dvragtidi' => $dvragtidi, // submit agent name 
-				// 'dvdti' => $dvdti,  // submit date time
-				// 'dvrdti' => $dvrdti // Data Verification|Rej_date and time_I
 			
-								
-				// );
 			// 	print_r($lmid); echo "Hiii";
 			// 	print_r($_POST['sbsvtag']); echo "Hiii";
 			//   print_r($datacdcandlead);

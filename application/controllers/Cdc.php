@@ -2054,6 +2054,35 @@
 				$middle = strtotime($old_date);             // returns bool(false)
 				$new_date = date('Y-m-d H:i:s', $middle);
 
+				if(empty($_GET['stagtidi']))
+				{
+					$stagtidi = $_SESSION['empcode'];
+				}else{
+					$stagtidi = $_GET['stagtidi'];
+				}
+				if(!empty($_GET['stagtidi']) AND empty($_GET['stagtidii']))
+				{
+					$stagtidii = $_SESSION['empcode'];
+				}else{
+					$stagtidii = NULL;
+				}
+
+
+				if(empty($_GET['stdti']))
+				{
+					$stdti = $old_date;
+				}else{
+					$stdti = $_GET['stdti'];
+				}
+				if(!empty($_GET['stdti']) AND (empty($_GET['stdtii'])))
+				{
+					$stdtii = $old_date;
+				}else{
+					$stdtii = NULL;
+				}
+
+				// 'stagtidii' => $_SESSION['empcode'], // submit agent name 
+
 				if(!empty($_GET['aum']))
 				{
 					$aum = $_GET['aum'];
@@ -2167,10 +2196,16 @@
 				'rlc' => '0', // record is closed
 				'ontag' => '0', // record is closed
 
-				// 'svagtidi' => '1' // save Agent Name
-				// 'svdti' => '1' // save date time
-				'stagtidii' => $_SESSION['empcode'], // submit agent name 
-				'stdtii' => $old_date  // submit date time
+				
+				// 'stagtidii' => $_SESSION['empcode'], // submit agent name 
+				// 'stdtii' => $old_date  // submit date time
+				'stagtidi' => $stagtidi,
+				'stagtidii' => $stagtidii, // submit agent name 
+
+				'stdti' => $stdti,
+				'stdtii' => $stdtii
+				// 'stdti' => $stdtii,  // submit date time
+				// 'stdtii' => $old_date  // submit date time
 								
 				);
 			

@@ -669,6 +669,11 @@ $(document).ready(function() {
                           <input type = hidden name="lmid" id="lmid" value="<?php echo $ldmster['lmid']; ?>">
                           <input type = hidden name="emp_id" id="emp_id" value="<?php echo  $_SESSION['empcode']; ?>">
                           <input type = hidden name="sbsvtag" id="sbsvtag" value="<?php echo $ldmster['sbsvtag']; ?>">
+                          <input type = hidden name="stdti" id="stdti" value="<?php echo $ldmster['stdti']; ?>">
+                          <input type = hidden name="stagtidi" id="stagtidi" value="<?php echo $ldmster['stagtidi']; ?>">
+                          
+                          <input type = hidden name="stagtidii" id="stagtidii" value="<?php echo $ldmster['stagtidii']; ?>">
+                          <input type = hidden name="stdtii" id="stdtii" value="<?php echo $ldmster['stdtii']; ?>">
                           <input type = hidden name="rlc" id="rlc" value="<?php echo $ldmster['rlc']; ?>">
                           <div class="col-sm-12">
                              <center>
@@ -1887,6 +1892,13 @@ if(lmid == undefined){
             exit;
           }
             var campaign_id = $('#campaign_id').val();
+
+            var stagtidi = $('#stagtidi').val();
+            var stagtidii = $('#stagtidii').val();
+
+            var stdti = $('#stdti').val();
+            var stdtii = $('#stdtii').val();
+
             var campaign_idcids = $('#campaign_idcids').val();
             var sbsvtag1 = $('#sbsvtag').val();
             var sbsvtag = parseInt(sbsvtag1)+1; // incremataion
@@ -1987,6 +1999,12 @@ if(lmid == undefined){
                   campaign_idcids: campaign_idcids,
                   lmid: lmid,
                   sbsvtag :sbsvtag,
+
+                  stdti:stdti,
+                  stagtidi:stagtidi,
+                  stdtii:stdtii,
+                  stagtidii:stagtidii,
+
                     sal:sal,
                     fname:fname,
                     lname: lname,

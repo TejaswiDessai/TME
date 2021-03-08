@@ -663,7 +663,7 @@ $.ajax({
                             </div> 
                         </div>
                         <hr>
-                          <div class="form-group row optindiv">
+                        <div class="form-group row optindiv">
                                        
                                        <div class="col-sm-2">
                                         Opt - in  <input type="checkbox" value=""  id="optin" name="optin" class="js-single optin"  />
@@ -1529,6 +1529,10 @@ if(lmid == undefined){
             $('#optph').val("1");
             $('#optpst').val("1");
             $('.optoption').show();
+            $("#opteml").prop('checked', true);
+            $("#optph").prop('checked', true);
+            $("#optpst").prop('checked', true);
+           
           
                
         }else{
@@ -1557,7 +1561,75 @@ if(lmid == undefined){
                
         };
       });
+      $('#opteml').change(function()
+      {
+        var checksupp = $('#opteml').prop('checked');
+       
+            if(checksupp == true)
+            {
+              $('#opteml').val("1");
+            }
+            else
+            {
+              $('#opteml').val("0");
+            }
 
+          });
+     
+      $('#optph').change(function()
+      {
+        var checksupp = $('#optph').prop('checked');
+        
+            if(checksupp == true)
+            {
+              $('#optph').val("1");
+            }
+            else
+            {
+              $('#optph').val("0");
+            }
+
+          });
+     
+      $('#optpst').change(function()
+      {
+        var checksupp = $('#optpst').prop('checked');
+        
+            if(checksupp == true)
+            {
+              $('#optpst').val("1");
+            }
+            else
+            {
+              $('#optpst').val("0");
+            }
+
+          });
+     
+               
+      $('.dnd').change(function()
+      {
+        if ($('#dnd').is(':checked')) {
+          $("#optin").prop('checked', false);
+          $('.dnd').val("1");
+            $('#optin').val("0");
+            $('#opteml').val("0");
+            $('#optph').val("0");
+            $('#optpst').val("0");
+            $("#optin").prop('checked', false);
+            
+            $('.optoption').hide();   
+        }else{
+            $('#optin').val("1");
+            $('#opteml').val("1");
+            $('#optph').val("1");
+            $('#optpst').val("1");
+            $("#optin").prop('checked', true);
+            $('.dnd').val("0");
+            $('.optoption').show();
+               
+        };
+      });
 
   $("#basic-form").validate({
     rules: {
@@ -1725,194 +1797,10 @@ if(lmid == undefined){
  </script>
 
 <script>
-/* add lead submit initial*/
-    $(function() {
-        $("#leadsubmit").on('click', function() 
-        {
-          var empid = $('#emp_id').val();
-          if(empid  === undefined){
-            window.location = base_url+"administrator/logout";
-            exit;
-          }
-          if(empid == ''){
-            // alert("Null");
-            window.location = base_url+"administrator/logout";
-            exit;
-          }
-          //  alert(empid);
-            var campaign_id = $('#campaign_id').val();
-            var campaign_idcids = $('#campaign_idcids').val();
-          //  alert(campaign_idcids);
-            var sal = $('#sal').val();
-            var fname = $('#fname').val();
-            var lname = $('#lname').val();
-            var jtitle = $('#jtitle').val();
-            var desid = $('#desid').val();
-            var jlevel = $('#jlevel').val();
-           
-            var dcd = $('#dcd').val();
-            var email = $('#email').val();
-            var phone = $('#phone').val();
-            var altphn = $('#altphn').val();
-            var phext = $('#phext').val();
-            var plink = $('#plink').val();
-            var company_name = $('#company_name').val();
-            var address = $('#address').val();
-            var city = $('#city').val();
-            var state = $('#state').val();
-            var zip_code = $('#zip_code').val();
 
-            var country_id = $('#country_id').val(); 
-            var timezone = $('#timezone').val();
-            var ctype = $('#ctype').val();
-            var linetype = $('#linetype').val();
-            var industrycd = $('#industrycd').val();
-            var subindustrycd = $('#subindustrycd').val();
-            var sectyp = $('#sectyp').val();
-            
-            var empsize = $('#empsize').val();
-
-            var mlbl = $('#mlbl').val();
-            var domain = $('#domain').val();
-            var curr = $('#curr').val();
-            var empszlink = $('#empszlink').val();
-            var indlink = $('#indlink').val();
-
-            
-
-            var pcomt = $('#pcomt').val();
-
-            var arevenue = $('#arevenue').val();
-            var revszlink = $('#revszlink').val();
-            if(arevenue ==""){
-              
-              $("#revszlink").prop('disabled', true);
-              $('#revszlink').val("NA");
-            }else if(arevenue != ""){
-              
-              $("#revszlink").prop('disabled', false);
-              var revszlink = $('#revszlink').val();
-            }
-        
-// alert(revszlink);
-            var othrlink = $('#othrlink').val();
-            var emailver = $('#emailver').val();
-            var aum = $('#aum').val();
-            var assetid = $('#assetid').val();
-            
-            var optin = $('#optin').val();
-            var optpst = $('#optpst').val();
-            var opteml = $('#opteml').val();
-            var optph = $('#optph').val();
-            var optoption = $('#optoption').val();
-
-            var aa1 = $('#aa1').val();
-            var aa2 = $('#aa2').val();
-            var aa3 = $('#aa3').val();
-            var aa4 = $('#aa4').val();
-            var aa5 = $('#aa5').val();
-            var aa6 = $('#aa6').val();
-            var aa7 = $('#aa7').val();
-            var aa8 = $('#aa8').val();
-            var aa9 = $('#aa9').val();
-            var aa10 = $('#aa10').val();
-            var aa11 = $('#aa11').val();
-            var aa12 = $('#aa12').val();
-          
-            
-           
-            if(fname != "" && lname != "" && company_name != "" && jlevel != "" && jtitle != "" && desid != "" && dcd !="" && email != "" && phone !="" && plink !="" && address != "" && city != "" && state != ""  && country_id != "" && industrycd != "" && subindustrycd != "" && empsize != "" && domain !=""  && empszlink != "" && revszlink != ""  && zip_code !="" ){
-           
-            var url = encodeURI("<?php echo base_url("cdc/ajax_add_new_leaddata");?>");
-            console.log(url+"?campaign_id="+campaign_id+"&sal="+sal+"&fname="+fname+"&lname="+lname+"&jtitle="+jtitle+"&desid="+desid+"&jlevel="+jlevel+"&dcd="+dcd+"&email="+email+"&phone="+phone+"&altphn="+altphn+"&phext="+phext+"&plink="+plink+"&company_name="+company_name+"&address="+address+"&city="+city+"&state="+state+"&zip_code="+zip_code+"&country_id="+country_id+"&timezone="+timezone+"&ctype="+ctype+"&linetype="+linetype+"&industrycd="+industrycd+"&subindustrycd="+subindustrycd+"&sectyp="+sectyp+"&empsize="+empsize+"&mlbl="+mlbl+"&curr="+curr+"&arevenue="+arevenue+"&empszlink="+empszlink+"&indlink="+indlink+"&domain="+domain+"&othrlink="+othrlink+"&revszlink="+revszlink+"&emailver="+emailver+"&aum="+aum+"&assetid="+assetid+"&optin="+optin+"&optpst="+optpst+"&optph="+optph+"&opteml="+opteml+"&optoption="+optoption+"&aa1="+aa1+"&aa2="+aa2+"&aa3="+aa3+"&aa4="+aa4+"&aa5="+aa5+"&aa6="+aa6+"&aa7="+aa7+"&aa8="+aa8+"&aa9="+aa9+"&aa10="+aa10+"&aa11="+aa11+"&aa12="+aa12+"&pcomt="+pcomt);
-           
-            $.ajax({
-                url :'<?php echo base_url("cdc/ajax_add_new_leaddata");?>',
-                type: 'GET', 
-                // contentType: "application/json",
-                dataType: 'json',              
-                data: {
-                   
-                  campaign_id: campaign_id,
-                  campaign_idcids: campaign_idcids,
-                    sal:sal,
-                    fname:fname,
-                    lname: lname,
-                    jtitle:jtitle,
-                    desid:desid,
-                    jlevel:jlevel,
-                    dcd:dcd,
-                    email:email,
-                    phone:phone,
-                    altphn:altphn,
-                    phext:phext,
-                    plink:plink,
-                    company_name:company_name,
-                    address:address,
-                    city:city,
-                    state:state,
-                    zip_code:zip_code,
-                    
-                    country_id:country_id,
-                    timezone:timezone,
-                    ctype:ctype,
-                    linetype:linetype,
-                                      
-                    industrycd:industrycd,
-                    subindustrycd:subindustrycd,
-                    sectyp:sectyp,
-                    empsize:empsize,
-                    mlbl:mlbl,
-                    curr:curr,
-                    arevenue:arevenue,
-                    empszlink:empszlink,
-                    indlink:indlink,
-                    revszlink:revszlink,
-                    domain:domain,
-                    othrlink:othrlink,
-                    emailver:emailver,
-                    aum:aum                 
-                      
-                    
-                    
-				},
-        async: true,
-                cache: false,
-                success: function(response){
-                    $("#leadsave").hide();
-                    var text = response.statusCode;
-                    console.log("check");
-                    if(response.statusCode == "Success") 
-                    {         
-                         
-                        $("#leadsubmit").html(response.message);
-                        top.location.href=base_url+"cdc/addleaddata?camp_id="+<?php echo $campaign['cnid']; ?>;//redirection
-                      
-                    }else if(response.data=="Fail")
-                    {
-                        $("#leadsubmit").html(response.message);
-                        
-					          }
-
-                   
-
-                },
-                error: function (error) {
-                  alert("Already exists");
-                  }
-              
-            });
-        } else{
-          alert("Please fill Mandatory fields");
-        }
-        });
-    });
-</script>
-<script>
-/* update lead submit*/
 
     $(function() {
-        $("#leadupdate").on('click', function() 
+        $("#leadupdatecdc").on('click', function() 
         {
           var empid = $('#emp_id').val();
           if(empid  === undefined){
@@ -1993,7 +1881,23 @@ if(lmid == undefined){
             var optpst = $('#optpst').val();
             var opteml = $('#opteml').val();
             var optph = $('#optph').val();
-            var optoption = $('#optoption').val();
+            var dnd = $('#dnd').val();
+            
+            if(optin == ""){
+            var optin = 0;
+             }
+             if(optpst == ""){
+            var optpst = 0;
+             }
+             if(opteml == ""){
+            var opteml = 0;
+             }
+             if(optph == ""){
+            var optph = 0;
+             }
+             if(dnd == ""){
+            var dnd = 0;
+             }
 
             var aa1 = $('#aa1').val();
             var aa2 = $('#aa2').val();
@@ -2007,15 +1911,67 @@ if(lmid == undefined){
             var aa10 = $('#aa10').val();
             var aa11 = $('#aa11').val();
             var aa12 = $('#aa12').val();
+            if(aa1 == undefined)
+             {
+              var aa1 = null; 
+             }
+             if(aa2 == undefined)
+             {
+              var aa2 = null; 
+             }
+             if(aa3 == undefined)
+             {
+              var aa3 = null; 
+             }
+             if(aa4 == undefined)
+             {
+              var aa4 = null; 
+             }
+             if(aa5 == undefined)
+             {
+              var aa5= null; 
+             }
+             if(aa6 == undefined)
+             {
+              var aa6 = null; 
+             }
+             if(aa7 == undefined)
+             {
+              var aa7 = null; 
+             }
+             if(aa8 == undefined)
+             {
+              var aa8 = null; 
+             }
+             if(aa9 == undefined)
+             {
+              var aa9 = null; 
+             }
+             if(aa9 == undefined)
+             {
+              var aa9 = null; 
+             }
+             if(aa10 == undefined)
+             {
+              var aa10 = null; 
+             }
+             if(aa11 == undefined)
+             {
+              var aa11= null; 
+             }
+             if(aa12 == undefined)
+             {
+              var aa12= null; 
+             }
           
             
            
             if(fname != "" && lname != "" && company_name != ""  && jtitle != "" && desid != "" && dcd !="" && email != "" && phone !="" && plink !="" && address != "" && city != "" && state != ""  && country_id != "" && industrycd != "" && subindustrycd != "" && empsize != "" && domain !=""  && empszlink != "" && revszlink != ""  && zip_code !="" ){
-            var url = encodeURI("<?php echo base_url("cdc/ajax_update_leaddata");?>");
-            console.log(url+"?campaign_id="+campaign_id+"&lmid="+lmid+"&campaign_idcids="+campaign_idcids+"&sbsvtag="+sbsvtag+"&sal="+sal+"&fname="+fname+"&lname="+lname+"&jtitle="+jtitle+"&desid="+desid+"&jlevel="+jlevel+"&dcd="+dcd+"&email="+email+"&phone="+phone+"&altphn="+altphn+"&phext="+phext+"&plink="+plink+"&company_name="+company_name+"&address="+address+"&city="+city+"&state="+state+"&zip_code="+zip_code+"&country_id="+country_id+"&timezone="+timezone+"&ctype="+ctype+"&linetype="+linetype+"&industrycd="+industrycd+"&subindustrycd="+subindustrycd+"&sectyp="+sectyp+"&empsize="+empsize+"&mlbl="+mlbl+"&curr="+curr+"&arevenue="+arevenue+"&empszlink="+empszlink+"&indlink="+indlink+"&domain="+domain+"&othrlink="+othrlink+"&revszlink="+revszlink+"&emailver="+emailver+"&aum="+aum+"&assetid="+assetid+"&optin="+optin+"&optpst="+optpst+"&optph="+optph+"&opteml="+opteml+"&optoption="+optoption+"&aa1="+aa1+"&aa2="+aa2+"&aa3="+aa3+"&aa4="+aa4+"&aa5="+aa5+"&aa6="+aa6+"&aa7="+aa7+"&aa8="+aa8+"&aa9="+aa9+"&aa10="+aa10+"&aa11="+aa11+"&aa12="+aa12+"&pcomt="+pcomt);
+            var url = encodeURI("<?php echo base_url("cdc/ajax_update_leaddatacdc");?>");
+            console.log(url+"?campaign_id="+campaign_id+"&lmid="+lmid+"&campaign_idcids="+campaign_idcids+"&sbsvtag="+sbsvtag+"&sal="+sal+"&fname="+fname+"&lname="+lname+"&jtitle="+jtitle+"&desid="+desid+"&jlevel="+jlevel+"&dcd="+dcd+"&email="+email+"&phone="+phone+"&altphn="+altphn+"&phext="+phext+"&plink="+plink+"&company_name="+company_name+"&address="+address+"&city="+city+"&state="+state+"&zip_code="+zip_code+"&country_id="+country_id+"&timezone="+timezone+"&ctype="+ctype+"&linetype="+linetype+"&industrycd="+industrycd+"&subindustrycd="+subindustrycd+"&sectyp="+sectyp+"&empsize="+empsize+"&mlbl="+mlbl+"&curr="+curr+"&arevenue="+arevenue+"&empszlink="+empszlink+"&indlink="+indlink+"&domain="+domain+"&othrlink="+othrlink+"&revszlink="+revszlink+"&emailver="+emailver+"&aum="+aum+"&assetid="+assetid+"&optin="+optin+"&optpst="+optpst+"&optph="+optph+"&opteml="+opteml+"&aa1="+aa1+"&aa2="+aa2+"&aa3="+aa3+"&aa4="+aa4+"&aa5="+aa5+"&aa6="+aa6+"&aa7="+aa7+"&aa8="+aa8+"&aa9="+aa9+"&aa10="+aa10+"&aa11="+aa11+"&aa12="+aa12+"&pcomt="+pcomt);
            
             $.ajax({
-                url :'<?php echo base_url("cdc/ajax_update_leaddata");?>',
+                url :'<?php echo base_url("cdc/ajax_update_leaddatacdc");?>',
                 type: 'GET', 
                 // contentType: "application/json",
                 dataType: 'json',              
@@ -2062,7 +2018,25 @@ if(lmid == undefined){
                     othrlink:othrlink,
                     emailver:emailver,
                     pcomt:pcomt,
-                    aum:aum                 
+                    aum:aum,
+
+                    optin:optin,
+                    optph:optph,
+                    opteml:opteml,
+                    optpst:optpst,
+                    dnd:dnd,
+                    aa1:aa1,
+                    aa2:aa2,
+                    aa3:aa3,
+                    aa4:aa4,
+                    aa5:aa5,
+                    aa6:aa6,
+                    aa7:aa7,
+                    aa8:aa8,
+                    aa9:aa9,
+                    aa10:aa10,
+                    aa11:aa11,
+                    aa12:aa12,                 
                       
                     
                     
@@ -2070,18 +2044,18 @@ if(lmid == undefined){
         async: true,
                 cache: false,
                 success: function(response){
-                    $("#leadsave").hide();
+                    $("#leadsavecdc").hide();
                     var text = response.statusCode;
                     console.log("check");
                     if(response.statusCode == "Success") 
                     {         
                          
-                        $("#leadupdate").html(response.message);
-                        top.location.href=base_url+"cdc/addleaddata?camp_id="+<?php echo $campaign['cnid']; ?>;//redirection
+                        $("#leadupdatecdc").html(response.message);
+                        top.location.href=base_url+"administrator/dashboard";//redirection
                       
                     }else if(response.data=="Fail")
                     {
-                        $("#leadupdate").html(response.message);
+                        $("#leadupdatecdc").html(response.message);
                         
 					          }
 
@@ -2103,7 +2077,7 @@ if(lmid == undefined){
 <!--  code for save data in db -->
 <script>
     $(function() {
-        $("#leadsave").on('click', function() 
+        $("#leadsavecdc").on('click', function() 
         {
          
           var campaign_id = $('#campaign_id').val();
@@ -2136,7 +2110,7 @@ if(lmid == undefined){
           //   // var sbsvtag = parseInt(sbsvtag1)+1; // incremataion
            
           //  if(sbsvtag1 == undefined){
-          //   var sbsvtag = "";
+            // var sbsvtag = 0;
           //  }else{
           //   var sbsvtag = parseInt(sbsvtag1)+1; // incremataion
           //  }
@@ -2199,7 +2173,23 @@ if(lmid == undefined){
             var optpst = $('#optpst').val();
             var opteml = $('#opteml').val();
             var optph = $('#optph').val();
-            var optoption = $('#optoption').val();
+            var dnd = $('#dnd').val();
+             if(optin == ""){
+            var optin = 0;
+             }
+             if(optpst == ""){
+            var optpst = 0;
+             }
+             if(opteml == ""){
+            var opteml = 0;
+             }
+             if(optph == ""){
+            var optph = 0;
+             }
+             if(dnd == ""){
+            var dnd = 0;
+             }
+             
 
             var aa1 = $('#aa1').val();
             var aa2 = $('#aa2').val();
@@ -2214,16 +2204,69 @@ if(lmid == undefined){
             var aa11 = $('#aa11').val();
             var aa12 = $('#aa12').val();
           
+            if(aa1 == undefined)
+             {
+              var aa1 = null; 
+             }
+             if(aa2 == undefined)
+             {
+              var aa2 = null; 
+             }
+             if(aa3 == undefined)
+             {
+              var aa3 = null; 
+             }
+             if(aa4 == undefined)
+             {
+              var aa4 = null; 
+             }
+             if(aa5 == undefined)
+             {
+              var aa5= null; 
+             }
+             if(aa6 == undefined)
+             {
+              var aa6 = null; 
+             }
+             if(aa7 == undefined)
+             {
+              var aa7 = null; 
+             }
+             if(aa8 == undefined)
+             {
+              var aa8 = null; 
+             }
+             if(aa9 == undefined)
+             {
+              var aa9 = null; 
+             }
+             if(aa9 == undefined)
+             {
+              var aa9 = null; 
+             }
+             if(aa10 == undefined)
+             {
+              var aa10 = null; 
+             }
+             if(aa11 == undefined)
+             {
+              var aa11= null; 
+             }
+             if(aa12 == undefined)
+             {
+              var aa12= null; 
+             }
+
             
            
             if(fname != "" && lname != "" && company_name != ""  && jtitle != "" && desid != "" && dcd !="" && email != "" && phone !="" && plink !="" && address != "" && city != "" && state != ""  && country_id != "" && industrycd != "" && subindustrycd != "" && empsize != "" && domain !=""  && empszlink != "" && revszlink != ""  && zip_code !="" ){
            
 
-            var url = encodeURI("<?php echo base_url("cdc/ajax_save_leaddata");?>");
-            console.log(url+"?campaign_idcids="+campaign_idcids+"&lmid="+lmid+"&campaign_id="+campaign_id+"&sal="+sal+"&fname="+fname+"&lname="+lname+"&jtitle="+jtitle+"&desid="+desid+"&jlevel="+jlevel+"&dcd="+dcd+"&email="+email+"&phone="+phone+"&altphn="+altphn+"&phext="+phext+"&plink="+plink+"&company_name="+company_name+"&address="+address+"&city="+city+"&state="+state+"&zip_code="+zip_code+"&country_id="+country_id+"&timezone="+timezone+"&ctype="+ctype+"&linetype="+linetype+"&industrycd="+industrycd+"&subindustrycd="+subindustrycd+"&sectyp="+sectyp+"&empsize="+empsize+"&mlbl="+mlbl+"&curr="+curr+"&arevenue="+arevenue+"&empszlink="+empszlink+"&indlink="+indlink+"&domain="+domain+"&othrlink="+othrlink+"&revszlink="+revszlink+"&emailver="+emailver+"&aum="+aum+"&assetid="+assetid+"&optin="+optin+"&optpst="+optpst+"&optph="+optph+"&opteml="+opteml+"&optoption="+optoption+"&aa1="+aa1+"&aa2="+aa2+"&aa3="+aa3+"&aa4="+aa4+"&aa5="+aa5+"&aa6="+aa6+"&aa7="+aa7+"&aa8="+aa8+"&aa9="+aa9+"&aa10="+aa10+"&aa11="+aa11+"&aa12="+aa12+"&pcomt="+pcomt);
+            var url = encodeURI("<?php echo base_url("cdc/ajax_save_updateleaddatacdc");?>");
+            console.log(url+"?campaign_idcids="+campaign_idcids+"&lmid="+lmid+"&campaign_id="+campaign_id+"&sal="+sal+"&fname="+fname+"&lname="+lname+"&jtitle="+jtitle+"&desid="+desid+"&jlevel="+jlevel+"&dcd="+dcd+"&email="+email+"&phone="+phone+"&altphn="+altphn+"&phext="+phext+"&plink="+plink+"&company_name="+company_name+"&address="+address+"&city="+city+"&state="+state+"&zip_code="+zip_code+"&country_id="+country_id+"&timezone="+timezone+"&ctype="+ctype+"&linetype="+linetype+"&industrycd="+industrycd+"&subindustrycd="+subindustrycd+"&sectyp="+sectyp+"&empsize="+empsize+"&mlbl="+mlbl+"&curr="+curr+"&arevenue="+arevenue+"&empszlink="+empszlink+"&indlink="+indlink+"&domain="+domain+"&othrlink="+othrlink+"&revszlink="+revszlink+"&emailver="+emailver+"&aum="+aum+"&assetid="+assetid+"&optin="+optin+"&optpst="+optpst+"&optph="+optph+"&opteml="+opteml+"&aa1="+aa1+"&aa2="+aa2+"&aa3="+aa3+"&aa4="+aa4+"&aa5="+aa5+"&aa6="+aa6+"&aa7="+aa7+"&aa8="+aa8+"&aa9="+aa9+"&aa10="+aa10+"&aa11="+aa11+"&aa12="+aa12+"&pcomt="+pcomt);
            
             $.ajax({
-                url :'<?php echo base_url("cdc/ajax_save_leaddata");?>',
+                url :'<?php echo base_url("cdc/ajax_save_updateleaddatacdc");?>',
                 type: 'GET', 
                 dataType: 'Json',              
                 data: {
@@ -2269,7 +2312,25 @@ if(lmid == undefined){
                     othrlink:othrlink,
                     emailver:emailver,
                     pcomt:pcomt,
-                    aum:aum                 
+                    aum:aum,
+
+                    optin:optin,
+                    optph:optph,
+                    opteml:opteml,
+                    optpst:optpst,
+                    dnd:dnd,
+                    aa1:aa1,
+                    aa2:aa2,
+                    aa3:aa3,
+                    aa4:aa4,
+                    aa5:aa5,
+                    aa6:aa6,
+                    aa7:aa7,
+                    aa8:aa8,
+                    aa9:aa9,
+                    aa10:aa10,
+                    aa11:aa11,
+                    aa12:aa12,
                              
                    
 				},
@@ -2284,9 +2345,9 @@ if(lmid == undefined){
                     {     
                       // alert("Success");                   
                         $("#leadsave").html(response.message);
-                        top.location.href=base_url+"cdc/addleaddata?camp_id="+<?php echo $campaign['cnid']; ?>;//redirection
-                        // $("#addcampbtn").prop('disabled', true);
-                        // top.location.href=base_url+"campaigns/addsuppressionList?camp_id="+response.campaign_id;//redirection
+                        top.location.href=base_url+"administrator/dashboard";//redirection
+                        // top.location.href=base_url+"cdc/addleaddata?camp_id="+<?php echo $campaign['cnid']; ?>;//redirection
+                      
                     }else if(response.statusCode=="Fail")
                     {
                         $("#leadsave").html(response.message);

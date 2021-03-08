@@ -1063,11 +1063,17 @@ $(document).ready(function() {
                           <input type = hidden name="sbsvtag" id="sbsvtag" value="<?php echo $ldmster['sbsvtag']; ?>">
                           <input type = hidden name="dvrejtg" id="dvrejtg" value="<?php echo $ldmster['dvrejtg']; ?>">
                           <input type = hidden name="dvsbtg" id="dvsbtg" value="<?php echo $ldmster['dvsbtg']; ?>">
-                          <input type = hidden name="dvragtidi" id="dvragtidi" value="<?php echo $ldmster['dvragtidi']; ?>">
-                          <input type = hidden name="dvagtidi" id="dvagtidi" value="<?php echo $ldmster['dvagtidi']; ?>">
-                          <input type = hidden name="dvdti" id="dvdti" value="<?php echo $ldmster['dvdti']; ?>">
-                          <input type = hidden name="dvrdti" id="dvrdti" value="<?php echo $ldmster['dvrdti']; ?>">
                           <input type = hidden name="rlc" id="rlc" value="<?php echo $ldmster['rlc']; ?>">
+
+                          <input type = hidden name="dvagtidi" id="dvagtidi" value="<?php echo $ldmster['dvagtidi']; ?>">
+                          <input type = hidden name="dvagtidii" id="dvagtidii" value="<?php echo $ldmster['dvagtidii']; ?>">
+                          <input type = hidden name="dvdti" id="dvdti" value="<?php echo $ldmster['dvdti']; ?>">
+                          <input type = hidden name="dvdtii" id="dvdtii" value="<?php echo $ldmster['dvdtii']; ?>">
+
+                          <input type = hidden name="dvragtidi" id="dvragtidi" value="<?php echo $ldmster['dvragtidi']; ?>">
+                          <input type = hidden name="dvragtidii" id="dvragtidii" value="<?php echo $ldmster['dvragtidii']; ?>">
+                          <input type = hidden name="dvrdti" id="dvrdti" value="<?php echo $ldmster['dvrdti']; ?>">
+                          <input type = hidden name="dvrdtii" id="dvrdtii" value="<?php echo $ldmster['dvrdtii']; ?>">
                           <div class="form-group row" >
                             <div class="col-sm-12">
                              <center>
@@ -2074,6 +2080,7 @@ $("input:checkbox").change(function() {
             
                 this.checked ? checked.push(this.id) : notChecked.push(this.id);
             });
+            
           if(checked == ""){ // if unchecked any field
                 checked = [0];
                 var dvsbtg1 = $('#dvsbtg').val();
@@ -2086,8 +2093,11 @@ $("input:checkbox").change(function() {
                 if(dvsbtg == '3'){
                   var dvsbtg = '3';
                   var sbsvtag = '0';
+                }else{
+                  var sbsvtag = $('#sbsvtag').val();
                 }
                 var dvrejtg = $('#dvrejtg').val(); 
+                
           }else{ //checked -rejected
             var dvsbtg =$('#dvsbtg').val();
 
@@ -2101,19 +2111,29 @@ $("input:checkbox").change(function() {
             if(dvrejtg == '3'){
               var dvrejtg = '3';
               var sbsvtag = '0';
+            }else{
+              var sbsvtag = $('#sbsvtag').val();
             }
 
           }
            
+        
+            var dvrdti = $('#dvrdti').val();
             var dvragtidi = $('#dvragtidi').val();
+
+            var dvrdtii = $('#dvrdtii').val();
+            var dvragtidii = $('#dvragtidii').val();
+
+            var dvdti = $('#dvdti').val();
             var dvagtidi = $('#dvagtidi').val();
 
-            var dvrdti = $('#dvrdti').val();
-            var dvdti = $('#dvdti').val();
+            var dvdtii = $('#dvdtii').val();
+            var dvagtidii = $('#dvagtidii').val();
+
 
             var campaign_id = $('#campaign_id').val();
             var campaign_idcids = $('#campaign_idcids').val();
-            var sbsvtag = $('#sbsvtag').val();
+            // var sbsvtag = $('#sbsvtag').val();
             // var sbsvtag = parseInt(sbsvtag1)+1; // incremataion
 
           
@@ -2143,11 +2163,17 @@ $("input:checkbox").change(function() {
                   dvsbtg :dvsbtg,
                   pcomt :pcomt,
                   checked:checked,
-                  dvragtidi:dvragtidi,
-                  dvagtidi:dvagtidi,
-                  dvdti:dvdti,
                   dvrdti:dvrdti,
-                   
+                  dvragtidi:dvragtidi,
+
+                  dvragtidii:dvragtidii,
+                  dvrdtii:dvrdtii,
+
+                  dvdti:dvdti,
+                  dvagtidi:dvagtidi,
+                  dvdtii:dvdtii,
+                  dvagtidii:dvagtidii,
+                
 				},
         async: true,
                 cache: false,
@@ -2200,12 +2226,6 @@ $("input:checkbox").change(function() {
           // }
            var checked = [0];
 
-           var dvragtidi = $('#dvragtidi').val();
-            var dvagtidi = $('#dvagtidi').val();
-
-            var dvrdti = $('#dvrdti').val();
-            var dvdti = $('#dvdti').val();
-            
             var campaign_id = $('#campaign_id').val();
             var campaign_idcids = $('#campaign_idcids').val();
             // var sbsvtag1 = $('#sbsvtag').val();
@@ -2239,10 +2259,7 @@ $("input:checkbox").change(function() {
                   dvsbtg :dvsbtg,
                   pcomt :pcomt,
                   checked:checked,
-                  dvragtidi:dvragtidi,
-                  dvagtidi:dvagtidi,
-                  dvdti:dvdti,
-                  dvrdti:dvrdti,
+                
                    
 				},
         async: true,

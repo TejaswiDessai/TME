@@ -1981,11 +1981,11 @@ public function getPrivillage(){
 						// print_r($data['campaigns']);  
 						// print_r($cids);  
 						
-						$data['leadmaster'] = $this->Administrator_Model->get_leadmasterby_campaignid_for_email($cids);
-						// print_r($data['leadmaster']); 
-						foreach ($data['leadmaster'] as $ldmster) {
+						// $data['leadmaster'] = $this->Administrator_Model->get_leadmasterby_campaignid_for_email($cids);
+						// // print_r($data['leadmaster']); 
+						// foreach ($data['leadmaster'] as $ldmster) {
 						
-						}
+						// }
 						
 						$data['countries'] = $this->Administrator_Model->get_countriesbyCampaign($camp_id);
 				
@@ -2041,9 +2041,9 @@ public function getPrivillage(){
 		$config['per_page'] = '';
 		$config['uri_segment'] = 3;
 		$config['attributes'] = array('class' => 'paginate-link');
-		$campid =$this->input->post('campid');
+		$campid = $cids; //$this->input->post('campaign_id');
 		$user_id =$this->input->post('user_id');
-		$stage =$this->input->post('stage');
+		$leadstatus =$this->input->post('leadstatus');
 		$from =$this->input->post('from');
 		$to =$this->input->post('to');
 		// Init Pagination
@@ -2051,12 +2051,12 @@ public function getPrivillage(){
 	
 		$data['title'] = 'Latest Campaigns';
 		$offset = 0;
-		$data['email_list'] = $this->Administrator_Model->get_email_list($campid,$user_id,$from,$to,$stage);
+		$data['leadmaster'] = $this->Administrator_Model->get_email_list($campid,$user_id,$from,$to,$leadstatus);
 		$data['users_name'] = $this->Administrator_Model->get_users(FALSE, $config['per_page'], $offset);
 		// $data['campaigns'] = $this->Administrator_Model->get_campaign();
 		$data['user_id'] = $user_id;
-		$data['Campid'] = $campid;
-		$data['Stage'] = $stage;
+		$data['Campid'] = $camp_id;
+		$data['Stage'] = $leadstatus;
 		$data['From'] = $from;
 		$data['To'] = $to;
 
@@ -2092,7 +2092,7 @@ public function getPrivillage(){
 				'lmid' => $leadid[$i], 
 				'evagnt' => $this->session -> userdata('emp_id'),
 				'email' => $comp_proSplit[$i],
-				'status' =>$email_status,
+				'status' =>'Open',
 				'fmail' =>$from,
 				'comment' => 'Test',
 				'loaddt' => $startdate,
@@ -2166,12 +2166,14 @@ public function getPrivillage(){
 		
 		$email_status = $_GET['email_status'];
 		$comment = $_GET['comment'];
+		$closer_status = $_GET['email_close_status'];
 		$startdate = date("Y-m-d H:i:s");
 		for($i=0;$i<$cnt;$i++)
 		{
 			$datacampaign = array(
 				'status' =>$email_status,
 				'comment' => $comment,
+				'closer_status' => $closer_status,
 				'statdt' => $startdate
 								
 				);

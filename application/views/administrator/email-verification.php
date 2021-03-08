@@ -184,7 +184,11 @@
     $('#myModal').modal('show');
 });
 
-
+$(document).ready(function() {
+    $('#dom-jqry').DataTable( {
+        "lengthMenu": [[5, 10, 50, -1], [5, 10, 15, 50]]
+    } );
+} );
 </script>
 
     <!-- Modal -->
@@ -215,7 +219,7 @@
   </div>
                 <div class="card">
                     <div class="card-block">
-                        <form action="<?php echo base_url();?>administrator/user_report" method="post" >
+                        <form action="<?php echo base_url();?>administrator/emailVerfication" method="post" >
                             <table class="table" style="margin-bottom:10px;">
                             <tr>
                             <td>
@@ -223,38 +227,16 @@
                                 <label class="col-lable"><b>Campaign Name: <?php echo $campaign['campnm']; ?></b></label>
                                 <input type="hidden" value="<?php echo $campaign['cids']; ?>" id="campnm">
                             <?php endforeach; ?>
+                            <input type="hidden" value="<?php echo $Campid; ?>" id="campaign_id" name="campaign_id">
                             </td>
-                            <!-- <td>
-                                <select class="form-control form-control-default "  name="agent" id="agent">
-                                        <option value="<?php //echo $this->session->userdata('emp_id'); ?>"><?php //echo $this->session->userdata('username'); ?></option>
-                                </select>
-                            </td> -->
-                            <!-- <td>
-                                <select class="form-control form-control-default "  name="stage" id="stage">
-                                    <option value="">Numbers</option>
-                                    <option value="1" >1</option>
-                                    <option value="2" >2</option>
-                                    <option value="3" >3</option>
-                                    <option value="4" >4</option>
-                                    <option value="5" >5</option>
-                                    <option value="6" >6</option>
-                                    <option value="7" >7</option>
-                                    <option value="8" >8</option>
-                                    <option value="9" >9</option>
-                                    <option value="10" >10</option>
-                                    <option value="11" >11</option>
-                                    <option value="12" >12</option>
-                                    <option value="13" >13</option>
-                                    <option value="14" >14</option>
-                                    <option value="15" >15</option>
-                                </select>
-                            </td> -->
+                            
                             <td>
-                                <select class="form-control form-control-default "  name="stage" id="stage">
+                                <select class="form-control form-control-default "  name="leadstatus" id="leadstatus">
                                     <option value="">Status</option>
-                                    <option value="Open" >Open</option>
-                                    <option value="Closed" >Closed</option>
-                                    <option value="Accepted" >All</option>
+                                    <option value="New" <?php if( isset($Stage) && $Stage == "New") { echo "selected" ; } ?>>New</option>
+                                    <option value="Open" <?php if( isset($Stage) && $Stage == "Open") { echo "selected" ; } ?> >Open</option>
+                                    <option value="Closed" <?php if( isset($Stage) && $Stage == "Closed") { echo "selected" ; } ?>>Closed</option>
+                                    <option value="All" <?php if( isset($Stage) && $Stage == "All") { echo "selected" ; } ?>>All</option>
                                 </select>
                             </td>
                             <td>
@@ -267,17 +249,7 @@
                                 <a class="btn btn-primary" href="">Refresh</a>
                             </td> -->
                             </tr>
-                            <!-- <tr> -->
-                            <!-- <td> -->
-                            <!-- <input type="text" class="form-control form-control-default " name="from" id="from" placeholder="Enter send from Email.."> -->
-                            <!-- </td> -->
-                            <!-- <td> -->
-                            <!-- <input type="text" class="form-control form-control-default " name="sub" id="sub" placeholder="Email Subject"> -->
-                            <!-- </td> -->
-                            <!-- <td> -->
-                            <!-- <textarea name="body" id="body" placeholder="Email Body"></textarea> -->
-                            <!-- </td>
-                            </tr> -->
+                            
                             </table>
                             </form>
                        
@@ -285,7 +257,7 @@
                     <br>
                     <!-- Image loader -->
 <div id='loader' style='display: none;'>
-  <img src='<?php echo base_url(); ?>assets/images.download.png' width='32px' height='32px'>
+  <img src='<?php echo base_url(); ?>assets/images/download.png' width='32px' height='32px'>
 </div>
 <!-- Image loader -->
                         <div class="table-responsive dt-responsive">
@@ -364,6 +336,8 @@
                                         </td>
                                         <td>
                                             <?php //echo $post['mailstatus'];;?>
+                                            <!-- <input type="checkbox" class ="emailclass" value="Close" name="email_close_<?php echo $i;?>" id="email_close_<?php echo $i;?>"><?php //echo $i;?> -->
+                                            
                                         </td>
                                         <td>
                                             <!-- <input type="checkbox"> -->
@@ -373,13 +347,15 @@
                                             <input type="checkbox" class ="emailstatus"  value="<?php echo $post['lmid'];?>" name="email_status_<?php echo $i;?>" id="email_status_<?php echo $i;?>"><?php //echo $i;?>
                                         </td>
                                         <td>
-                                            <?php //echo $post['sent_mail_date'];?>
+                                            <?php 
+                                            //$yesterday = $this->db->query("SELECT * FROM ev where (stagtidi = $empid OR stagtidi = $empcode )");
+                                            echo $post['sent_mail_date'];?>
                                         </td>
                                         <td>
-                                            
+                                        <?php echo $post['fmail']; ?>  
                                         </td>
                                         <td>
-                                        <?php //echo $post['evcomment']; ?>
+                                        <?php echo $post['evcomment']; ?>
                                         </td>
                                     </tr>
                                 <?php endforeach; ?>
@@ -419,6 +395,15 @@
                     </div>
                     <div class="col-sm-2">
                         <textarea id="comment" placeholder="Enter comment"></textarea>
+                    </div>
+                    <div>
+                        <select class="form-control form-control-default "  name="email_close_status" id="email_close_status">
+                            <option value="">Status</option>
+                            <option value="New" >New</option>
+                            <option value="Open" selected>Open</option>
+                            <option value="Closed" >Closed</option>
+                            
+                        </select>
                     </div>
                 </div>
             </div>
@@ -570,7 +555,7 @@ $(".emailstatus").click(function() {
             var from = $('#from').val();
             var sub = $('#sub').val();
             var body = $('#mail_body').val();
-            // alert("from"+from+"sub= "+sub+"body= "+body);
+            // alert("from= "+from+"sub= "+sub+"body= "+body+"email= "+change_status_of+"leadid= "+leadid);
             // return;
             $("#loader").show();
             var url = "<?php echo base_url("administrator/send_email_status");?>";
@@ -626,8 +611,8 @@ $(".emailstatus").click(function() {
                     var checked = ($(this).val());
                     var leadid = $('#row_id_'+checked).val();
                     // alert(leadid);
-                    // var email = $("#email_status_"+checked).val();
-                    // alert(email);
+                    // var close_status = $("#email_close_"+checked).val();
+                    // alert(close_status);
                     someObj.fruitsGranted.push(checked);
                     
                     someObj.leads.push(leadid);
@@ -638,6 +623,7 @@ $(".emailstatus").click(function() {
             });
             var change_status_of = someObj.fruitsGranted;
             var email_status = $('#email_status').val();
+            var email_close_status = $('#email_close_status').val();
             var campid = $('#campnm').val();
             var leadid = someObj.leads;
             var from = $('#from').val();
@@ -658,7 +644,8 @@ $(".emailstatus").click(function() {
                     email_status:email_status,
 					campid:campid,
                     leadid:leadid,
-                    comment:comment
+                    comment:comment,
+                    email_close_status:email_close_status
 				},
                 cache: false,
                 success: function(response){

@@ -2254,20 +2254,33 @@ public function get_campaign_fordataverification()
 			return $data=$query->result_array();
 
 		}	
-		public function get_email_list($campid,$user_id,$from,$to,$stage)
+		public function get_email_list($campid,$user_id,$from,$to,$leadstatus)
 		{
-			$this->db->select('leadmaster.cids,leadmaster.lmid,leadmaster.plink,leadmaster.jtitle,leadmaster.empsize,leadmaster.email,leadmaster.city,leadmaster.state,leadmaster.domain,leadmaster.fname,leadmaster.lname,users.emp_id,users.last_login,campaign.campnm,count(leadmaster.stagtidi) as number,ev.status as mailstatus,ev.comment as evcomment,ev.loaddt as sent_mail_date');
-			$this->db->from('leadmaster');
+			$this->db->select('leadmaster.cids,leadmaster.lmid,leadmaster.plink,leadmaster.jtitle,leadmaster.empsize,leadmaster.email,leadmaster.city,leadmaster.state,leadmaster.domain,leadmaster.fname,leadmaster.lname,users.emp_id,users.last_login,campaign.campnm,count(leadmaster.stagtidi) as number,ev.status as mailstatus,ev.comment as evcomment,ev.loaddt as sent_mail_date,ev.fmail');
+			if(isset($leadstatus) && $leadstatus == "New")
+			{
+				$this->db->from('leadmaster');
+				$this->db->join('ev', 'ev.lmid = leadmaster.lmid','left');
+				$this->db->limit(50);
+			}	
+			else
+			{
+				$this->db->from('ev');
+				$this->db->join('leadmaster', 'ev.lmid = leadmaster.lmid','left');
+			}
+			
+			// $this->db->join('leadmaster', 'leadmaster.lmid = (select max(lmid) from ev where ev.lmid = leadmaster.lmid)', 'left');
 			$this->db->join('users', 'users.emp_id = leadmaster.stagtidi','left');
 			$this->db->join('campaign', 'campaign.cids = leadmaster.cids','left');
-			$this->db->join('ev', 'ev.lmid = leadmaster.lmid','left');
+			
 			if(isset($campid) && $campid != null)
 			{
 				$this->db->where('leadmaster.cids', $campid);
 			}
-			if(isset($stage) && $stage != null)
+			if(isset($leadstatus) && $leadstatus != "New")
 			{
-				$this->db->where('leadmaster.aa10', $stage);
+				$this->db->where('ev.curr_active', 1);
+				// $this->db->where('ev.status', $leadstatus);
 			}
 			if(isset($user_id) && $user_id != null)
 			{
@@ -2301,7 +2314,8 @@ public function get_campaign_fordataverification()
 			$this->db->group_by('ev.status');
 			$this->db->group_by('ev.loaddt');
 			$this->db->group_by('ev.comment');
-			$this->db->limit(10);
+			$this->db->group_by('ev.fmail');
+			// $this->db->limit(5);
 			$query=$this->db->get();
 			// show_error($this->db->last_query(), 200, "SQL");
 			return $data=$query->result_array();

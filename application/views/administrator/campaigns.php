@@ -121,7 +121,7 @@ $(document).ready(function(){
                                         <!-- <a class="label label-inverse-info" id="mybtn" href='#'>Status</a> -->
                                         <!-- </td> -->
                                         <td>
-                                        <a  id="mybtn" data-camp_id="<?php echo $post['cnid']; ?>" data-client_id="<?php echo $post['clientids']; ?>" class="btn btn-primary status">Status</a>
+                                        <a  id="mybtn" data-camp_id="<?php echo $post['cnid']; ?>" data-client_id="<?php echo $post['clientids']; ?>" class="btn btn-primary status"><?php if($post['status'] == 2){ echo "Open";}elseif($post['status'] == 1){ echo "Closed";}else{ echo "On Hold";}?></a>
                                                 <a class="label label-inverse-info" href='<?php echo base_url(); ?>campaigns/update_campaign/<?php echo $post['cnid']; ?>'>Edit</a>
                                                 <a class="label label-inverse-danger delete" href='<?php echo base_url(); ?>administrator/delete/<?php echo $post['cnid']; ?>?table=<?php echo base64_encode('users'); ?>'>Delete</a>
                                             
@@ -160,9 +160,9 @@ $(document).ready(function(){
                                                                         <input type="hidden" id="camp_id" >
                                                                         <input type="hidden" id="client_id" >
                                                                         <select  name="campaign_status" id="campaign_status" class="form-control">
-                                                                            <option value="0">Campaign</option>
-                                                                            <option value="1">CDC</option>
-                                                                            <option value="2">Lead</option>
+                                                                            <option value="2">Open</option>
+                                                                            <option value="1">Closed</option>
+                                                                            <option value="3">Hold</option>
                                                                         </select>
                                                                     </div>
                                                               
@@ -207,10 +207,10 @@ $(document).ready(function(){
                    
                     if(response.statusCode == "Success") 
                     {                        
-                        $(".status").html(response.status);
+                        // $(".status").html(response.status);
                         $("#addcampbtn").prop('disabled', true);
                         $('#Modal-overflow').modal('hide');
-                        // top.location.href=base_url+"campaigns/updateCampaignStatus";//redirection
+                        top.location.href=base_url+"campaigns/campaign";//redirection
                     }else if(response.statusCode=="Fail")
                     {
                         $("#addcampbtn").html(response.message);

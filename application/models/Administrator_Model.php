@@ -712,12 +712,15 @@
 			if($campaigns === FALSE){
 				$this->db->order_by('campaign.cids', 'DESC');
 				$this->db->join('clientscd', 'clientscd.clientid = campaign.clientids');
+				$query = $this->db->where('campaign.status', 2);
 				$query = $this->db->get('campaign');
+				// echo $this->db->last_query(); 
 				return $query->result_array(); 
 			}
 
-//			$query = $this->db->get_where('campaign', array('username' => $username));
+			// $query = $this->db->where('campaign.status', 2);
 			$query = $this->db->get('campaign');
+			
 			return $query->row_array();
 		}
 
@@ -1715,7 +1718,8 @@ public function get_campaign_fordataverification()
 		$this->db->where('leadmaster.evload',null);
 		$this->db->where('leadmaster.cdcload',null);
 		$this->db->where('leadmaster.qaload',null);
-		$this->db->where('leadmaster.rlc !=', 1);	
+		$this->db->where('leadmaster.rlc !=', 1);
+		$this->db->where('campaign.status', 2);	
 		$this->db->join('leadmaster', 'leadmaster.cids = campaign.cids');
 		
 	
@@ -1747,6 +1751,7 @@ public function get_campaign_fordataverification()
 			$this->db->where('leadmaster.cdcload',null);
 			$this->db->where('leadmaster.qaload',null);
 			$this->db->where('leadmaster.rlc !=', 1);	
+			$this->db->where('campaign.status', 2);	
 			$this->db->join('leadmaster', 'leadmaster.cids = campaign.cids');
 			
 		

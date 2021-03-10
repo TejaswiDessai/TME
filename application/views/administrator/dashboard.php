@@ -203,7 +203,7 @@
                                         <div class="table-responsive">
                                             <table class="table">
                                                 <thead>
-                                                    <tr><td>First Iteration</td></tr>
+                                                    <tr><td><b>First Iteration</b></td></tr>
                                                     <tr class="text-capitalize">
                                                         <th>Lead Added / Updated</th>
                                                         <!-- <th>User Name</th> -->
@@ -218,9 +218,9 @@
                                                         <td><?php  $startdate =  date('Y-m-d 00:00:00');  $enddate =  date('Y-m-d H:i:s'); //'stdti >=', date('Y-m-d 00:00:00') 'stdti <=', date('Y-m-d H:i:s')
                                                         $today = $this->db->query("SELECT * FROM leadmaster where (stagtidi = $empid OR stagtidi = $empcode ) AND  stdti <= current_date + current_time AND stdti >= current_date + 00-00-00 ");
                                                         $yesterday = $this->db->query("SELECT * FROM leadmaster where (stagtidi = $empid OR stagtidi = $empcode ) AND stdti >= current_date - 1 AND stdti <= current_date");
-                                                        echo  "YESTERDAY :  ".$yesterday->num_rows()."<br><br>";
+                                                        // echo  "YESTERDAY :  ".$yesterday->num_rows()."<br><br>";
                                                         echo "TODAY : ". $today->num_rows();
-                                                        
+                                                        $subone= $today;
                                                         ?>
                                                         </td>
                                                         <!-- <td><?php //echo $this->session -> userdata('username')?></td><td> -->
@@ -239,9 +239,9 @@
                                                         --  and
                                                         --  cids = 1009
                                                          and (svagtidi = $empcode ) AND svdti >= current_date - 1 AND svdti <= current_date");
-                                                         echo  "YESTERDAY :  ".$yesterday->num_rows()."<br><br>";
+                                                        //  echo  "YESTERDAY :  ".$yesterday->num_rows()."<br><br>";
                                                          echo "TODAY : ". $today->num_rows();
-
+                                                         $saveone= $today;
                                                         // $query = $this->db->query("SELECT * FROM leadmaster where (stagtidi = $empid OR stagtidi = $empcode ) AND  svdti >= now()::date + interval '1h'");
                                                         // echo $query->num_rows();
                                                         ?>
@@ -249,19 +249,19 @@
                                                         <td><?php  $startdate =  date('Y-m-d 00:00:00');  $enddate =  date('Y-m-d H:i:s'); //'stdti >=', date('Y-m-d 00:00:00') 'stdti <=', date('Y-m-d H:i:s')
                                                         $today = $this->db->query("SELECT * FROM leadmaster where (dvagtidi = $empcode ) AND  dvdti <= current_date + current_time AND dvdti >= current_date + 00-00-00 ");
                                                         $yesterday = $this->db->query("SELECT * FROM leadmaster where (dvagtidi = $empcode ) AND dvdti >= current_date - 1 AND dvdti <= current_date");
-                                                        echo  "YESTERDAY :  ".$yesterday->num_rows()."<br><br>";
+                                                        // echo  "YESTERDAY :  ".$yesterday->num_rows()."<br><br>";
                                                         echo "TODAY : ". $today->num_rows();
                                                         // $today1staccepted = $today->num_rows();
-                                                        
+                                                        $accone =  $today;
                                                         ?>
                                                         </td>
                                                         </td>
                                                         <td><?php  $startdate =  date('Y-m-d 00:00:00');  $enddate =  date('Y-m-d H:i:s'); //'stdti >=', date('Y-m-d 00:00:00') 'stdti <=', date('Y-m-d H:i:s')
                                                         $today = $this->db->query("SELECT * FROM leadmaster where (dvragtidi = $empcode ) AND  dvrdti <= current_date + current_time AND dvrdti >= current_date + 00-00-00 ");
                                                         $yesterday = $this->db->query("SELECT * FROM leadmaster where (dvragtidi = $empcode ) AND dvrdti >= current_date - 1 AND dvrdti <= current_date");
-                                                        echo  "YESTERDAY :  ".$yesterday->num_rows()."<br><br>";
+                                                        // echo  "YESTERDAY :  ".$yesterday->num_rows()."<br><br>";
                                                         echo "TODAY : ". $today->num_rows();
-                                                       
+                                                        $rejone =  $today;
                                                         ?>
                                                         </td>
                                                     </tr>
@@ -270,12 +270,13 @@
                                                         <td><b>2nd Iteration</b></td>
                                                     </tr>
                                                     <tr>
-                                                        <td><?php  //$startdate =  date('Y-m-d 00:00:00');  $enddate =  date('Y-m-d H:i:s'); //'stdti >=', date('Y-m-d 00:00:00') 'stdti <=', date('Y-m-d H:i:s')
-                                                        //$today = $this->db->query("SELECT * FROM leadmaster where (stagtidii = $empid OR stagtidii = $empcode ) AND  stdti <= current_date + current_time AND stdti >= current_date + 00-00-00 ");
-                                                       // $yesterday = $this->db->query("SELECT * FROM leadmaster where (stagtidii = $empid OR stagtidii = $empcode ) AND stdti >= current_date - 1 AND stdti <= current_date");
-                                                       // echo  "YESTERDAY :  ".$yesterday->num_rows()."<br><br>";
-                                                        //echo "TODAY : ". $today->num_rows();
-                                                        
+                                                        <td><?php 
+                                                         $startdate =  date('Y-m-d 00:00:00');  $enddate =  date('Y-m-d H:i:s'); //'stdti >=', date('Y-m-d 00:00:00') 'stdti <=', date('Y-m-d H:i:s')
+                                                        $today = $this->db->query("SELECT * FROM leadmaster where (stagtidii = $empid OR stagtidii = $empcode ) AND  stdtii <= current_date + current_time AND stdtii >= current_date + 00-00-00 ");
+                                                       $yesterday = $this->db->query("SELECT * FROM leadmaster where (stagtidii = $empid OR stagtidii = $empcode ) AND stdtii >= current_date - 1 AND stdtii <= current_date");
+                                                    //    echo  "YESTERDAY :  ".$yesterday->num_rows()."<br><br>";
+                                                        echo "TODAY : ". $today->num_rows();
+                                                        $subtwo= $today;
                                                         ?>
                                                         </td>
                                                         <!-- <td><?php //echo $this->session -> userdata('username')?></td><td> -->
@@ -283,7 +284,7 @@
                                                         <?php 
                                                          $today = $this->db->query("SELECT * FROM leadmaster where (stagtidii = $empid OR stagtidii = $empcode ) AND  ((svdti <= current_date + current_time AND svdti >= current_date + 00-00-00) OR (svdti <= current_date + current_time AND svdti >= current_date + 00-00-00)) ");
                                                          $yesterday = $this->db->query("SELECT * FROM leadmaster where (stagtidii = $empid OR stagtidii = $empcode ) AND ((svdti >= current_date - 1 AND svdti <= current_date) OR (svdti >= current_date - 1 AND svdti <= current_date))");
-                                                         echo  "YESTERDAY :  ".$yesterday->num_rows()."<br><br>";
+                                                        //  echo  "YESTERDAY :  ".$yesterday->num_rows()."<br><br>";
                                                          echo "TODAY : ". $today->num_rows();
 
                                                         // $query = $this->db->query("SELECT * FROM leadmaster where (stagtidi = $empid OR stagtidi = $empcode ) AND  svdti >= now()::date + interval '1h'");
@@ -293,21 +294,41 @@
                                                         <td><?php  $startdate =  date('Y-m-d 00:00:00');  $enddate =  date('Y-m-d H:i:s'); //'stdti >=', date('Y-m-d 00:00:00') 'stdti <=', date('Y-m-d H:i:s')
                                                         $today = $this->db->query("SELECT * FROM leadmaster where (dvagtidii = $empcode ) AND  dvdtii <= current_date + current_time AND dvdtii >= current_date + 00-00-00 ");
                                                         $yesterday = $this->db->query("SELECT * FROM leadmaster where (dvagtidii = $empcode ) AND dvdtii >= current_date - 1 AND dvdtii <= current_date");
-                                                        echo  "YESTERDAY :  ".$yesterday->num_rows()."<br><br>";
+                                                        // echo  "YESTERDAY :  ".$yesterday->num_rows()."<br><br>";
                                                         echo "TODAY : ". $today->num_rows();
                                                         // echo  "Total Accepted Today (1st): ". $today1staccepted+$today->num_rows();
-                                                        ?>
+                                                        $acctwo =  $today;
+                                                       ?>
                                                         </td>
                                                         </td>
                                                         <td><?php  $startdate =  date('Y-m-d 00:00:00');  $enddate =  date('Y-m-d H:i:s'); //'stdti >=', date('Y-m-d 00:00:00') 'stdti <=', date('Y-m-d H:i:s')
                                                         $today = $this->db->query("SELECT * FROM leadmaster where (dvragtidii = $empcode ) AND  dvrdtii <= current_date + current_time AND dvrdtii >= current_date + 00-00-00 ");
                                                         $yesterday = $this->db->query("SELECT * FROM leadmaster where (dvragtidii = $empcode ) AND dvrdtii >= current_date - 1 AND dvrdtii <= current_date");
-                                                        echo  "YESTERDAY :  ".$yesterday->num_rows()."<br><br>";
+                                                        // echo  "YESTERDAY :  ".$yesterday->num_rows()."<br><br>";
                                                         echo "TODAY : ". $today->num_rows();
-                                                       
+
+                                                        $rejtwo =  $today;
+                                                      
                                                         ?>
                                                         </td>
                                                     </tr>
+                                                    <tr>
+                                                        <td><b> Total Submitted:</b>
+                                                        <?php  $totalsub = $subtwo->num_rows()+ $subone->num_rows();
+                                                        echo $totalsub; ?></td>
+                                                         <td><b> Total Saved:</b>
+                                                        <?php  $totalsaved = $saveone->num_rows();
+                                                        echo $totalsaved; ?></td>
+                                                        <td><b> Total Accepted:</b>
+                                                        <?php  $totalacc = $acctwo->num_rows()+ $accone->num_rows();
+                                                        echo $totalacc; ?></td>
+                                                        <td><b> Total rejected:</b>
+                                                        <?php  $totalrej= $rejtwo->num_rows()+ $rejone->num_rows();
+                                                        echo $totalrej; ?></td>
+                                                         
+                                                        
+                                                    </tr>
+                                                    
                                                 </tbody>
                                             </table>
                                         </div>
@@ -319,7 +340,7 @@
                         
                     </div>
                     <?php } ?>
-                    <div class="col-md-6 col-xl-3">
+                    <!-- <div class="col-md-6 col-xl-3">
                         <div class="card social-widget-card">
                             <div class="card-block-big bg-facebook">
                                 <h3>1165 +</h3>
@@ -354,7 +375,7 @@
                                 <i class="icofont icofont-social-google-plus"></i>
                             </div>
                         </div>
-                    </div>
+                    </div> -->
                 </div>
             </div>
        

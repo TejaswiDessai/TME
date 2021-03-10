@@ -117,7 +117,7 @@
                                         <th>Total Accepted</th>
                                         <th>1st Accept</th>
                                         <th>2nd Accept</th>
-                                        <th>3rd Accept</th>
+                                        <!-- <th>3rd Accept</th> -->
                                     </tr>
                                 </thead>
                                 <tbody >
@@ -203,15 +203,17 @@
                                          echo $second_accept->num_rows();
                                           ?></td>
                                         <!-- </td> -->
-                                        <td><?php 
-                                         $third_accept = $this->db->query("select * from leadmaster
-                                         where ontag = 1
-                                         and rlc = 0
-                                         and pload = 0
-                                         and dvsbtg = 3
-                                         and dvload = 1 and cids = '".$post['cids']."'");
-                                         echo $third_accept->num_rows();
-                                         ?></td>
+                                        <!-- <td> -->
+                                            <?php 
+                                        //  $third_accept = $this->db->query("select * from leadmaster
+                                        //  where ontag = 1
+                                        //  and rlc = 0
+                                        //  and pload = 0
+                                        //  and dvsbtg = 3
+                                        //  and dvload = 1 and cids = '".$post['cids']."'");
+                                        //  echo $third_accept->num_rows();
+                                         ?>
+                                         <!-- </td> -->
                                     </tr>
                                 <?php endforeach; ?>
 

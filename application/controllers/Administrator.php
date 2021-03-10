@@ -2296,16 +2296,7 @@ public function getPrivillage(){
 		$this->pagination->initialize($config);
 	
 		$data['title'] = 'Latest Campaigns';
-		// print_r($user_id);
-		if($stage =='rejected'){
-			$data['users'] = $this->Administrator_Model->get_user_reportfordv($campid,$user_id,$from,$to,$stage); //reject
-		}else if($stage =='accepeted'){
-			$data['users'] = $this->Administrator_Model->get_user_reportfordvaccepted($campid,$user_id,$from,$to,$stage);
-		}else if($stage =='verified'){
-			$data['users'] = $this->Administrator_Model->get_user_reportfordvverified($campid,$user_id,$from,$to,$stage);
-		}else{
-			$data['users'] = $this->Administrator_Model->get_user_report($campid,$user_id,$from,$to,$stage);
-		}
+		
 		
 		
 		
@@ -2313,7 +2304,7 @@ public function getPrivillage(){
 		// print_r($data['users']);
 		//  print_r($user_id);
 		$data['users_name'] = $this->Administrator_Model->get_users(FALSE, $config['per_page'], $offset);
-		$data['campaigns'] = $this->Administrator_Model->get_campaign();
+		$data['users'] = $this->Administrator_Model->get_campaign();
 		$data['user_id'] = $user_id;
 		$data['Campid'] = $campid;
 		$data['Stage'] = $stage;

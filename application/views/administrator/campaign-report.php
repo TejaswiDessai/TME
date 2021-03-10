@@ -110,14 +110,14 @@
                                         <!-- <th>Image</th> -->
                                         <!-- <th>Username</th> -->
                                         <th>Campaign Name</th>
-                                        <th>No. Of Records</th>
+                                        <th>Total Records</th>
                                         <th>DC Pending</th>
                                         <th>DV Pending</th>
-                                        <th>Verified</th>
-                                        <th>DV Rejection</th>
-                                        <th>DV Accepted</th>
-                                        <th>DV Rejection(2nd Attmpt)</th>
-                                        <th>DV Accepted(2nd Attmpt)</th>
+                                        <th>Saved</th>
+                                        <th>Total Accepted</th>
+                                        <th>1st Accept</th>
+                                        <th>2nd Accept</th>
+                                        <th>3rd Accept</th>
                                     </tr>
                                 </thead>
                                 <tbody >
@@ -132,22 +132,22 @@
                                         ?></td>
                                         <td><?php 
                                         // echo $post['cids'];
-                                        $query = $this->db->query("SELECT * FROM leadmaster where cids = '".$post['cids']."'");
-                                        echo $query->num_rows();
+                                        $total = $this->db->query("SELECT * FROM leadmaster where cids = '".$post['cids']."'");
+                                        echo $total->num_rows();
 
                                         ?></td>
                                          <td><?php 
-                                         $query = $this->db->query("select * from leadmaster
+                                         $dc_pending = $this->db->query("select * from leadmaster
                                          where ontag = 1
                                          and rlc = 0
                                          and pload = 0
                                          and dvload = 0
                                          and sbsvtag <>0
                                          and sbsvtag <6 and cids = '".$post['cids']."'");
-                                         echo $query->num_rows();
+                                         echo $dc_pending->num_rows();
                                          //echo $post['pending']; ?></td>
                                          <td><?php 
-                                         $query = $this->db->query("select * from leadmaster
+                                         $dv_pending = $this->db->query("select * from leadmaster
                                          where ontag = 0 
                                          and rlc = 0
                                          and pload = 1
@@ -156,63 +156,60 @@
                                          and dvsbtg =0
                                          and sbsvtag <>0
                                          and sbsvtag <6 and cids = '".$post['cids']."'");
-                                         echo $query->num_rows();
+                                         echo $dv_pending->num_rows();
                                           ?></td>
+                                          <td>
+                                          <?php 
+                                         $saved = $this->db->query("SELECT * FROM public.leadmaster
+                                         where 
+                                         svagtidi is not null
+                                         and sbsvtag < 6 and cids = '".$post['cids']."'
+                                         group by svagtidi,lmid
+                                        
+                                         ");
+                                         echo $saved->num_rows();
+                                          ?>
+                                        </td>
                                          <td><?php 
-                                        $query = $this->db->query("select * from leadmaster
-                                        where 
-                                        rlc = 0
-                                        and dvrejtg >= 1
-                                        and dvload = 0 and cids = '".$post['cids']."'");
-                                        $rejected =  $query->num_rows();
-                                        $query = $this->db->query("select * from leadmaster
+                                        $total_accept = $this->db->query("select * from leadmaster
                                         where ontag = 1
                                         and rlc = 0
                                         and pload = 0
                                         and dvsbtg = 1
                                         and dvload = 1 and cids = '".$post['cids']."'");
-                                        $accepted = $query->num_rows();
-                                        echo $rejected + $accepted;
+                                        echo $total_accept->num_rows();
 
                                          //echo $post['numberveri']; ?></td>
                                         <!-- <td> -->
                                         <td><?php 
-                                         $query = $this->db->query("select * from leadmaster
+                                         $first_accept = $this->db->query("select * from leadmaster
                                          where 
                                          rlc = 0
                                          and dvrejtg >= 1
                                          and dvload = 0 and cids = '".$post['cids']."'");
-                                         echo $query->num_rows();
+                                         echo $first_accept->num_rows();
                                           ?></td>
                                         <!-- </td> -->
-                                        <td><?php 
-                                         $query = $this->db->query("select * from leadmaster
-                                         where ontag = 1
-                                         and rlc = 0
-                                         and pload = 0
-                                         and dvsbtg = 1
-                                         and dvload = 1 and cids = '".$post['cids']."'");
-                                         echo $query->num_rows();
-                                         ?></td>
+                                        
                                           <td><?php 
-                                         $query = $this->db->query("select * from leadmaster
+                                         $second_accept = $this->db->query("select * from leadmaster
                                          where 
                                          rlc = 0
                                          and dvrejtg >= 1
                                          and dvragtidii != null
                                          and dvload = 0 and cids = '".$post['cids']."'");
-                                         echo $query->num_rows();
+                                         echo $second_accept->num_rows();
                                           ?></td>
                                         <!-- </td> -->
                                         <td><?php 
-                                         $query = $this->db->query("select * from leadmaster
+                                         $third_accept = $this->db->query("select * from leadmaster
                                          where ontag = 1
                                          and rlc = 0
                                          and pload = 0
                                          and dvsbtg = 1
                                          and dvagtidii != null
                                          and dvload = 1 and cids = '".$post['cids']."'");
-                                         echo $query->num_rows();
+                                         echo $third_accept->num_rows();
                                          ?></td>
                                     </tr>
                                 <?php endforeach; ?>

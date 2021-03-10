@@ -319,12 +319,13 @@
                                                          <td><b> Total Saved:</b>
                                                         <?php  $totalsaved = $saveone->num_rows();
                                                         echo $totalsaved; ?></td>
+                                                        <td><b> Total Accepted:</b>
+                                                        <?php  $totalacc = $acctwo->num_rows()+ $accone->num_rows();
+                                                        echo $totalacc; ?></td>
                                                         <td><b> Total rejected:</b>
                                                         <?php  $totalrej= $rejtwo->num_rows()+ $rejone->num_rows();
                                                         echo $totalrej; ?></td>
-                                                         <td><b> Total Accepted:</b>
-                                                        <?php  $totalacc = $acctwo->num_rows()+ $accone->num_rows();
-                                                        echo $totalacc; ?></td>
+                                                         
                                                         
                                                     </tr>
                                                     

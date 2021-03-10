@@ -117,7 +117,7 @@
                                         <th>Total Accepted</th>
                                         <th>1st Accept</th>
                                         <th>2nd Accept</th>
-                                        <th>3rd Accept</th>
+                                        <!-- <th>3rd Accept</th> -->
                                     </tr>
                                 </thead>
                                 <tbody >
@@ -162,7 +162,8 @@
                                           <?php 
                                          $saved = $this->db->query("SELECT * FROM public.leadmaster
                                          where 
-                                         svagtidi is not null
+                                        --  svagtidi is not null
+                                        dvload = 0
                                          and sbsvtag < 6 and cids = '".$post['cids']."'
                                          group by svagtidi,lmid
                                         
@@ -175,7 +176,7 @@
                                         where ontag = 1
                                         and rlc = 0
                                         and pload = 0
-                                        and dvsbtg = 1
+                                        and (dvsbtg = 0 OR dvsbtg = 1 OR dvsbtg = 2)
                                         and dvload = 1 and cids = '".$post['cids']."'");
                                         echo $total_accept->num_rows();
 
@@ -183,34 +184,36 @@
                                         <!-- <td> -->
                                         <td><?php 
                                          $first_accept = $this->db->query("select * from leadmaster
-                                         where 
-                                         rlc = 0
-                                         and dvrejtg >= 1
-                                         and dvload = 0 and cids = '".$post['cids']."'");
+                                         where ontag = 1
+                                         and rlc = 0
+                                         and pload = 0
+                                         and dvsbtg = 1
+                                         and dvload = 1 and cids = '".$post['cids']."'");
                                          echo $first_accept->num_rows();
                                           ?></td>
                                         <!-- </td> -->
                                         
                                           <td><?php 
                                          $second_accept = $this->db->query("select * from leadmaster
-                                         where 
-                                         rlc = 0
-                                         and dvrejtg >= 1
-                                         and dvragtidii != null
-                                         and dvload = 0 and cids = '".$post['cids']."'");
-                                         echo $second_accept->num_rows();
-                                          ?></td>
-                                        <!-- </td> -->
-                                        <td><?php 
-                                         $third_accept = $this->db->query("select * from leadmaster
                                          where ontag = 1
                                          and rlc = 0
                                          and pload = 0
-                                         and dvsbtg = 1
-                                         and dvagtidii != null
+                                         and dvsbtg = 2
                                          and dvload = 1 and cids = '".$post['cids']."'");
-                                         echo $third_accept->num_rows();
-                                         ?></td>
+                                         echo $second_accept->num_rows();
+                                          ?></td>
+                                        <!-- </td> -->
+                                        <!-- <td> -->
+                                            <?php 
+                                        //  $third_accept = $this->db->query("select * from leadmaster
+                                        //  where ontag = 1
+                                        //  and rlc = 0
+                                        //  and pload = 0
+                                        //  and dvsbtg = 3
+                                        //  and dvload = 1 and cids = '".$post['cids']."'");
+                                        //  echo $third_accept->num_rows();
+                                         ?>
+                                         <!-- </td> -->
                                     </tr>
                                 <?php endforeach; ?>
 

@@ -203,6 +203,7 @@
                                         <div class="table-responsive">
                                             <table class="table">
                                                 <thead>
+                                                    <tr><td>First Iteration</td></tr>
                                                     <tr class="text-capitalize">
                                                         <th>Lead Added / Updated</th>
                                                         <!-- <th>User Name</th> -->
@@ -225,8 +226,19 @@
                                                         <!-- <td><?php //echo $this->session -> userdata('username')?></td><td> -->
                                                         <td>
                                                         <?php 
-                                                         $today = $this->db->query("SELECT * FROM leadmaster where (stagtidi = $empid OR stagtidi = $empcode ) AND  svdti <= current_date + current_time AND svdti >= current_date + 00-00-00 ");
-                                                         $yesterday = $this->db->query("SELECT * FROM leadmaster where (stagtidi = $empid OR stagtidi = $empcode ) AND svdti >= current_date - 1 AND svdti <= current_date");
+                                                         $today = $this->db->query(" SELECT * FROM public.leadmaster
+                                                         where 
+                                                         svagtidi is not null
+                                                        --  and
+                                                        --  cids = 1009
+                                                         and (svagtidi = $empcode )
+                                                          AND  svdti <= current_date + current_time AND svdti >= current_date + 00-00-00 group by svagtidi,lmid ");
+                                                         $yesterday = $this->db->query(" SELECT * FROM public.leadmaster
+                                                         where 
+                                                         svagtidi is not null
+                                                        --  and
+                                                        --  cids = 1009
+                                                         and (svagtidi = $empcode ) AND svdti >= current_date - 1 AND svdti <= current_date");
                                                          echo  "YESTERDAY :  ".$yesterday->num_rows()."<br><br>";
                                                          echo "TODAY : ". $today->num_rows();
 
@@ -239,7 +251,8 @@
                                                         $yesterday = $this->db->query("SELECT * FROM leadmaster where (dvagtidi = $empcode ) AND dvdti >= current_date - 1 AND dvdti <= current_date");
                                                         echo  "YESTERDAY :  ".$yesterday->num_rows()."<br><br>";
                                                         echo "TODAY : ". $today->num_rows();
-                                                       
+                                                        // $today1staccepted = $today->num_rows();
+                                                        
                                                         ?>
                                                         </td>
                                                         </td>
@@ -253,6 +266,48 @@
                                                         </td>
                                                     </tr>
                                                    
+                                                    <tr>
+                                                        <td><b>2nd Iteration</b></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td><?php  //$startdate =  date('Y-m-d 00:00:00');  $enddate =  date('Y-m-d H:i:s'); //'stdti >=', date('Y-m-d 00:00:00') 'stdti <=', date('Y-m-d H:i:s')
+                                                        //$today = $this->db->query("SELECT * FROM leadmaster where (stagtidii = $empid OR stagtidii = $empcode ) AND  stdti <= current_date + current_time AND stdti >= current_date + 00-00-00 ");
+                                                       // $yesterday = $this->db->query("SELECT * FROM leadmaster where (stagtidii = $empid OR stagtidii = $empcode ) AND stdti >= current_date - 1 AND stdti <= current_date");
+                                                       // echo  "YESTERDAY :  ".$yesterday->num_rows()."<br><br>";
+                                                        //echo "TODAY : ". $today->num_rows();
+                                                        
+                                                        ?>
+                                                        </td>
+                                                        <!-- <td><?php //echo $this->session -> userdata('username')?></td><td> -->
+                                                        <td>
+                                                        <?php 
+                                                         $today = $this->db->query("SELECT * FROM leadmaster where (stagtidii = $empid OR stagtidii = $empcode ) AND  ((svdti <= current_date + current_time AND svdti >= current_date + 00-00-00) OR (svdti <= current_date + current_time AND svdti >= current_date + 00-00-00)) ");
+                                                         $yesterday = $this->db->query("SELECT * FROM leadmaster where (stagtidii = $empid OR stagtidii = $empcode ) AND ((svdti >= current_date - 1 AND svdti <= current_date) OR (svdti >= current_date - 1 AND svdti <= current_date))");
+                                                         echo  "YESTERDAY :  ".$yesterday->num_rows()."<br><br>";
+                                                         echo "TODAY : ". $today->num_rows();
+
+                                                        // $query = $this->db->query("SELECT * FROM leadmaster where (stagtidi = $empid OR stagtidi = $empcode ) AND  svdti >= now()::date + interval '1h'");
+                                                        // echo $query->num_rows();
+                                                        ?>
+                                                        </td>
+                                                        <td><?php  $startdate =  date('Y-m-d 00:00:00');  $enddate =  date('Y-m-d H:i:s'); //'stdti >=', date('Y-m-d 00:00:00') 'stdti <=', date('Y-m-d H:i:s')
+                                                        $today = $this->db->query("SELECT * FROM leadmaster where (dvagtidii = $empcode ) AND  dvdtii <= current_date + current_time AND dvdtii >= current_date + 00-00-00 ");
+                                                        $yesterday = $this->db->query("SELECT * FROM leadmaster where (dvagtidii = $empcode ) AND dvdtii >= current_date - 1 AND dvdtii <= current_date");
+                                                        echo  "YESTERDAY :  ".$yesterday->num_rows()."<br><br>";
+                                                        echo "TODAY : ". $today->num_rows();
+                                                        // echo  "Total Accepted Today (1st): ". $today1staccepted+$today->num_rows();
+                                                        ?>
+                                                        </td>
+                                                        </td>
+                                                        <td><?php  $startdate =  date('Y-m-d 00:00:00');  $enddate =  date('Y-m-d H:i:s'); //'stdti >=', date('Y-m-d 00:00:00') 'stdti <=', date('Y-m-d H:i:s')
+                                                        $today = $this->db->query("SELECT * FROM leadmaster where (dvragtidii = $empcode ) AND  dvrdtii <= current_date + current_time AND dvrdtii >= current_date + 00-00-00 ");
+                                                        $yesterday = $this->db->query("SELECT * FROM leadmaster where (dvragtidii = $empcode ) AND dvrdtii >= current_date - 1 AND dvrdtii <= current_date");
+                                                        echo  "YESTERDAY :  ".$yesterday->num_rows()."<br><br>";
+                                                        echo "TODAY : ". $today->num_rows();
+                                                       
+                                                        ?>
+                                                        </td>
+                                                    </tr>
                                                 </tbody>
                                             </table>
                                         </div>

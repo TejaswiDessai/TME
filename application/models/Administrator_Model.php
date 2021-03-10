@@ -2352,5 +2352,26 @@ public function get_campaign_fordataverification()
 			//  return true;
                         // echo $this->db->last_query(); 
 		}
-		
+
+		// get campaign list for campaign list - Added by Amol
+		public function get_campaign_list($campaigns = FALSE, $limit = FALSE, $offset = FALSE)
+		{
+			if ($limit) {
+				$this->db->limit($limit, $offset);
+			}
+
+			if($campaigns === FALSE){
+				$this->db->order_by('campaign.cids', 'DESC');
+				$this->db->join('clientscd', 'clientscd.clientid = campaign.clientids');
+				// $query = $this->db->where('campaign.status', 2);
+				$query = $this->db->get('campaign');
+				// echo $this->db->last_query(); 
+				return $query->result_array(); 
+			}
+
+			// $query = $this->db->where('campaign.status', 2);
+			$query = $this->db->get('campaign');
+			
+			return $query->row_array();
+		}
 }

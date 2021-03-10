@@ -197,7 +197,7 @@
 
 			$data['title'] = 'Latest Campaigns';
 
-			$data['campaigns'] = $this->Administrator_Model->get_campaign(FALSE, $config['per_page'], $offset);
+			$data['campaigns'] = $this->Administrator_Model->get_campaign_list(FALSE, $config['per_page'], $offset);
 
 			 	$this->load->view('administrator/header-script');
 		 	 	 $this->load->view('administrator/header');

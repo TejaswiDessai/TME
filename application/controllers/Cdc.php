@@ -2076,6 +2076,13 @@
 				}else{
 					$stagtidii = NULL;
 				}
+				if(!empty($_GET['stagtidi']) AND !empty($_GET['stagtidii']))
+				{
+					$stagtidii = $_SESSION['empcode'];
+				}
+				// else{
+				// 	$stagtidii = NULL;
+				// }
 
 
 				if(empty($_GET['stdti']))
@@ -2090,6 +2097,13 @@
 				}else{
 					$stdtii = NULL;
 				}
+				if(!empty($_GET['stdti']) AND !(empty($_GET['stdtii'])))
+				{
+					$stdtii = $old_date;
+				}
+				// else{
+				// 	$stdtii = NULL;
+				// }
 
 				// 'stagtidii' => $_SESSION['empcode'], // submit agent name 
 

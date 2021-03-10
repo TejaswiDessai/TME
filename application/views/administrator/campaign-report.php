@@ -162,7 +162,8 @@
                                           <?php 
                                          $saved = $this->db->query("SELECT * FROM public.leadmaster
                                          where 
-                                         svagtidi is not null
+                                        --  svagtidi is not null
+                                        dvload = 0
                                          and sbsvtag < 6 and cids = '".$post['cids']."'
                                          group by svagtidi,lmid
                                         

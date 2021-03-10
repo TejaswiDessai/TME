@@ -203,7 +203,7 @@
                                         <div class="table-responsive">
                                             <table class="table">
                                                 <thead>
-                                                    <tr><td>First Iteration</td></tr>
+                                                    <tr><td><b>First Iteration</b></td></tr>
                                                     <tr class="text-capitalize">
                                                         <th>Lead Added / Updated</th>
                                                         <!-- <th>User Name</th> -->

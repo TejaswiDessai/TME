@@ -2092,7 +2092,7 @@ $("input:checkbox").change(function() {
     
                 if(dvsbtg == '3'){
                   var dvsbtg = '3';
-                  var sbsvtag = '0';
+                  var sbsvtag = $('#sbsvtag').val();
                 }else{
                   var sbsvtag = $('#sbsvtag').val();
                 }

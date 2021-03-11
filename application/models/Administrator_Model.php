@@ -1972,7 +1972,7 @@ public function get_campaign_fordataverification()
 			count(leadmaster.stagtidi) - (count(leadmaster.dvagtidi)+count(leadmaster.dvragtidi)) as pending,
 			count(leadmaster.dvagtidi) as accepted ,count(leadmaster.dvragtidi) as rejected');
 			$this->db->from('leadmaster');
-			$this->db->join('users', 'users.empcode = leadmaster.stagtidi OR users.empcode = leadmaster.stagtidi','left OR users.emp_id = leadmaster.dvagtidi OR users.empcode = leadmaster.dvagtidi','left');
+			$this->db->join('users', 'users.empcode = leadmaster.stagtidi OR users.empcode = leadmaster.stagtidi','users.empcode = leadmaster.svagtidi','left OR users.emp_id = leadmaster.dvagtidi OR users.empcode = leadmaster.dvagtidi','left');
 			$this->db->join('campaign', 'campaign.cids = leadmaster.cids','left');
 			if(isset($campid) && $campid != null)
 			{
@@ -2028,8 +2028,10 @@ public function get_campaign_fordataverification()
 			// }
 			else
 			{
-				$this->db->where("stdti >= now()::date + interval '1h'");
-				// $this->db->where('stdti <=', date('Y-m-d H:i:s'));
+				$this->db->group_start();
+				$this->db->where("stdti >= now()::date + interval '0h'");
+				$this->db->OR_where("svdti>= now()::date + interval '0h'");
+				$this->db->group_end();
 			}
 			$this->db->group_by('leadmaster.cids');
 			$this->db->group_by('users.fname');

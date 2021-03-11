@@ -2139,7 +2139,7 @@ public function get_campaign_fordataverification()
 			(select cids, dvragtidi as ids,dvragtidii as ids2, count(dvragtidi)as rejected, count(dvragtidii)as rejected2 from leadmaster where dvragtidi is not null
 			  AND  dvrdti >= '$from' AND dvrdti <= '$to'  OR dvrdtii >= '$from' AND dvrdtii <= '$to'  
 			   group by dvragtidi,dvragtidii, cids) as l2
-			on l1.id = l2.ids) as lms");
+			on l1.id = l2.ids AND l1.id2 = l2.ids2) as lms");
 			}else{
 				$this->db->select("lms.id, lms.rejected, lms.accepted,lms.accepted2, lms.rejected2, (lms.accepted+lms.rejected+lms.accepted2+lms.rejected2) as numbers,(lms.accepted+lms.rejected+lms.accepted2+lms.rejected2) as numberveri, (lms.accepted+lms.rejected+lms.accepted2+lms.rejected2)-(lms.accepted+lms.rejected+lms.accepted2+lms.rejected2) as pending, users.fname,users.empcode, campaign.cids,campaign.campnm from
 				(select l1.cids, l1.id, l1.accepted, l1.accepted2, l2.rejected,l2.rejected2 from
@@ -2149,7 +2149,7 @@ public function get_campaign_fordataverification()
 				inner join 
 				(select cids, dvragtidi as ids,dvragtidii as ids2, count(dvragtidi)as rejected,count(dvragtidii)as rejected2 from leadmaster where dvragtidi is not null
 				and dvrdti >= now()::date  group by dvragtidi,dvragtidii, cids) as l2
-				on l1.id = l2.ids) as lms");
+				on l1.id = l2.ids AND l1.id2 = l2.ids2) as lms");
 			}
 			
 		

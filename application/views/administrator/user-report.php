@@ -186,12 +186,6 @@
                                         <td>
                                         <?php  echo $post['accepted']; ?>
                                         </td>
-                                        <td>
-                                        <?php echo $post['rejected2']; ?>
-                                        </td>
-                                        <td>
-                                        <?php  echo $post['accepted2']; ?>
-                                        </td>
                                     </tr>
                                 <?php endforeach; ?>
 

@@ -1968,7 +1968,7 @@ public function get_campaign_fordataverification()
 		public function get_user_report($campid,$user_id,$from,$to,$stage)
 		{
 			$this->db->select('leadmaster.cids,users.fname,users.empcode,users.last_login,campaign.campnm,
-			count(leadmaster.stagtidi) as numbers,count(leadmaster.dvagtidi)+count(leadmaster.dvragtidi) as numberveri,
+			count(leadmaster.stagtidi) as numbers,count(leadmaster.svagtidi) as savednumbers,count(leadmaster.dvagtidi)+count(leadmaster.dvragtidi) as numberveri,
 			count(leadmaster.stagtidi) - (count(leadmaster.dvagtidi)+count(leadmaster.dvragtidi)) as pending,
 			count(leadmaster.dvagtidi) as accepted ,count(leadmaster.dvragtidi) as rejected');
 			$this->db->from('leadmaster');

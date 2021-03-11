@@ -143,7 +143,14 @@
                        
                     </div>
                     <br>
+                        <?php if (isset($Stage) && $Stage == "verified")
+                        {
+                            $display  = "visibility: hidden;";
+                        }else{
+                            $display  = "visibility: visible;"; 
+                        }
 
+                        ?>
                         <div class="table-responsive dt-responsive">
                             <table id="dom-jqry" class="table table-striped table-bordered nowrap table1">
                                 <thead>
@@ -154,6 +161,10 @@
                                         <th>Username</th>
                                         <th>Campaign Name</th>
                                         <th>No. Of Records</th>
+                                        <?php if (isset($Stage) && $Stage == "datacollect" ||$Stage == "")
+                                        { ?>
+                                        <th>Saved</th>
+                                      <?php  } ?>
                                         <th>Pending</th>
                                         <th>Verified</th>
                                         <th>Rejection</th>
@@ -176,11 +187,16 @@
                                         // echo $query->num_rows();
 
                                         ?></td>
+                                         <?php if (isset($Stage) && $Stage == "datacollect" ||$Stage == "")
+                                        { ?>
+                                        <td><?php echo $post['savednumbers']; ?></td>
+                                      <?php  } ?>
                                          <td><?php echo $post['pending']; ?></td>
                                          <td><?php echo $post['numberveri']; ?></td>
                                         <td>
                                         <?php echo $post['rejected']; ?>
                                         </td>
+
                                         <td>
                                         <?php  echo $post['accepted']; ?>
                                         </td>

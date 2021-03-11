@@ -1872,6 +1872,7 @@ public function getPrivillage(){
 			$data['users'] = $this->Administrator_Model->get_user_reportfordvaccepted($campid,$user_id,$from,$to,$stage);
 		}else if($stage =='verified'){
 			$data['users'] = $this->Administrator_Model->get_user_reportfordvverified($campid,$user_id,$from,$to,$stage);
+			$data['users'] = $this->Administrator_Model->get_user_reportfordvverifiedsecond($campid,$user_id,$from,$to,$stage);
 		}else{
 			$data['users'] = $this->Administrator_Model->get_user_report($campid,$user_id,$from,$to,$stage);
 		}

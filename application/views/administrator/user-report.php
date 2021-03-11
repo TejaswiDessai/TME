@@ -179,9 +179,13 @@
                                         // echo $campnam = $this->Administrator_Model->get_camp_name($post['emp_id']);
                                         ?></td>
                                         <td><?php 
-                                       
+                                       if(isset($Stage) && $Stage == "verified"){
+                                        $t=$post['numbers'];
+                                       }else{
                                         $t=$post['numbers'] + $post['savednumbers'];
-                                        echo   $t;
+                                       
+                                       }
+                                       echo   $t;
                                         // echo "Total: ".$post['numbers'] + $post['savednumbers'];
                                         // $query = $this->db->query("SELECT * FROM leadmaster where stagtidi = '".$post['emp_id']."'");
                                         // echo $query->num_rows();

@@ -1634,10 +1634,13 @@ public function get_leadmasterby_campaignid($id = FALSE)
 {
 		
 		
-		$this->db->where('sbsvtag <', 6);
+		// $this->db->where('sbsvtag <', 6);
+		$this->db->where('sbsvtag <', 3);
 		$this->db->where('sbsvtag !=', 0);
-		$this->db->where('dvrejtg <', '3');
-		$this->db->where('dvsbtg <', '3');
+		// $this->db->where('dvrejtg <', '3');
+		$this->db->where('dvrejtg <', '2');
+		// $this->db->where('dvsbtg <', '3');
+		$this->db->where('dvsbtg <', '2');
 		$this->db->where('ontag', 1);
 		$this->db->where('pload', 0);
 		$this->db->where('dvload',0);
@@ -1657,10 +1660,13 @@ public function get_leadmasterby_campaigniddv($id = FALSE)
 {
 		
 		
-		$this->db->where('sbsvtag <', 6);
+		// $this->db->where('sbsvtag <', 6);
+		$this->db->where('sbsvtag <', 3);
 		$this->db->where('sbsvtag !=', 0);
-		$this->db->where('dvrejtg <', '3');
-		$this->db->where('dvsbtg <', '3');
+		// $this->db->where('dvrejtg <', '3');
+		$this->db->where('dvrejtg <', '2');
+		// $this->db->where('dvsbtg <', '3');
+		$this->db->where('dvsbtg <', '2');
 		$this->db->where('ontag', 0);
 		$this->db->where('pload', 1);
 		$this->db->where('dvload',0);
@@ -1707,11 +1713,14 @@ public function get_campaign_fordataverification()
 		$this->db->group_by('campaign.cids');
 		$this->db->group_by('campaign.campnm');
 		$this->db->group_by('campaign.cnid');
-		$this->db->where('leadmaster.sbsvtag <', '6');
+		// $this->db->where('leadmaster.sbsvtag <', '6');
+		$this->db->where('leadmaster.sbsvtag <', '3');
 		$this->db->where('leadmaster.sbsvtag !=', 0);
-		$this->db->where('leadmaster.dvrejtg <', '3');
-		// $this->db->where('leadmaster.dvsbtg', Null);
-		$this->db->where('leadmaster.dvsbtg <', '3');
+		$this->db->where('leadmaster.dvrejtg <', '2');
+		// $this->db->where('leadmaster.dvrejtg <', '3');
+	
+		// $this->db->where('leadmaster.dvsbtg <', '3');
+		$this->db->where('leadmaster.dvsbtg <', '2');
 		$this->db->where('leadmaster.ontag', 0);
 		$this->db->where('leadmaster.pload', 1);
 		$this->db->where('leadmaster.dvload',0);
@@ -2185,79 +2194,7 @@ public function get_campaign_fordataverification()
 			// $this->db->group_by('campaign.campnm');
 			
 			$query=$this->db->get();
-			// echo $this->db->last_query(); 
-			return $data=$query->result_array();
-
-		}	
-		public function get_user_reportfordvverifiedsecond($campid,$user_id,$from,$to,$stage)
-		{
-			
-			if(isset($from) && isset($to) && $from != '' && $to != ''){
-				$this->db->select("lmss.id, lmss.rejected2, lmss.accepted2, (lmss.accepted2+lmss.rejected2) as numbers2,(lmss.accepted2+lmss.rejected2) as numberveri2, (lmss.accepted2+lmss.rejected2)-(lmss.accepted2+lmss.rejected2) as pending2, users.fname, campaign.cids,campaign.campnm from
-			(select l11.cids, l11.id, l11.accepted2, l22.rejected2 from
-			(select cids, dvagtidii as id, count(dvagtidii) as accepted2  from leadmaster where dvagtidii is not null
-			AND  dvdtii >= '$from' AND dvdtii <= '$to'
-			group by dvagtidii, cids ) as l11
-			inner join 
-			(select cids, dvragtidii as ids, count(dvragtidii)as rejected2 from leadmaster where dvragtidii is not null
-			  AND  dvrdtii >= '$from' AND dvrdtii <= '$to'   group by dvragtidii, cids) as l22
-			on l11.id = l22.ids) as lmss");
-			}else{
-				$this->db->select("lmss.id, lmss.rejected2, lmss.accepted2, (lmss.accepted2+lmss.rejected2) as numbers2,(lmss.accepted2+lmss.rejected2) as numberveri2, (lmss.accepted2+lmss.rejected2)-(lmss.accepted2+lmss.rejected2) as pending2, users.fname, campaign.cids,campaign.campnm from
-				(select l11.cids, l11.id, l11.accepted2, l22.rejected2 from
-				(select cids, dvagtidii as id, count(dvagtidii) as accepted2  from leadmaster where dvagtidii is not null
-				
-				group by dvagtidii, cids ) as l11
-				inner join 
-				(select cids, dvragtidii as ids, count(dvragtidii)as rejected2 from leadmaster where dvragtidii is not null
-				and dvrdtii >= now()::date  group by dvragtidii, cids) as l22
-				on l11.id = l22.ids) as lmss");
-			}
-			
-		
-			$this->db->join('users', 'lmss.id = users.empcode');
-			
-			$this->db->join('campaign', 'lmss.cids = campaign.cids');
-			
-		
-
-			if(isset($user_id) && $user_id != null)
-			{
-				
-				$this->db->where('users.empcode', $user_id);
-			}
-			
-			if(isset($campid) && $campid != null)
-			{
-				$this->db->where('campaign.cids', $campid);
-			}
-			
-			
-			// if(isset($from) && isset($to) && $from != '' && $to != '')
-			// {
-			// 	$this->db->where('lms.dvrdti >=', $from);
-			// 	$this->db->where('lms.dvrdti <=', $to);
-			// 	$this->db->where('lms.dvdti >=', $from);
-			// 	$this->db->where('lms.dvdti <=', $to);
-			
-			// }
-			
-			else
-			{
-				
-				// $this->db->where("lms.rdate >= now()::date + interval '1h'");
-				// $this->db->where("lms.adate >= now()::date + interval '1h'");
-				
-			}
-			// $this->db->group_by('users.fname');
-			// $this->db->group_by('lms.id');
-			// $this->db->group_by('lms.rejected');
-			// $this->db->group_by('lms.accepted');
-			// $this->db->group_by('campaign.cids');
-			// $this->db->group_by('campaign.campnm');
-			
-			$query=$this->db->get();
-			// echo $this->db->last_query(); 
+			echo $this->db->last_query(); 
 			return $data=$query->result_array();
 
 		}	

@@ -1721,7 +1721,7 @@ public function get_campaign_fordataverification()
 	
 		// $this->db->where('leadmaster.dvsbtg <', '3');
 		$this->db->where('leadmaster.dvsbtg <', '2');
-		$this->db->where('leadmaster.ontag', 0);
+		$this->db->where('leadmaster.ontag', 0); 
 		$this->db->where('leadmaster.pload', 1);
 		$this->db->where('leadmaster.dvload',0);
 		$this->db->where('leadmaster.evload',null);

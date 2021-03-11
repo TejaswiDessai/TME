@@ -160,7 +160,7 @@
                                         <th>No. Of Records</th>
                                         <?php if (isset($Stage) && $Stage == "datacollect" ||$Stage == "")
                                         { ?>
-                                        <th>Saved</th>
+                                        <th>Submit & Saved</th>
                                       <?php  } ?>
                                         <th>Pending</th>
                                         <th>Verified</th>
@@ -179,14 +179,19 @@
                                         // echo $campnam = $this->Administrator_Model->get_camp_name($post['emp_id']);
                                         ?></td>
                                         <td><?php 
-                                        echo $post['numbers'];
+                                       
+                                        $t=$post['numbers'] + $post['savednumbers'];
+                                        echo   $t;
+                                        // echo "Total: ".$post['numbers'] + $post['savednumbers'];
                                         // $query = $this->db->query("SELECT * FROM leadmaster where stagtidi = '".$post['emp_id']."'");
                                         // echo $query->num_rows();
 
                                         ?></td>
                                          <?php if (isset($Stage) && $Stage == "datacollect" ||$Stage == "")
                                         { ?>
-                                        <td><?php echo $post['savednumbers']; ?></td>
+                                        <td><?php  
+                                         echo "Submited: ".$post['numbers']."<br>";
+                                         echo "Saved: ".$post['savednumbers']; ?></td>
                                       <?php  } ?>
                                          <td><?php echo $post['pending']; ?></td>
                                          <td><?php echo $post['numberveri']; ?></td>

@@ -2130,24 +2130,25 @@ public function get_campaign_fordataverification()
 		{
 			
 			if(isset($from) && isset($to) && $from != '' && $to != ''){
-				$this->db->select("lms.id, lms.rejected, lms.accepted, (lms.accepted+lms.rejected) as numbers,(lms.accepted+lms.rejected) as numberveri, (lms.accepted+lms.rejected)-(lms.accepted+lms.rejected) as pending, users.fname, campaign.cids,campaign.campnm from
-			(select l1.cids, l1.id, l1.accepted, l2.rejected from
-			(select cids, dvagtidi as id, count(dvagtidi) as accepted  from leadmaster where dvagtidi is not null
-			AND  dvdti >= '$from' AND dvdti <= '$to'
-			group by dvagtidi, cids ) as l1
+				$this->db->select("lms.id, lms.rejected, lms.accepted,lms.accepted2, lms.rejected2, (lms.accepted+lms.rejected+lms.accepted2+lms.rejected2) as numbers,(lms.accepted+lms.rejected+lms.accepted2+lms.rejected2) as numberveri, (lms.accepted+lms.rejected+lms.accepted2+lms.rejected2)-(lms.accepted+lms.rejected+lms.accepted2+lms.rejected2) as pending, users.fname, users.empcode, campaign.cids,campaign.campnm from
+			(select l1.cids, l1.id, l1.accepted,l1.accepted2, l2.rejected,l2.rejected2 from
+			(select cids, dvagtidi as id, dvagtidii as id2, count(dvagtidi) as accepted,count(dvagtidii) as accepted2  from leadmaster where dvagtidi is not null
+			AND  dvdti >= '$from' AND dvdti <= '$to' OR  dvdtii >= '$from' AND dvdtii <= '$to'
+			group by dvagtidi,dvagtidii, cids ) as l1
 			inner join 
-			(select cids, dvragtidi as ids, count(dvragtidi)as rejected from leadmaster where dvragtidi is not null
-			  AND  dvrdti >= '$from' AND dvrdti <= '$to'   group by dvragtidi, cids) as l2
+			(select cids, dvragtidi as ids,dvragtidii as ids2, count(dvragtidi)as rejected, count(dvragtidii)as rejected2 from leadmaster where dvragtidi is not null
+			  AND  dvrdti >= '$from' AND dvrdti <= '$to'  OR dvrdtii >= '$from' AND dvrdtii <= '$to'  
+			   group by dvragtidi,dvragtidii, cids) as l2
 			on l1.id = l2.ids) as lms");
 			}else{
-				$this->db->select("lms.id, lms.rejected, lms.accepted, (lms.accepted+lms.rejected) as numbers,(lms.accepted+lms.rejected) as numberveri, (lms.accepted+lms.rejected)-(lms.accepted+lms.rejected) as pending, users.fname, campaign.cids,campaign.campnm from
-				(select l1.cids, l1.id, l1.accepted, l2.rejected from
-				(select cids, dvagtidi as id, count(dvagtidi) as accepted  from leadmaster where dvagtidi is not null
+				$this->db->select("lms.id, lms.rejected, lms.accepted,lms.accepted2, lms.rejected2, (lms.accepted+lms.rejected+lms.accepted2+lms.rejected2) as numbers,(lms.accepted+lms.rejected+lms.accepted2+lms.rejected2) as numberveri, (lms.accepted+lms.rejected+lms.accepted2+lms.rejected2)-(lms.accepted+lms.rejected+lms.accepted2+lms.rejected2) as pending, users.fname,users.empcode, campaign.cids,campaign.campnm from
+				(select l1.cids, l1.id, l1.accepted, l1.accepted2, l2.rejected,l2.rejected2 from
+				(select cids, dvagtidi as id,dvagtidii as id2, count(dvagtidi) as accepted,count(dvagtidii) as accepted2   from leadmaster where dvagtidi is not null
 				
-				group by dvagtidi, cids ) as l1
+				group by dvagtidi,dvagtidii, cids ) as l1
 				inner join 
-				(select cids, dvragtidi as ids, count(dvragtidi)as rejected from leadmaster where dvragtidi is not null
-				and dvrdti >= now()::date  group by dvragtidi, cids) as l2
+				(select cids, dvragtidi as ids,dvragtidii as ids2, count(dvragtidi)as rejected,count(dvragtidii)as rejected2 from leadmaster where dvragtidi is not null
+				and dvrdti >= now()::date  group by dvragtidi,dvragtidii, cids) as l2
 				on l1.id = l2.ids) as lms");
 			}
 			

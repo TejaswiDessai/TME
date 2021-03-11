@@ -138,12 +138,12 @@
                                         ?></td>
                                          <td><?php 
                                          $dc_pending = $this->db->query("select * from leadmaster
-                                         where ontag = 1
-                                         and rlc = 0
+                                         where 
+                                         rlc = 0
                                          and pload = 0
                                          and dvload = 0
-                                         and sbsvtag <>0
-                                         and sbsvtag <6 and cids = '".$post['cids']."'");
+                                         and dvrejtg = 1
+                                        and cids = '".$post['cids']."'");
                                          echo $dc_pending->num_rows();
                                          //echo $post['pending']; ?></td>
                                          <td><?php 
@@ -162,10 +162,11 @@
                                           <?php 
                                          $saved = $this->db->query("SELECT * FROM public.leadmaster
                                          where 
-                                        --  svagtidi is not null
-                                        dvload = 0
-                                         and sbsvtag < 6 and cids = '".$post['cids']."'
-                                         group by svagtidi,lmid
+                                         svagtidi is not null
+                                        and dvload = 0
+                                         and sbsvtag < 6  
+                                         and cids = '".$post['cids']."'
+                                        --  group by svagtidi,lmid
                                         
                                          ");
                                          echo $saved->num_rows();

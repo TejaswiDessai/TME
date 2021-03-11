@@ -109,14 +109,11 @@
                             </td>
                             <td>
                                 <select class="form-control form-control-default "  name="stage" id="stage">
-                                    <option value="">Stage</option>
-                                    <option value="datacollect" <?php if( isset($Stage) && $Stage == "datacollect") { echo "selected" ; } ?>>Data Collection</option>
+                                    <option value="">Data Collection</option>
+                                   
+                                    <!-- <option value="datacollect" <?php// if( isset($Stage) && $Stage == "datacollect") { echo "selected" ; } ?>>Data Collection</option> -->
                                     <option value="verified" <?php if( isset($Stage) && $Stage == "verified") { echo "selected" ; } ?>>Data Verified</option>
-                                    <!-- <option value="rejected" <?php if( isset($Stage) && $Stage == "rejected") { echo "selected" ; } ?>>Data Rejected</option> -->
-                                    <!-- <option value="accepeted" <?php if( isset($Stage) && $Stage == "accepeted") { echo "selected" ; } ?>>Data Accepted</option> -->
-                                    <!-- <option value="Accepted" <?php if( isset($Stage) && $Stage == "Accepted") { echo "selected" ; } ?>>Data Accepted</option> -->
-                                    <!-- <option value="unverified" <?php if( isset($Stage) && $Stage == "unverified") { echo "selected" ; } ?>>Data Unverified</option> --> 
-                                    <!-- <option value="emailVerified" <?php if( isset($Stage) && $Stage == "emailVerified") { echo "selected" ; } ?>>Email Verified</option> -->
+                                  
                                     
                                     <!-- <option value="All">All</option> -->
 

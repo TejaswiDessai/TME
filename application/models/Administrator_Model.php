@@ -1634,10 +1634,13 @@ public function get_leadmasterby_campaignid($id = FALSE)
 {
 		
 		
-		$this->db->where('sbsvtag <', 6);
+		// $this->db->where('sbsvtag <', 6);
+		$this->db->where('sbsvtag <', 3);
 		$this->db->where('sbsvtag !=', 0);
-		$this->db->where('dvrejtg <', '3');
-		$this->db->where('dvsbtg <', '3');
+		// $this->db->where('dvrejtg <', '3');
+		$this->db->where('dvrejtg <', '2');
+		// $this->db->where('dvsbtg <', '3');
+		$this->db->where('dvsbtg <', '2');
 		$this->db->where('ontag', 1);
 		$this->db->where('pload', 0);
 		$this->db->where('dvload',0);
@@ -1657,10 +1660,13 @@ public function get_leadmasterby_campaigniddv($id = FALSE)
 {
 		
 		
-		$this->db->where('sbsvtag <', 6);
+		// $this->db->where('sbsvtag <', 6);
+		$this->db->where('sbsvtag <', 3);
 		$this->db->where('sbsvtag !=', 0);
-		$this->db->where('dvrejtg <', '3');
-		$this->db->where('dvsbtg <', '3');
+		// $this->db->where('dvrejtg <', '3');
+		$this->db->where('dvrejtg <', '2');
+		// $this->db->where('dvsbtg <', '3');
+		$this->db->where('dvsbtg <', '2');
 		$this->db->where('ontag', 0);
 		$this->db->where('pload', 1);
 		$this->db->where('dvload',0);
@@ -1707,11 +1713,14 @@ public function get_campaign_fordataverification()
 		$this->db->group_by('campaign.cids');
 		$this->db->group_by('campaign.campnm');
 		$this->db->group_by('campaign.cnid');
-		$this->db->where('leadmaster.sbsvtag <', '6');
+		// $this->db->where('leadmaster.sbsvtag <', '6');
+		$this->db->where('leadmaster.sbsvtag <', '3');
 		$this->db->where('leadmaster.sbsvtag !=', 0);
-		$this->db->where('leadmaster.dvrejtg <', '3');
-		// $this->db->where('leadmaster.dvsbtg', Null);
-		$this->db->where('leadmaster.dvsbtg <', '3');
+		$this->db->where('leadmaster.dvrejtg <', '2');
+		// $this->db->where('leadmaster.dvrejtg <', '3');
+	
+		// $this->db->where('leadmaster.dvsbtg <', '3');
+		$this->db->where('leadmaster.dvsbtg <', '2');
 		$this->db->where('leadmaster.ontag', 0);
 		$this->db->where('leadmaster.pload', 1);
 		$this->db->where('leadmaster.dvload',0);
@@ -2138,7 +2147,7 @@ public function get_campaign_fordataverification()
 				group by dvagtidi, cids ) as l1
 				inner join 
 				(select cids, dvragtidi as ids, count(dvragtidi)as rejected from leadmaster where dvragtidi is not null
-				and dvrdti >= now()::date + interval '1h' group by dvragtidi, cids) as l2
+				and dvrdti >= now()::date  group by dvragtidi, cids) as l2
 				on l1.id = l2.ids) as lms");
 			}
 			
@@ -2185,7 +2194,7 @@ public function get_campaign_fordataverification()
 			// $this->db->group_by('campaign.campnm');
 			
 			$query=$this->db->get();
-			// echo $this->db->last_query(); 
+			echo $this->db->last_query(); 
 			return $data=$query->result_array();
 
 		}	

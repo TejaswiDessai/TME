@@ -1844,7 +1844,13 @@
 			
 			}
 
-		
+					if($sbsvtag == 0){
+					$svdti = $old_date;	
+					$svagtidi = $_SESSION['empcode'];
+					}else{
+						$svdti = NULL;
+						$svagtidi= NULL;
+					}
 					
 					$datacdcandlead = array(
 						'dvrejectreason' => $mychecked2,
@@ -1854,6 +1860,8 @@
 						// tag
 						// 'ontag' => 0, // Submit and 0 = new, 1 = needs to be reworked
 						'sbsvtag' => $sbsvtag, //  Submit till 5 times
+						'svagtidi' => $svagtidi, 
+						'svdti' => $svdti, 
 						'pload' => '0', // next level ready to load
 						'rlc' => '0', // record is closed
 						'dvrejtg' => $dvrejtg, 

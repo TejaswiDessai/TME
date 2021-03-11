@@ -158,6 +158,8 @@
                                         <th>Verified</th>
                                         <th>Rejection</th>
                                         <th>Accepted</th>
+                                        <th>Rejection 2</th>
+                                        <th>Accepted 2</th>
                                     </tr>
                                 </thead>
                                 <tbody >
@@ -184,6 +186,12 @@
                                         <td>
                                         <?php  echo $post['accepted']; ?>
                                         </td>
+                                        <!-- <td>
+                                        <?php //echo $post['rejected2']; ?>
+                                        </td>
+                                        <td>
+                                        <?php // echo $post['accepted2']; ?>
+                                        </td> -->
                                     </tr>
                                 <?php endforeach; ?>
 

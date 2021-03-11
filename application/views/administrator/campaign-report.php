@@ -113,6 +113,7 @@
                                         <th>Total Records</th>
                                         <th>DC Pending</th>
                                         <th>DV Pending</th>
+                                        <th>Locked</th>
                                         <th>Saved</th>
                                         <th>Total Accepted</th>
                                         <th>1st Accept</th>
@@ -160,6 +161,20 @@
                                          and sbsvtag <6 and cids = '".$post['cids']."'");
                                          echo $dv_pending->num_rows();
                                           ?></td>
+                                          <td>
+                                          <?php 
+                                         $locked = $this->db->query("SELECT * FROM public.leadmaster
+                                         where 
+                                        --  svagtidi is not null
+                                        rlc = 1
+                                          and ontag = 1
+                                         and cids = '".$post['cids']."'
+                                        --  group by svagtidi,lmid
+                                        
+                                         ");
+                                         echo $locked->num_rows();
+                                          ?>
+                                        </td>
                                           <td>
                                           <?php 
                                          $saved = $this->db->query("SELECT * FROM public.leadmaster

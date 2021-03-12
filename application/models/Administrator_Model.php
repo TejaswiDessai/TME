@@ -2385,4 +2385,17 @@ public function get_campaign_fordataverification()
 			
 			return $query->row_array();
 		}
+
+		function get_lmid_duplication_count($leadid)
+		{
+			$this->db->select('lmid');
+			$this->db->where('lmid', $leadid);
+			$result = $this->db->get('ev');
+			// echo $this->db->last_query(); 
+			if ($result->num_rows() > 1) {
+               return true;        
+			}else{
+				return false;
+			}
+		}
 }

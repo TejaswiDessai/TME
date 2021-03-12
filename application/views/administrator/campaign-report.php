@@ -112,13 +112,14 @@
                                         <th>Campaign Name</th>
                                         <th>Total Records</th>
                                         <th>DC Pending</th>
+                                        <th>DC Locked</th>
                                         <th>DV Pending</th>
-                                        <th>Locked</th>
+                                        <th>DV Locked</th>
                                         <th>Saved</th>
                                         <th>Total Accepted</th>
                                         <th>1st Accept</th>
                                         <th>2nd Accept</th>
-                                        <!-- <th>3rd Accept</th> -->
+                                        <!-- <th>DC Pending with 1st Reject</th> -->
                                     </tr>
                                 </thead>
                                 <tbody >
@@ -138,6 +139,15 @@
 
                                         ?></td>
                                          <td><?php 
+                                         $dc_pending_frej = $this->db->query("select * from leadmaster
+                                         where 
+                                         rlc = 0
+                                         and ontag = 0
+                                         and dvrejtg = 1
+                                         and sbsvtag != 0 
+                                         and dvload = 0 and cids = '".$post['cids']."'");
+                                         $freject = $dc_pending_frej->num_rows();
+
                                          $dc_pending = $this->db->query("select * from leadmaster
                                          where 
                                          rlc = 0
@@ -147,8 +157,22 @@
                                          and (dvrejtg = 0 or dvrejtg = 1 )
                                          and sbsvtag <>0
                                         and cids = '".$post['cids']."'");
-                                         echo $dc_pending->num_rows();
+                                         echo $freject + $dc_pending->num_rows();
                                          //echo $post['pending']; ?></td>
+                                         <td>
+                                         <?php
+                                          $locked = $this->db->query("SELECT * FROM public.leadmaster
+                                          where 
+                                         --  svagtidi is not null
+                                         rlc = 1
+                                           and ontag = 1
+                                          and cids = '".$post['cids']."'
+                                         --  group by svagtidi,lmid
+                                         
+                                          ");
+                                          echo $locked->num_rows();
+                                         ?>
+                                         </td>
                                          <td><?php 
                                          $dv_pending = $this->db->query("select * from leadmaster
                                          where ontag = 0 
@@ -163,16 +187,17 @@
                                           ?></td>
                                           <td>
                                           <?php 
-                                         $locked = $this->db->query("SELECT * FROM public.leadmaster
-                                         where 
-                                        --  svagtidi is not null
-                                        rlc = 1
-                                          and ontag = 1
-                                         and cids = '".$post['cids']."'
-                                        --  group by svagtidi,lmid
-                                        
-                                         ");
-                                         echo $locked->num_rows();
+                                          $dvlocked = $this->db->query("SELECT * FROM public.leadmaster
+                                          where 
+                                         --  svagtidi is not null
+                                         rlc = 1
+                                           and pload = 1
+                                          and cids = '".$post['cids']."'
+                                         --  group by svagtidi,lmid
+                                         
+                                          ");
+                                          echo $dvlocked->num_rows();
+                                         
                                           ?>
                                         </td>
                                           <td>
@@ -223,13 +248,13 @@
                                         <!-- </td> -->
                                         <!-- <td> -->
                                             <?php 
-                                        //  $third_accept = $this->db->query("select * from leadmaster
-                                        //  where ontag = 1
-                                        //  and rlc = 0
-                                        //  and pload = 0
-                                        //  and dvsbtg = 3
-                                        //  and dvload = 1 and cids = '".$post['cids']."'");
-                                        //  echo $third_accept->num_rows();
+                                        //  $dc_pending_frej = $this->db->query("select * from leadmaster
+                                        //  where 
+                                        //  rlc = 0
+                                        //  and dvrejtg >= 1
+                                        //  and sbsvtag != 0 
+                                        //  and dvload = 0 and cids = '".$post['cids']."'");
+                                        //  echo $dc_pending_frej->num_rows();
                                          ?>
                                          <!-- </td> -->
                                     </tr>

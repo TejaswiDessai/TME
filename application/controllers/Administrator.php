@@ -2101,6 +2101,11 @@ public function getPrivillage(){
 				'statdt' => $startdate
 								
 				);
+			// $checkforlmid = $this->Administrator_Model->get_lmid_duplication_count($leadid[$i]);
+			// if($checkforlmid == true)
+			// {
+				
+			// }
 			$addcampaigndata = $this->Administrator_Model->send_email_status($datacampaign);
 			
 			require_once "send-email-php/phpmailer/class.phpmailer.php";

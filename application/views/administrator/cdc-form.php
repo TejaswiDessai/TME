@@ -225,7 +225,7 @@ $.ajax({
           var ans = 'aa'+index;
           // alert (<?php echo "'aa'+index";?>);
           var testa = <?php echo "'aa'+index";?>;
-          alert(testa);
+          // alert(testa);
         // $('.questionrow').html("");
         $('.questionrow').append('<div class="col-sm-6 card">'+
                                    '<p id='+ index +'><b>'+data['questions']+'</b></p>'+
@@ -1136,21 +1136,23 @@ $.ajax({
                         <input type = hidden name="campaign_idcids" id="campaign_idcids" value="<?php echo $campaign['cids']; ?>">
                         
                        
-                        <?php if(isset($ldmster) && $ldmster['dvrejtg'] <= 2){ ?> 
-                        <?php //if(isset($ldmster) && $ldmster['dvrejtg'] <= '2' OR  $ldmster['dvsbtg'] <= '2'){ ?> 
+                        <?php //if(isset($ldmster) && $ldmster['cdcrjt'] <= 2){ 
+                          
+                          ?> 
+                        <?php if( $ldmster['cdcrjt'] <= 2 AND  $ldmster['cdcsb'] <= 2){ ?> 
                         
                           <input type = hidden name="lmid" id="lmid" value="<?php echo $ldmster['lmid']; ?>">
                           <input type = hidden name="emp_id" id="emp_id" value="<?php echo  $_SESSION['empcode']; ?>">
                           <input type = hidden name="sbsvtag" id="sbsvtag" value="<?php echo $ldmster['sbsvtag']; ?>">
-                          <input type = hidden name="dvrejtg" id="dvrejtg" value="<?php echo $ldmster['dvrejtg']; ?>">
-                          <input type = hidden name="dvsbtg" id="dvsbtg" value="<?php echo $ldmster['dvsbtg']; ?>">
-                          <input type = hidden name="dvsbtg" id="dvsbtg" value="<?php echo $ldmster['dvsbtg']; ?>">
+                          <input type = hidden name="cdcrjt" id="cdcrjt" value="<?php echo $ldmster['cdcrjt']; ?>">
+                          <input type = hidden name="cdcsb" id="cdcsb" value="<?php echo $ldmster['cdcsb']; ?>">
+                         
                           <input type = hidden name="rlc" id="rlc" value="<?php echo $ldmster['rlc']; ?>">
                           
-                          <input type = hidden name="dvagtidi" id="dvagtidi" value="<?php echo $ldmster['dvagtidi']; ?>">
-                          <input type = hidden name="dvagtidii" id="dvagtidii" value="<?php echo $ldmster['dvagtidii']; ?>">
-                          <input type = hidden name="dvdti" id="dvdti" value="<?php echo $ldmster['dvdti']; ?>">
-                          <input type = hidden name="dvdtii" id="dvdtii" value="<?php echo $ldmster['dvdtii']; ?>">
+                          <input type = hidden name="cdcsbagti" id="cdcsbagti" value="<?php echo $ldmster['cdcsbagti']; ?>">
+                          <input type = hidden name="cdcsbagtii" id="cdcsbagtii" value="<?php echo $ldmster['cdcsbagtii']; ?>">
+                          <input type = hidden name="cdcsbdti" id="cdcsbdti" value="<?php echo $ldmster['cdcsbdti']; ?>">
+                          <input type = hidden name="cdcsbdtii" id="cdcsbdtii" value="<?php echo $ldmster['cdcsbdtii']; ?>">
 
                           <input type = hidden name="dvragtidi" id="dvragtidi" value="<?php echo $ldmster['dvragtidi']; ?>">
                           <input type = hidden name="dvragtidii" id="dvragtidii" value="<?php echo $ldmster['dvragtidii']; ?>">
@@ -1952,10 +1954,12 @@ $.ajax({
             $('#opteml').val("1");
             $('#optph').val("1");
             $('#optpst').val("1");
+            $('#dnd').val("0");
             $('.optoption').show();
             $("#opteml").prop('checked', true);
             $("#optph").prop('checked', true);
             $("#optpst").prop('checked', true);
+            $("#dnd").prop('checked', false);
                
         }else{
             $('#optin').val("0");
@@ -2204,12 +2208,31 @@ $.ajax({
 
 $("input:checkbox").change(function() {
   var notChecked = [], checked = [];
+  
             $(":checkbox").map(function() {
             
                 this.checked ? checked.push(this.id) : notChecked.push(this.id);
             });
+            alert(checked);
           if(checked == ""){ // if unchecked any field
             checked = [0];
+            
+            $("#leadupdatecdc").html("Accept & Submit");
+          }else if(checked == "optin"){ // if unchecked any field
+            checked = [0];
+            
+            $("#leadupdatecdc").html("Accept & Submit");
+          }else if(checked == "optin,optpst,optph,opteml"){ // if unchecked any field
+            checked = [0];
+            
+            $("#leadupdatecdc").html("Accept & Submit");
+          }else if(checked == "optpst,optph,opteml"){ // if unchecked any field
+            checked = [0];
+            
+            $("#leadupdatecdc").html("Accept & Submit");
+          }else if(checked == "optin,optpst,optph,opteml,dnd"){ // if unchecked any field
+            checked = [0];
+            
             $("#leadupdatecdc").html("Accept & Submit");
           }else{
             $("#leadupdatecdc").html("Reject & Submit");
@@ -2220,6 +2243,7 @@ $("input:checkbox").change(function() {
     $(function() {
         $("#leadupdatecdc").on('click', function() 
         {
+          
           var empid = $('#emp_id').val();
           if(empid === undefined){
             window.location = base_url+"administrator/logout";
@@ -2267,33 +2291,36 @@ $("input:checkbox").change(function() {
 
              if(checked == ""){ // if unchecked any field
                 checked = [0];
-                var dvsbtg1 = $('#dvsbtg').val();
-                if(dvsbtg1 == ""){
-                  var dvsbtg = 1;
+                var cdcsb1 = $('#cdcsb').val();
+                if(cdcsb1 == ""){
+                  var cdcsb = 1;
                 }else{
-                  var dvsbtg = parseInt(dvsbtg1)+1; // incremataion for dv  Accept
+                  var cdcsb = parseInt(cdcsb1)+1; // incremataion for dv  Accept
                 }
     
-                if(dvsbtg == '3'){
-                  var dvsbtg = '3';
-                  var sbsvtag = '0';
+                if(cdcsb == '3'){
+                  var cdcsb = '3';
+                  var sbsvtag = $('#sbsvtag').val();
                 }else{
                   var sbsvtag = $('#sbsvtag').val();
                 }
-                var dvrejtg = $('#dvrejtg').val(); 
+                var cdcrjt = $('#cdcrjt').val(); 
                 
           }else{ //checked -rejected
-            var dvsbtg =$('#dvsbtg').val();
+            var cdcsb =$('#cdcsb').val();
 
-            var dvrejtg1 = $('#dvrejtg').val();
-            if(dvrejtg1 == ""){
-              var dvrejtg = 1;
+            var cdcrjt1 = $('#cdcrjt').val();
+            // alert(cdcrjt1);
+            if(cdcrjt1 == ""){
+              var cdcrjt = 1;
             }else{
-              var dvrejtg = parseInt(dvrejtg1)+1; // incremataion for dv  rejection
+              var cdcrjt = parseInt(cdcrjt1)+1; // incremataion for dv  rejection
+              // var cdcrjt = $('#cdcrjt').val()+1; // incremataion for dv  rejection
+              alert(cdcrjt);
             }
  
-            if(dvrejtg == '3'){
-              var dvrejtg = '3';
+            if(cdcrjt == '3'){
+              var cdcrjt = '3';
               var sbsvtag = '0';
             }else{
               var sbsvtag = $('#sbsvtag').val();
@@ -2307,11 +2334,11 @@ $("input:checkbox").change(function() {
             var dvrdtii = $('#dvrdtii').val();
             var dvragtidii = $('#dvragtidii').val();
 
-            var dvdti = $('#dvdti').val();
-            var dvagtidi = $('#dvagtidi').val();
+            var cdcsbdti = $('#cdcsbdti').val();
+            var cdcsbagti = $('#cdcsbagti').val();
 
-            var dvdtii = $('#dvdtii').val();
-            var dvagtidii = $('#dvagtidii').val();
+            var cdcsbdtii = $('#cdcsbdtii').val();
+            var cdcsbagtii = $('#cdcsbagtii').val();
 
            
             var campaign_id = $('#campaign_id').val();
@@ -2405,8 +2432,8 @@ $("input:checkbox").change(function() {
                   campaign_idcids: campaign_idcids,
                   lmid: lmid,
                   sbsvtag :sbsvtag,
-                  dvrejtg :dvrejtg,
-                  dvsbtg :dvsbtg,
+                  cdcrjt :cdcrjt,
+                  cdcsb :cdcsb,
                   pcomt :pcomt,
                   checked:checked,
 
@@ -2416,10 +2443,10 @@ $("input:checkbox").change(function() {
                   dvragtidii:dvragtidii,
                   dvrdtii:dvrdtii,
 
-                  dvdti:dvdti,
-                  dvagtidi:dvagtidi,
-                  dvdtii:dvdtii,
-                  dvagtidii:dvagtidii,
+                  cdcsbdti:cdcsbdti,
+                  cdcsbagti:cdcsbagti,
+                  cdcsbdtii:cdcsbdtii,
+                  cdcsbagtii:cdcsbagtii,
 
                     optin:optin,
                     optph:optph,
@@ -2524,30 +2551,30 @@ $(function() {
 
           if(checked == ""){ // if unchecked any field
                 checked = [0];
-                var dvsbtg1 = $('#dvsbtg').val();
-                if(dvsbtg1 == ""){
-                  var dvsbtg = 1;
+                var cdcsb1 = $('#cdcsb').val();
+                if(cdcsb1 == ""){
+                  var cdcsb = 1;
                 }else{
-                  var dvsbtg = parseInt(dvsbtg1)+1; // incremataion for dv  Accept
+                  var cdcsb = parseInt(cdcsb1)+1; // incremataion for dv  Accept
                 }
     
-                if(dvsbtg == '3'){
-                  var dvsbtg = '3';
+                if(cdcsb == '3'){
+                  var cdcsb = '3';
                   var sbsvtag = '0';
                 }
-                var dvrejtg = $('#dvrejtg').val(); 
+                var cdcrjt = $('#cdcrjt').val(); 
           }else{ //checked -rejected
-            var dvsbtg =$('#dvsbtg').val();
+            var cdcsb =$('#cdcsb').val();
 
-            var dvrejtg1 = $('#dvrejtg').val();
-            if(dvrejtg1 == ""){
-              var dvrejtg = 1;
+            var cdcrjt1 = $('#cdcrjt').val();
+            if(cdcrjt1 == ""){
+              var cdcrjt = 1;
             }else{
-              var dvrejtg = parseInt(dvrejtg1)+1; // incremataion for dv  rejection
+              var cdcrjt = parseInt(cdcrjt1)+1; // incremataion for dv  rejection
             }
  
-            if(dvrejtg == '3'){
-              var dvrejtg = '3';
+            if(cdcrjt == '3'){
+              var cdcrjt = '3';
               var sbsvtag = '0';
             }
 
@@ -2644,8 +2671,8 @@ $(function() {
                   campaign_idcids: campaign_idcids,
                   lmid: lmid,
                   sbsvtag :sbsvtag,
-                  dvrejtg :dvrejtg,
-                  dvsbtg :dvsbtg,
+                  cdcrjt :cdcrjt,
+                  cdcsb :cdcsb,
                   pcomt :pcomt,
                   checked:checked,
 

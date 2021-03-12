@@ -2108,18 +2108,18 @@ $("input:checkbox").change(function() {
               var dvrejtg = parseInt(dvrejtg1)+1; // incremataion for dv  rejection
             }
  
-            // if(dvrejtg == '3'){
-            //   var dvrejtg = '3';
-            //   var sbsvtag = '0';
-            // }else{
-            //   var sbsvtag = $('#sbsvtag').val();
-            // }
-            if(dvrejtg == '2'){
-              var dvrejtg = '2';
+            if(dvrejtg == '3'){
+              var dvrejtg = '3';
               var sbsvtag = '0';
             }else{
               var sbsvtag = $('#sbsvtag').val();
             }
+            // if(dvrejtg == '2'){
+            //   var dvrejtg = '2';
+            //   var sbsvtag = '0';
+            // }else{
+            //   var sbsvtag = $('#sbsvtag').val();
+            // }
 
           }
            

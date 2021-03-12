@@ -142,7 +142,7 @@
                                          $dc_pending_frej = $this->db->query("select * from leadmaster
                                          where 
                                          rlc = 0
-                                         and dvrejtg >= 1
+                                         and dvrejtg = 1
                                          and sbsvtag != 0 
                                          and dvload = 0 and cids = '".$post['cids']."'");
                                          $freject = $dc_pending_frej->num_rows();

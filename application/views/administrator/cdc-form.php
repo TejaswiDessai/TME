@@ -222,10 +222,15 @@ $.ajax({
         // $('.questionrow').append('<select><option value="'+data['qid']+'">'+data['questions']+'</option></select');
        
           index++;
+          var ans = 'aa'+index;
+          // alert (<?php echo "'aa'+index";?>);
+          var testa = <?php echo "'aa'+index";?>;
+          alert(testa);
         // $('.questionrow').html("");
         $('.questionrow').append('<div class="col-sm-6 card">'+
                                    '<p id='+ index +'><b>'+data['questions']+'</b></p>'+
-                                      '<input type="text" value=""  name="aa' + index + '" id="aa' + index + '"  placeholder="Answer for question ' + index + '"  class="form-control form-control-sm ">'+
+                                      // '<input type="text" value="<?php //$aaa= 'aa'; if(isset($ldmster)){  echo $ldmster[$aaa]; }?>"  name="aa' + index + '" id="aa' + index + '"  placeholder="Answer for question ' + index + '"  class="form-control form-control-sm ">'+
+                                      '<input type="text" value="<?php echo 'aa';?>'+ index +'"  name="aa' + index + '" id="aa' + index + '"  placeholder="Answer for question ' + index + '"  class="form-control form-control-sm ">'+
                                                                      
                           '</div>');
 
@@ -1131,8 +1136,8 @@ $.ajax({
                         <input type = hidden name="campaign_idcids" id="campaign_idcids" value="<?php echo $campaign['cids']; ?>">
                         
                        
-                        <!-- <?php// if(isset($ldmster) && $ldmster['dvrejtg'] <= 2){ ?>  -->
-                        <?php if(isset($ldmster) && $ldmster['dvrejtg'] <= '2' && $ldmster['dvsbtg'] <= '2'){ ?> 
+                        <?php if(isset($ldmster) && $ldmster['dvrejtg'] <= 2){ ?> 
+                        <?php //if(isset($ldmster) && $ldmster['dvrejtg'] <= '2' OR  $ldmster['dvsbtg'] <= '2'){ ?> 
                         
                           <input type = hidden name="lmid" id="lmid" value="<?php echo $ldmster['lmid']; ?>">
                           <input type = hidden name="emp_id" id="emp_id" value="<?php echo  $_SESSION['empcode']; ?>">
@@ -1154,14 +1159,14 @@ $.ajax({
                           <div class="form-group row" >
                             <div class="col-sm-12">
                              <center>
-                              <button type="submit" name="leadupdatecdc" class="btn btn-primary leaddisplay" style=""  id="leadupdatecdc">Accept</button> 
+                              <button type="submit" name="leadupdatecdc" class="btn btn-primary leaddisplay" style=""  id="leadupdatecdc">Accept & Submit</button> 
                              
                              
                               <button type="submit" name="leadsavecdc" class="btn btn-primary leaddisplay" style="margin-left:50px"  id="leadsavecdc">Save </button> 
                              </center>
                         <?php } else{ ?>
-                          <button type="submit" name="" class="btn btn-primary leaddisplay" style=""  id="">Limit Crossed</button> 
-                          <button type="submit" name="leadsavecdc" class="btn btn-primary leaddisplay" style=""  id="leadsavecdc">Discard </button> 
+                          <!-- <button type="submit" name="" class="btn btn-primary leaddisplay" style=""  id="">Limit Crossed</button>  -->
+                          <!-- <button type="submit" name="leadsavecdc" class="btn btn-primary leaddisplay" style=""  id="leadsavecdc">Discard </button>  -->
                            <?php }?>
                        <?php if(empty($ldmster)){ ?>
                         
@@ -2205,9 +2210,9 @@ $("input:checkbox").change(function() {
             });
           if(checked == ""){ // if unchecked any field
             checked = [0];
-            $("#leadupdatecdc").html("Accept");
+            $("#leadupdatecdc").html("Accept & Submit");
           }else{
-            $("#leadupdatecdc").html("Reject");
+            $("#leadupdatecdc").html("Reject & Submit");
           }
           
 });

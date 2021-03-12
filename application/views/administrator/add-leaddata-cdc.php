@@ -192,7 +192,7 @@ $.ajax({
 <form id="basic-form" method="POST" enctype="multipart/form-data">
 <div class="page-header">
     <div class="page-header-title col-sm-12">
-        <h4>Update Lead</h4> 
+        <h4>Update Leads</h4> 
         
       
             <div class="form-group row"> 
@@ -231,7 +231,9 @@ $.ajax({
 
      <?php foreach ($leadmaster as $ldmster): 
       // print_r($ldmster['dvrejectreason']);
-      $dvrejectreason = explode(',',$ldmster['dvrejectreason']);
+      // $dvrejectreason = explode(',',$ldmster['dvrejectreason']);
+      $test1 = "";
+      $dvrejectreason = explode(',',$test1);
       // print_r($ldmster);
      
       ?>

@@ -109,14 +109,11 @@
                             </td>
                             <td>
                                 <select class="form-control form-control-default "  name="stage" id="stage">
-                                    <option value="">Stage</option>
-                                    <option value="datacollect" <?php if( isset($Stage) && $Stage == "datacollect") { echo "selected" ; } ?>>Data Collection</option>
+                                    <option value="">Data Collection</option>
+                                   
+                                    <!-- <option value="datacollect" <?php// if( isset($Stage) && $Stage == "datacollect") { echo "selected" ; } ?>>Data Collection</option> -->
                                     <option value="verified" <?php if( isset($Stage) && $Stage == "verified") { echo "selected" ; } ?>>Data Verified</option>
-                                    <!-- <option value="rejected" <?php if( isset($Stage) && $Stage == "rejected") { echo "selected" ; } ?>>Data Rejected</option> -->
-                                    <!-- <option value="accepeted" <?php if( isset($Stage) && $Stage == "accepeted") { echo "selected" ; } ?>>Data Accepted</option> -->
-                                    <!-- <option value="Accepted" <?php if( isset($Stage) && $Stage == "Accepted") { echo "selected" ; } ?>>Data Accepted</option> -->
-                                    <!-- <option value="unverified" <?php if( isset($Stage) && $Stage == "unverified") { echo "selected" ; } ?>>Data Unverified</option> --> 
-                                    <!-- <option value="emailVerified" <?php if( isset($Stage) && $Stage == "emailVerified") { echo "selected" ; } ?>>Email Verified</option> -->
+                                  
                                     
                                     <!-- <option value="All">All</option> -->
 
@@ -143,7 +140,14 @@
                        
                     </div>
                     <br>
+                        <?php if (isset($Stage) && $Stage == "verified")
+                        {
+                            $display  = "visibility: hidden;";
+                        }else{
+                            $display  = "visibility: visible;"; 
+                        }
 
+                        ?>
                         <div class="table-responsive dt-responsive">
                             <table id="dom-jqry" class="table table-striped table-bordered nowrap table1">
                                 <thead>
@@ -154,6 +158,10 @@
                                         <th>Username</th>
                                         <th>Campaign Name</th>
                                         <th>No. Of Records</th>
+                                        <?php if (isset($Stage) && $Stage == "datacollect" ||$Stage == "")
+                                        { ?>
+                                        <th>Submit & Saved</th>
+                                      <?php  } ?>
                                         <th>Pending</th>
                                         <th>Verified</th>
                                         <th>Rejection</th>
@@ -171,16 +179,30 @@
                                         // echo $campnam = $this->Administrator_Model->get_camp_name($post['emp_id']);
                                         ?></td>
                                         <td><?php 
-                                        echo $post['numbers'];
+                                       if(isset($Stage) && $Stage == "verified"){
+                                        $t=$post['numbers'];
+                                       }else{
+                                        $t=$post['numbers'] + $post['savednumbers'];
+                                       
+                                       }
+                                       echo   $t;
+                                        // echo "Total: ".$post['numbers'] + $post['savednumbers'];
                                         // $query = $this->db->query("SELECT * FROM leadmaster where stagtidi = '".$post['emp_id']."'");
                                         // echo $query->num_rows();
 
                                         ?></td>
+                                         <?php if (isset($Stage) && $Stage == "datacollect" ||$Stage == "")
+                                        { ?>
+                                        <td><?php  
+                                         echo "Submited: ".$post['numbers']."<br>";
+                                         echo "Saved: ".$post['savednumbers']; ?></td>
+                                      <?php  } ?>
                                          <td><?php echo $post['pending']; ?></td>
                                          <td><?php echo $post['numberveri']; ?></td>
                                         <td>
                                         <?php echo $post['rejected']; ?>
                                         </td>
+
                                         <td>
                                         <?php  echo $post['accepted']; ?>
                                         </td>

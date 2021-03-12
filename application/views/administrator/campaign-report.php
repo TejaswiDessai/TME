@@ -139,15 +139,15 @@
 
                                         ?></td>
                                          <td><?php 
-                                         $dc_pending_frej = $this->db->query("select * from leadmaster
-                                         where 
-                                         rlc = 0
-                                         and ontag = 0
-                                         and dvrejtg = 1
-                                         and sbsvtag != 0 
-                                         and dvload = 0 and cids = '".$post['cids']."'");
-                                         $freject = $dc_pending_frej->num_rows();
-
+                                        //  $dc_pending_frej = $this->db->query("select * from leadmaster
+                                        //  where 
+                                        //  rlc = 0
+                                        //  and ontag = 0
+                                        //  and dvrejtg = 1
+                                        //  and sbsvtag != 0 
+                                        //  and dvload = 0 and cids = '".$post['cids']."'");
+                                        //  $freject = $dc_pending_frej->num_rows();
+                                        $freject = 0;
                                          $dc_pending = $this->db->query("select * from leadmaster
                                          where 
                                          rlc = 0
@@ -179,7 +179,7 @@
                                          and rlc = 0
                                          and pload = 1
                                          and dvload = 0
-                                         and dvrejtg =0
+                                        
                                          and dvsbtg =0
                                          and sbsvtag <>0
                                          and sbsvtag <6 and cids = '".$post['cids']."'");

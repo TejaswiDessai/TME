@@ -154,7 +154,7 @@
                                          and ontag = 1
                                          and pload = 0
                                          and dvload = 0
-                                         and (dvrejtg = 0 or dvrejtg = 1 )
+                                         and (dvrejtg = 0 or dvrejtg = 1 or dvrejtg = 2)
                                          and sbsvtag <>0
                                         and cids = '".$post['cids']."'");
                                          echo $freject + $dc_pending->num_rows();

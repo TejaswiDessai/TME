@@ -1676,7 +1676,7 @@ public function get_leadmasterby_campaignidwithempcode($id = FALSE,$empcode)
 		$this->db->where('rlc !=', 1);
 		$this->db->group_start();
 				$this->db->where('stagtidi',$empcode);
-				$this->db->OR_where('stagtidii',$empcode);
+				// $this->db->OR_where('stagtidii',$empcode);
 				$this->db->OR_where('stagtidi', NULL);
 		$this->db->group_end(); 
 	

@@ -122,6 +122,10 @@
 						// print_r($cids);  
 						
 						// $data['leadmaster'] = $this->Administrator_Model->get_leadmasterby_campaignid($cids);
+						
+
+
+						
 						$data['leadmaster'] = $this->Administrator_Model->get_leadmasterby_campaignidwithempcode($cids,$empcode);
 						// print_r($data['leadmaster']); 
 						// foreach ($data['leadmaster'] as $ldmster) {

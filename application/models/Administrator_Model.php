@@ -1678,15 +1678,18 @@ public function get_leadmasterby_campaignidwithempcode($id = FALSE,$empcode)
 				$this->db->where('stagtidi',$empcode);
 				$this->db->OR_where('stagtidii',$empcode);
 		$this->db->group_end(); 
-		// $this->db->where('stagtidi',$empcode);
-		$this->db->order_by('dvrdti','ASC');
+	
+			$this->db->order_by('dvrejtg','DESC');
+		
+		
 		$this->db->limit(1);
 		$query = $this->db->get_where('leadmaster', array('cids' => $id));
-		// echo $this->db->last_query(); 
+		// echo $this->db->last_query();  
 		// echo $string;
 		// die;
 		return $query->result_array();
-	}
+	} 
+	
 public function get_leadmasterby_campaigniddv($id = FALSE)
 {
 		

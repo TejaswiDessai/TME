@@ -93,7 +93,8 @@
 			
 			$data['title'] = 'Create Lead';
 			// print_r($_SESSION);
-			// print_r($_SESSION['timeout']);
+			// print_r($_SESSION['empcode']);
+			$empcode = $_SESSION['empcode'];
 			if(isset($_GET['camp_id'])){
 				$postData1 = $_GET['camp_id']; 
 			}else{
@@ -111,7 +112,7 @@
 						$camp_id = $camp['cnid'];
 						// if(isset($_SESSION['lmid']) && $_SESSION['lmid'] == $camp['cids']){
 						// 	session_abort();
-						// 	print_r($_SESSION);
+							// print_r($_SESSION);
 						// }else {
 						// 	$_SESSION['lmid'] = $camp['cids'];
 						// }
@@ -120,7 +121,8 @@
 						// print_r($data['campaigns']);  
 						// print_r($cids);  
 						
-						$data['leadmaster'] = $this->Administrator_Model->get_leadmasterby_campaignid($cids);
+						// $data['leadmaster'] = $this->Administrator_Model->get_leadmasterby_campaignid($cids);
+						$data['leadmaster'] = $this->Administrator_Model->get_leadmasterby_campaignidwithempcode($cids,$empcode);
 						// print_r($data['leadmaster']); 
 						// foreach ($data['leadmaster'] as $ldmster) {
 						

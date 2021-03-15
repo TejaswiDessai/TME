@@ -2065,7 +2065,7 @@ if(lmid == undefined){
 
                 },
                 error: function (error) {
-                  alert("Already exists");
+                  alert("Error");
                   }
               
             });

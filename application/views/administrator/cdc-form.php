@@ -1154,10 +1154,10 @@ $.ajax({
                           <input type = hidden name="cdcsbdti" id="cdcsbdti" value="<?php echo $ldmster['cdcsbdti']; ?>">
                           <input type = hidden name="cdcsbdtii" id="cdcsbdtii" value="<?php echo $ldmster['cdcsbdtii']; ?>">
 
-                          <input type = hidden name="dvragtidi" id="dvragtidi" value="<?php echo $ldmster['dvragtidi']; ?>">
-                          <input type = hidden name="dvragtidii" id="dvragtidii" value="<?php echo $ldmster['dvragtidii']; ?>">
-                          <input type = hidden name="dvrdti" id="dvrdti" value="<?php echo $ldmster['dvrdti']; ?>">
-                          <input type = hidden name="dvrdtii" id="dvrdtii" value="<?php echo $ldmster['dvrdtii']; ?>">
+                          <input type = hidden name="cdcrjtagti" id="cdcrjtagti" value="<?php echo $ldmster['cdcrjtagti']; ?>">
+                          <input type = hidden name="cdcrjtagtii" id="cdcrjtagtii" value="<?php echo $ldmster['cdcrjtagtii']; ?>">
+                          <input type = hidden name="cdcrjtdti" id="cdcrjtdti" value="<?php echo $ldmster['cdcrjtdti']; ?>">
+                          <input type = hidden name="cdcrjtdtii" id="cdcrjtdtii" value="<?php echo $ldmster['cdcrjtdtii']; ?>">
                           <div class="form-group row" >
                             <div class="col-sm-12">
                              <center>
@@ -2292,8 +2292,9 @@ $("input:checkbox").change(function() {
              if(checked == ""){ // if unchecked any field
                 checked = [0];
                 var cdcsb1 = $('#cdcsb').val();
+                
                 if(cdcsb1 == ""){
-                  var cdcsb = 1;
+                  var cdcsb = 0;
                 }else{
                   var cdcsb = parseInt(cdcsb1)+1; // incremataion for dv  Accept
                 }
@@ -2328,11 +2329,11 @@ $("input:checkbox").change(function() {
 
           }
 
-            var dvrdti = $('#dvrdti').val();
-            var dvragtidi = $('#dvragtidi').val();
+            var cdcrjtdti = $('#cdcrjtdti').val();
+            var cdcrjtagti = $('#cdcrjtagti').val();
 
-            var dvrdtii = $('#dvrdtii').val();
-            var dvragtidii = $('#dvragtidii').val();
+            var cdcrjtdtii = $('#cdcrjtdtii').val();
+            var cdcrjtagtii = $('#cdcrjtagtii').val();
 
             var cdcsbdti = $('#cdcsbdti').val();
             var cdcsbagti = $('#cdcsbagti').val();
@@ -2437,11 +2438,11 @@ $("input:checkbox").change(function() {
                   pcomt :pcomt,
                   checked:checked,
 
-                  dvrdti:dvrdti,
-                  dvragtidi:dvragtidi,
+                  cdcrjtdti:cdcrjtdti,
+                  cdcrjtagti:cdcrjtagti,
 
-                  dvragtidii:dvragtidii,
-                  dvrdtii:dvrdtii,
+                  cdcrjtagtii:cdcrjtagtii,
+                  cdcrjtdtii:cdcrjtdtii,
 
                   cdcsbdti:cdcsbdti,
                   cdcsbagti:cdcsbagti,

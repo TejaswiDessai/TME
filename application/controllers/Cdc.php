@@ -1944,28 +1944,28 @@
 				Exit();
 			}
 
-			if(!empty($_POST['dvragtidi']))
+			if(!empty($_POST['cdcrjtagti']))
 			{
-				$postagent1 =  $_POST['dvragtidi'];
+				$postagent1 =  $_POST['cdcrjtagti'];
 			} else{
 			$postagent1 = NULL;
 			}
-		if(!empty($_POST['dvrdti']))
+		if(!empty($_POST['cdcrjtdti']))
 			{
-				$postdate1 =  $_POST['dvrdti'];
+				$postdate1 =  $_POST['cdcrjtdti'];
 			} else{
 			$postdate1 = NULL;
 			}
 
-		if(!empty($_POST['dvragtidii']))
+		if(!empty($_POST['cdcrjtagtii']))
 			{
-				$postagent2 =  $_POST['dvragtidii'];
+				$postagent2 =  $_POST['cdcrjtagtii'];
 			} else{
 			$postagent2 = NULL;
 			}
-		if(!empty($_POST['dvrdtii']))
+		if(!empty($_POST['cdcrjtdtii']))
 			{
-				$postdate2 =  $_POST['dvrdtii'];
+				$postdate2 =  $_POST['cdcrjtdtii'];
 			} else{
 			$postdate2 = NULL;
 			}
@@ -2006,7 +2006,7 @@
 			{
 
 				if($mychecked2 == "0"){  // Accept
-					$dvload = "1"; // go to next level-- Accept
+					$cdcload = "1"; // go to next level-- Accept
 					$dvstat ="1"; //Data Verification|Tag for On Accept / Reject /Discard
 					 $ontag = "1"; //null = new, 0 = needs to be reworked
 					 $cdcrjt = $_POST['cdcrjt'];
@@ -2014,35 +2014,35 @@
 					
 					 $cdcsbagtii = $_SESSION['empcode']; //Data Verification Accept|Agent ID_I
 					// $dvragtidi = NULL;
-					$dvragtidii = $postagent2;
+					$cdcrjtagtii = $postagent2;
 					
 					$cdcsbdtii = $old_date; //Data Verification Accept|date and time_I
 					// $dvrdti = NULL;
-					$dvrdtii = $postdate2;
-					$dvragtidi = $postagent1;
-					$dvrdti = $postdate1;
+					$cdcrjtdtii = $postdate2;
+					$cdcrjtagti = $postagent1;
+					$cdcrjtdti = $postdate1;
 	
 					$cdcsbagti = $postagentaccept1;
 					$cdcsbdti = $postdateaccept1;
 	
 					
 				}else{
-					$dvload = "0"; // Reject
+					$cdcload = "0"; // Reject
 					$dvstat ="2";
 					$cdcrjt = $_POST['cdcrjt'];
 					$cdcsb = $_POST['cdcsb'];
 					$ontag = "1"; //null = new, 0 = needs to be reworked
 	
-					$dvragtidii = $_SESSION['empcode'];
+					$cdcrjtagtii = $_SESSION['empcode'];
 					// $dvagtidi = NULL;
 					$cdcsbagtii = $postagentaccept2;
 					
 					// $dvdti = NULL ;
 					$cdcsbdtii = $postdateaccept2;
-					$dvrdtii = $old_date; //Data Verification|Rej_date and time_I
+					$cdcrjtdtii = $old_date; //Data Verification|Rej_date and time_I
 					
-					$dvragtidi = $postagent1;
-					$dvrdti = $postdate1;
+					$cdcrjtagti = $postagent1;
+					$cdcrjtdti = $postdate1;
 					
 	
 					$cdcsbagti = $postagentaccept1;
@@ -2054,7 +2054,7 @@
 			}else{
 
 				if($mychecked2 == "0"){  // Accept
-								$dvload = "1"; // go to next level-- Accept
+								$cdcload = "1"; // go to next level-- Accept
 								$dvstat ="1"; //Data Verification|Tag for On Accept / Reject /Discard
 								$ontag = "1"; //null = new, 0 = needs to be reworked
 								$cdcsb = $_POST['cdcsb']; //Data Verification|Submission Tag
@@ -2062,35 +2062,35 @@
 		
 								$cdcsbagti = $_SESSION['empcode']; //Data Verification Accept|Agent ID_I
 								// $dvragtidi = NULL;
-								$dvragtidi = $postagent1;
+								$cdcrjtagti = $postagent1;
 								$cdcsbdti = $old_date; //Data Verification Accept|date and time_I
 								// $dvrdti = NULL;
-								$dvrdti = $postdate1;
-								$dvrdtii = $postdate2;
+								$cdcrjtdti = $postdate1;
+								$cdcrjtdtii = $postdate2;
 								$cdcsbdtii = $postdateaccept2;
 								$cdcsbagtii = $postagentaccept2;
-								$dvragtidii = $postagent2;
+								$cdcrjtagtii = $postagent2;
 								
 							
 								
 							}else{
-								$dvload = "0"; // Reject
+								$cdcload = "0"; // Reject
 								$dvstat ="2";
 								$cdcrjt = $_POST['cdcrjt'];
 								$cdcsb = $_POST['cdcsb'];
 								$ontag = "1"; //null = new, 0 = needs to be reworked
 		
-								$dvragtidi = $_SESSION['empcode'];
+								$cdcrjtagti = $_SESSION['empcode'];
 								// $dvagtidi = NULL;
 								$cdcsbagti = $postagentaccept1;
 								
 								// $dvdti = NULL ;
 								$cdcsbdti = $postdateaccept1;
-								$dvrdti = $old_date; //Data Verification|Rej_date and time_I
-								$dvrdtii = $postdate2;
+								$cdcrjtdti = $old_date; //Data Verification|Rej_date and time_I
+								$cdcrjtdtii = $postdate2;
 								$cdcsbdtii = $postdateaccept2;
 								$cdcsbagtii = $postagentaccept2;
-								$dvragtidii = $postagent2;
+								$cdcrjtagtii = $postagent2;
 		
 								
 							}
@@ -2114,25 +2114,26 @@
 				// tag
 				// 'ontag' => 0, // Submit and 0 = new, 1 = needs to be reworked
 				'sbsvtag' => $sbsvtag, //  Submit till 5 times
-				'pload' => '0', // next level ready to load
+				'svagtidi' => $svagtidi, 
+				'svdti' => $svdti, 
 				'rlc' => '0', // record is closed
 				'cdcrjt' => $cdcrjt, 
 				'cdcsb' => $cdcsb, 
 				 'ontag' => $ontag, 
-				'dvload' => $dvload, //  next level
+				'cdcload' => $cdcload, //  next level
 				'dvstat' => $dvstat, //  dvstat
 				// 'svagtidi' => '1' // save Agent Name
 				// 'svdti' => '1' // save date time
 			
 				'cdcsbagti' => $cdcsbagti, // submit agent name 
-				'dvragtidi' => $dvragtidi, // submit agent name 
+				'cdcrjtagti' => $cdcrjtagti, // submit agent name 
 				'cdcsbdti' => $cdcsbdti,  // submit date time
-				'dvrdti' => $dvrdti, // Data Verification|Rej_date and time_I
+				'cdcrjtdti' => $cdcrjtdti, // Data Verification|Rej_date and time_I
 
 				'cdcsbagtii' => $cdcsbagtii, // submit agent name 
-				'dvragtidii' => $dvragtidii, // submit agent name 
+				'cdcrjtagtii' => $cdcrjtagtii, // submit agent name 
 				'cdcsbdtii' => $cdcsbdtii,  // submit date time
-				'dvrdtii' => $dvrdtii, // Data Verification|Rej_date and time_I
+				'cdcrjtdtii' => $cdcrjtdtii, // Data Verification|Rej_date and time_I
 
 
 				'dvcomt' => 1, //accept/rejection by cdc

@@ -145,7 +145,11 @@
 							// print_r($data['countriesofcampaign']);
 
 						// $data['countries'] = $this->Administrator_Model->get_countries();
+						$data['domain'] = $this->Administrator_Model->get_domain_byCampaign($camp_id);
+						// print_r($data['domain']); exit();
+
 						$data['industries1'] = $this->Administrator_Model->get_industries_byCampaign($camp_id);
+
 						foreach($data['industries1'] as $ind){
 							$myind = implode(',', $ind);
 							}
@@ -283,15 +287,24 @@
 						
 						}
 						// echo $camp['cnid'];
-						$camp_id = $camp['cnid'];
-						$cids = $camp['cids'];
+						$camp_id = NULL;
+						if(isset($camp['cnid']))
+							$camp_id = $camp['cnid'];
+
+						$camp_id2 = NULL;
+						if(isset($camp['camp_id']))
+						  	$camp_id2 = $camp['camp_id'];
+
+						$cids = NULL;
+						if(isset($camp['cids']))
+							$cids = $camp['cids'];
 						
 						$_SESSION['campaign_id'] = $camp_id;
 						
 			// $data['cids_camp'] = $camp_id;
 			// $data['campaign_id'] = $camp_id;
 						
-						$data['leadmaster'] = $this->Administrator_Model->get_leadmasterby_campaign_CDC($cids);
+						$data['leadmaster'] = $this->Administrator_Model->get_leadmasterby_campaign_CDC($cids,$postDatalmid,$camp_id2);
 						// print_r($data['leadmaster']); 
 						if(empty($data['leadmaster'])){
 							$this->session->set_flashdata('success', 'Data verification id finished for this campaign.');

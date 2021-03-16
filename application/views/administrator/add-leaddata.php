@@ -560,12 +560,24 @@ $(document).ready(function() {
                                 
 
                             </div>          
-                            <div class="col-sm-2">
-                                <div class="domaincheck">
+                            <div class="col-sm-2 <?php
+                                 if(isset($ldmster) && in_array('domain',$dvrejectreason) && (!empty($domain))) { echo "form-bg-inverse" ; } 
+                                 ?>">
+                                <div class="domaincheck ">
+
+                                <?php if(!empty($domain)) { ?>
+                                 <select name="domain" id="domain"   class="js-example-basic-single"> 
+                                     <option value="0">Domain</option>
+                                     <?php foreach ($domain as $domain): ?>
+                                    <option value="<?php echo $domain['domainnms']; ?>" <?php if(isset($ldmster) && $ldmster['domain'] == $domain['domainnms']){ echo "selected" ; } ?>><?php echo $domain['domainnms']; ?></option>
+                                <?php endforeach; ?> 
+                               </select>
+                               <?php } else{ ?>
                                 <input type="text" value ="<?php if(isset($ldmster)){  echo $ldmster['domain']; }?>"   name="domain" id="domain"  placeholder="Domain" value="" 
                                  class="form-control form-control-sm cdqadisable  <?php
                                  if(isset($ldmster) && in_array('domain',$dvrejectreason)) { echo "form-bg-inverse" ; } 
                                  ?>">
+                             <?php  } ?>
                                 </div>
                                 <span style='color:#FF0000' id="domain_msg"></span>
                               </div>

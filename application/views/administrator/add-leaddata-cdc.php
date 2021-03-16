@@ -1474,7 +1474,7 @@ var arevenuevalue = $('#arevenue').val();
 $(document).ready(function() {
 
 //update record lock
-var rlc = 0; //lock 1
+var rlc = 1; //lock 1
 var lmid = $('#lmid').val();
 var emp_id = $('#emp_id').val();
 // alert(emp_id);

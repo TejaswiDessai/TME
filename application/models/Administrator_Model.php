@@ -262,6 +262,14 @@
 			return $query->result_array(); 
 
 		}
+		public function get_domain_byCampaign($cnid){
+			$this->db->select('domainnms');
+			$this->db->where('cid', $cnid);
+			$query = $this->db->get('domainlist');
+			// echo $this->db->last_query(); 
+			return $query->result_array(); 
+
+		}
 		public function get_subindustries_byCampaign($cnid,$myarray){
 		
 			$this->db->select('*');
@@ -1718,7 +1726,7 @@ public function get_leadmasterby_campaigniddv($id = FALSE)
 		// die;
 		return $query->result_array();
 	}
-public function get_leadmasterby_campaign_CDC($id = FALSE)
+public function get_leadmasterby_campaign_CDC($id = FALSE,$postDatalmid,$camp_id2)
 {
 		
 		
@@ -1729,13 +1737,18 @@ public function get_leadmasterby_campaign_CDC($id = FALSE)
 		$this->db->where('evload',1);
 		$this->db->where('cdcload',0);
 		$this->db->where('qaload',null);
-		$this->db->where('rlc !=', 1);
+		// $this->db->where('rlc !=', 1);
+		if(isset($postDatalmid) && isset($camp_id2)){
+			$this->db->where('cids', $camp_id2);	
+			$this->db->where('lmid', $postDatalmid);	
+		}
 		$this->db->order_by('evdti','ASC');
 		$this->db->limit(1);
 		$query = $this->db->get_where('leadmaster', array('cids' => $id));
 		// echo $this->db->last_query(); 
 		// echo $string;
 		// die;
+
 
 
 

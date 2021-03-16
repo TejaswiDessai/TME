@@ -1370,6 +1370,7 @@
 				'password' => md5($new_password)
 			    );
 			$this->db->where('emp_id', $emp_id);
+			$this->db->or_where('empcode', $emp_id);
 			return $this->db->update('users', $data);
 		}
 

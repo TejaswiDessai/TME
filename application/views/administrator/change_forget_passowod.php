@@ -29,11 +29,11 @@
                                     <input type="text" name="emp_id" class="form-control" placeholder="Employee Id" required="">
                                     <span class="md-line"></span>
                                 </div>
-                                <br>
+                                <!-- <br>
                                 <div class="col-sm-12">
                                 <input type="password" name="old_password" id="old_password" class="form-control" placeholder="Old Password">
                                     <span style='color:#FF0000' id="lname_msg"></span>
-                                </div>
+                                </div> -->
                                 <br>
                                 <div class="col-sm-12">
                                 <input type="password" autocomplete="off" name="new_password" id="new_password" class="form-control" placeholder="New Password">

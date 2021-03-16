@@ -46,13 +46,13 @@
                                         <div id="password_error" style="font-size:12px;"></div>  
                                     </div>
 
-                                    <div class="form-group row">
+                                    <!-- <div class="form-group row">
                                         <label class="col-sm-4 col-form-label">Current Password</label>
                                         <div class="col-sm-8">
                                             <input type="password" name="old_password" id="old_password" class="form-control" placeholder="Old Password">
                                         </div>
                                         <div id="password_error" style="font-size:12px;"></div>  
-                                    </div>
+                                    </div> -->
                                      <div class="form-group row">
                                         <label class="col-sm-4 col-form-label">New Password</label>
                                         <div class="col-sm-8">

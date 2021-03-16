@@ -21,7 +21,7 @@ if(isset($_POST["emp_id"], $_POST["user_type"],$_POST['email']))
             $_SESSION["logged_in"] = true; 
             $_SESSION["emp_id"] = $emp_id; 
        
-            $base_url='http://localhost/TME/administrator/';
+            $base_url='http://mehp-dbs/administrator/';
             // Generate new unique key
             $key = uniqid(time().'-key',TRUE);
             // display all error except deprecated and notice  

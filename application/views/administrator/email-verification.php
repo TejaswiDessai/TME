@@ -140,6 +140,57 @@
     </div> -->
     <!-- Sign in modal end -->
 <script>
+$(document).ready(function() {
+
+//update record lock
+var rlc = 1; //lock 1
+var lmid1 = $('#leadid_1').val();
+var lmid2 = $('#leadid_2').val();
+var lmid3 = $('#leadid_3').val();
+var lmid4 = $('#leadid_4').val();
+var lmid5 = $('#leadid_5').val();
+alert("L1 = "+lmid1+"L2 = "+lmid2+"L3 = "+lmid3+"L4 = "+lmid4+"L5 = "+lmid5);
+var emp_id = $('#empcode').val();
+
+
+if(rlc == 1){
+var urlq = '<?php echo base_url("administrator/updaterecordlock");?>';
+alert(urlq);
+console.log(urlq+"?lmid1="+lmid1+"&lmid2="+lmid2+"&rlc="+rlc+"&emp_id="+emp_id);
+$.ajax({
+      url:'<?php echo base_url("administrator/updaterecordlock");?>',
+      method: 'get',
+      data: {
+        lmid1: lmid1,
+        lmid2: lmid2,
+        lmid3: lmid3,
+        lmid4: lmid4,
+        lmid5: lmid5,
+        rlc:rlc,
+        emp_id:emp_id
+      },
+      dataType: 'json',
+      success: function(response){
+
+        console.log("check");
+                    // var dataResult = JSON.parse(response);
+                    if(response.statusCode == "Success") 
+                    {         
+                      // alert("Success in success");
+                      console.log("Record is opened/locked now");     
+                      
+                    }else if(response.data=="Fail")
+                    {
+                      alert("fail/check if record is already opened");  
+                        
+					          }
+      }
+  });
+}else{
+  alert("record already opened");
+  // top.location.href=base_url+"cdc/selectCampaignforlead";//redirection
+}
+});
 // $(".passingID").click(function () {
     $(document).on("click", ".passingID", function () {
     var ids = $(this).attr('data-id');
@@ -219,6 +270,7 @@ $(document).ready(function() {
   </div>
                 <div class="card">
                     <div class="card-block">
+                    <input type="hidden" value="<?php echo $empcode;?>" id="empcode">
                         <form action="<?php echo base_url();?>administrator/emailVerfication" method="post" >
                             <table class="table" style="margin-bottom:10px;">
                             <tr>
@@ -240,7 +292,8 @@ $(document).ready(function() {
                                 </select>
                             </td>
                             <td>
-                            <input type="text" class="form-control form-control-default " name="from" id="from" placeholder="Enter send from Email..">
+                            <input type="text" value="<?php echo $agent_email?>" class="form-control form-control-default " name="from" id="from">
+                            <input type="hidden" value="<?php echo $agent_password?>" class="form-control form-control-default " name="pass" id="pass">
                             </td>
                             <td>
                                 <input  class="btn btn-primary" type="submit" name="submit">
@@ -335,7 +388,7 @@ $(document).ready(function() {
 
                                         </td>
                                         <td>
-                                            <?php //echo $post['mailstatus'];;?>
+                                            <?php if(isset($post['closer_status'])){echo $post['closer_status'];} else { }?>
                                             <!-- <input type="checkbox" class ="emailclass" value="Close" name="email_close_<?php echo $i;?>" id="email_close_<?php echo $i;?>"><?php //echo $i;?> -->
                                             
                                         </td>
@@ -349,13 +402,13 @@ $(document).ready(function() {
                                         <td>
                                             <?php 
                                             //$yesterday = $this->db->query("SELECT * FROM ev where (stagtidi = $empid OR stagtidi = $empcode )");
-                                            echo $post['sent_mail_date'];?>
+                                            if(isset($post['sent_mail_date'])){ echo $post['sent_mail_date'];}?>
                                         </td>
                                         <td>
-                                        <?php echo $post['fmail']; ?>  
+                                        <?php if(isset($post['fmail'])){ echo $post['fmail'];} ?>  
                                         </td>
                                         <td>
-                                        <?php echo $post['evcomment']; ?>
+                                        <?php if(isset($post['fmail'])){ echo $post['evcomment'];} ?>
                                         </td>
                                     </tr>
                                 <?php endforeach; ?>
@@ -397,10 +450,11 @@ $(document).ready(function() {
                         <textarea id="comment" placeholder="Enter comment"></textarea>
                     </div>
                     <div>
+                    <!-- <label>Closer Status</label> -->
                         <select class="form-control form-control-default "  name="email_close_status" id="email_close_status">
-                            <option value="">Status</option>
+                            <option value="">Closer Status</option>
                             <option value="New" >New</option>
-                            <option value="Open" selected>Open</option>
+                            <option value="Open">Open</option>
                             <option value="Closed" >Closed</option>
                             
                         </select>
@@ -426,8 +480,9 @@ $(document).ready(function() {
                                                 <input type="text" id="sub" class="form-control" placeholder="Subject">
                                             </div>
                                             <div class="form-group">
-                                            <textarea name="mail_body" id="mail_body" placeholder="Email Body"></textarea>
+                                            <textarea rows="6" style="width: 100%;" name="mail_body" id="mail_body" placeholder="Email Body"></textarea>
                                             <!-- <input type="text" id="mail_body" class="form-control" placeholder="Subject">     -->
+                                            <!-- <div contenteditable="true" id="mail_body" class="summernote email-summernote">Hello Summernote</div> -->
                                         </div>
                                         </form>
                                     </div>
@@ -553,8 +608,10 @@ $(".emailstatus").click(function() {
             // var leadid = $('#leadid_'+leadid_obj).val();
             // alert(leadid);
             var from = $('#from').val();
+            var pass = $('#pass').val();
             var sub = $('#sub').val();
             var body = $('#mail_body').val();
+            // var body = document.getElementById('mail_body').innerHTML;
             // alert("from= "+from+"sub= "+sub+"body= "+body+"email= "+change_status_of+"leadid= "+leadid);
             // return;
             $("#loader").show();
@@ -572,6 +629,7 @@ $(".emailstatus").click(function() {
 					campid:campid,
                     leadid:leadid,
                     from:from,
+                    pass:pass,
                     sub:sub,
                     body:body
                     
@@ -585,7 +643,7 @@ $(".emailstatus").click(function() {
                     if(response.statusCode == "Success") 
                     {                        
                         $("#send_email").html(response.message);
-                        top.location.href=base_url+"administrator/selectCampaignForEmailVerification";//redirection
+                        // top.location.href=base_url+"administrator/selectCampaignForEmailVerification";//redirection
                     }
                     else if(response.statusCode=="Fail")
                     {

@@ -280,10 +280,10 @@ $.ajax({
                             <div class="col-sm-1">
                                  <select name="sal" id="sal"  class="form-control  form-control-sm cdqadisable">
                                  <option value="Mr">Mr.</option>
-                                      <option value="Ms">Ms.</option>
-                                      <option value="Mrs">Mrs.</option>
-                                      <option value="Dr">Dr.</option>
-                                      <option value="Other">Other</option>
+                                      <option value="Ms" <?php if(isset($ldmster) && $ldmster['sal'] == "Ms"){ echo "selected" ; } ?> >Ms.</option>
+                                      <option value="Mrs" <?php if(isset($ldmster) && $ldmster['sal'] == "Mrs"){ echo "selected" ; } ?>>Mrs.</option>
+                                      <option value="Dr" <?php if(isset($ldmster) && $ldmster['sal'] == "Dr"){ echo "selected" ; } ?>>Dr.</option>
+                                      <option value="Other" <?php if(isset($ldmster) && $ldmster['sal'] == "Other"){ echo "selected" ; } ?>>Other</option>
                                 </select>
                             </div>
                             <div class="col-sm-2">
@@ -702,7 +702,14 @@ $.ajax({
                           <div class="form-group row" >
                              <div class="col-sm-12  comt">
                                 <label class="col-lable"><b>Comment</b></label>
-                                <input type="text"  name="pcomt" id="pcomt"  placeholder="Comment"  class="form-control form-control-sm" value="<?php echo $ldmster['pcomt']; ?>">
+                                <input type="text"  name="pcomt" id="pcomt"  placeholder="Comment"  class="form-control form-control-sm"
+                                 value="<?php if(isset($ldmster['pcomt'])) {
+                                   $arr = explode("#", $ldmster['pcomt']);
+                                            $first = $arr[1];
+                                  echo  $first; 
+                                 }else{
+                                   echo "Empty";
+                                 } ?>">
                             </div> 
                          </div>
                         
@@ -710,6 +717,15 @@ $.ajax({
                           <input type = hidden name="emp_id" id="emp_id" value="<?php echo  $_SESSION['empcode']; ?>">
                           <input type = hidden name="sbsvtag" id="sbsvtag" value="<?php echo $ldmster['sbsvtag']; ?>">
                           <input type = hidden name="rlc" id="rlc" value="<?php echo $ldmster['rlc']; ?>">
+                         
+                          <input type = hidden name="cdcsbdti" id="cdcsbdti" value="<?php echo $ldmster['cdcsbdti']; ?>">
+                          <input type = hidden name="cdcsbagti" id="cdcsbagti" value="<?php echo $ldmster['cdcsbagti']; ?>">
+                          
+                          <input type = hidden name="cdcsbagtii" id="cdcsbagtii" value="<?php echo $ldmster['cdcsbagtii']; ?>">
+                          <input type = hidden name="cdcsbdtii" id="cdcsbdtii" value="<?php echo $ldmster['cdcsbdtii']; ?>">
+                          
+                          <input type = hidden name="cdcsb" id="cdcsb" value="<?php echo $ldmster['cdcsb']; ?>">
+
                           <div class="col-sm-12">
                              <center>
                               <button type="submit" name="leadupdatecdc" class="btn btn-primary leaddisplay" style=""  id="leadupdatecdc">Submit</button> 
@@ -1458,7 +1474,7 @@ var arevenuevalue = $('#arevenue').val();
 $(document).ready(function() {
 
 //update record lock
-var rlc = 0; //lock 1
+var rlc = 1; //lock 1
 var lmid = $('#lmid').val();
 var emp_id = $('#emp_id').val();
 // alert(emp_id);
@@ -1724,8 +1740,9 @@ if(lmid == undefined){
       //   number: true
       // },
       email: {
+        email: true,
         required: true,
-        email: true
+        
       },
       domain: {
         required: true
@@ -1819,6 +1836,17 @@ if(lmid == undefined){
             var sbsvtag1 = $('#sbsvtag').val();
             var sbsvtag = parseInt(sbsvtag1)+1; // incremataion
             var lmid = $('#lmid').val();
+
+
+            var cdcsbagti = $('#cdcsbagti').val();
+            var cdcsbagtii = $('#cdcsbagtii').val();
+
+            var cdcsbdti = $('#cdcsbdti').val();
+            var cdcsbdtii = $('#cdcsbdtii').val();
+
+            var cdcsb1 = $('#cdcsb').val();
+            var cdcsb = parseInt(cdcsb1)+1; // incremataion
+
            
           //  alert(sbsvtag);
 
@@ -1983,6 +2011,15 @@ if(lmid == undefined){
                   campaign_idcids: campaign_idcids,
                   lmid: lmid,
                   sbsvtag :sbsvtag,
+                  
+                  cdcsbdti:cdcsbdti,
+                  cdcsbagti:cdcsbagti,
+                  cdcsbdtii:cdcsbdtii,
+                  cdcsbagtii:cdcsbagtii,
+
+                  cdcsb:cdcsb,
+
+
                     sal:sal,
                     fname:fname,
                     lname: lname,

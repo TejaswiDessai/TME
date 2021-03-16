@@ -1129,7 +1129,14 @@ $.ajax({
                         <div class="form-group row" >
                              <div class="col-sm-12 commentvisible">
                                 <label class="col-lable"><b>Comment</b></label>
-                                <input type="text"  name="pcomt" id="pcomt"  placeholder="Comment"  class="form-control form-control-sm" value="<?php echo $ldmster['pcomt']; ?>" >
+                                <input type="text"  name="pcomt" id="pcomt"  placeholder="Comment"  class="form-control form-control-sm" 
+                                value="<?php if(isset($ldmster['pcomt'])) {
+                                   $arr = explode("#", $ldmster['pcomt']);
+                                            $first = $arr[1];
+                                  echo  $first; 
+                                 }else{
+                                   echo "Empty";
+                                 } ?>" >
                             </div> 
                          </div>
                         <input type = hidden name="campaign_id" id="campaign_id" value="<?php echo $campaign['cnid']; ?>">
@@ -1139,25 +1146,26 @@ $.ajax({
                         <?php //if(isset($ldmster) && $ldmster['cdcrjt'] <= 2){ 
                           
                           ?> 
-                        <?php if( $ldmster['cdcrjt'] <= 2 AND  $ldmster['cdcsb'] <= 2){ ?> 
+                        <?php if( $ldmster['cdcrjt'] <= 3 AND  $ldmster['cdcsb'] <= 3){ ?> 
                         
-                          <input type = hidden name="lmid" id="lmid" value="<?php echo $ldmster['lmid']; ?>">
-                          <input type = hidden name="emp_id" id="emp_id" value="<?php echo  $_SESSION['empcode']; ?>">
-                          <input type = hidden name="sbsvtag" id="sbsvtag" value="<?php echo $ldmster['sbsvtag']; ?>">
-                          <input type = hidden name="cdcrjt" id="cdcrjt" value="<?php echo $ldmster['cdcrjt']; ?>">
-                          <input type = hidden name="cdcsb" id="cdcsb" value="<?php echo $ldmster['cdcsb']; ?>">
+                          <input type = "hidden" name="lmid" id="lmid" value="<?php echo $ldmster['lmid']; ?>">
+                          <input type = "hidden" name="evload" id="evload" value="<?php echo $ldmster['evload']; ?>">
+                          <input type = "hidden" name="emp_id" id="emp_id" value="<?php echo  $_SESSION['empcode']; ?>">
+                          <input type = "hidden" name="cdcsv" id="cdcsv" value="<?php echo $ldmster['cdcsv']; ?>">
+                          <input type = "hidden" name="cdcrjt" id="cdcrjt" value="<?php echo $ldmster['cdcrjt']; ?>">
+                          <input type = "hidden" name="cdcsb" id="cdcsb" value="<?php echo $ldmster['cdcsb']; ?>">
                          
-                          <input type = hidden name="rlc" id="rlc" value="<?php echo $ldmster['rlc']; ?>">
+                          <input type = "hidden" name="rlc" id="rlc" value="<?php echo $ldmster['rlc']; ?>">
                           
-                          <input type = hidden name="cdcsbagti" id="cdcsbagti" value="<?php echo $ldmster['cdcsbagti']; ?>">
-                          <input type = hidden name="cdcsbagtii" id="cdcsbagtii" value="<?php echo $ldmster['cdcsbagtii']; ?>">
-                          <input type = hidden name="cdcsbdti" id="cdcsbdti" value="<?php echo $ldmster['cdcsbdti']; ?>">
-                          <input type = hidden name="cdcsbdtii" id="cdcsbdtii" value="<?php echo $ldmster['cdcsbdtii']; ?>">
+                          <input type = "hidden" name="cdcsbagti" id="cdcsbagti" value="<?php echo $ldmster['cdcsbagti']; ?>">
+                          <input type = "hidden" name="cdcsbagtii" id="cdcsbagtii" value="<?php echo $ldmster['cdcsbagtii']; ?>">
+                          <input type = "hidden" name="cdcsbdti" id="cdcsbdti" value="<?php echo $ldmster['cdcsbdti']; ?>">
+                          <input type = "hidden" name="cdcsbdtii" id="cdcsbdtii" value="<?php echo $ldmster['cdcsbdtii']; ?>">
 
-                          <input type = hidden name="cdcrjtagti" id="cdcrjtagti" value="<?php echo $ldmster['cdcrjtagti']; ?>">
-                          <input type = hidden name="cdcrjtagtii" id="cdcrjtagtii" value="<?php echo $ldmster['cdcrjtagtii']; ?>">
-                          <input type = hidden name="cdcrjtdti" id="cdcrjtdti" value="<?php echo $ldmster['cdcrjtdti']; ?>">
-                          <input type = hidden name="cdcrjtdtii" id="cdcrjtdtii" value="<?php echo $ldmster['cdcrjtdtii']; ?>">
+                          <input type = "hidden" name="cdcrjtagti" id="cdcrjtagti" value="<?php echo $ldmster['cdcrjtagti']; ?>">
+                          <input type = "hidden" name="cdcrjtagtii" id="cdcrjtagtii" value="<?php echo $ldmster['cdcrjtagtii']; ?>">
+                          <input type = "hidden" name="cdcrjtdti" id="cdcrjtdti" value="<?php echo $ldmster['cdcrjtdti']; ?>">
+                          <input type = "hidden" name="cdcrjtdtii" id="cdcrjtdtii" value="<?php echo $ldmster['cdcrjtdtii']; ?>">
                           <div class="form-group row" >
                             <div class="col-sm-12">
                              <center>
@@ -1889,7 +1897,7 @@ $(document).ready(function() {
 $(document).ready(function() {
 
 //update record lock
-var rlc = 0; //lock 1
+var rlc = 1; //lock 1
 var lmid = $('#lmid').val();
 var emp_id = $('#emp_id').val();
 // $this->session -> userdata('email')
@@ -2213,7 +2221,7 @@ $("input:checkbox").change(function() {
             
                 this.checked ? checked.push(this.id) : notChecked.push(this.id);
             });
-            alert(checked);
+            // alert(checked);
           if(checked == ""){ // if unchecked any field
             checked = [0];
             
@@ -2245,6 +2253,7 @@ $("input:checkbox").change(function() {
         {
           
           var empid = $('#emp_id').val();
+        
           if(empid === undefined){
             window.location = base_url+"administrator/logout";
             exit;
@@ -2299,11 +2308,11 @@ $("input:checkbox").change(function() {
                   var cdcsb = parseInt(cdcsb1)+1; // incremataion for dv  Accept
                 }
     
-                if(cdcsb == '3'){
-                  var cdcsb = '3';
-                  var sbsvtag = $('#sbsvtag').val();
+                if(cdcsb == '4'){
+                  var cdcsb = '4';
+                  var cdcsv = $('#cdcsv').val();
                 }else{
-                  var sbsvtag = $('#sbsvtag').val();
+                  var cdcsv = $('#cdcsv').val();
                 }
                 var cdcrjt = $('#cdcrjt').val(); 
                 
@@ -2317,14 +2326,14 @@ $("input:checkbox").change(function() {
             }else{
               var cdcrjt = parseInt(cdcrjt1)+1; // incremataion for dv  rejection
               // var cdcrjt = $('#cdcrjt').val()+1; // incremataion for dv  rejection
-              alert(cdcrjt);
+              // alert(cdcrjt);
             }
  
-            if(cdcrjt == '3'){
-              var cdcrjt = '3';
-              var sbsvtag = '0';
+            if(cdcrjt == '4'){
+              var cdcrjt = '4';
+              var cdcsv = '0';
             }else{
-              var sbsvtag = $('#sbsvtag').val();
+              var cdcsv = $('#cdcsv').val();
             }
 
           }
@@ -2344,8 +2353,9 @@ $("input:checkbox").change(function() {
            
             var campaign_id = $('#campaign_id').val();
             var campaign_idcids = $('#campaign_idcids').val();
-            // var sbsvtag = $('#sbsvtag').val();
-            
+            // var cdcsv = $('#cdcsv').val();
+            var evload = $('#evload').val();
+
             var aa1 = $('#aa1').val();
             // alert(aa1);
             var aa2 = $('#aa2').val();
@@ -2420,7 +2430,7 @@ $("input:checkbox").change(function() {
             // var url = encodeURI("<?php //echo base_url("cdc/ajax_update_datacdc");?>");
             var url = encodeURI("<?php echo base_url("cdc/ajax_update_datacdc");?>");
           
-            console.log(url+"?campaign_id="+campaign_id+"&lmid="+lmid+"&campaign_idcids="+campaign_idcids+"&checked="+checked+"&sbsvtag="+sbsvtag+"&pcomt="+pcomt);
+            console.log(url+"?campaign_id="+campaign_id+"&lmid="+lmid+"&campaign_idcids="+campaign_idcids+"&checked="+checked+"&cdcsv="+cdcsv+"&pcomt="+pcomt);
            
             $.ajax({
                url :'<?php echo base_url("cdc/ajax_update_datacdc");?>',
@@ -2432,7 +2442,7 @@ $("input:checkbox").change(function() {
                   campaign_id: campaign_id,
                   campaign_idcids: campaign_idcids,
                   lmid: lmid,
-                  sbsvtag :sbsvtag,
+                  cdcsv :cdcsv,
                   cdcrjt :cdcrjt,
                   cdcsb :cdcsb,
                   pcomt :pcomt,
@@ -2448,6 +2458,7 @@ $("input:checkbox").change(function() {
                   cdcsbagti:cdcsbagti,
                   cdcsbdtii:cdcsbdtii,
                   cdcsbagtii:cdcsbagtii,
+                  evload:evload,
 
                     optin:optin,
                     optph:optph,
@@ -2561,7 +2572,7 @@ $(function() {
     
                 if(cdcsb == '3'){
                   var cdcsb = '3';
-                  var sbsvtag = '0';
+                  var cdcsv = '0';
                 }
                 var cdcrjt = $('#cdcrjt').val(); 
           }else{ //checked -rejected
@@ -2576,14 +2587,14 @@ $(function() {
  
             if(cdcrjt == '3'){
               var cdcrjt = '3';
-              var sbsvtag = '0';
+              var cdcsv = '0';
             }
 
           }
            
             var campaign_id = $('#campaign_id').val();
             var campaign_idcids = $('#campaign_idcids').val();
-            var sbsvtag = '0';
+            var cdcsv = '0';
             
             var aa1 = $('#aa1').val();
             // alert(aa1);
@@ -2659,7 +2670,7 @@ $(function() {
             // var url = encodeURI("<?php //echo base_url("cdc/ajax_update_datacdc");?>");
             var url = encodeURI("<?php echo base_url("cdc/ajax_save_leaddatacdc");?>");
           
-            console.log(url+"?campaign_id="+campaign_id+"&lmid="+lmid+"&campaign_idcids="+campaign_idcids+"&checked="+checked+"&sbsvtag="+sbsvtag+"&pcomt="+pcomt);
+            console.log(url+"?campaign_id="+campaign_id+"&lmid="+lmid+"&campaign_idcids="+campaign_idcids+"&checked="+checked+"&cdcsv="+cdcsv+"&pcomt="+pcomt);
            
             $.ajax({
                url :'<?php echo base_url("cdc/ajax_save_leaddatacdc");?>',
@@ -2671,7 +2682,7 @@ $(function() {
                   campaign_id: campaign_id,
                   campaign_idcids: campaign_idcids,
                   lmid: lmid,
-                  sbsvtag :sbsvtag,
+                  cdcsv :cdcsv,
                   cdcrjt :cdcrjt,
                   cdcsb :cdcsb,
                   pcomt :pcomt,

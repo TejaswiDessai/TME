@@ -1865,7 +1865,7 @@ if(lmid == undefined){
 
                 },
                 error: function (error) {
-                  alert("Already exists");
+                  alert("Error");
                   }
               
             });
@@ -2069,7 +2069,7 @@ if(lmid == undefined){
 
                 },
                 error: function (error) {
-                  alert("Already exists");
+                  alert("Error");
                   }
               
             });
@@ -2278,7 +2278,7 @@ if(lmid == undefined){
                 },
                 
                 error: function (error) {
-                  alert("Already exists");
+                  alert("Error");
                   // location.reload();
                   }
               

@@ -1519,7 +1519,7 @@ $(document).ready(function() {
 
                 },
                 error: function (error) {
-                 alert("Already exists");
+                 alert("Error");
                   }
               
             });
@@ -1717,7 +1717,7 @@ $(document).ready(function() {
                 },
                 
                 error: function (error) {
-                  alert("Already exists");
+                  alert("Error");
                   // location.reload();
                   }
               
@@ -1938,7 +1938,7 @@ $(document).ready(function() {
 
                 },
                 error: function (error) {
-                  alert("Already exists");
+                  alert("Error");
                   // top.location.href=base_url+"cdc/addlead?camp_id="+<?php echo $campaign['cnid']; ?>;//redirection
                   // location.reload();
                   }
@@ -2160,7 +2160,7 @@ $(document).ready(function() {
 
                 },
                 error: function (error) {
-                  alert("Already exists");
+                  alert("Error");
                   
                   // location.reload();
               }

@@ -96,7 +96,7 @@ echo $date;
 					 $this->session->set_userdata($user_data);
 					
 					$empcode = $this->session -> userdata('empcode');
-					$this->Administrator_Model->update_recordlockonlogin($empcode);
+					// $this->Administrator_Model->update_recordlockonlogin($empcode);
 					
 					//Set Message
 					$this->session->set_flashdata('success', 'Welcome to administrator Dashboard.');
@@ -119,6 +119,9 @@ echo $date;
 				// log admin out
 		public function logout(){
 			// unset user data
+
+			$this->Administrator_Model->update_recordlockonlogin($this->session -> userdata('empcode'));
+
 			$this->db->where('empid',  $this->session -> userdata('emp_id'));
 			$this->db->update('userlog', array('empid' => $this->session -> userdata('emp_id'),'logout'=> date('Y-m-d H:i:s'))); 
 
@@ -133,6 +136,7 @@ echo $date;
 
 			//Set Message
 			$this->session->set_flashdata('success', 'You are logged out.');
+			
 			// redirect(base_url().'administrator/index');
 			redirect(base_url());
 		}

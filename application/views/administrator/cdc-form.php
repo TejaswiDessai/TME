@@ -164,7 +164,7 @@ $(document).ready(function() {
 
   $("#gotoupdate").on('click', function() 
         {
-          window.location = base_url+"cdc/cdcform?rec_type_id=2&camp_id=<?php echo $_SESSION['campaign_id']; ?>&lmid=<?php echo $ldmster['lmid']; ?>";
+          window.location = base_url+"cdc/cdcform?rec_type_id=2&camp_id=<?php echo $_SESSION['campaign_id']; ?>&lmid=<?php echo $ldmster['lmid']; ?>&empcode=<?php echo $_SESSION['empcode']; ?>";
         }
   )
     $('#rec_type_id').bind('change', function() {
@@ -222,7 +222,8 @@ $.ajax({
         // $('.questionrow').append('<select><option value="'+data['qid']+'">'+data['questions']+'</option></select');
        
           index++;
-          var ans = 'aa'+index;
+          var ans = 'aa'+index; 
+          // $ldmster[$ans] = 'aa'+index;
           // alert (<?php echo "'aa'+index";?>);
           var testa = <?php echo "'aa'+index";?>;
           // alert(testa);
@@ -1897,7 +1898,7 @@ $(document).ready(function() {
 $(document).ready(function() {
 
 //update record lock
-var rlc = 1; //lock 1
+var rlc = 0; //lock 1
 var lmid = $('#lmid').val();
 var emp_id = $('#emp_id').val();
 // $this->session -> userdata('email')

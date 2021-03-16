@@ -164,56 +164,6 @@ $(document).ready(function() {
 
   $("#gotoupdate").on('click', function() 
         {
-
-          var rlc = 1; //lock 1
-var lmid = $('#lmid').val();
-var emp_id = $('#emp_id').val();
-// $this->session -> userdata('email')
-if(emp_id === undefined){
-            window.location = base_url+"administrator/logout";
-            exit;
-  }
-if(emp_id == ''){
-  window.location = base_url+"administrator/logout";
-  exit;
-}
-// alert(emp_id);
-if(rlc == "1"){
-var urlq = '<?php echo base_url("cdc/updaterecordlock");?>';
-console.log(urlq+'?lmid='+lmid+"&rlc="+rlc+"&emp_id="+emp_id);
-$.ajax({
-      url:'<?php echo base_url("cdc/updaterecordlock");?>',
-      method: 'get',
-      data: {
-        lmid: lmid,
-        rlc:rlc,
-        emp_id:emp_id
-      },
-      dataType: 'json',
-      success: function(response){
-
-        console.log("check");
-                    // var dataResult = JSON.parse(response);
-                    if(response.statusCode == "Success") 
-                    {         
-                      // alert("Success in success");
-                      console.log("Record is opened/locked now");     
-                      
-                    }else if(response.data=="Fail")
-                    {
-                      alert("fail/check if record is already opened");  
-                        
-					          }
-      }
-  });
-}else{
-  alert("record already opened");
-  // top.location.href=base_url+"cdc/selectCampaignforlead";//redirection
-}
-
-
-
-
           window.location = base_url+"cdc/cdcform?rec_type_id=2&camp_id=<?php echo $_SESSION['campaign_id']; ?>&lmid=<?php echo $ldmster['lmid']; ?>&empcode=<?php echo $_SESSION['empcode']; ?>";
         }
   )
@@ -1181,7 +1131,7 @@ $.ajax({
                              <div class="col-sm-12 commentvisible">
                                 <label class="col-lable"><b>Comment</b></label>
                                 <input type="text"  name="pcomt" id="pcomt"  placeholder="Comment"  class="form-control form-control-sm" 
-                                value="<?php if(isset($ldmster['pcomt'])) {
+                                value="<?php if(isset($ldmster['pcomt']) && $ldmster['pcomt'] != '') {
                                    $arr = explode("#", $ldmster['pcomt']);
                                             $first = $arr[1];
                                   echo  $first; 

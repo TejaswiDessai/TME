@@ -276,9 +276,13 @@
 			}
 
 		
-			if(isset($_GET['lmid'])){
-				$postDatalmid = $_GET['lmid']; 
-			}
+			// if(isset($_GET['lmid'])){
+			// 	$postDatalmid = $_GET['lmid']; 
+			// }
+
+			$postDatalmid = NULL;
+						if(isset($_GET['lmid']))
+							$postDatalmid = $_GET['lmid'];
 		
 
 						$data['campaigns'] = $this->Administrator_Model->get_campaign_by_id($postData1);

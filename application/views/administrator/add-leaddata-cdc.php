@@ -1478,7 +1478,7 @@ var rlc = 1; //lock 1
 var lmid = $('#lmid').val();
 var emp_id = $('#emp_id').val();
 // alert(emp_id);
-$this->session -> userdata('email')
+// $this->session -> userdata('email');
 if(emp_id === undefined){
   
             window.location = base_url+"administrator/logout";

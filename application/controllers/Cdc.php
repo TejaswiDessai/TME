@@ -369,7 +369,7 @@
 							$data['comptype'] = $this->Administrator_Model->get_comptype();
 							
 							$data['assetitle'] = $this->Administrator_Model->get_assetitle_byCampaign($camp_id);
-							
+							// print_r($data['assetitle']);
 
 						if (isset($data['leadmaster'])){
 							$data['countriesdv'] = $this->Administrator_Model->get_countriesbyCampaigndv($ldmster['lmid']);

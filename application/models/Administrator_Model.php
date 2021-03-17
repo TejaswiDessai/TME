@@ -427,12 +427,12 @@
 		}
 		public function get_assetitle_byleadmaster($lmid){
 			$this->db->select('title');
-			$this->db->join('assettitle', 'assettitle.assetid = leadmaster.atitle');
+			$this->db->join('leadmaster', 'assettitle.assetid = leadmaster.atitle');
 			
 			$this->db->where('lmid', $lmid);
-			$query = $this->db->get('leadmaster');
+			$query = $this->db->get('assettitle');
 			
-		
+		// echo $this->db->last_query(); 
 			$response = $query->result_array();
 			return $response;
 			// echo $this->db->last_query(); 

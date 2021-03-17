@@ -654,7 +654,7 @@ $.ajax({
                                  ?>">
                             </div>
                             <div class="col-sm-2">
-                                <select class="form-control form-control-sm commentvisible <?php
+                                <select class="form-control form-control-sm <?php
                                  if(isset($ldmster) && in_array('assetid',$dvrejectreason)) { echo "form-bg-inverse" ; } 
                                  ?>" name="assetid" id="assetid">
                                     <option value="0">Asset</option>

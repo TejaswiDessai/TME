@@ -2569,7 +2569,12 @@
 				}
 
 
-
+				$atitle =$_GET['assetid'];
+				if(!empty($atitle)){
+					$atitle =$_GET['assetid'];	
+				}else{
+					$atitle= NULL;
+				}
 
 
 				$datacdcandlead = array(
@@ -2620,6 +2625,7 @@
 
 				'emailver' => $_GET['emailver'],
 				'aum' => $aum,
+				'atitle' => $atitle,
 				
 				'optin' => $optin,
 				'optpst' => $optpost,

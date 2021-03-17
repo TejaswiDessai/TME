@@ -657,7 +657,7 @@ $.ajax({
                                 <select class="form-control form-control-sm <?php
                                  if(isset($ldmster) && in_array('assetid',$dvrejectreason)) { echo "form-bg-inverse" ; } 
                                  ?>" name="assetid" id="assetid">
-                                    <option value="0">Asset</option>
+                                    <option value="">Asset</option>
                                     <?php foreach ($assetitle as $assetitle): ?>
                                     <option value="<?php echo $assetitle['assetid']; ?>"><?php echo $assetitle['title']; ?></option>
                                 <?php endforeach; ?>
@@ -2058,6 +2058,7 @@ if(lmid == undefined){
                     emailver:emailver,
                     pcomt:pcomt,
                     aum:aum,
+                    assetid:assetid,
 
                     optin:optin,
                     optph:optph,

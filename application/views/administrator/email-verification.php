@@ -493,12 +493,12 @@ $(document).ready(function() {
 
             <div class="tab-content">
                 <div id="home" class="tab-pane fade in active">
-                <h3>From : (Agent) Email Details</h3>
+                <h5>From : (Agent) Email Details</h5>
                 <input type="text" id="from" name="from" class="form-control" value="<?php if(isset($From)){ echo $From;}?>"><br>
                 <input type="password" id="pass" name="pass" class="form-control" value="<?php if(isset($Pass)){ echo $Pass;}?>">    <br>
                 </div>
                 <div id="menu1" class="tab-pane fade">
-                <h3>Compose Email</h3>
+                <h5>Compose Email</h5>
                 <div class="form-group">
                         <input type="text" id="sub" class="form-control" placeholder="Subject">
                     </div>

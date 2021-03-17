@@ -999,18 +999,18 @@ $(document).ready(function() {
                                 <?php //endforeach; ?>
                                    </select> -->
 
-                                   <div class="to-do-list">
+                                   <!-- <div class="to-do-list">
                                         <div class="checkbox-fade fade-in-primary  col-sm-12">
                                             <label class="check-task">
                                                 <input type="checkbox" name="assetid" id="assetid"  value="assetid">
                                                 <?php// foreach ($joblevel as $joblevel): ?>
-                                               <span  class="form-control form-control-sm cdqadisable tooltips"><?php if($ldmster['atitle'] != ""){ echo $assetitledv['title']; } else { echo "Asset title is Empty" ; } ?>
+                                               <span  class="form-control form-control-sm cdqadisable tooltips"><?php// if($ldmster['atitle'] != ""){ echo $assetitledv['title']; } else { echo "Asset title is Empty" ; } ?>
                                                <span class="tooltiptext">Asset Title</span>
                                                 </span>
                                                 <?php// endforeach; ?>  
                                             </label>
                                         </div>
-                                  </div>
+                                  </div> -->
 
 
 

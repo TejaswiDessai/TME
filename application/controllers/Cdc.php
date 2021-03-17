@@ -147,7 +147,8 @@
 						// $data['countries'] = $this->Administrator_Model->get_countries();
 						$data['domain'] = $this->Administrator_Model->get_domain_byCampaign($camp_id);
 						$data['comp_list'] = $this->Administrator_Model->get_complist_byCampaign($camp_id);
-						// print_r($data['comp_list']); exit();
+						$data['incemail'] = $this->Administrator_Model->get_incemail_byCampaign($camp_id);
+						// print_r($data['incemail']); exit();
 
 						$data['industries1'] = $this->Administrator_Model->get_industries_byCampaign($camp_id);
 
@@ -185,6 +186,8 @@
 						$data['comptype'] = $this->Administrator_Model->get_comptype();
 						
 						$data['assetitle'] = $this->Administrator_Model->get_assetitle_byCampaign($camp_id);
+
+					
 
 						// $data['dataforcdqa'] = $this->Administrator_Model->get_dataforCDQA_byCampaign($camp_id);
 			// print_r($data['dataforcdqa']);
@@ -2349,7 +2352,13 @@
 				    $timezones = 0 ;
 				}
 
-
+				// $atitle =$_GET['assetid'];
+				// if(!empty($atitle){
+				// 	$atitle =$_GET['assetid'];	
+				// }else{
+				// 	$atitle= NULL;
+				// }
+				
 				$datacdcandlead = array(
 				'cids' => $_GET['campaign_idcids'],
 				

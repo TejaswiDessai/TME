@@ -280,6 +280,22 @@
 			return $query->result_array(); 
 
 		}
+		public function get_incemail_byCampaign($cnid){
+			$this->db->select('emailids');
+			$this->db->where('cid', $cnid);
+			$this->db->where('exclincl', 1 ); // check inclusion
+			$query = $this->db->get('emaillist');
+			// echo $this->db->last_query(); 
+			// return $query->result_array(); 
+
+			// $ret = $query->row();
+			$ret = $query->result_array(); 
+			// echo $this->db->last_query(); 
+			// return $ret->emailids;
+			return $ret;
+		
+
+		}
 		public function get_subindustries_byCampaign($cnid,$myarray){
 		
 			$this->db->select('*');

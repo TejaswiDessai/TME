@@ -57,7 +57,7 @@
     <link rel="stylesheet" type="text/css" href="<?php echo base_url(); ?>admintemplate/assets/css/style.css">
     <!--color css-->
     <link rel="stylesheet" type="text/css" href="<?php echo base_url(); ?>admintemplate/assets/css/color/color-1.css" id="color"/>
-    <!--<script src="http://cdn.ckeditor.com/4.7.1/full/ckeditor.js"></script>-->
+    <script src="http://cdn.ckeditor.com/4.7.1/full/ckeditor.js"></script>
     
     
      <!-- Required Jqurey -->

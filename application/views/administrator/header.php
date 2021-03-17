@@ -15,7 +15,7 @@
 
     <nav class="navbar header-navbar" style="border:1px solid black;">
         <div class="navbar-wrapper">
-            <div class="navbar-logo">
+            <div class="navbar-logo" id="navbar-logo">
                 <a class="mobile-menu" id="mobile-collapse" href="#!">
                     <i class="ti-menu"></i>
                 </a>

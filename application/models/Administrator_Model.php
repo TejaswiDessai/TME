@@ -265,6 +265,7 @@
 		public function get_domain_byCampaign($cnid){
 			$this->db->select('domainnms');
 			$this->db->where('cid', $cnid);
+			$this->db->where('inclexcl', 1 ); // check inclusion
 			$query = $this->db->get('domainlist');
 			// echo $this->db->last_query(); 
 			return $query->result_array(); 

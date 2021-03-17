@@ -364,12 +364,33 @@ $(document).ready(function() {
                                </select>
                               
                            </div>
-                              <div class="col-sm-2">
+                              <div class="col-sm-2 <?php
+                                 if(isset($ldmster) && in_array('company_name',$dvrejectreason) && (!empty($comp_list))) { echo "form-bg-inverse" ; } 
+                                 ?>">
                                 <div class="compcheck">
-                                <input type="text"  name="company_name" id="company_name"  
-                                placeholder="Company Name"  class="form-control form-control-sm cdqadisable <?php
+
+                                <?php if(!empty($comp_list)) { ?>
+                                 <select name="company_name" id="company_name"   class="js-example-basic-single"> 
+                                     <option value="">Company Name</option>
+                                     <?php foreach ($comp_list as $comp_list): ?>
+                                    <option value="<?php echo $comp_list['companynms']; ?>" <?php if(isset($ldmster) && $ldmster['cname'] == $comp_list['companynms']){ echo "selected" ; } ?>><?php echo $comp_list['companynms']; ?></option>
+                                <?php endforeach; ?> 
+                               </select>
+                               <?php } else{ ?>
+                                <input type="text"  name="company_name" id="company_name"  placeholder="Company Name"  class="form-control form-control-sm cdqadisable <?php
                                  if(isset($ldmster) && in_array('company_name',$dvrejectreason)) { echo "form-bg-inverse" ; } 
                                  ?>"  value ="<?php if(isset($ldmster)){  echo $ldmster['cname']; }?>">
+                             <?php  } ?>
+
+
+
+
+
+
+                                <!-- <input type="text"  name="company_name" id="company_name"  
+                                placeholder="Company Name"  class="form-control form-control-sm cdqadisable <?php
+                                 if(isset($ldmster) && in_array('company_name',$dvrejectreason)) { echo "form-bg-inverse" ; } 
+                                 ?>"  value ="<?php if(isset($ldmster)){  echo $ldmster['cname']; }?>"> -->
                                 </div>
                                 <span style='color:#FF0000' id="comp_msg"></span>
                               </div> 
@@ -560,12 +581,24 @@ $(document).ready(function() {
                                 
 
                             </div>          
-                            <div class="col-sm-2">
-                                <div class="domaincheck">
+                            <div class="col-sm-2 <?php
+                                 if(isset($ldmster) && in_array('domain',$dvrejectreason) && (!empty($domain))) { echo "form-bg-inverse" ; } 
+                                 ?>">
+                                <div class="domaincheck ">
+
+                                <?php if(!empty($domain)) { ?>
+                                 <select name="domain" id="domain"   class="js-example-basic-single"> 
+                                     <option value="">Domain</option>
+                                     <?php foreach ($domain as $domain): ?>
+                                    <option value="<?php echo $domain['domainnms']; ?>" <?php if(isset($ldmster) && $ldmster['domain'] == $domain['domainnms']){ echo "selected" ; } ?>><?php echo $domain['domainnms']; ?></option>
+                                <?php endforeach; ?> 
+                               </select>
+                               <?php } else{ ?>
                                 <input type="text" value ="<?php if(isset($ldmster)){  echo $ldmster['domain']; }?>"   name="domain" id="domain"  placeholder="Domain" value="" 
                                  class="form-control form-control-sm cdqadisable  <?php
                                  if(isset($ldmster) && in_array('domain',$dvrejectreason)) { echo "form-bg-inverse" ; } 
                                  ?>">
+                             <?php  } ?>
                                 </div>
                                 <span style='color:#FF0000' id="domain_msg"></span>
                               </div>
@@ -613,16 +646,16 @@ $(document).ready(function() {
                                  if(isset($ldmster) && in_array('aum',$dvrejectreason)) { echo "form-bg-inverse" ; } 
                                  ?>">
                             </div>
-                            <div class="col-sm-2">
+                            <!-- <div class="col-sm-2">
                                 <select class="form-control form-control-sm commentvisible <?php
-                                 if(isset($ldmster) && in_array('assetid',$dvrejectreason)) { echo "form-bg-inverse" ; } 
+                                //  if(isset($ldmster) && in_array('assetid',$dvrejectreason)) { echo "form-bg-inverse" ; } 
                                  ?>" name="assetid" id="assetid">
                                     <option value="0">Asset</option>
-                                    <?php foreach ($assetitle as $assetitle): ?>
-                                    <option value="<?php echo $assetitle['assetid']; ?>"><?php echo $assetitle['title']; ?></option>
-                                <?php endforeach; ?>
+                                    <?php //foreach ($assetitle as $assetitle): ?>
+                                    <option value="<?php //echo $assetitle['assetid']; ?>"><?php //echo $assetitle['title']; ?></option>
+                                <?php //endforeach; ?>
                                    </select>
-                            </div> 
+                            </div>  -->
                         </div>
                         <hr>
                           <!-- <div class="form-group row optindiv">
@@ -1920,6 +1953,8 @@ if(lmid == undefined){
             var phext = $('#phext').val();
             var plink = $('#plink').val();
             var company_name = $('#company_name').val();
+         
+
             var address = $('#address').val();
             var city = $('#city').val();
             var state = $('#state').val();

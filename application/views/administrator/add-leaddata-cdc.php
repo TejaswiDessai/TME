@@ -654,10 +654,10 @@ $.ajax({
                                  ?>">
                             </div>
                             <div class="col-sm-2">
-                                <select class="form-control form-control-sm commentvisible <?php
+                                <select class="form-control form-control-sm <?php
                                  if(isset($ldmster) && in_array('assetid',$dvrejectreason)) { echo "form-bg-inverse" ; } 
                                  ?>" name="assetid" id="assetid">
-                                    <option value="0">Asset</option>
+                                    <option value="">Asset</option>
                                     <?php foreach ($assetitle as $assetitle): ?>
                                     <option value="<?php echo $assetitle['assetid']; ?>"><?php echo $assetitle['title']; ?></option>
                                 <?php endforeach; ?>
@@ -1474,11 +1474,11 @@ var arevenuevalue = $('#arevenue').val();
 $(document).ready(function() {
 
 //update record lock
-var rlc = 0; //lock 1
+var rlc = 1; //lock 1
 var lmid = $('#lmid').val();
 var emp_id = $('#emp_id').val();
 // alert(emp_id);
-$this->session -> userdata('email')
+// $this->session -> userdata('email');
 if(emp_id === undefined){
   
             window.location = base_url+"administrator/logout";
@@ -2058,6 +2058,7 @@ if(lmid == undefined){
                     emailver:emailver,
                     pcomt:pcomt,
                     aum:aum,
+                    assetid:assetid,
 
                     optin:optin,
                     optph:optph,

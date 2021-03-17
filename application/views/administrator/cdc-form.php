@@ -1086,7 +1086,7 @@ $.ajax({
                                             <label class="check-task">
                                                 <input type="checkbox" name="assetid" id="assetid"  value="assetid">
                                                 <?php// foreach ($joblevel as $joblevel): ?>
-                                               <span  class="form-control form-control-sm cdqadisable tooltips"><?php if($ldmster['atitle'] != ""){ echo $assetitledv['title']; } else { echo "Asset title is Empty" ; } ?>
+                                               <span  class="form-control form-control-sm cdqadisable tooltips"><?php if($ldmster['atitle'] != "" ){ echo $assetitledv['title']; } else { echo "Asset title is Empty" ; } ?>
                                                <span class="tooltiptext">Asset Title</span>
                                                 </span>
                                                 <?php// endforeach; ?>  
@@ -1131,7 +1131,7 @@ $.ajax({
                              <div class="col-sm-12 commentvisible">
                                 <label class="col-lable"><b>Comment</b></label>
                                 <input type="text"  name="pcomt" id="pcomt"  placeholder="Comment"  class="form-control form-control-sm" 
-                                value="<?php if(isset($ldmster['pcomt'])) {
+                                value="<?php if(isset($ldmster['pcomt']) && $ldmster['pcomt'] != '') {
                                    $arr = explode("#", $ldmster['pcomt']);
                                             $first = $arr[1];
                                   echo  $first; 
@@ -1898,7 +1898,7 @@ $(document).ready(function() {
 $(document).ready(function() {
 
 //update record lock
-var rlc = 0; //lock 1
+var rlc = 1; //lock 1
 var lmid = $('#lmid').val();
 var emp_id = $('#emp_id').val();
 // $this->session -> userdata('email')

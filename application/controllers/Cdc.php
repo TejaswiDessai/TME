@@ -145,7 +145,13 @@
 							// print_r($data['countriesofcampaign']);
 
 						// $data['countries'] = $this->Administrator_Model->get_countries();
+						$data['domain'] = $this->Administrator_Model->get_domain_byCampaign($camp_id);
+						$data['comp_list'] = $this->Administrator_Model->get_complist_byCampaign($camp_id);
+						$data['incemail'] = $this->Administrator_Model->get_incemail_byCampaign($camp_id);
+						// print_r($data['incemail']); exit();
+
 						$data['industries1'] = $this->Administrator_Model->get_industries_byCampaign($camp_id);
+
 						foreach($data['industries1'] as $ind){
 							$myind = implode(',', $ind);
 							}
@@ -180,6 +186,8 @@
 						$data['comptype'] = $this->Administrator_Model->get_comptype();
 						
 						$data['assetitle'] = $this->Administrator_Model->get_assetitle_byCampaign($camp_id);
+
+					
 
 						// $data['dataforcdqa'] = $this->Administrator_Model->get_dataforCDQA_byCampaign($camp_id);
 			// print_r($data['dataforcdqa']);
@@ -272,9 +280,13 @@
 			}
 
 		
-			if(isset($_GET['lmid'])){
-				$postDatalmid = $_GET['lmid']; 
-			}
+			// if(isset($_GET['lmid'])){
+			// 	$postDatalmid = $_GET['lmid']; 
+			// }
+
+			$postDatalmid = NULL;
+						if(isset($_GET['lmid']))
+							$postDatalmid = $_GET['lmid'];
 		
 
 						$data['campaigns'] = $this->Administrator_Model->get_campaign_by_id($postData1);
@@ -283,15 +295,24 @@
 						
 						}
 						// echo $camp['cnid'];
-						$camp_id = $camp['cnid'];
-						$cids = $camp['cids'];
+						$camp_id = NULL;
+						if(isset($camp['cnid']))
+							$camp_id = $camp['cnid'];
+
+						$camp_id2 = NULL;
+						if(isset($camp['camp_id']))
+						  	$camp_id2 = $camp['camp_id'];
+
+						$cids = NULL;
+						if(isset($camp['cids']))
+							$cids = $camp['cids'];
 						
 						$_SESSION['campaign_id'] = $camp_id;
 						
 			// $data['cids_camp'] = $camp_id;
 			// $data['campaign_id'] = $camp_id;
 						
-						$data['leadmaster'] = $this->Administrator_Model->get_leadmasterby_campaign_CDC($cids);
+						$data['leadmaster'] = $this->Administrator_Model->get_leadmasterby_campaign_CDC($cids,$postDatalmid,$camp_id2);
 						// print_r($data['leadmaster']); 
 						if(empty($data['leadmaster'])){
 							$this->session->set_flashdata('success', 'Data verification id finished for this campaign.');
@@ -351,7 +372,7 @@
 							$data['comptype'] = $this->Administrator_Model->get_comptype();
 							
 							$data['assetitle'] = $this->Administrator_Model->get_assetitle_byCampaign($camp_id);
-							
+							// print_r($data['assetitle']);
 
 						if (isset($data['leadmaster'])){
 							$data['countriesdv'] = $this->Administrator_Model->get_countriesbyCampaigndv($ldmster['lmid']);
@@ -2331,7 +2352,13 @@
 				    $timezones = 0 ;
 				}
 
-
+				// $atitle =$_GET['assetid'];
+				// if(!empty($atitle){
+				// 	$atitle =$_GET['assetid'];	
+				// }else{
+				// 	$atitle= NULL;
+				// }
+				
 				$datacdcandlead = array(
 				'cids' => $_GET['campaign_idcids'],
 				
@@ -2551,7 +2578,12 @@
 				}
 
 
-
+				$atitle =$_GET['assetid'];
+				if(!empty($atitle)){
+					$atitle =$_GET['assetid'];	
+				}else{
+					$atitle= NULL;
+				}
 
 
 				$datacdcandlead = array(
@@ -2602,6 +2634,7 @@
 
 				'emailver' => $_GET['emailver'],
 				'aum' => $aum,
+				'atitle' => $atitle,
 				
 				'optin' => $optin,
 				'optpst' => $optpost,

@@ -146,7 +146,8 @@
 
 						// $data['countries'] = $this->Administrator_Model->get_countries();
 						$data['domain'] = $this->Administrator_Model->get_domain_byCampaign($camp_id);
-						// print_r($data['domain']); exit();
+						$data['comp_list'] = $this->Administrator_Model->get_complist_byCampaign($camp_id);
+						// print_r($data['comp_list']); exit();
 
 						$data['industries1'] = $this->Administrator_Model->get_industries_byCampaign($camp_id);
 

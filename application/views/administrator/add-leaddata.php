@@ -364,12 +364,33 @@ $(document).ready(function() {
                                </select>
                               
                            </div>
-                              <div class="col-sm-2">
+                              <div class="col-sm-2 <?php
+                                 if(isset($ldmster) && in_array('company_name',$dvrejectreason) && (!empty($comp_list))) { echo "form-bg-inverse" ; } 
+                                 ?>">
                                 <div class="compcheck">
-                                <input type="text"  name="company_name" id="company_name"  
-                                placeholder="Company Name"  class="form-control form-control-sm cdqadisable <?php
+
+                                <?php if(!empty($comp_list)) { ?>
+                                 <select name="company_name" id="company_name"   class="js-example-basic-single"> 
+                                     <option value="">Company Name</option>
+                                     <?php foreach ($comp_list as $comp_list): ?>
+                                    <option value="<?php echo $comp_list['companynms']; ?>" <?php if(isset($ldmster) && $ldmster['cname'] == $comp_list['companynms']){ echo "selected" ; } ?>><?php echo $comp_list['companynms']; ?></option>
+                                <?php endforeach; ?> 
+                               </select>
+                               <?php } else{ ?>
+                                <input type="text"  name="company_name" id="company_name"  placeholder="Company Name"  class="form-control form-control-sm cdqadisable <?php
                                  if(isset($ldmster) && in_array('company_name',$dvrejectreason)) { echo "form-bg-inverse" ; } 
                                  ?>"  value ="<?php if(isset($ldmster)){  echo $ldmster['cname']; }?>">
+                             <?php  } ?>
+
+
+
+
+
+
+                                <!-- <input type="text"  name="company_name" id="company_name"  
+                                placeholder="Company Name"  class="form-control form-control-sm cdqadisable <?php
+                                 if(isset($ldmster) && in_array('company_name',$dvrejectreason)) { echo "form-bg-inverse" ; } 
+                                 ?>"  value ="<?php if(isset($ldmster)){  echo $ldmster['cname']; }?>"> -->
                                 </div>
                                 <span style='color:#FF0000' id="comp_msg"></span>
                               </div> 
@@ -1932,6 +1953,8 @@ if(lmid == undefined){
             var phext = $('#phext').val();
             var plink = $('#plink').val();
             var company_name = $('#company_name').val();
+         
+
             var address = $('#address').val();
             var city = $('#city').val();
             var state = $('#state').val();

@@ -271,6 +271,15 @@
 			return $query->result_array(); 
 
 		}
+		public function get_complist_byCampaign($cnid){
+			$this->db->select('companynms');
+			$this->db->where('cid', $cnid);
+			$this->db->where('exlincl', 1 ); // check inclusion
+			$query = $this->db->get('complist');
+			// echo $this->db->last_query(); 
+			return $query->result_array(); 
+
+		}
 		public function get_subindustries_byCampaign($cnid,$myarray){
 		
 			$this->db->select('*');

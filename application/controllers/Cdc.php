@@ -148,7 +148,8 @@
 						$data['domain'] = $this->Administrator_Model->get_domain_byCampaign($camp_id);
 						$data['comp_list'] = $this->Administrator_Model->get_complist_byCampaign($camp_id);
 						$data['incemail'] = $this->Administrator_Model->get_incemail_byCampaign($camp_id);
-						// print_r($data['incemail']); exit();
+						// print_r($data['incemail']); 
+						// exit();
 
 						$data['industries1'] = $this->Administrator_Model->get_industries_byCampaign($camp_id);
 
@@ -3050,9 +3051,14 @@
 			$inclistnew = $_GET['inclistnew'];
 			// get data 
 			// $data = $this->Administrator_Model->check_unique_email($email);
-			if($inclistnew == 1)
+			$incemail = $this->Administrator_Model->get_incemail_byCampaign($campaign_id);
+			// print_r($incemail);
+			if($inclistnew == 1 && !empty($incemail))
+			// if($inclistnew == 1)
 			{
 				$data['inclusionemail'] = $this->Administrator_Model->check_inclusion_email($email,$campaign_id);
+				// print_r($data['inclusionemail']); 
+				// exit();
 			}
 			
 

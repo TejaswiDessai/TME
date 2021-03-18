@@ -1552,6 +1552,9 @@ function check_inclusion_email($email,$campaign_id)
 				return "false";
 			}
 
+		// return $result->result_array(); 
+
+
 }
 function check_suppression_email($email,$campaign_id)
 {

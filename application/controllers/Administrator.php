@@ -2176,7 +2176,11 @@ public function getPrivillage(){
 								
 				);
 			$updateexistinglead = $this->Administrator_Model->update_email_status($datacampaign1,$leadid[$i]);
-
+			$update_lead_status = array(
+				'evcomp' => 2,
+				// 'curr_active' => 0				
+				);
+			$update_lead_status = $this->Administrator_Model->update_email_lead__status($update_lead_status,$leadid[$i]);
 			$datacampaign = array(
 				'lmid' => $leadid[$i], 
 				'evagnt' => $this->session -> userdata('empcode'),
@@ -2275,7 +2279,7 @@ public function getPrivillage(){
 				{
 				$update_lead_status = array(
 					'evload' => 1,
-					// 'curr_active' => 0				
+					'evcomp' => 1				
 					);
 				$update_lead_status = $this->Administrator_Model->update_email_lead__status($update_lead_status,$lmid[$i]);
 				}

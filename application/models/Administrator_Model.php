@@ -2398,6 +2398,8 @@ public function get_campaign_fordataverification()
 			if( ($leadstatus != "New"))
 			{
 				$this->db->where('ev.curr_active', 1);
+				if($leadstatus != "Closed")
+					$this->db->where('ev.closer_status !=', "Closed");
 				// $this->db->where('ev.closer_status !=', "Closed");
 			}
 			if(isset($leadstatus) && $leadstatus == 'Closed')

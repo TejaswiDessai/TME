@@ -2079,7 +2079,8 @@ public function getPrivillage(){
 		$data['agent_password'] = $agent_password;
 		$data['empcode'] = $this->session->userdata('empcode');
 		$data['Stage'] = $leadstatus;
-		$data['From'] = $from;
+		$data['From'] =  $this->session->userdata('from');
+		$data['Pass'] =  $this->session->userdata('pass');
 		$data['To'] = $to;
 
 
@@ -2147,6 +2148,13 @@ public function getPrivillage(){
 		$pass = $_GET['pass'];
 		$sub = $_GET['sub'];
 		$body = $_GET['body'];
+		//Create Session
+		$email_data = array(
+			'pass' => $pass,
+			'from' => $from,
+		);
+
+		$this->session->set_userdata($email_data);
 		for($i=0;$i<$cnt;$i++)
 		{
 
@@ -2215,6 +2223,8 @@ public function getPrivillage(){
 				echo json_encode(array(
 					"statusCode"=>"Success",
 					"campaign_id"=>$addcampaigndata,
+					"from"=>$from,
+					"pass"=>$pass,
 					"message"=>"Mail Sent Successfully.."
 				));
 			}else{

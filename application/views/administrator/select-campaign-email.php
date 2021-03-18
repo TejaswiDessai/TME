@@ -67,10 +67,10 @@ $(document).ready(function () {
                                    <option value="<?php echo $campaign['cnid']; ?>"><?php echo $campaign['campnm']; ?></option>
                                <?php endforeach; ?>
                                </select>
-                               <br><input type="text" id="email" name="email" class="form-control" placeholder="Email"><br>
-                               <input type="password" id="password" name="password" class="form-control" placeholder="Password">    <br>
-                            <!-- </div> -->
-                         <!-- <div class="col-sm-3"> -->
+                               <!-- <br><input type="text" id="email" name="email" class="form-control" placeholder="Email"><br>
+                               <input type="password" id="password" name="password" class="form-control" placeholder="Password">    <br> -->
+                            </div>
+                         <div class="col-sm-3">
                               <button type="submit" name="retrievedata" class="btn btn-primary" style=""  id="retrievedata">Retrieve Campaign Data</button>
                             </div>
                             <!-- setting hidden value of campaign id and sending to addlead form -->

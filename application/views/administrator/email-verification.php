@@ -3,7 +3,9 @@
     <link rel="stylesheet" type="text/css" href="<?php echo base_url(); ?>admintemplate/bower_components/datatables.net-responsive-bs4/css/responsive.bootstrap4.min.css">
     <link rel="stylesheet" type="text/css" href="<?php echo base_url(); ?>admintemplate/bower_components/ekko-lightbox/dist/ekko-lightbox.css">
     <link rel="stylesheet" type="text/css" href="<?php echo base_url(); ?>admintemplate/bower_components/lightbox2/dist/css/lightbox.css">
-    
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
     <style>
     body
     {
@@ -30,7 +32,12 @@
     .dataTables_filter {
     display: none;
     } 
-
+    #email_123{
+        height:34px;
+    }
+    #navbar-logo{
+        height: 6.5rem;
+    }
     </style>
     <script type="text/javascript">
     $(document).ready(function(){
@@ -149,13 +156,13 @@ var lmid2 = $('#leadid_2').val();
 var lmid3 = $('#leadid_3').val();
 var lmid4 = $('#leadid_4').val();
 var lmid5 = $('#leadid_5').val();
-alert("L1 = "+lmid1+"L2 = "+lmid2+"L3 = "+lmid3+"L4 = "+lmid4+"L5 = "+lmid5);
+// alert("L1 = "+lmid1+"L2 = "+lmid2+"L3 = "+lmid3+"L4 = "+lmid4+"L5 = "+lmid5);
 var emp_id = $('#empcode').val();
 
 
 if(rlc == 1){
 var urlq = '<?php echo base_url("administrator/updaterecordlock");?>';
-alert(urlq);
+// alert(urlq);
 console.log(urlq+"?lmid1="+lmid1+"&lmid2="+lmid2+"&rlc="+rlc+"&emp_id="+emp_id);
 $.ajax({
       url:'<?php echo base_url("administrator/updaterecordlock");?>',
@@ -283,7 +290,7 @@ $(document).ready(function() {
                             </td>
                             
                             <td>
-                                <select class="form-control form-control-default "  name="leadstatus" id="leadstatus">
+                                <select style="height:34px;" class="form-control form-control-default "  name="leadstatus" id="leadstatus">
                                     <option value="">Status</option>
                                     <option value="New" <?php if( isset($Stage) && $Stage == "New") { echo "selected" ; } ?>>New</option>
                                     <option value="Open" <?php if( isset($Stage) && $Stage == "Open") { echo "selected" ; } ?> >Open</option>
@@ -292,8 +299,8 @@ $(document).ready(function() {
                                 </select>
                             </td>
                             <td>
-                            <input type="text" value="<?php echo $agent_email?>" class="form-control form-control-default " name="from" id="from">
-                            <input type="hidden" value="<?php echo $agent_password?>" class="form-control form-control-default " name="pass" id="pass">
+                            <!-- <input type="text" value="<?php echo $agent_email?>" class="form-control form-control-default " name="from" id="from">
+                            <input type="hidden" value="<?php echo $agent_password?>" class="form-control form-control-default " name="pass" id="pass"> -->
                             </td>
                             <td>
                                 <input  class="btn btn-primary" type="submit" name="submit">
@@ -432,7 +439,7 @@ $(document).ready(function() {
                     <input class="btn btn-primary" type="button" id="update_email" value="Update Email">
                     </div>
                     <div class="col-sm-2">
-                    <select style="width:200px" class="form-control form-control-default "  name="email_status" id="email_status">
+                    <select style="width:200px;height:34px;" class="form-control form-control-default "  name="email_status" id="email_status">
                         <option value="">Change Status</option>
                         <option value="Test Mail Sent" >Test Mail Sent</option>
                         <option value="Bounced" >Bounced</option>
@@ -451,7 +458,7 @@ $(document).ready(function() {
                     </div>
                     <div>
                     <!-- <label>Closer Status</label> -->
-                        <select class="form-control form-control-default "  name="email_close_status" id="email_close_status">
+                        <select style="height:34px;" class="form-control form-control-default "  name="email_close_status" id="email_close_status">
                             <option value="">Closer Status</option>
                             <option value="New" >New</option>
                             <option value="Open">Open</option>
@@ -475,20 +482,56 @@ $(document).ready(function() {
         </div>
         <div class="modal-body">
         <div class="mail-body-content">
-                                        <form>
+        <div class="container">
+            <!-- <h2>Dynamic Tabs</h2> -->
+            <ul class="nav nav-tabs">
+                <li class="active"><a data-toggle="tab" href="#home">Home</a></li>
+                <li><a data-toggle="tab" href="#menu1">Compose</a></li>
+                <!-- <li><a data-toggle="tab" href="#menu2">Menu 2</a></li>
+                <li><a data-toggle="tab" href="#menu3">Menu 3</a></li> -->
+            </ul>
+
+            <div class="tab-content">
+                <div id="home" class="tab-pane fade in active">
+                <h5>From : (Agent) Email Details</h5>
+                <input type="text" id="from" name="from" class="form-control" value="<?php if(isset($From)){ echo $From;}?>"><br>
+                <input type="password" id="pass" name="pass" class="form-control" value="<?php if(isset($Pass)){ echo $Pass;}?>">    <br>
+                </div>
+                <div id="menu1" class="tab-pane fade">
+                <h5>Compose Email</h5>
+                <div class="form-group">
+                        <input type="text" id="sub" class="form-control" placeholder="Subject">
+                    </div>
+                    <div class="form-group">
+                    <textarea rows="6" style="width: 100%;" name="editor1" id="editor1" placeholder="Email Body"></textarea>
+                    
+                </div>
+                </div>
+                <!-- <div id="menu2" class="tab-pane fade">
+                <h3>Menu 2</h3>
+                <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam.</p>
+                </div>
+                <div id="menu3" class="tab-pane fade">
+                <h3>Menu 3</h3>
+                <p>Eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.</p>
+                </div> -->
+            </div>
+            </div>
+                                        <!-- <form>
+                                        <br><input type="text" id="email" name="email" class="form-control" placeholder="Email"><br>
+                                            <input type="password" id="password" name="password" class="form-control" placeholder="Password">    <br>
                                             <div class="form-group">
                                                 <input type="text" id="sub" class="form-control" placeholder="Subject">
                                             </div>
                                             <div class="form-group">
                                             <textarea rows="6" style="width: 100%;" name="mail_body" id="mail_body" placeholder="Email Body"></textarea>
-                                            <!-- <input type="text" id="mail_body" class="form-control" placeholder="Subject">     -->
-                                            <!-- <div contenteditable="true" id="mail_body" class="summernote email-summernote">Hello Summernote</div> -->
+                                           
                                         </div>
-                                        </form>
+                                        </form> -->
                                     </div>
         </div>
         <div class="modal-footer">
-        <button type="button" id="send_email1"  class="btn btn-primary" data-dismiss="modal">Send</button>
+        <button type="button" id="send_email1"  class="btn btn-primary" >Send</button>
           <button type="button" class="btn btn-danger " data-dismiss="modal">Close</button>
         </div>
       </div>
@@ -566,14 +609,14 @@ $(".emailstatus").click(function() {
     // });
 // });
     $(function() {
-    //     $('#email_143').on('click', function() {
-    //         var email_123 = $('#email_123').val();
-    //         var id = $('#idkl').val();
-    //         // alert("test"+id);
-    //         $("#email_"+id).val(email_123);
-    //         $('#myModal').modal('hide');
-    //     // alert("test"+email_123);
-    // });
+        $('#email_143').on('click', function() {
+            var email_123 = $('#email_123').val();
+            var id = $('#idkl').val();
+            // alert("test"+id);
+            $("#email_"+id).val(email_123);
+            $('#myModal').modal('hide');
+        // alert("test"+email_123);
+    });
     // $(document).ready(function() {
 
         $("#send_email").on('click', function() 
@@ -608,9 +651,23 @@ $(".emailstatus").click(function() {
             // var leadid = $('#leadid_'+leadid_obj).val();
             // alert(leadid);
             var from = $('#from').val();
+            // alert(from);
+            if(from == null || from == '')
+            {
+                alert("Please add your email address");
+                return;
+            }
+            
             var pass = $('#pass').val();
+            if(pass == null || pass == '')
+            {
+                alert("Please add your email password");
+                return;
+            }
             var sub = $('#sub').val();
-            var body = $('#mail_body').val();
+            // var body = $('#editor1').val();
+            var body = CKEDITOR.instances.editor1.getData();
+            // alert(body);
             // var body = document.getElementById('mail_body').innerHTML;
             // alert("from= "+from+"sub= "+sub+"body= "+body+"email= "+change_status_of+"leadid= "+leadid);
             // return;
@@ -638,16 +695,19 @@ $(".emailstatus").click(function() {
                 success: function(response){
                     var text = response.statusCode;
                     console.log("check"+text);
-                    // alert(text);
+                    $('#myModalemail').modal('hide');
                     $("#loader").hide();
                     if(response.statusCode == "Success") 
-                    {                        
+                    {                  
+                        $("#from").html(response.from);
+                        $("#pass").html(response.pass);
+                        // alert(response.from+""+response.pass);      
                         $("#send_email").html(response.message);
                         // top.location.href=base_url+"administrator/selectCampaignForEmailVerification";//redirection
                     }
                     else if(response.statusCode=="Fail")
                     {
-                        alert("test");
+                        // alert("test");
                         $("#send_email").html(response.message);
                         
 					}
@@ -709,7 +769,7 @@ $(".emailstatus").click(function() {
                 success: function(response){
                     var text = response.statusCode;
                     console.log("check"+text);
-                    alert(text);
+                    // alert(text);
                     
                     if(response.statusCode == "Success") 
                     {                        
@@ -718,7 +778,7 @@ $(".emailstatus").click(function() {
                     }
                     else if(response.statusCode=="Fail")
                     {
-                        alert("test");
+                        // alert("test");
                         $("#update_email").html(response.message);
                         
 					}

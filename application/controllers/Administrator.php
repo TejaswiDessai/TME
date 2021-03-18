@@ -2153,20 +2153,37 @@ public function getPrivillage(){
 			'pass' => $pass,
 			'from' => $from,
 		);
-
+		$agent_id = $this->session -> userdata('empcode');
 		$this->session->set_userdata($email_data);
 		for($i=0;$i<$cnt;$i++)
 		{
+
+			$checkforlmid = $this->Administrator_Model->get_lmid_duplication_count($leadid[$i],$agent_id);
+			if($checkforlmid == true)
+			{
+				echo json_encode(array(
+					"statusCode"=>"Exceed",
+					// "campaign_id"=>$addcampaigndata,
+					// "from"=>$from,
+					// "pass"=>$pass,
+					"message"=>"Mail Sent Successfully.."
+				));
+				return;
+			}
 
 			$datacampaign1 = array(
 				'curr_active' =>0,
 								
 				);
 			$updateexistinglead = $this->Administrator_Model->update_email_status($datacampaign1,$leadid[$i]);
-
+			$update_lead_status = array(
+				'evcomp' => 2,
+				// 'curr_active' => 0				
+				);
+			$update_lead_status = $this->Administrator_Model->update_email_lead__status($update_lead_status,$leadid[$i]);
 			$datacampaign = array(
 				'lmid' => $leadid[$i], 
-				'evagnt' => $this->session -> userdata('emp_id'),
+				'evagnt' => $this->session -> userdata('empcode'),
 				'email' => $comp_proSplit[$i],
 				'status' =>'Open',
 				'fmail' =>$from,
@@ -2178,11 +2195,7 @@ public function getPrivillage(){
 				'curr_active'=> 1,
 				'closer_status' =>'Open'				
 				);
-			// $checkforlmid = $this->Administrator_Model->get_lmid_duplication_count($leadid[$i]);
-			// if($checkforlmid == true)
-			// {
-				
-			// }
+			
 			$addcampaigndata = $this->Administrator_Model->send_email_status($datacampaign);
 			
 			require_once "send-email-php/phpmailer/class.phpmailer.php";
@@ -2266,7 +2279,7 @@ public function getPrivillage(){
 				{
 				$update_lead_status = array(
 					'evload' => 1,
-					// 'curr_active' => 0				
+					'evcomp' => 1				
 					);
 				$update_lead_status = $this->Administrator_Model->update_email_lead__status($update_lead_status,$lmid[$i]);
 				}

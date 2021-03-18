@@ -202,24 +202,42 @@ $.ajax({
     $(document).on("click", ".passingID", function () {
     var ids = $(this).attr('data-id');
     var row = $(this).attr('data-row');
-    // alert(row);
+    
     var sp = ids.split('@');
     var flname = sp[0];
     var sp_email = flname.split('.') ;
     var lastVal = sp_email.pop(); 
+    // alert(flname);
+    
     // console.log(sp[0]); // john.doe
     // console.log(sp[1]); // email.com
-    if (flname.match('.')) {
-    // alert("found");
+    var first_of_firstString = flname.substring(0, 1);
+    var first_of_secondString = lastVal.substring(0, 1);
+    let count = 0
+    let position = flname.indexOf('.')
+
+    while (position !== -1) {
+    count++
+    position = flname.indexOf('.', position + 1)
+    }
+
+    if (count>0) {
     var option1 = sp_email[0]+"."+lastVal+"@"+sp[1];
     var option2 = lastVal+"."+sp_email[0]+"@"+sp[1];
     var option3 = sp_email[0]+"@"+sp[1];
     var option4 = lastVal+"@"+sp[1];
-    var values = [option1, option2, option3, option4];
+    var option5 = first_of_firstString+"@"+sp[1];
+    var option6 = first_of_secondString+"@"+sp[1];
+    var option7 = first_of_firstString+"."+first_of_secondString+"@"+sp[1];
+    var option8 = first_of_firstString+"."+lastVal+"@"+sp[1];
+    var option9 = first_of_firstString+lastVal+"@"+sp[1];
+    var values = [option1, option2, option3, option4,option5,option6,option7,option8,option9];
     }
     else
     {
-        var values = [ids];
+        var option1 = ids;
+        var option2 = first_of_firstString+"@"+sp[1];
+        var values = [option1,option2];
     }
     
 
@@ -711,6 +729,10 @@ $(".emailstatus").click(function() {
                         $("#send_email").html(response.message);
                         
 					}
+                    else if(response.statusCode == "Exceed")
+                    {
+                        alert("LMID exceeded");
+                    }
                 },
                 error:function(xhr, status, error){
                     var errorMessage = xhr.status + ': ' + xhr.statusText

@@ -586,7 +586,7 @@ $(document).ready(function() {
                                           <div class="checkbox-fade fade-in-primary  col-sm-12">
                                               <label class="check-task">
                                                   <input type="checkbox" name="state" id="state"  value="state">
-                                                <span  class="form-control form-control-sm cdqadisable tooltips"><?php if(isset($ldmster['city'])){  echo $ldmster['state']; }else { echo "state is Empty" ;} ?>
+                                                <span  class="form-control form-control-sm cdqadisable tooltips"><?php if(isset($ldmster['state'])){  echo $ldmster['state']; }else { echo "state is Empty" ;} ?>
                                                 <span class="tooltiptext">State</span>
                                                 </span>
                                               </label>

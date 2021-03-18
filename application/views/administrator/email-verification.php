@@ -711,6 +711,10 @@ $(".emailstatus").click(function() {
                         $("#send_email").html(response.message);
                         
 					}
+                    else if(response.statusCode == "Exceed")
+                    {
+                        alert("LMID exceeded");
+                    }
                 },
                 error:function(xhr, status, error){
                     var errorMessage = xhr.status + ': ' + xhr.statusText

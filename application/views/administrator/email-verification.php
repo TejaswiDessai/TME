@@ -41,7 +41,9 @@
     </style>
     <script type="text/javascript">
     $(document).ready(function(){
-        
+        $('#example').dataTable( {
+  "searching": false
+} );
         $("#send_email").attr("disabled", true);
         $("#update_email").attr("disabled", true);
 
@@ -86,7 +88,7 @@
 
             <div class="page-header">
                 <div class="page-header-title">
-                    <h4>List Users</h4>
+                    <h4>Email Verification</h4>
                 </div>
                 <div class="page-header-breadcrumb">
                     <ul class="breadcrumb-title">
@@ -95,9 +97,9 @@
                                 <i class="icofont icofont-home"></i>
                             </a>
                         </li>
-                        <li class="breadcrumb-item"><a href="#!">Users</a>
+                        <li class="breadcrumb-item"><a href="#!">EV</a>
                         </li>
-                        <li class="breadcrumb-item"><a href="#!">List Users</a>
+                        <li class="breadcrumb-item"><a href="#!">Email Verification</a>
                         </li>
                     </ul>
                 </div>
@@ -265,6 +267,13 @@ $(document).ready(function() {
         "lengthMenu": [[5, 10, 50, -1], [5, 10, 15, 50]]
     } );
 } );
+
+document.getElementById("randomSelect").addEventListener("click", function() {
+    var select = document.getElementById('email_123');
+    var items = select.getElementsByTagName('option');
+    var index = Math.floor(Math.random() * items.length);
+    select.selectedIndex = index;
+});
 </script>
 
     <!-- Modal -->
@@ -309,7 +318,7 @@ $(document).ready(function() {
                             
                             <td>
                                 <select style="height:34px;" class="form-control form-control-default "  name="leadstatus" id="leadstatus">
-                                    <option value="">Status</option>
+                                    <option value="">Lead Status</option>
                                     <option value="New" <?php if( isset($Stage) && $Stage == "New") { echo "selected" ; } ?>>New</option>
                                     <option value="Open" <?php if( isset($Stage) && $Stage == "Open") { echo "selected" ; } ?> >Open</option>
                                     <option value="Closed" <?php if( isset($Stage) && $Stage == "Closed") { echo "selected" ; } ?>>Closed</option>
@@ -317,8 +326,33 @@ $(document).ready(function() {
                                 </select>
                             </td>
                             <td>
+                                <select style="height:34px;" class="form-control form-control-default "  name="email_sent_time" id="email_sent_time">
+                                    <option value="">Select Time</option>
+                                    <option value="1" <?php if( isset($email_sent_time) && $email_sent_time == "1") { echo "selected" ; } ?>>1 Hr Old</option>
+                                    <option value="2" <?php if( isset($email_sent_time) && $email_sent_time == "2") { echo "selected" ; } ?> >2 Hr Old</option>
+                                    <option value="3" <?php if( isset($email_sent_time) && $email_sent_time == "3") { echo "selected" ; } ?>>3 Hr Old</option>
+                                    <option value="4" <?php if( isset($email_sent_time) && $email_sent_time == "4") { echo "selected" ; } ?>>More than 3 Hr</option>
+                                </select>
+                            </td>
+                            <td>
+                            <input type="text" name="search_email" class="form-control form-control-default " value="<?php if(isset($search_email)){ echo $search_email;}?>" id="search_email" placeholder="Search by Email">
                             <!-- <input type="text" value="<?php echo $agent_email?>" class="form-control form-control-default " name="from" id="from">
                             <input type="hidden" value="<?php echo $agent_password?>" class="form-control form-control-default " name="pass" id="pass"> -->
+                            </td>
+                            <td>
+                            <select style="width:200px;height:34px;" class="form-control form-control-default "  name="search_email_status" id="search_email_status">
+                                <option value="">Email Status</option>
+                                <option value="Test Mail Sent"  <?php if( isset($search_email_status) && $search_email_status == "Test Mail Sent") { echo "selected" ; } ?> >Test Mail Sent</option>
+                                <option value="Bounced" <?php if( isset($search_email_status) && $search_email_status == "Bounced") { echo "selected" ; } ?> >Bounced</option>
+                                <option value="Reviewed" <?php if( isset($search_email_status) && $search_email_status == "Reviewed") { echo "selected" ; } ?>>Reviewed</option>
+                                <option value="Accepted" <?php if( isset($search_email_status) && $search_email_status == "Accepted") { echo "selected" ; } ?>>Accepted</option>
+                                <option value="Not Available" <?php if( isset($search_email_status) && $search_email_status == "Not Available") { echo "selected" ; } ?>>Not Available</option>
+                                <option value="Out of Office" <?php if( isset($search_email_status) && $search_email_status == "Out of Office") { echo "selected" ; } ?>>Out of Office</option>
+                                <option value="Generic email" <?php if( isset($search_email_status) && $search_email_status == "Generic email") { echo "selected" ; } ?>>Generic email</option>
+                                <option value="Dead contact" <?php if( isset($search_email_status) && $search_email_status == "Dead contact") { echo "selected" ; } ?>>Dead contact</option>
+                                <option value="Incorrect Info" <?php if( isset($search_email_status) && $search_email_status == "Incorrect Info") { echo "selected" ; } ?>>Incorrect Info</option>
+                                <option value="Refused" <?php if( isset($search_email_status) && $search_email_status == "Refused") { echo "selected" ; } ?>>Refused</option>
+                            </select>
                             </td>
                             <td>
                                 <input  class="btn btn-primary" type="submit" name="submit">
@@ -327,17 +361,19 @@ $(document).ready(function() {
                                 <a class="btn btn-primary" href="">Refresh</a>
                             </td> -->
                             </tr>
-                            
+                            <tr>
+                            <a href="#" id="randomSelect">Select random</a>
+                            </tr>
                             </table>
                             </form>
                        
                     </div>
                     <br>
                     <!-- Image loader -->
-<div id='loader' style='display: none;'>
-  <img src='<?php echo base_url(); ?>assets/images/download.png' width='32px' height='32px'>
-</div>
-<!-- Image loader -->
+                    <div id='loader' style='display: none;'>
+                    <img src='<?php echo base_url(); ?>assets/images/download.png' width='32px' height='32px'>
+                    </div>
+                    <!-- Image loader -->
                         <div class="table-responsive dt-responsive">
                             <table id="dom-jqry" class="table table-striped table-bordered nowrap table1">
                                 <thead>
@@ -356,8 +392,8 @@ $(document).ready(function() {
                                         <th>Email</th>
                                         <th>Change Format</th>
                                         <th>Status</th>
-                                        <th>Send To</th>
-                                        <th>Change Status</th>
+                                        <th>Send To<br><input type="checkbox" class="emailsend_all" onclick="toggle(this);" /></th>
+                                        <th>Change Status<br><input type="checkbox" class="emailstatus_all" onclick="toggle(this);" /></th>
                                         <th>Sent Timestamp</th>
                                         <th>Email Sent From</th>
                                         <th>Comments</th>
@@ -403,7 +439,7 @@ $(document).ready(function() {
                                         </td>
                                         <td>
                                         <!-- <input type="checkbox" name="email" id="email"  value="email"> -->
-                                        <input type="text" id="email_<?php echo $i;?>" value="<?php if(isset($post)){  echo $post['email']; }else { echo "Email is Empty" ;} ?>">
+                                        <input type="text" id="email_<?php echo $i;?>" value="<?php if(isset($search_email) && $search_email != null){ echo $search_email; }else if(isset($post)){  echo $post['email']; }else { echo "Email is Empty" ;} ?>">
                                         <?php //echo $post['email']; ?>
                                         </td>
                                         <td>
@@ -419,10 +455,10 @@ $(document).ready(function() {
                                         </td>
                                         <td>
                                             <!-- <input type="checkbox"> -->
-                                            <input type="checkbox" class ="emailclass" value="<?php echo $i;?>" name="email_list_<?php echo $i;?>" id="email_list_<?php echo $i;?>"><?php //echo $i;?>
+                                            <input type="checkbox" class ="emailclass checkbox_emailclass" value="<?php echo $i;?>" name="email_list_<?php echo $i;?>" id="email_list_<?php echo $i;?>"><?php //echo $i;?>
                                         </td>
                                         <td>
-                                            <input type="checkbox" class ="emailstatus"  value="<?php echo $post['lmid'];?>" name="email_status_<?php echo $i;?>" id="email_status_<?php echo $i;?>"><?php //echo $i;?>
+                                            <input type="checkbox" class ="emailstatus checkbox_emailstatus"  value="<?php echo $post['lmid'];?>" name="email_status_<?php echo $i;?>" id="email_status_<?php echo $i;?>"><?php //echo $i;?>
                                         </td>
                                         <td>
                                             <?php 
@@ -560,6 +596,15 @@ $(document).ready(function() {
 
 
             <script>
+            $(".emailstatus_all").on('change', function () {
+                // alert("test");
+                $(this).closest('table').find('.checkbox_emailstatus').prop('checked', this.checked ); 
+            }); 
+            $(".emailsend_all").on('change', function () {
+                // alert("test");
+                $(this).closest('table').find('.checkbox_emailclass').prop('checked', this.checked ); 
+            }); 
+            
 // $("input:checkbox").change(function() {
 $(".emailclass").click(function() {
     

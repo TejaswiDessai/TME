@@ -11,6 +11,7 @@
 			//Validate
 			$this->db->where('cid_type', $ctype);
 			$this->db->where('emp_id', $emp_id);
+			$this->db->where('status', 0);
 			$this->db->where('password', $encrypt_password);
           	//$this->db->join('userlog', 'userlog.empid = users.emp_id');
 			$result = $this->db->get('users');
@@ -2452,7 +2453,7 @@ public function get_campaign_fordataverification()
 			return $data=$query->result_array();
 
 		}	
-		public function get_email_list($campid,$user_id,$from,$to,$leadstatus)
+		public function get_email_list($campid,$user_id,$from,$to,$leadstatus,$search_email,$search_email_status,$email_sent_time)
 		{
 			
 			if(isset($leadstatus) && $leadstatus == "New")
@@ -2487,6 +2488,30 @@ public function get_campaign_fordataverification()
 			if(isset($leadstatus) && $leadstatus == 'Closed')
 			{
 				$this->db->where('ev.closer_status', 'Closed');
+			}
+			if(isset($search_email) && $search_email != null)
+			{
+				$this->db->where('ev.email', $search_email);
+			}
+			if(isset($search_email_status) && $search_email_status != null)
+			{
+				$this->db->where('ev.status', $search_email_status);
+			}
+			if(isset($email_sent_time) && $email_sent_time != null)
+			{
+				// Current date and time
+				$datetime = date("Y-m-d H:i:s");
+
+				// Convert datetime to Unix timestamp
+				$timestamp = strtotime($datetime);
+
+				// Subtract time from datetime
+				$time = $timestamp - ($email_sent_time * 60 * 60);
+
+				// Date and time after subtraction
+				$datetime = date("Y-m-d H:i:s", $time);
+
+				$this->db->where('ev.loaddt <=', $datetime);
 			}
 			if(isset($user_id) && $user_id != null)
 			{

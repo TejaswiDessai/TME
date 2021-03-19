@@ -1749,8 +1749,8 @@ public function get_leadmasterby_campaignidwithempcode($id = FALSE,$empcode)
 				// $this->db->OR_where('stagtidii',$empcode);
 		// 		$this->db->OR_where('stagtidi', NULL);
 		// $this->db->group_end(); 
-		$this->db->order_by('dvrdti','ASC');
-			// $this->db->order_by('dvrejtg','DESC');
+	
+			$this->db->order_by('dvrejtg','DESC');
 		
 		
 		$this->db->limit(1);
@@ -2480,8 +2480,6 @@ public function get_campaign_fordataverification()
 			if( ($leadstatus != "New"))
 			{
 				$this->db->where('ev.curr_active', 1);
-				if($leadstatus != "Closed")
-					$this->db->where('ev.closer_status !=', "Closed");
 				// $this->db->where('ev.closer_status !=', "Closed");
 			}
 			if(isset($leadstatus) && $leadstatus == 'Closed')
@@ -2587,14 +2585,13 @@ public function get_campaign_fordataverification()
 			return $query->row_array();
 		}
 
-		function get_lmid_duplication_count($leadid,$agent_id)
+		function get_lmid_duplication_count($leadid)
 		{
 			$this->db->select('lmid');
 			$this->db->where('lmid', $leadid);
-			$this->db->where('evagnt', $agent_id);
 			$result = $this->db->get('ev');
 			// echo $this->db->last_query(); 
-			if ($result->num_rows() > 8) {
+			if ($result->num_rows() > 1) {
                return true;        
 			}else{
 				return false;

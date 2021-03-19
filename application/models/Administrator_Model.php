@@ -11,6 +11,7 @@
 			//Validate
 			$this->db->where('cid_type', $ctype);
 			$this->db->where('emp_id', $emp_id);
+			$this->db->where('status', 0);
 			$this->db->where('password', $encrypt_password);
           	//$this->db->join('userlog', 'userlog.empid = users.emp_id');
 			$result = $this->db->get('users');

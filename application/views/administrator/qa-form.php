@@ -1125,7 +1125,7 @@ $.ajax({
                           <input type = "hidden" name="lmid" id="lmid" value="<?php echo $ldmster['lmid']; ?>">
                           <input type = "hidden" name="evload" id="evload" value="<?php echo $ldmster['evload']; ?>">
                           <input type = "hidden" name="emp_id" id="emp_id" value="<?php echo  $_SESSION['empcode']; ?>">
-                          <input type = "hidden" name="cdcsv" id="cdcsv" value="<?php echo $ldmster['cdcsv']; ?>">
+                          <input type = "hidden" name="qasv" id="qasv" value="<?php echo $ldmster['qasv']; ?>">
                           <input type = "hidden" name="cdcrjt" id="cdcrjt" value="<?php echo $ldmster['cdcrjt']; ?>">
                           <input type = "hidden" name="cdcsb" id="cdcsb" value="<?php echo $ldmster['cdcsb']; ?>">
                          
@@ -1155,18 +1155,18 @@ $.ajax({
                                     <option value="3">Reject-Disqualify</option>
                                 </select>
                               </div>
-                              <div class="col-sm-3">
+                              <div class="col-sm-2">
                                 <button type="submit" name="leadupdateqa" class="btn btn-primary leaddisplay" style=""  id="leadupdateqa">Accept & Submit</button> 
-                              <!-- <button type="submit" name="leadupdatecdc" class="btn btn-primary leaddisplay" style=""  id="leadupdatecdc">Accept & Submit</button>  -->
+                              <!-- <button type="submit" name="leadupdateqa" class="btn btn-primary leaddisplay" style=""  id="leadupdateqa">Accept & Submit</button>  -->
                              </div>
                               <div class="col-sm-3">
-                              <!-- <button type="submit" name="leadsavecdc" class="btn btn-primary leaddisplay" style="margin-left:50px"  id="leadsavecdc">Save </button>  -->
+                              <!-- <button type="submit" name="leadsaveqa" class="btn btn-primary leaddisplay" style="margin-left:50px"  id="leadsaveqa">Save </button>  -->
                               <button type="submit" name="leadsaveqa" class="btn btn-primary leaddisplay" style="margin-left:50px"  id="leadsaveqa">Save </button> 
                              <!-- </center> -->
                              </div>
                         <?php } else{ ?>
                           <!-- <button type="submit" name="" class="btn btn-primary leaddisplay" style=""  id="">Limit Crossed</button>  -->
-                          <!-- <button type="submit" name="leadsavecdc" class="btn btn-primary leaddisplay" style=""  id="leadsavecdc">Discard </button>  -->
+                          <!-- <button type="submit" name="leadsaveqa" class="btn btn-primary leaddisplay" style=""  id="leadsaveqa">Discard </button>  -->
                            <?php }?>
                        <?php if(empty($ldmster)){ ?>
                         
@@ -2308,9 +2308,9 @@ $("input:checkbox").change(function() {
     
                 if(cdcsb == '4'){
                   var cdcsb = '4';
-                  var cdcsv = $('#cdcsv').val();
+                  var qasv = $('#qasv').val();
                 }else{
-                  var cdcsv = $('#cdcsv').val();
+                  var qasv = $('#qasv').val();
                 }
                 var cdcrjt = $('#cdcrjt').val(); 
                 
@@ -2329,9 +2329,9 @@ $("input:checkbox").change(function() {
  
             if(cdcrjt == '4'){
               var cdcrjt = '4';
-              var cdcsv = '0';
+              var qasv = '0';
             }else{
-              var cdcsv = $('#cdcsv').val();
+              var qasv = $('#qasv').val();
             }
 
           }
@@ -2351,7 +2351,7 @@ $("input:checkbox").change(function() {
            
             var campaign_id = $('#campaign_id').val();
             var campaign_idcids = $('#campaign_idcids').val();
-            // var cdcsv = $('#cdcsv').val();
+            // var qasv = $('#qasv').val();
             var evload = $('#evload').val();
 
             var aa1 = $('#aa1').val();
@@ -2434,7 +2434,7 @@ $("input:checkbox").change(function() {
             // var url = encodeURI("<?php //echo base_url("cdc/ajax_update_datacdc");?>");
             var url = encodeURI("<?php echo base_url("cdc/ajax_update_qatolead");?>");
           
-            console.log(url+"?campaign_id="+campaign_id+"&lmid="+lmid+"&campaign_idcids="+campaign_idcids+"&checked="+checked+"&cdcsv="+cdcsv+"&pcomt="+pcomt);
+            console.log(url+"?campaign_id="+campaign_id+"&lmid="+lmid+"&campaign_idcids="+campaign_idcids+"&checked="+checked+"&qasv="+qasv+"&pcomt="+pcomt);
            
             $.ajax({
                url :'<?php echo base_url("cdc/ajax_update_qatolead");?>',
@@ -2446,7 +2446,7 @@ $("input:checkbox").change(function() {
                   campaign_id: campaign_id,
                   campaign_idcids: campaign_idcids,
                   lmid: lmid,
-                  cdcsv :cdcsv,
+                  qasv :qasv,
                   cdcrjt :cdcrjt,
                   cdcsb :cdcsb,
                   pcomt :pcomt,
@@ -2486,19 +2486,19 @@ $("input:checkbox").change(function() {
         async: true,
                 cache: false,
                 success: function(response){
-                    $("#leadsavecdc").hide();
+                    $("#leadsaveqa").hide();
                     var text = response.statusCode;
                     console.log("check");
                     if(response.statusCode == "Success") 
                     {         
                          
-                        $("#leadupdatecdc").html(response.message);
+                        $("#leadupdateqa").html(response.message);
                         top.location.href=base_url+"administrator/dashboard";//redirection
                         // top.location.href=base_url+"cdc/dataverfication?camp_id="+<?php //echo $campaign['cnid']; ?>;//redirection
                       
                     }else if(response.data=="Fail")
                     {
-                        $("#leadupdatecdc").html(response.message);
+                        $("#leadupdateqa").html(response.message);
                         
 					          }
 
@@ -2518,7 +2518,7 @@ $("input:checkbox").change(function() {
 <script>
 /* Save /Discard lead*/
 $(function() {
-        $("#leadsavecdc").on('click', function() 
+        $("#leadsaveqa").on('click', function() 
         {
           var empid = $('#emp_id').val();
           if(empid === undefined){
@@ -2564,120 +2564,24 @@ $(function() {
              }
              
         
-
-          if(checked == ""){ // if unchecked any field
-                checked = [0];
-                var cdcsb1 = $('#cdcsb').val();
-                if(cdcsb1 == ""){
-                  var cdcsb = 1;
-                }else{
-                  var cdcsb = parseInt(cdcsb1)+1; // incremataion for dv  Accept
-                }
-    
-                if(cdcsb == '3'){
-                  var cdcsb = '3';
-                  var cdcsv = '0';
-                }
-                var cdcrjt = $('#cdcrjt').val(); 
-          }else{ //checked -rejected
-            var cdcsb =$('#cdcsb').val();
-
-            var cdcrjt1 = $('#cdcrjt').val();
-            if(cdcrjt1 == ""){
-              var cdcrjt = 1;
-            }else{
-              var cdcrjt = parseInt(cdcrjt1)+1; // incremataion for dv  rejection
-            }
- 
-            if(cdcrjt == '3'){
-              var cdcrjt = '3';
-              var cdcsv = '0';
-            }
-
-          }
            
             var campaign_id = $('#campaign_id').val();
             var campaign_idcids = $('#campaign_idcids').val();
-            var cdcsv = '0';
+            var qasv = '0';
             
-            var aa1 = $('#aa1').val();
-            // alert(aa1);
-            var aa2 = $('#aa2').val();
-            var aa3 = $('#aa3').val();
-            var aa4 = $('#aa4').val();
-            var aa5 = $('#aa5').val();
-            var aa6 = $('#aa6').val();
-            var aa7 = $('#aa7').val();
-            var aa8 = $('#aa8').val();
-            var aa9 = $('#aa9').val();
-            var aa10 = $('#aa10').val();
-            var aa11 = $('#aa11').val();
-            var aa12 = $('#aa12').val();
            
-             if(aa1 == undefined)
-             {
-              var aa1 = null; 
-             }
-             if(aa2 == undefined)
-             {
-              var aa2 = null; 
-             }
-             if(aa3 == undefined)
-             {
-              var aa3 = null; 
-             }
-             if(aa4 == undefined)
-             {
-              var aa4 = null; 
-             }
-             if(aa5 == undefined)
-             {
-              var aa5= null; 
-             }
-             if(aa6 == undefined)
-             {
-              var aa6 = null; 
-             }
-             if(aa7 == undefined)
-             {
-              var aa7 = null; 
-             }
-             if(aa8 == undefined)
-             {
-              var aa8 = null; 
-             }
-             if(aa9 == undefined)
-             {
-              var aa9 = null; 
-             }
-             if(aa9 == undefined)
-             {
-              var aa9 = null; 
-             }
-             if(aa10 == undefined)
-             {
-              var aa10 = null; 
-             }
-             if(aa11 == undefined)
-             {
-              var aa11= null; 
-             }
-             if(aa12 == undefined)
-             {
-              var aa12= null; 
-             }
 
             var lmid = $('#lmid').val();
 
             var pcomt = $('#pcomt').val();
           
             // var url = encodeURI("<?php //echo base_url("cdc/ajax_update_datacdc");?>");
-            var url = encodeURI("<?php echo base_url("cdc/ajax_save_leaddatacdc");?>");
+            var url = encodeURI("<?php echo base_url("cdc/ajax_save_leadqa");?>");
           
-            console.log(url+"?campaign_id="+campaign_id+"&lmid="+lmid+"&campaign_idcids="+campaign_idcids+"&checked="+checked+"&cdcsv="+cdcsv+"&pcomt="+pcomt);
+            console.log(url+"?campaign_id="+campaign_id+"&lmid="+lmid+"&campaign_idcids="+campaign_idcids+"&checked="+checked+"&qasv="+qasv+"&pcomt="+pcomt);
            
             $.ajax({
-               url :'<?php echo base_url("cdc/ajax_save_leaddatacdc");?>',
+               url :'<?php echo base_url("cdc/ajax_save_leadqa");?>',
                 type: 'POST', 
                 // contentType: "application/json",
                 dataType: 'json',              
@@ -2686,9 +2590,7 @@ $(function() {
                   campaign_id: campaign_id,
                   campaign_idcids: campaign_idcids,
                   lmid: lmid,
-                  cdcsv :cdcsv,
-                  cdcrjt :cdcrjt,
-                  cdcsb :cdcsb,
+                  qasv :qasv,
                   pcomt :pcomt,
                   checked:checked,
 
@@ -2697,36 +2599,25 @@ $(function() {
                     opteml:opteml,
                     optpst:optpst,
                     dnd:dnd,
-                    aa1:aa1,
-                    aa2:aa2,
-                    aa3:aa3,
-                    aa4:aa4,
-                    aa5:aa5,
-                    aa6:aa6,
-                    aa7:aa7,
-                    aa8:aa8,
-                    aa9:aa9,
-                    aa10:aa10,
-                    aa11:aa11,
-                    aa12:aa12,
+                   
                    
 				},
         async: true,
                 cache: false,
                 success: function(response){
-                    $("#leadupdatecdc").hide();
+                    $("#leadupdateqa").hide();
                     var text = response.statusCode;
                     console.log("check");
                     if(response.statusCode == "Success") 
                     {         
                          
-                        $("#leadsavecdc").html(response.message);
+                        $("#leadsaveqa").html(response.message);
                         top.location.href=base_url+"administrator/dashboard";//redirection
                         // top.location.href=base_url+"cdc/dataverfication?camp_id="+<?php //echo $campaign['cnid']; ?>;//redirection
                       
                     }else if(response.data=="Fail")
                     {
-                        $("#leadupdatecdc").html(response.message);
+                        $("#leadupdateqa").html(response.message);
                         
 					          }
 

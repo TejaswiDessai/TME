@@ -1849,9 +1849,12 @@
 			
 			// if(!empty($_POST['dvdti'] ) AND !empty($_POST['dvrdti'] ))
 
-			if(($_POST['dvrejtg'] > 1) OR ($_POST['dvsbtg'] > 1) )
+			
+			// if(($_POST['dvrejtg'] > '1') AND ($_POST['dvsbtg'] != '1'))
+			if(($_POST['dvrejtg'] > '1') AND ($_POST['dvsbtg'] != '1'))
 			{
 
+				// print_r($_POST['dvsbtg']);exit();
 				if($mychecked2 == "0"){  // Accept
 					$dvload = "1"; // go to next level-- Accept
 					$dvstat ="1"; //Data Verification|Tag for On Accept / Reject /Discard
@@ -3499,6 +3502,135 @@
 
 			
 								
+				);
+			// 	print_r($lmid); echo "Hiii";
+			// 	print_r($_POST['cdcsv']); echo "Hiii";
+			//   print_r($datacdcandlead);
+			 
+			    // exit();
+			
+				$addleadandcdcdata = $this->Administrator_Model->update_leaddata($datacdcandlead,$lmid);
+				// print_r($addcampaigndata);  die;
+				
+				// exit();
+				if($addleadandcdcdata == true){
+			
+					echo json_encode(array(
+						"statusCode"=>"Success",
+						// "lead_id"=>$addleadandcdcdata,
+						"message"=>"Data Verified Successfully.."
+					));
+				}else{
+					echo json_encode(array(
+						"statusCode"=>"Fail",
+						"message"=>"Lead failed.."
+					));
+				}
+			
+		}
+		public function ajax_save_leadqa()
+		{
+			$campaign_id = $_POST['campaign_id'];
+			$cids = $_POST['campaign_idcids'];
+			
+			$lmid = $_POST['lmid'];
+			$checked = $_POST['checked'];
+			$qasv = $_POST['qasv'];
+		
+		
+			
+			// print_r($_POST['checked']);
+			// // exit();
+			
+				$old_date = date('Y-m-d H:i:s');         // works
+				$middle = strtotime($old_date);             // returns bool(false)
+				$new_date = date('Y-m-d H:i:s', $middle);
+
+			// $mychecked = explode(',', $checked);
+		
+			if(!isset($_SESSION['empcode'])){
+				
+			
+				redirect('administrator/logout');
+				Exit();
+			}
+
+
+			if(!empty($_POST['lcalldisp'])|| ($_POST['lcalldisp'] =='0'))
+			{
+				$lcalldisp =  $_POST['lcalldisp'];
+			} else{
+			$lcalldisp = NULL;
+			}
+			
+			if(!empty($_POST['lcallstat']) || ($_POST['lcallstat'] =='0') )
+			{
+				$lcallstat =  $_POST['lcallstat'];
+			} else{
+			$lcallstat = NULL;
+			}
+
+	
+			if(!empty($_POST['cdclst']) || ($_POST['cdclst'] =='0') )
+			{
+				$cdclst =  $_POST['cdclst'];
+			} else{
+			$cdclst = NULL;
+			}
+			
+			$ddispositionclass = $_POST['ddispositionclass'];
+			$cvr = $_POST['cvr'];
+			
+			$mychecked2 = implode(',', $checked);
+			
+			if($mychecked2 == "0"){  // Accept
+			
+				$dvstat ="1"; //Data Verification|Tag for On Accept / Reject /Discard
+			
+				
+			}else{
+				// $dvload = "0"; // Reject
+				$dvstat ="2";
+			
+			}
+
+			if($qasv == 0){
+				$qasvdti = $old_date;	
+				$qasvagti = $_SESSION['empcode'];
+				}else{
+					$qasvdti = NULL;
+					$qasvagti= NULL;
+				}
+		
+				$pcomt= "CDC:".$_SESSION['empcode'].":".$old_date."#".$_POST['pcomt'];
+
+				$datacdcandlead = array(
+				'cdcrjfields' => $mychecked2,
+				'pcomt' => $pcomt,
+				
+				// tag
+		
+				'qasv' => 0, //  Submit till 5 times
+				'qasvagti' => $qasvagti, 
+				'qasvdti' => $qasvdti, 
+				
+				'lcalldisp' => $lcalldisp, 
+				'lcallstat' => $lcallstat, 
+				'cvr' => $cvr, 
+				'ddispositionclass' => $ddispositionclass, 
+				'cdclst' => $cdclst, 
+
+
+				'cdcload' => '0', // next level ready to load
+				'rlc' => '0', // record is closed
+				
+				'dvcomt' => 1, //accept/rejection by cdc
+				 'optin' => $_POST['optin'],
+				'optpst' => $_POST['optpst'],
+				'optph' => $_POST['optph'],
+				'opteml' => $_POST['opteml'],
+				'dnd' => $_POST['dnd']
+						
 				);
 			// 	print_r($lmid); echo "Hiii";
 			// 	print_r($_POST['cdcsv']); echo "Hiii";

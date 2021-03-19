@@ -1788,7 +1788,7 @@ public function get_leadmasterby_campaigniddv($id = FALSE)
 		// echo $this->db->last_query(); 
 		// echo $string;
 		// die;
-		return $query->result_array();
+		return $query->result_array(); 
 	}
 public function get_leadmasterby_campaignQA($id = FALSE)
 {

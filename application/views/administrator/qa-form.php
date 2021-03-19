@@ -124,47 +124,44 @@
 }
 
  </style>
+
+
+<?php foreach ($leadmaster as $ldmster):  
+      // print_r($ldmster['dvrejectreason']);
+      // $dvrejectreason = explode(',',$ldmster['dvrejectreason']);
+      // print_r($ldmster);
+     
+    endforeach;
+      //  print_r($campaign['tid']);
+       
+       ?>
+ 
 <script>
 
 
 var base_url = "<?php echo base_url() ?>";
 // alert(base_url);
 $(document).ready(function () {
+
+  
     // Handler for .ready() called.
     $('html, body').animate({
         scrollTop: $('#camp_form').offset().top
     }, 'slow');
 });
 
+
+
+
+
 //below code for retreive button on change on rect type
 $(document).ready(function() { 
   $(".aumdis").attr("disabled", true);   // aum disable
-  $(".ansdiv").hide();   // ans div hide
-  $('.cdqadisplay').hide();
-  // $('.commentvisible').hide();
-  $('.optindiv').hide();
-    $('#rec_type_id').bind('change', function() {
-     
-        var value = $(this).val();
-        if (value == 2) { // if cdqa is selected
-          // $('.commentvisible').show();
-          $('.optindiv').show();
-          $('.cdqadisplay').show();
-          $('.leaddisplay').hide();
-          $(".ansdiv").show(); 
+  // $(".ansdiv").hide();   // ans div hide
+ 
+  $("#rsendto").hide();  
 
-          var campaign_id = $('#campaign_id').val();
-
-         
-        }else{
-          // $('.commentvisible').hide();
-          $('.optindiv').hide();
-          $(".ansdiv").hide(); 
-          $('.leaddisplay').show();
-          $('.cdqadisplay').hide();
-            
-        }
-    }).trigger('change');
+  
  
     $('#ctype').bind('change', function() {
       var value = $(this).val();
@@ -179,17 +176,58 @@ $(document).ready(function() {
     })
 
 
+    var campaign_id = $('#campaign_id').val();
+    var urlq = '<?php echo base_url("cdc/getquestion");?>';
+console.log(urlq+'?campaign_id='+campaign_id);
+$.ajax({
+      url:'<?php echo base_url("cdc/getquestion");?>',
+      method: 'get',
+      data: {campaign_id: campaign_id},
+      dataType: 'json',
+      success: function(response){
+
+      //    Remove options 
+    //  $('#country_id').find('option').not(':first').remove();
+     
+
+      //    Add options
+     $.each(response,function(index,data){
+        // $('.questionrow').append('<select><option value="'+data['qid']+'">'+data['questions']+'</option></select');
+       
+          index++;
+          var ans = 'aa'+index; 
+          // $ldmster[$ans] = 'aa'+index;
+          // alert (<?php echo "'aa'+index";?>);
+          var testa = <?php echo "'aa'+index";?>;
+          // alert(testa);
+        // $('.questionrow').html("");
+        $('.questionrow').append('<div class="col-sm-6 card">'+
+                                   '<p id='+ index +'><b>'+data['questions']+'</b></p>'+
+                                      // '<input type="text" value="<?php //$aaa= 'aa'; if(isset($ldmster)){  echo $ldmster[$aaa]; }?>"  name="aa' + index + '" id="aa' + index + '"  placeholder="Answer for question ' + index + '"  class="form-control form-control-sm ">'+
+                                      '<input type="text" value="<?php echo 'aa';?>'+ index +'"  name="aa' + index + '" id="aa' + index + '" disabled="disabled" placeholder="Answer for question ' + index + '"  class="form-control form-control-sm ">'+
+                                                                     
+                          '</div>');
+
+        
+      });
+      }
+  });
+//end question
+
 });
 
 </script>
 <form id="basic-form" method="POST" enctype="multipart/form-data">
 <div class="page-header">
     <div class="page-header-title col-sm-12">
-        <h4>Data Verification</h4> 
+        <h4>Quality Assurance</h4> 
         
       
             <div class="form-group row"> 
                <div class="col-sm-2" style="margin-left: 200px;margin-top: -25px;">
+
+               <!-- <button type="submit" name="gotoupdate" class="btn btn-primary" style="" id="gotoupdate">Go To Update</button> -->
+               
                                 <!-- <select name="rec_type_id" id="rec_type_id"  class="form-control form-control-sm">
                                       <option value="1">Data </option>
                                       <option value="2">CDQA </option>
@@ -586,7 +624,7 @@ $(document).ready(function() {
                                           <div class="checkbox-fade fade-in-primary  col-sm-12">
                                               <label class="check-task">
                                                   <input type="checkbox" name="state" id="state"  value="state">
-                                                <span  class="form-control form-control-sm cdqadisable tooltips"><?php if(isset($ldmster['state'])){  echo $ldmster['state']; }else { echo "state is Empty" ;} ?>
+                                                <span  class="form-control form-control-sm cdqadisable tooltips"><?php if(isset($ldmster['city'])){  echo $ldmster['state']; }else { echo "state is Empty" ;} ?>
                                                 <span class="tooltiptext">State</span>
                                                 </span>
                                               </label>
@@ -971,13 +1009,30 @@ $(document).ready(function() {
                                     </div>
                             
                             </div>
-                            <!-- <div class="col-sm-2">
-                                <select class="form-control form-control-sm"  name="emailver" id="emailver">
+                            <div class="col-sm-2">
+                                <!-- <select class="form-control form-control-sm"  name="emailver" id="emailver">
                                     <option value="0">Email Verification</option>
                                     <option value="1">Yes</option>
                                     <option value="0">No</option>
-                                </select>
-                            </div> -->
+                                </select> -->
+                                <div class="to-do-list">
+                                            <div class="checkbox-fade fade-in-primary  col-sm-12">
+                                                <label class="check-task">
+                                                    <input type="checkbox" name="emailver" id="lineemailvertype"  value="linetype">
+                                                  <span  class="form-control form-control-sm cdqadisable tooltips"><?php 
+                                                    if($ldmster['emailver'] == "0"){ 
+                                                     echo "Not Email verified"; 
+                                                    }else if($ldmster['emailver'] == "1") { 
+                                                      echo "Email verified";
+                                                    
+                                                    }
+                                                      ?>
+                                                      <span class="tooltiptext">Email verified</span>
+                                                  </span>
+                                                </label>
+                                            </div>
+                                  </div>
+                            </div>
                             <div class="col-sm-2">
                                 <!-- <input type="text"  name="aum" id="aum" value ="<?php // if(isset($ldmster)){  echo $ldmster['aum']; }?>" placeholder="Asset Under Management"  class="form-control form-control-sm aumdis"> -->
                                 <div class="to-do-list">
@@ -991,7 +1046,7 @@ $(document).ready(function() {
                                             </div>
                                   </div>
                             </div>
-                            <div class="col-sm-4">
+                            <div class="col-sm-2">
                                 <!-- <select class="form-control form-control-sm commentvisible" name="assetid" id="assetid">
                                     <option value="0">Asset</option>
                                     <?php //foreach ($assetitle as $assetitle): ?>
@@ -999,25 +1054,25 @@ $(document).ready(function() {
                                 <?php //endforeach; ?>
                                    </select> -->
 
-                                   <!-- <div class="to-do-list">
+                                   <div class="to-do-list">
                                         <div class="checkbox-fade fade-in-primary  col-sm-12">
                                             <label class="check-task">
                                                 <input type="checkbox" name="assetid" id="assetid"  value="assetid">
                                                 <?php// foreach ($joblevel as $joblevel): ?>
-                                               <span  class="form-control form-control-sm cdqadisable tooltips"><?php// if($ldmster['atitle'] != ""){ echo $assetitledv['title']; } else { echo "Asset title is Empty" ; } ?>
+                                               <span  class="form-control form-control-sm cdqadisable tooltips"><?php if($ldmster['atitle'] != "" ){ echo $assetitledv['title']; } else { echo "Asset title is Empty" ; } ?>
                                                <span class="tooltiptext">Asset Title</span>
                                                 </span>
                                                 <?php// endforeach; ?>  
                                             </label>
                                         </div>
-                                  </div> -->
+                                  </div>
 
 
 
                             </div> 
                         </div>
                         <hr>
-                          <!-- <div class="form-group row optindiv">
+                          <div class="form-group row optindiv">
                                        
                                        <div class="col-sm-2">
                                         Opt - in  <input type="checkbox" value=""  id="optin" name="optin" class="js-single optin"  />
@@ -1036,66 +1091,89 @@ $(document).ready(function() {
                                         <div class="col-sm-2 optoption">
                                         DND <input type="checkbox" value="" id="dnd" name="dnd" class="js-single dnd"  />
                                         </div>
-                         </div> -->
+                         </div>
                        
 
-                        <!-- <div class="form-group row questionrow">  
+                        <div class="form-group row questionrow">  
                          
                           
-                        </div>  -->
+                        </div> 
                         <br>
 
                         <div class="form-group row" >
                              <div class="col-sm-12 commentvisible">
                                 <label class="col-lable"><b>Comment</b></label>
-                                <input type="text"  name="pcomt" id="pcomt"  placeholder="Comment"  class="form-control form-control-sm" value="<?php echo $ldmster['pcomt']; ?>" >
+                                <input type="text"  name="pcomt" id="pcomt"  placeholder="Comment"  class="form-control form-control-sm" 
+                                value="<?php if(isset($ldmster['pcomt']) && $ldmster['pcomt'] != '') {
+                                   $arr = explode("#", $ldmster['pcomt']);
+                                            $first = $arr[1];
+                                  echo  $first; 
+                                 }else{
+                                   echo "Empty";
+                                 } ?>" >
                             </div> 
                          </div>
                         <input type = hidden name="campaign_id" id="campaign_id" value="<?php echo $campaign['cnid']; ?>">
                         <input type = hidden name="campaign_idcids" id="campaign_idcids" value="<?php echo $campaign['cids']; ?>">
                         
                        
-                        <!-- <?php// if(isset($ldmster) && $ldmster['dvrejtg'] <= 2){ ?>  -->
-                        <?php if(isset($ldmster) && $ldmster['dvrejtg'] <= '2' && $ldmster['dvsbtg'] <= '2'){ ?> 
+                        <?php //if(isset($ldmster) && $ldmster['cdcrjt'] <= 2){ 
+                          
+                          ?> 
+                        <?php if( $ldmster['cdcrjt'] <= 3 AND  $ldmster['cdcsb'] <= 3){ ?> 
                         
-                          <input type = hidden name="lmid" id="lmid" value="<?php echo $ldmster['lmid']; ?>">
-                          <input type = hidden name="emp_id" id="emp_id" value="<?php echo  $_SESSION['empcode']; ?>">
-                          <input type = hidden name="sbsvtag" id="sbsvtag" value="<?php echo $ldmster['sbsvtag']; ?>">
-                          <input type = hidden name="dvrejtg" id="dvrejtg" value="<?php echo $ldmster['dvrejtg']; ?>">
-                          <input type = hidden name="dvsbtg" id="dvsbtg" value="<?php echo $ldmster['dvsbtg']; ?>">
-                          <input type = hidden name="rlc" id="rlc" value="<?php echo $ldmster['rlc']; ?>">
+                          <input type = "hidden" name="lmid" id="lmid" value="<?php echo $ldmster['lmid']; ?>">
+                          <input type = "hidden" name="evload" id="evload" value="<?php echo $ldmster['evload']; ?>">
+                          <input type = "hidden" name="emp_id" id="emp_id" value="<?php echo  $_SESSION['empcode']; ?>">
+                          <input type = "hidden" name="cdcsv" id="cdcsv" value="<?php echo $ldmster['cdcsv']; ?>">
+                          <input type = "hidden" name="cdcrjt" id="cdcrjt" value="<?php echo $ldmster['cdcrjt']; ?>">
+                          <input type = "hidden" name="cdcsb" id="cdcsb" value="<?php echo $ldmster['cdcsb']; ?>">
+                         
+                          <input type = "hidden" name="rlc" id="rlc" value="<?php echo $ldmster['rlc']; ?>">
+                          
+                          <input type = "hidden" name="cdcsbagti" id="cdcsbagti" value="<?php echo $ldmster['cdcsbagti']; ?>">
+                          <input type = "hidden" name="cdcsbagtii" id="cdcsbagtii" value="<?php echo $ldmster['cdcsbagtii']; ?>">
+                          <input type = "hidden" name="cdcsbdti" id="cdcsbdti" value="<?php echo $ldmster['cdcsbdti']; ?>">
+                          <input type = "hidden" name="cdcsbdtii" id="cdcsbdtii" value="<?php echo $ldmster['cdcsbdtii']; ?>">
 
-                          <input type = hidden name="dvagtidi" id="dvagtidi" value="<?php echo $ldmster['dvagtidi']; ?>">
-                          <input type = hidden name="dvagtidii" id="dvagtidii" value="<?php echo $ldmster['dvagtidii']; ?>">
-                          <input type = hidden name="dvdti" id="dvdti" value="<?php echo $ldmster['dvdti']; ?>">
-                          <input type = hidden name="dvdtii" id="dvdtii" value="<?php echo $ldmster['dvdtii']; ?>">
-
-                          <input type = hidden name="dvragtidi" id="dvragtidi" value="<?php echo $ldmster['dvragtidi']; ?>">
-                          <input type = hidden name="dvragtidii" id="dvragtidii" value="<?php echo $ldmster['dvragtidii']; ?>">
-                          <input type = hidden name="dvrdti" id="dvrdti" value="<?php echo $ldmster['dvrdti']; ?>">
-                          <input type = hidden name="dvrdtii" id="dvrdtii" value="<?php echo $ldmster['dvrdtii']; ?>">
-                          <div class="form-group row" >
-                            <div class="col-sm-12">
-                             <center>
-                              <button type="submit" name="leadupdatedv" class="btn btn-primary leaddisplay" style=""  id="leadupdatedv">Accept</button> 
-                             
-                             
-                              <button type="submit" name="leadsavedv" class="btn btn-primary leaddisplay" style="margin-left:50px"  id="leadsavedv">Save </button> 
-                             </center>
+                          <input type = "hidden" name="cdcrjtagti" id="cdcrjtagti" value="<?php echo $ldmster['cdcrjtagti']; ?>">
+                          <input type = "hidden" name="cdcrjtagtii" id="cdcrjtagtii" value="<?php echo $ldmster['cdcrjtagtii']; ?>">
+                          <input type = "hidden" name="cdcrjtdti" id="cdcrjtdti" value="<?php echo $ldmster['cdcrjtdti']; ?>">
+                          <input type = "hidden" name="cdcrjtdtii" id="cdcrjtdtii" value="<?php echo $ldmster['cdcrjtdtii']; ?>">
+                          <div class="form-group row col-sm-12" >
+                            <div class="col-sm-4">
+                            
+                             <!-- <center> -->
+                               <select class="form-control form-control-sm"  name="asendto" id="asendto" style="height: 40px;">
+                                    <option value="1">Accept-Send to Lead</option>
+                                    <option value="2">Accept-Qualify</option>
+                                    <option value="3">Accept-Disqualify</option>
+                                </select>
+                               <select class="form-control form-control-sm"  name="rsendto" id="rsendto" style="height: 40px;">
+                                    <option value="1">Reject-Send to CDC</option>
+                                    <option value="2">Reject-Send to DC</option>
+                                    <option value="3">Reject-Disqualify</option>
+                                </select>
+                              </div>
+                              <div class="col-sm-3">
+                                <button type="submit" name="leadupdateqa" class="btn btn-primary leaddisplay" style=""  id="leadupdateqa">Accept & Submit</button> 
+                              <!-- <button type="submit" name="leadupdatecdc" class="btn btn-primary leaddisplay" style=""  id="leadupdatecdc">Accept & Submit</button>  -->
+                             </div>
+                              <div class="col-sm-3">
+                              <!-- <button type="submit" name="leadsavecdc" class="btn btn-primary leaddisplay" style="margin-left:50px"  id="leadsavecdc">Save </button>  -->
+                              <button type="submit" name="leadsaveqa" class="btn btn-primary leaddisplay" style="margin-left:50px"  id="leadsaveqa">Save </button> 
+                             <!-- </center> -->
+                             </div>
                         <?php } else{ ?>
-                          <button type="submit" name="" class="btn btn-primary leaddisplay" style=""  id="">Limit Crossed</button> 
-                          <button type="submit" name="leadsavedv" class="btn btn-primary leaddisplay" style=""  id="leadsavedv">Discard </button> 
+                          <!-- <button type="submit" name="" class="btn btn-primary leaddisplay" style=""  id="">Limit Crossed</button>  -->
+                          <!-- <button type="submit" name="leadsavecdc" class="btn btn-primary leaddisplay" style=""  id="leadsavecdc">Discard </button>  -->
                            <?php }?>
                        <?php if(empty($ldmster)){ ?>
                         
                         <?php } ?>
                         </div>
                           </div>
-                        <!-- <input class="submit" class ="" type="submit" value="SUBMIT"> -->
-                        <!-- below buttons are for cdqa save and submit -->
-                        <!-- <button type="submit" name="submit" class="btn btn-primary cdqadisplay"   id="cdqasubmit">Submit Lead </button> 
-                        <button type="submit" name="submit" class="btn btn-primary cdqadisplay"  id="cdqasave">Save Lead </button> 
-                        -->
+                     
 
                     </div>
                       
@@ -1524,7 +1602,7 @@ var arevenuevalue = $('#arevenue').val();
               //     $('#mlbl').not(this).find('option[value="' + check + '"]').hide();
               // });
             
-    alert("million and trillion");
+    
     } else if(lrevrange == "billion" && urevrange ==  "trillion"){
       if($('#mlbl').val()==0){
         var m = arevenuevalue*1000;
@@ -1859,19 +1937,23 @@ $.ajax({
   // $('.revsizehide').hide();
 
   $('.leaddisplay').show(); //buttons
-  $('.cdqadisplay').hide();//buttons
+ 
   // load questions of campaign on load 
   $('.optoption').hide();
     
-    $('.optin').change(function()
+  $('.optin').change(function()
       {
         if ($('#optin').is(':checked')) {
             $('#optin').val("1");
             $('#opteml').val("1");
             $('#optph').val("1");
             $('#optpst').val("1");
+            $('#dnd').val("0");
             $('.optoption').show();
-          
+            $("#opteml").prop('checked', true);
+            $("#optph").prop('checked', true);
+            $("#optpst").prop('checked', true);
+            $("#dnd").prop('checked', false);
                
         }else{
             $('#optin').val("0");
@@ -1895,6 +1977,77 @@ $.ajax({
             $('#opteml').val("1");
             $('#optph').val("1");
             $('#optpst').val("1");
+            $('.optoption').show();
+               
+        };
+      });
+
+
+      $('#opteml').change(function()
+      {
+        var checksupp = $('#opteml').prop('checked');
+       
+            if(checksupp == true)
+            {
+              $('#opteml').val("1");
+            }
+            else
+            {
+              $('#opteml').val("0");
+            }
+
+          });
+     
+      $('#optph').change(function()
+      {
+        var checksupp = $('#optph').prop('checked');
+        
+            if(checksupp == true)
+            {
+              $('#optph').val("1");
+            }
+            else
+            {
+              $('#optph').val("0");
+            }
+
+          });
+     
+      $('#optpst').change(function()
+      {
+        var checksupp = $('#optpst').prop('checked');
+        
+            if(checksupp == true)
+            {
+              $('#optpst').val("1");
+            }
+            else
+            {
+              $('#optpst').val("0");
+            }
+
+          });
+     
+               
+      $('.dnd').change(function()
+      {
+        if ($('#dnd').is(':checked')) {
+          $("#optin").prop('checked', false);
+          $('.dnd').val("1");
+            $('#optin').val("0");
+            $('#opteml').val("0");
+            $('#optph').val("0");
+            $('#optpst').val("0");
+            $("#optin").prop('checked', false);
+            
+            $('.optoption').hide();   
+        }else{
+            $('#optin').val("1");
+            $('#opteml').val("1");
+            $('#optph').val("1");
+            $('#optpst').val("1");
+            $("#optin").prop('checked', true);
+            $('.dnd').val("0");
             $('.optoption').show();
                
         };
@@ -2049,21 +2202,323 @@ $.ajax({
 
 $("input:checkbox").change(function() {
   var notChecked = [], checked = [];
+  
             $(":checkbox").map(function() {
             
                 this.checked ? checked.push(this.id) : notChecked.push(this.id);
             });
+            // alert(checked);
           if(checked == ""){ // if unchecked any field
             checked = [0];
-            $("#leadupdatedv").html("Accept");
+            
+            $("#leadupdateqa").html("Accept & Submit");
+            $("#asendto").show();  
+            $("#rsendto").hide();  
+          }else if(checked == "optin"){ // if unchecked any field
+            checked = [0];
+            
+            $("#leadupdateqa").html("Accept & Submit");
+            $("#asendto").show();  
+            $("#rsendto").hide();  
+          }else if(checked == "optin,optpst,optph,opteml"){ // if unchecked any field
+            checked = [0];
+            
+            $("#leadupdateqa").html("Accept & Submit");
+            $("#asendto").show();  
+            $("#rsendto").hide(); 
+          }else if(checked == "optpst,optph,opteml"){ // if unchecked any field
+            checked = [0];
+            
+            $("#leadupdateqa").html("Accept & Submit");
+            $("#asendto").show();  
+            $("#rsendto").hide(); 
+          }else if(checked == "optin,optpst,optph,opteml,dnd"){ // if unchecked any field
+            checked = [0];
+            
+            $("#leadupdateqa").html("Accept & Submit");
+            $("#asendto").show();  
+            $("#rsendto").hide(); 
           }else{
-            $("#leadupdatedv").html("Reject");
+            $("#leadupdateqa").html("Reject & Submit");
+            $("#asendto").hide();  
+            $("#rsendto").show(); 
           }
           
 });
 /* update lead submit*/
     $(function() {
-        $("#leadupdatedv").on('click', function() 
+        $("#leadupdateqa").on('click', function() 
+        {
+          
+          var empid = $('#emp_id').val();
+        
+          if(empid === undefined){
+            window.location = base_url+"administrator/logout";
+            exit;
+          }
+          if(empid == ''){
+            window.location = base_url+"administrator/logout";
+            exit;
+          }
+
+          var notChecked = [], checked = [];
+            $(":checkbox").map(function() {
+              $("#optin").prop('checked', false);
+              $("#optpst").prop('checked', false);
+              $("#optph").prop('checked', false);
+              $("#opteml").prop('checked', false);
+              $("#dnd").prop('checked', false);
+                this.checked ? checked.push(this.id) : notChecked.push(this.id);
+            });
+
+            // alert(checked);
+            
+            var optin = $('#optin').val();
+            var optpst = $('#optpst').val();
+            var opteml = $('#opteml').val();
+            var optph = $('#optph').val();
+            var dnd = $('#dnd').val();
+             if(optin == ""){
+            var optin = 0;
+             }
+             if(optpst == ""){
+            var optpst = 0;
+             }
+             if(opteml == ""){
+            var opteml = 0;
+             }
+             if(optph == ""){
+            var optph = 0;
+             }
+             if(dnd == ""){
+            var dnd = 0;
+             }
+             
+        
+
+             if(checked == ""){ // if unchecked any field
+                checked = [0];
+                var cdcsb1 = $('#cdcsb').val();
+                
+                if(cdcsb1 == ""){
+                  var cdcsb = 0;
+                }else{
+                  var cdcsb = parseInt(cdcsb1)+1; // incremataion for dv  Accept
+                }
+    
+                if(cdcsb == '4'){
+                  var cdcsb = '4';
+                  var cdcsv = $('#cdcsv').val();
+                }else{
+                  var cdcsv = $('#cdcsv').val();
+                }
+                var cdcrjt = $('#cdcrjt').val(); 
+                
+          }else{ //checked -rejected
+            var cdcsb =$('#cdcsb').val();
+
+            var cdcrjt1 = $('#cdcrjt').val();
+            // alert(cdcrjt1);
+            if(cdcrjt1 == ""){
+              var cdcrjt = 1;
+            }else{
+              var cdcrjt = parseInt(cdcrjt1)+1; // incremataion for dv  rejection
+              // var cdcrjt = $('#cdcrjt').val()+1; // incremataion for dv  rejection
+              // alert(cdcrjt);
+            }
+ 
+            if(cdcrjt == '4'){
+              var cdcrjt = '4';
+              var cdcsv = '0';
+            }else{
+              var cdcsv = $('#cdcsv').val();
+            }
+
+          }
+
+            var cdcrjtdti = $('#cdcrjtdti').val();
+            var cdcrjtagti = $('#cdcrjtagti').val();
+
+            var cdcrjtdtii = $('#cdcrjtdtii').val();
+            var cdcrjtagtii = $('#cdcrjtagtii').val();
+
+            var cdcsbdti = $('#cdcsbdti').val();
+            var cdcsbagti = $('#cdcsbagti').val();
+
+            var cdcsbdtii = $('#cdcsbdtii').val();
+            var cdcsbagtii = $('#cdcsbagtii').val();
+
+           
+            var campaign_id = $('#campaign_id').val();
+            var campaign_idcids = $('#campaign_idcids').val();
+            // var cdcsv = $('#cdcsv').val();
+            var evload = $('#evload').val();
+
+            var aa1 = $('#aa1').val();
+            // alert(aa1);
+            var aa2 = $('#aa2').val();
+            var aa3 = $('#aa3').val();
+            var aa4 = $('#aa4').val();
+            var aa5 = $('#aa5').val();
+            var aa6 = $('#aa6').val();
+            var aa7 = $('#aa7').val();
+            var aa8 = $('#aa8').val();
+            var aa9 = $('#aa9').val();
+            var aa10 = $('#aa10').val();
+            var aa11 = $('#aa11').val();
+            var aa12 = $('#aa12').val();
+           
+             if(aa1 == undefined)
+             {
+              var aa1 = null; 
+             }
+             if(aa2 == undefined)
+             {
+              var aa2 = null; 
+             }
+             if(aa3 == undefined)
+             {
+              var aa3 = null; 
+             }
+             if(aa4 == undefined)
+             {
+              var aa4 = null; 
+             }
+             if(aa5 == undefined)
+             {
+              var aa5= null; 
+             }
+             if(aa6 == undefined)
+             {
+              var aa6 = null; 
+             }
+             if(aa7 == undefined)
+             {
+              var aa7 = null; 
+             }
+             if(aa8 == undefined)
+             {
+              var aa8 = null; 
+             }
+             if(aa9 == undefined)
+             {
+              var aa9 = null; 
+             }
+             if(aa9 == undefined)
+             {
+              var aa9 = null; 
+             }
+             if(aa10 == undefined)
+             {
+              var aa10 = null; 
+             }
+             if(aa11 == undefined)
+             {
+              var aa11= null; 
+             }
+             if(aa12 == undefined)
+             {
+              var aa12= null; 
+             }
+
+            var lmid = $('#lmid').val();
+
+            var pcomt = $('#pcomt').val();
+            var asendto = $('#asendto').val();
+            alert(asendto);
+
+          if(asendto == 1)
+          {
+
+         
+            // var url = encodeURI("<?php //echo base_url("cdc/ajax_update_datacdc");?>");
+            var url = encodeURI("<?php echo base_url("cdc/ajax_update_qatolead");?>");
+          
+            console.log(url+"?campaign_id="+campaign_id+"&lmid="+lmid+"&campaign_idcids="+campaign_idcids+"&checked="+checked+"&cdcsv="+cdcsv+"&pcomt="+pcomt);
+           
+            $.ajax({
+               url :'<?php echo base_url("cdc/ajax_update_qatolead");?>',
+                type: 'POST', 
+                // contentType: "application/json",
+                dataType: 'json',              
+                data: {
+                   
+                  campaign_id: campaign_id,
+                  campaign_idcids: campaign_idcids,
+                  lmid: lmid,
+                  cdcsv :cdcsv,
+                  cdcrjt :cdcrjt,
+                  cdcsb :cdcsb,
+                  pcomt :pcomt,
+                  checked:checked,
+
+                  cdcrjtdti:cdcrjtdti,
+                  cdcrjtagti:cdcrjtagti,
+
+                  cdcrjtagtii:cdcrjtagtii,
+                  cdcrjtdtii:cdcrjtdtii,
+
+                  cdcsbdti:cdcsbdti,
+                  cdcsbagti:cdcsbagti,
+                  cdcsbdtii:cdcsbdtii,
+                  cdcsbagtii:cdcsbagtii,
+                  evload:evload,
+
+                    optin:optin,
+                    optph:optph,
+                    opteml:opteml,
+                    optpst:optpst,
+                    dnd:dnd,
+                    aa1:aa1,
+                    aa2:aa2,
+                    aa3:aa3,
+                    aa4:aa4,
+                    aa5:aa5,
+                    aa6:aa6,
+                    aa7:aa7,
+                    aa8:aa8,
+                    aa9:aa9,
+                    aa10:aa10,
+                    aa11:aa11,
+                    aa12:aa12,
+                   
+				},
+        async: true,
+                cache: false,
+                success: function(response){
+                    $("#leadsavecdc").hide();
+                    var text = response.statusCode;
+                    console.log("check");
+                    if(response.statusCode == "Success") 
+                    {         
+                         
+                        $("#leadupdatecdc").html(response.message);
+                        top.location.href=base_url+"administrator/dashboard";//redirection
+                        // top.location.href=base_url+"cdc/dataverfication?camp_id="+<?php //echo $campaign['cnid']; ?>;//redirection
+                      
+                    }else if(response.data=="Fail")
+                    {
+                        $("#leadupdatecdc").html(response.message);
+                        
+					          }
+
+                   
+
+                },
+                error: function (error) {
+                  alert("Error");
+                  }
+              
+            });
+          }
+        });
+    });
+</script>
+
+<script>
+/* Save /Discard lead*/
+$(function() {
+        $("#leadsavecdc").on('click', function() 
         {
           var empid = $('#emp_id').val();
           if(empid === undefined){
@@ -2077,85 +2532,152 @@ $("input:checkbox").change(function() {
 
           var notChecked = [], checked = [];
             $(":checkbox").map(function() {
-            
+              $("#optin").prop('checked', false);
+              $("#optpst").prop('checked', false);
+              $("#optph").prop('checked', false);
+              $("#opteml").prop('checked', false);
+              $("#dnd").prop('checked', false);
                 this.checked ? checked.push(this.id) : notChecked.push(this.id);
             });
+
+            // alert(checked);
             
+            var optin = $('#optin').val();
+            var optpst = $('#optpst').val();
+            var opteml = $('#opteml').val();
+            var optph = $('#optph').val();
+            var dnd = $('#dnd').val();
+             if(optin == ""){
+            var optin = 0;
+             }
+             if(optpst == ""){
+            var optpst = 0;
+             }
+             if(opteml == ""){
+            var opteml = 0;
+             }
+             if(optph == ""){
+            var optph = 0;
+             }
+             if(dnd == ""){
+            var dnd = 0;
+             }
+             
+        
+
           if(checked == ""){ // if unchecked any field
                 checked = [0];
-                var dvsbtg1 = $('#dvsbtg').val();
-                if(dvsbtg1 == ""){
-                  var dvsbtg = 1;
+                var cdcsb1 = $('#cdcsb').val();
+                if(cdcsb1 == ""){
+                  var cdcsb = 1;
                 }else{
-                  var dvsbtg = parseInt(dvsbtg1)+1; // incremataion for dv  Accept
+                  var cdcsb = parseInt(cdcsb1)+1; // incremataion for dv  Accept
                 }
     
-                if(dvsbtg == '3'){
-                  var dvsbtg = '3';
-                  var sbsvtag = $('#sbsvtag').val();
-                }else{
-                  var sbsvtag = $('#sbsvtag').val();
+                if(cdcsb == '3'){
+                  var cdcsb = '3';
+                  var cdcsv = '0';
                 }
-                var dvrejtg = $('#dvrejtg').val(); 
-                
+                var cdcrjt = $('#cdcrjt').val(); 
           }else{ //checked -rejected
-            var dvsbtg =$('#dvsbtg').val();
+            var cdcsb =$('#cdcsb').val();
 
-            var dvrejtg1 = $('#dvrejtg').val();
-            if(dvrejtg1 == ""){
-              var dvrejtg = 1;
+            var cdcrjt1 = $('#cdcrjt').val();
+            if(cdcrjt1 == ""){
+              var cdcrjt = 1;
             }else{
-              var dvrejtg = parseInt(dvrejtg1)+1; // incremataion for dv  rejection
+              var cdcrjt = parseInt(cdcrjt1)+1; // incremataion for dv  rejection
             }
  
-            if(dvrejtg == '3'){
-              var dvrejtg = '3';
-              var sbsvtag = '0';
-            }else{
-              var sbsvtag = $('#sbsvtag').val();
+            if(cdcrjt == '3'){
+              var cdcrjt = '3';
+              var cdcsv = '0';
             }
-            // if(dvrejtg == '2'){
-            //   var dvrejtg = '2';
-            //   var sbsvtag = '0';
-            // }else{
-            //   var sbsvtag = $('#sbsvtag').val();
-            // }
 
           }
            
-        
-            var dvrdti = $('#dvrdti').val();
-            var dvragtidi = $('#dvragtidi').val();
-
-            var dvrdtii = $('#dvrdtii').val();
-            var dvragtidii = $('#dvragtidii').val();
-
-            var dvdti = $('#dvdti').val();
-            var dvagtidi = $('#dvagtidi').val();
-
-            var dvdtii = $('#dvdtii').val();
-            var dvagtidii = $('#dvagtidii').val();
-
-
             var campaign_id = $('#campaign_id').val();
             var campaign_idcids = $('#campaign_idcids').val();
-            // var sbsvtag = $('#sbsvtag').val();
-            // var sbsvtag = parseInt(sbsvtag1)+1; // incremataion
-
-          
-          
-
+            var cdcsv = '0';
             
+            var aa1 = $('#aa1').val();
+            // alert(aa1);
+            var aa2 = $('#aa2').val();
+            var aa3 = $('#aa3').val();
+            var aa4 = $('#aa4').val();
+            var aa5 = $('#aa5').val();
+            var aa6 = $('#aa6').val();
+            var aa7 = $('#aa7').val();
+            var aa8 = $('#aa8').val();
+            var aa9 = $('#aa9').val();
+            var aa10 = $('#aa10').val();
+            var aa11 = $('#aa11').val();
+            var aa12 = $('#aa12').val();
+           
+             if(aa1 == undefined)
+             {
+              var aa1 = null; 
+             }
+             if(aa2 == undefined)
+             {
+              var aa2 = null; 
+             }
+             if(aa3 == undefined)
+             {
+              var aa3 = null; 
+             }
+             if(aa4 == undefined)
+             {
+              var aa4 = null; 
+             }
+             if(aa5 == undefined)
+             {
+              var aa5= null; 
+             }
+             if(aa6 == undefined)
+             {
+              var aa6 = null; 
+             }
+             if(aa7 == undefined)
+             {
+              var aa7 = null; 
+             }
+             if(aa8 == undefined)
+             {
+              var aa8 = null; 
+             }
+             if(aa9 == undefined)
+             {
+              var aa9 = null; 
+             }
+             if(aa9 == undefined)
+             {
+              var aa9 = null; 
+             }
+             if(aa10 == undefined)
+             {
+              var aa10 = null; 
+             }
+             if(aa11 == undefined)
+             {
+              var aa11= null; 
+             }
+             if(aa12 == undefined)
+             {
+              var aa12= null; 
+             }
+
             var lmid = $('#lmid').val();
 
             var pcomt = $('#pcomt').val();
-
-            var url = encodeURI("<?php echo base_url("cdc/ajax_update_dataverification");?>");
           
-            console.log(url+"?campaign_id="+campaign_id+"&lmid="+lmid+"&campaign_idcids="+campaign_idcids+"&checked="+checked+"&sbsvtag="+sbsvtag+"&pcomt="+pcomt);
+            // var url = encodeURI("<?php //echo base_url("cdc/ajax_update_datacdc");?>");
+            var url = encodeURI("<?php echo base_url("cdc/ajax_save_leaddatacdc");?>");
+          
+            console.log(url+"?campaign_id="+campaign_id+"&lmid="+lmid+"&campaign_idcids="+campaign_idcids+"&checked="+checked+"&cdcsv="+cdcsv+"&pcomt="+pcomt);
            
             $.ajax({
-                url :'<?php echo base_url("cdc/ajax_update_dataverification");?>',
+               url :'<?php echo base_url("cdc/ajax_save_leaddatacdc");?>',
                 type: 'POST', 
                 // contentType: "application/json",
                 dataType: 'json',              
@@ -2164,125 +2686,47 @@ $("input:checkbox").change(function() {
                   campaign_id: campaign_id,
                   campaign_idcids: campaign_idcids,
                   lmid: lmid,
-                  sbsvtag :sbsvtag,
-                  dvrejtg :dvrejtg,
-                  dvsbtg :dvsbtg,
+                  cdcsv :cdcsv,
+                  cdcrjt :cdcrjt,
+                  cdcsb :cdcsb,
                   pcomt :pcomt,
                   checked:checked,
-                  dvrdti:dvrdti,
-                  dvragtidi:dvragtidi,
 
-                  dvragtidii:dvragtidii,
-                  dvrdtii:dvrdtii,
-
-                  dvdti:dvdti,
-                  dvagtidi:dvagtidi,
-                  dvdtii:dvdtii,
-                  dvagtidii:dvagtidii,
-                
-				},
-        async: true,
-                cache: false,
-                success: function(response){
-                    $("#leadsavedv").hide();
-                    var text = response.statusCode;
-                    console.log("check");
-                    if(response.statusCode == "Success") 
-                    {         
-                         
-                        $("#leadupdatedv").html(response.message);
-                        top.location.href=base_url+"cdc/dataverfication?camp_id="+<?php echo $campaign['cnid']; ?>;//redirection
-                      
-                    }else if(response.data=="Fail")
-                    {
-                        $("#leadupdatedv").html(response.message);
-                        
-					          }
-
-                   
-
-                },
-                error: function (error) {
-                  alert("Error");
-                  }
-              
-            });
-       
-        });
-    });
-</script>
-
-<script>
-/* Save /Discard lead*/
-    $(function() {
-        $("#leadsavedv").on('click', function() 
-        {
-          var empid = $('#emp_id').val();
-          if(empid == 'undefined'){
-            window.location = base_url+"administrator/logout";
-            exit;
-          }
-          // var notChecked = [], checked = [];
-          //   $(":checkbox").map(function() {
-            
-          //       this.checked ? checked.push(this.id) : notChecked.push(this.id);
-          //   });
-          // if(checked == ""){ // if unchecked any field
-          //   checked = [0];
-          // }
-           var checked = [0];
-
-            var campaign_id = $('#campaign_id').val();
-            var campaign_idcids = $('#campaign_idcids').val();
-            // var sbsvtag1 = $('#sbsvtag').val();
-            var sbsvtag = '0'; // discard
-            var dvrejtg = '0';
-            var dvsbtg = '0';
-            // alert(sbsvtag);
-            // alert(lmid);
-            // alert(dvrejtg);
-            // alert(sbsvtag);
-            var lmid = $('#lmid').val();
-
-            var pcomt = $('#pcomt').val();
-
-            var url = encodeURI("<?php echo base_url("cdc/ajax_update_dataverification");?>");
-          
-            console.log(url+"?campaign_id="+campaign_id+"&lmid="+lmid+"&campaign_idcids="+campaign_idcids+"&checked="+checked+"&sbsvtag="+sbsvtag+"&pcomt="+pcomt);
-           
-            $.ajax({
-                url :'<?php echo base_url("cdc/ajax_update_dataverification");?>',
-                type: 'POST', 
-                // contentType: "application/json",
-                dataType: 'json',              
-                data: {
-                   
-                  campaign_id: campaign_id,
-                  campaign_idcids: campaign_idcids,
-                  lmid: lmid,
-                  sbsvtag :sbsvtag,
-                  dvrejtg :dvrejtg,
-                  dvsbtg :dvsbtg,
-                  pcomt :pcomt,
-                  checked:checked,
-                
+                    optin:optin,
+                    optph:optph,
+                    opteml:opteml,
+                    optpst:optpst,
+                    dnd:dnd,
+                    aa1:aa1,
+                    aa2:aa2,
+                    aa3:aa3,
+                    aa4:aa4,
+                    aa5:aa5,
+                    aa6:aa6,
+                    aa7:aa7,
+                    aa8:aa8,
+                    aa9:aa9,
+                    aa10:aa10,
+                    aa11:aa11,
+                    aa12:aa12,
                    
 				},
         async: true,
                 cache: false,
                 success: function(response){
-                    $("#leadsavedv").hide();
+                    $("#leadupdatecdc").hide();
                     var text = response.statusCode;
                     console.log("check");
                     if(response.statusCode == "Success") 
                     {         
                          
-                        $("#leadupdatedv").html(response.message);
-                        top.location.href=base_url+"cdc/dataverfication?camp_id="+<?php echo $campaign['cnid']; ?>;//redirection
+                        $("#leadsavecdc").html(response.message);
+                        top.location.href=base_url+"administrator/dashboard";//redirection
+                        // top.location.href=base_url+"cdc/dataverfication?camp_id="+<?php //echo $campaign['cnid']; ?>;//redirection
                       
                     }else if(response.data=="Fail")
                     {
-                        $("#leadupdatedv").html(response.message);
+                        $("#leadupdatecdc").html(response.message);
                         
 					          }
 

@@ -192,7 +192,7 @@ $.ajax({
 <form id="basic-form" method="POST" enctype="multipart/form-data">
 <div class="page-header">
     <div class="page-header-title col-sm-12">
-        <h4>Update Leads</h4> 
+        <h4>Update Lead</h4> 
         
       
             <div class="form-group row"> 
@@ -665,6 +665,65 @@ $.ajax({
                             </div> 
                         </div>
                         <hr>
+                        <div class="form-group row">
+                        <div class="col-sm-2">
+                                <select class="form-control form-control-sm"  name="cvr" id="cvr">
+                                    <option value="">Call Verified</option>
+                                    <option value="1"<?php if(isset($ldmster) && $ldmster['cvr'] == '1'){ echo "selected" ; } ?>>Yes</option>
+                                    <option value="0"<?php if(isset($ldmster) && $ldmster['cvr'] == '0'){ echo "selected" ; } ?>>No</option>
+                                </select>
+                            </div>
+
+                        <div class="col-sm-2">
+                          <select class="form-control form-control-sm"  name="lcalldisp" id="lcalldisp">
+                              <option value="">Call Disposition</option>
+                            
+                              <option value="Voicemail"<?php if(isset($ldmster) && $ldmster['lcalldisp'] == 'Voicemail'){ echo "selected" ; } ?>>Voicemail</option>
+                              <option value="VM_DBN"<?php if(isset($ldmster) && $ldmster['lcalldisp'] == 'VM_DBN'){ echo "selected" ; } ?>>VM_DBN</option>
+                              <option value="VM_DIRECT"<?php if(isset($ldmster) && $ldmster['lcalldisp'] == 'VM_DIRECT'){ echo "selected" ; } ?>>VM_DIRECT</option>
+                              <option value="VM_EXTN"<?php if(isset($ldmster) && $ldmster['lcalldisp'] == 'VM_EXTN'){ echo "selected" ; } ?>>VM_EXTN</option>
+                              <option value="POC"<?php if(isset($ldmster) && $ldmster['lcalldisp'] == 'POC'){ echo "selected" ; } ?>>POC</option>
+                              <option value="Assistant CNF"<?php if(isset($ldmster) && $ldmster['lcalldisp'] == 'Assistant CNF'){ echo "selected" ; } ?>>Assistant CNF</option>
+                              <option value="Assistant VM"<?php if(isset($ldmster) && $ldmster['lcalldisp'] == 'Assistant VM'){ echo "selected" ; } ?>>Assistant VM</option>
+                              <option value="Assistant Extn"<?php if(isset($ldmster) && $ldmster['lcalldisp'] == 'Assistant Extn'){ echo "selected" ; } ?>>Assistant Extn</option>
+                              <option value="Operator"<?php if(isset($ldmster) && $ldmster['lcalldisp'] == 'Operator'){ echo "selected" ; } ?>>Operator</option>
+                              <option value="OPR_CNF"<?php if(isset($ldmster) && $ldmster['lcalldisp'] == 'OPR_CNF'){ echo "selected" ; } ?>>OPR_CNF</option>
+                              <option value="OPR_VM"<?php if(isset($ldmster) && $ldmster['lcalldisp'] == 'OPR_VM'){ echo "selected" ; } ?>>OPR_VM</option>
+                              <option value="VM but Prospect Left"<?php if(isset($ldmster) && $ldmster['lcalldisp'] == 'VM but Prospect Left'){ echo "selected" ; } ?>>VM but Prospect Left</option>
+                              <option value="OPR_NOTFR"<?php if(isset($ldmster) && $ldmster['lcalldisp'] == 'OPR_NOTFR'){ echo "selected" ; } ?>>OPR_NOTFR</option>
+                              <option value="ONLY EMAIL"<?php if(isset($ldmster) && $ldmster['lcalldisp'] == 'ONLY EMAIL'){ echo "selected" ; } ?>>ONLY EMAIL</option>
+                              <option value="Lead"<?php if(isset($ldmster) && $ldmster['lcalldisp'] == 'Lead'){ echo "selected" ; } ?>>Lead</option>
+                              <option value="Half Lead"<?php if(isset($ldmster) && $ldmster['lcalldisp'] == 'Half Lead'){ echo "selected" ; } ?>>Half Lead</option>
+                          </select>
+                            </div>
+                            <div class="col-sm-2">
+                                <select class="form-control form-control-sm"  name="lcallstat" id="lcallstat">
+                                    <option value="">Call on hold/call back</option>
+                                    <option value="0"<?php if(isset($ldmster) && $ldmster['lcallstat'] == '0'){ echo "selected" ; } ?>>On hold</option>
+                                    <option value="1"<?php if(isset($ldmster) && $ldmster['lcallstat'] == '1'){ echo "selected" ; } ?>>Call back</option>
+                                    <option value="2"<?php if(isset($ldmster) && $ldmster['lcallstat'] == '2'){ echo "selected" ; } ?>>complete</option>
+                                </select>
+                            </div>
+                            <div class="col-sm-2">
+                                <select class="form-control form-control-sm"  name="ddispositionclass" id="ddispositionclass">
+                                    <option value="">Disposition Class</option>
+                                    <option value="0"<?php if(isset($ldmster) && $ldmster['ddispositionclass'] == '0'){ echo "selected" ; } ?>>Live</option>
+                                    <option value="1"<?php if(isset($ldmster) && $ldmster['ddispositionclass'] == '1'){ echo "selected" ; } ?>>Dead</option>
+                                </select>
+                            </div>
+                            <div class="col-sm-2">
+                                <select class="form-control form-control-sm"  name="cdclst" id="cdclst">
+                                    <option value="">CDC Lead Score Tag</option>
+                                    <option value="1"<?php if(isset($ldmster) && $ldmster['cdclst'] == '1'){ echo "selected" ; } ?>>Yes</option>
+                                    <option value="0"<?php if(isset($ldmster) && $ldmster['cdclst'] == '0'){ echo "selected" ; } ?>>No</option>
+                                </select>
+                            </div>
+                            
+                          
+                       </div>
+                        <hr>
+
+
                         <div class="form-group row optindiv">
                                        
                                        <div class="col-sm-2">
@@ -1654,6 +1713,12 @@ if(lmid == undefined){
         sal : {
         required: true
       },
+      cvr : {
+        required: true
+      },
+      ddispositionclass : {
+        required: true
+      },
       fname : {
         required: true,
         minlength: 2,
@@ -1668,10 +1733,7 @@ if(lmid == undefined){
         required: true,
         customvalidation: true
       },
-      jlevel : {
-        required: true
-      },
-        company_name : {
+       company_name : {
         required: true,
         customvalidation: true
         // minlength: 3
@@ -1994,9 +2056,14 @@ if(lmid == undefined){
               var aa12= null; 
              }
           
-            
+            var lcalldisp = $('#lcalldisp').val();
+            var lcallstat = $('#lcallstat').val();
+            var ddispositionclass = $('#ddispositionclass').val();
+            var cdclst = $('#cdclst').val();
+            var cvr = $('#cvr').val();
+            // alert(lcalldisp); exit;
            
-            if(fname != "" && lname != "" && company_name != ""  && jtitle != "" && desid != "" && dcd !="" && email != "" && phone !="" && plink !="" && address != "" && city != "" && state != ""  && country_id != "" && industrycd != "" && subindustrycd != "" && empsize != "" && domain !=""  && empszlink != "" && revszlink != ""  && zip_code !="" ){
+            if(ddispositionclass != "" && cvr != "" && fname != "" && lname != "" && company_name != ""  && jtitle != "" && desid != "" && dcd !="" && email != "" && phone !="" && plink !="" && address != "" && city != "" && state != ""  && country_id != "" && industrycd != "" && subindustrycd != "" && empsize != "" && domain !=""  && empszlink != "" && revszlink != ""  && zip_code !="" ){
             var url = encodeURI("<?php echo base_url("cdc/ajax_update_leaddatacdc");?>");
             console.log(url+"?campaign_id="+campaign_id+"&lmid="+lmid+"&campaign_idcids="+campaign_idcids+"&sbsvtag="+sbsvtag+"&sal="+sal+"&fname="+fname+"&lname="+lname+"&jtitle="+jtitle+"&desid="+desid+"&jlevel="+jlevel+"&dcd="+dcd+"&email="+email+"&phone="+phone+"&altphn="+altphn+"&phext="+phext+"&plink="+plink+"&company_name="+company_name+"&address="+address+"&city="+city+"&state="+state+"&zip_code="+zip_code+"&country_id="+country_id+"&timezone="+timezone+"&ctype="+ctype+"&linetype="+linetype+"&industrycd="+industrycd+"&subindustrycd="+subindustrycd+"&sectyp="+sectyp+"&empsize="+empsize+"&mlbl="+mlbl+"&curr="+curr+"&arevenue="+arevenue+"&empszlink="+empszlink+"&indlink="+indlink+"&domain="+domain+"&othrlink="+othrlink+"&revszlink="+revszlink+"&emailver="+emailver+"&aum="+aum+"&assetid="+assetid+"&optin="+optin+"&optpst="+optpst+"&optph="+optph+"&opteml="+opteml+"&aa1="+aa1+"&aa2="+aa2+"&aa3="+aa3+"&aa4="+aa4+"&aa5="+aa5+"&aa6="+aa6+"&aa7="+aa7+"&aa8="+aa8+"&aa9="+aa9+"&aa10="+aa10+"&aa11="+aa11+"&aa12="+aa12+"&pcomt="+pcomt);
            
@@ -2018,6 +2085,12 @@ if(lmid == undefined){
                   cdcsbagtii:cdcsbagtii,
 
                   cdcsb:cdcsb,
+
+                  lcalldisp:lcalldisp,
+                  lcallstat:lcallstat,
+                  ddispositionclass:ddispositionclass,
+                  cdclst:cdclst,
+                  cvr:cvr,
 
 
                     sal:sal,
@@ -2297,9 +2370,13 @@ if(lmid == undefined){
               var aa12= null; 
              }
 
-            
+            var lcalldisp = $('#lcalldisp').val();
+            var lcallstat = $('#lcallstat').val();
+            var ddispositionclass = $('#ddispositionclass').val();
+            var cdclst = $('#cdclst').val();
+            var cvr = $('#cvr').val();
            
-            if(fname != "" && lname != "" && company_name != ""  && jtitle != "" && desid != "" && dcd !="" && email != "" && phone !="" && plink !="" && address != "" && city != "" && state != ""  && country_id != "" && industrycd != "" && subindustrycd != "" && empsize != "" && domain !=""  && empszlink != "" && revszlink != ""  && zip_code !="" ){
+            if(ddispositionclass != "" && cvr != "" && fname != "" && lname != "" && company_name != ""  && jtitle != "" && desid != "" && dcd !="" && email != "" && phone !="" && plink !="" && address != "" && city != "" && state != ""  && country_id != "" && industrycd != "" && subindustrycd != "" && empsize != "" && domain !=""  && empszlink != "" && revszlink != ""  && zip_code !="" ){
            
 
             var url = encodeURI("<?php echo base_url("cdc/ajax_save_updateleaddatacdc");?>");
@@ -2332,6 +2409,13 @@ if(lmid == undefined){
                     city:city,
                     state:state,
                     zip_code:zip_code,
+
+                    lcalldisp:lcalldisp,
+                    lcallstat:lcallstat,
+                    ddispositionclass:ddispositionclass,
+                    cdclst:cdclst,
+                    cvr:cvr,
+
                     
                     country_id:country_id,
                     timezone:timezone,

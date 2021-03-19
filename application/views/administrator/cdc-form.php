@@ -231,7 +231,7 @@ $.ajax({
         $('.questionrow').append('<div class="col-sm-6 card">'+
                                    '<p id='+ index +'><b>'+data['questions']+'</b></p>'+
                                       // '<input type="text" value="<?php //$aaa= 'aa'; if(isset($ldmster)){  echo $ldmster[$aaa]; }?>"  name="aa' + index + '" id="aa' + index + '"  placeholder="Answer for question ' + index + '"  class="form-control form-control-sm ">'+
-                                      '<input type="text" value="<?php echo 'aa';?>'+ index +'"  name="aa' + index + '" id="aa' + index + '"  placeholder="Answer for question ' + index + '"  class="form-control form-control-sm ">'+
+                                      '<input type="text" value=""  name="aa' + index + '" id="aa' + index + '"  placeholder="Answer for question ' + index + '"  class="form-control form-control-sm ">'+
                                                                      
                           '</div>');
 
@@ -247,7 +247,7 @@ $.ajax({
 <form id="basic-form" method="POST" enctype="multipart/form-data">
 <div class="page-header">
     <div class="page-header-title col-sm-12">
-        <h4>Data Verification</h4> 
+        <h4>CDC</h4> 
         
       
             <div class="form-group row"> 
@@ -1099,6 +1099,63 @@ $.ajax({
                             </div> 
                         </div>
                         <hr>
+                        <div class="form-group row">
+                        <div class="col-sm-2">
+                                <select class="form-control form-control-sm"  name="cvr" id="cvr">
+                                    <option value="">Call Verified</option>
+                                    <option value="1"<?php if(isset($ldmster) && $ldmster['cvr'] == '1'){ echo "selected" ; } ?>>Yes</option>
+                                    <option value="0"<?php if(isset($ldmster) && $ldmster['cvr'] == '0'){ echo "selected" ; } ?>>No</option>
+                                </select>
+                            </div>
+
+                        <div class="col-sm-2">
+                          <select class="form-control form-control-sm"  name="lcalldisp" id="lcalldisp">
+                              <option value="">Call Disposition</option>
+                            
+                              <option value="Voicemail"<?php if(isset($ldmster) && $ldmster['lcalldisp'] == 'Voicemail'){ echo "selected" ; } ?>>Voicemail</option>
+                              <option value="VM_DBN"<?php if(isset($ldmster) && $ldmster['lcalldisp'] == 'VM_DBN'){ echo "selected" ; } ?>>VM_DBN</option>
+                              <option value="VM_DIRECT"<?php if(isset($ldmster) && $ldmster['lcalldisp'] == 'VM_DIRECT'){ echo "selected" ; } ?>>VM_DIRECT</option>
+                              <option value="VM_EXTN"<?php if(isset($ldmster) && $ldmster['lcalldisp'] == 'VM_EXTN'){ echo "selected" ; } ?>>VM_EXTN</option>
+                              <option value="POC"<?php if(isset($ldmster) && $ldmster['lcalldisp'] == 'POC'){ echo "selected" ; } ?>>POC</option>
+                              <option value="Assistant CNF"<?php if(isset($ldmster) && $ldmster['lcalldisp'] == 'Assistant CNF'){ echo "selected" ; } ?>>Assistant CNF</option>
+                              <option value="Assistant VM"<?php if(isset($ldmster) && $ldmster['lcalldisp'] == 'Assistant VM'){ echo "selected" ; } ?>>Assistant VM</option>
+                              <option value="Assistant Extn"<?php if(isset($ldmster) && $ldmster['lcalldisp'] == 'Assistant Extn'){ echo "selected" ; } ?>>Assistant Extn</option>
+                              <option value="Operator"<?php if(isset($ldmster) && $ldmster['lcalldisp'] == 'Operator'){ echo "selected" ; } ?>>Operator</option>
+                              <option value="OPR_CNF"<?php if(isset($ldmster) && $ldmster['lcalldisp'] == 'OPR_CNF'){ echo "selected" ; } ?>>OPR_CNF</option>
+                              <option value="OPR_VM"<?php if(isset($ldmster) && $ldmster['lcalldisp'] == 'OPR_VM'){ echo "selected" ; } ?>>OPR_VM</option>
+                              <option value="VM but Prospect Left"<?php if(isset($ldmster) && $ldmster['lcalldisp'] == 'VM but Prospect Left'){ echo "selected" ; } ?>>VM but Prospect Left</option>
+                              <option value="OPR_NOTFR"<?php if(isset($ldmster) && $ldmster['lcalldisp'] == 'OPR_NOTFR'){ echo "selected" ; } ?>>OPR_NOTFR</option>
+                              <option value="ONLY EMAIL"<?php if(isset($ldmster) && $ldmster['lcalldisp'] == 'ONLY EMAIL'){ echo "selected" ; } ?>>ONLY EMAIL</option>
+                              <option value="Lead"<?php if(isset($ldmster) && $ldmster['lcalldisp'] == 'Lead'){ echo "selected" ; } ?>>Lead</option>
+                              <option value="Half Lead"<?php if(isset($ldmster) && $ldmster['lcalldisp'] == 'Half Lead'){ echo "selected" ; } ?>>Half Lead</option>
+                          </select>
+                            </div>
+                            <div class="col-sm-2">
+                                <select class="form-control form-control-sm"  name="lcallstat" id="lcallstat">
+                                    <option value="">Call on hold/call back</option>
+                                    <option value="0"<?php if(isset($ldmster) && $ldmster['lcallstat'] == '0'){ echo "selected" ; } ?>>On hold</option>
+                                    <option value="1"<?php if(isset($ldmster) && $ldmster['lcallstat'] == '1'){ echo "selected" ; } ?>>Call back</option>
+                                    <option value="2"<?php if(isset($ldmster) && $ldmster['lcallstat'] == '2'){ echo "selected" ; } ?>>complete</option>
+                                </select>
+                            </div>
+                            <div class="col-sm-2">
+                                <select class="form-control form-control-sm"  name="ddispositionclass" id="ddispositionclass">
+                                    <option value="">Disposition Class</option>
+                                    <option value="0"<?php if(isset($ldmster) && $ldmster['ddispositionclass'] == '0'){ echo "selected" ; } ?>>Live</option>
+                                    <option value="1"<?php if(isset($ldmster) && $ldmster['ddispositionclass'] == '1'){ echo "selected" ; } ?>>Dead</option>
+                                </select>
+                            </div>
+                            <div class="col-sm-2">
+                                <select class="form-control form-control-sm"  name="cdclst" id="cdclst">
+                                    <option value="">CDC Lead Score Tag</option>
+                                    <option value="1"<?php if(isset($ldmster) && $ldmster['cdclst'] == '1'){ echo "selected" ; } ?>>Yes</option>
+                                    <option value="0"<?php if(isset($ldmster) && $ldmster['cdclst'] == '0'){ echo "selected" ; } ?>>No</option>
+                                </select>
+                            </div>
+                            
+                          
+                       </div>
+                        <hr>
                           <div class="form-group row optindiv">
                                        
                                        <div class="col-sm-2">
@@ -1133,8 +1190,15 @@ $.ajax({
                                 <input type="text"  name="pcomt" id="pcomt"  placeholder="Comment"  class="form-control form-control-sm" 
                                 value="<?php if(isset($ldmster['pcomt']) && $ldmster['pcomt'] != '') {
                                    $arr = explode("#", $ldmster['pcomt']);
-                                            $first = $arr[1];
-                                  echo  $first; 
+                                  
+                                   $withoutchar = $arr[0];
+                                   if(!empty($arr[1])){
+                                      $first = $arr[1];
+                                      echo  $first; 
+                                   }else{
+                                    echo $withoutchar; 
+                                   }
+                                  
                                  }else{
                                    echo "Empty";
                                  } ?>" >
@@ -2074,6 +2138,12 @@ $.ajax({
         sal : {
         required: true
       },
+      cvr : {
+        required: true
+      },
+      ddispositionclass : {
+        required: true
+      },
       fname : {
         required: true,
         minlength: 2
@@ -2427,11 +2497,21 @@ $("input:checkbox").change(function() {
             var lmid = $('#lmid').val();
 
             var pcomt = $('#pcomt').val();
+
+            var lcalldisp = $('#lcalldisp').val();
+            var lcallstat = $('#lcallstat').val();
+            var ddispositionclass = $('#ddispositionclass').val();
+            var cdclst = $('#cdclst').val();
+            var cvr = $('#cvr').val();
+            // alert(lcalldisp); exit;
           
             // var url = encodeURI("<?php //echo base_url("cdc/ajax_update_datacdc");?>");
+
+            if(ddispositionclass != "" && cvr != "")
+            {
             var url = encodeURI("<?php echo base_url("cdc/ajax_update_datacdc");?>");
           
-            console.log(url+"?campaign_id="+campaign_id+"&lmid="+lmid+"&campaign_idcids="+campaign_idcids+"&checked="+checked+"&cdcsv="+cdcsv+"&pcomt="+pcomt);
+            console.log(url+"?campaign_id="+campaign_id+"&lmid="+lmid+"&campaign_idcids="+campaign_idcids+"&checked="+checked+"&cdcsv="+cdcsv+"&pcomt="+pcomt+"&ddispositionclass="+ddispositionclass);
            
             $.ajax({
                url :'<?php echo base_url("cdc/ajax_update_datacdc");?>',
@@ -2448,6 +2528,12 @@ $("input:checkbox").change(function() {
                   cdcsb :cdcsb,
                   pcomt :pcomt,
                   checked:checked,
+
+                  lcalldisp:lcalldisp,
+                  lcallstat:lcallstat,
+                  ddispositionclass:ddispositionclass,
+                  cdclst:cdclst,
+                  cvr:cvr,
 
                   cdcrjtdti:cdcrjtdti,
                   cdcrjtagti:cdcrjtagti,
@@ -2507,6 +2593,9 @@ $("input:checkbox").change(function() {
                   }
               
             });
+        }else{
+          alert("Please fill Mandatory fields");
+        }
        
         });
     });
@@ -2667,7 +2756,15 @@ $(function() {
             var lmid = $('#lmid').val();
 
             var pcomt = $('#pcomt').val();
-          
+            
+            var lcalldisp = $('#lcalldisp').val();
+            var lcallstat = $('#lcallstat').val();
+            var ddispositionclass = $('#ddispositionclass').val();
+            var cdclst = $('#cdclst').val();
+            var cvr = $('#cvr').val();
+
+            if(ddispositionclass != "" && cvr != "")
+            {
             // var url = encodeURI("<?php //echo base_url("cdc/ajax_update_datacdc");?>");
             var url = encodeURI("<?php echo base_url("cdc/ajax_save_leaddatacdc");?>");
           
@@ -2688,6 +2785,12 @@ $(function() {
                   cdcsb :cdcsb,
                   pcomt :pcomt,
                   checked:checked,
+
+                  lcalldisp:lcalldisp,
+                  lcallstat:lcallstat,
+                  ddispositionclass:ddispositionclass,
+                  cdclst:cdclst,
+                  cvr:cvr,
 
                     optin:optin,
                     optph:optph,
@@ -2735,6 +2838,9 @@ $(function() {
                   }
               
             });
+        }else{
+          alert("Please fill Mandatory fields");
+        }
        
         });
     });

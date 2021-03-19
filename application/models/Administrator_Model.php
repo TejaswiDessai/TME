@@ -297,6 +297,38 @@
 		
 
 		}
+		public function get_inccomp_byCampaign($cnid){
+			$this->db->select('companynms');
+			$this->db->where('cid', $cnid);
+			$this->db->where('exlincl', 1 ); // check inclusion
+			$query = $this->db->get('complist');
+			// echo $this->db->last_query(); 
+			// return $query->result_array(); 
+
+			// $ret = $query->row();
+			$ret = $query->result_array(); 
+			// echo $this->db->last_query(); 
+			// return $ret->emailids;
+			return $ret;
+		
+
+		}
+		public function get_incdomain_byCampaign($cnid){
+			$this->db->select('domainnms');
+			$this->db->where('cid', $cnid);
+			$this->db->where('inclexcl', 1 ); // check inclusion
+			$query = $this->db->get('domainlist');
+			// echo $this->db->last_query(); 
+			// return $query->result_array(); 
+
+			// $ret = $query->row();
+			$ret = $query->result_array(); 
+			// echo $this->db->last_query(); 
+			// return $ret->emailids;
+			return $ret;
+		
+
+		}
 		public function get_subindustries_byCampaign($cnid,$myarray){
 		
 			$this->db->select('*');
@@ -1713,13 +1745,15 @@ public function get_leadmasterby_campaignidwithempcode($id = FALSE,$empcode)
 		$this->db->where('cdcload',null);
 		$this->db->where('qaload',null);
 		$this->db->where('rlc !=', 1);
-		$this->db->group_start();
-				$this->db->where('stagtidi',$empcode);
+		// $this->db->group_start();
+		// 		$this->db->where('stagtidi',$empcode);
 				// $this->db->OR_where('stagtidii',$empcode);
-				$this->db->OR_where('stagtidi', NULL);
-		$this->db->group_end(); 
+		// 		$this->db->OR_where('stagtidi', NULL);
+		// $this->db->group_end(); 
 	
-			$this->db->order_by('dvrejtg','DESC');
+			// $this->db->order_by('dvrejtg','DESC');
+			$this->db->order_by('dvrdti','ASC');
+			$this->db->order_by('dvrdtii','ASC');
 		
 		
 		$this->db->limit(1);
@@ -1749,12 +1783,33 @@ public function get_leadmasterby_campaigniddv($id = FALSE)
 		$this->db->where('qaload',null);
 		$this->db->where('rlc !=', 1);
 		$this->db->order_by('stdti','ASC');
-		$this->db->order_by('sbsvtag','ASC');
+		$this->db->order_by('stdtii','ASC');
 		$this->db->limit(1);
 		$query = $this->db->get_where('leadmaster', array('cids' => $id));
 		// echo $this->db->last_query(); 
 		// echo $string;
 		// die;
+		return $query->result_array();
+	}
+public function get_leadmasterby_campaignQA($id = FALSE)
+{
+		
+		
+	$this->db->where('cdcsb <', '4');
+	$this->db->where('cdcrjt <', '4');
+	$this->db->where('cdcsv !=', 0);
+	$this->db->where('evload',0);
+	$this->db->where('cdcload',1);
+	$this->db->where('qaload',null);
+	$this->db->where('rlc !=', 1);
+	
+	$this->db->order_by('evdti','ASC');
+	$this->db->limit(1);
+	$query = $this->db->get_where('leadmaster', array('cids' => $id));
+	// echo $this->db->last_query(); 
+	// echo $string;
+	// die;
+
 		return $query->result_array();
 	}
 public function get_leadmasterby_campaign_CDC($id = FALSE,$postDatalmid,$camp_id2)
@@ -1857,6 +1912,35 @@ public function get_campaign_fordataverification()
 			$this->db->where('leadmaster.cdcrjt <', '4');
 			$this->db->where('leadmaster.evload',1);
 			$this->db->where('leadmaster.cdcload',0);
+			$this->db->where('leadmaster.qaload',null);
+			$this->db->where('leadmaster.rlc !=', 1);	
+			$this->db->where('campaign.status', 2);	
+			$this->db->join('leadmaster', 'leadmaster.cids = campaign.cids');
+			
+		
+			$query = $this->db->get('campaign');
+			
+		
+			// echo $this->db->last_query(); 
+			// echo $string;
+			// die;
+			return $query->result_array();
+		}
+	public function get_campaignforQA()
+	{
+		
+		
+			$this->db->select('campaign.cids,campaign.cnid,campaign.campnm');
+			$this->db->group_by('campaign.cids');
+			$this->db->group_by('campaign.campnm');
+			$this->db->group_by('campaign.cnid');
+		
+
+			$this->db->where('leadmaster.cdcsv !=', 0);
+			$this->db->where('leadmaster.cdcsb <', '4');
+			$this->db->where('leadmaster.cdcrjt <', '4');
+			$this->db->where('leadmaster.evload',0);
+			$this->db->where('leadmaster.cdcload',1);
 			$this->db->where('leadmaster.qaload',null);
 			$this->db->where('leadmaster.rlc !=', 1);	
 			$this->db->where('campaign.status', 2);	
@@ -2399,8 +2483,6 @@ public function get_campaign_fordataverification()
 			if( ($leadstatus != "New"))
 			{
 				$this->db->where('ev.curr_active', 1);
-				if($leadstatus != "Closed")
-					$this->db->where('ev.closer_status !=', "Closed");
 				// $this->db->where('ev.closer_status !=', "Closed");
 			}
 			if(isset($leadstatus) && $leadstatus == 'Closed')
@@ -2530,14 +2612,13 @@ public function get_campaign_fordataverification()
 			return $query->row_array();
 		}
 
-		function get_lmid_duplication_count($leadid,$agent_id)
+		function get_lmid_duplication_count($leadid)
 		{
 			$this->db->select('lmid');
 			$this->db->where('lmid', $leadid);
-			$this->db->where('evagnt', $agent_id);
 			$result = $this->db->get('ev');
 			// echo $this->db->last_query(); 
-			if ($result->num_rows() > 8) {
+			if ($result->num_rows() > 1) {
                return true;        
 			}else{
 				return false;

@@ -1750,7 +1750,9 @@ public function get_leadmasterby_campaignidwithempcode($id = FALSE,$empcode)
 		// 		$this->db->OR_where('stagtidi', NULL);
 		// $this->db->group_end(); 
 	
-			$this->db->order_by('dvrejtg','DESC');
+			// $this->db->order_by('dvrejtg','DESC');
+			$this->db->order_by('dvrdti','ASC');
+			$this->db->order_by('dvrdtii','ASC');
 		
 		
 		$this->db->limit(1);
@@ -1780,7 +1782,7 @@ public function get_leadmasterby_campaigniddv($id = FALSE)
 		$this->db->where('qaload',null);
 		$this->db->where('rlc !=', 1);
 		$this->db->order_by('stdti','ASC');
-		$this->db->order_by('sbsvtag','ASC');
+		$this->db->order_by('stdtii','ASC');
 		$this->db->limit(1);
 		$query = $this->db->get_where('leadmaster', array('cids' => $id));
 		// echo $this->db->last_query(); 

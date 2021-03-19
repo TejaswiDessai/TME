@@ -2050,6 +2050,9 @@ public function getPrivillage(){
 		$campid = $cids; //$this->input->post('campaign_id');
 		$user_id =$this->input->post('user_id');
 		$leadstatus =$this->input->post('leadstatus');
+		$search_email = $this->input->post('search_email');
+		$search_email_status = $this->input->post('search_email_status');
+		$email_sent_time = $this->input->post('email_sent_time');
 		$from =$this->input->post('from');
 		$pass =$this->input->post('pass');
 		if(isset($from) && $from != null && isset($pass) && $pass != null)
@@ -2069,7 +2072,7 @@ public function getPrivillage(){
 	
 		$data['title'] = 'Latest Campaigns';
 		$offset = 0;
-		$data['leadmaster'] = $this->Administrator_Model->get_email_list($campid,$user_id,$from,$to,$leadstatus);
+		$data['leadmaster'] = $this->Administrator_Model->get_email_list($campid,$user_id,$from,$to,$leadstatus,$search_email,$search_email_status,$email_sent_time);
 		$data['users_name'] = $this->Administrator_Model->get_users(FALSE, $config['per_page'], $offset);
 		// $data['campaigns'] = $this->Administrator_Model->get_campaign();
 		// $data['from_email'] = $this->Administrator_Model->get_email_id($campid,103);
@@ -2079,6 +2082,9 @@ public function getPrivillage(){
 		$data['agent_password'] = $agent_password;
 		$data['empcode'] = $this->session->userdata('empcode');
 		$data['Stage'] = $leadstatus;
+		$data['search_email'] = $search_email;
+		$data['search_email_status'] = $search_email_status;
+		$data['email_sent_time'] = $email_sent_time;
 		$data['From'] =  $this->session->userdata('from');
 		$data['Pass'] =  $this->session->userdata('pass');
 		$data['To'] = $to;

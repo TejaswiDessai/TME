@@ -2407,6 +2407,30 @@ public function get_campaign_fordataverification()
 			{
 				$this->db->where('ev.closer_status', 'Closed');
 			}
+			if(isset($search_email) && $search_email != null)
+			{
+				$this->db->where('ev.email', $search_email);
+			}
+			if(isset($search_email_status) && $search_email_status != null)
+			{
+				$this->db->where('ev.status', $search_email_status);
+			}
+			if(isset($email_sent_time) && $email_sent_time != null)
+			{
+				// Current date and time
+				$datetime = date("Y-m-d H:i:s");
+
+				// Convert datetime to Unix timestamp
+				$timestamp = strtotime($datetime);
+
+				// Subtract time from datetime
+				$time = $timestamp - ($email_sent_time * 60 * 60);
+
+				// Date and time after subtraction
+				$datetime = date("Y-m-d H:i:s", $time);
+
+				$this->db->where('ev.loaddt <=', $datetime);
+			}
 			if(isset($user_id) && $user_id != null)
 			{
 				$this->db->where('users.emp_id', $user_id);

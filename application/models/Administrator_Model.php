@@ -2369,7 +2369,7 @@ public function get_campaign_fordataverification()
 			return $data=$query->result_array();
 
 		}	
-		public function get_email_list($campid,$user_id,$from,$to,$leadstatus)
+		public function get_email_list($campid,$user_id,$from,$to,$leadstatus,$search_email,$search_email_status,$email_sent_time)
 		{
 			
 			if(isset($leadstatus) && $leadstatus == "New")

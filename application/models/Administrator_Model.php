@@ -1749,8 +1749,8 @@ public function get_leadmasterby_campaignidwithempcode($id = FALSE,$empcode)
 				// $this->db->OR_where('stagtidii',$empcode);
 		// 		$this->db->OR_where('stagtidi', NULL);
 		// $this->db->group_end(); 
-	
-			$this->db->order_by('dvrejtg','DESC');
+		$this->db->order_by('dvrdti','ASC');
+			// $this->db->order_by('dvrejtg','DESC');
 		
 		
 		$this->db->limit(1);

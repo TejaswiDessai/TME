@@ -240,10 +240,10 @@ $(document).ready(function() {
                             <div class="col-sm-1">
                                  <select name="sal" id="sal"  class="form-control  form-control-sm cdqadisable">
                                  <option value="Mr">Mr.</option>
-                                      <option value="Ms">Ms.</option>
-                                      <option value="Mrs">Mrs.</option>
-                                      <option value="Dr">Dr.</option>
-                                      <option value="Other">Other</option>
+                                      <option value="Ms" <?php if(isset($ldmster) && $ldmster['sal'] == "Ms"){ echo "selected" ; } ?>>Ms.</option>
+                                      <option value="Mrs" <?php if(isset($ldmster) && $ldmster['sal'] == "Mrs"){ echo "selected" ; } ?>>Mrs.</option>
+                                      <option value="Dr" <?php if(isset($ldmster) && $ldmster['sal'] == "Dr"){ echo "selected" ; } ?>>Dr.</option>
+                                      <option value="Other"<?php if(isset($ldmster) && $ldmster['sal'] == "Other"){ echo "selected" ; } ?>>Other</option>
                                 </select>
                             </div>
                             <div class="col-sm-2">
@@ -695,7 +695,21 @@ $(document).ready(function() {
                           <div class="form-group row" >
                              <div class="col-sm-12  comt">
                                 <label class="col-lable"><b>Comment</b></label>
-                                <input type="text"  name="pcomt" id="pcomt"  placeholder="Comment"  class="form-control form-control-sm" value="<?php echo $ldmster['pcomt']; ?>">
+                                <input type="text"  name="pcomt" id="pcomt"  placeholder="Comment"  class="form-control form-control-sm" 
+                                value="<?php if(isset($ldmster['pcomt']) && $ldmster['pcomt'] != '') {
+                                   $arr = explode("#", $ldmster['pcomt']);
+                                  
+                                   $withoutchar = $arr[0];
+                                   if(!empty($arr[1])){
+                                      $first = $arr[1];
+                                      echo  $first; 
+                                   }else{
+                                    echo $withoutchar; 
+                                   }
+                                  
+                                 }else{
+                                   echo "";
+                                 } ?>">
                             </div> 
                          </div>
                         
@@ -1715,7 +1729,7 @@ if(lmid == undefined){
 
   $.validator.addMethod("customvalidation",
            function(value, element) {
-                   return /^[A-Za-z\d=#$%!*&()+',?./><@_ -]+$/.test(value); // validation for RÃ¤feldstrasse word
+             return /^[A-Za-z\d=#$%!*&()+',?./><@_ -]+$/.test(value); // validation for RÃ¤feldstrasse word
            },
    "Sorry, no special characters allowed"
    );

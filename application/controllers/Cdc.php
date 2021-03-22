@@ -2243,8 +2243,6 @@
 				}
 
 
-			
-
 					if($cdcsv == 0){
 					$cdcsvdti = $old_date;	
 					$cdcsvagti = $_SESSION['empcode'];

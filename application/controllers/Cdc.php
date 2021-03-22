@@ -2163,8 +2163,8 @@
 			
 		
 
-			if(($_POST['cdcrjt'] > 1) OR ($_POST['cdcsb'] > 1) )
-			{
+			// if(($_POST['cdcrjt'] > 1) OR ($_POST['cdcsb'] > 1) )
+			// {
 
 				if($mychecked2 == "0"){  // Accept
 					$cdcload = "1"; // go to next level-- Accept
@@ -2172,19 +2172,33 @@
 					 $ontag = "1"; //null = new, 0 = needs to be reworked
 					 $cdcrjt = $_POST['cdcrjt'];
 					 $cdcsb = $_POST['cdcsb']; //Data Verification|Submission Tag
-					
-					 $cdcsbagtii = $_SESSION['empcode']; //Data Verification Accept|Agent ID_I
-					// $dvragtidi = NULL;
-					$cdcrjtagtii = $postagent2;
-					
-					$cdcsbdtii = $old_date; //Data Verification Accept|date and time_I
-					// $dvrdti = NULL;
-					$cdcrjtdtii = $postdate2;
-					$cdcrjtagti = $postagent1;
-					$cdcrjtdti = $postdate1;
-	
-					$cdcsbagti = $postagentaccept1;
-					$cdcsbdti = $postdateaccept1;
+					//  $cdcsbagtii = $_SESSION['empcode']; // Accept|Agent ID_I
+					//  $cdcrjtagtii = $postagent2;
+					//  $cdcsbdtii = $old_date; // Accept|date and time_I
+					//  $cdcrjtdtii = $postdate2;
+					//  $cdcrjtagti = $postagent1;
+					//  $cdcrjtdti = $postdate1;
+					//  $cdcsbagti = $postagentaccept1;
+					//  $cdcsbdti = $postdateaccept1;
+					if(empty($_POST['cdcsbdti'])){
+						$cdcsbagti = $_SESSION['empcode']; // Accept|Agent ID_I
+						$cdcrjtagtii = $postagent2;
+						$cdcsbdti = $old_date; // Accept|date and time_I
+						$cdcrjtdtii = $postdate2;
+						$cdcrjtagti = $postagent1;
+						$cdcrjtdti = $postdate1;
+						$cdcsbagtii = $postagentaccept1;
+						$cdcsbdtii = $postdateaccept1;
+					 }else{
+						$cdcsbagtii = $_SESSION['empcode']; // Accept|Agent ID_I
+						$cdcrjtagtii = $postagent2;
+						$cdcsbdtii = $old_date; // Accept|date and time_I
+						$cdcrjtdtii = $postdate2;
+						$cdcrjtagti = $postagent1;
+						$cdcrjtdti = $postdate1;
+						$cdcsbagti = $postagentaccept1;
+						$cdcsbdti = $postdateaccept1; 
+					 }
 					$evload = $evloadposted;
 				
 					
@@ -2194,72 +2208,42 @@
 					$cdcrjt = $_POST['cdcrjt'];
 					$cdcsb = $_POST['cdcsb'];
 					$ontag = "1"; //null = new, 0 = needs to be reworked
-	
-					$cdcrjtagtii = $_SESSION['empcode'];
-					// $dvagtidi = NULL;
+
+					// $cdcrjtagtii = $_SESSION['empcode'];
+					// $cdcsbagtii = $postagentaccept2;
+					// $cdcsbdtii = $postdateaccept2;
+					// $cdcrjtdtii = $old_date; //|Rej_date and time_I
+					// $cdcrjtagti = $postagent1;
+					// $cdcrjtdti = $postdate1;
+					// $cdcsbagti = $postagentaccept1;
+					// $cdcsbdti = $postdateaccept1;
+
+					if(empty($_POST['cdcrjtdti'])){
+					$cdcrjtagti = $_SESSION['empcode'];
 					$cdcsbagtii = $postagentaccept2;
-					
-					// $dvdti = NULL ;
 					$cdcsbdtii = $postdateaccept2;
-					$cdcrjtdtii = $old_date; //Data Verification|Rej_date and time_I
-					
-					$cdcrjtagti = $postagent1;
-					$cdcrjtdti = $postdate1;
-					
-	
+					$cdcrjtdti = $old_date; //|Rej_date and time_I
+					$cdcrjtagtii = $postagent1;
+					$cdcrjtdtii = $postdate1;
 					$cdcsbagti = $postagentaccept1;
 					$cdcsbdti = $postdateaccept1;
+					}else{
+						$cdcrjtagtii = $_SESSION['empcode'];
+						$cdcsbagtii = $postagentaccept2;
+						$cdcsbdtii = $postdateaccept2;
+						$cdcrjtdtii = $old_date; //|Rej_date and time_I
+						$cdcrjtagti = $postagent1;
+						$cdcrjtdti = $postdate1;
+						$cdcsbagti = $postagentaccept1;
+						$cdcsbdti = $postdateaccept1;	
+					}
+
 					$evload = 0;
 	
 				}
 
 
-			}else{
-
-				if($mychecked2 == "0"){  // Accept
-								$cdcload = "1"; // go to next level-- Accept
-							
-								$ontag = "1"; //null = new, 0 = needs to be reworked
-								$cdcsb = $_POST['cdcsb']; //Data Verification|Submission Tag
-								$cdcrjt = $_POST['cdcrjt'];
-		
-								$cdcsbagti = $_SESSION['empcode']; //Data Verification Accept|Agent ID_I
-								// $dvragtidi = NULL;
-								$cdcrjtagti = $postagent1;
-								$cdcsbdti = $old_date; //Data Verification Accept|date and time_I
-								// $dvrdti = NULL;
-								$cdcrjtdti = $postdate1;
-								$cdcrjtdtii = $postdate2;
-								$cdcsbdtii = $postdateaccept2;
-								$cdcsbagtii = $postagentaccept2;
-								$cdcrjtagtii = $postagent2;
-								$evload = $evloadposted;
-							
-								
-							}else{
-								$cdcload = "0"; // Reject
-							
-								$cdcrjt = $_POST['cdcrjt'];
-								$cdcsb = $_POST['cdcsb'];
-								$ontag = "1"; //null = new, 0 = needs to be reworked
-		
-								$cdcrjtagti = $_SESSION['empcode'];
-								// $dvagtidi = NULL;
-								$cdcsbagti = $postagentaccept1;
-								
-								// $dvdti = NULL ;
-								$cdcsbdti = $postdateaccept1;
-								$cdcrjtdti = $old_date; //Data Verification|Rej_date and time_I
-								$cdcrjtdtii = $postdate2;
-								$cdcsbdtii = $postdateaccept2;
-								$cdcsbagtii = $postagentaccept2;
-								$cdcrjtagtii = $postagent2;
-								$evload = 0;
-								
-							}
-
 			
-			}
 
 					if($cdcsv == 0){
 					$cdcsvdti = $old_date;	

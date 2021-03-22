@@ -201,7 +201,7 @@ $(document).ready(function() {
                  <?php endforeach; ?>
                 </div> 
 
-                <div class="col-sm-2" style="margin-top: -25px;">
+                <div class="col-sm-1" style="margin-top: -25px;">
                       <?php foreach ($leadmaster as $ldmster1){
                         print_r($ldmster1['lmid']);
                       } 

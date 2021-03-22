@@ -233,12 +233,14 @@
                                                         --  cids = 1009
                                                          and (svagtidi = $empcode )
                                                           AND  svdti <= current_date + current_time AND svdti >= current_date + 00-00-00 group by svagtidi,lmid ");
-                                                         $yesterday = $this->db->query(" SELECT * FROM public.leadmaster
+                                                        //  echo $this->db->last_query(); 
+                                                        $yesterday = $this->db->query(" SELECT * FROM public.leadmaster
                                                          where 
                                                          svagtidi is not null
                                                         --  and
                                                         --  cids = 1009
                                                          and (svagtidi = $empcode ) AND svdti >= current_date - 1 AND svdti <= current_date");
+                                                        
                                                         //  echo  "YESTERDAY :  ".$yesterday->num_rows()."<br><br>";
                                                          echo "TODAY : ". $today->num_rows();
                                                          $saveone= $today;
@@ -282,11 +284,15 @@
                                                         <!-- <td><?php //echo $this->session -> userdata('username')?></td><td> -->
                                                         <td>
                                                         <?php 
-                                                         $today = $this->db->query("SELECT * FROM leadmaster where (stagtidii = $empid OR stagtidii = $empcode ) AND  ((svdti <= current_date + current_time AND svdti >= current_date + 00-00-00) OR (svdti <= current_date + current_time AND svdti >= current_date + 00-00-00)) ");
+                                                        //  $today = $this->db->query("SELECT * FROM leadmaster where (stagtidii = $empid OR stagtidii = $empcode ) AND  ((svdti <= current_date + current_time AND svdti >= current_date + 00-00-00) OR (svdti <= current_date + current_time AND svdti >= current_date + 00-00-00)) ");
+                                                        //  $yesterday = $this->db->query("SELECT * FROM leadmaster where (stagtidii = $empid OR stagtidii = $empcode ) AND ((svdti >= current_date - 1 AND svdti <= current_date) OR (svdti >= current_date - 1 AND svdti <= current_date))");
+                                                         $today = $this->db->query("SELECT * FROM leadmaster where  (svagtidi = $empcode) AND  ((svdti <= current_date + current_time AND svdti >= current_date + 00-00-00) OR (svdti <= current_date + current_time AND svdti >= current_date + 00-00-00)) ");
+                                                        //  echo $this->db->last_query(); 
                                                          $yesterday = $this->db->query("SELECT * FROM leadmaster where (stagtidii = $empid OR stagtidii = $empcode ) AND ((svdti >= current_date - 1 AND svdti <= current_date) OR (svdti >= current_date - 1 AND svdti <= current_date))");
                                                         //  echo  "YESTERDAY :  ".$yesterday->num_rows()."<br><br>";
-                                                         echo "TODAY : ". $today->num_rows();
-
+                                                        
+                                                        // echo "TODAY : ". $today->num_rows();
+                                                         $savetwo = $today;
                                                         // $query = $this->db->query("SELECT * FROM leadmaster where (stagtidi = $empid OR stagtidi = $empcode ) AND  svdti >= now()::date + interval '1h'");
                                                         // echo $query->num_rows();
                                                         ?>

@@ -1106,8 +1106,15 @@ $.ajax({
                                 <input type="text"  name="pcomt" id="pcomt"  placeholder="Comment"  class="form-control form-control-sm" 
                                 value="<?php if(isset($ldmster['pcomt']) && $ldmster['pcomt'] != '') {
                                    $arr = explode("#", $ldmster['pcomt']);
-                                            $first = $arr[1];
-                                  echo  $first; 
+                                  
+                                   $withoutchar = $arr[0];
+                                   if(!empty($arr[1])){
+                                      $first = $arr[1];
+                                      echo  $first; 
+                                   }else{
+                                    echo $withoutchar; 
+                                   }
+                                  
                                  }else{
                                    echo "Empty";
                                  } ?>" >
@@ -2542,27 +2549,7 @@ $(function() {
 
             // alert(checked);
             
-            var optin = $('#optin').val();
-            var optpst = $('#optpst').val();
-            var opteml = $('#opteml').val();
-            var optph = $('#optph').val();
-            var dnd = $('#dnd').val();
-             if(optin == ""){
-            var optin = 0;
-             }
-             if(optpst == ""){
-            var optpst = 0;
-             }
-             if(opteml == ""){
-            var opteml = 0;
-             }
-             if(optph == ""){
-            var optph = 0;
-             }
-             if(dnd == ""){
-            var dnd = 0;
-             }
-             
+          
         
            
             var campaign_id = $('#campaign_id').val();
@@ -2594,12 +2581,7 @@ $(function() {
                   pcomt :pcomt,
                   checked:checked,
 
-                    optin:optin,
-                    optph:optph,
-                    opteml:opteml,
-                    optpst:optpst,
-                    dnd:dnd,
-                   
+                  
                    
 				},
         async: true,

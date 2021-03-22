@@ -200,6 +200,14 @@ $(document).ready(function() {
                  <label class="col-lable"><b>Campaign Name: <?php echo $campaign['campnm']; ?></b></label>
                  <?php endforeach; ?>
                 </div> 
+
+                <div class="col-sm-4" style="margin-top: -25px;">
+                      <?php foreach ($leadmaster as $ldmster1){
+                        print_r($ldmster1['lmid']);
+                      } 
+                ?>
+     
+                </div>
                 
             </div>   
                            

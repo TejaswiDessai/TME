@@ -543,7 +543,7 @@ $(document).ready(function() {
                                           <div class="checkbox-fade fade-in-primary  col-sm-12">
                                               <label class="check-task">
                                                   <input type="checkbox" name="company_name" id="company_name"  value="company_name">
-                                                <span  class="form-control form-control-sm cdqadisable tooltips"><?php if(isset($ldmster['cname'])){  echo $ldmster['cname']; }else { echo "Comapny Name Empty" ;} ?>
+                                                <span  class="form-control form-control-sm cdqadisable tooltips"><?php if(isset($ldmster['cname']) && ($ldmster['cname'] !='')){  echo $ldmster['cname']; }else { echo "Comapny Name Empty" ;} ?>
                                                 <span class="tooltiptext">Company Name</span>
                                                 </span>
                                               </label>

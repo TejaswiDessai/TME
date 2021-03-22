@@ -201,12 +201,23 @@ $(document).ready(function() {
                  <?php endforeach; ?>
                 </div> 
 
-                <div class="col-sm-4" style="margin-top: -25px;">
+                <div class="col-sm-2" style="margin-top: -25px;">
                       <?php foreach ($leadmaster as $ldmster1){
                         print_r($ldmster1['lmid']);
                       } 
                 ?>
-     
+                </div>
+                <div class="col-sm-2" style="margin-top: -25px;">
+                      <?php foreach ($leadmaster as $ldmster2){
+                        if(empty($ldmster2['stagtidii'])){
+                          // print_r($ldmster2['stagtidi']);
+                         echo "Submitted by ".$ldmster2['stagtidi'];
+                        }else{
+                          echo "Submitted by ".$ldmster2['stagtidii'];
+                     
+                        }
+                      } 
+                ?>
                 </div>
                 
             </div>   

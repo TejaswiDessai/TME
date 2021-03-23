@@ -312,11 +312,11 @@
 						
 			// $data['cids_camp'] = $camp_id;
 			// $data['campaign_id'] = $camp_id;
-						
+			
 						$data['leadmaster'] = $this->Administrator_Model->get_leadmasterby_campaign_CDC($cids,$postDatalmid,$camp_id2);
 						// print_r($data['leadmaster']); 
 						if(empty($data['leadmaster'])){
-							$this->session->set_flashdata('success', 'Data verification id finished for this campaign.');
+							$this->session->set_flashdata('success', 'CDC finished for this campaign.');
 							// redirect('cdc/selectCampaignforDataVerification');
 							
 						}
@@ -2259,7 +2259,7 @@
 // exit();
 
 				$datacdcandlead = array(
-				'cdcrjfields' => $mychecked2,
+				'dvrejectreason' => $mychecked2,
 				// tag
 				// 'ontag' => 0, // Submit and 0 = new, 1 = needs to be reworked
 				'cdcsv' => $cdcsv, //  Submit till 5 times
@@ -2345,19 +2345,15 @@
 								
 			
 		}
-		public function ajax_update_qatolead()
+		public function ajax_update_qatodc()
 		{
-			exit();
+			
 			
 			$campaign_id = $_POST['campaign_id'];
 			$cids = $_POST['campaign_idcids'];
 			
 			$lmid = $_POST['lmid'];
 			$checked = $_POST['checked'];
-			$cdcsv = $_POST['cdcsv'];
-			$cdcrjt = $_POST['cdcrjt'];
-			$cdcsb = $_POST['cdcsb'];
-			$evloadposted = $_POST['evload'];
 			
 			// print_r($_POST['checked']);
 			// // exit();
@@ -2366,7 +2362,6 @@
 				$middle = strtotime($old_date);             // returns bool(false)
 				$new_date = date('Y-m-d H:i:s', $middle);
 
-			// $mychecked = explode(',', $checked);
 		
 			if(!isset($_SESSION['empcode'])){
 				
@@ -2375,235 +2370,330 @@
 				Exit();
 			}
 
-			if(!empty($_POST['cdcrjtagti']))
+			if(!empty($_POST['qarjtagti']))
 			{
-				$postagent1 =  $_POST['cdcrjtagti'];
+				$postagent1 =  $_POST['qarjtagti'];
 			} else{
 			$postagent1 = NULL;
 			}
-		if(!empty($_POST['cdcrjtdti']))
+			if(!empty($_POST['qarjtdti']))
 			{
-				$postdate1 =  $_POST['cdcrjtdti'];
+				$postdate1 =  $_POST['qarjtdti'];
 			} else{
 			$postdate1 = NULL;
 			}
 
-		if(!empty($_POST['cdcrjtagtii']))
+			if(!empty($_POST['qarjtagtii']))
 			{
-				$postagent2 =  $_POST['cdcrjtagtii'];
+				$postagent2 =  $_POST['qarjtagtii'];
 			} else{
 			$postagent2 = NULL;
 			}
-		if(!empty($_POST['cdcrjtdtii']))
+			if(!empty($_POST['qarjtdtii']))
 			{
-				$postdate2 =  $_POST['cdcrjtdtii'];
+				$postdate2 =  $_POST['qarjtdtii'];
 			} else{
 			$postdate2 = NULL;
 			}
 
+			$mychecked2 = implode(',', $checked);
+			
 
+				// print_r($_POST['dvsbtg']);exit();
+				if($mychecked2 == "0"){  // Accept
+				
+					exit();
+				}else{				
 
-			if(!empty($_POST['cdcsbagti']))
-			{
-				$postagentaccept1 =  $_POST['cdcsbagti'];
-			} else{
-			$postagentaccept1 = NULL;
-			}
-			if(!empty($_POST['cdcsbdti']))
-			{
-				$postdateaccept1 =  $_POST['cdcsbdti'];
-			} else{
-			$postdateaccept1 = NULL;
-			}
-			if(!empty($_POST['cdcsbagtii']))
-			{
-				$postagentaccept2 =  $_POST['cdcsbagtii'];
-			} else{
-			$postagentaccept2 = NULL;
-			}
-			if(!empty($_POST['cdcsbdtii']))
-			{
-				$postdateaccept2 =  $_POST['cdcsbdtii'];
-			} else{
-			$postdateaccept2 = NULL;
+					if(empty($_POST['qarjtdti'])){
+					$qarjtagti = $_SESSION['empcode'];
+					
+					$qarjtagtii = $postagent1;
+					$qarjtdtii = $postdate1;
+					
+					}else{
+					$qarjtagtii = $_SESSION['empcode'];
+					
+					$qarjtdtii = $old_date; //Data Verification|Rej_date and time_I
+					$qarjtagti = $postagent1;
+					$qarjtdti = $postdate1;
+					
+					}
+
+				}
+					$pcomt= "QA:".$_SESSION['empcode'].":".$old_date."#".$_POST['pcomt'];
+
+					
+				$datacdcandlead = array(
+				'dvrejectreason' => $mychecked2,
+				// tag
+				
+				'rlc' => '0', // record is closed
+				
+				'ontag' => '1', 
+				'pload' => '0', 
+				'cdcload' => NULL, //  next level
+				'evload' => NULL, //  next level
+				'qarjtagti' => $qarjtagti, // submit agent name 
+				'qarjtdti' => $qarjtdti, // Data Verification|Rej_date and time_I
+				'qarjtagtii' => $qarjtagtii, // submit agent name 
+				'qarjtdtii' => $qarjtdtii, // Data Verification|Rej_date and time_I
+				'qastat' => 'pending', //accept/rejection by cdc
+				'qadcrej' => '1', //qa data rejection
+				'pcomt' => $pcomt 
+				
+								
+				);
+			
+			    // exit();
+			
+				$addleadandcdcdata = $this->Administrator_Model->update_leaddata($datacdcandlead,$lmid);
+				// $addleadandcdcdatacomment = $this->Administrator_Model->update_leaddatacomment( $_POST['pcomt'],$lmid);
+				// print_r($addcampaigndata);  die;
+				
+				// exit();
+				if($addleadandcdcdata == true){
+			
+					echo json_encode(array(
+						"statusCode"=>"Success",
+						// "lead_id"=>$addleadandcdcdata,
+						"message"=>"Data Verified Successfully.."
+					));
+				}else{
+					echo json_encode(array(
+						"statusCode"=>"Fail",
+						"message"=>"Lead failed.."
+					));
+				}
+								
+			
+		}
+
+		public function ajax_update_qatoCDC()
+		{
+			
+			
+			$campaign_id = $_POST['campaign_id'];
+			$cids = $_POST['campaign_idcids'];
+			
+			$lmid = $_POST['lmid'];
+			$checked = $_POST['checked'];
+			
+			// print_r($_POST['checked']);
+			// // exit();
+			
+				$old_date = date('Y-m-d H:i:s');         // works
+				$middle = strtotime($old_date);             // returns bool(false)
+				$new_date = date('Y-m-d H:i:s', $middle);
+
+		
+			if(!isset($_SESSION['empcode'])){
+				
+			
+				redirect('administrator/logout');
+				Exit();
 			}
 
+			if(!empty($_POST['qarjtagti']))
+			{
+				$postagent1 =  $_POST['qarjtagti'];
+			} else{
+			$postagent1 = NULL;
+			}
+			if(!empty($_POST['qarjtdti']))
+			{
+				$postdate1 =  $_POST['qarjtdti'];
+			} else{
+			$postdate1 = NULL;
+			}
+
+			if(!empty($_POST['qarjtagtii']))
+			{
+				$postagent2 =  $_POST['qarjtagtii'];
+			} else{
+			$postagent2 = NULL;
+			}
+			if(!empty($_POST['qarjtdtii']))
+			{
+				$postdate2 =  $_POST['qarjtdtii'];
+			} else{
+			$postdate2 = NULL;
+			}
 
 			$mychecked2 = implode(',', $checked);
 			
-		
 
-			if(($_POST['cdcrjt'] > 1) OR ($_POST['cdcsb'] > 1) )
-			{
-
+				// print_r($_POST['dvsbtg']);exit();
 				if($mychecked2 == "0"){  // Accept
-					$cdcload = "1"; // go to next level-- Accept
-					
-					 $ontag = "1"; //null = new, 0 = needs to be reworked
-					 $cdcrjt = $_POST['cdcrjt'];
-					 $cdcsb = $_POST['cdcsb']; //Data Verification|Submission Tag
-					
-					 $cdcsbagtii = $_SESSION['empcode']; //Data Verification Accept|Agent ID_I
-					// $dvragtidi = NULL;
-					$cdcrjtagtii = $postagent2;
-					
-					$cdcsbdtii = $old_date; //Data Verification Accept|date and time_I
-					// $dvrdti = NULL;
-					$cdcrjtdtii = $postdate2;
-					$cdcrjtagti = $postagent1;
-					$cdcrjtdti = $postdate1;
-	
-					$cdcsbagti = $postagentaccept1;
-					$cdcsbdti = $postdateaccept1;
-					$evload = $evloadposted;
 				
+					exit();
+				}else{				
+
+					if(empty($_POST['qarjtdti'])){
+					$qarjtagti = $_SESSION['empcode'];
 					
-				}else{
-					$cdcload = "0"; // Reject
-				
-					$cdcrjt = $_POST['cdcrjt'];
-					$cdcsb = $_POST['cdcsb'];
-					$ontag = "1"; //null = new, 0 = needs to be reworked
-	
-					$cdcrjtagtii = $_SESSION['empcode'];
-					// $dvagtidi = NULL;
-					$cdcsbagtii = $postagentaccept2;
+					$qarjtagtii = $postagent1;
+					$qarjtdtii = $postdate1;
 					
-					// $dvdti = NULL ;
-					$cdcsbdtii = $postdateaccept2;
-					$cdcrjtdtii = $old_date; //Data Verification|Rej_date and time_I
-					
-					$cdcrjtagti = $postagent1;
-					$cdcrjtdti = $postdate1;
-					
-	
-					$cdcsbagti = $postagentaccept1;
-					$cdcsbdti = $postdateaccept1;
-					$evload = 0;
-	
-				}
-
-
-			}else{
-
-				if($mychecked2 == "0"){  // Accept
-								$cdcload = "1"; // go to next level-- Accept
-							
-								$ontag = "1"; //null = new, 0 = needs to be reworked
-								$cdcsb = $_POST['cdcsb']; //Data Verification|Submission Tag
-								$cdcrjt = $_POST['cdcrjt'];
-		
-								$cdcsbagti = $_SESSION['empcode']; //Data Verification Accept|Agent ID_I
-								// $dvragtidi = NULL;
-								$cdcrjtagti = $postagent1;
-								$cdcsbdti = $old_date; //Data Verification Accept|date and time_I
-								// $dvrdti = NULL;
-								$cdcrjtdti = $postdate1;
-								$cdcrjtdtii = $postdate2;
-								$cdcsbdtii = $postdateaccept2;
-								$cdcsbagtii = $postagentaccept2;
-								$cdcrjtagtii = $postagent2;
-								$evload = $evloadposted;
-							
-								
-							}else{
-								$cdcload = "0"; // Reject
-							
-								$cdcrjt = $_POST['cdcrjt'];
-								$cdcsb = $_POST['cdcsb'];
-								$ontag = "1"; //null = new, 0 = needs to be reworked
-		
-								$cdcrjtagti = $_SESSION['empcode'];
-								// $dvagtidi = NULL;
-								$cdcsbagti = $postagentaccept1;
-								
-								// $dvdti = NULL ;
-								$cdcsbdti = $postdateaccept1;
-								$cdcrjtdti = $old_date; //Data Verification|Rej_date and time_I
-								$cdcrjtdtii = $postdate2;
-								$cdcsbdtii = $postdateaccept2;
-								$cdcsbagtii = $postagentaccept2;
-								$cdcrjtagtii = $postagent2;
-								$evload = 0;
-								
-							}
-
-			
-			}
-
-					if($cdcsv == 0){
-					$cdcsvdti = $old_date;	
-					$cdcsvagti = $_SESSION['empcode'];
 					}else{
-						$cdcsvdti = NULL;
-						$cdcsvagti= NULL;
-					}
+					$qarjtagtii = $_SESSION['empcode'];
 					
-					$pcomt= "CDC:".$_SESSION['empcode'].":".$old_date."#".$_POST['pcomt'];
+					$qarjtdtii = $old_date; //Data Verification|Rej_date and time_I
+					$qarjtagti = $postagent1;
+					$qarjtdti = $postdate1;
+					
+					}
 
-					// $arr = explode("/", $pcomt);
-					// $firsts = $arr[0];
-// 		print_r($first);
-// exit();
+				}
+					$pcomt= "QA:".$_SESSION['empcode'].":".$old_date."#".$_POST['pcomt'];
 
+					
 				$datacdcandlead = array(
-				'cdcrjfields' => $mychecked2,
+				'dvrejectreason' => $mychecked2,
 				// tag
-				// 'ontag' => 0, // Submit and 0 = new, 1 = needs to be reworked
-				'cdcsv' => $cdcsv, //  Submit till 5 times
-				'cdcsvagti' => $cdcsvagti, 
-				'cdcsvdti' => $cdcsvdti, 
-				'rlc' => '0', // record is closed
-				'cdcrjt' => $cdcrjt, 
-				'cdcsb' => $cdcsb, 
-				 'ontag' => $ontag, 
-				'cdcload' => $cdcload, //  next level
-				'evload' => $evload, //  next level
-			
-				// 'svagtidi' => '1' // save Agent Name
-				// 'svdti' => '1' // save date time
-			
-				'cdcsbagti' => $cdcsbagti, // submit agent name 
-				'cdcrjtagti' => $cdcrjtagti, // submit agent name 
-				'cdcsbdti' => $cdcsbdti,  // submit date time
-				'cdcrjtdti' => $cdcrjtdti, // Data Verification|Rej_date and time_I
-
-				'cdcsbagtii' => $cdcsbagtii, // submit agent name 
-				'cdcrjtagtii' => $cdcrjtagtii, // submit agent name 
-				'cdcsbdtii' => $cdcsbdtii,  // submit date time
-				'cdcrjtdtii' => $cdcrjtdtii, // Data Verification|Rej_date and time_I
-
-
-				'dvcomt' => 1, //accept/rejection by cdc
-				'pcomt' => $pcomt, //accept/rejection by cdc
-				 'optin' => $_POST['optin'],
-				'optpst' => $_POST['optpst'],
-				'optph' => $_POST['optph'],
-				'opteml' => $_POST['opteml'],
-				'dnd' => $_POST['dnd'],
 				
-
-				'aa1' => $_POST['aa1'],
-				'aa2' => $_POST['aa2'],
-				'aa3' => $_POST['aa3'],
-				'aa4' => $_POST['aa4'],
-				'aa5' => $_POST['aa5'],
-				'aa6' => $_POST['aa6'],
-				'aa7' => $_POST['aa7'],
-				'aa8' => $_POST['aa8'],
-				'aa9' => $_POST['aa9'],
-				'aa10' => $_POST['aa10'],
-				'aa11' => $_POST['aa11'],
-				'aa12' => $_POST['aa12']
-
-
-			
+				'rlc' => '0', // record is closed
+				
+				'cdcload' => '0', //  next level
+				'evload' => '1', //  next level
+				'qarjtagti' => $qarjtagti, // submit agent name 
+				'qarjtdti' => $qarjtdti, // Data Verification|Rej_date and time_I
+				'qarjtagtii' => $qarjtagtii, // submit agent name 
+				'qarjtdtii' => $qarjtdtii, // Data Verification|Rej_date and time_I
+				'qastat' => 'pending', //accept/rejection by cdc
+				'qadcrej' => '1', //qa data rejection
+				'pcomt' => $pcomt 
+				
 								
 				);
-			// 	print_r($lmid); echo "Hiii";
-			// 	print_r($_POST['cdcsv']); echo "Hiii";
-			//   print_r($datacdcandlead);
-			 
+			
+			    // exit();
+			
+				$addleadandcdcdata = $this->Administrator_Model->update_leaddata($datacdcandlead,$lmid);
+				// $addleadandcdcdatacomment = $this->Administrator_Model->update_leaddatacomment( $_POST['pcomt'],$lmid);
+				// print_r($addcampaigndata);  die;
+				
+				// exit();
+				if($addleadandcdcdata == true){
+			
+					echo json_encode(array(
+						"statusCode"=>"Success",
+						// "lead_id"=>$addleadandcdcdata,
+						"message"=>"Data Verified Successfully.."
+					));
+				}else{
+					echo json_encode(array(
+						"statusCode"=>"Fail",
+						"message"=>"Lead failed.."
+					));
+				}
+								
+			
+		}
+
+		public function ajax_update_qatorej_disq()
+		{
+			
+			
+			$campaign_id = $_POST['campaign_id'];
+			$cids = $_POST['campaign_idcids'];
+			
+			$lmid = $_POST['lmid'];
+			$checked = $_POST['checked'];
+			
+			// print_r($_POST['checked']);
+			// // exit();
+			
+				$old_date = date('Y-m-d H:i:s');         // works
+				$middle = strtotime($old_date);             // returns bool(false)
+				$new_date = date('Y-m-d H:i:s', $middle);
+
+		
+			if(!isset($_SESSION['empcode'])){
+				
+			
+				redirect('administrator/logout');
+				Exit();
+			}
+
+			if(!empty($_POST['qarjtagti']))
+			{
+				$postagent1 =  $_POST['qarjtagti'];
+			} else{
+			$postagent1 = NULL;
+			}
+			if(!empty($_POST['qarjtdti']))
+			{
+				$postdate1 =  $_POST['qarjtdti'];
+			} else{
+			$postdate1 = NULL;
+			}
+
+			if(!empty($_POST['qarjtagtii']))
+			{
+				$postagent2 =  $_POST['qarjtagtii'];
+			} else{
+			$postagent2 = NULL;
+			}
+			if(!empty($_POST['qarjtdtii']))
+			{
+				$postdate2 =  $_POST['qarjtdtii'];
+			} else{
+			$postdate2 = NULL;
+			}
+
+			$mychecked2 = implode(',', $checked);
+			
+
+				// print_r($_POST['dvsbtg']);exit();
+				if($mychecked2 == "0"){  // Accept
+				
+					exit();
+				}else{				
+
+					if(empty($_POST['qarjtdti'])){
+					$qarjtagti = $_SESSION['empcode'];
+					
+					$qarjtagtii = $postagent1;
+					$qarjtdtii = $postdate1;
+					
+					}else{
+					$qarjtagtii = $_SESSION['empcode'];
+					
+					$qarjtdtii = $old_date; //Data Verification|Rej_date and time_I
+					$qarjtagti = $postagent1;
+					$qarjtdti = $postdate1;
+					
+					}
+
+				}
+				$qasvdti = $old_date;	
+				$qasvagti = $_SESSION['empcode'];
+					$pcomt= "QA:".$_SESSION['empcode'].":".$old_date."#".$_POST['pcomt'];
+
+					
+				$datacdcandlead = array(
+				'dvrejectreason' => $mychecked2,
+				// tag
+				
+				'rlc' => '0', // record is closed
+				
+				'cdcload' => '0', //  next level
+				'evload' => '1', //  next level
+				'qarjtagti' => $qarjtagti, // submit agent name 
+				'qarjtdti' => $qarjtdti, // Data Verification|Rej_date and time_I
+				'qarjtagtii' => $qarjtagtii, // submit agent name 
+				'qarjtdtii' => $qarjtdtii, // Data Verification|Rej_date and time_I
+				'qastat' => 'disqualified', //accept/rejection by cdc
+				'qasv' => 0,
+				'qasvagti' => $qasvagti, 
+				'qasvdti' => $qasvdti,
+				'qadcrej' => '1', //qa data rejection
+				'pcomt' => $pcomt 
+				
+								
+				);
+			
 			    // exit();
 			
 				$addleadandcdcdata = $this->Administrator_Model->update_leaddata($datacdcandlead,$lmid);
@@ -3459,7 +3549,7 @@
 				$pcomt= "CDC:".$_SESSION['empcode'].":".$old_date."#".$_POST['pcomt'];
 
 				$datacdcandlead = array(
-				'cdcrjfields' => $mychecked2,
+				'dvrejectreason' => $mychecked2,
 				'pcomt' => $pcomt,
 				
 				// tag
@@ -3547,7 +3637,7 @@
 			$cids = $_POST['campaign_idcids'];
 			
 			$lmid = $_POST['lmid'];
-			$checked = $_POST['checked'];
+			// $checked = $_POST['checked'];
 			$qasv = $_POST['qasv'];
 		
 		
@@ -3567,45 +3657,18 @@
 				redirect('administrator/logout');
 				Exit();
 			}
-
-
-			if(!empty($_POST['lcalldisp'])|| ($_POST['lcalldisp'] =='0'))
-			{
-				$lcalldisp =  $_POST['lcalldisp'];
-			} else{
-			$lcalldisp = NULL;
-			}
+			// $mychecked2 = implode(',', $checked);
 			
-			if(!empty($_POST['lcallstat']) || ($_POST['lcallstat'] =='0') )
-			{
-				$lcallstat =  $_POST['lcallstat'];
-			} else{
-			$lcallstat = NULL;
-			}
-
-	
-			if(!empty($_POST['cdclst']) || ($_POST['cdclst'] =='0') )
-			{
-				$cdclst =  $_POST['cdclst'];
-			} else{
-			$cdclst = NULL;
-			}
+			// if($mychecked2 == "0"){  // Accept
 			
-			$ddispositionclass = $_POST['ddispositionclass'];
-			$cvr = $_POST['cvr'];
 			
-			$mychecked2 = implode(',', $checked);
-			
-			if($mychecked2 == "0"){  // Accept
-			
-				$dvstat ="1"; //Data Verification|Tag for On Accept / Reject /Discard
 			
 				
-			}else{
-				// $dvload = "0"; // Reject
-				$dvstat ="2";
+			// }else{
+			// 	 // Reject
 			
-			}
+			
+			// }
 
 			if($qasv == 0){
 				$qasvdti = $old_date;	
@@ -3618,31 +3681,18 @@
 				$pcomt= "CDC:".$_SESSION['empcode'].":".$old_date."#".$_POST['pcomt'];
 
 				$datacdcandlead = array(
-				'cdcrjfields' => $mychecked2,
+			
 				'pcomt' => $pcomt,
 				
 				// tag
 		
 				'qasv' => 0, //  Submit till 5 times
 				'qasvagti' => $qasvagti, 
-				'qasvdti' => $qasvdti, 
+				'qasvdti' => $qasvdti,
 				
-				'lcalldisp' => $lcalldisp, 
-				'lcallstat' => $lcallstat, 
-				'cvr' => $cvr, 
-				'ddispositionclass' => $ddispositionclass, 
-				'cdclst' => $cdclst, 
-
-
-				'cdcload' => '0', // next level ready to load
-				'rlc' => '0', // record is closed
+				'rlc' => '0' // record is closed
 				
-				'dvcomt' => 1, //accept/rejection by cdc
-				 'optin' => $_POST['optin'],
-				'optpst' => $_POST['optpst'],
-				'optph' => $_POST['optph'],
-				'opteml' => $_POST['opteml'],
-				'dnd' => $_POST['dnd']
+				
 						
 				);
 			// 	print_r($lmid); echo "Hiii";

@@ -164,6 +164,55 @@ $(document).ready(function() {
 
   $("#gotoupdate").on('click', function() 
         {
+
+          // var rlc = 0; //lock 1
+          //   var lmid = $('#lmid').val();
+          //   var emp_id = $('#emp_id').val();
+          //   // $this->session -> userdata('email')
+          //   if(emp_id === undefined){
+          //               window.location = base_url+"administrator/logout";
+          //               exit;
+          //     }
+          //   if(emp_id == ''){
+          //     window.location = base_url+"administrator/logout";
+          //     exit;
+          //   }
+          //   // alert(emp_id);
+          //   if(rlc == "0"){
+          //   var urlq = '<?php echo base_url("cdc/updaterecordlock");?>';
+          //   console.log(urlq+'?lmid='+lmid+"&rlc="+rlc+"&emp_id="+emp_id);
+          //   $.ajax({
+          //         url:'<?php echo base_url("cdc/updaterecordlock");?>',
+          //         method: 'get',
+          //         data: {
+          //           lmid: lmid,
+          //           rlc:rlc,
+          //           emp_id:emp_id
+          //         },
+          //         dataType: 'json',
+          //         success: function(response){
+
+          //           console.log("check");
+          //                       // var dataResult = JSON.parse(response);
+          //                       if(response.statusCode == "Success") 
+          //                       {         
+          //                         // alert("Success in success");
+          //                         console.log("Record is opened/locked now");     
+                                  
+          //                       }else if(response.data=="Fail")
+          //                       {
+          //                         alert("fail/check if record is already opened");  
+                                    
+          //                       }
+          //         }
+          //     });
+          //   }else{
+          //     alert("record already opened");
+          //     // top.location.href=base_url+"cdc/selectCampaignforlead";//redirection
+          //   }
+
+
+
           window.location = base_url+"cdc/cdcform?rec_type_id=2&camp_id=<?php echo $_SESSION['campaign_id']; ?>&lmid=<?php echo $ldmster['lmid']; ?>&empcode=<?php echo $_SESSION['empcode']; ?>";
         }
   )
@@ -1159,21 +1208,21 @@ $.ajax({
                           <div class="form-group row optindiv">
                                        
                                        <div class="col-sm-2">
-                                        Opt - in  <input type="checkbox" value=""  id="optin" name="optin" class="js-single optin"  />
+                                       Opt - in  <input type="checkbox" <?php if($ldmster['optin'] == '1'){ echo "checked" ; } ?> value=""  id="optin" name="optin" class="js-single optin"  />
                                         </div>
                                         <div class="col-sm-2 optoption">
-                                        Opt - in Post  <input type="checkbox" value="" id="optpst" name="optpst" class="js-single"  />
+                                        Opt - in Post  <input type="checkbox" <?php if($ldmster['optpst'] == '1'){ echo "checked" ; } ?>  value="" id="optpst" name="optpst" class="js-single"  />
                                         </div>
                                        
                                         <div class="col-sm-2 optoption">
-                                        Opt - in Phone <input type="checkbox" value=""  id="optph" name="optph" class="js-single"  />
+                                        Opt - in Phone <input type="checkbox" <?php if($ldmster['optph'] == '1'){ echo "checked" ; } ?> value=""  id="optph" name="optph" class="js-single"  />
                                         </div>
                                         
                                         <div class="col-sm-2 optoption">
-                                        Opt - in Email <input type="checkbox" value="" id="opteml" name="opteml" class="js-single"  />
+                                        Opt - in Email <input type="checkbox" <?php if($ldmster['opteml'] == '1'){ echo "checked" ; } ?> value="" id="opteml" name="opteml" class="js-single"  />
                                         </div>
                                         <div class="col-sm-2 optoption">
-                                        DND <input type="checkbox" value="" id="dnd" name="dnd" class="js-single dnd"  />
+                                        DND <input type="checkbox" <?php if($ldmster['dnd'] == '1'){ echo "checked" ; } ?> value="" id="dnd" name="dnd" class="js-single dnd"  />
                                         </div>
                          </div>
                        
@@ -1237,7 +1286,7 @@ $.ajax({
                               <button type="submit" name="leadupdatecdc" class="btn btn-primary leaddisplay" style=""  id="leadupdatecdc">Accept & Submit</button> 
                              
                              
-                              <button type="submit" name="leadsavecdc" class="btn btn-primary leaddisplay" style="margin-left:50px"  id="leadsavecdc">Save </button> 
+                              <button type="submit" name="leadsavecdc" class="btn btn-primary leaddisplay" style="margin-left:50px"  id="leadsavecdc">Skip </button> 
                              </center>
                         <?php } else{ ?>
                           <!-- <button type="submit" name="" class="btn btn-primary leaddisplay" style=""  id="">Limit Crossed</button>  -->

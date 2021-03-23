@@ -503,11 +503,11 @@ $.ajax({
                         <input type = hidden name="campaign_idcids" id="campaign_idcids" value="<?php echo $campaign['cids']; ?>">
                         
                         <button type="submit" name="leadsubmit" class="btn btn-primary leaddisplay" style=""  id="leadsubmit">Submit </button> 
-                        <button type="submit" name="leadsave" class="btn btn-primary leaddisplay" style=""  id="leadsave">Save </button> 
+                        <button type="submit" name="leadsave" class="btn btn-primary leaddisplay" style=""  id="leadsave">Skip </button> 
                         <!-- <input class="submit" class ="" type="submit" value="SUBMIT"> -->
                         <!-- below buttons are for cdqa save and submit -->
                         <button type="submit" name="submit" class="btn btn-primary cdqadisplay"   id="cdqasubmit">Submit  </button> 
-                        <button type="submit" name="submit" class="btn btn-primary cdqadisplay"  id="cdqasave">Save  </button> 
+                        <button type="submit" name="submit" class="btn btn-primary cdqadisplay"  id="cdqasave">Skip  </button> 
                        
 
                     </div>

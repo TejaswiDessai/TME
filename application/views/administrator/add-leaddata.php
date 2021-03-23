@@ -255,7 +255,7 @@ $(document).ready(function() {
                                 </select>
                             </div>
                             <div class="col-sm-2">
-                                <input type="text"  name="fname" id="fname"  placeholder="First Name"   class="form-control form-control-sm cdqadisable  
+                                <input type="text"  name="fname" id="fname"  placeholder="First Name" autocomplete = "off"  class="form-control form-control-sm cdqadisable  
                                 <?php
                                  if(isset($ldmster) && in_array('fname',$dvrejectreason)) { echo "form-bg-inverse" ; } 
                                  ?>"                             
@@ -265,14 +265,14 @@ $(document).ready(function() {
                             </div>
                             
                             <div class="col-sm-2">
-                                <input type="text"  name="lname" id="lname"  placeholder="Last Name" value ="<?php if(isset($ldmster)){  echo $ldmster['lname']; }?>"   class="form-control form-control-sm cdqadisable
+                                <input type="text"  name="lname" id="lname" autocomplete = "off" placeholder="Last Name" value ="<?php if(isset($ldmster)){  echo $ldmster['lname']; }?>"   class="form-control form-control-sm cdqadisable
                                 <?php
                                  if(isset($ldmster) && in_array('lname',$dvrejectreason)) { echo "form-bg-inverse" ; } 
                                  ?>">
                                 <span style='color:#FF0000' id="lname_msg"></span>
                             </div>
                             <div class="col-sm-3">
-                                <input type="text"  name="jtitle" id="jtitle"  placeholder="Job Title" value ="<?php if(isset($ldmster)){  echo $ldmster['jtitle']; }?>"  class="form-control form-control-sm cdqadisable
+                                <input type="text"  name="jtitle" id="jtitle" autocomplete = "off"  placeholder="Job Title" value ="<?php if(isset($ldmster)){  echo $ldmster['jtitle']; }?>"  class="form-control form-control-sm cdqadisable
                                 <?php
                                  if(isset($ldmster) && in_array('jtitle',$dvrejectreason)) { echo "form-bg-inverse" ; } 
                                  ?>">
@@ -320,7 +320,7 @@ $(document).ready(function() {
                             </div> 
                             <div class="col-sm-2">
                                 <div class="newsletter-signup">
-                                <input type="text"  name="email" id="email" value ="<?php if(isset($ldmster)){  echo $ldmster['email']; }?>"  placeholder="Email"  class="form-control form-control-sm cdqadisable
+                                <input type="text"  name="email" id="email" autocomplete = "off" value ="<?php if(isset($ldmster)){  echo $ldmster['email']; }?>"  placeholder="Email"  class="form-control form-control-sm cdqadisable
                                 <?php
                                  if(isset($ldmster) && in_array('email',$dvrejectreason)) { echo "form-bg-inverse" ; } 
                                  ?>">
@@ -328,28 +328,28 @@ $(document).ready(function() {
                                 <span style='color:#FF0000' id="email_msg"></span>
                             </div>
                             <div class="col-sm-2">
-                                <input type="text"  name="phone" id="phone" value ="<?php if(isset($ldmster)){  echo $ldmster['phone']; }?>" placeholder="Phone" maxlength="15"  class="form-control form-control-sm cdqadisable
+                                <input type="text"  name="phone" id="phone" autocomplete = "off" value ="<?php if(isset($ldmster)){  echo $ldmster['phone']; }?>" placeholder="Phone" maxlength="15"  class="form-control form-control-sm cdqadisable
                                 <?php
                                  if(isset($ldmster) && in_array('phone',$dvrejectreason)) { echo "form-bg-inverse" ; } 
                                  ?>">
                                 <span style='color:#FF0000' id="phone_msg"></span>
                             </div>
                             <div class="col-sm-2">
-                                <input type="text"  name="altphn" id="altphn" value ="<?php if(isset($ldmster)){  echo $ldmster['altphn']; }?>" placeholder="Alternate Phone Number" maxlength="10"  class="form-control form-control-sm cdqadisable
+                                <input type="text"  name="altphn" id="altphn" autocomplete = "off"  value ="<?php if(isset($ldmster)){  echo $ldmster['altphn']; }?>" placeholder="Alternate Phone Number" maxlength="10"  class="form-control form-control-sm cdqadisable
                                 <?php
                                  if(isset($ldmster) && in_array('altphn',$dvrejectreason)) { echo "form-bg-inverse" ; } 
                                  ?>">
                             </div>
                             
                             <div class="col-sm-2">
-                                <input type="text"  name="phext" id="phext" value ="<?php if(isset($ldmster)){  echo $ldmster['phext']; }?>" placeholder="Extension" maxlength="5"  class="form-control form-control-sm cdqadisable
+                                <input type="text"  name="phext" id="phext" autocomplete = "off"  value ="<?php if(isset($ldmster)){  echo $ldmster['phext']; }?>" placeholder="Extension" maxlength="5"  class="form-control form-control-sm cdqadisable
                                 <?php
                                  if(isset($ldmster) && in_array('phext',$dvrejectreason)) { echo "form-bg-inverse" ; } 
                                  ?>">
                             </div>
                             <div class="col-sm-2">
                           
-                                <input type="text"  name="plink" id="plink"  placeholder="Prospect Link"  class="form-control form-control-sm 
+                                <input type="text"  name="plink" id="plink" autocomplete = "off"  placeholder="Prospect Link"  class="form-control form-control-sm 
                                 <?php
                                  if(isset($ldmster) && in_array('plink',$dvrejectreason)) { echo "form-bg-inverse" ; } 
                                  ?>" value ="<?php if(isset($ldmster)){  echo $ldmster['plink']; }?>" >
@@ -385,7 +385,7 @@ $(document).ready(function() {
                                 <?php endforeach; ?> 
                                </select>
                                <?php } else{ ?>
-                                <input type="text"  name="company_name" id="company_name"  placeholder="Company Name"  class="form-control form-control-sm cdqadisable <?php
+                                <input type="text" autocomplete = "off"   name="company_name" id="company_name"  placeholder="Company Name"  class="form-control form-control-sm cdqadisable <?php
                                  if(isset($ldmster) && in_array('company_name',$dvrejectreason)) { echo "form-bg-inverse" ; } 
                                  ?>"  value ="<?php if(isset($ldmster)){  echo $ldmster['cname']; }?>">
                              <?php  } ?>
@@ -406,26 +406,26 @@ $(document).ready(function() {
 
 
                             <div class="col-sm-2">
-                                <input type="text"  name="address" id="address"  placeholder="Address"  value ="<?php if(isset($ldmster)){  echo $ldmster['address']; }?>"
+                                <input type="text"  name="address" autocomplete = "off" id="address"  placeholder="Address"  value ="<?php if(isset($ldmster)){  echo $ldmster['address']; }?>"
                                  class="form-control form-control-sm cdqadisable <?php
                                  if(isset($ldmster) && in_array('address',$dvrejectreason)) { echo "form-bg-inverse" ; } 
                                  ?>">
                            </div>
                            <div class="col-sm-2">
-                                <input type="text"  name="city" id="city"  placeholder="City" value ="<?php if(isset($ldmster)){  echo $ldmster['city']; }?>"   class="form-control form-control-sm cdqadisable
+                                <input type="text"  name="city" id="city" autocomplete = "off"  placeholder="City" value ="<?php if(isset($ldmster)){  echo $ldmster['city']; }?>"   class="form-control form-control-sm cdqadisable
                                 <?php
                                  if(isset($ldmster) && in_array('city',$dvrejectreason)) { echo "form-bg-inverse" ; } 
                                  ?>">
                            </div>
                            <div class="col-sm-2">
-                                <input type="text"  name="state" id="state"  placeholder="State" value ="<?php if(isset($ldmster)){  echo $ldmster['state']; }?>" class="form-control form-control-sm cdqadisable
+                                <input type="text"  name="state" id="state" autocomplete = "off"   placeholder="State" value ="<?php if(isset($ldmster)){  echo $ldmster['state']; }?>" class="form-control form-control-sm cdqadisable
                                 <?php
                                  if(isset($ldmster) && in_array('state',$dvrejectreason)) { echo "form-bg-inverse" ; } 
                                  ?>">
                                 </select>
                             </div>
                             <div class="col-sm-2">
-                                <input type="text"  name="zip_code" id="zip_code"  placeholder="Zip Code" value ="<?php if(isset($ldmster)){  echo $ldmster['zipcode']; }?>" class="form-control form-control-sm cdqadisable
+                                <input type="text"  name="zip_code" id="zip_code" autocomplete = "off"  placeholder="Zip Code" value ="<?php if(isset($ldmster)){  echo $ldmster['zipcode']; }?>" class="form-control form-control-sm cdqadisable
                                 <?php
                                  if(isset($ldmster) && in_array('zip_code',$dvrejectreason)) { echo "form-bg-inverse" ; } 
                                  ?>">
@@ -538,7 +538,7 @@ $(document).ready(function() {
                     <div class="form-group row">
                         <div class="col-sm-2">
                         <div class="tooltips">
-                          <input  type="text"  name="empsize" id="empsize" maxlength="6" value ="<?php if(isset($ldmster)){  echo $ldmster['empsize']; }?>" placeholder="Actual Employee Size"  
+                          <input  type="text" autocomplete = "off"  name="empsize" id="empsize" maxlength="6" value ="<?php if(isset($ldmster)){  echo $ldmster['empsize']; }?>" placeholder="Actual Employee Size"  
                                 class="form-control form-control-sm cdqadisable <?php
                                  if(isset($ldmster) && in_array('empsize',$dvrejectreason)) { echo "form-bg-inverse" ; } 
                                  ?>">
@@ -552,7 +552,7 @@ $(document).ready(function() {
                             </div>
                             <div class="col-sm-2">
                               <div class="tooltips">
-                                <input type="text"  name="arevenue" id="arevenue" value ="<?php if(isset($ldmster)){  echo $ldmster['arevenue']; }?>"  maxlength="15" placeholder="Actual Revenue Size" 
+                                <input type="text" autocomplete = "off"  name="arevenue" id="arevenue" value ="<?php if(isset($ldmster)){  echo $ldmster['arevenue']; }?>"  maxlength="15" placeholder="Actual Revenue Size" 
                                  class="form-control form-control-sm cdqadisable <?php
                                  if(isset($ldmster) && in_array('arevenue',$dvrejectreason)) { echo "form-bg-inverse" ; } 
                                  ?>">
@@ -602,7 +602,7 @@ $(document).ready(function() {
                                 <?php endforeach; ?> 
                                </select>
                                <?php } else{ ?>
-                                <input type="text" value ="<?php if(isset($ldmster)){  echo $ldmster['domain']; }?>"   name="domain" id="domain"  placeholder="Domain" value="" 
+                                <input type="text" autocomplete = "off"  value ="<?php if(isset($ldmster)){  echo $ldmster['domain']; }?>"   name="domain" id="domain"  placeholder="Domain" value="" 
                                  class="form-control form-control-sm cdqadisable  <?php
                                  if(isset($ldmster) && in_array('domain',$dvrejectreason)) { echo "form-bg-inverse" ; } 
                                  ?>">
@@ -612,7 +612,7 @@ $(document).ready(function() {
                               </div>
                             
                             <div class="col-sm-2">
-                                <input type="text" value ="<?php if(isset($ldmster)){  echo $ldmster['empszlink']; }?>"  name="empszlink" id="empszlink" value=""   placeholder="Employee Size Link" 
+                                <input type="text" autocomplete = "off"  value ="<?php if(isset($ldmster)){  echo $ldmster['empszlink']; }?>"  name="empszlink" id="empszlink" value=""   placeholder="Employee Size Link" 
                                  class="form-control form-control-sm  <?php
                                  if(isset($ldmster) && in_array('empszlink',$dvrejectreason)) { echo "form-bg-inverse" ; } 
                                  ?>">
@@ -624,19 +624,19 @@ $(document).ready(function() {
                         <div class="form-group row">
                            
                         <div class="col-sm-2 ">
-                                <input type="text" value ="<?php if(isset($ldmster)){  echo $ldmster['indlink']; }?>"  name="indlink" 
+                                <input type="text" autocomplete = "off"  value ="<?php if(isset($ldmster)){  echo $ldmster['indlink']; }?>"  name="indlink" 
                                 id="indlink"  placeholder="Industry Link" value="" class="form-control form-control-sm <?php
                                  if(isset($ldmster) && in_array('indlink',$dvrejectreason)) { echo "form-bg-inverse" ; } 
                                  ?>">
                             </div>
                             <div class="col-sm-2">
-                                <input type="text"  name="revszlink" id="revszlink" value ="<?php if(isset($ldmster)){  echo $ldmster['revszlink']; }?>"     placeholder="Revenue Size Link"  
+                                <input type="text" autocomplete = "off"   name="revszlink" id="revszlink" value ="<?php if(isset($ldmster)){  echo $ldmster['revszlink']; }?>"     placeholder="Revenue Size Link"  
                                 class="form-control form-control-sm revsizehide <?php
                                  if(isset($ldmster) && in_array('revszlink',$dvrejectreason)) { echo "form-bg-inverse" ; } 
                                  ?>">
                             </div>
                             <div class="col-sm-2">
-                                <input type="text"  name="othrlink" id="othrlink" value ="<?php if(isset($ldmster)){  echo $ldmster['othrlink']; }?>" placeholder="Other Link"  
+                                <input type="text" autocomplete = "off"  name="othrlink" id="othrlink" value ="<?php if(isset($ldmster)){  echo $ldmster['othrlink']; }?>" placeholder="Other Link"  
                                 class="form-control form-control-sm <?php
                                  if(isset($ldmster) && in_array('othrlink',$dvrejectreason)) { echo "form-bg-inverse" ; } 
                                  ?>">
@@ -649,7 +649,7 @@ $(document).ready(function() {
                                 </select>
                             </div>
                             <div class="col-sm-2">
-                                <input type="text"  name="aum" id="aum" value ="<?php if(isset($ldmster)){  echo $ldmster['aum']; }?>" placeholder="Asset Under Management" 
+                                <input type="text" autocomplete = "off"  name="aum" id="aum" value ="<?php if(isset($ldmster)){  echo $ldmster['aum']; }?>" placeholder="Asset Under Management" 
                                  class="form-control form-control-sm aumdis <?php
                                  if(isset($ldmster) && in_array('aum',$dvrejectreason)) { echo "form-bg-inverse" ; } 
                                  ?>">
@@ -703,7 +703,7 @@ $(document).ready(function() {
                           <div class="form-group row" >
                              <div class="col-sm-12  comt">
                                 <label class="col-lable"><b>Comment</b></label>
-                                <input type="text"  name="pcomt" id="pcomt"  placeholder="Comment"  class="form-control form-control-sm" 
+                                <input type="text" autocomplete = "off"  name="pcomt" id="pcomt"  placeholder="Comment"  class="form-control form-control-sm" 
                                 value="<?php if(isset($ldmster['pcomt']) && $ldmster['pcomt'] != '') {
                                    $arr = explode("#", $ldmster['pcomt']);
                                   
@@ -733,7 +733,7 @@ $(document).ready(function() {
                           <div class="col-sm-12">
                              <center>
                               <button type="submit" name="leadupdate" class="btn btn-primary leaddisplay" style=""  id="leadupdate">Submit</button> 
-                              <button type="submit" name="leadsave" class="btn btn-primary leaddisplay" style="margin-left:50px"  id="leadsave">Save </button> 
+                              <button type="submit" name="leadsave" class="btn btn-primary leaddisplay" style="margin-left:50px"  id="leadsave">Skip </button> 
                             </center>
                             </div>
                         <?php } ?>
@@ -742,7 +742,7 @@ $(document).ready(function() {
                         <div class="col-sm-12">
                              <center>
                               <button type="submit" name="leadsubmit" class="btn btn-primary leaddisplay" style=""  id="leadsubmit">Submit </button> 
-                              <button type="submit" name="leadsave" class="btn btn-primary leaddisplay" style="margin-left:50px"  id="leadsave">Save </button> 
+                              <button type="submit" name="leadsave" class="btn btn-primary leaddisplay" style="margin-left:50px"  id="leadsave">Skip </button> 
                              </center>
                             </div>
                         <?php } ?>

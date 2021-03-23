@@ -1072,24 +1072,122 @@ $.ajax({
                             </div> 
                         </div>
                         <hr>
+                        <div class="form-group row">
+                        <div class="col-sm-2">
+                        <div class="to-do-list">
+                                        <div class="checkbox-fade fade-in-primary  col-sm-12">
+                                            <label class="check-task">
+                                                <input type="checkbox" name="cvr" id="cvr"  value="cvr">
+                                                <?php// foreach ($joblevel as $joblevel): ?>
+                                               <span  class="form-control form-control-sm cdqadisable tooltips">
+                                               <?php if($ldmster['cvr'] != "" && $ldmster['cvr'] == '1' ){ echo "Yes"; } else { echo "NO" ; } ?>
+                                               <span class="tooltiptext">Call Verified</span>
+                                                </span>
+                                                <?php// endforeach; ?>  
+                                            </label>
+                                        </div>
+                                  </div>
+
+                            </div>
+
+                        <div class="col-sm-2">
+
+                        <div class="to-do-list">
+                                        <div class="checkbox-fade fade-in-primary  col-sm-12">
+                                            <label class="check-task">
+                                                <input type="checkbox" name="lcalldisp" id="lcalldisp"  value="lcalldisp">
+                                                <?php// foreach ($joblevel as $joblevel): ?>
+                                               <span  class="form-control form-control-sm cdqadisable tooltips">
+                                               <?php if($ldmster['lcalldisp'] != "" ){ echo $ldmster['lcalldisp']; } else { echo "Call Disposition" ; } ?>
+                                               <span class="tooltiptext">Call Disposition</span>
+                                                </span>
+                                                <?php// endforeach; ?>  
+                                            </label>
+                                        </div>
+                                  </div>
+
+                         
+                            </div>
+                            <div class="col-sm-2">
+                            <div class="to-do-list">
+                                        <div class="checkbox-fade fade-in-primary  col-sm-12">
+                                            <label class="check-task">
+                                                <input type="checkbox" name="lcallstat" id="lcallstat"  value="lcallstat">
+                                                <?php// foreach ($joblevel as $joblevel): ?>
+                                               <span  class="form-control form-control-sm cdqadisable tooltips">
+                                               <?php if($ldmster['lcallstat'] != "" && $ldmster['lcallstat'] == '0' )
+                                               { 
+                                                 echo "On hold"; 
+                                              } else if($ldmster['lcallstat'] != "" && $ldmster['lcallstat'] == '1'){
+                                                echo "Call back"; 
+                                              }else if($ldmster['lcallstat'] != "" && $ldmster['lcallstat'] == '2'){
+                                                echo "complete"; 
+                                              }
+                                               else { echo "Empty" ; } ?>
+                                               <span class="tooltiptext">Call on hold/call back</span>
+                                                </span>
+                                                <?php// endforeach; ?>  
+                                            </label>
+                                        </div>
+                                  </div>
+
+                               
+                            </div>
+                            <div class="col-sm-2">
+                            <div class="to-do-list">
+                                        <div class="checkbox-fade fade-in-primary  col-sm-12">
+                                            <label class="check-task">
+                                                <input type="checkbox" name="ddispositionclass" id="ddispositionclass"  value="cvr">
+                                                <?php// foreach ($joblevel as $joblevel): ?>
+                                               <span  class="form-control form-control-sm cdqadisable tooltips">
+                                               <?php if($ldmster['ddispositionclass'] != "" && $ldmster['ddispositionclass'] == '1' ){ echo "Dead"; } else { echo "Live" ; } ?>
+                                               <span class="tooltiptext">Disposition Class</span>
+                                                </span>
+                                                <?php// endforeach; ?>  
+                                            </label>
+                                        </div>
+                                  </div>
+                              
+                            </div>
+                            <div class="col-sm-2">
+
+                            <div class="to-do-list">
+                                        <div class="checkbox-fade fade-in-primary  col-sm-12">
+                                            <label class="check-task">
+                                                <input type="checkbox" name="cdclst" id="cdclst"  value="cdclst">
+                                                <?php// foreach ($joblevel as $joblevel): ?>
+                                               <span  class="form-control form-control-sm cdqadisable tooltips">
+                                               <?php if($ldmster['cdclst'] != "" && $ldmster['cdclst'] == '1' ){ echo "Yes"; } else { echo "NO" ; } ?>
+                                               <span class="tooltiptext">CDC Lead Score Tag</span>
+                                                </span>
+                                                <?php// endforeach; ?>  
+                                            </label>
+                                        </div>
+                                  </div>
+                              
+                            </div>
+                            
+                          
+                       </div>
+                        <hr>
                           <div class="form-group row optindiv">
                                        
                                        <div class="col-sm-2">
-                                        Opt - in  <input type="checkbox" value=""  id="optin" name="optin" class="js-single optin"  />
+                                        Opt - in  <input type="checkbox" <?php if($ldmster['optin'] == '1'){ echo "checked" ; } ?> value=""  id="optin" name="optin" class="js-single optin"  />
                                         </div>
                                         <div class="col-sm-2 optoption">
-                                        Opt - in Post  <input type="checkbox" value="" id="optpst" name="optpst" class="js-single"  />
+                                        Opt - in Post  <input type="checkbox" <?php if($ldmster['optpst'] == '1'){ echo "checked" ; } ?>  value="" id="optpst" name="optpst" class="js-single"  />
                                         </div>
                                        
                                         <div class="col-sm-2 optoption">
-                                        Opt - in Phone <input type="checkbox" value=""  id="optph" name="optph" class="js-single"  />
+                                        Opt - in Phone <input type="checkbox" <?php if($ldmster['optph'] == '1'){ echo "checked" ; } ?> value=""  id="optph" name="optph" class="js-single"  />
                                         </div>
                                         
                                         <div class="col-sm-2 optoption">
-                                        Opt - in Email <input type="checkbox" value="" id="opteml" name="opteml" class="js-single"  />
+                                        Opt - in Email <input type="checkbox" <?php if($ldmster['opteml'] == '1'){ echo "checked" ; } ?> value="" id="opteml" name="opteml" class="js-single"  />
                                         </div>
                                         <div class="col-sm-2 optoption">
-                                        DND <input type="checkbox" value="" id="dnd" name="dnd" class="js-single dnd"  />
+                                        DND <input type="checkbox" <?php if($ldmster['dnd'] == '1'){ echo "checked" ; } ?> value="" id="dnd" name="dnd" class="js-single dnd"  />
                                         </div>
                          </div>
                        
@@ -1143,10 +1241,10 @@ $.ajax({
                           <input type = "hidden" name="cdcsbdti" id="cdcsbdti" value="<?php echo $ldmster['cdcsbdti']; ?>">
                           <input type = "hidden" name="cdcsbdtii" id="cdcsbdtii" value="<?php echo $ldmster['cdcsbdtii']; ?>">
 
-                          <input type = "hidden" name="cdcrjtagti" id="cdcrjtagti" value="<?php echo $ldmster['cdcrjtagti']; ?>">
-                          <input type = "hidden" name="cdcrjtagtii" id="cdcrjtagtii" value="<?php echo $ldmster['cdcrjtagtii']; ?>">
-                          <input type = "hidden" name="cdcrjtdti" id="cdcrjtdti" value="<?php echo $ldmster['cdcrjtdti']; ?>">
-                          <input type = "hidden" name="cdcrjtdtii" id="cdcrjtdtii" value="<?php echo $ldmster['cdcrjtdtii']; ?>">
+                          <input type = "hidden" name="qarjtagti" id="qarjtagti" value="<?php echo $ldmster['qarjtagti']; ?>">
+                          <input type = "hidden" name="qarjtagtii" id="qarjtagtii" value="<?php echo $ldmster['qarjtagtii']; ?>">
+                          <input type = "hidden" name="qarjtdti" id="qarjtdti" value="<?php echo $ldmster['qarjtdti']; ?>">
+                          <input type = "hidden" name="qarjtdtii" id="qarjtdtii" value="<?php echo $ldmster['qarjtdtii']; ?>">
                           <div class="form-group row col-sm-12" >
                             <div class="col-sm-4">
                             
@@ -1167,8 +1265,8 @@ $.ajax({
                               <!-- <button type="submit" name="leadupdateqa" class="btn btn-primary leaddisplay" style=""  id="leadupdateqa">Accept & Submit</button>  -->
                              </div>
                               <div class="col-sm-3">
-                              <!-- <button type="submit" name="leadsaveqa" class="btn btn-primary leaddisplay" style="margin-left:50px"  id="leadsaveqa">Save </button>  -->
-                              <button type="submit" name="leadsaveqa" class="btn btn-primary leaddisplay" style="margin-left:50px"  id="leadsaveqa">Save </button> 
+                              <!-- <button type="submit" name="leadsaveqa" class="btn btn-primary leaddisplay" style="margin-left:50px"  id="leadsaveqa">Skip </button>  -->
+                              <button type="submit" name="leadsaveqa" class="btn btn-primary leaddisplay" style="margin-left:50px"  id="leadsaveqa">Skip </button> 
                              <!-- </center> -->
                              </div>
                         <?php } else{ ?>
@@ -1946,9 +2044,13 @@ $.ajax({
   $('.leaddisplay').show(); //buttons
  
   // load questions of campaign on load 
-  $('.optoption').hide();
-    
-  $('.optin').change(function()
+  // $('.optoption').hide();
+  $('.optin').prop('disabled', true);
+  $('#optpst').prop('disabled', true);
+  $('#optph').prop('disabled', true);
+  $('#dnd').prop('disabled', true);
+  $('#opteml').prop('disabled', true);
+  $('#optin').change(function()
       {
         if ($('#optin').is(':checked')) {
             $('#optin').val("1");
@@ -2278,7 +2380,7 @@ $("input:checkbox").change(function() {
                 this.checked ? checked.push(this.id) : notChecked.push(this.id);
             });
 
-            // alert(checked);
+            alert(checked);
             
             var optin = $('#optin').val();
             var optpst = $('#optpst').val();
@@ -2343,11 +2445,11 @@ $("input:checkbox").change(function() {
 
           }
 
-            var cdcrjtdti = $('#cdcrjtdti').val();
-            var cdcrjtagti = $('#cdcrjtagti').val();
+            var qarjtdti = $('#qarjtdti').val();
+            var qarjtagti = $('#qarjtagti').val();
 
-            var cdcrjtdtii = $('#cdcrjtdtii').val();
-            var cdcrjtagtii = $('#cdcrjtagtii').val();
+            var qarjtdtii = $('#qarjtdtii').val();
+            var qarjtagtii = $('#qarjtagtii').val();
 
             var cdcsbdti = $('#cdcsbdti').val();
             var cdcsbagti = $('#cdcsbagti').val();
@@ -2361,90 +2463,25 @@ $("input:checkbox").change(function() {
             // var qasv = $('#qasv').val();
             var evload = $('#evload').val();
 
-            var aa1 = $('#aa1').val();
-            // alert(aa1);
-            var aa2 = $('#aa2').val();
-            var aa3 = $('#aa3').val();
-            var aa4 = $('#aa4').val();
-            var aa5 = $('#aa5').val();
-            var aa6 = $('#aa6').val();
-            var aa7 = $('#aa7').val();
-            var aa8 = $('#aa8').val();
-            var aa9 = $('#aa9').val();
-            var aa10 = $('#aa10').val();
-            var aa11 = $('#aa11').val();
-            var aa12 = $('#aa12').val();
            
-             if(aa1 == undefined)
-             {
-              var aa1 = null; 
-             }
-             if(aa2 == undefined)
-             {
-              var aa2 = null; 
-             }
-             if(aa3 == undefined)
-             {
-              var aa3 = null; 
-             }
-             if(aa4 == undefined)
-             {
-              var aa4 = null; 
-             }
-             if(aa5 == undefined)
-             {
-              var aa5= null; 
-             }
-             if(aa6 == undefined)
-             {
-              var aa6 = null; 
-             }
-             if(aa7 == undefined)
-             {
-              var aa7 = null; 
-             }
-             if(aa8 == undefined)
-             {
-              var aa8 = null; 
-             }
-             if(aa9 == undefined)
-             {
-              var aa9 = null; 
-             }
-             if(aa9 == undefined)
-             {
-              var aa9 = null; 
-             }
-             if(aa10 == undefined)
-             {
-              var aa10 = null; 
-             }
-             if(aa11 == undefined)
-             {
-              var aa11= null; 
-             }
-             if(aa12 == undefined)
-             {
-              var aa12= null; 
-             }
-
             var lmid = $('#lmid').val();
 
             var pcomt = $('#pcomt').val();
             var asendto = $('#asendto').val();
-            alert(asendto);
+            var rsendto = $('#rsendto').val();
+            // alert(asendto);
 
-          if(asendto == 1)
+          if(rsendto == 2)
           {
 
          
             // var url = encodeURI("<?php //echo base_url("cdc/ajax_update_datacdc");?>");
-            var url = encodeURI("<?php echo base_url("cdc/ajax_update_qatolead");?>");
+            var url = encodeURI("<?php echo base_url("cdc/ajax_update_qatodc");?>");
           
             console.log(url+"?campaign_id="+campaign_id+"&lmid="+lmid+"&campaign_idcids="+campaign_idcids+"&checked="+checked+"&qasv="+qasv+"&pcomt="+pcomt);
            
             $.ajax({
-               url :'<?php echo base_url("cdc/ajax_update_qatolead");?>',
+               url :'<?php echo base_url("cdc/ajax_update_qatodc");?>',
                 type: 'POST', 
                 // contentType: "application/json",
                 dataType: 'json',              
@@ -2453,42 +2490,17 @@ $("input:checkbox").change(function() {
                   campaign_id: campaign_id,
                   campaign_idcids: campaign_idcids,
                   lmid: lmid,
-                  qasv :qasv,
-                  cdcrjt :cdcrjt,
-                  cdcsb :cdcsb,
+                 
                   pcomt :pcomt,
                   checked:checked,
 
-                  cdcrjtdti:cdcrjtdti,
-                  cdcrjtagti:cdcrjtagti,
+                  qarjtdti:qarjtdti,
+                  qarjtagti:qarjtagti,
 
-                  cdcrjtagtii:cdcrjtagtii,
-                  cdcrjtdtii:cdcrjtdtii,
+                  qarjtagtii:qarjtagtii,
+                  qarjtdtii:qarjtdtii,
 
-                  cdcsbdti:cdcsbdti,
-                  cdcsbagti:cdcsbagti,
-                  cdcsbdtii:cdcsbdtii,
-                  cdcsbagtii:cdcsbagtii,
-                  evload:evload,
-
-                    optin:optin,
-                    optph:optph,
-                    opteml:opteml,
-                    optpst:optpst,
-                    dnd:dnd,
-                    aa1:aa1,
-                    aa2:aa2,
-                    aa3:aa3,
-                    aa4:aa4,
-                    aa5:aa5,
-                    aa6:aa6,
-                    aa7:aa7,
-                    aa8:aa8,
-                    aa9:aa9,
-                    aa10:aa10,
-                    aa11:aa11,
-                    aa12:aa12,
-                   
+                    
 				},
         async: true,
                 cache: false,
@@ -2518,6 +2530,129 @@ $("input:checkbox").change(function() {
               
             });
           }
+
+//start cdc
+          if(rsendto == 1)
+          {
+
+        
+            // var url = encodeURI("<?php //echo base_url("cdc/ajax_update_datacdc");?>");
+            var url = encodeURI("<?php echo base_url("cdc/ajax_update_qatoCDC");?>");
+          
+            console.log(url+"?campaign_id="+campaign_id+"&lmid="+lmid+"&campaign_idcids="+campaign_idcids+"&checked="+checked+"&qasv="+qasv+"&pcomt="+pcomt);
+           
+            $.ajax({
+               url :'<?php echo base_url("cdc/ajax_update_qatoCDC");?>',
+                type: 'POST', 
+                // contentType: "application/json",
+                dataType: 'json',              
+                data: {
+                   
+                  campaign_id: campaign_id,
+                  campaign_idcids: campaign_idcids,
+                  lmid: lmid,
+                 
+                  pcomt :pcomt,
+                  checked:checked,
+
+                  qarjtdti:qarjtdti,
+                  qarjtagti:qarjtagti,
+
+                  qarjtagtii:qarjtagtii,
+                  qarjtdtii:qarjtdtii,
+
+                    
+				},
+        async: true,
+                cache: false,
+                success: function(response){
+                    $("#leadsaveqa").hide();
+                    var text = response.statusCode;
+                    console.log("check");
+                    if(response.statusCode == "Success") 
+                    {         
+                         
+                        $("#leadupdateqa").html(response.message);
+                        top.location.href=base_url+"administrator/dashboard";//redirection
+                        // top.location.href=base_url+"cdc/dataverfication?camp_id="+<?php //echo $campaign['cnid']; ?>;//redirection
+                      
+                    }else if(response.data=="Fail")
+                    {
+                        $("#leadupdateqa").html(response.message);
+                        
+					          }
+
+                   
+
+                },
+                error: function (error) {
+                  alert("Error");
+                  }
+              
+            });
+          } //end cdc
+
+//rej-disqualify
+if(rsendto == 3)
+          {
+
+            var url = encodeURI("<?php echo base_url("cdc/ajax_update_qatorej_disq");?>");
+          
+            console.log(url+"?campaign_id="+campaign_id+"&lmid="+lmid+"&campaign_idcids="+campaign_idcids+"&checked="+checked+"&qasv="+qasv+"&pcomt="+pcomt);
+           
+            $.ajax({
+               url :'<?php echo base_url("cdc/ajax_update_qatorej_disq");?>',
+                type: 'POST', 
+                // contentType: "application/json",
+                dataType: 'json',              
+                data: {
+                   
+                  campaign_id: campaign_id,
+                  campaign_idcids: campaign_idcids,
+                  lmid: lmid,
+                 
+                  pcomt :pcomt,
+                  checked:checked,
+
+                  qarjtdti:qarjtdti,
+                  qarjtagti:qarjtagti,
+
+                  qarjtagtii:qarjtagtii,
+                  qarjtdtii:qarjtdtii,
+
+                    
+				},
+        async: true,
+                cache: false,
+                success: function(response){
+                    $("#leadsaveqa").hide();
+                    var text = response.statusCode;
+                    console.log("check");
+                    if(response.statusCode == "Success") 
+                    {         
+                         
+                        $("#leadupdateqa").html(response.message);
+                        top.location.href=base_url+"administrator/dashboard";//redirection
+                        // top.location.href=base_url+"cdc/dataverfication?camp_id="+<?php //echo $campaign['cnid']; ?>;//redirection
+                      
+                    }else if(response.data=="Fail")
+                    {
+                        $("#leadupdateqa").html(response.message);
+                        
+					          }
+
+                   
+
+                },
+                error: function (error) {
+                  alert("Error");
+                  }
+              
+            });
+          } //end rej-disqualify
+
+
+
         });
     });
 </script>

@@ -725,6 +725,26 @@ $.ajax({
 
 
                         <div class="form-group row optindiv">
+
+                        <div class="col-sm-2">
+                                        Opt - in  <input type="checkbox" <?php if($ldmster['optin'] == '1'){ echo "checked" ; } ?> value=""  id="optin" name="optin" class="js-single optin"  />
+                                        </div>
+                                        <div class="col-sm-2 optoption">
+                                        Opt - in Post  <input type="checkbox" <?php if($ldmster['optpst'] == '1'){ echo "checked" ; } ?>  value="" id="optpst" name="optpst" class="js-single"  />
+                                        </div>
+                                       
+                                        <div class="col-sm-2 optoption">
+                                        Opt - in Phone <input type="checkbox" <?php if($ldmster['optph'] == '1'){ echo "checked" ; } ?> value=""  id="optph" name="optph" class="js-single"  />
+                                        </div>
+                                        
+                                        <div class="col-sm-2 optoption">
+                                        Opt - in Email <input type="checkbox" <?php if($ldmster['opteml'] == '1'){ echo "checked" ; } ?> value="" id="opteml" name="opteml" class="js-single"  />
+                                        </div>
+                                        <div class="col-sm-2 optoption">
+                                        DND <input type="checkbox" <?php if($ldmster['dnd'] == '1'){ echo "checked" ; } ?> value="" id="dnd" name="dnd" class="js-single dnd"  />
+                                        </div>
+
+<!-- 
                                        
                                        <div class="col-sm-2">
                                         Opt - in  <input type="checkbox" value=""  id="optin" name="optin" class="js-single optin"  />
@@ -742,7 +762,7 @@ $.ajax({
                                         </div>
                                         <div class="col-sm-2 optoption">
                                         DND <input type="checkbox" value="" id="dnd" name="dnd" class="js-single dnd"  />
-                                        </div>
+                                        </div> -->
                          </div>
                        
 
@@ -788,7 +808,7 @@ $.ajax({
                           <div class="col-sm-12">
                              <center>
                               <button type="submit" name="leadupdatecdc" class="btn btn-primary leaddisplay" style=""  id="leadupdatecdc">Submit</button> 
-                              <button type="submit" name="leadsavecdc" class="btn btn-primary leaddisplay" style="margin-left:50px"  id="leadsavecdc">Save </button> 
+                              <button type="submit" name="leadsavecdc" class="btn btn-primary leaddisplay" style="margin-left:50px"  id="leadsavecdc">Skip </button> 
                             </center>
                             </div>
                         <?php } ?>
@@ -797,7 +817,7 @@ $.ajax({
                         <div class="col-sm-12">
                              <center>
                               <button type="submit" name="leadsubmitcdc" class="btn btn-primary leaddisplay" style=""  id="leadsubmitcdc">Submit </button> 
-                              <button type="submit" name="leadsavecdc" class="btn btn-primary leaddisplay" style="margin-left:50px"  id="leadsavecdc">Save </button> 
+                              <button type="submit" name="leadsavecdc" class="btn btn-primary leaddisplay" style="margin-left:50px"  id="leadsavecdc">Skip </button> 
                              </center>
                             </div>
                         <?php } ?>
@@ -1538,16 +1558,16 @@ var lmid = $('#lmid').val();
 var emp_id = $('#emp_id').val();
 // alert(emp_id);
 // $this->session -> userdata('email');
-if(emp_id === undefined){
+// if(emp_id === undefined){
   
-            window.location = base_url+"administrator/logout";
-            exit;
-  }
-if(emp_id == ''){
-  // alert("Null");
-  window.location = base_url+"administrator/logout";
-  exit;
-}
+//             window.location = base_url+"administrator/logout";
+//             exit;
+//   }
+// if(emp_id == ''){
+//   // alert("Null");
+//   window.location = base_url+"administrator/logout";
+//   exit;
+// }
 
 if(rlc == "1"){
 var urlq = '<?php echo base_url("cdc/updaterecordlock");?>';

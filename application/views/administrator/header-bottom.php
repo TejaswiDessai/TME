@@ -260,7 +260,7 @@ $userteam = explode(',',$userteam1);
         checkTime();
 
         function checkTime() {
-// console.log(timeSinceLastMove);
+console.log(timeSinceLastMove);
             timeSinceLastMove++;
 
             if (timeSinceLastMove > 10 * 60 ) {  //10 mints

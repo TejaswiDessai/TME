@@ -200,6 +200,25 @@ $(document).ready(function() {
                  <label class="col-lable"><b>Campaign Name: <?php echo $campaign['campnm']; ?></b></label>
                  <?php endforeach; ?>
                 </div> 
+
+                <div class="col-sm-1" style="margin-top: -25px;">
+                      <?php foreach ($leadmaster as $ldmster1){
+                        print_r($ldmster1['lmid']);
+                      } 
+                ?>
+                </div>
+                <div class="col-sm-2" style="margin-top: -25px;">
+                      <?php foreach ($leadmaster as $ldmster2){
+                        if(empty($ldmster2['stagtidii'])){
+                          // print_r($ldmster2['stagtidi']);
+                         echo "Submitted by ".$ldmster2['stagtidi'];
+                        }else{
+                          echo "Submitted by ".$ldmster2['stagtidii'];
+                     
+                        }
+                      } 
+                ?>
+                </div>
                 
             </div>   
                            
@@ -543,7 +562,7 @@ $(document).ready(function() {
                                           <div class="checkbox-fade fade-in-primary  col-sm-12">
                                               <label class="check-task">
                                                   <input type="checkbox" name="company_name" id="company_name"  value="company_name">
-                                                <span  class="form-control form-control-sm cdqadisable tooltips"><?php if(isset($ldmster['cname'])){  echo $ldmster['cname']; }else { echo "Comapny Name Empty" ;} ?>
+                                                <span  class="form-control form-control-sm cdqadisable tooltips"><?php if(isset($ldmster['cname']) && ($ldmster['cname'] !='')){  echo $ldmster['cname']; }else { echo "Comapny Name Empty" ;} ?>
                                                 <span class="tooltiptext">Company Name</span>
                                                 </span>
                                               </label>
@@ -1080,7 +1099,7 @@ $(document).ready(function() {
                               <button type="submit" name="leadupdatedv" class="btn btn-primary leaddisplay" style=""  id="leadupdatedv">Accept</button> 
                              
                              
-                              <button type="submit" name="leadsavedv" class="btn btn-primary leaddisplay" style="margin-left:50px"  id="leadsavedv">Save </button> 
+                              <button type="submit" name="leadsavedv" class="btn btn-primary leaddisplay" style="margin-left:50px"  id="leadsavedv">Skip </button> 
                              </center>
                         <?php } else{ ?>
                           <button type="submit" name="" class="btn btn-primary leaddisplay" style=""  id="">Limit Crossed</button> 

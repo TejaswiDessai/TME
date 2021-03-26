@@ -2649,4 +2649,87 @@ public function get_campaign_fordataverification()
 			$query = $this->db->get('ev');                       
 			return $query->result_array();
 		}
+
+		public function get_user_report_dc($campid,$user_id,$from,$to,$stage)
+		{
+			$this->db->select('*');
+			$this->db->from('users');
+			$this->db->where('users.cid_type', 'ME');
+			$this->db->where('users.status', 0);
+			// $this->db->join('leadmaster', 'users.empcode = leadmaster.stagtidi','left OR users.emp_id = leadmaster.dvagtidi OR users.empcode = leadmaster.dvagtidi','left');
+			// $this->db->join('campaign', 'campaign.cids = leadmaster.cids','left');
+			// if(isset($campid) && $campid != null)
+			// {
+			// 	$this->db->where('leadmaster.cids', $campid);
+			// }
+			// if(isset($stage) && $stage != null)
+			// {
+			// 	$this->db->where('leadmaster.aa10', $stage);
+			// }
+			// if(isset($stage) && $stage == 'datacollect')
+			// {
+			// 	// $this->db->where('leadmaster.sbsvtag >', 1);
+			// 	$this->db->where('leadmaster.stagtidi !=', null);
+			
+				
+			// }
+			// if(isset($stage) && $stage == 'Verified') // data verfied
+			// {
+			// 	$this->db->where('leadmaster.dvagtidi !=', null);
+			// 	$this->db->OR_where('leadmaster.dvragtidi !=', null);
+			// }
+			// if(isset($stage) && $stage == 'unverified')
+			// {
+			// 	$this->db->where('leadmaster.dvagtidi =', null);
+			// 	$this->db->where('leadmaster.dvragtidi =', null);
+			// }
+			// if(isset($stage) && $stage == 'Rejection')
+			// {
+			// 	$this->db->where('leadmaster.dvragtidi !=', null);
+			// }
+			// if(isset($stage) && $stage == 'Accepted')
+			// {
+			// 	$this->db->where('leadmaster.dvagtidi !=', null);
+			// }
+			// if(isset($stage) && $stage == 'pending')
+			// {
+			// 	$this->db->where('leadmaster.dvagtidi =', null);
+			// 	$this->db->where('leadmaster.dvragtidi =', null);
+			// }
+			if(isset($user_id) && $user_id != null)
+			{
+				$this->db->where('users.empcode', $user_id);
+			}
+			// if(isset($from) && isset($to) && $from != '' && $to != '')
+			// {
+			// 	$this->db->where('stdti >=', $from);
+			// 	$this->db->where('stdti <=', $to);
+			// }
+			// if(isset($from) && isset($to) && $from != '' && $to != '' && isset($stage) && $stage == 'Verified')
+			// {
+			// 	$this->db->where('stdti >=', $from);
+			// 	$this->db->where('stdti <=', $to);
+			// }
+			else
+			{
+				// $this->db->group_start();
+				// $this->db->where("stdti >= now()::date + interval '0h'");
+				// // $this->db->OR_where("svdti>= now()::date + interval '0h'");
+				// $this->db->group_end();
+			}
+			// $this->db->group_by('leadmaster.cids');
+			$this->db->group_by('users.fname');
+			$this->db->group_by('users.empcode');
+			$this->db->group_by('users.last_login');
+			// $this->db->group_by('leadmaster.lmid');
+			$this->db->group_by('users.id');
+			
+			// $this->db->group_by('campaign.cids');
+			// $this->db->group_by('campaign.campnm');
+			$query=$this->db->get();
+			// echo $this->db->last_query(); 
+			// show_error($this->db->last_query(), 200, "SQL");
+			return $data=$query->result_array();
+
+		}	
 }

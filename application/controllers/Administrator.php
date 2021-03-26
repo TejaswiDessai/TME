@@ -1864,7 +1864,15 @@ public function getPrivillage(){
 		$user_id =$this->input->post('user_id');
 		$stage =$this->input->post('stage');
 		$from =$this->input->post('from');
+		if($from == "")
+		{
+			$from = date('Y-m-d 00:00:00');
+		}
 		$to =$this->input->post('to');
+		if($to == "")
+		{
+			$to = date('Y-m-d H:i:s');
+		}
 		// Init Pagination
 		$this->pagination->initialize($config);
 	
@@ -1875,9 +1883,9 @@ public function getPrivillage(){
 		}else if($stage =='accepeted'){
 			$data['users'] = $this->Administrator_Model->get_user_reportfordvaccepted($campid,$user_id,$from,$to,$stage);
 		}else if($stage =='verified'){
-			$data['users'] = $this->Administrator_Model->get_user_reportfordvverified($campid,$user_id,$from,$to,$stage);
-		}else{
 			$data['users'] = $this->Administrator_Model->get_user_report($campid,$user_id,$from,$to,$stage);
+		}else{
+			$data['users'] = $this->Administrator_Model->get_user_report_dc($campid,$user_id,$from,$to,$stage);
 		}
 		
 		
@@ -1887,6 +1895,7 @@ public function getPrivillage(){
 		//  print_r($user_id);
 		$data['users_name'] = $this->Administrator_Model->get_users(FALSE, $config['per_page'], $offset);
 		$data['campaigns'] = $this->Administrator_Model->get_campaign();
+		$data['empcode'] = $this->session->userdata('empcode');
 		$data['user_id'] = $user_id;
 		$data['Campid'] = $campid;
 		$data['Stage'] = $stage;
@@ -1895,7 +1904,15 @@ public function getPrivillage(){
 		$this->load->view('administrator/header-script');
 		$this->load->view('administrator/header');
 		$this->load->view('administrator/header-bottom');
-		$this->load->view('administrator/user-report', $data);
+		if($stage == "verified")
+		{
+			$this->load->view('administrator/user-report', $data);
+		}
+		else
+		{
+			$this->load->view('administrator/user-report-dc', $data);
+		}
+
 		$this->load->view('administrator/footer');
 	}
 

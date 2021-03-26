@@ -38,6 +38,9 @@
     #navbar-logo{
         height: 6.5rem;
     }
+l    /* #navbar{
+        height: 01px;
+    } */
     </style>
     <script type="text/javascript">
     $(document).ready(function(){
@@ -326,6 +329,20 @@ document.getElementById("randomSelect").addEventListener("click", function() {
                                 </select>
                             </td>
                             <td>
+                                <select style="height:34px;" class="form-control form-control-default "  name="leadlimit" id="leadlimit">
+                                    <option value="5" <?php if( isset($leadlimit) && $leadlimit == "5") { echo "selected" ; } ?>>5</option>
+                                    <option value="10" <?php if( isset($leadlimit) && $leadlimit == "10") { echo "selected" ; } ?>>10</option>
+                                    <option value="15" <?php if( isset($leadlimit) && $leadlimit == "15") { echo "selected" ; } ?>>15</option>
+                                    <option value="20" <?php if( isset($leadlimit) && $leadlimit == "20") { echo "selected" ; } ?>>20</option>
+                                    <option value="25" <?php if( isset($leadlimit) && $leadlimit == "25") { echo "selected" ; } ?>>25</option>
+                                    <option value="30" <?php if( isset($leadlimit) && $leadlimit == "30") { echo "selected" ; } ?>>30</option>
+                                    <option value="35" <?php if( isset($leadlimit) && $leadlimit == "35") { echo "selected" ; } ?>>35</option>
+                                    <option value="40" <?php if( isset($leadlimit) && $leadlimit == "40") { echo "selected" ; } ?>>40</option>
+                                    <option value="45" <?php if( isset($leadlimit) && $leadlimit == "45") { echo "selected" ; } ?>>45</option>
+                                    <option value="50" <?php if( isset($leadlimit) && $leadlimit == "50") { echo "selected" ; } ?>>50</option>
+                                </select>
+                            </td>
+                            <td>
                                 <select style="height:34px;" class="form-control form-control-default "  name="email_sent_time" id="email_sent_time">
                                     <option value="">Select Time</option>
                                     <option value="1" <?php if( isset($email_sent_time) && $email_sent_time == "1") { echo "selected" ; } ?>>1 Hr Old</option>
@@ -362,7 +379,10 @@ document.getElementById("randomSelect").addEventListener("click", function() {
                             </td> -->
                             </tr>
                             <tr>
-                            <a href="#" id="randomSelect">Select random</a>
+                            <td>
+                            <!-- <a href="#" id="randomSelect"></a> -->
+                            <input type="checkbox" id="changeFormat"  />&nbsp;Change Email Format
+                            </td>
                             </tr>
                             </table>
                             </form>
@@ -392,8 +412,8 @@ document.getElementById("randomSelect").addEventListener("click", function() {
                                         <th>Email</th>
                                         <th>Change Format</th>
                                         <th>Status</th>
-                                        <th>Send To<br><input type="checkbox" class="emailsend_all" onclick="toggle(this);" /></th>
-                                        <th>Change Status<br><input type="checkbox" class="emailstatus_all" onclick="toggle(this);" /></th>
+                                        <th>Send To<br><input type="checkbox" class="emailsend_all  emailclass"  onclick="toggle(this);"/></th>
+                                        <th>Change Status<br><input type="checkbox" class="emailstatus_all emailstatus" onclick="toggle(this);" /></th>
                                         <th>Sent Timestamp</th>
                                         <th>Email Sent From</th>
                                         <th>Comments</th>
@@ -439,7 +459,7 @@ document.getElementById("randomSelect").addEventListener("click", function() {
                                         </td>
                                         <td>
                                         <!-- <input type="checkbox" name="email" id="email"  value="email"> -->
-                                        <input type="text" id="email_<?php echo $i;?>" value="<?php if(isset($search_email) && $search_email != null){ echo $search_email; }else if(isset($post)){  echo $post['email']; }else { echo "Email is Empty" ;} ?>">
+                                        <input type="text" id="email_<?php echo $i;?>" value="<?php if(isset($search_email) && $search_email != null){ echo $search_email; }else if(isset($post) && $Stage == "New"){  echo $post['email']; }else if(isset($post) && $Stage != "New"){  echo $post['evemail']; }else { echo "Email is Empty" ;} ?>">
                                         <?php //echo $post['email']; ?>
                                         </td>
                                         <td>
@@ -449,7 +469,7 @@ document.getElementById("randomSelect").addEventListener("click", function() {
 
                                         </td>
                                         <td>
-                                            <?php if(isset($post['closer_status'])){echo $post['closer_status'];} else { }?>
+                                            <?php if(isset($post['closer_status']) && $Stage == "New"){echo $post['closer_status'];} else if($Stage != "New") { echo $post['mailstatus']; } else {}?>
                                             <!-- <input type="checkbox" class ="emailclass" value="Close" name="email_close_<?php echo $i;?>" id="email_close_<?php echo $i;?>"><?php //echo $i;?> -->
                                             
                                         </td>
@@ -458,7 +478,7 @@ document.getElementById("randomSelect").addEventListener("click", function() {
                                             <input type="checkbox" class ="emailclass checkbox_emailclass" value="<?php echo $i;?>" name="email_list_<?php echo $i;?>" id="email_list_<?php echo $i;?>"><?php //echo $i;?>
                                         </td>
                                         <td>
-                                            <input type="checkbox" class ="emailstatus checkbox_emailstatus"  value="<?php echo $post['lmid'];?>" name="email_status_<?php echo $i;?>" id="email_status_<?php echo $i;?>"><?php //echo $i;?>
+                                            <input type="checkbox" class ="emailstatus checkbox_emailstatus"  value="<?php echo $i;?>" name="email_list_<?php echo $i;?>" id="email_list_<?php echo $i;?>"><?php //echo $i;?>
                                         </td>
                                         <td>
                                             <?php 
@@ -486,14 +506,14 @@ document.getElementById("randomSelect").addEventListener("click", function() {
                 </div>
                 <!-- DOM/Jquery table end -->
                 <div class="form-group row">
-                <div class="col-sm-2">
-                    <input class="btn btn-primary" type="button"  id="send_email" value="Send Email">
-                    </div>
                     <div class="col-sm-2">
-                    <input class="btn btn-primary" type="button" id="update_email" value="Update Email">
+                        <input class="btn btn-primary" type="button"  id="send_email" value="Send Email">
                     </div>
-                    <div class="col-sm-2">
-                    <select style="width:200px;height:34px;" class="form-control form-control-default "  name="email_status" id="email_status">
+                    <!-- <div class="col-sm-2">
+                        <input class="btn btn-primary" type="button" id="update_email" value="Update Email">
+                    </div> -->
+                    <!-- <div class="col-sm-2">
+                        <select style="width:200px;height:34px;" class="form-control form-control-default "  name="email_status" id="email_status">
                         <option value="">Change Status</option>
                         <option value="Test Mail Sent" >Test Mail Sent</option>
                         <option value="Bounced" >Bounced</option>
@@ -505,12 +525,48 @@ document.getElementById("randomSelect").addEventListener("click", function() {
                         <option value="Dead contact" >Dead contact</option>
                         <option value="Incorrect Info" >Incorrect Info</option>
                         <option value="Refused" >Refused</option>
-                    </select>
+                        </select>
+                    </div> -->
+                    <!-- <div class="col-sm-2">
+                        <textarea id="comment" placeholder="Enter comment"></textarea>
+                    </div> -->
+                    <!-- <div> -->
+                    <!-- <label>Closer Status</label> -->
+                        <!-- <select style="height:34px;" class="form-control form-control-default "  name="email_close_status" id="email_close_status">
+                            <option value="">Closer Status</option>
+                            <option value="New" >New</option>
+                            <option value="Open">Open</option>
+                            <option value="Closed" >Closed</option>
+                            
+                        </select>
+                    </div> -->
+                </div>
+                
+
+                <!--  -->
+
+                 <!-- DOM/Jquery table end -->
+                 <div class="form-group row" style="border:1px solid; padding-top:10px;width:100%">
+                    
+                   
+                    <div class="col-sm-2">
+                        <select style="width:200px;height:34px;" class="form-control form-control-default "  name="email_status" id="email_status">
+                        <option value="">Change Status</option>
+                        <option value="Test Mail Sent" >Test Mail Sent</option>
+                        <option value="Bounced" >Bounced</option>
+                        <option value="Reviewed" >Reviewed</option>
+                        <option value="Accepted" >Accepted</option>
+                        <option value="Not Available" >Not Available</option>
+                        <option value="Out of Office" >Out of Office</option>
+                        <option value="Generic email" >Generic email</option>
+                        <option value="Dead contact" >Dead contact</option>
+                        <option value="Incorrect Info" >Incorrect Info</option>
+                        <option value="Refused" >Refused</option>
+                        </select>
+                    </div>
+                    <div class="col-sm-1">
                     </div>
                     <div class="col-sm-2">
-                        <textarea id="comment" placeholder="Enter comment"></textarea>
-                    </div>
-                    <div>
                     <!-- <label>Closer Status</label> -->
                         <select style="height:34px;" class="form-control form-control-default "  name="email_close_status" id="email_close_status">
                             <option value="">Closer Status</option>
@@ -519,6 +575,15 @@ document.getElementById("randomSelect").addEventListener("click", function() {
                             <option value="Closed" >Closed</option>
                             
                         </select>
+                    </div>
+                    <div class="col-sm-1">
+                    </div>
+                    <div class="col-sm-2">
+                        <textarea id="comment" placeholder="Enter comment"></textarea>
+                    </div>
+                    
+                    <div class="col-sm-2">
+                        <input class="btn btn-primary" type="button" id="update_email" value="Update Email">
                     </div>
                 </div>
             </div>
@@ -554,7 +619,7 @@ document.getElementById("randomSelect").addEventListener("click", function() {
                 <div id="menu1" class="tab-pane fade">
                 <h5>Compose Email</h5>
                 <div class="form-group">
-                        <input type="text" id="sub" class="form-control" placeholder="Subject">
+                        <input type="text" value="Test Mail" id="sub" class="form-control" placeholder="Subject">
                     </div>
                     <div class="form-group">
                     <textarea rows="6" style="width: 100%;" name="editor1" id="editor1" placeholder="Email Body"></textarea>
@@ -585,7 +650,11 @@ document.getElementById("randomSelect").addEventListener("click", function() {
                                     </div>
         </div>
         <div class="modal-footer">
+            <?php if($Stage == "New"){?>
         <button type="button" id="send_email1"  class="btn btn-primary" >Send</button>
+        <?php }else{?>
+        <button type="button" id="update_email1"  class="btn btn-primary" >Send</button>
+        <?php } ?>
           <button type="button" class="btn btn-danger " data-dismiss="modal">Close</button>
         </div>
       </div>
@@ -594,15 +663,20 @@ document.getElementById("randomSelect").addEventListener("click", function() {
   </div>
 
 
+  
+
+
 
             <script>
             $(".emailstatus_all").on('change', function () {
                 // alert("test");
                 $(this).closest('table').find('.checkbox_emailstatus').prop('checked', this.checked ); 
+                $("#update_email").attr("disabled", false);
             }); 
             $(".emailsend_all").on('change', function () {
                 // alert("test");
                 $(this).closest('table').find('.checkbox_emailclass').prop('checked', this.checked ); 
+                $("#send_email").attr("disabled", false);
             }); 
             
 // $("input:checkbox").change(function() {
@@ -686,6 +760,10 @@ $(".emailstatus").click(function() {
         {
             $('#myModalemail').modal('show');
         });
+        $("#update_email").on('click', function() 
+        {
+            $('#myModalemail').modal('show');
+        });
 
         $("#send_email1").on('click', function() 
         {
@@ -709,6 +787,7 @@ $(".emailstatus").click(function() {
             var change_status_of = someObj.fruitsGranted;
             var leadid = someObj.leads;
             // alert(change_status_of);
+            // return;
             var email_status = $('#email_status').val();
             var campid = $('#campnm').val();
             // var leadid = $('#leadid_'+leadid_obj).val();
@@ -720,23 +799,33 @@ $(".emailstatus").click(function() {
                 alert("Please add your email address");
                 return;
             }
-            
+            var changeFormat = document.getElementById("changeFormat");
+            // var changeFormat = $('#changeFormat').val();
+            if (changeFormat.checked == true){
+                 var changeFormatcond = 1;
+            } else {
+                var changeFormatcond = 0;
+            }
+            // alert(flname);
+            // return;
             var pass = $('#pass').val();
             if(pass == null || pass == '')
             {
                 alert("Please add your email password");
                 return;
             }
+            // alert(pass);
             var sub = $('#sub').val();
             // var body = $('#editor1').val();
             var body = CKEDITOR.instances.editor1.getData();
             // alert(body);
             // var body = document.getElementById('mail_body').innerHTML;
             // alert("from= "+from+"sub= "+sub+"body= "+body+"email= "+change_status_of+"leadid= "+leadid);
+            alert("change_status_of="+change_status_of+"email_status="+email_status+"campid="+campid+"leadid="+leadid+"from="+from+"sub="+sub+"body="+body+"pass="+pass);
             // return;
             $("#loader").show();
             var url = "<?php echo base_url("administrator/send_email_status");?>";
-            console.log(url+"?change_status_of="+change_status_of+"&email_status="+email_status+"&campid="+campid+"&leadid="+leadid+"&from="+from+"&sub="+sub+"&body="+body);
+            console.log(url+"?change_status_of="+change_status_of+"&email_status="+email_status+"&campid="+campid+"&leadid="+leadid+"&from="+from+"&sub="+sub+"&body="+body+"&pass="+pass);
             $.ajax({
                 url :'<?php echo base_url("administrator/send_email_status");?>',
                 type: 'GET', 
@@ -751,7 +840,8 @@ $(".emailstatus").click(function() {
                     from:from,
                     pass:pass,
                     sub:sub,
-                    body:body
+                    body:body,
+                    changeFormatcond:changeFormatcond
                     
 				},
                 cache: false,
@@ -786,75 +876,260 @@ $(".emailstatus").click(function() {
             });
         });
 
-        $("#update_email").on('click', function() 
+
+        $("#update_email1").on('click', function()
         {
+            // alert("test");
             var someObj = {};
             someObj.fruitsGranted = [];
+            
             someObj.leads = [];
             $("input:checkbox").each(function() {
                 if ($(this).is(":checked")) {
                     var checked = ($(this).val());
-                    var leadid = $('#row_id_'+checked).val();
-                    // alert(leadid);
-                    // var close_status = $("#email_close_"+checked).val();
-                    // alert(close_status);
-                    someObj.fruitsGranted.push(checked);
-                    
+                    var email = $("#email_"+checked).val();
+                    someObj.fruitsGranted.push(email);
+                   
+                    var leadid = $('#leadid_'+checked).val();
                     someObj.leads.push(leadid);
-
                 } else {
-                    
+                    // someObj.fruitsDenied.push(checked);
                 }
             });
             var change_status_of = someObj.fruitsGranted;
-            var email_status = $('#email_status').val();
-            var email_close_status = $('#email_close_status').val();
-            var campid = $('#campnm').val();
             var leadid = someObj.leads;
+            // alert(change_status_of);
+            // return;
+            var email_status = $('#email_status').val();
+            var campid = $('#campnm').val();
+            // var leadid = $('#leadid_'+leadid_obj).val();
+            // alert(leadid);
             var from = $('#from').val();
+            // alert(from);
+            if(from == null || from == '')
+            {
+                alert("Please add your email address");
+                return;
+            }
+            var changeFormat = document.getElementById("changeFormat");
+            // var changeFormat = $('#changeFormat').val();
+            if (changeFormat.checked == true){
+                 var changeFormatcond = 1;
+            } else {
+                var changeFormatcond = 0;
+            }
+            // alert(flname);
+            // return;
+            var pass = $('#pass').val();
+            if(pass == null || pass == '')
+            {
+                alert("Please add your email password");
+                return;
+            }
+            // alert(pass);
             var sub = $('#sub').val();
-            var body = $('#mail_body').val();
+            var email_close_status = $('#email_close_status').val();
+            if(email_close_status == null || email_close_status == '')
+            {
+                var email_close_status = 'Open';
+            }
             var comment = $('#comment').val();
-            // alert("from"+from+"sub= "+sub+"body= "+body);
-            
-            var url = "<?php echo base_url("administrator/update_email_status");?>";
-            console.log(url+"?change_status_of="+change_status_of+"&email_status="+email_status+"&campid="+campid+"&leadid="+leadid+"&from="+from+"&sub="+sub+"&body="+body);
+            if(comment == null || comment == '')
+            {
+                var comment = '';
+            }
+            // var body = $('#editor1').val();
+            var body = CKEDITOR.instances.editor1.getData();
+            // alert(body);
+            // var body = document.getElementById('mail_body').innerHTML;
+            // alert("from= "+from+"sub= "+sub+"body= "+body+"email= "+change_status_of+"leadid= "+leadid);
+            alert("change_status_of="+change_status_of+"email_status="+email_status+"campid="+campid+"leadid="+leadid+"from="+from+"sub="+sub+"body="+body+"pass="+pass);
+            // return;
+            $("#loader").show();
+            var url = "<?php echo base_url("administrator/update_email_status_and_send");?>";
+            console.log(url+"?change_status_of="+change_status_of+"&email_status="+email_status+"&campid="+campid+"&leadid="+leadid+"&from="+from+"&sub="+sub+"&body="+body+"&pass="+pass);
             $.ajax({
-                url :'<?php echo base_url("administrator/update_email_status");?>',
+                url :'<?php echo base_url("administrator/update_email_status_and_send");?>',
                 type: 'GET', 
-                dataType: 'json', 
-                contentType:'application/json; charset=utf-8',             
+                dataType: 'json',
+                // jsonpCallback: 'onJSONPLoad',  
+                contentType:'application/json; charset=utf-8',
                 data: {
 					change_status_of:change_status_of,
                     email_status:email_status,
 					campid:campid,
                     leadid:leadid,
+                    from:from,
+                    pass:pass,
+                    sub:sub,
+                    body:body,
+                    changeFormatcond:changeFormatcond,
+                    email_close_status:email_close_status,
                     comment:comment,
-                    email_close_status:email_close_status
+
+                    
 				},
                 cache: false,
                 success: function(response){
                     var text = response.statusCode;
                     console.log("check"+text);
-                    // alert(text);
-                    
+                    $('#myModalemail').modal('hide');
+                    $("#loader").hide();
                     if(response.statusCode == "Success") 
-                    {                        
-                        $("#update_email").html(response.message);
-                        top.location.href=base_url+"administrator/selectCampaignForEmailVerification";//redirection
+                    {                  
+                        $("#from").html(response.from);
+                        $("#pass").html(response.pass);
+                        // alert(response.from+""+response.pass);      
+                        $("#send_email").html(response.message);
+                        // top.location.href=base_url+"administrator/selectCampaignForEmailVerification";//redirection
                     }
                     else if(response.statusCode=="Fail")
                     {
                         // alert("test");
-                        $("#update_email").html(response.message);
+                        $("#send_email").html(response.message);
                         
 					}
+                    else if(response.statusCode == "Exceed")
+                    {
+                        alert("LMID exceeded");
+                    }
                 },
                 error:function(xhr, status, error){
                     var errorMessage = xhr.status + ': ' + xhr.statusText
-                    alert(' ' + errorMessage);
+                    alert('Error - ' + errorMessage);
                 },
             });
         });
+    //     $("#update_email").on('click', function() 
+    //     {
+    //         var someObj = {};
+    //         someObj.fruitsGranted = [];
+    //         someObj.leads = [];
+    //         $("input:checkbox").each(function() {
+    //             if ($(this).is(":checked")) {
+    //                 var checked = ($(this).val());
+    //                 var leadid = $('#row_id_'+checked).val();
+    //                 // alert(leadid);
+    //                 // var close_status = $("#email_close_"+checked).val();
+    //                 // alert(close_status);
+    //                 someObj.fruitsGranted.push(checked);
+                    
+    //                 someObj.leads.push(leadid);
+
+    //             } else {
+                    
+    //             }
+    //         });
+    //         var change_status_of = someObj.fruitsGranted;
+    //         var email_status = $('#email_status').val();
+    //         var email_close_status = $('#email_close_status').val();
+    //         var campid = $('#campnm').val();
+    //         var leadid = someObj.leads;
+    //         var from = $('#from').val();
+    //         var sub = $('#sub').val();
+    //         var body = $('#mail_body').val();
+    //         var comment = $('#comment').val();
+    //         // alert("from"+from+"sub= "+sub+"body= "+body);
+            
+    //         var url = "<?php echo base_url("administrator/update_email_status");?>";
+    //         console.log(url+"?change_status_of="+change_status_of+"&email_status="+email_status+"&campid="+campid+"&leadid="+leadid+"&from="+from+"&sub="+sub+"&body="+body);
+    //         $.ajax({
+    //             url :'<?php echo base_url("administrator/update_email_status");?>',
+    //             type: 'GET', 
+    //             dataType: 'json', 
+    //             contentType:'application/json; charset=utf-8',             
+    //             data: {
+	// 				change_status_of:change_status_of,
+    //                 email_status:email_status,
+	// 				campid:campid,
+    //                 leadid:leadid,
+    //                 comment:comment,
+    //                 email_close_status:email_close_status
+	// 			},
+    //             cache: false,
+    //             success: function(response){
+    //                 var text = response.statusCode;
+    //                 console.log("check"+text);
+    //                 // alert(text);
+                    
+    //                 if(response.statusCode == "Success") 
+    //                 {                        
+    //                     $("#update_email").html(response.message);
+    //                     top.location.href=base_url+"administrator/selectCampaignForEmailVerification";//redirection
+    //                 }
+    //                 else if(response.statusCode=="Fail")
+    //                 {
+    //                     // alert("test");
+    //                     $("#update_email").html(response.message);
+                        
+	// 				}
+    //             },
+    //             error:function(xhr, status, error){
+    //                 var errorMessage = xhr.status + ': ' + xhr.statusText
+    //                 alert(' ' + errorMessage);
+    //             },
+    //         });
+    //     });
     });
+
+
+function ajaxindicatorstart(text)
+{
+if(jQuery('body').find('#resultLoading').attr('id') != 'resultLoading'){
+jQuery('body').append('<div id="resultLoading" style="display:none"><div><img src="<?php echo base_url(); ?>assets/images/sefer.gif"><div>'+text+'</div></div><div class="bg"></div></div>');
+}
+jQuery('#resultLoading').css({
+'width':'100%',
+'height':'100%',
+'position':'fixed',
+'z-index':'10000000',
+'top':'0',
+'left':'0',
+'right':'0',
+'bottom':'0',
+'margin':'auto'
+});
+
+jQuery('#resultLoading .bg').css({
+'background':'#000000',
+'opacity':'0.7',
+'width':'100%',
+'height':'100%',
+'position':'absolute',
+'top':'0'
+});
+
+jQuery('#resultLoading>div:first').css({
+'width': '250px',
+'height':'75px',
+'text-align': 'center',
+'position': 'fixed',
+'top':'0',
+'left':'0',
+'right':'0',
+'bottom':'0',
+'margin':'auto',
+'font-size':'16px',
+'z-index':'10',
+'color':'#ffffff'
+
+});
+
+jQuery('#resultLoading .bg').height('100%');
+jQuery('#resultLoading').fadeIn(300);
+jQuery('body').css('cursor', 'wait');
+}
+function ajaxindicatorstop()
+{
+jQuery('#resultLoading .bg').height('100%');
+jQuery('#resultLoading').fadeOut(300);
+jQuery('body').css('cursor', 'default');
+}
+jQuery(document).ajaxStart(function () {
+//show ajax indicator
+ajaxindicatorstart('Sending email.. please wait..');
+}).ajaxStop(function () {
+//hide ajax indicator
+ajaxindicatorstop();
+});
 </script>

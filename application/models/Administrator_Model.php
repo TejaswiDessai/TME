@@ -2453,7 +2453,7 @@ public function get_campaign_fordataverification()
 			return $data=$query->result_array();
 
 		}	
-		public function get_email_list($campid,$user_id,$from,$to,$leadstatus,$search_email,$search_email_status,$email_sent_time)
+		public function get_email_list($campid,$user_id,$from,$to,$leadstatus,$search_email,$search_email_status,$email_sent_time,$leadlimit)
 		{
 			
 			if(isset($leadstatus) && $leadstatus == "New")
@@ -2463,11 +2463,11 @@ public function get_campaign_fordataverification()
 				// $this->db->join('ev', 'ev.lmid = leadmaster.lmid','left');
 				$this->db->where('leadmaster.dvload', 1);
 				$this->db->where('leadmaster.lmid NOT IN (select lmid from ev)',NULL,FALSE);
-				$this->db->limit(5);
+				$this->db->limit($leadlimit);
 			}	
 			else
 			{
-				$this->db->select('leadmaster.cids,leadmaster.lmid,leadmaster.plink,leadmaster.jtitle,leadmaster.empsize,leadmaster.email,leadmaster.city,leadmaster.state,leadmaster.domain,leadmaster.fname,leadmaster.lname,users.emp_id,users.last_login,campaign.campnm,count(leadmaster.stagtidi) as number,ev.status as mailstatus,ev.comment as evcomment,ev.loaddt as sent_mail_date,ev.fmail,ev.closer_status');
+				$this->db->select('leadmaster.cids,leadmaster.lmid,leadmaster.plink,leadmaster.jtitle,leadmaster.empsize,leadmaster.email,leadmaster.city,leadmaster.state,leadmaster.domain,leadmaster.fname,leadmaster.lname,users.emp_id,users.last_login,campaign.campnm,count(leadmaster.stagtidi) as number,ev.status as mailstatus,ev.comment as evcomment,ev.loaddt as sent_mail_date,ev.fmail,ev.closer_status,ev.email as evemail');
 				$this->db->from('ev');
 				$this->db->join('leadmaster', 'ev.lmid = leadmaster.lmid','left');
 			}
@@ -2480,7 +2480,7 @@ public function get_campaign_fordataverification()
 			{
 				$this->db->where('leadmaster.cids', $campid);
 			}
-			if( ($leadstatus != "New"))
+			if( ($leadstatus != "New" && $search_email_status == null && $search_email == null))
 			{
 				$this->db->where('ev.curr_active', 1);
 				// $this->db->where('ev.closer_status !=', "Closed");
@@ -2549,6 +2549,7 @@ public function get_campaign_fordataverification()
 				$this->db->group_by('ev.comment');
 				$this->db->group_by('ev.fmail');
 				$this->db->group_by('ev.closer_status');
+				$this->db->group_by('ev.email');
 			}
 			// $this->db->limit(5);
 			$query=$this->db->get();
@@ -2568,12 +2569,12 @@ public function get_campaign_fordataverification()
                         // echo $this->db->last_query(); 
 		}
 
-		public function update_email_status($datacampaign,$lmid)
+		public function update_email_status($datacampaign,$email)
 		{
 			// echo $lmid."<br>";
 			// for($i=0;$i<$cnt;$i++)
 			// {
-				$this->db->where('lmid', $lmid);
+				$this->db->where('email', $email);
 				$this->db->update('ev', $datacampaign);
 			// $this->db->last_query(); 
 			// }
@@ -2618,13 +2619,25 @@ public function get_campaign_fordataverification()
 			$this->db->where('lmid', $leadid);
 			$result = $this->db->get('ev');
 			// echo $this->db->last_query(); 
-			if ($result->num_rows() > 1) {
+			if ($result->num_rows() > 100) {
                return true;        
 			}else{
 				return false;
 			}
 		}
 
+		public function get_email_duplication_count($FinalEmail,$agent_id)
+		{
+			$this->db->select('lmid');
+			$this->db->where('email', $FinalEmail);
+			$result = $this->db->get('ev');
+			// echo $this->db->last_query(); 
+			if ($result->num_rows() > 1) {
+               return true;        
+			}else{
+				return false;
+			}
+		}
 		public function get_email_id($campid,$user_id){
 			$this->db->select('fmail');
 			$this->db->where('evagnt', $user_id);

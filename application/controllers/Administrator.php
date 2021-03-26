@@ -1860,7 +1860,15 @@ public function getPrivillage(){
 		$config['per_page'] = '';
 		$config['uri_segment'] = 3;
 		$config['attributes'] = array('class' => 'paginate-link');
-		$campid =$this->input->post('campid');
+		if(iseet($this->input->post('campid')) && $this->input->post('campid') != null)
+		{
+			$campid = $this->input->post('campid');
+		}
+		else
+		{
+			$campid = 1013;
+		}
+		
 		$user_id =$this->input->post('user_id');
 		$stage =$this->input->post('stage');
 		$from =$this->input->post('from');

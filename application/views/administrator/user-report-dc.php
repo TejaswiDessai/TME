@@ -230,7 +230,7 @@
                                         dvload = 0
                                         --   and sbsvtag = 0 
                                          and cids = '".$Campid."' and stagtidi = '".$post['empcode']."'
-                                         and (dvrejtg = 0 )
+                                         and (dvrejtg = 3 )
                                          and sbsvtag <>0
                                          and (stdti >= '".$From."' and stdti <= '".$To."')
                                         --  group by svagtidi,lmid
@@ -280,7 +280,7 @@
                                         dvload = 0
                                         --   and sbsvtag = 0 
                                          and cids = '".$Campid."' and stagtidii = '".$post['empcode']."'
-                                         and (dvrejtg = 0 or dvrejtg = 1 or dvrejtg = 2)
+                                         and dvrejtg = 3
                                          and sbsvtag <>0
                                          and (stdti >= '".$From."' and stdti <= '".$To."')
                                         --  group by svagtidi,lmid

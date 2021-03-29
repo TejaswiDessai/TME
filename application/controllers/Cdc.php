@@ -123,15 +123,15 @@
 						
 						// $data['leadmaster'] = $this->Administrator_Model->get_leadmasterby_campaignid($cids);
 						
-						// $data['rlccrec'] = $this->Administrator_Model->get_employee_rlc_record($_SESSION['empcode']);
-						// print_r($data['rlccrec']);  
-						// if($data['rlccrec'] >= '3'){
-				
-			
-						// 	redirect('administrator/logout');
-						// 	Exit();
-						// }
-						// exit();
+						$data['rlccrec'] = $this->Administrator_Model->get_employee_rlc_record($_SESSION['empcode']);
+						
+						if($data['rlccrec'] >= '3'){
+							
+							$this->session->set_flashdata('success', 'More than 3 records were locked.');
+							redirect('administrator/logout');
+							
+						}
+						
 						
 						$data['leadmaster'] = $this->Administrator_Model->get_leadmasterby_campaignidwithempcode($cids,$empcode);
 						// print_r($data['leadmaster']); 
@@ -231,7 +231,15 @@
 						$camp_id = $camp['cnid'];
 						
 						$cids = $camp['cids'];
-					
+						
+						$data['rlccrec'] = $this->Administrator_Model->get_employee_rlc_record($_SESSION['empcode']);
+						
+						if($data['rlccrec'] >= '3'){
+							
+							$this->session->set_flashdata('success', 'More than 3 records were locked.');
+							redirect('administrator/logout');
+							
+						}
 						
 						$data['leadmaster'] = $this->Administrator_Model->get_leadmasterby_campaigniddv($cids);
 						// print_r($data['leadmaster']); 

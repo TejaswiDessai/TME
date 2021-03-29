@@ -1860,11 +1860,27 @@ public function getPrivillage(){
 		$config['per_page'] = '';
 		$config['uri_segment'] = 3;
 		$config['attributes'] = array('class' => 'paginate-link');
-		$campid =$this->input->post('campid');
+		if($this->input->post('campid') != null)
+		{
+			$campid = $this->input->post('campid');
+		}
+		else
+		{
+			$campid = 1014;
+		}
+		
 		$user_id =$this->input->post('user_id');
 		$stage =$this->input->post('stage');
 		$from =$this->input->post('from');
+		if($from == "")
+		{
+			$from = date('Y-m-d 00:00:00');
+		}
 		$to =$this->input->post('to');
+		if($to == "")
+		{
+			$to = date('Y-m-d H:i:s');
+		}
 		// Init Pagination
 		$this->pagination->initialize($config);
 	
@@ -1875,9 +1891,9 @@ public function getPrivillage(){
 		}else if($stage =='accepeted'){
 			$data['users'] = $this->Administrator_Model->get_user_reportfordvaccepted($campid,$user_id,$from,$to,$stage);
 		}else if($stage =='verified'){
-			$data['users'] = $this->Administrator_Model->get_user_reportfordvverified($campid,$user_id,$from,$to,$stage);
-		}else{
 			$data['users'] = $this->Administrator_Model->get_user_report($campid,$user_id,$from,$to,$stage);
+		}else{
+			$data['users'] = $this->Administrator_Model->get_user_report_dc($campid,$user_id,$from,$to,$stage);
 		}
 		
 		
@@ -1887,6 +1903,7 @@ public function getPrivillage(){
 		//  print_r($user_id);
 		$data['users_name'] = $this->Administrator_Model->get_users(FALSE, $config['per_page'], $offset);
 		$data['campaigns'] = $this->Administrator_Model->get_campaign();
+		$data['empcode'] = $this->session->userdata('empcode');
 		$data['user_id'] = $user_id;
 		$data['Campid'] = $campid;
 		$data['Stage'] = $stage;
@@ -1895,7 +1912,15 @@ public function getPrivillage(){
 		$this->load->view('administrator/header-script');
 		$this->load->view('administrator/header');
 		$this->load->view('administrator/header-bottom');
-		$this->load->view('administrator/user-report', $data);
+		if($stage == "verified")
+		{
+			$this->load->view('administrator/user-report', $data);
+		}
+		else
+		{
+			$this->load->view('administrator/user-report-dc', $data);
+		}
+
 		$this->load->view('administrator/footer');
 	}
 
@@ -2050,6 +2075,7 @@ public function getPrivillage(){
 		$campid = $cids; //$this->input->post('campaign_id');
 		$user_id =$this->input->post('user_id');
 		$leadstatus =$this->input->post('leadstatus');
+		$leadlimit = $this->input->post('leadlimit');
 		$search_email = $this->input->post('search_email');
 		$search_email_status = $this->input->post('search_email_status');
 		$email_sent_time = $this->input->post('email_sent_time');
@@ -2072,7 +2098,7 @@ public function getPrivillage(){
 	
 		$data['title'] = 'Latest Campaigns';
 		$offset = 0;
-		$data['leadmaster'] = $this->Administrator_Model->get_email_list($campid,$user_id,$from,$to,$leadstatus,$search_email,$search_email_status,$email_sent_time);
+		$data['leadmaster'] = $this->Administrator_Model->get_email_list($campid,$user_id,$from,$to,$leadstatus,$search_email,$search_email_status,$email_sent_time,$leadlimit);
 		$data['users_name'] = $this->Administrator_Model->get_users(FALSE, $config['per_page'], $offset);
 		// $data['campaigns'] = $this->Administrator_Model->get_campaign();
 		// $data['from_email'] = $this->Administrator_Model->get_email_id($campid,103);
@@ -2082,6 +2108,7 @@ public function getPrivillage(){
 		$data['agent_password'] = $agent_password;
 		$data['empcode'] = $this->session->userdata('empcode');
 		$data['Stage'] = $leadstatus;
+		$data['leadlimit'] = $leadlimit;
 		$data['search_email'] = $search_email;
 		$data['search_email_status'] = $search_email_status;
 		$data['email_sent_time'] = $email_sent_time;
@@ -2147,13 +2174,56 @@ public function getPrivillage(){
 		$comp_proSplit= explode(",", $string_version1);
 		$cnt=count($comp_proSplit);
 		// $cnt = 5;
-		$email_status = $_GET['email_status'];
+		if(isset($_GET['email_status']) && $_GET['email_status'] != null)
+		{
+			$email_status = $_GET['email_status'];
+		}
+		else
+		{
+			$email_status = null;
+		}
+		if(isset($_GET['comment']) && $_GET['comment'] != null)
+		{
+			$comment = $_GET['comment'];
+		}
+		else
+		{
+			$comment = null;
+		}
+		if(isset($_GET['email_close_status']) && $_GET['email_close_status'] != null)
+		{
+			$closer_status = $_GET['email_close_status'];
+		}
+		else
+		{
+			$closer_status = null;
+		}
+		
+		
+
 		$campid = $_GET['campid'];
 		$startdate = date("Y-m-d H:i:s");
 		$from = $_GET['from'];
-		$pass = $_GET['pass'];
+		if(isset($_GET['pass']))
+		{
+			$pass = $_GET['pass'];
+		}
+		else
+		{
+			$pass = $this->session->userdata('pass');
+		}
+		
 		$sub = $_GET['sub'];
 		$body = $_GET['body'];
+		if(isset($_GET['changeFormatcond']) && $_GET['changeFormatcond'] != null)
+		{
+			$changeFormatcond = $_GET['changeFormatcond'];
+		}
+		else
+		{
+			$changeFormatcond = null;
+		}
+		
 		//Create Session
 		$email_data = array(
 			'pass' => $pass,
@@ -2163,7 +2233,52 @@ public function getPrivillage(){
 		$this->session->set_userdata($email_data);
 		for($i=0;$i<$cnt;$i++)
 		{
+			// $EmailFormat = explode("@",$comp_proSplit[$i]);
+			// $domain = $EmailFormat [1];
+			// $str = strpos($EmailFormat[0], '.');
+			// // echo $EmailFormat[0]; die;
+			// if($str !== false)
+			// {
+			// 	$Name = explode(".",$EmailFormat[0]);
+			// 	$firstname = $Name[0];
+			// 	$lastname = $Name[1];
+			// 	$firstCharLname = substr($lastname, 0, 1);
+			// 	$firstCharFname = substr($firstname, 0, 1);
+			// 	// echo "found";
+			// } else {
+			// 	$firstname = $EmailFormat[0];
+			// 	$firstCharFname = substr($firstname, 0, 1);
+			// 	$lastname = null;
+			// 	// echo "not found";
+			// }
+			
+			
 
+			// if(($lastname == null || $lastname == "" ))
+			// {
+			// 	$FinalEmail = $firstCharFname."@".$domain;
+			// }
+			// else
+			// {
+			// 	$FinalEmail = $lastname.".".$firstname."@".$domain;
+			// }
+			// $checkforEmail = $this->Administrator_Model->get_email_duplication_count($FinalEmail,$agent_id);
+			
+			// if($checkforEmail == true)
+			// {
+			// 	$TO = $firstCharFname.".".$lastname."@".$domain;
+			// 	$checkforEmail = $this->Administrator_Model->get_email_duplication_count($TO,$agent_id);
+			// 	if($checkforEmail == true)
+			// 	{
+			// 		$TO = $firstname.".".$firstCharLname."@".$domain;
+			// 	}
+			// }
+			// else
+			// {
+			// 	$TO = $FinalEmail;
+			// }
+		
+			
 			$checkforlmid = $this->Administrator_Model->get_lmid_duplication_count($leadid[$i],$agent_id);
 			if($checkforlmid == true)
 			{
@@ -2184,26 +2299,33 @@ public function getPrivillage(){
 			$updateexistinglead = $this->Administrator_Model->update_email_status($datacampaign1,$leadid[$i]);
 			$update_lead_status = array(
 				'evcomp' => 2,
-				// 'curr_active' => 0				
+				// 'curr_active' => 0
+				'evstat' => 0,
+				'evagti' =>	$agent_id,
+				'evdti'	=> $startdate,
+				'evmail' => $from		
 				);
 			$update_lead_status = $this->Administrator_Model->update_email_lead__status($update_lead_status,$leadid[$i]);
-			$datacampaign = array(
-				'lmid' => $leadid[$i], 
-				'evagnt' => $this->session -> userdata('empcode'),
-				'email' => $comp_proSplit[$i],
-				'status' =>'Open',
-				'fmail' =>$from,
-				'comment' => 'Test',
-				'loaddt' => $startdate,
-				'mailsub' => $sub,
-				'mailby' => $body,
-				'statdt' => $startdate,
-				'curr_active'=> 1,
-				'closer_status' =>'Open'				
-				);
-			
-			$addcampaigndata = $this->Administrator_Model->send_email_status($datacampaign);
-			
+			// if($email_status == null)
+			// {
+				$datacampaign = array(
+					'lmid' => $leadid[$i], 
+					'evagnt' => $this->session -> userdata('empcode'),
+					'email' => $comp_proSplit[$i],
+					'status' =>$email_status,
+					'fmail' =>$from,
+					'comment' => $comment,
+					'loaddt' => $startdate,
+					'mailsub' => $sub,
+					'mailby' => $body,
+					'statdt' => $startdate,
+					'curr_active'=> 1,
+					'closer_status' =>'Open',
+					'email_code' => 1				
+					);
+				
+				$addcampaigndata = $this->Administrator_Model->send_email_status($datacampaign);
+			// }
 			require_once "send-email-php/phpmailer/class.phpmailer.php";
 			require_once "send-email-php/phpmailer/PHPMailerAutoload.php";
 			$mail = new PHPMailer(true);
@@ -2229,9 +2351,269 @@ public function getPrivillage(){
 				//  header("location: ../administrator/emailVerfication");
 
 				} catch (phpmailerException $e) {
-				//  echo $e->errorMessage(); //Pretty error messages from PHPMailer
+				 echo $e->errorMessage(); //Pretty error messages from PHPMailer
 				} catch (Exception $e) {
-				//  echo $e->getMessage(); //Boring error messages from anything else!
+				 echo $e->getMessage(); //Boring error messages from anything else!
+				}
+
+				
+			}
+			if($addcampaigndata == true){
+				
+				// return "{\"statusCode\":\"Success\"}";
+				echo json_encode(array(
+					"statusCode"=>"Success",
+					"campaign_id"=>$addcampaigndata,
+					"from"=>$from,
+					"pass"=>$pass,
+					"message"=>"Mail Sent Successfully.."
+				));
+			}else{
+				
+				// return "{\"statusCode\":\"Fail\"}";
+				echo json_encode(array(
+					"statusCode"=>"Fail",
+					"message"=>"Mail Sent failed.."
+				));
+			}
+			
+	}
+
+	public function update_email_status_and_send()
+	{
+		// $string_version = $_GET['leadid'];
+		$string_version= implode(",", $_GET['leadid']);
+		$leadid = explode(',', $string_version);
+		// print_r($leadid);die;
+		// echo $_GET['leadid'];
+		$email1 = $_GET['change_status_of'];
+		$string_version1= implode(",", $email1);
+		$comp_proSplit= explode(",", $string_version1);
+		$cnt=count($comp_proSplit);
+		// $cnt = 5;
+		if(isset($_GET['email_status']) && $_GET['email_status'] != null)
+		{
+			$email_status = $_GET['email_status'];
+		}
+		else
+		{
+			$email_status = null;
+		}
+		if(isset($_GET['comment']) && $_GET['comment'] != null)
+		{
+			$comment = $_GET['comment'];
+		}
+		else
+		{
+			$comment = null;
+		}
+		if(isset($_GET['email_close_status']) && $_GET['email_close_status'] != null)
+		{
+			$closer_status = $_GET['email_close_status'];
+		}
+		else
+		{
+			$closer_status = null;
+		}
+		
+		
+
+		$campid = $_GET['campid'];
+		$startdate = date("Y-m-d H:i:s");
+		$from = $_GET['from'];
+		if(isset($_GET['pass']))
+		{
+			$pass = $_GET['pass'];
+		}
+		else
+		{
+			$pass = $this->session->userdata('pass');
+		}
+		
+		$sub = $_GET['sub'];
+		$body = $_GET['body'];
+		if(isset($_GET['changeFormatcond']) && $_GET['changeFormatcond'] != null)
+		{
+			$changeFormatcond = $_GET['changeFormatcond'];
+		}
+		else
+		{
+			$changeFormatcond = null;
+		}
+		
+		//Create Session
+		$email_data = array(
+			'pass' => $pass,
+			'from' => $from,
+		);
+		$agent_id = $this->session -> userdata('empcode');
+		$this->session->set_userdata($email_data);
+		for($i=0;$i<$cnt;$i++)
+		{
+			// Update Last email status first
+			$datacampaignUpdate = array(
+				'status' =>$email_status,
+				'comment' => $comment,
+				'closer_status' => $closer_status,
+				'statdt' => $startdate
+								
+				);
+			$addcampaigndata = $this->Administrator_Model->update_email_status($datacampaignUpdate,$comp_proSplit[$i]);
+
+			// Check for new Email Format
+			$EmailFormat = explode("@",$comp_proSplit[$i]);
+			$domain = $EmailFormat [1];
+			$str = strpos($EmailFormat[0], '.');
+			// echo $EmailFormat[0]; die;
+			if($str !== false)
+			{
+				$Name = explode(".",$EmailFormat[0]);
+				$firstname = $Name[0];
+				$lastname = $Name[1];
+				$firstCharLname = substr($lastname, 0, 1);
+				$firstCharFname = substr($firstname, 0, 1);
+				// echo "found";
+			} else {
+				$firstname = $EmailFormat[0];
+				$firstCharFname = substr($firstname, 0, 1);
+				$lastname = null;
+				// echo "not found";
+			}
+			
+			if(($lastname == null || $lastname == "" ))
+			{
+				$FinalEmail = $firstCharFname."@".$domain;
+			}
+			else
+			{
+				$FinalEmail = $lastname.".".$firstname."@".$domain;
+			}
+			$checkforEmail = $this->Administrator_Model->get_email_duplication_count($FinalEmail,$agent_id);
+			
+			if($checkforEmail == true)
+			{
+				$TO = $firstCharFname.".".$lastname."@".$domain;
+				$checkforEmail = $this->Administrator_Model->get_email_duplication_count($TO,$agent_id);
+				if($checkforEmail == true)
+				{
+					$TO = $firstname.".".$firstCharLname."@".$domain;
+					$checkforEmail = $this->Administrator_Model->get_email_duplication_count($TO,$agent_id);
+					if($checkforEmail == true)
+					{
+						$TO = $firstCharFname.".".$firstCharLname."@".$domain;
+						$checkforEmail = $this->Administrator_Model->get_email_duplication_count($TO,$agent_id);
+						if($checkforEmail == true)
+						{
+							$TO = $firstname."@".$domain;
+							$checkforEmail = $this->Administrator_Model->get_email_duplication_count($TO,$agent_id);
+							if($checkforEmail == true)
+							{
+								$TO = $lastname."@".$domain;
+							}
+							else
+							{
+								$TO = $firstname."@".$domain;
+							}
+						}
+						else
+						{
+							$TO = $firstCharFname.".".$firstCharLname."@".$domain;
+						}
+					}
+				}
+				else
+				{
+					$TO = $firstCharFname.".".$lastname."@".$domain;
+				}
+			}
+			else
+			{
+				$TO = $FinalEmail;
+			}
+		
+			
+			$checkforlmid = $this->Administrator_Model->get_lmid_duplication_count($leadid[$i],$agent_id);
+			if($checkforlmid == true)
+			{
+				echo json_encode(array(
+					"statusCode"=>"Exceed",
+					// "campaign_id"=>$addcampaigndata,
+					// "from"=>$from,
+					// "pass"=>$pass,
+					"message"=>"Mail Sent Successfully.."
+				));
+				return;
+			}
+
+			$datacampaign1 = array(
+				'curr_active' =>0,
+								
+				);
+			$updateexistinglead = $this->Administrator_Model->update_email_status($datacampaign1,$comp_proSplit[$i]);
+			// $update_lead_status = array(
+			// 	'evcomp' => 2,
+			// 	// 'curr_active' => 0				
+			// 	);
+			// $update_lead_status = $this->Administrator_Model->update_email_lead__status($update_lead_status,$leadid[$i]);
+			
+			if($closer_status == "Closed")
+				{
+				$update_lead_status = array(
+					'evload' => 1,
+					'evcomp' => 1,
+					'email'=> $comp_proSplit[$i],
+					'evdisp' =>4				
+					);
+				$update_lead_status = $this->Administrator_Model->update_email_lead__status($update_lead_status,$leadid[$i]);
+				}
+				if($closer_status != "Closed")
+				{
+					$datacampaign = array(
+						'lmid' => $leadid[$i], 
+						'evagnt' => $this->session -> userdata('empcode'),
+						'email' => $TO,
+						'status' =>'',
+						'fmail' =>$from,
+						'comment' => '',
+						'loaddt' => $startdate,
+						'mailsub' => $sub,
+						'mailby' => $body,
+						'statdt' => $startdate,
+						'curr_active'=> 1,
+						'closer_status' =>'Open',
+						'email_code' => 1				
+						);
+					
+					$addcampaigndata = $this->Administrator_Model->send_email_status($datacampaign);
+				}
+			require_once "send-email-php/phpmailer/class.phpmailer.php";
+			require_once "send-email-php/phpmailer/PHPMailerAutoload.php";
+			$mail = new PHPMailer(true);
+			try {
+				//  $mail->Host       = "mail.gmail.com"; // SMTP server
+				//  $mail->SMTPDebug  = 2;                     // enables SMTP debug information (for testing)
+				 $mail->SMTPAuth   = true;                  // enable SMTP authentication
+				 $mail->SMTPSecure = "ssl";                 // sets the prefix to the servier
+				 $mail->Host       = "smtp.gmail.com";      // sets GMAIL as the SMTP server
+				 $mail->Port       = 465;   // set the SMTP port for the GMAIL server
+				 $mail->SMTPKeepAlive = true;
+				 $mail->Mailer = "smtp";
+				 $mail->Username   = $from;  // GMAIL username
+				 $mail->Password   = $pass;            // GMAIL password
+				 $mail->addAddress($TO, 'Receiver Name');
+				 $mail->setFrom($from, 'User');
+				 $mail->Subject = $sub;
+				 $mail->AltBody = $body; // optional - MsgHTML will create an alternate automatically
+				 $mail->MsgHTML($body);
+				 $mail->Send();
+				 
+				//  echo "Message Sent OK</p>\n";
+				//  header("location: ../administrator/emailVerfication");
+
+				} catch (phpmailerException $e) {
+				 echo $e->errorMessage(); //Pretty error messages from PHPMailer
+				} catch (Exception $e) {
+				 echo $e->getMessage(); //Boring error messages from anything else!
 				}
 
 				

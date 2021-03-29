@@ -98,7 +98,7 @@
                             <tr>
                             <td>
                                 <select class="form-control form-control-default "  name="campid" id="campid" required> 
-                                    <option value="">Campaign</option>
+                                    <!-- <option value="">Campaign</option> -->
                                     <?php foreach ($campaigns as $campaign): ?>
                                         <option value="<?php echo $campaign['cids']; ?>" <?php if( isset($Campid) && $Campid == $campaign['cids']) { echo "selected" ; } ?>><?php echo $campaign['campnm']; ?></option>
                                     <?php endforeach; ?>
@@ -169,7 +169,7 @@
                                  <tr>
                                         <td></td>
                                         <td><?php echo $post['fname']; ?></td>
-                                        <td><?php echo $post['campnm']; ?> <?php echo $Campid ?><?php echo $post['empcode']; ?> </td>
+                                        <td><?php echo $post['campnm']; ?> <?php echo "-".$post['empcode']; ?> </td>
                                         <td><?php 
                                          if(isset($Campid)){
                                             $onesub = $this->db->query("select *

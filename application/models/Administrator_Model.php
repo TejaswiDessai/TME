@@ -2353,7 +2353,7 @@ public function get_campaign_fordataverification()
 			// $this->db->group_by('campaign.cids');
 			// $this->db->group_by('campaign.campnm');
 			$query=$this->db->get();
-			echo $this->db->last_query(); 
+			// echo $this->db->last_query(); 
 			// show_error($this->db->last_query(), 200, "SQL");
 			return $data=$query->result_array();
 

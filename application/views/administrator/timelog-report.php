@@ -165,7 +165,8 @@
                                     </tr>
                                 </thead>
                                 <tbody >
-                                <?php foreach($users as $post) : ?>
+                                <?php if(isset($Campid)){
+                                    foreach($users as $post) : ?>
                                  <tr>
                                         <td></td>
                                         <td><?php  if(isset($Campid)){ echo $post['fname'];} ?></td>
@@ -324,7 +325,7 @@
                                        </td>
                                        
                                     </tr>
-                                <?php endforeach; ?>
+                                <?php  endforeach; }?>
 
                                 <!-- <div class="paginate-link">
                                     <?php //echo $this->pagination->create_links(); ?>

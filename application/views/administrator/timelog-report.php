@@ -188,10 +188,14 @@
                                          }
                                          else{
                                             $onesub = $this->db->query("select *
-                                            from timelog join users on users.empcode = timelog.agent 
-                                            where stage='i submit' and agent = '".$post['empcode']."'
+                                            from timelog 
+                                            join users on users.empcode = timelog.agent
+                                            join campaign on campaign.cids = timelog.cids  
+                                            where stage='i submit' 
+                                            and agent = '".$post['empcode']."'
                                             and (tim >= '".$From."' and tim <= '".$To."')  ");
                                             // echo $onesub;
+                                            //   echo $this->db->last_query(); 
                                             echo $onesub->num_rows();
                                          }
                                            
@@ -211,7 +215,9 @@
                                           else{
                                             $twosub = $this->db->query("select *
                                             from timelog join users on users.empcode = timelog.agent 
+                                            join campaign on campaign.cids = timelog.cids  
                                             where stage='ii submit' 
+                                            
                                             and agent = '".$post['empcode']."'
                                             and (tim >= '".$From."' and tim <= '".$To."')   ");
                                             echo $twosub->num_rows(); 
@@ -221,6 +227,7 @@
                                           if(isset($Campid)){
                                             $saves = $this->db->query("select *
                                             from timelog join users on users.empcode = timelog.agent 
+                                            join campaign on campaign.cids = timelog.cids  
                                             where stage='dc save'  
 
                                             AND cids= $Campid  
@@ -230,7 +237,8 @@
                                           }
                                           else{
                                             $saves = $this->db->query("select *
-                                            from timelog join users on users.empcode = timelog.agent 
+                                            from timelog join users on users.empcode = timelog.agent
+                                            join campaign on campaign.cids = timelog.cids   
                                             where stage='dc save'
                                             and agent = '".$post['empcode']."'
                                             and (tim >= '".$From."' and tim <= '".$To."')   ");
@@ -243,6 +251,7 @@
                                          if(isset($Campid)){
                                             $oneaccpt = $this->db->query("select *
                                             from timelog join users on users.empcode = timelog.agent 
+                                            join campaign on campaign.cids = timelog.cids  
                                             where stage='idv accept'  
                                             and agent = '".$post['empcode']."'
                                             AND cids= $Campid  
@@ -252,7 +261,8 @@
                                          }
                                          else{
                                             $oneaccpt = $this->db->query("select *
-                                            from timelog join users on users.empcode = timelog.agent 
+                                            from timelog join users on users.empcode = timelog.agent
+                                            join campaign on campaign.cids = timelog.cids   
                                             where stage='idv accept'
                                             and agent = '".$post['empcode']."'
                                             and (tim >= '".$From."' and tim <= '".$To."')  ");
@@ -265,6 +275,7 @@
                                         if(isset($Campid)){
                                             $twoaccpt = $this->db->query("select *
                                             from timelog join users on users.empcode = timelog.agent 
+                                            join campaign on campaign.cids = timelog.cids  
                                             where stage='iidv accept'  
 
                                             AND cids= $Campid  
@@ -274,7 +285,8 @@
                                         }
                                         else{
                                             $twoaccpt = $this->db->query("select *
-                                            from timelog join users on users.empcode = timelog.agent 
+                                            from timelog join users on users.empcode = timelog.agent
+                                            join campaign on campaign.cids = timelog.cids   
                                             where stage='iidv accept'
                                             and agent = '".$post['empcode']."'
                                             and (tim >= '".$From."' and tim <= '".$To."')  ");
@@ -287,6 +299,7 @@
                                          if(isset($Campid)){
                                             $onerej = $this->db->query("select *
                                             from timelog join users on users.empcode = timelog.agent 
+                                            join campaign on campaign.cids = timelog.cids  
                                             where stage='idv reject'  
 
                                             AND cids= $Campid 
@@ -297,6 +310,7 @@
                                          else{
                                             $onerej = $this->db->query("select *
                                             from timelog join users on users.empcode = timelog.agent 
+                                            join campaign on campaign.cids = timelog.cids  
                                             where stage='idv reject'  
                                             and agent = '".$post['empcode']."'
                                             and (tim >= '".$From."' and tim <= '".$To."')  ");
@@ -309,7 +323,8 @@
                                           if(isset($Campid)){
                                             //   echo "Hiiiiii".$post['empcode'];
                                             $tworej = $this->db->query("select *
-                                            from timelog join users on users.empcode = timelog.agent 
+                                            from timelog join users on users.empcode = timelog.agent
+                                            join campaign on campaign.cids = timelog.cids   
                                             where stage='iidv reject'  
 
                                             AND cids= $Campid  
@@ -319,7 +334,8 @@
                                           }
                                           else{
                                             $tworej = $this->db->query("select *
-                                            from timelog join users on users.empcode = timelog.agent 
+                                            from timelog join users on users.empcode = timelog.agent
+                                            join campaign on campaign.cids = timelog.cids   
                                             where stage='iidv reject'  
                                             and agent = '".$post['empcode']."'
                                             and (tim >= '".$From."' and tim <= '".$To."')  ");

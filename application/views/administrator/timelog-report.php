@@ -98,7 +98,7 @@
                             <tr>
                             <td>
                                 <select class="form-control form-control-default "  name="campid" id="campid" required> 
-                                    <!-- <option value="">Campaign</option> -->
+                                    <option value="">Campaign</option>
                                     <?php foreach ($campaigns as $campaign): ?>
                                         <option value="<?php echo $campaign['cids']; ?>" <?php if( isset($Campid) && $Campid == $campaign['cids']) { echo "selected" ; } ?>><?php echo $campaign['campnm']; ?></option>
                                     <?php endforeach; ?>

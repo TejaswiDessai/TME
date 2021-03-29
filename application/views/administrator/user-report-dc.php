@@ -244,7 +244,7 @@
                                                 <th>Total</th>
                                                 <th>Accepted</th>
                                                 <th>Rejected</th>
-                                                <th>Saved</th>
+                                                <th>Saved/Pending</th>
                                     </tr>
                                     <tr>
                                         <td><?php echo $submit1 = $submit1_total->num_rows();?></td>
@@ -297,7 +297,7 @@
                                                 <th>Total</th>
                                                 <th>Accepted</th>
                                                 <th>Rejected</th>
-                                                <th>Saved</th>
+                                                <th>Saved/Pending</th>
                                     </tr>
                                     <tr>
                                         <td><?php echo $submit2_total->num_rows();?></td>

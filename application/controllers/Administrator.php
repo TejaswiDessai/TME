@@ -1866,7 +1866,7 @@ public function getPrivillage(){
 		}
 		else
 		{
-			$campid = 1013;
+			$campid = 1014;
 		}
 		
 		$user_id =$this->input->post('user_id');

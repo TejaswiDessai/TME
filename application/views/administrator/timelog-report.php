@@ -107,10 +107,10 @@
                            
                           
                             <td>
-                            From: </td><td><input class="form-control" type="datetime-local" value="<?php if(isset($From)){ echo $From;}?>" name="from"  id="example-datetime-local-input">
+                            From: </td><td><input class="form-control startdatetimelog" type="datetime-local" value="<?php if(isset($From)){ echo $From;}?>" name="from"  id="example-datetime-local-input">
                             </td>
                             <td>
-                            To: </td><td><input class="form-control" type="datetime-local"  value="<?php if(isset($To)){ echo $To;}?>"  name="to" id="example-datetime-local-input1">
+                            To: </td><td><input class="form-control todatetimelog" type="datetime-local"  value="<?php if(isset($To)){ echo $To;}?>"  name="to" id="example-datetime-local-input1">
                             </td>
                             <td>
                                 <input  class="btn btn-primary" type="submit" name="submit">
@@ -124,14 +124,14 @@
                        
                     </div>
                     <br>
-                        <?php if (isset($Stage) && $Stage == "verified")
-                        {
-                            $display  = "visibility: hidden;";
-                        }else{
-                            $display  = "visibility: visible;"; 
-                        }
+                        <!-- <?php //if (isset($Stage) && $Stage == "verified")
+                       // {
+                          //  $display  = "visibility: hidden;";
+                        //}else{
+                          //  $display  = "visibility: visible;"; 
+                        //}
 
-                        ?>
+                        ?> -->
                         <div class="table-responsive dt-responsive">
                             <table id="dom-jqry" class="table table-striped table-bordered nowrap table1">
                                 <thead>
@@ -169,21 +169,24 @@
                                  <tr>
                                         <td></td>
                                         <td><?php echo $post['fname']; ?></td>
-                                        <td><?php echo $post['campnm']; ?> <?php// echo $Campid ?></td>
+                                        <td><?php echo $post['campnm']; ?> <?php echo $Campid ?><?php echo $post['empcode']; ?> </td>
                                         <td><?php 
                                          if(isset($Campid)){
                                             $onesub = $this->db->query("select *
                                             from timelog join users on users.empcode = timelog.agent 
                                             where stage='i submit' 
-                                            AND cids= $Campid  
+                                            AND cids= $Campid 
+                                            and agent = '".$post['empcode']."'
                                            
-                                            and tim >= '2021-01-16 19:37:39' and tim <= '2021-03-25 19:37:39'  ");
+                                            and tim >= '2021-01-16 19:37:39' and tim <= '2021-03-29 19:37:39'  ");
+                                            // echo $onesub;
                                             echo $onesub->num_rows();
                                          }else{
                                             $onesub = $this->db->query("select *
                                             from timelog join users on users.empcode = timelog.agent 
-                                            where stage='i submit' 
-                                            and tim >= '2021-01-16 19:37:39' and tim <= '2021-03-25 19:37:39'  ");
+                                            where stage='i submit' and agent = '".$post['empcode']."'
+                                            and tim >= '2021-01-16 19:37:39' and tim <= '2021-03-29 19:37:39'  ");
+                                            // echo $onesub;
                                             echo $onesub->num_rows();
                                          }
                                            
@@ -194,15 +197,15 @@
                                             from timelog join users on users.empcode = timelog.agent 
                                             where stage='ii submit' 
                                             AND cids= $Campid  
-                                            
-                                             and tim >= '2021-01-16 19:37:39' and tim <= '2021-03-25 19:37:39'  ");
+                                            and agent = '".$post['empcode']."'
+                                             and tim >= '2021-01-16 19:37:39' and tim <= '2021-03-29 19:37:39'  ");
                                             echo $twosub->num_rows();
                                           }else{
                                             $twosub = $this->db->query("select *
                                             from timelog join users on users.empcode = timelog.agent 
                                             where stage='ii submit' 
-                                           
-                                            and tim >= '2021-01-16 19:37:39' and tim <= '2021-03-25 19:37:39'  ");
+                                            and agent = '".$post['empcode']."'
+                                            and tim >= '2021-01-16 19:37:39' and tim <= '2021-03-29 19:37:39'  ");
                                             echo $twosub->num_rows(); 
                                           }
                                        ?></td>
@@ -213,15 +216,15 @@
                                             where stage='dc save'  
 
                                             AND cids= $Campid  
-                                         
-                                             and tim >= '2021-01-16 19:37:39' and tim <= '2021-03-25 19:37:39'  ");
+                                            and agent = '".$post['empcode']."'
+                                             and tim >= '2021-01-16 19:37:39' and tim <= '2021-03-29 19:37:39'  ");
                                             echo $saves->num_rows();
                                           }else{
                                             $saves = $this->db->query("select *
                                             from timelog join users on users.empcode = timelog.agent 
                                             where stage='dc save'
-
-                                             and tim >= '2021-01-16 19:37:39' and tim <= '2021-03-25 19:37:39'  ");
+                                            and agent = '".$post['empcode']."'
+                                             and tim >= '2021-01-16 19:37:39' and tim <= '2021-03-29 19:37:39'  ");
                                             echo $saves->num_rows();
                                           }
                                        ?></td>
@@ -232,21 +235,22 @@
                                             $oneaccpt = $this->db->query("select *
                                             from timelog join users on users.empcode = timelog.agent 
                                             where stage='idv accept'  
-
+                                            and agent = '".$post['empcode']."'
                                             AND cids= $Campid  
                                            
-                                            and tim >= '2021-01-16 19:37:39' and tim <= '2021-03-25 19:37:39'  ");
+                                            and tim >= '2021-01-16 19:37:39' and tim <= '2021-03-29 19:37:39'  ");
                                             echo $oneaccpt->num_rows();
                                          }else{
                                             $oneaccpt = $this->db->query("select *
                                             from timelog join users on users.empcode = timelog.agent 
                                             where stage='idv accept'
-                                         
-                                             and tim >= '2021-01-16 19:37:39' and tim <= '2021-03-25 19:37:39'  ");
+                                            and agent = '".$post['empcode']."'
+                                             and tim >= '2021-01-16 19:37:39' and tim <= '2021-03-29 19:37:39'  ");
                                             echo $oneaccpt->num_rows();
                                          }
                                        ?>
                                         </td>
+                                        <td>
                                         <?php  //2st dv accept
                                         if(isset($Campid)){
                                             $twoaccpt = $this->db->query("select *
@@ -254,19 +258,19 @@
                                             where stage='iidv accept'  
 
                                             AND cids= $Campid  
-                                           
-                                            and tim >= '2021-01-16 19:37:39' and tim <= '2021-03-25 19:37:39'  ");
+                                            and agent = '".$post['empcode']."'
+                                            and tim >= '2021-01-16 19:37:39' and tim <= '2021-03-29 19:37:39'  ");
                                             echo $twoaccpt->num_rows();
                                         }else{
                                             $twoaccpt = $this->db->query("select *
                                             from timelog join users on users.empcode = timelog.agent 
                                             where stage='iidv accept'
-                                            
-                                             and tim >= '2021-01-16 19:37:39' and tim <= '2021-03-25 19:37:39'  ");
+                                            and agent = '".$post['empcode']."'
+                                             and tim >= '2021-01-16 19:37:39' and tim <= '2021-03-29 19:37:39'  ");
                                             echo $twoaccpt->num_rows(); 
                                         }
                                        ?>
-                                        
+                                       </td> 
                                         <td>
                                         <?php  //1st dv reject
                                          if(isset($Campid)){
@@ -275,46 +279,42 @@
                                             where stage='idv reject'  
 
                                             AND cids= $Campid 
-                                             
-                                              and tim >= '2021-01-16 19:37:39' and tim <= '2021-03-25 19:37:39'  ");
+                                            and agent = '".$post['empcode']."'
+                                              and tim >= '2021-01-16 19:37:39' and tim <= '2021-03-29 19:37:39'  ");
                                             echo $onerej->num_rows();
                                          }else{
                                             $onerej = $this->db->query("select *
                                             from timelog join users on users.empcode = timelog.agent 
                                             where stage='idv reject'  
-
-                                            and tim >= '2021-01-16 19:37:39' and tim <= '2021-03-25 19:37:39'  ");
+                                            and agent = '".$post['empcode']."'
+                                            and tim >= '2021-01-16 19:37:39' and tim <= '2021-03-29 19:37:39'  ");
                                             echo $onerej->num_rows();
                                          }
                                        ?>
                                         </td>
+                                        <td>
                                         <?php  //2nd dv reject
                                           if(isset($Campid)){
-                                              echo "Hiiiiii".$post['empcode'];
+                                            //   echo "Hiiiiii".$post['empcode'];
                                             $tworej = $this->db->query("select *
                                             from timelog join users on users.empcode = timelog.agent 
                                             where stage='iidv reject'  
 
                                             AND cids= $Campid  
-                                         
-                                             and tim >= '2021-01-16 19:37:39' and tim <= '2021-03-25 19:37:39'  ");
+                                            and agent = '".$post['empcode']."'
+                                             and tim >= '2021-01-16 19:37:39' and tim <= '2021-03-29 19:37:39'  ");
                                             echo $tworej->num_rows();
                                           }else{
                                             $tworej = $this->db->query("select *
                                             from timelog join users on users.empcode = timelog.agent 
                                             where stage='iidv reject'  
-                                           
-                                            and tim >= '2021-01-16 19:37:39' and tim <= '2021-03-25 19:37:39'  ");
+                                            and agent = '".$post['empcode']."'
+                                            and tim >= '2021-01-16 19:37:39' and tim <= '2021-03-29 19:37:39'  ");
                                             echo $tworej->num_rows();
                                           }
                                        ?>
+                                       </td>
                                        
-                                        <td>
-                                       
-                                        </td>
-                                        <td>
-                                       
-                                        </td>
                                     </tr>
                                 <?php endforeach; ?>
 

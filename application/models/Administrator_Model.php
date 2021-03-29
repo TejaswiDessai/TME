@@ -739,7 +739,7 @@
 			// 	$this->db->limit($limit, $offset);
 			// }
 
-			if($emp_id == 103){
+			if($emp_id == 103 || $emp_id = 101){
 				$this->db->order_by('users.id', 'DESC');
 				//$this->db->join('categories', 'categories.id = posts.category_id');
 				$query = $this->db->get('users');
@@ -1734,10 +1734,16 @@ public function get_leadmasterby_campaignidwithempcode($id = FALSE,$empcode)
 		$this->db->where('sbsvtag <', 6);
 		// $this->db->where('sbsvtag <', 3);
 		$this->db->where('sbsvtag !=', 0);
-		$this->db->where('dvrejtg <', '3');
-		// $this->db->where('dvrejtg <', '2');
-		$this->db->where('dvsbtg <', '3');
-		// $this->db->where('dvsbtg <', '2');
+		$this->db->where('qasv', NULL);
+		// $this->db->where('dvrejtg <', '3');
+		// $this->db->where('dvsbtg <', '3');
+		$this->db->where('qaacpt', NULL);
+
+		$this->db->group_start();
+		$this->db->where('dvrejtg < 3 AND dvsbtg < 3');
+		$this->db->OR_where('qarej', 1);
+		$this->db->group_end(); 
+	
 		$this->db->where('ontag', 1);
 		$this->db->where('pload', 0);
 		$this->db->where('dvload',0);
@@ -1771,10 +1777,16 @@ public function get_leadmasterby_campaigniddv($id = FALSE)
 		$this->db->where('sbsvtag <', 6);
 		// $this->db->where('sbsvtag <', 3);
 		$this->db->where('sbsvtag !=', 0);
-		$this->db->where('dvrejtg <', '3');
-		// $this->db->where('dvrejtg <', '2');
-		$this->db->where('dvsbtg <', '3');
-		// $this->db->where('dvsbtg <', '2');
+		// $this->db->where('dvrejtg <', '3');
+		// $this->db->where('dvsbtg <', '3');
+		$this->db->where('qaacpt', NULL);
+		$this->db->where('qasv', NULL);
+
+			$this->db->group_start();
+			$this->db->where('dvrejtg < 3 AND dvsbtg < 3');
+			$this->db->OR_where('qarej', 1);
+			$this->db->group_end(); 
+		
 		$this->db->where('ontag', 0);
 		$this->db->where('pload', 1);
 		$this->db->where('dvload',0);
@@ -1798,7 +1810,7 @@ public function get_leadmasterby_campaignQA($id = FALSE)
 	$this->db->where('cdcsb <', '4');
 	$this->db->where('cdcrjt <', '4');
 	$this->db->where('cdcsv !=', 0);
-	$this->db->where('qasv !=', 0);
+	$this->db->where('qasv', NULL);
 	$this->db->where('sbsvtag !=', 0);
 	$this->db->where('evload',0);
 	$this->db->where('cdcload',1);
@@ -1873,14 +1885,19 @@ public function get_campaign_fordataverification()
 		$this->db->group_by('campaign.cids');
 		$this->db->group_by('campaign.campnm');
 		$this->db->group_by('campaign.cnid');
-		$this->db->where('leadmaster.sbsvtag <', '6');
-		// $this->db->where('leadmaster.sbsvtag <', '3');
+		$this->db->where('leadmaster.sbsvtag <', '6');		
 		$this->db->where('leadmaster.sbsvtag !=', 0);
-		// $this->db->where('leadmaster.dvrejtg <', '2');
-		$this->db->where('leadmaster.dvrejtg <', '3');
+		$this->db->where('leadmaster.qaacpt', NULL); //should not be accepted in qa
+		$this->db->where('leadmaster.qasv', NULL); //should not be accepted in qa
 	
-		$this->db->where('leadmaster.dvsbtg <', '3');
-		// $this->db->where('leadmaster.dvsbtg <', '2');
+		// $this->db->where('leadmaster.dvrejtg <', '3');	
+		// $this->db->where('leadmaster.dvsbtg <', '3');
+		$this->db->group_start();
+		$this->db->where('leadmaster.dvrejtg < 3 AND leadmaster.dvsbtg < 3');
+		$this->db->OR_where('leadmaster.qarej', 1);
+		// $this->db->OR_where('leadmaster.cdcmandt', 1);
+		$this->db->group_end(); 
+	
 		$this->db->where('leadmaster.ontag', 0); 
 		$this->db->where('leadmaster.pload', 1);
 		$this->db->where('leadmaster.dvload',0);
@@ -1939,7 +1956,7 @@ public function get_campaign_fordataverification()
 			$this->db->group_by('campaign.cnid');
 			$this->db->where('leadmaster.cdcsv !=', 0);
 			$this->db->where('leadmaster.cdcsv !=', 0);
-			$this->db->where('leadmaster.qasv !=', 0);
+			$this->db->where('leadmaster.qasv',NULL);
 			$this->db->where('leadmaster.sbsvtag !=', 0);
 			$this->db->where('leadmaster.cdcsb <', '4');
 			$this->db->where('leadmaster.cdcrjt <', '4');
@@ -2230,6 +2247,113 @@ public function get_campaign_fordataverification()
 			$this->db->group_by('campaign.campnm');
 			$query=$this->db->get();
 			// echo $this->db->last_query(); 
+			// show_error($this->db->last_query(), 200, "SQL");
+			return $data=$query->result_array();
+
+		}	
+
+		public function get_user_report_timelog($campid,$user_id,$from,$to,$stage)
+		{
+			// $this->db->select('leadmaster.cids,users.fname,users.empcode,users.last_login,campaign.campnm,
+			// count(leadmaster.stagtidi) as numbers,count(leadmaster.svagtidi) as savednumbers,count(leadmaster.dvagtidi)+count(leadmaster.dvragtidi) as numberveri,
+			// count(leadmaster.stagtidi) - (count(leadmaster.dvagtidi)+count(leadmaster.dvragtidi)) as pending,
+			// count(leadmaster.dvagtidi) as accepted ,count(leadmaster.dvragtidi) as rejected');
+			// $this->db->from('leadmaster');
+			// $this->db->join('users', 'users.empcode = leadmaster.stagtidi OR users.empcode = leadmaster.stagtidi OR users.empcode = leadmaster.svagtidi','left OR users.emp_id = leadmaster.dvagtidi OR users.empcode = leadmaster.dvagtidi','left');
+			// $this->db->join('campaign', 'campaign.cids = leadmaster.cids','left');
+
+// 	given by abiel sir	
+	// --create extension tablefunc;
+// 			select * from crosstab ($$ select agent, stage, count(lmid) from timelog where cids = 1012 group by agent, stage order by agent, stage $$,$$ select distinct(stage) from timelog order by stage $$ )
+// as ct (agent text, "dc save" text, "i submit" text, "idv accept" text, "idv reject" text, "ii submit" text, "iidv accept" text, "iidv reject" text)
+
+
+			// $this->db->select('select users.fname,timelog.agent, count(timelog.agent) as sub1 from timelog join users on users.empcode = timelog.agent where stage="i submit"  ');
+			//below by sir
+			// $this->db->select('select users.fname,timelog.agent, count(timelog.agent) as sub1 from timelog join users on users.empcode = timelog.agent where stage="i submit"  ');
+			$this->db->select('users.fname,users.empcode,campaign.campnm');
+			$this->db->from('timelog');
+			$this->db->join('users', 'users.empcode = timelog.agent');
+			$this->db->join('campaign', 'campaign.cids = timelog.cids');
+			 $this->db->group_by('users.empcode');
+			 $this->db->group_by('users.fname');
+			 $this->db->group_by('campaign.campnm');
+
+			if(isset($campid) && $campid != null)
+			{
+				$this->db->where('timelog.cids', $campid);
+			}
+			// // if(isset($stage) && $stage != null)
+			// // {
+			// // 	$this->db->where('leadmaster.aa10', $stage);
+			// // }
+			// if(isset($stage) && $stage == 'datacollect')
+			// {
+			// 	// $this->db->where('leadmaster.sbsvtag >', 1);
+			// 	$this->db->where('leadmaster.stagtidi !=', null);
+			
+				
+			// }
+			// if(isset($stage) && $stage == 'Verified') // data verfied
+			// {
+			// 	$this->db->where('leadmaster.dvagtidi !=', null);
+			// 	$this->db->OR_where('leadmaster.dvragtidi !=', null);
+			// }
+			// if(isset($stage) && $stage == 'unverified')
+			// {
+			// 	$this->db->where('leadmaster.dvagtidi =', null);
+			// 	$this->db->where('leadmaster.dvragtidi =', null);
+			// }
+			// if(isset($stage) && $stage == 'Rejection')
+			// {
+			// 	$this->db->where('leadmaster.dvragtidi !=', null);
+			// }
+			// if(isset($stage) && $stage == 'Accepted')
+			// {
+			// 	$this->db->where('leadmaster.dvagtidi !=', null);
+			// }
+			// if(isset($stage) && $stage == 'pending')
+			// {
+			// 	$this->db->where('leadmaster.dvagtidi =', null);
+			// 	$this->db->where('leadmaster.dvragtidi =', null);
+			// }
+			// if(isset($user_id) && $user_id != null)
+			// {
+			// 	$this->db->where('users.empcode', $user_id);
+			// }
+			if(isset($from) && isset($to) && $from != '' && $to != '')
+			{
+				$this->db->where('tim >=','2021-01-23 13:36:27');
+				$this->db->where('tim <=', '2021-03-29 13:36:27');
+			}
+			// // if(isset($from) && isset($to) && $from != '' && $to != '' && isset($stage) && $stage == 'Verified')
+			// // {
+			// // 	$this->db->where('stdti >=', $from);
+			// // 	$this->db->where('stdti <=', $to);
+			// // }
+			else
+			{
+				// $this->db->group_start();
+				// $this->db->where("tim >= now()::date + interval '1h'");
+				// $this->db->OR_where("tim>= now()::date + interval '1h'");
+				// $this->db->group_end();
+
+				
+				// $this->db->where('timelog.cids','1001');
+				// $this->db->where('tim <=', '2021-03-26 13:36:27');
+				
+			
+			}
+			// $this->db->group_by('leadmaster.cids');
+			// $this->db->group_by('users.fname');
+			// $this->db->group_by('users.empcode');
+			// $this->db->group_by('users.last_login');
+			// // $this->db->group_by('campaign.cnid');
+			// // $this->db->group_by('campaign.clientids');
+			// $this->db->group_by('campaign.cids');
+			// $this->db->group_by('campaign.campnm');
+			$query=$this->db->get();
+			echo $this->db->last_query(); 
 			// show_error($this->db->last_query(), 200, "SQL");
 			return $data=$query->result_array();
 

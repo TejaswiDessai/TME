@@ -2553,6 +2553,7 @@ $("input:checkbox").change(function() {
 
           }
 
+           
             var qarjtdti = $('#qarjtdti').val();
             var qarjtagti = $('#qarjtagti').val();
 

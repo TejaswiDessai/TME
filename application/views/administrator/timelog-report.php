@@ -190,10 +190,12 @@
                                             $onesub = $this->db->query("select *
                                             from timelog 
                                             join users on users.empcode = timelog.agent
-                                            join campaign on campaign.cids = timelog.cids  
+                                          
                                             where stage='i submit' 
+                                           
                                             and agent = '".$post['empcode']."'
-                                            and (tim >= '".$From."' and tim <= '".$To."')  ");
+                                            AND cids= '".$post['cids']."'
+                                            and (tim >= '".$From."' and tim <= '".$To."')    ");
                                             // echo $onesub;
                                             //   echo $this->db->last_query(); 
                                             echo $onesub->num_rows();
@@ -215,9 +217,9 @@
                                           else{
                                             $twosub = $this->db->query("select *
                                             from timelog join users on users.empcode = timelog.agent 
-                                            join campaign on campaign.cids = timelog.cids  
-                                            where stage='ii submit' 
                                             
+                                            where stage='ii submit' 
+                                            AND cids= '".$post['cids']."'
                                             and agent = '".$post['empcode']."'
                                             and (tim >= '".$From."' and tim <= '".$To."')   ");
                                             echo $twosub->num_rows(); 
@@ -238,8 +240,9 @@
                                           else{
                                             $saves = $this->db->query("select *
                                             from timelog join users on users.empcode = timelog.agent
-                                            join campaign on campaign.cids = timelog.cids   
+                                           
                                             where stage='dc save'
+                                            AND cids= '".$post['cids']."'
                                             and agent = '".$post['empcode']."'
                                             and (tim >= '".$From."' and tim <= '".$To."')   ");
                                             echo $saves->num_rows();
@@ -262,8 +265,9 @@
                                          else{
                                             $oneaccpt = $this->db->query("select *
                                             from timelog join users on users.empcode = timelog.agent
-                                            join campaign on campaign.cids = timelog.cids   
+                                            
                                             where stage='idv accept'
+                                            AND cids= '".$post['cids']."'
                                             and agent = '".$post['empcode']."'
                                             and (tim >= '".$From."' and tim <= '".$To."')  ");
                                             echo $oneaccpt->num_rows();
@@ -275,10 +279,11 @@
                                         if(isset($Campid)){
                                             $twoaccpt = $this->db->query("select *
                                             from timelog join users on users.empcode = timelog.agent 
-                                            join campaign on campaign.cids = timelog.cids  
+                                           
                                             where stage='iidv accept'  
 
                                             AND cids= $Campid  
+                                            AND cids= '".$post['cids']."'
                                             and agent = '".$post['empcode']."'
                                             and (tim >= '".$From."' and tim <= '".$To."')  ");
                                             echo $twoaccpt->num_rows();
@@ -286,8 +291,9 @@
                                         else{
                                             $twoaccpt = $this->db->query("select *
                                             from timelog join users on users.empcode = timelog.agent
-                                            join campaign on campaign.cids = timelog.cids   
+                                            
                                             where stage='iidv accept'
+                                            AND cids= '".$post['cids']."'
                                             and agent = '".$post['empcode']."'
                                             and (tim >= '".$From."' and tim <= '".$To."')  ");
                                             echo $twoaccpt->num_rows(); 

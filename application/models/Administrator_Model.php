@@ -2282,13 +2282,14 @@ public function get_campaign_fordataverification()
 			// $this->db->select('select users.fname,timelog.agent, count(timelog.agent) as sub1 from timelog join users on users.empcode = timelog.agent where stage="i submit"  ');
 			//below by sir
 			// $this->db->select('select users.fname,timelog.agent, count(timelog.agent) as sub1 from timelog join users on users.empcode = timelog.agent where stage="i submit"  ');
-			$this->db->select('users.fname,users.empcode,campaign.campnm');
+			$this->db->select('users.fname,users.empcode,campaign.campnm,timelog.cids');
 			$this->db->from('timelog');
 			$this->db->join('users', 'users.empcode = timelog.agent');
 			$this->db->join('campaign', 'campaign.cids = timelog.cids');
 			 $this->db->group_by('users.empcode');
 			 $this->db->group_by('users.fname');
 			 $this->db->group_by('campaign.campnm');
+			 $this->db->group_by('timelog.cids');
 
 			if(isset($campid) && $campid != null)
 			{

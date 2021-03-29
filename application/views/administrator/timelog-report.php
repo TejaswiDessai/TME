@@ -97,12 +97,12 @@
                             <table style="margin-bottom:10px;">
                             <tr>
                             <td>
-                                <select class="form-control form-control-default "  name="campid" id="campid" required> 
+                                <!-- <select class="form-control form-control-default "  name="campid" id="campid" required> 
                                     <option value="">Campaign</option>
-                                    <?php foreach ($campaigns as $campaign): ?>
-                                        <option value="<?php echo $campaign['cids']; ?>" <?php if( isset($Campid) && $Campid == $campaign['cids']) { echo "selected" ; } ?>><?php echo $campaign['campnm']; ?></option>
-                                    <?php endforeach; ?>
-                                </select>
+                                    <?php //foreach ($campaigns as $campaign): ?>
+                                        <option value="<?php// echo $campaign['cids']; ?>" <?php //if( isset($Campid) && $Campid == $campaign['cids']) { echo "selected" ; } ?>><?php// echo $campaign['campnm']; ?></option>
+                                    <?php //endforeach; ?>
+                                <!-- </select> --> 
                             </td>
                            
                           
@@ -165,12 +165,16 @@
                                     </tr>
                                 </thead>
                                 <tbody >
-                                <?php if(isset($Campid)){
+                                <?php //if(isset($Campid)){
                                     foreach($users as $post) : ?>
                                  <tr>
                                         <td></td>
-                                        <td><?php  if(isset($Campid)){ echo $post['fname'];} ?></td>
-                                        <td><?php  if(isset($Campid)){echo $post['campnm'];} ?> </td>
+                                        <td><?php // if(isset($Campid)){
+                                             echo $post['fname'];
+                                             //} ?></td>
+                                        <td><?php  //if(isset($Campid)){
+                                            echo $post['campnm'];
+                                            //} ?> </td>
                                         <td><?php 
                                          if(isset($Campid)){
                                             $onesub = $this->db->query("select *
@@ -182,14 +186,14 @@
                                             
                                             echo $onesub->num_rows();
                                          }
-                                        //  else{
-                                        //     $onesub = $this->db->query("select *
-                                        //     from timelog join users on users.empcode = timelog.agent 
-                                        //     where stage='i submit' and agent = '".$post['empcode']."'
-                                        //     and (tim >= '".$From."' and tim <= '".$To."')  ");
-                                        //     // echo $onesub;
-                                        //     echo $onesub->num_rows();
-                                        //  }
+                                         else{
+                                            $onesub = $this->db->query("select *
+                                            from timelog join users on users.empcode = timelog.agent 
+                                            where stage='i submit' and agent = '".$post['empcode']."'
+                                            and (tim >= '".$From."' and tim <= '".$To."')  ");
+                                            // echo $onesub;
+                                            echo $onesub->num_rows();
+                                         }
                                            
                                        ?></td>
                                         <td><?php //second submit
@@ -204,14 +208,14 @@
                                             //  echo $this->db->last_query(); 
                                              echo $twosub->num_rows();
                                           }
-                                        //   else{
-                                        //     $twosub = $this->db->query("select *
-                                        //     from timelog join users on users.empcode = timelog.agent 
-                                        //     where stage='ii submit' 
-                                        //     and agent = '".$post['empcode']."'
-                                        //     and (tim >= '".$From."' and tim <= '".$To."')   ");
-                                        //     echo $twosub->num_rows(); 
-                                        //   }
+                                          else{
+                                            $twosub = $this->db->query("select *
+                                            from timelog join users on users.empcode = timelog.agent 
+                                            where stage='ii submit' 
+                                            and agent = '".$post['empcode']."'
+                                            and (tim >= '".$From."' and tim <= '".$To."')   ");
+                                            echo $twosub->num_rows(); 
+                                          }
                                        ?></td>
                                         <td><?php  //save
                                           if(isset($Campid)){
@@ -224,14 +228,14 @@
                                             and (tim >= '".$From."' and tim <= '".$To."')  ");
                                             echo $saves->num_rows();
                                           }
-                                        //   else{
-                                        //     $saves = $this->db->query("select *
-                                        //     from timelog join users on users.empcode = timelog.agent 
-                                        //     where stage='dc save'
-                                        //     and agent = '".$post['empcode']."'
-                                        //     and (tim >= '".$From."' and tim <= '".$To."')   ");
-                                        //     echo $saves->num_rows();
-                                        //   }
+                                          else{
+                                            $saves = $this->db->query("select *
+                                            from timelog join users on users.empcode = timelog.agent 
+                                            where stage='dc save'
+                                            and agent = '".$post['empcode']."'
+                                            and (tim >= '".$From."' and tim <= '".$To."')   ");
+                                            echo $saves->num_rows();
+                                          }
                                        ?></td>
                                       
                                         <td>
@@ -246,14 +250,14 @@
                                             and (tim >= '".$From."' and tim <= '".$To."')   ");
                                             echo $oneaccpt->num_rows();
                                          }
-                                        //  else{
-                                        //     $oneaccpt = $this->db->query("select *
-                                        //     from timelog join users on users.empcode = timelog.agent 
-                                        //     where stage='idv accept'
-                                        //     and agent = '".$post['empcode']."'
-                                        //     and (tim >= '".$From."' and tim <= '".$To."')  ");
-                                        //     echo $oneaccpt->num_rows();
-                                        //  }
+                                         else{
+                                            $oneaccpt = $this->db->query("select *
+                                            from timelog join users on users.empcode = timelog.agent 
+                                            where stage='idv accept'
+                                            and agent = '".$post['empcode']."'
+                                            and (tim >= '".$From."' and tim <= '".$To."')  ");
+                                            echo $oneaccpt->num_rows();
+                                         }
                                        ?>
                                         </td>
                                         <td>
@@ -268,14 +272,14 @@
                                             and (tim >= '".$From."' and tim <= '".$To."')  ");
                                             echo $twoaccpt->num_rows();
                                         }
-                                        // else{
-                                        //     $twoaccpt = $this->db->query("select *
-                                        //     from timelog join users on users.empcode = timelog.agent 
-                                        //     where stage='iidv accept'
-                                        //     and agent = '".$post['empcode']."'
-                                        //     and (tim >= '".$From."' and tim <= '".$To."')  ");
-                                        //     echo $twoaccpt->num_rows(); 
-                                        // }
+                                        else{
+                                            $twoaccpt = $this->db->query("select *
+                                            from timelog join users on users.empcode = timelog.agent 
+                                            where stage='iidv accept'
+                                            and agent = '".$post['empcode']."'
+                                            and (tim >= '".$From."' and tim <= '".$To."')  ");
+                                            echo $twoaccpt->num_rows(); 
+                                        }
                                        ?>
                                        </td> 
                                         <td>
@@ -290,14 +294,14 @@
                                             and (tim >= '".$From."' and tim <= '".$To."')  ");
                                             echo $onerej->num_rows();
                                          }
-                                        //  else{
-                                        //     $onerej = $this->db->query("select *
-                                        //     from timelog join users on users.empcode = timelog.agent 
-                                        //     where stage='idv reject'  
-                                        //     and agent = '".$post['empcode']."'
-                                        //     and (tim >= '".$From."' and tim <= '".$To."')  ");
-                                        //     echo $onerej->num_rows();
-                                        //  }
+                                         else{
+                                            $onerej = $this->db->query("select *
+                                            from timelog join users on users.empcode = timelog.agent 
+                                            where stage='idv reject'  
+                                            and agent = '".$post['empcode']."'
+                                            and (tim >= '".$From."' and tim <= '".$To."')  ");
+                                            echo $onerej->num_rows();
+                                         }
                                        ?>
                                         </td>
                                         <td>
@@ -313,19 +317,19 @@
                                             and (tim >= '".$From."' and tim <= '".$To."')   ");
                                             echo $tworej->num_rows();
                                           }
-                                        //   else{
-                                        //     $tworej = $this->db->query("select *
-                                        //     from timelog join users on users.empcode = timelog.agent 
-                                        //     where stage='iidv reject'  
-                                        //     and agent = '".$post['empcode']."'
-                                        //     and (tim >= '".$From."' and tim <= '".$To."')  ");
-                                        //     echo $tworej->num_rows();
-                                        //   }
+                                          else{
+                                            $tworej = $this->db->query("select *
+                                            from timelog join users on users.empcode = timelog.agent 
+                                            where stage='iidv reject'  
+                                            and agent = '".$post['empcode']."'
+                                            and (tim >= '".$From."' and tim <= '".$To."')  ");
+                                            echo $tworej->num_rows();
+                                          }
                                        ?>
                                        </td>
                                        
                                     </tr>
-                                <?php  endforeach; }?>
+                                <?php  endforeach; //}?>
 
                                 <!-- <div class="paginate-link">
                                     <?php //echo $this->pagination->create_links(); ?>

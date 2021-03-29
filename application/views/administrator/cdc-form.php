@@ -2432,7 +2432,7 @@ $("input:checkbox").change(function() {
             
                 this.checked ? checked.push(this.id) : notChecked.push(this.id);
             });
-            // alert(checked);
+            // alert(checked);     
           if(checked == ""){ // if unchecked any field
             checked = [0];
             
@@ -2450,6 +2450,10 @@ $("input:checkbox").change(function() {
             
             $("#leadupdatecdc").html("Accept & Submit");
           }else if(checked == "optin,optpst,optph,opteml,dnd"){ // if unchecked any field
+            checked = [0];
+            
+            $("#leadupdatecdc").html("Accept & Submit");
+          } else if(checked == "dnd"){ // if unchecked any field
             checked = [0];
             
             $("#leadupdatecdc").html("Accept & Submit");
@@ -2484,7 +2488,7 @@ $("input:checkbox").change(function() {
                 this.checked ? checked.push(this.id) : notChecked.push(this.id);
             });
 
-            // alert(checked);
+            // alert(checked); 
             
             var optin = $('#optin').val();
             var optpst = $('#optpst').val();

@@ -123,8 +123,15 @@
 						
 						// $data['leadmaster'] = $this->Administrator_Model->get_leadmasterby_campaignid($cids);
 						
-
-
+						// $data['rlccrec'] = $this->Administrator_Model->get_employee_rlc_record($_SESSION['empcode']);
+						// print_r($data['rlccrec']);  
+						// if($data['rlccrec'] >= '3'){
+				
+			
+						// 	redirect('administrator/logout');
+						// 	Exit();
+						// }
+						// exit();
 						
 						$data['leadmaster'] = $this->Administrator_Model->get_leadmasterby_campaignidwithempcode($cids,$empcode);
 						// print_r($data['leadmaster']); 
@@ -4256,7 +4263,7 @@
 				$to = date('Y-m-d H:i:s');
 			}
 
-			// print_r($to);  
+			// print_r($campid);  
 			// print_r($from);
 			// Init Pagination
 			$this->pagination->initialize($config);

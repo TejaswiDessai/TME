@@ -1482,6 +1482,17 @@ public function is_temp_pass_valid($temp_pass){
     }
     else return FALSE;
 }
+public function get_employee_rlc_record($empcode){
+    $this->db->where('agent', $empcode);
+    $this->db->where('rlc', 1);
+    $query = $this->db->get('leadmaster');
+	return $query->num_rows();
+
+    // if($query->num_rows() >= 3){
+    //     return TRUE;
+    // }
+    // else return FALSE;
+}
 
 function saverecords($emp_id,$Fname,$Lname,$Manager,$status1,$user_role,$team,$password,$register_date,$cid_type,$empcode)
 {

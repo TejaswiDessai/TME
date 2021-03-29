@@ -2333,6 +2333,7 @@ public function get_campaign_fordataverification()
 			// // }
 			else
 			{
+				
 				// $this->db->group_start();
 				// $this->db->where("tim >= now()::date + interval '1h'");
 				// $this->db->OR_where("tim>= now()::date + interval '1h'");

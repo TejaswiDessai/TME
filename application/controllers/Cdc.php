@@ -4250,7 +4250,7 @@
 			{
 				$from = date('Y-m-d 00:00:00');
 			}
-			$to =$this->input->post('to');
+			
 			if($to == "")
 			{
 				$to = date('Y-m-d H:i:s');

@@ -168,8 +168,8 @@
                                 <?php foreach($users as $post) : ?>
                                  <tr>
                                         <td></td>
-                                        <td><?php echo $post['fname']; ?></td>
-                                        <td><?php echo $post['campnm']; ?> <?php echo "-".$post['empcode']; ?> </td>
+                                        <td><?php  if(isset($Campid)){ echo $post['fname'];} ?></td>
+                                        <td><?php  if(isset($Campid)){echo $post['campnm']."-".$post['empcode'];} ?> </td>
                                         <td><?php 
                                          if(isset($Campid)){
                                             $onesub = $this->db->query("select *

@@ -224,19 +224,20 @@
                                           and dvload = 0 and cids = '".$Campid."' and stagtidi = '".$post['empcode']."'
                                           and (stdti >= '".$From."' and stdti <= '".$To."')");
                                         
-                                        $saved = $this->db->query("SELECT * FROM public.leadmaster
-                                         where 
-                                        --  svagtidi is not null
-                                        dvload = 0
-                                        --   and sbsvtag = 0 
-                                         and cids = '".$Campid."' and stagtidi = '".$post['empcode']."'
-                                         and (dvrejtg = 3 )
-                                         and sbsvtag <>0
-                                         and (stdti >= '".$From."' and stdti <= '".$To."')
-                                        --  group by svagtidi,lmid
+                                        // $saved = $this->db->query("SELECT * FROM public.leadmaster
+                                        //  where 
+                                        // --  svagtidi is not null
+                                        // dvload = 0
+                                        // --   and sbsvtag = 0 
+                                        //  and cids = '".$Campid."' and stagtidi = '".$post['empcode']."'
+                                        //  and (dvrejtg = 1 OR dvrejtg = 2 OR dvrejtg = 3 )
+                                        //  and sbsvtag = 0
+                                        //  and (stdti >= '".$From."' and stdti <= '".$To."')
+                                        // --  group by svagtidi,lmid
                                         
-                                         ");
-                                         
+                                        //  ");
+                                        $AR = $total_accept->num_rows() + $dc_pending_frej->num_rows();
+                                        $saved = $submit1_total->num_rows() - $AR;
                                         ?>
                                         <table>
                                             <tr>
@@ -249,7 +250,7 @@
                                         <td><?php echo $submit1 = $submit1_total->num_rows();?></td>
                                         <td><?php echo $total_accept->num_rows()."<br>";?></td>
                                         <td><?php echo $freject = $dc_pending_frej->num_rows()."<br>";?></td>
-                                        <td><?php echo $saved->num_rows(); ?></td>
+                                        <td><?php echo $saved ;//$saved->num_rows(); ?></td>
                                     </tr>
                                     </table>
                                         </td>
@@ -257,7 +258,7 @@
                                             <?php
                                         $submit2_total = $this->db->query("SELECT * FROM leadmaster where cids = '".$Campid."' and stagtidii = '".$post['empcode']."' and (stdti >= '".$From."' and stdti <= '".$To."')");
                                         // echo "<center><b>Total: </b>".$submit2_total->num_rows();
-                                        $total_accept = $this->db->query("select * from leadmaster
+                                        $total_accept2 = $this->db->query("select * from leadmaster
                                         where ontag = 1
                                         and rlc = 0
                                         and pload = 0
@@ -265,28 +266,31 @@
                                         and dvload = 1 and cids = '".$Campid."' and stagtidii = '".$post['empcode']."' 
                                         and (stdti >= '".$From."' and stdti <= '".$To."')");
                                         //echo "Accepted: ".$total_accept->num_rows()."<br>";
-                                        $dc_pending_frej = $this->db->query("select * from leadmaster
+                                        $dc_pending_frej2 = $this->db->query("select * from leadmaster
                                           where 
                                           rlc = 0
                                           and ontag = 0
-                                          and dvrejtg = 1
+                                          and dvrejtg = 2
                                           and sbsvtag != 0 
                                           and dvload = 0 and cids = '".$Campid."' and stagtidii = '".$post['empcode']."'
                                           and (stdti >= '".$From."' and stdti <= '".$To."')");
                                         
-                                        $saved = $this->db->query("SELECT * FROM public.leadmaster
-                                         where 
-                                        --  svagtidi is not null
-                                        dvload = 0
-                                        --   and sbsvtag = 0 
-                                         and cids = '".$Campid."' and stagtidii = '".$post['empcode']."'
-                                         and dvrejtg = 3
-                                         and sbsvtag <>0
-                                         and (stdti >= '".$From."' and stdti <= '".$To."')
-                                        --  group by svagtidi,lmid
+                                        // $saved = $this->db->query("SELECT * FROM public.leadmaster
+                                        //  where 
+                                        // --  svagtidi is not null
+                                        // dvload = 0
+                                        // --   and sbsvtag = 0 
+                                        //  and cids = '".$Campid."' and stagtidii = '".$post['empcode']."'
+                                        //  and dvrejtg = 3
+                                        //  and sbsvtag <>0
+                                        //  and (stdti >= '".$From."' and stdti <= '".$To."')
+                                        // --  group by svagtidi,lmid
                                         
-                                         ");
+                                        //  ");
                                          
+                                        $AR2 = $total_accept2->num_rows() + $dc_pending_frej2->num_rows();
+                                        $saved2 = $submit2_total->num_rows() - $AR2;
+
                                         ?>
                                         <table>
                                             <tr>
@@ -297,9 +301,9 @@
                                     </tr>
                                     <tr>
                                         <td><?php echo $submit2_total->num_rows();?></td>
-                                        <td><?php echo $total_accept->num_rows()."<br>";?></td>
-                                        <td><?php echo $freject = $dc_pending_frej->num_rows()."<br>";?></td>
-                                        <td><?php echo $saved->num_rows(); ?></td>
+                                        <td><?php echo $total_accept2->num_rows()."<br>";?></td>
+                                        <td><?php echo $freject = $dc_pending_frej2->num_rows()."<br>";?></td>
+                                        <td><?php echo $saved2;//$saved->num_rows(); ?></td>
                                     </tr>
                                     </table>
                                     

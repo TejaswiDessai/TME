@@ -177,15 +177,14 @@
                                             where stage='i submit' 
                                             AND cids= $Campid 
                                             and agent = '".$post['empcode']."'
-                                           
-                                            and tim >= '2021-01-16 19:37:39' and tim <= '2021-03-29 19:37:39'  ");
-                                            // echo $onesub;
+                                            and (tim >= '".$From."' and tim <= '".$To."')   ");
+                                            
                                             echo $onesub->num_rows();
                                          }else{
                                             $onesub = $this->db->query("select *
                                             from timelog join users on users.empcode = timelog.agent 
                                             where stage='i submit' and agent = '".$post['empcode']."'
-                                            and tim >= '2021-01-16 19:37:39' and tim <= '2021-03-29 19:37:39'  ");
+                                            and (tim >= '".$From."' and tim <= '".$To."')  ");
                                             // echo $onesub;
                                             echo $onesub->num_rows();
                                          }
@@ -198,14 +197,16 @@
                                             where stage='ii submit' 
                                             AND cids= $Campid  
                                             and agent = '".$post['empcode']."'
-                                             and tim >= '2021-01-16 19:37:39' and tim <= '2021-03-29 19:37:39'  ");
-                                            echo $twosub->num_rows();
+                                            and (tim >= '".$From."' and tim <= '".$To."') 
+                                            ");
+                                            //  echo $this->db->last_query(); 
+                                             echo $twosub->num_rows();
                                           }else{
                                             $twosub = $this->db->query("select *
                                             from timelog join users on users.empcode = timelog.agent 
                                             where stage='ii submit' 
                                             and agent = '".$post['empcode']."'
-                                            and tim >= '2021-01-16 19:37:39' and tim <= '2021-03-29 19:37:39'  ");
+                                            and (tim >= '".$From."' and tim <= '".$To."')   ");
                                             echo $twosub->num_rows(); 
                                           }
                                        ?></td>
@@ -217,14 +218,14 @@
 
                                             AND cids= $Campid  
                                             and agent = '".$post['empcode']."'
-                                             and tim >= '2021-01-16 19:37:39' and tim <= '2021-03-29 19:37:39'  ");
+                                            and (tim >= '".$From."' and tim <= '".$To."')  ");
                                             echo $saves->num_rows();
                                           }else{
                                             $saves = $this->db->query("select *
                                             from timelog join users on users.empcode = timelog.agent 
                                             where stage='dc save'
                                             and agent = '".$post['empcode']."'
-                                             and tim >= '2021-01-16 19:37:39' and tim <= '2021-03-29 19:37:39'  ");
+                                            and (tim >= '".$From."' and tim <= '".$To."')   ");
                                             echo $saves->num_rows();
                                           }
                                        ?></td>
@@ -238,14 +239,14 @@
                                             and agent = '".$post['empcode']."'
                                             AND cids= $Campid  
                                            
-                                            and tim >= '2021-01-16 19:37:39' and tim <= '2021-03-29 19:37:39'  ");
+                                            and (tim >= '".$From."' and tim <= '".$To."')   ");
                                             echo $oneaccpt->num_rows();
                                          }else{
                                             $oneaccpt = $this->db->query("select *
                                             from timelog join users on users.empcode = timelog.agent 
                                             where stage='idv accept'
                                             and agent = '".$post['empcode']."'
-                                             and tim >= '2021-01-16 19:37:39' and tim <= '2021-03-29 19:37:39'  ");
+                                            and (tim >= '".$From."' and tim <= '".$To."')  ");
                                             echo $oneaccpt->num_rows();
                                          }
                                        ?>
@@ -259,14 +260,14 @@
 
                                             AND cids= $Campid  
                                             and agent = '".$post['empcode']."'
-                                            and tim >= '2021-01-16 19:37:39' and tim <= '2021-03-29 19:37:39'  ");
+                                            and (tim >= '".$From."' and tim <= '".$To."')  ");
                                             echo $twoaccpt->num_rows();
                                         }else{
                                             $twoaccpt = $this->db->query("select *
                                             from timelog join users on users.empcode = timelog.agent 
                                             where stage='iidv accept'
                                             and agent = '".$post['empcode']."'
-                                             and tim >= '2021-01-16 19:37:39' and tim <= '2021-03-29 19:37:39'  ");
+                                            and (tim >= '".$From."' and tim <= '".$To."')  ");
                                             echo $twoaccpt->num_rows(); 
                                         }
                                        ?>
@@ -280,14 +281,14 @@
 
                                             AND cids= $Campid 
                                             and agent = '".$post['empcode']."'
-                                              and tim >= '2021-01-16 19:37:39' and tim <= '2021-03-29 19:37:39'  ");
+                                            and (tim >= '".$From."' and tim <= '".$To."')  ");
                                             echo $onerej->num_rows();
                                          }else{
                                             $onerej = $this->db->query("select *
                                             from timelog join users on users.empcode = timelog.agent 
                                             where stage='idv reject'  
                                             and agent = '".$post['empcode']."'
-                                            and tim >= '2021-01-16 19:37:39' and tim <= '2021-03-29 19:37:39'  ");
+                                            and (tim >= '".$From."' and tim <= '".$To."')  ");
                                             echo $onerej->num_rows();
                                          }
                                        ?>
@@ -302,14 +303,14 @@
 
                                             AND cids= $Campid  
                                             and agent = '".$post['empcode']."'
-                                             and tim >= '2021-01-16 19:37:39' and tim <= '2021-03-29 19:37:39'  ");
+                                            and (tim >= '".$From."' and tim <= '".$To."')   ");
                                             echo $tworej->num_rows();
                                           }else{
                                             $tworej = $this->db->query("select *
                                             from timelog join users on users.empcode = timelog.agent 
                                             where stage='iidv reject'  
                                             and agent = '".$post['empcode']."'
-                                            and tim >= '2021-01-16 19:37:39' and tim <= '2021-03-29 19:37:39'  ");
+                                            and (tim >= '".$From."' and tim <= '".$To."')  ");
                                             echo $tworej->num_rows();
                                           }
                                        ?>

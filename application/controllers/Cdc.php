@@ -4244,8 +4244,19 @@
 			$stage =$this->input->post('stage');
 			$from =$this->input->post('from');
 			$to =$this->input->post('to');
-			$old_date = date('Y-m-d H:i:s'); 
-			// print_r($old_date);  
+			// $old_date = date('Y-m-d H:i:s'); 
+
+			if($from == "")
+			{
+				$from = date('Y-m-d 00:00:00');
+			}
+			$to =$this->input->post('to');
+			if($to == "")
+			{
+				$to = date('Y-m-d H:i:s');
+			}
+
+			// print_r($to);  
 			// print_r($from);
 			// Init Pagination
 			$this->pagination->initialize($config);

@@ -2323,8 +2323,8 @@ public function get_campaign_fordataverification()
 			// }
 			if(isset($from) && isset($to) && $from != '' && $to != '')
 			{
-				$this->db->where('tim >=','2021-01-23 13:36:27');
-				$this->db->where('tim <=', '2021-03-29 13:36:27');
+				$this->db->where('tim >=',$from);
+				$this->db->where('tim <=',$to);
 			}
 			// // if(isset($from) && isset($to) && $from != '' && $to != '' && isset($stage) && $stage == 'Verified')
 			// // {

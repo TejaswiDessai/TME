@@ -2441,6 +2441,7 @@
 				'qarjtdtii' => $qarjtdtii, // Data Verification|Rej_date and time_I
 				'qastat' => 'pending', //accept/rejection by cdc
 				'qadcrej' => '1', //qa data rejection
+				'qarej' => '1', //qa data rejection
 				'pcomt' => $pcomt 
 				
 								
@@ -3075,6 +3076,7 @@
 					
 				$datacdcandlead = array(
 				'dvrejectreason' => $mychecked2,
+				'cdcrjfields' => '1', //accept to to lead
 				// tag
 				
 				'rlc' => '0', // record is closed
@@ -4226,6 +4228,51 @@
 					"message"=>"Update failed.."
 				));
 			}
+		}
+
+
+		public function timelog_report($offset = 0){
+			$this->load->model('Administrator_Model');
+			// Pagination Config
+			$config['base_url'] = base_url(). 'campaigns/campaign/';
+			$config['total_rows'] = $this->db->count_all('campaign');
+			$config['per_page'] = '';
+			$config['uri_segment'] = 3;
+			$config['attributes'] = array('class' => 'paginate-link');
+			$campid =$this->input->post('campid');
+			$user_id =$this->input->post('user_id');
+			$stage =$this->input->post('stage');
+			$from =$this->input->post('from');
+			$to =$this->input->post('to');
+			$old_date = date('Y-m-d H:i:s'); 
+			// print_r($old_date);  
+			// print_r($from);
+			// Init Pagination
+			$this->pagination->initialize($config);
+		
+			$data['title'] = 'Latest Campaigns';
+
+			$data['users'] = $this->Administrator_Model->get_user_report_timelog($campid,$user_id,$from,$to,$stage);
+			
+			
+			
+			
+	
+			// print_r($data['users']);
+			//  print_r($user_id);
+			// $data['users_name'] = $this->Administrator_Model->get_users(FALSE, $config['per_page'], $offset);
+			// $data['users'] = $this->Administrator_Model->get_users(FALSE, $config['per_page'], $offset);
+			$data['campaigns'] = $this->Administrator_Model->get_campaign();
+			$data['user_id'] = $user_id;
+			$data['Campid'] = $campid;
+			$data['Stage'] = $stage;
+			$data['From'] = $from;
+			$data['To'] = $to;
+			$this->load->view('administrator/header-script');
+			$this->load->view('administrator/header');
+			$this->load->view('administrator/header-bottom');
+			$this->load->view('administrator/timelog-report', $data);
+			$this->load->view('administrator/footer');
 		}
 
 

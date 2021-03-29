@@ -1075,11 +1075,12 @@ $(document).ready(function() {
                         
                        
                         <!-- <?php// if(isset($ldmster) && $ldmster['dvrejtg'] <= 2){ ?>  -->
-                        <?php if(isset($ldmster) && $ldmster['dvrejtg'] <= '2' && $ldmster['dvsbtg'] <= '2'){ ?> 
+                        <?php if(isset($ldmster) && $ldmster['dvrejtg'] <= '3' && $ldmster['dvsbtg'] <= '3'){ ?> 
                         
                           <input type = hidden name="lmid" id="lmid" value="<?php echo $ldmster['lmid']; ?>">
                           <input type = hidden name="emp_id" id="emp_id" value="<?php echo  $_SESSION['empcode']; ?>">
                           <input type = hidden name="sbsvtag" id="sbsvtag" value="<?php echo $ldmster['sbsvtag']; ?>">
+                          <input type = hidden name="qarej" id="qarej" value="<?php echo $ldmster['qarej']; ?>">
                           <input type = hidden name="dvrejtg" id="dvrejtg" value="<?php echo $ldmster['dvrejtg']; ?>">
                           <input type = hidden name="dvsbtg" id="dvsbtg" value="<?php echo $ldmster['dvsbtg']; ?>">
                           <input type = hidden name="rlc" id="rlc" value="<?php echo $ldmster['rlc']; ?>">
@@ -2103,11 +2104,27 @@ $("input:checkbox").change(function() {
           if(checked == ""){ // if unchecked any field
                 checked = [0];
                 var dvsbtg1 = $('#dvsbtg').val();
+                var qarej =$('#qarej').val(); // tags of qa team
+                // if(dvsbtg1 == ""){
+                //   var dvsbtg = 1;
+                // }else{
+                //   var dvsbtg = parseInt(dvsbtg1)+1; // incremataion for dv  Accept
+                // }
                 if(dvsbtg1 == ""){
                   var dvsbtg = 1;
-                }else{
-                  var dvsbtg = parseInt(dvsbtg1)+1; // incremataion for dv  Accept
-                }
+                }else if(dvsbtg1 <= '2' && qarej == "")
+              {           
+               var dvsbtg = parseInt(dvsbtg1)+1; // incremataion for dv  rejection
+              }else if(dvsbtg1 <= '2' && qarej == "1")
+              {
+                var dvsbtg = parseInt(dvsbtg1)+1; // incremataion for dv  rejection
+                // alert(dvsbtg);
+              }else{
+               
+                var dvsbtg = $('#dvsbtg').val(); 
+                // alert("else");
+                // alert(dvsbtg); 
+              }
     
                 if(dvsbtg == '3'){
                   var dvsbtg = '3';
@@ -2118,16 +2135,46 @@ $("input:checkbox").change(function() {
                 var dvrejtg = $('#dvrejtg').val(); 
                 
           }else{ //checked -rejected
+            var qarej =$('#qarej').val(); // tags of qa team
             var dvsbtg =$('#dvsbtg').val();
 
+      
+            // var dvrejtg1 = $('#dvrejtg').val();
+            //  if(dvrejtg1 == ""){
+            //   var dvrejtg = 1;
+            //   }else{
+            //     var dvrejtg = parseInt(dvrejtg1)+1; // incremataion for dv  rejection
+            //   }
+
+          //    // if(dvrejtg <= '3' && qarej != '1'){
+          //   var dvrejtg1 = $('#dvrejtg').val();
+          //    if(dvrejtg1 == ""){
+          //     var dvrejtg = 1;
+          //     }else{
+          //       var dvrejtg = parseInt(dvrejtg1)+1; // incremataion for dv  rejection
+          //     }
+          // // }else{
+          // //   var dvrejtg = $('#dvrejtg').val(); 
+          // // }
+
+            
             var dvrejtg1 = $('#dvrejtg').val();
-            if(dvrejtg1 == ""){
+             if(dvrejtg1 == ""){
               var dvrejtg = 1;
-            }else{
-              var dvrejtg = parseInt(dvrejtg1)+1; // incremataion for dv  rejection
-            }
+              }else if(dvrejtg1 <= '2' && qarej == "")
+              {           
+               var dvrejtg = parseInt(dvrejtg1)+1; // incremataion for dv  rejection
+              }else if(dvrejtg1 <= '2' && qarej == "1")
+              {
+                var dvrejtg = parseInt(dvrejtg1)+1; // incremataion for dv  rejection
+              }else{
+                // alert("else");
+                var dvrejtg = $('#dvrejtg').val();  
+              }
+       
+          
  
-            if(dvrejtg == '3'){
+            if(dvrejtg == '3' && qarej != '1'){
               var dvrejtg = '3';
               var sbsvtag = '0';
             }else{

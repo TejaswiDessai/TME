@@ -316,8 +316,9 @@
                                          else{
                                             $onerej = $this->db->query("select *
                                             from timelog join users on users.empcode = timelog.agent 
-                                            join campaign on campaign.cids = timelog.cids  
-                                            where stage='idv reject'  
+                                           
+                                            where stage='idv reject' 
+                                            AND cids= '".$post['cids']."' 
                                             and agent = '".$post['empcode']."'
                                             and (tim >= '".$From."' and tim <= '".$To."')  ");
                                             echo $onerej->num_rows();
@@ -341,8 +342,9 @@
                                           else{
                                             $tworej = $this->db->query("select *
                                             from timelog join users on users.empcode = timelog.agent
-                                            join campaign on campaign.cids = timelog.cids   
+                                           
                                             where stage='iidv reject'  
+                                            AND cids= '".$post['cids']."'
                                             and agent = '".$post['empcode']."'
                                             and (tim >= '".$From."' and tim <= '".$To."')  ");
                                             echo $tworej->num_rows();

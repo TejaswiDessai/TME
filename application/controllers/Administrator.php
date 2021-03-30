@@ -2501,54 +2501,70 @@ public function getPrivillage(){
 			if(($lastname == null || $lastname == "" ))
 			{
 				$FinalEmail = $firstCharFname."@".$domain;
+				$checkforEmail = $this->Administrator_Model->get_email_duplication_count($FinalEmail,$agent_id);
+				if($checkforEmail == true)
+				{
+					echo json_encode(array(
+						"statusCode"=>"Email Exist",
+						// "campaign_id"=>$addcampaigndata,
+						// "from"=>$from,
+						// "pass"=>$pass,
+						"message"=>"Email is already sent on this email Id"
+					));
+					return;
+				}
+				else
+				{
+					$TO = $FinalEmail;
+				}
 			}
 			else
 			{
 				$FinalEmail = $lastname.".".$firstname."@".$domain;
-			}
-			$checkforEmail = $this->Administrator_Model->get_email_duplication_count($FinalEmail,$agent_id);
 			
-			if($checkforEmail == true)
-			{
-				$TO = $firstCharFname.".".$lastname."@".$domain;
-				$checkforEmail = $this->Administrator_Model->get_email_duplication_count($TO,$agent_id);
+				$checkforEmail = $this->Administrator_Model->get_email_duplication_count($FinalEmail,$agent_id);
+			
 				if($checkforEmail == true)
 				{
-					$TO = $firstname.".".$firstCharLname."@".$domain;
+					$TO = $firstCharFname.".".$lastname."@".$domain;
 					$checkforEmail = $this->Administrator_Model->get_email_duplication_count($TO,$agent_id);
 					if($checkforEmail == true)
 					{
-						$TO = $firstCharFname.".".$firstCharLname."@".$domain;
+						$TO = $firstname.".".$firstCharLname."@".$domain;
 						$checkforEmail = $this->Administrator_Model->get_email_duplication_count($TO,$agent_id);
 						if($checkforEmail == true)
 						{
-							$TO = $firstname."@".$domain;
+							$TO = $firstCharFname.".".$firstCharLname."@".$domain;
 							$checkforEmail = $this->Administrator_Model->get_email_duplication_count($TO,$agent_id);
 							if($checkforEmail == true)
 							{
-								$TO = $lastname."@".$domain;
+								$TO = $firstname."@".$domain;
+								$checkforEmail = $this->Administrator_Model->get_email_duplication_count($TO,$agent_id);
+								if($checkforEmail == true)
+								{
+									$TO = $lastname."@".$domain;
+								}
+								else
+								{
+									$TO = $firstname."@".$domain;
+								}
 							}
 							else
 							{
-								$TO = $firstname."@".$domain;
+								$TO = $firstCharFname.".".$firstCharLname."@".$domain;
 							}
 						}
-						else
-						{
-							$TO = $firstCharFname.".".$firstCharLname."@".$domain;
-						}
+					}
+					else
+					{
+						$TO = $firstCharFname.".".$lastname."@".$domain;
 					}
 				}
 				else
 				{
-					$TO = $firstCharFname.".".$lastname."@".$domain;
+					$TO = $FinalEmail;
 				}
 			}
-			else
-			{
-				$TO = $FinalEmail;
-			}
-		
 			
 			$checkforlmid = $this->Administrator_Model->get_lmid_duplication_count($leadid[$i],$agent_id);
 			if($checkforlmid == true)

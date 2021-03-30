@@ -1011,6 +1011,12 @@ $(".emailstatus").click(function() {
             
             // var body = $('#editor1').val();
             var body = CKEDITOR.instances.editor1.getData();
+            var email_template = $('#email_template').val();
+            if(email_template != null && email_template != '')
+            {
+                var sub = "Sample Test Email";
+                var body = "Test Email";
+            }
             // alert(body);
             // var body = document.getElementById('mail_body').innerHTML;
             // alert("from= "+from+"sub= "+sub+"body= "+body+"email= "+change_status_of+"leadid= "+leadid);
@@ -1067,11 +1073,27 @@ $(".emailstatus").click(function() {
                     {
                         // alert("test");
                         $("#send_email").html(response.message);
+                        jQuery(document).ajaxStop(function () {
+                        //show ajax indicator
+                        ajaxindicatorstop();
+                        });
                         
 					}
                     else if(response.statusCode == "Exceed")
                     {
                         alert("LMID exceeded");
+                        jQuery(document).ajaxStop(function () {
+                        //show ajax indicator
+                        ajaxindicatorstop();
+                        });
+                    }
+                    else if(response.statusCode == "Email Exist")
+                    {
+                        alert("Email is already sent on this email Id");
+                        jQuery(document).ajaxStop(function () {
+                        //show ajax indicator
+                        ajaxindicatorstop();
+                        });
                     }
                 },
                 error:function(xhr, status, error){

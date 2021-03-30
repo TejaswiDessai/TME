@@ -2614,7 +2614,7 @@ public function get_campaign_fordataverification()
 			}
 			
 			// $this->db->join('leadmaster', 'leadmaster.lmid = (select max(lmid) from ev where ev.lmid = leadmaster.lmid)', 'left');
-			$this->db->join('users', 'users.empcode = leadmaster.stagtidi && users.empcode = ev.evagnt','left');
+			$this->db->join('users', 'users.empcode = leadmaster.stagtidi','left');
 			$this->db->join('campaign', 'campaign.cids = leadmaster.cids','left');
 			
 			if(isset($campid) && $campid != null)

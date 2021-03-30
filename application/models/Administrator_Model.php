@@ -2611,6 +2611,7 @@ public function get_campaign_fordataverification()
 				$this->db->select('leadmaster.cids,leadmaster.lmid,leadmaster.plink,leadmaster.jtitle,leadmaster.empsize,leadmaster.email,leadmaster.city,leadmaster.state,leadmaster.domain,leadmaster.fname,leadmaster.lname,users.emp_id,users.last_login,campaign.campnm,count(leadmaster.stagtidi) as number,ev.status as mailstatus,ev.comment as evcomment,ev.loaddt as sent_mail_date,ev.fmail,ev.closer_status,ev.email as evemail');
 				$this->db->from('ev');
 				$this->db->join('leadmaster', 'ev.lmid = leadmaster.lmid','left');
+				$this->db->where('ev.evagnt',$this->session->userdata('empcode'));
 			}
 			
 			// $this->db->join('leadmaster', 'leadmaster.lmid = (select max(lmid) from ev where ev.lmid = leadmaster.lmid)', 'left');

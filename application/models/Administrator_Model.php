@@ -2602,6 +2602,7 @@ public function get_campaign_fordataverification()
 				$this->db->select('leadmaster.cids,leadmaster.lmid,leadmaster.plink,leadmaster.jtitle,leadmaster.empsize,leadmaster.email,leadmaster.city,leadmaster.state,leadmaster.domain,leadmaster.fname,leadmaster.lname,users.emp_id,users.last_login,campaign.campnm,count(leadmaster.stagtidi) as number');
 				$this->db->from('leadmaster');
 				// $this->db->join('ev', 'ev.lmid = leadmaster.lmid','left');
+				$this->db->join('users', 'users.empcode = leadmaster.stagtidi','left');
 				$this->db->where('leadmaster.dvload', 1);
 				$this->db->where('leadmaster.lmid NOT IN (select lmid from ev)',NULL,FALSE);
 				$this->db->limit($leadlimit);
@@ -2611,10 +2612,11 @@ public function get_campaign_fordataverification()
 				$this->db->select('leadmaster.cids,leadmaster.lmid,leadmaster.plink,leadmaster.jtitle,leadmaster.empsize,leadmaster.email,leadmaster.city,leadmaster.state,leadmaster.domain,leadmaster.fname,leadmaster.lname,users.emp_id,users.last_login,campaign.campnm,count(leadmaster.stagtidi) as number,ev.status as mailstatus,ev.comment as evcomment,ev.loaddt as sent_mail_date,ev.fmail,ev.closer_status,ev.email as evemail');
 				$this->db->from('ev');
 				$this->db->join('leadmaster', 'ev.lmid = leadmaster.lmid','left');
+				$this->db->join('users', 'users.empcode = ev.evagnt','left');
 			}
 			
 			// $this->db->join('leadmaster', 'leadmaster.lmid = (select max(lmid) from ev where ev.lmid = leadmaster.lmid)', 'left');
-			$this->db->join('users', 'users.emp_id = leadmaster.stagtidi','left');
+			
 			$this->db->join('campaign', 'campaign.cids = leadmaster.cids','left');
 			
 			if(isset($campid) && $campid != null)

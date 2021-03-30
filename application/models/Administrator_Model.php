@@ -2747,7 +2747,7 @@ public function get_campaign_fordataverification()
 			$this->db->where('lmid', $leadid);
 			$result = $this->db->get('ev');
 			// echo $this->db->last_query(); 
-			if ($result->num_rows() > 100) {
+			if ($result->num_rows() >= 8) {
                return true;        
 			}else{
 				return false;
@@ -2760,7 +2760,7 @@ public function get_campaign_fordataverification()
 			$this->db->where('email', $FinalEmail);
 			$result = $this->db->get('ev');
 			// echo $this->db->last_query(); 
-			if ($result->num_rows() > 1) {
+			if ($result->num_rows() >= 1) {
                return true;        
 			}else{
 				return false;

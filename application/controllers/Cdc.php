@@ -123,8 +123,15 @@
 						
 						// $data['leadmaster'] = $this->Administrator_Model->get_leadmasterby_campaignid($cids);
 						
-
-
+						$data['rlccrec'] = $this->Administrator_Model->get_employee_rlc_record($_SESSION['empcode']);
+						
+						if($data['rlccrec'] >= '3'){
+							
+							$this->session->set_flashdata('success', 'More than 3 records were locked.');
+							redirect('administrator/logout');
+							
+						}
+						
 						
 						$data['leadmaster'] = $this->Administrator_Model->get_leadmasterby_campaignidwithempcode($cids,$empcode);
 						// print_r($data['leadmaster']); 
@@ -224,7 +231,15 @@
 						$camp_id = $camp['cnid'];
 						
 						$cids = $camp['cids'];
-					
+						
+						$data['rlccrec'] = $this->Administrator_Model->get_employee_rlc_record($_SESSION['empcode']);
+						
+						if($data['rlccrec'] >= '3'){
+							
+							$this->session->set_flashdata('success', 'More than 3 records were locked.');
+							redirect('administrator/logout');
+							
+						}
 						
 						$data['leadmaster'] = $this->Administrator_Model->get_leadmasterby_campaigniddv($cids);
 						// print_r($data['leadmaster']); 
@@ -4244,8 +4259,19 @@
 			$stage =$this->input->post('stage');
 			$from =$this->input->post('from');
 			$to =$this->input->post('to');
-			$old_date = date('Y-m-d H:i:s'); 
-			// print_r($old_date);  
+			// $old_date = date('Y-m-d H:i:s'); 
+
+			if($from == "")
+			{
+				$from = date('Y-m-d 00:00:00');
+			}
+			
+			if($to == "")
+			{
+				$to = date('Y-m-d H:i:s');
+			}
+
+			// print_r($campid);  
 			// print_r($from);
 			// Init Pagination
 			$this->pagination->initialize($config);

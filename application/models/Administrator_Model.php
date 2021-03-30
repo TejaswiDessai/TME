@@ -1482,6 +1482,17 @@ public function is_temp_pass_valid($temp_pass){
     }
     else return FALSE;
 }
+public function get_employee_rlc_record($empcode){
+    $this->db->where('agent', $empcode);
+    $this->db->where('rlc', 1);
+    $query = $this->db->get('leadmaster');
+	return $query->num_rows();
+
+    // if($query->num_rows() >= 3){
+    //     return TRUE;
+    // }
+    // else return FALSE;
+}
 
 function saverecords($emp_id,$Fname,$Lname,$Manager,$status1,$user_role,$team,$password,$register_date,$cid_type,$empcode)
 {
@@ -2271,13 +2282,14 @@ public function get_campaign_fordataverification()
 			// $this->db->select('select users.fname,timelog.agent, count(timelog.agent) as sub1 from timelog join users on users.empcode = timelog.agent where stage="i submit"  ');
 			//below by sir
 			// $this->db->select('select users.fname,timelog.agent, count(timelog.agent) as sub1 from timelog join users on users.empcode = timelog.agent where stage="i submit"  ');
-			$this->db->select('users.fname,users.empcode,campaign.campnm');
+			$this->db->select('users.fname,users.empcode,campaign.campnm,timelog.cids');
 			$this->db->from('timelog');
 			$this->db->join('users', 'users.empcode = timelog.agent');
 			$this->db->join('campaign', 'campaign.cids = timelog.cids');
 			 $this->db->group_by('users.empcode');
 			 $this->db->group_by('users.fname');
 			 $this->db->group_by('campaign.campnm');
+			 $this->db->group_by('timelog.cids');
 
 			if(isset($campid) && $campid != null)
 			{
@@ -2323,8 +2335,8 @@ public function get_campaign_fordataverification()
 			// }
 			if(isset($from) && isset($to) && $from != '' && $to != '')
 			{
-				$this->db->where('tim >=','2021-01-23 13:36:27');
-				$this->db->where('tim <=', '2021-03-29 13:36:27');
+				$this->db->where('tim >=',$from);
+				$this->db->where('tim <=',$to);
 			}
 			// // if(isset($from) && isset($to) && $from != '' && $to != '' && isset($stage) && $stage == 'Verified')
 			// // {
@@ -2333,6 +2345,7 @@ public function get_campaign_fordataverification()
 			// // }
 			else
 			{
+				
 				// $this->db->group_start();
 				// $this->db->where("tim >= now()::date + interval '1h'");
 				// $this->db->OR_where("tim>= now()::date + interval '1h'");

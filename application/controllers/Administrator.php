@@ -2134,9 +2134,19 @@ public function getPrivillage(){
 		$lmid_3 = $_GET['lmid3'];
 		$lmid_4 = $_GET['lmid4'];
 		$lmid_5 = $_GET['lmid5'];
+		$lmid_6 = $_GET['lmid6'];
+		$lmid_7 = $_GET['lmid7'];
+		$lmid_8 = $_GET['lmid8'];
+		$lmid_9 = $_GET['lmid9'];
+		$lmid_10 = $_GET['lmid10'];
+		$lmid_11 = $_GET['lmid11'];
+		$lmid_12 = $_GET['lmid12'];
+		$lmid_13 = $_GET['lmid13'];
+		$lmid_14 = $_GET['lmid14'];
+		$lmid_15 = $_GET['lmid15'];
 		$rlc = $_GET['rlc'];
 		$emp_id = $_GET['emp_id'];
-		for($i=1;$i<=5;$i++)
+		for($i=1;$i<=15;$i++)
 		{
 		$datarecord = array(
 			'rlc' => $rlc,
@@ -2279,8 +2289,19 @@ public function getPrivillage(){
 			// {
 			// 	$TO = $FinalEmail;
 			// }
-		
-			
+			$checkforEmail = $this->Administrator_Model->get_email_duplication_count($comp_proSplit[$i],$agent_id);
+			if($checkforEmail == true)
+			{
+				echo json_encode(array(
+					"statusCode"=>"Email Exist",
+					// "campaign_id"=>$addcampaigndata,
+					// "from"=>$from,
+					// "pass"=>$pass,
+					"message"=>"Email is already sent on this email Id"
+				));
+				return;
+			}
+
 			$checkforlmid = $this->Administrator_Model->get_lmid_duplication_count($leadid[$i],$agent_id);
 			if($checkforlmid == true)
 			{
@@ -2391,6 +2412,15 @@ public function getPrivillage(){
 		$email1 = $_GET['change_status_of'];
 		$string_version1= implode(",", $email1);
 		$comp_proSplit= explode(",", $string_version1);
+
+		$original_email = $_GET['original_email'];
+		$original_email= implode(",", $original_email);
+		$original_email= explode(",", $original_email);
+
+		$formated_mail_name = implode(",", $_GET['formated_mail']);
+		$formated_mail = explode(',', $formated_mail_name);
+		// $formated_mail= implode(",", $formated_mail);
+		
 		$cnt=count($comp_proSplit);
 		// $cnt = 5;
 		if(isset($_GET['email_status']) && $_GET['email_status'] != null)
@@ -2463,7 +2493,7 @@ public function getPrivillage(){
 			$addcampaigndata = $this->Administrator_Model->update_email_status($datacampaignUpdate,$comp_proSplit[$i]);
 
 			// Check for new Email Format
-			$EmailFormat = explode("@",$comp_proSplit[$i]);
+			$EmailFormat = explode("@",$original_email[$i]);
 			$domain = $EmailFormat [1];
 			$str = strpos($EmailFormat[0], '.');
 			// echo $EmailFormat[0]; die;
@@ -2476,69 +2506,91 @@ public function getPrivillage(){
 				$firstCharFname = substr($firstname, 0, 1);
 				// echo "found";
 			} else {
-				$firstname = $EmailFormat[0];
-				$firstCharFname = substr($firstname, 0, 1);
-				$lastname = null;
+				// $firstname = $EmailFormat[0];
+				// $firstCharFname = substr($firstname, 0, 1);
+				// $lastname = null;
 				// echo "not found";
+				$Name = explode(".",$formated_mail[$i]);
+				$firstname = $Name[0];
+				$lastname = $Name[1];
+				$firstCharLname = substr($lastname, 0, 1);
+				$firstCharFname = substr($firstname, 0, 1);
+				
 			}
 			
 			if(($lastname == null || $lastname == "" ))
 			{
 				$FinalEmail = $firstCharFname."@".$domain;
+				$checkforEmail = $this->Administrator_Model->get_email_duplication_count($FinalEmail,$agent_id);
+				if($checkforEmail == true)
+				{
+					echo json_encode(array(
+						"statusCode"=>"Email Exist",
+						// "campaign_id"=>$addcampaigndata,
+						// "from"=>$from,
+						// "pass"=>$pass,
+						"message"=>"Email is already sent on this email Id"
+					));
+					return;
+				}
+				else
+				{
+					$TO = $FinalEmail;
+				}
 			}
 			else
 			{
 				$FinalEmail = $lastname.".".$firstname."@".$domain;
-			}
-			$checkforEmail = $this->Administrator_Model->get_email_duplication_count($FinalEmail,$agent_id);
 			
-			if($checkforEmail == true)
-			{
-				$TO = $firstCharFname.".".$lastname."@".$domain;
-				$checkforEmail = $this->Administrator_Model->get_email_duplication_count($TO,$agent_id);
+				$checkforEmail = $this->Administrator_Model->get_email_duplication_count($FinalEmail,$agent_id);
+			
 				if($checkforEmail == true)
 				{
-					$TO = $firstname.".".$firstCharLname."@".$domain;
+					$TO = $firstCharFname.".".$lastname."@".$domain;
 					$checkforEmail = $this->Administrator_Model->get_email_duplication_count($TO,$agent_id);
 					if($checkforEmail == true)
 					{
-						$TO = $firstCharFname.".".$firstCharLname."@".$domain;
+						$TO = $firstname.".".$firstCharLname."@".$domain;
 						$checkforEmail = $this->Administrator_Model->get_email_duplication_count($TO,$agent_id);
 						if($checkforEmail == true)
 						{
-							$TO = $firstname."@".$domain;
+							$TO = $firstCharFname.".".$firstCharLname."@".$domain;
 							$checkforEmail = $this->Administrator_Model->get_email_duplication_count($TO,$agent_id);
 							if($checkforEmail == true)
 							{
-								$TO = $lastname."@".$domain;
+								$TO = $firstname."@".$domain;
+								$checkforEmail = $this->Administrator_Model->get_email_duplication_count($TO,$agent_id);
+								if($checkforEmail == true)
+								{
+									$TO = $lastname."@".$domain;
+								}
+								else
+								{
+									$TO = $firstname."@".$domain;
+								}
 							}
 							else
 							{
-								$TO = $firstname."@".$domain;
+								$TO = $firstCharFname.".".$firstCharLname."@".$domain;
 							}
 						}
-						else
-						{
-							$TO = $firstCharFname.".".$firstCharLname."@".$domain;
-						}
+					}
+					else
+					{
+						$TO = $firstCharFname.".".$lastname."@".$domain;
 					}
 				}
 				else
 				{
-					$TO = $firstCharFname.".".$lastname."@".$domain;
+					$TO = $FinalEmail;
 				}
 			}
-			else
-			{
-				$TO = $FinalEmail;
-			}
-		
 			
 			$checkforlmid = $this->Administrator_Model->get_lmid_duplication_count($leadid[$i],$agent_id);
 			if($checkforlmid == true)
 			{
 				echo json_encode(array(
-					"statusCode"=>"Exceed",
+					"statusCode"=>"Exceed: Max 8 Format you can used.",
 					// "campaign_id"=>$addcampaigndata,
 					// "from"=>$from,
 					// "pass"=>$pass,
@@ -2587,37 +2639,37 @@ public function getPrivillage(){
 						);
 					
 					$addcampaigndata = $this->Administrator_Model->send_email_status($datacampaign);
-				}
-			require_once "send-email-php/phpmailer/class.phpmailer.php";
-			require_once "send-email-php/phpmailer/PHPMailerAutoload.php";
-			$mail = new PHPMailer(true);
-			try {
-				//  $mail->Host       = "mail.gmail.com"; // SMTP server
-				//  $mail->SMTPDebug  = 2;                     // enables SMTP debug information (for testing)
-				 $mail->SMTPAuth   = true;                  // enable SMTP authentication
-				 $mail->SMTPSecure = "ssl";                 // sets the prefix to the servier
-				 $mail->Host       = "smtp.gmail.com";      // sets GMAIL as the SMTP server
-				 $mail->Port       = 465;   // set the SMTP port for the GMAIL server
-				 $mail->SMTPKeepAlive = true;
-				 $mail->Mailer = "smtp";
-				 $mail->Username   = $from;  // GMAIL username
-				 $mail->Password   = $pass;            // GMAIL password
-				 $mail->addAddress($TO, 'Receiver Name');
-				 $mail->setFrom($from, 'User');
-				 $mail->Subject = $sub;
-				 $mail->AltBody = $body; // optional - MsgHTML will create an alternate automatically
-				 $mail->MsgHTML($body);
-				 $mail->Send();
-				 
-				//  echo "Message Sent OK</p>\n";
-				//  header("location: ../administrator/emailVerfication");
+			
+					require_once "send-email-php/phpmailer/class.phpmailer.php";
+					require_once "send-email-php/phpmailer/PHPMailerAutoload.php";
+					$mail = new PHPMailer(true);
+					try {
+						//  $mail->Host       = "mail.gmail.com"; // SMTP server
+						//  $mail->SMTPDebug  = 2;                     // enables SMTP debug information (for testing)
+						$mail->SMTPAuth   = true;                  // enable SMTP authentication
+						$mail->SMTPSecure = "ssl";                 // sets the prefix to the servier
+						$mail->Host       = "smtp.gmail.com";      // sets GMAIL as the SMTP server
+						$mail->Port       = 465;   // set the SMTP port for the GMAIL server
+						$mail->SMTPKeepAlive = true;
+						$mail->Mailer = "smtp";
+						$mail->Username   = $from;  // GMAIL username
+						$mail->Password   = $pass;            // GMAIL password
+						$mail->addAddress($TO, 'Receiver Name');
+						$mail->setFrom($from, 'User');
+						$mail->Subject = $sub;
+						$mail->AltBody = $body; // optional - MsgHTML will create an alternate automatically
+						$mail->MsgHTML($body);
+						$mail->Send();
+						
+						//  echo "Message Sent OK</p>\n";
+						//  header("location: ../administrator/emailVerfication");
 
-				} catch (phpmailerException $e) {
-				 echo $e->errorMessage(); //Pretty error messages from PHPMailer
-				} catch (Exception $e) {
-				 echo $e->getMessage(); //Boring error messages from anything else!
-				}
-
+						} catch (phpmailerException $e) {
+						echo $e->errorMessage(); //Pretty error messages from PHPMailer
+						} catch (Exception $e) {
+						echo $e->getMessage(); //Boring error messages from anything else!
+						}
+					}
 				
 			}
 			if($addcampaigndata == true){
@@ -2643,35 +2695,59 @@ public function getPrivillage(){
 
 	public function update_email_status()
 	{
-		// $leadid = $_GET['leadid'];
-		// $leadid= explode(",", $_GET['leadid']);
-		$string_version= implode(",", $_GET['change_status_of']);
-		$lmid = explode(",", $string_version); 
-		// print_r($lmid);
-		// $comp_proSplit= explode(",", $email1);
-		$cnt=count($string_version);
-		
-		$email_status = $_GET['email_status'];
-		$comment = $_GET['comment'];
-		$closer_status = $_GET['email_close_status'];
+		// $string_version = $_GET['leadid'];
+		$string_version= implode(",", $_GET['leadid']);
+		$leadid = explode(',', $string_version);
+		// print_r($leadid);die;
+		// echo $_GET['leadid'];
+		$email1 = $_GET['change_status_of'];
+		$string_version1= implode(",", $email1);
+		$comp_proSplit= explode(",", $string_version1);
+		$cnt=count($comp_proSplit);
+		// $cnt = 5;
+		if(isset($_GET['email_status']) && $_GET['email_status'] != null)
+		{
+			$email_status = $_GET['email_status'];
+		}
+		else
+		{
+			$email_status = null;
+		}
+		if(isset($_GET['comment']) && $_GET['comment'] != null)
+		{
+			$comment = $_GET['comment'];
+		}
+		else
+		{
+			$comment = null;
+		}
+		if(isset($_GET['email_close_status']) && $_GET['email_close_status'] != null)
+		{
+			$closer_status = $_GET['email_close_status'];
+		}
+		else
+		{
+			$closer_status = null;
+		}
 		$startdate = date("Y-m-d H:i:s");
 		for($i=0;$i<$cnt;$i++)
 		{
-			$datacampaign = array(
+			// Update Last email status first
+			$datacampaignUpdate = array(
 				'status' =>$email_status,
 				'comment' => $comment,
 				'closer_status' => $closer_status,
 				'statdt' => $startdate
 								
 				);
-			$addcampaigndata = $this->Administrator_Model->update_email_status($datacampaign,$lmid[$i]);
+			$addcampaigndata = $this->Administrator_Model->update_email_status($datacampaignUpdate,$comp_proSplit[$i]);
 			if($closer_status == "Closed")
 				{
 				$update_lead_status = array(
 					'evload' => 1,
 					'evcomp' => 1				
 					);
-				$update_lead_status = $this->Administrator_Model->update_email_lead__status($update_lead_status,$lmid[$i]);
+				$update_lead_status = $this->Administrator_Model->update_email_lead__status($update_lead_status,$leadid[$i]);
 				}
 			}
 			if($addcampaigndata == true){
@@ -2679,13 +2755,13 @@ public function getPrivillage(){
 						echo json_encode(array(
 							"statusCode"=>"Success",
 							"campaign_id"=>$addcampaigndata,
-							"message"=>"Mail Sent Successfully.."
+							"message"=>"Status Updated Successfully.."
 						));
 					}else{
 						
 						echo json_encode(array(
 							"statusCode"=>"Fail",
-							"message"=>"Mail Sent failed.."
+							"message"=>"Status not Updated"
 						));
 					}
 	}

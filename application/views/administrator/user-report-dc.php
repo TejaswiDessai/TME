@@ -220,11 +220,11 @@
                                         $dc_pending_frej = $this->db->query("select * from leadmaster
                                           where 
                                           
-                                           dvagtidi is  null
-                                           and dvrejtg = 1
-                                          and dvragtidi is not null
+                                           
                                           
-                                          and dvload = 0 and cids = '".$Campid."' and stagtidi = '".$post['empcode']."'
+                                           dvragtidi is not null
+                                          
+                                           and cids = '".$Campid."' and stagtidi = '".$post['empcode']."'
                                           and (stdti >= '".$From."' and stdti <= '".$To."')");
                                         
                                         // $saved = $this->db->query("SELECT * FROM public.leadmaster

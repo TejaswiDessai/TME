@@ -883,8 +883,8 @@ $(".emailstatus").click(function() {
             var email_template = $('#email_template').val();
             if(email_template != null && email_template != '')
             {
-                var sub = "Sample Test Email";
-                var body = "<p>Hii User,<br>Test Email</p>";
+                var sub = "Test Mail";
+                var body = "Test mail</p>";
             }
             // alert(body);
             // var body = document.getElementById('mail_body').innerHTML;

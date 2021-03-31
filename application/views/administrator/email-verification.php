@@ -169,6 +169,16 @@ var lmid2 = $('#leadid_2').val();
 var lmid3 = $('#leadid_3').val();
 var lmid4 = $('#leadid_4').val();
 var lmid5 = $('#leadid_5').val();
+var lmid6 = $('#leadid_6').val();
+var lmid7 = $('#leadid_7').val();
+var lmid8 = $('#leadid_8').val();
+var lmid9 = $('#leadid_9').val();
+var lmid10 = $('#leadid_10').val();
+var lmid11 = $('#leadid_11').val();
+var lmid12 = $('#leadid_12').val();
+var lmid13 = $('#leadid_13').val();
+var lmid14 = $('#leadid_14').val();
+var lmid15 = $('#leadid_15').val();
 // alert("L1 = "+lmid1+"L2 = "+lmid2+"L3 = "+lmid3+"L4 = "+lmid4+"L5 = "+lmid5);
 var emp_id = $('#empcode').val();
 
@@ -186,6 +196,16 @@ $.ajax({
         lmid3: lmid3,
         lmid4: lmid4,
         lmid5: lmid5,
+        lmid6: lmid6,
+        lmid7: lmid7,
+        lmid8: lmid8,
+        lmid9: lmid9,
+        lmid10: lmid10,
+        lmid11: lmid11,
+        lmid12: lmid12,
+        lmid13: lmid13,
+        lmid14: lmid14,
+        lmid15: lmid15,
         rlc:rlc,
         emp_id:emp_id
       },

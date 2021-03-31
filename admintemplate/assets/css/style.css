@@ -13198,7 +13198,8 @@ table.footable-paging-center>tfoot>tr.footable-paging>td {
 
 .common-img-bg {
 	background-size: cover;
-	background: url(../images/bg.jpg) no-repeat center center fixed;
+	/* background: url(../images/bg.jpg) no-repeat center center fixed; */
+	background: linear-gradient( rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5) ),url(../images/main-banner-image-min.jpg) no-repeat  fixed;
 	height: 100%
 }
 

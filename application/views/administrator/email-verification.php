@@ -215,7 +215,8 @@ $.ajax({
     $(document).on("click", ".passingID", function () {
     var ids = $(this).attr('data-id');
     var row = $(this).attr('data-row');
-    
+    var fname = $(this).attr('data-fname');
+    var lname = $(this).attr('data-lname');
     var sp = ids.split('@');
     var flname = sp[0];
     var sp_email = flname.split('.') ;
@@ -248,9 +249,22 @@ $.ajax({
     }
     else
     {
-        var option1 = ids;
-        var option2 = first_of_firstString+"@"+sp[1];
-        var values = [option1,option2];
+        var first_of_firstString1 = fname.substring(0, 1);
+        var first_of_secondString1 = lname.substring(0, 1);
+
+        var option1 = fname+"."+lname+"@"+sp[1];
+        var option2 = lname+"."+fname+"@"+sp[1];
+        var option3 = fname+"@"+sp[1];
+        var option4 = lname+"@"+sp[1];
+        var option5 = first_of_firstString1+"@"+sp[1];
+        var option6 = first_of_secondString1+"@"+sp[1];
+        var option7 = first_of_firstString1+"."+first_of_secondString+"@"+sp[1];
+        var option8 = first_of_firstString1+"."+lname+"@"+sp[1];
+        var option9 = first_of_firstString1+lname+"@"+sp[1];
+        var values = [option1, option2, option3, option4,option5,option6,option7,option8,option9];
+        // var option1 = ids;
+        // var option2 = first_of_firstString+"@"+sp[1];
+        // var values = [option1,option2];
     }
     
 
@@ -444,7 +458,11 @@ document.getElementById("randomSelect").addEventListener("click", function() {
                                         <td>
                                         <input type="hidden" name="row_id" id="row_id_<?php echo $post['lmid'];?>" value="<?php echo $post['lmid'];?>">
                                         <input type="hidden" name="leadid" id="leadid_<?php echo  $i;?>" value="<?php echo $post['lmid'];?>">
-                                        <?php echo $post['fname']; ?></td>
+                                        <?php echo $post['fname']; 
+                                        $formated_mail = $post['fname'].".".$post['lname'];
+                                        ?>
+                                        <input type="hidden" id="formated_mail_<?php echo $i;?>" value="<?php echo $formated_mail; ?>">
+                                        </td>
                                         <td><?php echo $post['lname']; ?></td>
                                         <td><?php 
                                         echo $post['domain'];
@@ -475,7 +493,7 @@ document.getElementById("randomSelect").addEventListener("click", function() {
                                         <td>
                                             <!-- <input type="button" id="format" value="Change Format"> -->
                                             <!-- <button class="btn btn-primary btn-sm btn-block" style="padding: 6px 0px;" data-toggle="modal" data-target="#sign-in-modal">Change Format</button> -->
-                                            <button type="button" class="btn btn-info btn-sm passingID" data-id="<?php echo $post['email'];?>" data-row="<?php echo $i;?>">Change Format</button>
+                                            <button type="button" class="btn btn-info btn-sm passingID" data-fname="<?php echo $post['fname'];?>" data-lname="<?php echo $post['lname'];?>" data-id="<?php echo $post['email'];?>" data-row="<?php echo $i;?>">Change Format</button>
 
                                         </td>
                                         <td>
@@ -941,7 +959,7 @@ $(".emailstatus").click(function() {
             var someObj = {};
             someObj.fruitsGranted = [];
             someObj.lastEmail = [];
-            
+            someObj.formated_mail = [];
             someObj.leads = [];
             $("input:checkbox").each(function() {
                 if ($(this).is(":checked")) {
@@ -952,7 +970,8 @@ $(".emailstatus").click(function() {
                         var last_email = $("#last_email_"+checked).val();
                         someObj.fruitsGranted.push(email);
                         someObj.lastEmail.push(last_email);
-                    
+                        var formated_mail = $('#formated_mail_'+checked).val();
+                        someObj.formated_mail.push(formated_mail);
                         var leadid = $('#leadid_'+checked).val();
                         someObj.leads.push(leadid);
                     }
@@ -963,7 +982,9 @@ $(".emailstatus").click(function() {
             var change_status_of = someObj.lastEmail;
             var leadid = someObj.leads;
             var original_email = someObj.fruitsGranted;
+            var formated_mail = someObj.formated_mail;
             // alert("change status: "+change_status_of+"original email"+original_email);
+            // alert(formated_mail);
             // return;
             var email_status = $('#email_status').val();
             var comment = $('#comment').val();
@@ -1053,7 +1074,8 @@ $(".emailstatus").click(function() {
                     // changeFormatcond:changeFormatcond,
                     email_close_status:email_close_status,
                     comment:comment,
-                    original_email:original_email
+                    original_email:original_email,
+                    formated_mail:formated_mail
 
                     
 				},
@@ -1105,6 +1127,10 @@ $(".emailstatus").click(function() {
                 error:function(xhr, status, error){
                     var errorMessage = xhr.status + ': ' + xhr.statusText
                     alert('Error - ' + errorMessage);
+                    jQuery(document).ajaxStop(function () {
+                        //show ajax indicator
+                        ajaxindicatorstop();
+                        });
                 },
             });
         });

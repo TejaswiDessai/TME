@@ -2407,6 +2407,10 @@ public function getPrivillage(){
 		$original_email= implode(",", $original_email);
 		$original_email= explode(",", $original_email);
 
+		$formated_mail_name = implode(",", $_GET['formated_mail']);
+		$formated_mail = explode(',', $formated_mail_name);
+		// $formated_mail= implode(",", $formated_mail);
+		
 		$cnt=count($comp_proSplit);
 		// $cnt = 5;
 		if(isset($_GET['email_status']) && $_GET['email_status'] != null)
@@ -2492,10 +2496,16 @@ public function getPrivillage(){
 				$firstCharFname = substr($firstname, 0, 1);
 				// echo "found";
 			} else {
-				$firstname = $EmailFormat[0];
-				$firstCharFname = substr($firstname, 0, 1);
-				$lastname = null;
+				// $firstname = $EmailFormat[0];
+				// $firstCharFname = substr($firstname, 0, 1);
+				// $lastname = null;
 				// echo "not found";
+				$Name = explode(".",$formated_mail[$i]);
+				$firstname = $Name[0];
+				$lastname = $Name[1];
+				$firstCharLname = substr($lastname, 0, 1);
+				$firstCharFname = substr($firstname, 0, 1);
+				
 			}
 			
 			if(($lastname == null || $lastname == "" ))

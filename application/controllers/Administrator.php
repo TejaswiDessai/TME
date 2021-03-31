@@ -2134,9 +2134,19 @@ public function getPrivillage(){
 		$lmid_3 = $_GET['lmid3'];
 		$lmid_4 = $_GET['lmid4'];
 		$lmid_5 = $_GET['lmid5'];
+		$lmid_6 = $_GET['lmid6'];
+		$lmid_7 = $_GET['lmid7'];
+		$lmid_8 = $_GET['lmid8'];
+		$lmid_9 = $_GET['lmid9'];
+		$lmid_10 = $_GET['lmid10'];
+		$lmid_11 = $_GET['lmid11'];
+		$lmid_12 = $_GET['lmid12'];
+		$lmid_13 = $_GET['lmid13'];
+		$lmid_14 = $_GET['lmid14'];
+		$lmid_15 = $_GET['lmid15'];
 		$rlc = $_GET['rlc'];
 		$emp_id = $_GET['emp_id'];
-		for($i=1;$i<=5;$i++)
+		for($i=1;$i<=15;$i++)
 		{
 		$datarecord = array(
 			'rlc' => $rlc,

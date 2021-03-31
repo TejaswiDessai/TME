@@ -2603,6 +2603,7 @@ public function get_campaign_fordataverification()
 				$this->db->from('leadmaster');
 				// $this->db->join('ev', 'ev.lmid = leadmaster.lmid','left');
 				$this->db->where('leadmaster.dvload', 1);
+				$this->db->where('leadmaster.rlc !=', 1);
 				$this->db->where('leadmaster.lmid NOT IN (select lmid from ev)',NULL,FALSE);
 				$this->db->limit($leadlimit);
 			}	

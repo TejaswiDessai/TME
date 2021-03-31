@@ -808,9 +808,16 @@ $.ajax({
                             </div>
                             <div class="col-sm-2">
                                 <select class="form-control form-control-sm"  name="cdclst" id="cdclst">
-                                    <option value="">CDC Lead Score Tag</option>
+                                    <option value="">Lead Score</option>
                                     <option value="1"<?php if(isset($ldmster) && $ldmster['cdclst'] == '1'){ echo "selected" ; } ?>>Yes</option>
                                     <option value="0"<?php if(isset($ldmster) && $ldmster['cdclst'] == '0'){ echo "selected" ; } ?>>No</option>
+                                </select>
+                            </div>
+                            <div class="col-sm-2">
+                                <select class="form-control form-control-sm"  name="callrec" id="callrec">
+                                    <option value="">Call Recording</option>
+                                    <option value="1"<?php if(isset($ldmster) && $ldmster['callrec'] == '1'){ echo "selected" ; } ?>>Yes</option>
+                                    <option value="0"<?php if(isset($ldmster) && $ldmster['callrec'] == '0'){ echo "selected" ; } ?>>No</option>
                                 </select>
                             </div>
                             
@@ -2177,6 +2184,7 @@ if(lmid == undefined){
             var lcallstat = $('#lcallstat').val();
             var ddispositionclass = $('#ddispositionclass').val();
             var cdclst = $('#cdclst').val();
+            var callrec = $('#callrec').val();
             var cvr = $('#cvr').val();
             // alert(lcalldisp); exit;
            
@@ -2207,6 +2215,7 @@ if(lmid == undefined){
                   lcallstat:lcallstat,
                   ddispositionclass:ddispositionclass,
                   cdclst:cdclst,
+                  callrec:callrec,
                   cvr:cvr,
 
 
@@ -2491,6 +2500,7 @@ if(lmid == undefined){
             var lcallstat = $('#lcallstat').val();
             var ddispositionclass = $('#ddispositionclass').val();
             var cdclst = $('#cdclst').val();
+            var callrec = $('#callrec').val();
             var cvr = $('#cvr').val();
            
             if(ddispositionclass != "" && cvr != "" && fname != "" && lname != "" && company_name != ""  && jtitle != "" && desid != "" && dcd !="" && email != "" && phone !="" && plink !="" && address != "" && city != "" && state != ""  && country_id != "" && industrycd != "" && subindustrycd != "" && empsize != "" && domain !=""  && empszlink != "" && revszlink != ""  && zip_code !="" ){
@@ -2531,6 +2541,7 @@ if(lmid == undefined){
                     lcallstat:lcallstat,
                     ddispositionclass:ddispositionclass,
                     cdclst:cdclst,
+                    callrec:callrec,
                     cvr:cvr,
 
                     

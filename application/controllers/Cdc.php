@@ -431,7 +431,7 @@
 			$this->load->view('administrator/footer');
 		
 		}
-		// function cdcform($page = 'cdc-form'){
+		
 		function qualityform($page = 'qa-form'){
 			
 			$data['title'] = 'Create Lead';
@@ -461,6 +461,143 @@
 						if(empty($data['leadmaster'])){
 							$this->session->set_flashdata('success', 'Data verification id finished for this campaign.');
 							redirect('cdc/selectCampaignforDataVerification');
+							
+						}
+
+						foreach ($data['leadmaster'] as $ldmster) {
+						
+						}
+					
+						if (isset($data['leadmaster'])){
+							$data['countriesdv'] = $this->Administrator_Model->get_countriesbyCampaigndv($ldmster['lmid']);
+							$data['industriesdv'] = $this->Administrator_Model->get_industries_ofleadmaster($ldmster['lmid']);
+							$data['subindustriesdv'] = $this->Administrator_Model->get_subindustries_ofleadmaster($ldmster['lmid']);
+							$data['currencydv'] = $this->Administrator_Model->get_currency_ofleadmaster($ldmster['lmid']);
+							$data['timezonedv'] = $this->Administrator_Model->get_timezone_ofleadmaster($ldmster['lmid']);
+							$data['designationdv'] = $this->Administrator_Model->get_designation_ofleadmaster($ldmster['lmid']);
+							$data['departmentsdv'] = $this->Administrator_Model->get_depts_byleadmaster($ldmster['lmid']);
+							$data['assetitledv'] = $this->Administrator_Model->get_assetitle_byleadmaster($ldmster['lmid']);
+							$data['comptypedv'] = $this->Administrator_Model->get_comptype_byleadmaster($ldmster['lmid']);
+						}else if(empty($data['leadmaster'])){
+							// $this->session->set_flashdata('success', 'Data verification id finished.');
+							redirect('administrator/dashboard');
+						}
+
+						
+
+
+			$this->load->view('administrator/header-script');
+			$this->load->view('administrator/header');
+			$this->load->view('administrator/header-bottom');
+			 $this->load->view('administrator/'.$page, $data);
+			$this->load->view('administrator/footer');
+		
+		}
+		function leadgeneration($page = 'lead-generation'){
+			
+			$data['title'] = 'Create Lead';
+			// print_r($_SESSION);
+			// print_r($_SESSION['timeout']);
+			if(isset($_GET['camp_id'])){
+				$postData1 = $_GET['camp_id']; 
+			}else{
+				$postData = $this->input->post();
+				$postData1 = $postData['campaign_id'];
+			}
+		// print_r($postData1);
+
+						$data['campaigns'] = $this->Administrator_Model->get_campaign_by_id($postData1);
+
+						foreach ($data['campaigns'] as $camp) {
+						
+						}
+						// echo $camp['cnid'];
+					
+						$camp_id = $camp['cnid'];
+						
+						$cids = $camp['cids'];
+
+
+						$postDatalmid = NULL;
+						if(isset($_GET['lmid']))
+							$postDatalmid = $_GET['lmid'];
+
+						
+
+						// $data['leadmaster'] = $this->Administrator_Model->get_leadmasterby_campaign_lead_generation($cids);
+						$data['leadmaster'] = $this->Administrator_Model->get_leadmasterby_campaign_lead_generation_with_rlc_lock($cids,$postDatalmid);
+						// print_r($data['leadmaster']); 
+						if(empty($data['leadmaster'])){
+							$this->session->set_flashdata('success', 'Data verification id finished for this campaign.');
+							redirect('cdc/selectCampaignforDataVerification');
+							
+						}
+
+						foreach ($data['leadmaster'] as $ldmster) {
+						
+						}
+					
+						if (isset($data['leadmaster'])){
+							$data['countriesdv'] = $this->Administrator_Model->get_countriesbyCampaigndv($ldmster['lmid']);
+							$data['industriesdv'] = $this->Administrator_Model->get_industries_ofleadmaster($ldmster['lmid']);
+							$data['subindustriesdv'] = $this->Administrator_Model->get_subindustries_ofleadmaster($ldmster['lmid']);
+							$data['currencydv'] = $this->Administrator_Model->get_currency_ofleadmaster($ldmster['lmid']);
+							$data['timezonedv'] = $this->Administrator_Model->get_timezone_ofleadmaster($ldmster['lmid']);
+							$data['designationdv'] = $this->Administrator_Model->get_designation_ofleadmaster($ldmster['lmid']);
+							$data['departmentsdv'] = $this->Administrator_Model->get_depts_byleadmaster($ldmster['lmid']);
+							$data['assetitledv'] = $this->Administrator_Model->get_assetitle_byleadmaster($ldmster['lmid']);
+							$data['comptypedv'] = $this->Administrator_Model->get_comptype_byleadmaster($ldmster['lmid']);
+						}else if(empty($data['leadmaster'])){
+							// $this->session->set_flashdata('success', 'Data verification id finished.');
+							redirect('administrator/dashboard');
+						}
+
+						
+
+
+			$this->load->view('administrator/header-script');
+			$this->load->view('administrator/header');
+			$this->load->view('administrator/header-bottom');
+			 $this->load->view('administrator/'.$page, $data);
+			$this->load->view('administrator/footer');
+		
+		}
+		function leadgenerationinterface($page = 'lead-generation-interface'){
+			
+			$data['title'] = 'Create Lead';
+			// print_r($_SESSION);
+			// print_r($_SESSION['timeout']);
+			if(isset($_GET['camp_id'])){
+				$postData1 = $_GET['camp_id']; 
+			}else{
+				$postData = $this->input->post();
+				$postData1 = $postData['campaign_id'];
+			}
+		// print_r($postData1);
+						
+						$data['campaigns'] = $this->Administrator_Model->get_campaign_by_id($postData1);
+
+						foreach ($data['campaigns'] as $camp) {
+						
+						}
+						// echo $camp['cnid'];
+						$camp_id = $camp['cnid'];
+						
+						$cids = $camp['cids'];
+						
+						$_SESSION['campaign_id'] = $camp_id;
+
+						
+						$data['empcode'] = $this->session->userdata('empcode');
+						$data['Campid'] = $camp_id;
+						$leadlimit = $this->input->post('leadlimit');
+						$data['leadlimit'] = $leadlimit;
+						
+						$data['leadmaster'] = $this->Administrator_Model->get_leadmasterby_campaign_lead_generation($cids);
+						// print_r($data['leadmaster']); 
+						if(empty($data['leadmaster'])){
+							$this->session->set_flashdata('success', 'Lead Generation finished for this campaign.');
+							redirect('cdc/selectCampaignForleadGeneration');
 							
 						}
 
@@ -564,6 +701,19 @@
 			$data['title'] = 'Create Lead';
 			// $data['campaigns'] = $this->Administrator_Model->get_campaign_fordataverification();
 			$data['campaigns'] = $this->Administrator_Model->get_campaignforQA();		  
+			
+			
+			$this->load->view('administrator/header-script');
+			$this->load->view('administrator/header');
+			$this->load->view('administrator/header-bottom');
+			 $this->load->view('administrator/'.$page, $data);
+			$this->load->view('administrator/footer');
+		
+		}
+		function selectCampaignForleadGeneration($page = 'select-campaign-lead-generation'){
+			$data['title'] = 'Create Lead';
+			// $data['campaigns'] = $this->Administrator_Model->get_campaign_fordataverification();
+			$data['campaigns'] = $this->Administrator_Model->get_campaignforlead_generation();		  
 			
 			
 			$this->load->view('administrator/header-script');
@@ -1391,7 +1541,7 @@
 
 				
 				// tag
-				'cdcsv' => '1', // Save only
+				'cdcsv' => '0', // Save only
 
 				
 
@@ -2000,6 +2150,10 @@
 					if($sbsvtag == 0){
 					$svdti = $old_date;	
 					$svagtidi = $_SESSION['empcode'];
+					// $dvagtidi = NULL;
+					// $dvagtidii = NULL;
+					// $dvdti = NULL;
+					// $dvdtii = NULL;
 					}else{
 						$svdti = NULL;
 						$svagtidi= NULL;
@@ -2073,6 +2227,7 @@
 			$lmid = $_POST['lmid'];
 			$checked = $_POST['checked'];
 			$cdcsv = $_POST['cdcsv'];
+			
 			$cdcrjt = $_POST['cdcrjt'];
 			$cdcsb = $_POST['cdcsb'];
 			$evloadposted = $_POST['evload'];
@@ -2085,6 +2240,13 @@
 				$new_date = date('Y-m-d H:i:s', $middle);
 
 			// $mychecked = explode(',', $checked);
+
+			if(!empty($_POST['cdcsv']))
+			{
+				$cdcsv =  $_POST['cdcsv'];
+			} else{
+			$cdcsv = NULL;
+			}
 		
 			if(!isset($_SESSION['empcode'])){
 				
@@ -2166,6 +2328,12 @@
 				$cdclst =  $_POST['cdclst'];
 			} else{
 			$cdclst = NULL;
+			}
+			if(!empty($_POST['callrec']) || ($_POST['callrec'] =='0') )
+			{
+				$callrec =  $_POST['callrec'];
+			} else{
+			$callrec = NULL;
 			}
 
 		
@@ -2293,6 +2461,7 @@
 				'cvr' => $cvr, 
 				'ddispositionclass' => $ddispositionclass, 
 				'cdclst' => $cdclst, 
+				'callrec' => $callrec, 
 			
 				// 'svagtidi' => '1' // save Agent Name
 				// 'svdti' => '1' // save date time
@@ -2423,7 +2592,7 @@
 
 					if(empty($_POST['qarjtdti'])){
 					$qarjtagti = $_SESSION['empcode'];
-					
+					$qarjtdti = $old_date; //Data Verification|Rej_date and time_I
 					$qarjtagtii = $postagent1;
 					$qarjtdtii = $postdate1;
 					
@@ -2548,7 +2717,7 @@
 
 					if(empty($_POST['qarjtdti'])){
 					$qarjtagti = $_SESSION['empcode'];
-					
+					$qarjtdti = $old_date; //Data Verification|Rej_date and time_I
 					$qarjtagtii = $postagent1;
 					$qarjtdtii = $postdate1;
 					
@@ -2671,7 +2840,7 @@
 
 					if(empty($_POST['qarjtdti'])){
 					$qarjtagti = $_SESSION['empcode'];
-					$qarjtdtii = $old_date; //Data Verification|Rej_date and time_I
+					$qarjtdti = $old_date; //Data Verification|Rej_date and time_I
 					$qarjtagtii = $postagent1;
 					$qarjtdtii = $postdate1;
 					
@@ -3133,6 +3302,132 @@
 								
 			
 		}
+		public function ajax_update_leadgeneration()
+		{
+			// exit();
+			
+			$campaign_id = $_GET['campaign_id'];
+			$cids = $_GET['campaign_idcids'];
+			
+			$lmid = $_GET['lmid'];
+			// $checked = $_POST['checked'];
+			
+			// print_r($_POST['checked']);
+			// // exit();
+			
+				$old_date = date('Y-m-d H:i:s');         // works
+				$middle = strtotime($old_date);             // returns bool(false)
+				$new_date = date('Y-m-d H:i:s', $middle);
+
+		
+			if(!isset($_SESSION['empcode'])){
+				
+			
+				redirect('administrator/logout');
+				Exit();
+			}
+
+			// $qaacptagti = $_SESSION['empcode'];
+			// $qaacptdti = $old_date; //Data Verification|Rej_date and time_I
+
+			// if(!empty($_GET['lsagti']))
+			// {
+			// 	$postagent1 =  $_GET['lsagti'];
+			// } else{
+			// $postagent1 = NULL;
+			// }
+			// if(!empty($_GET['lsdti']))
+			// {
+			// 	$postdate1 =  $_GET['lsdti'];
+			// } else{
+			// $postdate1 = NULL;
+			// }
+
+		
+
+			if(!empty($_GET['clscored']) || ($_GET['clscored'] =='0') )
+			{
+				$clscored =  $_GET['clscored'];
+			} else{
+			$clscored = NULL;
+			}
+			if(!empty($_GET['callrec']) || ($_GET['callrec'] =='0') )
+			{
+				$callrec =  $_GET['callrec'];
+			} else{
+			$callrec = NULL;
+			}
+
+			// $mychecked2 = implode(',', $checked);
+			
+
+				// // print_r($_POST['dvsbtg']);exit();
+				// if($mychecked2 == "0"){  // Accept
+					
+				// 	if(empty($_POST['qaacptdti'])){
+				// 		$qaacptagti = $_SESSION['empcode'];
+				// 		$qaacptdti = $old_date; //Data Verification|Rej_date and time_I
+				// 		$qaacptagtii = $postagent1;
+				// 		$qaacptdtii = $postdate1;
+						
+				// 		}else{
+				// 		$qaacptagtii = $_SESSION['empcode'];
+						
+				// 		$qaacptdtii = $old_date; //Data Verification|Rej_date and time_I
+				// 		$qaacptagti = $postagent1;
+				// 		$qaacptdti = $postdate1;
+						
+				// 		}
+				
+				// }else{				
+
+				// 	exit();
+				
+
+				// }
+			
+					$pcomt= "lead:".$_SESSION['empcode'].":".$old_date."#".$_GET['pcomt'];
+
+					
+				$datacdcandlead = array(
+				'rlc' => '0', // record is closed
+
+				'clscored' => $clscored, 
+				'callrec' => $callrec, 
+
+				'lsload' => '1', //  next level
+				'lsagti' =>  $_SESSION['empcode'], // submit agent name 
+				'lsdti' => $old_date, // lead generation date time
+			
+				
+				'pcomt' => $pcomt 
+				
+								
+				);
+			
+			    // exit();
+			
+				$addleadandcdcdata = $this->Administrator_Model->update_leaddata($datacdcandlead,$lmid);
+				// $addleadandcdcdatacomment = $this->Administrator_Model->update_leaddatacomment( $_POST['pcomt'],$lmid);
+				// print_r($addcampaigndata);  die;
+				
+				// exit();
+				if($addleadandcdcdata == true){
+			
+					echo json_encode(array(
+						"statusCode"=>"Success",
+						// "lead_id"=>$addleadandcdcdata,
+						"message"=>"Data Verified Successfully.."
+					));
+				}else{
+					echo json_encode(array(
+						"statusCode"=>"Fail",
+						"message"=>"Lead failed.."
+					));
+				}
+								
+			
+		}
 
 
 
@@ -3369,7 +3664,7 @@
 		{
 			$campaign_id = $_GET['campaign_id'];
 			$cids = $_GET['campaign_idcids'];
-			$sbsvtag = $_GET['sbsvtag'];
+			// $sbsvtag = $_GET['sbsvtag'];
 			$lmid = $_GET['lmid'];
 
 			if(!isset($_SESSION['empcode'])){
@@ -3520,6 +3815,12 @@
 				} else{
 				$cdclst = NULL;
 				}
+				if(!empty($_GET['callrec']) || ($_GET['callrec'] =='0') )
+				{
+					$callrec =  $_GET['callrec'];
+				} else{
+				$callrec = NULL;
+				}
 		
 			
 				$ddispositionclass = $_GET['ddispositionclass'];
@@ -3602,6 +3903,7 @@
 				'cvr' => $cvr, 
 				'ddispositionclass' => $ddispositionclass, 
 				'cdclst' => $cdclst, 
+				'callrec' => $callrec, 
 
 				// tag
 				// 'ontag' => 0, // Submit and 0 = new, 1 = needs to be reworked
@@ -4095,7 +4397,7 @@
 					$qasvagti= NULL;
 				}
 		
-				$pcomt= "CDC:".$_SESSION['empcode'].":".$old_date."#".$_POST['pcomt'];
+				$pcomt= "QA:".$_SESSION['empcode'].":".$old_date."#".$_POST['pcomt'];
 
 				$datacdcandlead = array(
 			

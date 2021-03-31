@@ -321,10 +321,19 @@ $.ajax({
                                 </select> -->
                   </div> 
                 <div class="col-sm-4" style="margin-top: -20px;">
-                <?php foreach ($campaigns as $campaign): ?>
-                 <label class="col-lable"><b>Campaign Name: <?php echo $campaign['campnm']; ?></b></label>
-                 <?php endforeach; ?>
+                  <?php foreach ($campaigns as $campaign): ?>
+                  <label class="col-lable"><b>Campaign Name: <?php echo $campaign['campnm']; ?></b></label>
+                  <?php endforeach; ?>
                 </div> 
+                <div class="col-sm-3" style="margin-top: -20px;">
+                  <?php //foreach ($campaigns as $campaign): ?>
+                  <label class="col-lable"><b>CDC Date: <?php if (empty($ldmster['cdcsbdtii'])) {
+                    echo $ldmster['cdcsbdti'];}else{
+                      echo $ldmster['cdcsbdtii'];
+                    } ?></b></label>
+                  <label class="col-lable"><b>Lead Date: <?php  echo $ldmster['lsdti']; ?></b></label>
+                  <?php //endforeach; ?>
+                </div>
                 
             </div>   
                            
@@ -2127,7 +2136,7 @@ $.ajax({
 
   // $('.commentvisible').hide();
   // $('.revsizehide').hide();
-  $("#rsendto").val("");  
+   $("#rsendto").val("");  
   $('.leaddisplay').show(); //buttons
  
   // load questions of campaign on load 
@@ -2489,6 +2498,7 @@ $("input:checkbox").change(function() {
             });
 
             // alert(checked);
+            // exit;
             
             var optin = $('#optin').val();
             var optpst = $('#optpst').val();
@@ -2580,6 +2590,10 @@ $("input:checkbox").change(function() {
             var rsendto = $('#rsendto').val();
             // alert(asendto);
             // alert(rsendto);
+
+
+            alert(qarjtdti);
+            alert(qarjtdtii);
 
             
 

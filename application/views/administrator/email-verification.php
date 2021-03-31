@@ -794,11 +794,14 @@ $(".emailstatus").click(function() {
             $("input:checkbox").each(function() {
                 if ($(this).is(":checked")) {
                     var checked = ($(this).val());
-                    var email = $("#email_"+checked).val();
-                    someObj.fruitsGranted.push(email);
-                   
-                    var leadid = $('#leadid_'+checked).val();
-                    someObj.leads.push(leadid);
+                    if(checked != "on")
+                    {
+                        var email = $("#email_"+checked).val();
+                        someObj.fruitsGranted.push(email);
+                        var leadid = $('#leadid_'+checked).val();
+                        someObj.leads.push(leadid);
+                    }
+                    
                 } else {
                     // someObj.fruitsDenied.push(checked);
                 }
@@ -843,7 +846,7 @@ $(".emailstatus").click(function() {
             if(email_template != null && email_template != '')
             {
                 var sub = "Sample Test Email";
-                var body = "Test Email";
+                var body = "<p>Hii User,<br>Test Email</p>";
             }
             // alert(body);
             // var body = document.getElementById('mail_body').innerHTML;
@@ -943,13 +946,16 @@ $(".emailstatus").click(function() {
             $("input:checkbox").each(function() {
                 if ($(this).is(":checked")) {
                     var checked = ($(this).val());
-                    var email = $("#email_"+checked).val();
-                    var last_email = $("#last_email_"+checked).val();
-                    someObj.fruitsGranted.push(email);
-                    someObj.lastEmail.push(last_email);
-                   
-                    var leadid = $('#leadid_'+checked).val();
-                    someObj.leads.push(leadid);
+                    if(checked != "on")
+                    {
+                        var email = $("#email_"+checked).val();
+                        var last_email = $("#last_email_"+checked).val();
+                        someObj.fruitsGranted.push(email);
+                        someObj.lastEmail.push(last_email);
+                    
+                        var leadid = $('#leadid_'+checked).val();
+                        someObj.leads.push(leadid);
+                    }
                 } else {
                     // someObj.fruitsDenied.push(checked);
                 }
@@ -1113,13 +1119,16 @@ $(".emailstatus").click(function() {
             $("input:checkbox").each(function() {
                 if ($(this).is(":checked")) {
                     var checked = ($(this).val());
-                    var email = $("#email_"+checked).val();
-                    var last_email = $("#last_email_"+checked).val();
-                    someObj.fruitsGranted.push(email);
-                    someObj.lastEmail.push(last_email);
-                   
-                    var leadid = $('#leadid_'+checked).val();
-                    someObj.leads.push(leadid);
+                    if(checked != "on")
+                    {
+                        var email = $("#email_"+checked).val();
+                        var last_email = $("#last_email_"+checked).val();
+                        someObj.fruitsGranted.push(email);
+                        someObj.lastEmail.push(last_email);
+                    
+                        var leadid = $('#leadid_'+checked).val();
+                        someObj.leads.push(leadid);
+                    }
                 } else {
                     // someObj.fruitsDenied.push(checked);
                 }

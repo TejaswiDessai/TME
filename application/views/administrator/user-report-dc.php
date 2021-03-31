@@ -219,11 +219,11 @@
                                         //echo "Accepted: ".$total_accept->num_rows()."<br>";
                                         $dc_pending_frej = $this->db->query("select * from leadmaster
                                           where 
-                                          rlc = 0
-                                          and ontag = 0
-                                          and dvagtidi is null
+                                          
+                                           dvagtidi is  null
+                                           and dvrejtg = 1
                                           and dvragtidi is not null
-                                          and sbsvtag != 0 
+                                          
                                           and dvload = 0 and cids = '".$Campid."' and stagtidi = '".$post['empcode']."'
                                           and (stdti >= '".$From."' and stdti <= '".$To."')");
                                         

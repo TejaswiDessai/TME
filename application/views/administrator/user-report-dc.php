@@ -221,8 +221,8 @@
                                           where 
                                           rlc = 0
                                           and ontag = 0
-                                          and dvrejtg = 1
                                           and dvagtidi is null
+                                          and dvragtidi is not null
                                           and sbsvtag != 0 
                                           and dvload = 0 and cids = '".$Campid."' and stagtidi = '".$post['empcode']."'
                                           and (stdti >= '".$From."' and stdti <= '".$To."')");

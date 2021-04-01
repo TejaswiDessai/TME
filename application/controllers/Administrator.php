@@ -2523,7 +2523,10 @@ public function getPrivillage(){
 					'evload' => 1,
 					'evcomp' => 1,
 					'email'=> $comp_proSplit[$i],
-					'evdisp' =>4				
+					'evdisp' =>4,
+					'cdcsb' => 0,
+					'cdcrjt' => 0
+
 					);
 				$update_lead_status = $this->Administrator_Model->update_email_lead__status($update_lead_status,$leadid[$i]);
 				}
@@ -2654,7 +2657,11 @@ public function getPrivillage(){
 				{
 				$update_lead_status = array(
 					'evload' => 1,
-					'evcomp' => 1				
+					'evcomp' => 1,
+					'email'=> $comp_proSplit[$i],
+					'evdisp' =>4,
+					'cdcsb' => 0,
+					'cdcrjt' => 0				
 					);
 				$update_lead_status = $this->Administrator_Model->update_email_lead__status($update_lead_status,$leadid[$i]);
 

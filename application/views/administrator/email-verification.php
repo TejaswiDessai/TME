@@ -320,7 +320,16 @@ document.getElementById("randomSelect").addEventListener("click", function() {
     select.selectedIndex = index;
 });
 </script>
-
+<style>
+#rcorners3 {
+  border-radius: 20px 30px;
+  background: #73AD21;
+  padding: 10px; 
+  width: 30px;
+  height: 30px; 
+  color:white;
+} 
+</style>
     <!-- Modal -->
   <div class="modal fade" id="myModal" role="dialog">
     <div class="modal-dialog">
@@ -448,6 +457,7 @@ document.getElementById("randomSelect").addEventListener("click", function() {
                                         <th>Job title</th>
                                         <th>LinkedIn URL</th>
                                         <th>Last Email Format</th>
+                                        <th <?php if($Stage == "New"){?>style="display:none;"<?php } ?>>Format used</th>
                                         <th>Original Email</th>
                                         <th>Change Format</th>
                                         <th>Status</th>
@@ -501,9 +511,22 @@ document.getElementById("randomSelect").addEventListener("click", function() {
                                         <a href="<?php echo $post['plink']; ?>">Click here</a>
                                         </td>
                                         <td>
+                                       
                                         <!-- <input type="checkbox" name="email" id="email"  value="email"> -->
                                         <input type="text" id="last_email_<?php echo $i;?>" value="<?php if(isset($search_email) && $search_email != null){ echo $search_email; }else if(isset($post) && $Stage == "New"){  echo $post['email']; }else if(isset($post) && $Stage != "New"){  echo $post['evemail']; }else { echo "Email is Empty" ;} ?>">
                                         <?php //echo $post['email']; ?>
+                                        
+                                        </td>
+                                        <td <?php if($Stage == "New"){?>style="display:none;"<?php } ?>>
+                                        <p id="rcorners3"> <?php 
+                                         $format = $this->db->query("SELECT * FROM public.ev
+                                         where 
+                                        lmid = '".$post['lmid']."'
+                                       
+                                        
+                                         ");
+                                         echo $format->num_rows();
+                                          ?></p>
                                         </td>
                                         <td>
                                         <!-- <input type="checkbox" name="email" id="email"  value="email"> -->

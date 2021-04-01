@@ -356,9 +356,9 @@ document.getElementById("randomSelect").addEventListener("click", function() {
                             <td>
                             <?php foreach ($campaigns as $campaign): ?>
                                 <label class="col-lable"><b>Campaign Name: <?php echo $campaign['campnm']; ?></b></label>
-                                <input type="hidden" value="<?php echo $campaign['cids']; ?>" id="campnm">
+                                <input type="hidden" value="<?php echo $campaign['cids']; ?>" id="campid">
                             <?php endforeach; ?>
-                            <input type="hidden" value="<?php echo $Campid; ?>" id="campaign_id" name="campaign_id">
+                            <input type="hidden" value="<?php echo $camp_cnid; ?>" id="campaign_id" name="campaign_id">
                             </td>
                             
                             <td>
@@ -849,7 +849,8 @@ $(".emailstatus").click(function() {
             // alert(change_status_of);
             // return;
             var email_status = $('#email_status').val();
-            var campid = $('#campnm').val();
+            var campid = $('#campid').val();
+            var camp_cnid = $('#campaign_id').val();
             // var leadid = $('#leadid_'+leadid_obj).val();
             // alert(leadid);
             var from = $('#from').val();
@@ -908,6 +909,7 @@ $(".emailstatus").click(function() {
 					change_status_of:change_status_of,
                     email_status:email_status,
 					campid:campid,
+                    camp_cnid:camp_cnid,
                     leadid:leadid,
                     from:from,
                     pass:pass,
@@ -932,7 +934,8 @@ $(".emailstatus").click(function() {
                         //show ajax indicator
                         ajaxindicatorstop();
                         });
-                        // top.location.href=base_url+"administrator/selectCampaignForEmailVerification";//redirection
+                        alert("Mail sent successfully!");
+                        top.location.href=base_url+"administrator/emailVerfication?campaign_id="+response.campaign_id;//redirection
                     }
                     else if(response.statusCode=="Fail")
                     {
@@ -1023,7 +1026,8 @@ $(".emailstatus").click(function() {
             }
             
             
-            var campid = $('#campnm').val();
+            var campid = $('#campid').val();
+            var camp_cnid = $('#campaign_id').val();
             // var leadid = $('#leadid_'+leadid_obj).val();
             // alert(leadid);
             var from = $('#from').val();
@@ -1086,6 +1090,7 @@ $(".emailstatus").click(function() {
 					change_status_of:change_status_of,
                     email_status:email_status,
 					campid:campid,
+                    camp_cnid:camp_cnid,
                     leadid:leadid,
                     from:from,
                     pass:pass,
@@ -1115,7 +1120,8 @@ $(".emailstatus").click(function() {
                         //show ajax indicator
                         ajaxindicatorstop();
                         });
-                        // top.location.href=base_url+"administrator/selectCampaignForEmailVerification";//redirection
+                        alert("Mail sent successfully!");
+                        top.location.href=base_url+"administrator/emailVerfication?campaign_id="+response.campaign_id;//redirection
                     }
                     else if(response.statusCode=="Fail")
                     {
@@ -1187,7 +1193,8 @@ $(".emailstatus").click(function() {
             // var leadid = someObj.leads;
             var email_status = $('#email_status').val();
             var email_close_status = $('#email_close_status').val();
-            var campid = $('#campnm').val();
+            var campid = $('#campid').val();
+            var camp_cnid = $('#campaign_id').val();
             var comment = $('#comment').val();
             // alert("change_status_of"+change_status_of+"email_status= "+email_status+"leadid= "+leadid);
             
@@ -1202,6 +1209,7 @@ $(".emailstatus").click(function() {
 					change_status_of:change_status_of,
                     email_status:email_status,
 					campid:campid,
+                    camp_cnid:camp_cnid,
                     leadid:leadid,
                     comment:comment,
                     email_close_status:email_close_status
@@ -1215,8 +1223,9 @@ $(".emailstatus").click(function() {
                     if(response.statusCode == "Success") 
                     {                        
                         $("#update_email").html(response.message);
-                        alert("Status updated");
-                        // top.location.href=base_url+"administrator/selectCampaignForEmailVerification";//redirection
+                        alert("Status updated successfully!");
+                        
+                        top.location.href=base_url+"administrator/emailVerfication?campaign_id="+response.campaign_id;//redirection
                     }
                     else if(response.statusCode=="Fail")
                     {

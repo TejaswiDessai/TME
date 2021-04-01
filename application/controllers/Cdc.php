@@ -2423,12 +2423,12 @@
 						$cdcsbdti = $postdateaccept1;	
 					}
 
-					$evload = 0;
+					$evload = NULL;
 	
 				}
 
 
-					if($cdcsv == 0){
+					if($cdcsv == '0'){
 					$cdcsvdti = $old_date;	
 					$cdcsvagti = $_SESSION['empcode'];
 					}else{
@@ -4263,7 +4263,7 @@
 				// $dvrdti = $old_date; //Data Verification|Rej_date and time_I
 			}
 
-			if($cdcsv == 0){
+			if($cdcsv == '0'){
 				$cdcsvdti = $old_date;	
 				$cdcsvagti = $_SESSION['empcode'];
 				}else{

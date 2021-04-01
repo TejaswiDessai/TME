@@ -412,14 +412,17 @@ document.getElementById("randomSelect").addEventListener("click", function() {
                                 <option value="">Email Status</option>
                                 <option value="Test Mail Sent"  <?php if( isset($search_email_status) && $search_email_status == "Test Mail Sent") { echo "selected" ; } ?> >Test Mail Sent</option>
                                 <option value="Bounced" <?php if( isset($search_email_status) && $search_email_status == "Bounced") { echo "selected" ; } ?> >Bounced</option>
+                                <option value="Address not found" <?php if( isset($search_email_status) && $search_email_status == "Address not found") { echo "selected" ; } ?>>Address not found</option>
                                 <option value="Reviewed" <?php if( isset($search_email_status) && $search_email_status == "Reviewed") { echo "selected" ; } ?>>Reviewed</option>
                                 <option value="Accepted" <?php if( isset($search_email_status) && $search_email_status == "Accepted") { echo "selected" ; } ?>>Accepted</option>
+                                <option value="Confirmed" <?php if( isset($search_email_status) && $search_email_status == "Confirmed") { echo "selected" ; } ?> >Confirmed</option>
                                 <option value="Not Available" <?php if( isset($search_email_status) && $search_email_status == "Not Available") { echo "selected" ; } ?>>Not Available</option>
                                 <option value="Out of Office" <?php if( isset($search_email_status) && $search_email_status == "Out of Office") { echo "selected" ; } ?>>Out of Office</option>
                                 <option value="Generic email" <?php if( isset($search_email_status) && $search_email_status == "Generic email") { echo "selected" ; } ?>>Generic email</option>
                                 <option value="Dead contact" <?php if( isset($search_email_status) && $search_email_status == "Dead contact") { echo "selected" ; } ?>>Dead contact</option>
                                 <option value="Incorrect Info" <?php if( isset($search_email_status) && $search_email_status == "Incorrect Info") { echo "selected" ; } ?>>Incorrect Info</option>
                                 <option value="Refused" <?php if( isset($search_email_status) && $search_email_status == "Refused") { echo "selected" ; } ?>>Refused</option>
+
                             </select>
                             </td>
                             <td>
@@ -625,8 +628,10 @@ document.getElementById("randomSelect").addEventListener("click", function() {
                         <option value="">Change Status</option>
                         <option value="Test Mail Sent" >Test Mail Sent</option>
                         <option value="Bounced" >Bounced</option>
+                        <option value="Address not found">Address not found</option>
                         <option value="Reviewed" >Reviewed</option>
                         <option value="Accepted" >Accepted</option>
+                        <option value="Confirmed" >Confirmed</option>
                         <option value="Not Available" >Not Available</option>
                         <option value="Out of Office" >Out of Office</option>
                         <option value="Generic email" >Generic email</option>
@@ -1265,6 +1270,12 @@ $(".emailstatus").click(function() {
             // var leadid = someObj.leads;
             var email_status = $('#email_status').val();
             var email_close_status = $('#email_close_status').val();
+            if(email_close_status == null || email_close_status == '')
+            {
+                alert("Please select closer status first!");
+                $("#email_close_status").focus();
+                return;
+            }
             var campid = $('#campid').val();
             var camp_cnid = $('#campaign_id').val();
             var comment = $('#comment').val();

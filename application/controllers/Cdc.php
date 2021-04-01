@@ -2387,7 +2387,8 @@
 				
 					
 				}else{
-					$cdcload = "0"; // Reject
+					// $cdcload = "0"; // Reject
+					$cdcload = NULL; // Reject
 				
 					$cdcrjt = $_POST['cdcrjt'];
 					$cdcsb = $_POST['cdcsb'];
@@ -2617,7 +2618,7 @@
 				
 				'ontag' => '1', 
 				'pload' => '0', 
-				'cdcload' => NULL, //  next level
+				'cdcload' => NULL, 
 				'evload' => NULL, //  next level
 				'qarjtagti' => $qarjtagti, // submit agent name 
 				'qarjtdti' => $qarjtdti, // Data Verification|Rej_date and time_I
@@ -2740,7 +2741,8 @@
 				
 				'rlc' => '0', // record is closed
 				
-				'cdcload' => '0', //  next level
+				// 'cdcload' => '0', //  next level
+				'cdcload' => NULL, //  next level
 				'evload' => '1', //  next level
 				'qarjtagti' => $qarjtagti, // submit agent name 
 				'qarjtdti' => $qarjtdti, // Data Verification|Rej_date and time_I
@@ -2865,7 +2867,8 @@
 				
 				'rlc' => '0', // record is closed
 				
-				'cdcload' => '0', //  next level
+				// 'cdcload' => '0', //  next level
+				'cdcload' =>NULL, //  next level
 				'evload' => '1', //  next level
 				'qarjtagti' => $qarjtagti, // submit agent name 
 				'qarjtdti' => $qarjtdti, // Data Verification|Rej_date and time_I
@@ -3008,7 +3011,8 @@
 				
 				'rlc' => '0', // record is closed
 				
-				'cdcload' => '0', //  next level
+				// 'cdcload' => '0', //  next level
+				'cdcload' => NULL, //  next level
 				'evload' => '1', //  next level
 				'qaacptagti' => $qaacptagti, // submit agent name 
 				'qaacptdti' => $qaacptdti, // Data Verification|Rej_date and time_I
@@ -3137,7 +3141,8 @@
 				
 				'rlc' => '0', // record is closed
 				
-				'cdcload' => '0', //  next level
+				// 'cdcload' => '0', //  next level
+				'cdcload' => NULL, //  next level
 				'evload' => '1', //  next level
 				'qaacptagti' => $qaacptagti, // submit agent name 
 				'qaacptdti' => $qaacptdti, // Data Verification|Rej_date and time_I
@@ -3264,7 +3269,8 @@
 				// tag
 				
 				'rlc' => '0', // record is closed
-				'cdcload' => '0', //  next level
+				// 'cdcload' => '0', //  next level
+				'cdcload' => NULL, //  next level
 				'evload' => '1', //  next level
 				'qaacptagti' => $qaacptagti, // submit agent name 
 				'qaacptdti' => $qaacptdti, // Data Verification|Rej_date and time_I
@@ -4285,7 +4291,8 @@
 				'cdclst' => $cdclst, 
 
 
-				'cdcload' => '0', // next level ready to load
+				// 'cdcload' => '0', // next level ready to load
+				'cdcload' => NULL, // next level ready to load
 				'rlc' => '0', // record is closed
 				'cdcrjt' => $cdcrjt, 
 				'cdcsb' => $cdcsb, 

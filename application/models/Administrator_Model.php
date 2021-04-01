@@ -1904,7 +1904,7 @@ public function get_leadmasterby_campaignQA($id = FALSE)
 	$this->db->order_by('qaacptdti','ASC');
 	$this->db->limit(1);
 	$query = $this->db->get_where('leadmaster', array('cids' => $id));
-	echo $this->db->last_query(); 
+	// echo $this->db->last_query(); 
 	// echo $string;
 	// die;
 
@@ -1920,7 +1920,9 @@ public function get_leadmasterby_campaign_CDC($id = FALSE,$postDatalmid,$camp_id
 		$this->db->where('cdcsv', NULL);
 		$this->db->where('qasv',NULL);
 		$this->db->where('evload',1);
-		$this->db->where('cdcload',0);
+		// $this->db->where('cdcload',0);
+		$this->db->where('cdcload',NULL);
+
 		$this->db->where('qaload',null);
 		// $this->db->where('rlc !=', 1);
 		// if(isset($postDatalmid) && isset($camp_id2)){
@@ -2018,7 +2020,8 @@ public function get_campaign_fordataverification()
 			$this->db->where('leadmaster.cdcsb <', '4');
 			$this->db->where('leadmaster.cdcrjt <', '4');
 			$this->db->where('leadmaster.evload',1);
-			$this->db->where('leadmaster.cdcload',0);
+			// $this->db->where('leadmaster.cdcload',0);
+			$this->db->where('leadmaster.cdcload',NULL);
 			$this->db->where('leadmaster.qaload',null);
 			$this->db->where('leadmaster.rlc !=', 1);	
 			$this->db->where('campaign.status', 2);	

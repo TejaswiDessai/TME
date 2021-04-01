@@ -2744,7 +2744,7 @@ public function get_campaign_fordataverification()
 			{
 				$this->db->where('leadmaster.cids', $campid);
 			}
-			if( ($leadstatus != "New" && $search_email_status == null && $search_email == null))
+			if( ($leadstatus != "New" && $search_email_status == null && $search_email == null && $leadstatus != "Closed"))
 			{
 				$this->db->where('ev.curr_active', 1);
 				// $this->db->where('ev.closer_status !=', "Closed");
@@ -2752,6 +2752,14 @@ public function get_campaign_fordataverification()
 			if(isset($leadstatus) && $leadstatus == 'Closed')
 			{
 				$this->db->where('ev.closer_status', 'Closed');
+			}
+			if(isset($leadstatus) && $leadstatus == 'Open')
+			{
+				$this->db->where('ev.closer_status', 'Open');
+			}
+			if($leadstatus == '' && $leadstatus != "New")
+			{
+				$this->db->where('ev.closer_status', 'Open');
 			}
 			if(isset($search_email) && $search_email != null)
 			{

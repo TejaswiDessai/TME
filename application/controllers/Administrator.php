@@ -2039,6 +2039,17 @@ public function getPrivillage(){
 				$agent_email = $this->input->post('email');
 				$agent_password = $this->input->post('password');
 			}
+
+			if(isset($leadstatus) && $leadstatus == "New")
+			{
+				$data['display_update_email_section'] = 'display:none';
+				$data['display_send_email_section'] = 'display:block';
+			}
+			else
+			{
+				$data['display_update_email_section'] = 'display:block';
+				$data['display_send_email_section'] = 'display:none';
+			}
 			// echo $agent_email;die;
 			$to =$this->input->post('to');
 			// Init Pagination

@@ -553,7 +553,7 @@ document.getElementById("randomSelect").addEventListener("click", function() {
                     </div>
                 </div>
                 <!-- DOM/Jquery table end -->
-                <div class="form-group row">
+                <div class="form-group row" style="<?php echo $display_send_email_section;?>;">
                     <div class="col-sm-2">
                         <input class="btn btn-primary" type="button"  id="send_email" value="Send Email">
                     </div>
@@ -594,7 +594,7 @@ document.getElementById("randomSelect").addEventListener("click", function() {
                 <!--  -->
 
                  <!-- DOM/Jquery table end -->
-                 <div class="form-group row" style="border:1px solid; padding-top:10px;width:100%">
+                 <div class="form-group row" style="border:1px solid; padding-top:10px;width:100% ;<?php echo $display_update_email_section;?>;">
                     
                    
                     <div class="col-sm-2">
@@ -612,18 +612,22 @@ document.getElementById("randomSelect").addEventListener("click", function() {
                         <option value="Refused" >Refused</option>
                         </select>
                     </div>
-                    <div class="col-sm-1">
-                    </div>
+                    <!-- <div class="col-sm-1">
+                    </div> -->
                     <div class="col-sm-2">
                         <textarea id="comment" placeholder="Enter comment"></textarea>
                     </div>
+                    <!-- <div class="col-sm-1">
+                    </div> -->
+                    <div class="col-sm-2">
+                        <input class="btn btn-primary" type="button" id="update_email" value="Update Status & Send Email">
+                    </div>
                     <div class="col-sm-1">
                     </div>
-                    
                     <div class="col-sm-2">
                     <!-- <label>Closer Status</label> -->
                         <select style="height:34px;" class="form-control form-control-default "  name="email_close_status" id="email_close_status">
-                            <option value="">Closer Status</option>
+                            <option value="">Email Closer Status</option>
                             <option value="New" >New</option>
                             <option value="Open">Open</option>
                             <option value="Closed" >Closed</option>
@@ -631,10 +635,7 @@ document.getElementById("randomSelect").addEventListener("click", function() {
                         </select>
                     </div>
                     <div class="col-sm-2">
-                        <input class="btn btn-primary" type="button" id="update_email" value="Update & Send Email">
-                    </div>
-                    <div class="col-sm-2">
-                        <input class="btn btn-primary" type="button" id="update_email_only" value="Update Email">
+                        <input class="btn btn-primary" type="button" id="update_email_only" value="Update Status">
                     </div>
                 </div>
             </div>

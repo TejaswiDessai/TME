@@ -2208,7 +2208,7 @@ public function getPrivillage(){
 		}
 		else
 		{
-			$closer_status = null;
+			$closer_status = "Open";
 		}
 		
 		
@@ -2316,10 +2316,10 @@ public function getPrivillage(){
 			}
 
 			$datacampaign1 = array(
-				'curr_active' =>0,
+				'curr_active' => 0,
 								
 				);
-			$updateexistinglead = $this->Administrator_Model->update_email_status($datacampaign1,$leadid[$i]);
+			$updateexistinglead = $this->Administrator_Model->update_email_status($datacampaign1,$comp_proSplit[$i]);
 			$update_lead_status = array(
 				'evcomp' => 2,
 				// 'curr_active' => 0
@@ -2445,7 +2445,7 @@ public function getPrivillage(){
 		}
 		else
 		{
-			$closer_status = null;
+			$closer_status = "Open";
 		}
 		
 		
@@ -2727,7 +2727,7 @@ public function getPrivillage(){
 		}
 		else
 		{
-			$closer_status = null;
+			$closer_status = "Open";
 		}
 		$startdate = date("Y-m-d H:i:s");
 		for($i=0;$i<$cnt;$i++)
@@ -2748,6 +2748,13 @@ public function getPrivillage(){
 					'evcomp' => 1				
 					);
 				$update_lead_status = $this->Administrator_Model->update_email_lead__status($update_lead_status,$leadid[$i]);
+
+				$datacampaign1 = array(
+					'curr_active' => 0,
+									
+					);
+				$updateexistinglead = $this->Administrator_Model->update_email_status($datacampaign1,$comp_proSplit[$i]);
+				
 				}
 			}
 			if($addcampaigndata == true){

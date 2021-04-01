@@ -2174,14 +2174,6 @@ public function getPrivillage(){
 		
 		$sub = $_GET['sub'];
 		$body = $_GET['body'];
-		if(isset($_GET['changeFormatcond']) && $_GET['changeFormatcond'] != null)
-		{
-			$changeFormatcond = $_GET['changeFormatcond'];
-		}
-		else
-		{
-			$changeFormatcond = null;
-		}
 		
 		//Create Session
 		$email_data = array(

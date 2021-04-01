@@ -882,10 +882,20 @@ $(".emailstatus").click(function() {
             // var body = $('#editor1').val();
             var body = CKEDITOR.instances.editor1.getData();
             var email_template = $('#email_template').val();
-            if(email_template != null && email_template != '')
+            if(body != null && body != '')
+            {
+                var sub = $('#sub').val();
+                var body = CKEDITOR.instances.editor1.getData();
+            }
+            else if(email_template != null && email_template != '')
             {
                 var sub = "Test Mail";
-                var body = "Test mail</p>";
+                var body = "Test Mail";
+            }
+            else
+            {
+                var sub = "Test Mail";
+                var body = "Test Mail";
             }
             // alert(body);
             // var body = document.getElementById('mail_body').innerHTML;
@@ -1053,20 +1063,31 @@ $(".emailstatus").click(function() {
                 return;
             }
             // alert(pass);
-            var sub = $('#sub').val();
+           
             var email_close_status = $('#email_close_status').val();
             if(email_close_status == null || email_close_status == '')
             {
                 var email_close_status = 'Open';
             }
             
+            var sub = $('#sub').val();
             // var body = $('#editor1').val();
             var body = CKEDITOR.instances.editor1.getData();
             var email_template = $('#email_template').val();
-            if(email_template != null && email_template != '')
+            if(body != null && body != '')
             {
-                var sub = "Sample Test Email";
-                var body = "Test Email";
+                var sub = $('#sub').val();
+                var body = CKEDITOR.instances.editor1.getData();
+            }
+            else if(email_template != null && email_template != '')
+            {
+                var sub = "Test Mail";
+                var body = "Test Mail";
+            }
+            else
+            {
+                var sub = "Test Mail";
+                var body = "Test Mail";
             }
             // alert(body);
             // var body = document.getElementById('mail_body').innerHTML;

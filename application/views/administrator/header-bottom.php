@@ -140,6 +140,19 @@ $userteam = explode(',',$userteam1);
                         </ul>
                     </li>
                     <?php } ?>
+                    <?php if((in_array('11',$userteam))){?>
+                        <li class="nav-item">
+                        <a href="#!">
+                        <i class="icofont icofont-paper"></i>
+                            <span data-i18n="nav.basic-components.main">Lead Generation</span>
+                        </a>
+                        <ul class="tree-1">
+                            <!-- <li><a href="<?php //echo base_url(); ?>administrator/user_report" data-i18n="nav.basic-components.alert">User Status</a></li> -->
+                            <!-- <li><a href="<?php //echo base_url(); ?>administrator/team/list" data-i18n="nav.basic-components.breadcrumbs">Campaign Status</a></li> -->
+                            <li><a href="<?php echo base_url(); ?>cdc/selectCampaignForleadGeneration" data-i18n="nav.basic-components.alert">Lead Generation</a></li>
+                        </ul>
+                    </li>
+                    <?php } ?>
 
                    
                    
@@ -261,7 +274,7 @@ $userteam = explode(',',$userteam1);
         checkTime();
 
         function checkTime() {
-console.log(timeSinceLastMove);
+// console.log(timeSinceLastMove);
             timeSinceLastMove++;
 
             if (timeSinceLastMove > 10 * 60 ) {  //10 mints

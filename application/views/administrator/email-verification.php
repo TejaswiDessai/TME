@@ -416,9 +416,9 @@ document.getElementById("randomSelect").addEventListener("click", function() {
                             <td>
                                 <input  class="btn btn-primary" type="submit" name="submit">
                             </td>
-                            <!-- <td>
+                            <td>
                                 <a class="btn btn-primary" href="">Refresh</a>
-                            </td> -->
+                            </td>
                             </tr>
                             <tr>
                             <!-- <td> -->

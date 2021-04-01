@@ -395,8 +395,8 @@ document.getElementById("randomSelect").addEventListener("click", function() {
                             </td>
                             <td>
                             <input type="text" name="search_email" class="form-control form-control-default " value="<?php if(isset($search_email)){ echo $search_email;}?>" id="search_email" placeholder="Search by Email">
-                            <!-- <input type="text" value="<?php echo $agent_email?>" class="form-control form-control-default " name="from" id="from">
-                            <input type="hidden" value="<?php echo $agent_password?>" class="form-control form-control-default " name="pass" id="pass"> -->
+                            <!-- <input type="text" value="<?php //echo $agent_email?>" class="form-control form-control-default " name="from" id="from">
+                            <input type="hidden" value="<?php //echo $agent_password?>" class="form-control form-control-default " name="pass" id="pass"> -->
                             </td>
                             <td>
                             <select style="width:200px;height:34px;" class="form-control form-control-default "  name="search_email_status" id="search_email_status">
@@ -668,6 +668,8 @@ document.getElementById("randomSelect").addEventListener("click", function() {
                 <h5>From : (Agent) Email Details</h5>
                 <input type="text" id="from" name="from" class="form-control" value="<?php if(isset($From)){ echo $From;}?>"><br>
                 <input type="password" id="pass" name="pass" class="form-control" value="<?php if(isset($Pass)){ echo $Pass;}?>">    <br>
+                <input type="checkbox" onclick="myFunction()">&nbsp;Show Password
+
                 </div>
                 <div id="menu1" class="tab-pane fade">
                 <h5>Compose Email</h5>
@@ -720,7 +722,16 @@ document.getElementById("randomSelect").addEventListener("click", function() {
     </div>
   </div>
 
-
+  <script>
+function myFunction() {
+  var x = document.getElementById("pass");
+  if (x.type === "password") {
+    x.type = "text";
+  } else {
+    x.type = "password";
+  }
+}
+</script>
   
 
 
@@ -974,6 +985,14 @@ $(".emailstatus").click(function() {
                         ajaxindicatorstop();
                         });
                     }
+                    else if(response.statusCode == "Email Fail")
+                    {
+                        alert(response.error);
+                        jQuery(document).ajaxStop(function () {
+                        //show ajax indicator
+                        ajaxindicatorstop();
+                        });
+                    }
                 },
                 error:function(xhr, status, error){
                     var errorMessage = xhr.status + ': ' + xhr.statusText
@@ -1166,6 +1185,14 @@ $(".emailstatus").click(function() {
                     else if(response.statusCode == "Email Exist")
                     {
                         alert("Email is already sent on this email Id");
+                        jQuery(document).ajaxStop(function () {
+                        //show ajax indicator
+                        ajaxindicatorstop();
+                        });
+                    }
+                    else if(response.statusCode == "Email Fail")
+                    {
+                        alert(response.error);
                         jQuery(document).ajaxStop(function () {
                         //show ajax indicator
                         ajaxindicatorstop();

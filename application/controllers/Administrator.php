@@ -2195,6 +2195,41 @@ public function getPrivillage(){
 		$this->session->set_userdata($email_data);
 		for($i=0;$i<$cnt;$i++)
 		{
+			require_once "send-email-php/phpmailer/class.phpmailer.php";
+			require_once "send-email-php/phpmailer/PHPMailerAutoload.php";
+			$mail = new PHPMailer(true);
+			try {
+				//  $mail->Host       = "mail.gmail.com"; // SMTP server
+				//  $mail->SMTPDebug  = 2;                     // enables SMTP debug information (for testing)
+				 $mail->SMTPAuth   = true;                  // enable SMTP authentication
+				 $mail->SMTPSecure = "ssl";                 // sets the prefix to the servier
+				 $mail->Host       = "smtp.gmail.com";      // sets GMAIL as the SMTP server
+				 $mail->Port       = 465;   // set the SMTP port for the GMAIL server
+				 $mail->SMTPKeepAlive = true;
+				 $mail->Mailer = "smtp";
+				 $mail->Username   = $from;  // GMAIL username
+				 $mail->Password   = $pass;            // GMAIL password
+				 $mail->addAddress($comp_proSplit[$i], 'Receiver Name');
+				 $mail->setFrom($from, 'User');
+				 $mail->Subject = $sub;
+				 $mail->AltBody = $body; // optional - MsgHTML will create an alternate automatically
+				 $mail->MsgHTML($body);
+				 $mail->Send();
+				 
+				//  echo "Message Sent OK</p>\n";
+				//  header("location: ../administrator/emailVerfication");
+
+				} catch (phpmailerException $e) {
+				//  echo $e->errorMessage(); //Pretty error messages from PHPMailer
+					echo json_encode(array(
+						"statusCode"=>"Email Fail",
+						"error"=>"Google Authentication Error: Please check your Gmail Username & Password..",
+					));
+					return;
+				} catch (Exception $e) {
+				 echo $e->getMessage(); //Boring error messages from anything else!
+				}
+
 			$checkforEmail = $this->Administrator_Model->get_email_duplication_count($comp_proSplit[$i],$agent_id);
 			if($checkforEmail == true)
 			{
@@ -2255,35 +2290,7 @@ public function getPrivillage(){
 				
 				$addcampaigndata = $this->Administrator_Model->send_email_status($datacampaign);
 			// }
-			require_once "send-email-php/phpmailer/class.phpmailer.php";
-			require_once "send-email-php/phpmailer/PHPMailerAutoload.php";
-			$mail = new PHPMailer(true);
-			try {
-				//  $mail->Host       = "mail.gmail.com"; // SMTP server
-				//  $mail->SMTPDebug  = 2;                     // enables SMTP debug information (for testing)
-				 $mail->SMTPAuth   = true;                  // enable SMTP authentication
-				 $mail->SMTPSecure = "ssl";                 // sets the prefix to the servier
-				 $mail->Host       = "smtp.gmail.com";      // sets GMAIL as the SMTP server
-				 $mail->Port       = 465;   // set the SMTP port for the GMAIL server
-				 $mail->SMTPKeepAlive = true;
-				 $mail->Mailer = "smtp";
-				 $mail->Username   = $from;  // GMAIL username
-				 $mail->Password   = $pass;            // GMAIL password
-				 $mail->addAddress($comp_proSplit[$i], 'Receiver Name');
-				 $mail->setFrom($from, 'User');
-				 $mail->Subject = $sub;
-				 $mail->AltBody = $body; // optional - MsgHTML will create an alternate automatically
-				 $mail->MsgHTML($body);
-				 $mail->Send();
-				 
-				//  echo "Message Sent OK</p>\n";
-				//  header("location: ../administrator/emailVerfication");
-
-				} catch (phpmailerException $e) {
-				 echo $e->errorMessage(); //Pretty error messages from PHPMailer
-				} catch (Exception $e) {
-				 echo $e->getMessage(); //Boring error messages from anything else!
-				}
+			
 
 				
 			}
@@ -2389,16 +2396,7 @@ public function getPrivillage(){
 		$this->session->set_userdata($email_data);
 		for($i=0;$i<$cnt;$i++)
 		{
-			// Update Last email status first
-			$datacampaignUpdate = array(
-				'status' =>$email_status,
-				'comment' => $comment,
-				'closer_status' => $closer_status,
-				'statdt' => $startdate
-								
-				);
-			$addcampaigndata = $this->Administrator_Model->update_email_status($datacampaignUpdate,$comp_proSplit[$i]);
-
+			
 			// Check for new Email Format
 			$EmailFormat = explode("@",$original_email[$i]);
 			$domain = $EmailFormat [1];
@@ -2506,49 +2504,6 @@ public function getPrivillage(){
 				return;
 			}
 
-			$datacampaign1 = array(
-				'curr_active' =>0,
-								
-				);
-			$updateexistinglead = $this->Administrator_Model->update_email_status($datacampaign1,$comp_proSplit[$i]);
-			// $update_lead_status = array(
-			// 	'evcomp' => 2,
-			// 	// 'curr_active' => 0				
-			// 	);
-			// $update_lead_status = $this->Administrator_Model->update_email_lead__status($update_lead_status,$leadid[$i]);
-			
-			if($closer_status == "Closed")
-				{
-				$update_lead_status = array(
-					'evload' => 1,
-					'evcomp' => 1,
-					'email'=> $comp_proSplit[$i],
-					'evdisp' =>4,
-					'cdcsb' => 0,
-					'cdcrjt' => 0
-
-					);
-				$update_lead_status = $this->Administrator_Model->update_email_lead__status($update_lead_status,$leadid[$i]);
-				}
-				if($closer_status != "Closed")
-				{
-					$datacampaign = array(
-						'lmid' => $leadid[$i], 
-						'evagnt' => $this->session -> userdata('empcode'),
-						'email' => $TO,
-						'status' =>'',
-						'fmail' =>$from,
-						'comment' => '',
-						'loaddt' => $startdate,
-						'mailsub' => $sub,
-						'mailby' => $body,
-						'statdt' => $startdate,
-						'curr_active'=> 1,
-						'closer_status' =>'Open',
-						'email_code' => 1				
-						);
-					
-					$addcampaigndata = $this->Administrator_Model->send_email_status($datacampaign);
 			
 					require_once "send-email-php/phpmailer/class.phpmailer.php";
 					require_once "send-email-php/phpmailer/PHPMailerAutoload.php";
@@ -2575,10 +2530,70 @@ public function getPrivillage(){
 						//  header("location: ../administrator/emailVerfication");
 
 						} catch (phpmailerException $e) {
-						echo $e->errorMessage(); //Pretty error messages from PHPMailer
+							// echo $e->errorMessage(); //Pretty error messages from PHPMailer
+							echo json_encode(array(
+								"statusCode"=>"Email Fail",
+								"error"=>"Google Authentication Error: Please check your Gmail Username & Password..",
+							));
+							return;
 						} catch (Exception $e) {
 						echo $e->getMessage(); //Boring error messages from anything else!
 						}
+						
+						// Update Last email status first
+						$datacampaignUpdate = array(
+							'status' =>$email_status,
+							'comment' => $comment,
+							'closer_status' => $closer_status,
+							'statdt' => $startdate
+											
+							);
+						$addcampaigndata = $this->Administrator_Model->update_email_status($datacampaignUpdate,$comp_proSplit[$i]);
+
+
+						$datacampaign1 = array(
+							'curr_active' =>0,
+											
+							);
+						$updateexistinglead = $this->Administrator_Model->update_email_status($datacampaign1,$comp_proSplit[$i]);
+						// $update_lead_status = array(
+						// 	'evcomp' => 2,
+						// 	// 'curr_active' => 0				
+						// 	);
+						// $update_lead_status = $this->Administrator_Model->update_email_lead__status($update_lead_status,$leadid[$i]);
+						
+						if($closer_status == "Closed")
+							{
+							$update_lead_status = array(
+								'evload' => 1,
+								'evcomp' => 1,
+								'email'=> $comp_proSplit[$i],
+								'evdisp' =>4,
+								'cdcsb' => 0,
+								'cdcrjt' => 0
+			
+								);
+							$update_lead_status = $this->Administrator_Model->update_email_lead__status($update_lead_status,$leadid[$i]);
+							}
+							if($closer_status != "Closed")
+							{
+								$datacampaign = array(
+									'lmid' => $leadid[$i], 
+									'evagnt' => $this->session -> userdata('empcode'),
+									'email' => $TO,
+									'status' =>'',
+									'fmail' =>$from,
+									'comment' => '',
+									'loaddt' => $startdate,
+									'mailsub' => $sub,
+									'mailby' => $body,
+									'statdt' => $startdate,
+									'curr_active'=> 1,
+									'closer_status' =>'Open',
+									'email_code' => 1				
+									);
+								
+								$addcampaigndata = $this->Administrator_Model->send_email_status($datacampaign);
 					}
 				
 			}

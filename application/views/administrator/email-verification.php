@@ -971,7 +971,7 @@ $(".emailstatus").click(function() {
 					}
                     else if(response.statusCode == "Exceed")
                     {
-                        alert("LMID exceeded");
+                        alert("Email format exceeded");
                         jQuery(document).ajaxStop(function () {
                         //show ajax indicator
                         ajaxindicatorstop();

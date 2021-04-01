@@ -2495,7 +2495,7 @@ public function getPrivillage(){
 			if($checkforlmid == true)
 			{
 				echo json_encode(array(
-					"statusCode"=>"Exceed: Max 8 Format you can used.",
+					"statusCode"=>"Exceed",
 					// "campaign_id"=>$addcampaigndata,
 					// "from"=>$from,
 					// "pass"=>$pass,
@@ -2570,7 +2570,8 @@ public function getPrivillage(){
 								'email'=> $comp_proSplit[$i],
 								'evdisp' =>4,
 								'cdcsb' => 0,
-								'cdcrjt' => 0
+								'cdcrjt' => 0,
+								'rlc' => 0,
 			
 								);
 							$update_lead_status = $this->Administrator_Model->update_email_lead__status($update_lead_status,$leadid[$i]);
@@ -2676,7 +2677,8 @@ public function getPrivillage(){
 					'email'=> $comp_proSplit[$i],
 					'evdisp' =>4,
 					'cdcsb' => 0,
-					'cdcrjt' => 0				
+					'cdcrjt' => 0,
+					'rlc' => 0,				
 					);
 				$update_lead_status = $this->Administrator_Model->update_email_lead__status($update_lead_status,$leadid[$i]);
 

@@ -2822,6 +2822,8 @@ public function get_campaign_fordataverification()
 				$this->db->group_by('ev.fmail');
 				$this->db->group_by('ev.closer_status');
 				$this->db->group_by('ev.email');
+				$this->db->group_by('ev.elmid');
+				$this->db->order_by('ev.elmid','desc');
 			}
 			// $this->db->limit(5);
 			$query=$this->db->get();

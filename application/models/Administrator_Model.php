@@ -1752,6 +1752,7 @@ public function get_leadmasterby_campaignidwithempcode($id = FALSE,$empcode)
 
 		$this->db->group_start();
 		$this->db->where('dvrejtg < 3 AND dvsbtg < 3');
+		$this->db->OR_where('dvrejtg is NULL AND dvsbtg is NULL');
 		$this->db->OR_where('qarej', 1);
 		$this->db->group_end(); 
 	
@@ -1863,7 +1864,7 @@ public function get_leadmasterby_campaignQA($id = FALSE)
 
 	
 	$this->db->order_by('qaacptdti','ASC');
-	$this->db->limit(1);
+	// $this->db->limit(1);
 	$query = $this->db->get_where('leadmaster', array('cids' => $id));
 	// echo $this->db->last_query(); 
 	// echo $string;

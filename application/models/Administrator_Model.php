@@ -1917,6 +1917,7 @@ public function get_leadmasterby_campaign_CDC($id = FALSE,$postDatalmid,$camp_id
 		
 		$this->db->where('cdcsb <', '4');
 		$this->db->where('cdcrjt <', '4');
+		$this->db->where('sbsvtag !=', 0);
 		// $this->db->where('cdcsv !=', 0);
 		$this->db->where('cdcsv', NULL);
 		$this->db->where('qasv',NULL);
@@ -2014,7 +2015,7 @@ public function get_campaign_fordataverification()
 			$this->db->group_by('campaign.cids');
 			$this->db->group_by('campaign.campnm');
 			$this->db->group_by('campaign.cnid');
-		
+			$this->db->where('leadmaster.sbsvtag !=', 0);
 
 			// $this->db->where('leadmaster.cdcsv !=', 0);
 			$this->db->where('leadmaster.cdcsv', null);

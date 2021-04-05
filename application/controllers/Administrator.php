@@ -2459,7 +2459,7 @@ public function getPrivillage(){
 						$checkforEmail = $this->Administrator_Model->get_email_duplication_count($TO,$agent_id);
 						if($checkforEmail == true)
 						{
-							$TO = $firstCharFname.".".$firstCharLname."@".$domain;
+							$TO = $firstCharFname.$firstCharLname."@".$domain;
 							$checkforEmail = $this->Administrator_Model->get_email_duplication_count($TO,$agent_id);
 							if($checkforEmail == true)
 							{
@@ -2468,6 +2468,15 @@ public function getPrivillage(){
 								if($checkforEmail == true)
 								{
 									$TO = $lastname."@".$domain;
+									$checkforEmail = $this->Administrator_Model->get_email_duplication_count($TO,$agent_id);
+									if($checkforEmail == true)
+									{
+										$TO = $firstCharFname.$lastname."@".$domain;
+									}
+									else
+									{
+										$TO = $lastname."@".$domain;
+									}
 								}
 								else
 								{
@@ -2476,7 +2485,8 @@ public function getPrivillage(){
 							}
 							else
 							{
-								$TO = $firstCharFname.".".$firstCharLname."@".$domain;
+								$TO = $firstCharFname.$firstCharLname."@".$domain;
+								
 							}
 						}
 					}
@@ -2491,6 +2501,19 @@ public function getPrivillage(){
 				}
 			}
 			
+			$checkforEmail = $this->Administrator_Model->get_email_duplication_count($TO,$agent_id);
+			if($checkforEmail == true)
+			{
+				echo json_encode(array(
+					"statusCode"=>"Email Exist",
+					// "campaign_id"=>$addcampaigndata,
+					// "from"=>$from,
+					// "pass"=>$pass,
+					"message"=>"Email is already sent on this email Id"
+				));
+				return;
+			}
+
 			$checkforlmid = $this->Administrator_Model->get_lmid_duplication_count($leadid[$i],$agent_id);
 			if($checkforlmid == true)
 			{

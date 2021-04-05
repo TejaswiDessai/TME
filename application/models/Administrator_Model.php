@@ -2893,7 +2893,7 @@ public function get_campaign_fordataverification()
 			$this->db->where('lmid', $leadid);
 			$result = $this->db->get('ev');
 			// echo $this->db->last_query(); 
-			if ($result->num_rows() >= 8) {
+			if ($result->num_rows() >= 12) {
                return true;        
 			}else{
 				return false;

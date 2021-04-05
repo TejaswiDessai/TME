@@ -6,6 +6,14 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+  <script>
+  $(document).ready(function () {
+    // Handler for .ready() called.
+    $('html, body').animate({
+        scrollTop: $('#email_form').offset().top
+    }, 'slow');
+});
+</script>
     <style>
     body
     {
@@ -97,7 +105,7 @@ l    /* #navbar{
 
 
 
-            <div class="page-header">
+            <!-- <div class="page-header">
                 <div class="page-header-title">
                     <h4>Email Verification</h4>
                 </div>
@@ -114,7 +122,7 @@ l    /* #navbar{
                         </li>
                     </ul>
                 </div>
-            </div>
+            </div> -->
            
             <!-- Page-header end -->
             <!-- Page-body start -->
@@ -343,6 +351,7 @@ document.getElementById("randomSelect").addEventListener("click", function() {
     var index = Math.floor(Math.random() * items.length);
     select.selectedIndex = index;
 });
+
 </script>
 <style>
 #rcorners3 {
@@ -380,7 +389,7 @@ document.getElementById("randomSelect").addEventListener("click", function() {
       
     </div>
   </div>
-                <div class="card">
+                <div class="card" id="email_form">
                     <div class="card-block">
                     <input type="hidden" value="<?php echo $empcode;?>" id="empcode">
                         <form action="<?php echo base_url();?>administrator/emailVerfication" method="post" >
@@ -466,7 +475,7 @@ document.getElementById("randomSelect").addEventListener("click", function() {
                             </form>
                        
                     </div>
-                    <br>
+                    <!-- <br> -->
                   
                         <div class="table-responsive dt-responsive">
                             <table id="dom-jqry" class="table table-striped table-bordered nowrap table1">

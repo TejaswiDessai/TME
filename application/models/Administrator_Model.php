@@ -1825,7 +1825,7 @@ public function get_leadmasterby_campaignQA($id = FALSE)
 	$this->db->where('cdcsv', NULL);
 	$this->db->where('qasv', NULL);
 	$this->db->where('sbsvtag !=', 0);
-	// $this->db->where('evload',0);
+	// $this->db->where('evload',0); 
 	$this->db->where('cdcload',1);
 	$this->db->where('qaload',null);
 	$this->db->where('rlc !=', 1);

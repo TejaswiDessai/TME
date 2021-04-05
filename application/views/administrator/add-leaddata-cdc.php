@@ -885,14 +885,21 @@ $.ajax({
                           <div class="form-group row" >
                              <div class="col-sm-12  comt">
                                 <label class="col-lable"><b>Comment</b></label>
-                                <input type="text"  name="pcomt" id="pcomt"  placeholder="Comment"  class="form-control form-control-sm"
-                                 value="<?php if(isset($ldmster['pcomt'])) {
+                                <input type="text"  name="pcomt" id="pcomt"  placeholder="Comment"  class="form-control form-control-sm" 
+                                value="<?php if(isset($ldmster['pcomt']) && $ldmster['pcomt'] != '') {
                                    $arr = explode("#", $ldmster['pcomt']);
-                                            $first = $arr[1];
-                                  echo  $first; 
+                                  
+                                   $withoutchar = $arr[0];
+                                   if(!empty($arr[1])){
+                                      $first = $arr[1];
+                                      echo  $first; 
+                                   }else{
+                                    echo $withoutchar; 
+                                   }
+                                  
                                  }else{
                                    echo "Empty";
-                                 } ?>">
+                                 } ?>" >
                             </div> 
                          </div>
                         

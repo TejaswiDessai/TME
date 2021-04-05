@@ -1825,12 +1825,13 @@ public function get_leadmasterby_campaignQA($id = FALSE)
 	$this->db->where('cdcsv', NULL);
 	$this->db->where('qasv', NULL);
 	$this->db->where('sbsvtag !=', 0);
-	$this->db->where('evload',0);
+	// $this->db->where('evload',0);
 	$this->db->where('cdcload',1);
 	$this->db->where('qaload',null);
 	$this->db->where('rlc !=', 1);
 	
-	$this->db->order_by('evdti','ASC');
+	$this->db->order_by('cdcsbdti','ASC');
+	$this->db->order_by('cdcsbdtii','ASC');
 	$this->db->limit(1);
 	$query = $this->db->get_where('leadmaster', array('cids' => $id));
 	// echo $this->db->last_query(); 
@@ -2052,7 +2053,7 @@ public function get_campaign_fordataverification()
 			$this->db->where('leadmaster.sbsvtag !=', 0);
 			$this->db->where('leadmaster.cdcsb <', '4');
 			$this->db->where('leadmaster.cdcrjt <', '4');
-			$this->db->where('leadmaster.evload',0);
+			// $this->db->where('leadmaster.evload',0);
 			$this->db->where('leadmaster.cdcload',1);
 			$this->db->where('leadmaster.qaload',null);
 			$this->db->where('leadmaster.rlc !=', 1);	

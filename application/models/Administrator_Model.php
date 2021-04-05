@@ -2823,6 +2823,8 @@ public function get_campaign_fordataverification()
 				$this->db->group_by('ev.fmail');
 				$this->db->group_by('ev.closer_status');
 				$this->db->group_by('ev.email');
+				$this->db->group_by('ev.elmid');
+				$this->db->order_by('ev.elmid','desc');
 			}
 			// $this->db->limit(5);
 			$query=$this->db->get();
@@ -2892,7 +2894,7 @@ public function get_campaign_fordataverification()
 			$this->db->where('lmid', $leadid);
 			$result = $this->db->get('ev');
 			// echo $this->db->last_query(); 
-			if ($result->num_rows() >= 8) {
+			if ($result->num_rows() >= 12) {
                return true;        
 			}else{
 				return false;

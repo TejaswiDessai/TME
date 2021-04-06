@@ -307,7 +307,7 @@ $.ajax({
 <form id="basic-form" method="POST" enctype="multipart/form-data">
 <div class="page-header">
     <div class="page-header-title col-sm-12">
-        <h4>Quality Assurance</h4> 
+        <h4>Lead Generation</h4> 
         
       
             <div class="form-group row"> 
@@ -325,15 +325,15 @@ $.ajax({
                   <label class="col-lable"><b>Campaign Name: <?php echo $campaign['campnm']; ?></b></label>
                   <?php endforeach; ?>
                 </div> 
-                <div class="col-sm-3" style="margin-top: -20px;">
+                <!-- <div class="col-sm-3" style="margin-top: -20px;">
                   <?php //foreach ($campaigns as $campaign): ?>
-                  <label class="col-lable"><b>CDC Date: <?php if (empty($ldmster['cdcsbdtii'])) {
-                    echo $ldmster['cdcsbdti'];}else{
-                      echo $ldmster['cdcsbdtii'];
-                    } ?></b></label>
-                  <label class="col-lable"><b>Lead Date: <?php  echo $ldmster['lsdti']; ?></b></label>
+                  <label class="col-lable"><b>CDC Date: <?php //if (empty($ldmster['cdcsbdtii'])) {
+                   // echo $ldmster['cdcsbdti'];}else{
+                    //  echo $ldmster['cdcsbdtii'];
+                   // } ?></b></label>
+                  <label class="col-lable"><b>Lead Date: <?php // echo $ldmster['lsdti']; ?></b></label>
                   <?php //endforeach; ?>
-                </div>
+                </div> -->
                 
             </div>   
                            

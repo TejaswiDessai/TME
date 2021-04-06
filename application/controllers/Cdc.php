@@ -332,7 +332,7 @@
 						// print_r($data['leadmaster']); 
 						if(empty($data['leadmaster'])){
 							$this->session->set_flashdata('success', 'CDC finished for this campaign.');
-							// redirect('cdc/selectCampaignforDataVerification');
+							redirect('cdc/selectCampaignForCDC');
 							
 						}
 						// print_r($postDatalmid);

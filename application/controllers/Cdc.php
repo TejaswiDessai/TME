@@ -3448,6 +3448,15 @@
 			    // exit();
 			
 				$addleadandcdcdata = $this->Administrator_Model->update_leaddata($datacdcandlead,$lmid);
+
+				// $datarecordrlc = array(
+				// 	'rlc' => 0,
+				// );
+	
+				// // get data 
+				// $data['rlcremove']= $this->Administrator_Model->update_recordlockonleadgeneration($_SESSION['empcode'],$datarecordrlc);
+				$data['rlcremove'] = $this->Administrator_Model->update_recordlockonlogin($_SESSION['empcode']);
+				
 				// $addleadandcdcdatacomment = $this->Administrator_Model->update_leaddatacomment( $_POST['pcomt'],$lmid);
 				// print_r($addcampaigndata);  die;
 				

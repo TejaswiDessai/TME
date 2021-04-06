@@ -1324,21 +1324,21 @@ $.ajax({
                           <div class="form-group row optindiv">
                                        
                                        <div class="col-sm-2">
-                                        Opt - in  <input type="checkbox" <?php if($ldmster['optin'] == '1'){ echo "checked" ; } ?> value=""  id="optin" name="optin" class="js-single optin  <?php if($ldmster['optin'] == '1'){ echo "checkvalue" ; } ?>"  />
+                                        Opt - in  <input type="checkbox" <?php if($ldmster['optin'] == '1'){ echo "checked" ; } ?> value="<?php if($ldmster['optin'] == '1'){ echo "1" ; } ?>"   id="optin" name="optin" class="js-single optin  <?php if($ldmster['optin'] == '1'){ echo "checkvalue" ; } ?>"  />
                                         </div>
                                         <div class="col-sm-2 optoption">
-                                        Opt - in Post  <input type="checkbox" <?php if($ldmster['optpst'] == '1'){ echo "checked" ; } ?>  value="" id="optpst" name="optpst" class="js-single  <?php if($ldmster['optpst'] == '1'){ echo "checkvalue" ; } ?>"  />
+                                        Opt - in Post  <input type="checkbox" <?php if($ldmster['optpst'] == '1'){ echo "checked" ; } ?>  value="<?php if($ldmster['optpst'] == '1'){ echo "1" ; } ?>" id="optpst" name="optpst" class="js-single  <?php if($ldmster['optpst'] == '1'){ echo "checkvalue" ; } ?>"  />
                                         </div>
                                        
                                         <div class="col-sm-2 optoption">
-                                        Opt - in Phone <input type="checkbox" <?php if($ldmster['optph'] == '1'){ echo "checked" ; } ?> value=""  id="optph" name="optph" class="js-single <?php if($ldmster['optph'] == '1'){ echo "checkvalue" ; } ?>"  />
+                                        Opt - in Phone <input type="checkbox" <?php if($ldmster['optph'] == '1'){ echo "checked" ; } ?> value="<?php if($ldmster['optph'] == '1'){ echo "1" ; } ?>"  id="optph" name="optph" class="js-single <?php if($ldmster['optph'] == '1'){ echo "checkvalue" ; } ?>"  />
                                         </div>
                                         
                                         <div class="col-sm-2 optoption">
-                                        Opt - in Email <input type="checkbox" <?php if($ldmster['opteml'] == '1'){ echo "checked" ; } ?> value="" id="opteml" name="opteml" class="js-single  <?php if($ldmster['opteml'] == '1'){ echo "checkvalue" ; } ?>"  />
+                                        Opt - in Email <input type="checkbox" <?php if($ldmster['opteml'] == '1'){ echo "checked" ; } ?> value="<?php if($ldmster['opteml'] == '1'){ echo "1" ; } ?>" id="opteml" name="opteml" class="js-single  <?php if($ldmster['opteml'] == '1'){ echo "checkvalue" ; } ?>"  />
                                         </div>
                                         <div class="col-sm-2 optoption">
-                                        DND <input type="checkbox" <?php if($ldmster['dnd'] == '1'){ echo "checked" ; } ?> value="" id="dnd" name="dnd" class="js-single dnd <?php if($ldmster['dnd'] == '1'){ echo "checkvalue" ; } ?>"  />
+                                        DND <input type="checkbox" <?php if($ldmster['dnd'] == '1'){ echo "checked" ; } ?> value="<?php if($ldmster['dnd'] == '1'){ echo "1" ; } ?>" id="dnd" name="dnd" class="js-single dnd <?php if($ldmster['dnd'] == '1'){ echo "checkvalue" ; } ?>"  />
                                         </div>
                          </div>
                        
@@ -2535,7 +2535,7 @@ $.ajax({
             var opteml = $('#opteml').val();
             var optph = $('#optph').val();
             var dnd = $('#dnd').val();
-            
+          
             if(optin == ""){
             var optin = 0;
              }

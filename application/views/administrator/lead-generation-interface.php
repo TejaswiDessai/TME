@@ -38,11 +38,11 @@
     #navbar-logo{
         height: 6.5rem;
     }
-l    /* #navbar{
+l    #navbar{
         height: 01px;
-    } */
+    }
     </style>
-    <script type="text/javascript">
+    <!-- <script type="text/javascript">
     $(document).ready(function(){
         $('#example').dataTable( {
   "searching": false
@@ -85,7 +85,7 @@ l    /* #navbar{
             })
         });
     });
-    </script>
+    </script> -->
 
 
 
@@ -110,7 +110,7 @@ l    /* #navbar{
            
             <!-- Page-header end -->
             <!-- Page-body start -->
-            <div class="page-body">
+            <!-- <div class="page-body"> -->
                 <!-- DOM/Jquery table start -->
                <!-- Sign in modal start -->
     <!-- <div class="modal fade" id="sign-in-modal" tabindex="-1">
@@ -355,66 +355,66 @@ $(document).on("click", ".gotoupdateleadlsfinal", function () {
 
 
 // $(".passingID").click(function () {
-    $(document).on("click", ".passingID", function () {
-    var ids = $(this).attr('data-id');
-    var row = $(this).attr('data-row');
+//     $(document).on("click", ".passingID", function () {
+//     var ids = $(this).attr('data-id');
+//     var row = $(this).attr('data-row');
     
-    var sp = ids.split('@');
-    var flname = sp[0];
-    var sp_email = flname.split('.') ;
-    var lastVal = sp_email.pop(); 
-    // alert(flname);
+//     var sp = ids.split('@');
+//     var flname = sp[0];
+//     var sp_email = flname.split('.') ;
+//     var lastVal = sp_email.pop(); 
+//     // alert(flname);
     
-    // console.log(sp[0]); // john.doe
-    // console.log(sp[1]); // email.com
-    var first_of_firstString = flname.substring(0, 1);
-    var first_of_secondString = lastVal.substring(0, 1);
-    let count = 0
-    let position = flname.indexOf('.')
+//     // console.log(sp[0]); // john.doe
+//     // console.log(sp[1]); // email.com
+//     var first_of_firstString = flname.substring(0, 1);
+//     var first_of_secondString = lastVal.substring(0, 1);
+//     let count = 0
+//     let position = flname.indexOf('.')
 
-    while (position !== -1) {
-    count++
-    position = flname.indexOf('.', position + 1)
-    }
+//     while (position !== -1) {
+//     count++
+//     position = flname.indexOf('.', position + 1)
+//     }
 
-    if (count>0) {
-    var option1 = sp_email[0]+"."+lastVal+"@"+sp[1];
-    var option2 = lastVal+"."+sp_email[0]+"@"+sp[1];
-    var option3 = sp_email[0]+"@"+sp[1];
-    var option4 = lastVal+"@"+sp[1];
-    var option5 = first_of_firstString+"@"+sp[1];
-    var option6 = first_of_secondString+"@"+sp[1];
-    var option7 = first_of_firstString+"."+first_of_secondString+"@"+sp[1];
-    var option8 = first_of_firstString+"."+lastVal+"@"+sp[1];
-    var option9 = first_of_firstString+lastVal+"@"+sp[1];
-    var values = [option1, option2, option3, option4,option5,option6,option7,option8,option9];
-    }
-    else
-    {
-        var option1 = ids;
-        var option2 = first_of_firstString+"@"+sp[1];
-        var values = [option1,option2];
-    }
+//     if (count>0) {
+//     var option1 = sp_email[0]+"."+lastVal+"@"+sp[1];
+//     var option2 = lastVal+"."+sp_email[0]+"@"+sp[1];
+//     var option3 = sp_email[0]+"@"+sp[1];
+//     var option4 = lastVal+"@"+sp[1];
+//     var option5 = first_of_firstString+"@"+sp[1];
+//     var option6 = first_of_secondString+"@"+sp[1];
+//     var option7 = first_of_firstString+"."+first_of_secondString+"@"+sp[1];
+//     var option8 = first_of_firstString+"."+lastVal+"@"+sp[1];
+//     var option9 = first_of_firstString+lastVal+"@"+sp[1];
+//     var values = [option1, option2, option3, option4,option5,option6,option7,option8,option9];
+//     }
+//     else
+//     {
+//         var option1 = ids;
+//         var option2 = first_of_firstString+"@"+sp[1];
+//         var values = [option1,option2];
+//     }
     
 
-    var select = $('<select>').prop('id', 'email_123')
-                    .prop('name', 'email').prop('class', 'form-control');
+//     var select = $('<select>').prop('id', 'email_123')
+//                     .prop('name', 'email').prop('class', 'form-control');
 
-    $(values).each(function() {
-      select.append($("<option>")
-        .prop('value', this)
-        .text(this.charAt(0).toUpperCase() + this.slice(1)));
-    });
+//     $(values).each(function() {
+//       select.append($("<option>")
+//         .prop('value', this)
+//         .text(this.charAt(0).toUpperCase() + this.slice(1)));
+//     });
 
-    var label = $("<label>").prop('for', 'pets')
-                   .text("Select mail: ");
-    var br = $("<br>");
-    $("#idkl").val(row);
-    $('#containercheck').empty();
-    $('#containercheck').append(label).append(select).append(br);
-    // $("#idkl").val( sp[0] );
-    $('#myModal').modal('show');
-});
+//     var label = $("<label>").prop('for', 'pets')
+//                    .text("Select mail: ");
+//     var br = $("<br>");
+//     $("#idkl").val(row);
+//     $('#containercheck').empty();
+//     $('#containercheck').append(label).append(select).append(br);
+//     // $("#idkl").val( sp[0] );
+//     $('#myModal').modal('show');
+// });
 
 // $(document).ready(function() {
 //     $('#dom-jqry').DataTable( {
@@ -475,57 +475,7 @@ $(document).ready(function() {
                             <input type="hidden" value="<?php echo $Campid; ?>" id="campaign_id" name="campaign_id">
                             </td>
                             
-                            <!-- <td>
-                                <select style="height:34px;" class="form-control form-control-default "  name="leadstatus" id="leadstatus">
-                                    <option value="">Lead Status</option>
-                                    <option value="New" <?php if( isset($Stage) && $Stage == "New") { echo "selected" ; } ?>>New</option>
-                                    <option value="Open" <?php if( isset($Stage) && $Stage == "Open") { echo "selected" ; } ?> >Open</option>
-                                    <option value="Closed" <?php if( isset($Stage) && $Stage == "Closed") { echo "selected" ; } ?>>Closed</option>
-                                    <option value="All" <?php if( isset($Stage) && $Stage == "All") { echo "selected" ; } ?>>All</option>
-                                </select>
-                            </td> -->
-                            <!-- <td>
-                                <select style="height:34px;" class="form-control form-control-default "  name="leadlimit" id="leadlimit">
-                                    <option value="5" <?php if( isset($leadlimit) && $leadlimit == "5") { echo "selected" ; } ?>>5</option>
-                                    <option value="10" <?php if( isset($leadlimit) && $leadlimit == "10") { echo "selected" ; } ?>>10</option>
-                                   
-                                </select>
-                            </td> -->
-                            <!-- <td>
-                                <select style="height:34px;" class="form-control form-control-default "  name="email_sent_time" id="email_sent_time">
-                                    <option value="">Select Time</option>
-                                    <option value="1" <?php if( isset($email_sent_time) && $email_sent_time == "1") { echo "selected" ; } ?>>1 Hr Old</option>
-                                    <option value="2" <?php if( isset($email_sent_time) && $email_sent_time == "2") { echo "selected" ; } ?> >2 Hr Old</option>
-                                    <option value="3" <?php if( isset($email_sent_time) && $email_sent_time == "3") { echo "selected" ; } ?>>3 Hr Old</option>
-                                    <option value="4" <?php if( isset($email_sent_time) && $email_sent_time == "4") { echo "selected" ; } ?>>More than 3 Hr</option>
-                                </select>
-                            </td> -->
-                            <!-- <td>
-                            <input type="text" name="search_email" class="form-control form-control-default " value="<?php if(isset($search_email)){ echo $search_email;}?>" id="search_email" placeholder="Search by Email">
-                           <input type="text" value="<?php echo $agent_email?>" class="form-control form-control-default " name="from" id="from">
-                            <input type="hidden" value="<?php echo $agent_password?>" class="form-control form-control-default " name="pass" id="pass"> -->
-                            <!-- </td>  -->
-                            <!-- <td>
-                            <select style="width:200px;height:34px;" class="form-control form-control-default "  name="search_email_status" id="search_email_status">
-                                <option value="">Email Status</option>
-                                <option value="Test Mail Sent"  <?php if( isset($search_email_status) && $search_email_status == "Test Mail Sent") { echo "selected" ; } ?> >Test Mail Sent</option>
-                                <option value="Bounced" <?php if( isset($search_email_status) && $search_email_status == "Bounced") { echo "selected" ; } ?> >Bounced</option>
-                                <option value="Reviewed" <?php if( isset($search_email_status) && $search_email_status == "Reviewed") { echo "selected" ; } ?>>Reviewed</option>
-                                <option value="Accepted" <?php if( isset($search_email_status) && $search_email_status == "Accepted") { echo "selected" ; } ?>>Accepted</option>
-                                <option value="Not Available" <?php if( isset($search_email_status) && $search_email_status == "Not Available") { echo "selected" ; } ?>>Not Available</option>
-                                <option value="Out of Office" <?php if( isset($search_email_status) && $search_email_status == "Out of Office") { echo "selected" ; } ?>>Out of Office</option>
-                                <option value="Generic email" <?php if( isset($search_email_status) && $search_email_status == "Generic email") { echo "selected" ; } ?>>Generic email</option>
-                                <option value="Dead contact" <?php if( isset($search_email_status) && $search_email_status == "Dead contact") { echo "selected" ; } ?>>Dead contact</option>
-                                <option value="Incorrect Info" <?php if( isset($search_email_status) && $search_email_status == "Incorrect Info") { echo "selected" ; } ?>>Incorrect Info</option>
-                                <option value="Refused" <?php if( isset($search_email_status) && $search_email_status == "Refused") { echo "selected" ; } ?>>Refused</option>
-                            </select>
-                            </td> -->
-                            <!-- <td>
-                                <input  class="btn btn-primary" type="submit" name="submit">
-                            </td> -->
-                            <!-- <td>
-                                <a class="btn btn-primary" href="">Refresh</a>
-                            </td> -->
+                           
                             </tr>
                           
                             </table>

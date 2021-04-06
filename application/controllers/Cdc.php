@@ -460,7 +460,7 @@
 						// print_r($data['leadmaster']); 
 						if(empty($data['leadmaster'])){
 							$this->session->set_flashdata('success', 'Data verification id finished for this campaign.');
-							redirect('cdc/selectCampaignforDataVerification');
+							redirect('cdc/selectCampaignForQA');
 							
 						}
 
@@ -529,7 +529,7 @@
 						// print_r($data['leadmaster']); 
 						if(empty($data['leadmaster'])){
 							$this->session->set_flashdata('success', 'Data verification id finished for this campaign.');
-							redirect('cdc/selectCampaignforDataVerification');
+							redirect('cdc/selectCampaignForleadGeneration');
 							
 						}
 

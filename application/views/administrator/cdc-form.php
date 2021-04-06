@@ -2976,9 +2976,8 @@ $(function() {
                     {         
                          
                         $("#leadsavecdc").html(response.message);
-                        top.location.href=base_url+"administrator/dashboard";//redirection
-                        // top.location.href=base_url+"cdc/dataverfication?camp_id="+<?php //echo $campaign['cnid']; ?>;//redirection
-                      
+                        // top.location.href=base_url+"administrator/dashboard";//redirection
+                        top.location.href=base_url+"cdc/cdcform?camp_id="+<?php echo $campaign['cnid']; ?>;//redirection
                     }else if(response.data=="Fail")
                     {
                         $("#leadupdatecdc").html(response.message);

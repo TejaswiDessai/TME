@@ -1303,16 +1303,16 @@ $.ajax({
                             <div class="col-sm-2">
                                 <select class="form-control form-control-sm"  name="lstat" id="lstat">
                                     <option value="">Call Status</option>
-                                    <option value="on-hold" <?php if(isset($post['lstat']) && ($post['lstat'] =='on-hold') ){ echo "Selected"; } ?> >on-hold</option>
-                                            <option value="voicemail" <?php if(isset($post['lstat']) && ($post['lstat'] =='voicemail') ){ echo "Selected"; } ?> >voicemail</option>
-                                            <option value="call-back" <?php if(isset($post['lstat']) && ($post['lstat'] =='call-back') ){ echo "Selected" ;} ?> >call-back</option>
+                                    <option value="on-hold" <?php if(isset($ldmster['lstat']) && ($ldmster['lstat'] =='on-hold') ){ echo "Selected"; } ?> >on-hold</option>
+                                            <option value="voicemail" <?php if(isset($ldmster['lstat']) && ($ldmster['lstat'] =='voicemail') ){ echo "Selected"; } ?> >voicemail</option>
+                                            <option value="call-back" <?php if(isset($ldmster['lstat']) && ($ldmster['lstat'] =='call-back') ){ echo "Selected" ;} ?> >call-back</option>
                                   </select>
                             </div>
                             <div class="col-sm-2">
                                 <select class="form-control form-control-sm"  name="lsfinal" id="lsfinal">
                                     <option value="">Call Disposition</option>
-                                            <option value="0" <?php if(isset($post['lsfinal']) && ($post['lsfinal'] =='0') ){ echo "Selected"; } ?> >Open</option>
-                                            <option value="1" <?php if(isset($post['lsfinal']) && ($post['lsfinal'] =='1') ){ echo "Selected" ;} ?> >Closed</option>
+                                            <option value="0" <?php if(isset($ldmster['lsfinal']) && ($ldmster['lsfinal'] =='0') ){ echo "Selected"; } ?> >Open</option>
+                                            <option value="1" <?php if(isset($ldmster['lsfinal']) && ($ldmster['lsfinal'] =='1') ){ echo "Selected" ;} ?> >Closed</option>
                                   </select>
                             </div>
                             

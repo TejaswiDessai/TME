@@ -3280,7 +3280,7 @@
 				'qastat' => 'qualified', //accept/rejection by cdc
 				
 				'qaacpt' => '1',
-				'qalsload' => '1',
+				'qalsload' => '1', //send to lead generation
 				
 				'pcomt' => $pcomt 
 				
@@ -4512,16 +4512,17 @@
 			$lmid = $_GET['ids'];
 			
 			$lstat = $_GET['lstat'];
-		
-		
+			$old_date = date('Y-m-d H:i:s'); 
+			$lsagent = $_SESSION['empcode'];
 		
 
 				$datacdcandlead = array(
 			
 			
 		
-				'lstat' => $lstat
-				
+				'lstat' => $lstat,
+				'lsstatdt' => $old_date,
+				'lsagent' => $lsagent
 				
 						
 				);

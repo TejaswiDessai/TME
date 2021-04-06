@@ -1280,7 +1280,13 @@ $.ajax({
                                     
                                   </div> -->
 
-                              <div class="col-sm-2">
+                       </div>
+
+                      <hr>
+
+                        <div class="form-group row">
+
+                        <div class="col-sm-2">
                                 <select class="form-control form-control-sm"  name="clscored" id="clscored">
                                     <option value="">Lead Score</option>
                                     <option value="1"<?php if(isset($ldmster) && $ldmster['clscored'] == '1'){ echo "selected" ; } ?>>Yes</option>
@@ -1294,9 +1300,26 @@ $.ajax({
                                     <option value="0"<?php if(isset($ldmster) && $ldmster['callrec'] == '0'){ echo "selected" ; } ?>>No</option>
                                 </select>
                             </div>
+                            <div class="col-sm-2">
+                                <select class="form-control form-control-sm"  name="lstat" id="lstat">
+                                    <option value="">Call Status</option>
+                                    <option value="on-hold" <?php if(isset($post['lstat']) && ($post['lstat'] =='on-hold') ){ echo "Selected"; } ?> >on-hold</option>
+                                            <option value="voicemail" <?php if(isset($post['lstat']) && ($post['lstat'] =='voicemail') ){ echo "Selected"; } ?> >voicemail</option>
+                                            <option value="call-back" <?php if(isset($post['lstat']) && ($post['lstat'] =='call-back') ){ echo "Selected" ;} ?> >call-back</option>
+                                  </select>
+                            </div>
+                            <div class="col-sm-2">
+                                <select class="form-control form-control-sm"  name="lsfinal" id="lsfinal">
+                                    <option value="">Call Disposition</option>
+                                            <option value="0" <?php if(isset($post['lsfinal']) && ($post['lsfinal'] =='0') ){ echo "Selected"; } ?> >Open</option>
+                                            <option value="1" <?php if(isset($post['lsfinal']) && ($post['lsfinal'] =='1') ){ echo "Selected" ;} ?> >Closed</option>
+                                  </select>
+                            </div>
                             
-                          
-                       </div>
+                        </div>
+
+
+
                         <hr>
                           <div class="form-group row optindiv">
                                        
@@ -1383,8 +1406,8 @@ $.ajax({
                               <!-- <button type="submit" name="leadupdateqa" class="btn btn-primary leaddisplay" style=""  id="leadupdateqa">Accept & Submit</button>  -->
                              </div>
                               <div class="col-sm-3">
-                              <!-- <button type="submit" name="leadsaveqa" class="btn btn-primary leaddisplay" style="margin-left:50px"  id="leadsaveqa">Skip </button>  -->
-                              <button type="submit" name="leadsavelead" class="btn btn-primary leaddisplay" style="margin-left:50px"  id="leadsavelead">Skip </button> 
+                             
+                              <!-- <button type="submit" name="leadsavelead" class="btn btn-primary leaddisplay" style="margin-left:50px"  id="leadsavelead">Skip </button>  -->
                              <!-- </center> -->
                              </div>
                         <?php } else{ ?>
@@ -2512,7 +2535,8 @@ $.ajax({
             var opteml = $('#opteml').val();
             var optph = $('#optph').val();
             var dnd = $('#dnd').val();
-             if(optin == ""){
+            
+            if(optin == ""){
             var optin = 0;
              }
              if(optpst == ""){
@@ -2527,12 +2551,82 @@ $.ajax({
              if(dnd == ""){
             var dnd = 0;
              }
+
+            var aa1 = $('#aa1').val();
+            var aa2 = $('#aa2').val();
+            var aa3 = $('#aa3').val();
+            var aa4 = $('#aa4').val();
+            var aa5 = $('#aa5').val();
+            var aa6 = $('#aa6').val();
+            var aa7 = $('#aa7').val();
+            var aa8 = $('#aa8').val();
+            var aa9 = $('#aa9').val();
+            var aa10 = $('#aa10').val();
+            var aa11 = $('#aa11').val();
+            var aa12 = $('#aa12').val();
+            if(aa1 == undefined)
+             {
+              var aa1 = null; 
+             }
+             if(aa2 == undefined)
+             {
+              var aa2 = null; 
+             }
+             if(aa3 == undefined)
+             {
+              var aa3 = null; 
+             }
+             if(aa4 == undefined)
+             {
+              var aa4 = null; 
+             }
+             if(aa5 == undefined)
+             {
+              var aa5= null; 
+             }
+             if(aa6 == undefined)
+             {
+              var aa6 = null; 
+             }
+             if(aa7 == undefined)
+             {
+              var aa7 = null; 
+             }
+             if(aa8 == undefined)
+             {
+              var aa8 = null; 
+             }
+             if(aa9 == undefined)
+             {
+              var aa9 = null; 
+             }
+             if(aa9 == undefined)
+             {
+              var aa9 = null; 
+             }
+             if(aa10 == undefined)
+             {
+              var aa10 = null; 
+             }
+             if(aa11 == undefined)
+             {
+              var aa11= null; 
+             }
+             if(aa12 == undefined)
+             {
+              var aa12= null; 
+             }
              
         
 
             var clscored = $('#clscored').val();
             var callrec = $('#callrec').val();
+
+            var lstat = $('#lstat').val();
+            var lsfinal = $('#lsfinal').val();
            
+
+
             var qarjtdti = $('#qarjtdti').val();
             var qarjtagti = $('#qarjtagti').val();
 
@@ -2582,8 +2676,28 @@ $.ajax({
                   clscored:clscored,
                   callrec:callrec,
 
+                  lstat:lstat,
+                  lsfinal:lsfinal,
+
                   lsdti:lsdti,
                   lsagti:lsagti,
+                    optin:optin,
+                    optph:optph,
+                    opteml:opteml,
+                    optpst:optpst,
+                    dnd:dnd,
+                    aa1:aa1,
+                    aa2:aa2,
+                    aa3:aa3,
+                    aa4:aa4,
+                    aa5:aa5,
+                    aa6:aa6,
+                    aa7:aa7,
+                    aa8:aa8,
+                    aa9:aa9,
+                    aa10:aa10,
+                    aa11:aa11,
+                    aa12:aa12,
 
                   // qaacptagtii:qaacptagtii,
                   // qaacptdtii:qaacptdtii,

@@ -726,6 +726,8 @@ $(document).ready(function() {
                           <input type = hidden name="sbsvtag" id="sbsvtag" value="<?php echo $ldmster['sbsvtag']; ?>">
                           <input type = hidden name="stdti" id="stdti" value="<?php echo $ldmster['stdti']; ?>">
                           <input type = hidden name="stagtidi" id="stagtidi" value="<?php echo $ldmster['stagtidi']; ?>">
+                          <input type = hidden name="dvsbtg" id="dvsbtg" value="<?php echo $ldmster['dvsbtg']; ?>">
+                          <input type = hidden name="dvrejtg" id="dvrejtg" value="<?php echo $ldmster['dvrejtg']; ?>">
                           
                           <input type = hidden name="stagtidii" id="stagtidii" value="<?php echo $ldmster['stagtidii']; ?>">
                           <input type = hidden name="stdtii" id="stdtii" value="<?php echo $ldmster['stdtii']; ?>">
@@ -2038,7 +2040,10 @@ if(lmid == undefined){
             var aa10 = $('#aa10').val();
             var aa11 = $('#aa11').val();
             var aa12 = $('#aa12').val();
-          
+
+            var dvsbtg = $('#dvsbtg').val();
+            var dvrejtg = $('#dvrejtg').val();
+           
             
            
             if(fname != "" && lname != "" && company_name != ""  && jtitle != "" && desid != "" && dcd !="" && email != "" && phone !="" && plink !="" && address != "" && city != "" && state != ""  && country_id != "" && industrycd != "" && subindustrycd != "" && empsize != "" && domain !=""  && empszlink != "" && revszlink != ""  && zip_code !="" ){
@@ -2099,6 +2104,8 @@ if(lmid == undefined){
                     othrlink:othrlink,
                     emailver:emailver,
                     pcomt:pcomt,
+                    dvsbtg:dvsbtg,
+                    dvrejtg:dvrejtg,
                     aum:aum                 
                       
                     

@@ -2714,8 +2714,8 @@ $.ajax({
                     {         
                          
                         $("#leadupdatelead").html(response.message);
-                        top.location.href=base_url+"administrator/dashboard";//redirection
-                        // top.location.href=base_url+"cdc/dataverfication?camp_id="+<?php //echo $campaign['cnid']; ?>;//redirection
+                        // top.location.href=base_url+"administrator/dashboard";//redirection
+                        top.location.href=base_url+"cdc/leadgenerationinterface?camp_id="+<?php echo $campaign['cnid']; ?>;//redirection
                       
                     }else if(response.data=="Fail")
                     {
@@ -2811,7 +2811,9 @@ $(function() {
                     {         
                          
                         $("#leadsaveqa").html(response.message);
-                        top.location.href=base_url+"administrator/dashboard";//redirection
+                        // top.location.href=base_url+"administrator/dashboard";//redirection
+                        top.location.href=base_url+"cdc/leadgenerationinterface?camp_id="+<?php echo $campaign['cnid']; ?>;//redirection
+                      
                         // top.location.href=base_url+"cdc/dataverfication?camp_id="+<?php //echo $campaign['cnid']; ?>;//redirection
                       
                     }else if(response.data=="Fail")

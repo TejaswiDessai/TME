@@ -244,7 +244,7 @@
 						$data['leadmaster'] = $this->Administrator_Model->get_leadmasterby_campaigniddv($cids);
 						// print_r($data['leadmaster']); 
 						if(empty($data['leadmaster'])){
-							$this->session->set_flashdata('success', 'Data verification id finished for this campaign.');
+							$this->session->set_flashdata('success', 'Data verification is finished for this campaign.');
 							redirect('cdc/selectCampaignforDataVerification');
 							
 						}
@@ -459,7 +459,7 @@
 						$data['leadmaster'] = $this->Administrator_Model->get_leadmasterby_campaignQA($cids);
 						// print_r($data['leadmaster']); 
 						if(empty($data['leadmaster'])){
-							$this->session->set_flashdata('success', 'Data verification id finished for this campaign.');
+							$this->session->set_flashdata('success', 'Quality verification is finished for this campaign.');
 							redirect('cdc/selectCampaignForQA');
 							
 						}
@@ -479,7 +479,7 @@
 							$data['assetitledv'] = $this->Administrator_Model->get_assetitle_byleadmaster($ldmster['lmid']);
 							$data['comptypedv'] = $this->Administrator_Model->get_comptype_byleadmaster($ldmster['lmid']);
 						}else if(empty($data['leadmaster'])){
-							// $this->session->set_flashdata('success', 'Data verification id finished.');
+							// $this->session->set_flashdata('success', 'Data verification is finished.');
 							redirect('administrator/dashboard');
 						}
 
@@ -528,7 +528,7 @@
 						$data['leadmaster'] = $this->Administrator_Model->get_leadmasterby_campaign_lead_generation_with_rlc_lock($cids,$postDatalmid);
 						// print_r($data['leadmaster']); 
 						if(empty($data['leadmaster'])){
-							$this->session->set_flashdata('success', 'Data verification id finished for this campaign.');
+							$this->session->set_flashdata('success', 'Lead verification is finished for this campaign.');
 							redirect('cdc/selectCampaignForleadGeneration');
 							
 						}
@@ -2644,7 +2644,7 @@
 					echo json_encode(array(
 						"statusCode"=>"Success",
 						// "lead_id"=>$addleadandcdcdata,
-						"message"=>"Data Verified Successfully.."
+						"message"=>"Quality Verified Successfully.."
 					));
 				}else{
 					echo json_encode(array(
@@ -2768,7 +2768,7 @@
 					echo json_encode(array(
 						"statusCode"=>"Success",
 						// "lead_id"=>$addleadandcdcdata,
-						"message"=>"Data Verified Successfully.."
+						"message"=>"Quality Verified Successfully.."
 					));
 				}else{
 					echo json_encode(array(
@@ -2897,7 +2897,7 @@
 					echo json_encode(array(
 						"statusCode"=>"Success",
 						// "lead_id"=>$addleadandcdcdata,
-						"message"=>"Data Verified Successfully.."
+						"message"=>"Quality Verified Successfully.."
 					));
 				}else{
 					echo json_encode(array(
@@ -3041,7 +3041,7 @@
 					echo json_encode(array(
 						"statusCode"=>"Success",
 						// "lead_id"=>$addleadandcdcdata,
-						"message"=>"Data Verified Successfully.."
+						"message"=>"Quality Verified Successfully.."
 					));
 				}else{
 					echo json_encode(array(
@@ -3170,7 +3170,7 @@
 					echo json_encode(array(
 						"statusCode"=>"Success",
 						// "lead_id"=>$addleadandcdcdata,
-						"message"=>"Data Verified Successfully.."
+						"message"=>"Quality Verified Successfully.."
 					));
 				}else{
 					echo json_encode(array(
@@ -3299,7 +3299,7 @@
 					echo json_encode(array(
 						"statusCode"=>"Success",
 						// "lead_id"=>$addleadandcdcdata,
-						"message"=>"Data Verified Successfully.."
+						"message"=>"Quality Verified Successfully.."
 					));
 				}else{
 					echo json_encode(array(
@@ -3457,7 +3457,7 @@
 					echo json_encode(array(
 						"statusCode"=>"Success",
 						// "lead_id"=>$addleadandcdcdata,
-						"message"=>"Data Verified Successfully.."
+						"message"=>"Lead Verified Successfully.."
 					));
 				}else{
 					echo json_encode(array(

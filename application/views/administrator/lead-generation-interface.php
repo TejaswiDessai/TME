@@ -23,23 +23,27 @@
         counter-increment: Serial;      /* Increment the Serial counter */
     
     }
-    .note-toolbar{
+    /* .note-toolbar{
         display: none;
     }
     .note-popover{
         display: none;
-    }
+    } */
     .dataTables_filter {
     display: none;
     } 
-    #email_123{
+    /* #email_123{
         height:34px;
-    }
+    } */
     #navbar-logo{
         height: 6.5rem;
     }
-l    #navbar{
+   #navbar{
         height: 01px;
+       
+    }
+   .navbar{
+             margin-bottom: 0px;
     }
     </style>
     <!-- <script type="text/javascript">
@@ -508,7 +512,7 @@ $(document).ready(function() {
                                         <th>Call Status</th>
                                         <th>Comments</th>
                                        
-                                        <th>Call Verified in CDC</th>
+                                        <!-- <th>Call Verified in CDC</th> -->
                                         <!-- <th>Send To<br><input type="checkbox" class="emailsend_all  emailclass"  onclick="toggle(this);"/></th> -->
                                         <!-- <th>Change Status<br><input type="checkbox" class="emailstatus_all emailstatus" onclick="toggle(this);" /></th> -->
                                         <!-- <th>Sent Timestamp</th>
@@ -545,7 +549,7 @@ $(document).ready(function() {
                                         // echo $query->num_rows();
 
                                         ?></td>
-                                         <td><?php echo $post['city']." / ".$post['state']; ?></td>
+                                         <td><?php echo $post['state']." / ".$post['countryname']; ?></td>
                                        
                                         <td>
                                         <?php echo $post['jtitle']; ?>
@@ -603,9 +607,9 @@ $(document).ready(function() {
                                             } ?>
                                         </td>
                                        
-                                        <td>
-                                            <?php if(isset($post['cvr']) && ($post['cvr']  == '1') ){echo "Yes";} else { echo "Call Unverified in CDC" ; }?>
-                                        </td>
+                                        <!-- <td>
+                                            <?php //if(isset($post['cvr']) && ($post['cvr']  == '1') ){echo "Yes";} else { echo "Call Unverified in CDC" ; }?>
+                                        </td> -->
                                         <!-- <td>
                                          
                                             <input type="checkbox" class ="emailclass checkbox_emailclass" value="<?php echo $i;?>" name="email_list_<?php echo $i;?>" id="email_list_<?php echo $i;?>"><?php //echo $i;?>

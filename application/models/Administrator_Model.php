@@ -1845,28 +1845,28 @@ public function get_leadmasterby_campaignQA($id = FALSE)
 {
 	
 		
-	$this->db->where('cdcsb <', '4');
-	$this->db->where('cdcrjt <', '4');
+	$this->db->where('leadmaster.cdcsb <', '4');
+	$this->db->where('leadmaster.cdcrjt <', '4');
 	// $this->db->where('cdcsv !=', 0);
-	$this->db->where('cdcsv', NULL);
-	$this->db->where('qasv', NULL);
-	$this->db->where('sbsvtag !=', 0);
+	$this->db->where('leadmaster.cdcsv', NULL);
+	$this->db->where('leadmaster.qasv', NULL);
+	$this->db->where('leadmaster.sbsvtag !=', 0);
 
-	$this->db->where('cdclst', 0);
-	$this->db->where('cvr', 1);
+	$this->db->where('leadmaster.cdclst', 0);
+	$this->db->where('leadmaster.cvr', 1);
 	
-	$this->db->where('rlc !=', 1);
-	$this->db->where('qalsload', 1);
+	$this->db->where('leadmaster.rlc !=', 1);
+	$this->db->where('leadmaster.qalsload', 1);
 			$this->db->group_start();
-			$this->db->where('lsfinal', '0');
-			$this->db->OR_where('lsfinal', NULL);
+			$this->db->where('leadmaster.lsfinal', '0');
+			$this->db->OR_where('leadmaster.lsfinal', NULL);
 			$this->db->group_end(); 
 	// $this->db->where('lsfinal !=', 1);
-
+	$this->db->join('country', 'leadmaster.country = country.countrycd');
 	
-	$this->db->order_by('qaacptdti','ASC');
+	$this->db->order_by('leadmaster.qaacptdti','ASC');
 	// $this->db->limit(1);
-	$query = $this->db->get_where('leadmaster', array('cids' => $id));
+	$query = $this->db->get_where('leadmaster', array('leadmaster.cids' => $id));
 	// echo $this->db->last_query(); 
 	// echo $string;
 	// die;

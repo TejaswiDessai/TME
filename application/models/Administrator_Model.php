@@ -3002,4 +3002,102 @@ public function get_campaign_fordataverification()
 			return $data=$query->result_array();
 
 		}	
+
+		public function get_delivery_leads($username = FALSE, $limit = FALSE, $offset = FALSE)
+		{
+			$sql = " SELECT leadmaster.lmid,
+			leadmaster.cids,
+			leadmaster.sal,
+			leadmaster.fname,
+			leadmaster.lname,
+			leadmaster.jtitle,
+			joblevels.joblevel,
+			joblevels.joblist,
+			dept.department,
+			leadmaster.cname,
+			comptype.ctypname,
+			industry.industry,
+			industry.subindustry,
+			leadmaster.sectyp,
+				CASE
+					WHEN (leadmaster.sectyp = 0) THEN 'Unknown'::text
+					WHEN (leadmaster.sectyp = 1) THEN 'Public'::text
+					WHEN (leadmaster.sectyp = 2) THEN 'Private'::text
+					WHEN (leadmaster.sectyp = 3) THEN 'Government'::text
+					WHEN (leadmaster.sectyp = 4) THEN 'Non - Profit'::text
+					ELSE NULL::text
+				END AS sector,
+			leadmaster.empsize,
+			leadmaster.arevenue,
+			leadmaster.mlbl,
+				CASE
+					WHEN (leadmaster.mlbl = 0) THEN 'Thousands'::text
+					WHEN (leadmaster.mlbl = 1) THEN 'Millions'::text
+					WHEN (leadmaster.mlbl = 2) THEN 'Billions'::text
+					WHEN (leadmaster.mlbl = 3) THEN 'Trillions'::text
+					ELSE NULL::text
+				END AS denomination,
+			leadmaster.email,
+			leadmaster.phone,
+			leadmaster.linetype,
+				CASE
+					WHEN (leadmaster.linetype = 1) THEN 'Unknown'::text
+					WHEN (leadmaster.linetype = 2) THEN 'Direct'::text
+					WHEN (leadmaster.linetype = 3) THEN 'Board'::text
+					ELSE NULL::text
+				END AS linetypes,
+			leadmaster.phext,
+			leadmaster.altphn,
+			leadmaster.address,
+			leadmaster.city,
+			leadmaster.state,
+			leadmaster.zipcode,
+			country.countryname,
+			country.currnme,
+			timezone.abbrev,
+			leadmaster.domain,
+			leadmaster.plink,
+			leadmaster.empszlink,
+			leadmaster.indlink,
+			leadmaster.revszlink,
+			leadmaster.othrlink,
+			leadmaster.aum
+		   FROM ((((((leadmaster
+			 LEFT JOIN country ON ((leadmaster.country = country.countrycd)))
+			 LEFT JOIN timezone ON ((leadmaster.timez = timezone.zids)))
+			 LEFT JOIN industry ON ((leadmaster.sindtry = industry.subindustrycd)))
+			 LEFT JOIN joblevels ON ((leadmaster.jlevel = joblevels.jid)))
+			 LEFT JOIN dept ON ((leadmaster.dname = dept.dcd)))
+			 LEFT JOIN comptype ON ((leadmaster.ctyp = comptype.ctypid)))
+		  ORDER BY leadmaster.lmid limit 20;";
+		  $query = $this->db->query($sql);
+		//   return $query->result_array();
+		return $query;
+		}
+
+		public function check_cdc_tag_cdcsb($leadid)
+		{
+			$this->db->select('cdcsb');
+			$this->db->from('leadmaster');
+			$this->db->where('lmid',$leadid);
+			$row = $this->db->get()->row();
+			if (isset($row)) {
+				return $row->cdcsb;
+			} else {
+				return false;
+			}
+		}
+
+		public function  check_cdc_tag_cdcrjt($leadid)
+		{
+			$this->db->select('cdcsb');
+			$this->db->from('leadmaster');
+			$this->db->where('lmid',$leadid);
+			$row = $this->db->get()->row();
+			if (isset($row)) {
+				return $row->cdcsb;
+			} else {
+				return false;
+			}
+		}
 }

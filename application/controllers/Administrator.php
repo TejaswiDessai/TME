@@ -2423,7 +2423,7 @@ public function getPrivillage(){
 				
 			}
 			
-			if(($lastname == null || $lastname == "" ))
+			if(($firstname == null || $lastname == "" ))
 			{
 				$FinalEmail = $firstCharFname."@".$domain;
 				$checkforEmail = $this->Administrator_Model->get_email_duplication_count($FinalEmail,$agent_id);
@@ -2445,57 +2445,73 @@ public function getPrivillage(){
 			}
 			else
 			{
-				$FinalEmail = $lastname.".".$firstname."@".$domain;
+				
+				$FinalEmail = $firstname.".".$lastname."@".$domain;
 			
 				$checkforEmail = $this->Administrator_Model->get_email_duplication_count($FinalEmail,$agent_id);
 			
-				if($checkforEmail == true)
+				if($checkforEmail == true) //1st If
 				{
-					$TO = $firstCharFname.".".$lastname."@".$domain;
+					// $TO = $firstCharFname.".".$lastname."@".$domain;
+					$TO = $lastname.".".$firstname."@".$domain;
 					$checkforEmail = $this->Administrator_Model->get_email_duplication_count($TO,$agent_id);
-					if($checkforEmail == true)
+					if($checkforEmail == true) //2nd If
 					{
 						$TO = $firstname.".".$firstCharLname."@".$domain;
 						$checkforEmail = $this->Administrator_Model->get_email_duplication_count($TO,$agent_id);
-						if($checkforEmail == true)
+						if($checkforEmail == true) //3rd If
 						{
 							$TO = $firstCharFname.$firstCharLname."@".$domain;
 							$checkforEmail = $this->Administrator_Model->get_email_duplication_count($TO,$agent_id);
-							if($checkforEmail == true)
+							if($checkforEmail == true) //4th If
 							{
 								$TO = $firstname."@".$domain;
 								$checkforEmail = $this->Administrator_Model->get_email_duplication_count($TO,$agent_id);
-								if($checkforEmail == true)
+								if($checkforEmail == true) //5th If
 								{
 									$TO = $lastname."@".$domain;
 									$checkforEmail = $this->Administrator_Model->get_email_duplication_count($TO,$agent_id);
-									if($checkforEmail == true)
+									if($checkforEmail == true) // 6th If
 									{
 										$TO = $firstCharFname.$lastname."@".$domain;
+										$checkforEmail = $this->Administrator_Model->get_email_duplication_count($TO,$agent_id);
+										if($checkforEmail == true) // 7th If
+										{
+											$TO = $firstCharFname.".".$lastname."@".$domain;
+										}
+										// else // 7th Else
+										// {
+										// 	$TO = $firstCharFname.$lastname."@".$domain;										}
+										// }
 									}
-									else
+									else // 6th Else
 									{
 										$TO = $lastname."@".$domain;
 									}
 								}
-								else
+								else // 5th Else
 								{
 									$TO = $firstname."@".$domain;
 								}
 							}
-							else
+							else //4th Else
 							{
 								$TO = $firstCharFname.$firstCharLname."@".$domain;
 								
 							}
 						}
+						else //3rd Else
+						{
+							$TO = $firstname.".".$firstCharLname."@".$domain;
+						}
 					}
-					else
+					else //2nd Else
 					{
-						$TO = $firstCharFname.".".$lastname."@".$domain;
+						$TO = $lastname.".".$firstname."@".$domain;
+						// $TO = $firstCharFname.".".$lastname."@".$domain;
 					}
 				}
-				else
+				else //1st Else
 				{
 					$TO = $FinalEmail;
 				}
@@ -2693,16 +2709,36 @@ public function getPrivillage(){
 				);
 			$addcampaigndata = $this->Administrator_Model->update_email_status($datacampaignUpdate,$comp_proSplit[$i]);
 			if($closer_status == "Closed")
+			{
+				$checkForCDCTag_cdcsb = $this->Administrator_Model->check_cdc_tag_cdcsb($leadid[$i]);
+				
+				$checkForCDCTag_cdcrjt = $this->Administrator_Model->check_cdc_tag_cdcrjt($leadid[$i]);
+				if($checkForCDCTag_cdcsb == null && $checkForCDCTag_cdcrjt == null)
 				{
-				$update_lead_status = array(
+					$update_lead_status = array(
+						'evload' => 1,
+						'evcomp' => 1,
+						'email'=> $comp_proSplit[$i],
+						'evdisp' =>4,
+						'cdcsb' => 0,
+						'cdcrjt' => 0,
+						'rlc' => 0,   
+						);
+				}
+				else
+				{
+					$update_lead_status = array(
 					'evload' => 1,
 					'evcomp' => 1,
 					'email'=> $comp_proSplit[$i],
 					'evdisp' =>4,
-					'cdcsb' => 0,
-					'cdcrjt' => 0,
-					'rlc' => 0,				
+					'rlc' => 0,
+
 					);
+
+				}
+			
+				
 				$update_lead_status = $this->Administrator_Model->update_email_lead__status($update_lead_status,$leadid[$i]);
 
 				$datacampaign1 = array(
@@ -2806,6 +2842,29 @@ public function getPrivillage(){
 		$this->load->view('administrator/campaign-report', $data);
 		$this->load->view('administrator/footer');
 	}
+
+	public function delivery($offset = 0)
+		{
+			// Pagination Config
+			$config['base_url'] = base_url(). 'administrator/users/';
+			$config['total_rows'] = $this->db->count_all('users');
+			$config['per_page'] = 3;
+			$config['uri_segment'] = 3;
+			$config['attributes'] = array('class' => 'paginate-link');
+
+			// Init Pagination
+			$this->pagination->initialize($config);
+
+			$data['title'] = 'Latest Users';
+
+			$data['users'] = $this->Administrator_Model->get_delivery_leads(FALSE, $config['per_page'], $offset);
+
+			 	$this->load->view('administrator/header-script');
+		 	 	 $this->load->view('administrator/header');
+		  		 $this->load->view('administrator/header-bottom');
+		   		 $this->load->view('administrator/lead_delivery', $data);
+		  		$this->load->view('administrator/footer');
+		}
 }
 
 

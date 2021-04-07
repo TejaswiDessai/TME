@@ -307,7 +307,7 @@ $.ajax({
 <form id="basic-form" method="POST" enctype="multipart/form-data">
 <div class="page-header">
     <div class="page-header-title col-sm-12">
-        <h4>Quality Assurance</h4> 
+        <h4>Lead Generation</h4> 
         
       
             <div class="form-group row"> 
@@ -325,15 +325,15 @@ $.ajax({
                   <label class="col-lable"><b>Campaign Name: <?php echo $campaign['campnm']; ?></b></label>
                   <?php endforeach; ?>
                 </div> 
-                <div class="col-sm-3" style="margin-top: -20px;">
+                <!-- <div class="col-sm-3" style="margin-top: -20px;">
                   <?php //foreach ($campaigns as $campaign): ?>
-                  <label class="col-lable"><b>CDC Date: <?php if (empty($ldmster['cdcsbdtii'])) {
-                    echo $ldmster['cdcsbdti'];}else{
-                      echo $ldmster['cdcsbdtii'];
-                    } ?></b></label>
-                  <label class="col-lable"><b>Lead Date: <?php  echo $ldmster['lsdti']; ?></b></label>
+                  <label class="col-lable"><b>CDC Date: <?php //if (empty($ldmster['cdcsbdtii'])) {
+                   // echo $ldmster['cdcsbdti'];}else{
+                    //  echo $ldmster['cdcsbdtii'];
+                   // } ?></b></label>
+                  <label class="col-lable"><b>Lead Date: <?php // echo $ldmster['lsdti']; ?></b></label>
                   <?php //endforeach; ?>
-                </div>
+                </div> -->
                 
             </div>   
                            
@@ -1280,7 +1280,13 @@ $.ajax({
                                     
                                   </div> -->
 
-                              <div class="col-sm-2">
+                       </div>
+
+                      <hr>
+
+                        <div class="form-group row">
+
+                        <div class="col-sm-2">
                                 <select class="form-control form-control-sm"  name="clscored" id="clscored">
                                     <option value="">Lead Score</option>
                                     <option value="1"<?php if(isset($ldmster) && $ldmster['clscored'] == '1'){ echo "selected" ; } ?>>Yes</option>
@@ -1294,28 +1300,45 @@ $.ajax({
                                     <option value="0"<?php if(isset($ldmster) && $ldmster['callrec'] == '0'){ echo "selected" ; } ?>>No</option>
                                 </select>
                             </div>
+                            <div class="col-sm-2">
+                                <select class="form-control form-control-sm"  name="lstat" id="lstat">
+                                    <option value="">Call Status</option>
+                                    <option value="on-hold" <?php if(isset($ldmster['lstat']) && ($ldmster['lstat'] =='on-hold') ){ echo "Selected"; } ?> >on-hold</option>
+                                            <option value="voicemail" <?php if(isset($ldmster['lstat']) && ($ldmster['lstat'] =='voicemail') ){ echo "Selected"; } ?> >voicemail</option>
+                                            <option value="call-back" <?php if(isset($ldmster['lstat']) && ($ldmster['lstat'] =='call-back') ){ echo "Selected" ;} ?> >call-back</option>
+                                  </select>
+                            </div>
+                            <div class="col-sm-2">
+                                <select class="form-control form-control-sm"  name="lsfinal" id="lsfinal">
+                                    <option value="">Call Disposition</option>
+                                            <option value="0" <?php if(isset($ldmster['lsfinal']) && ($ldmster['lsfinal'] =='0') ){ echo "Selected"; } ?> >Open</option>
+                                            <option value="1" <?php if(isset($ldmster['lsfinal']) && ($ldmster['lsfinal'] =='1') ){ echo "Selected" ;} ?> >Closed</option>
+                                  </select>
+                            </div>
                             
-                          
-                       </div>
+                        </div>
+
+
+
                         <hr>
                           <div class="form-group row optindiv">
                                        
                                        <div class="col-sm-2">
-                                        Opt - in  <input type="checkbox" <?php if($ldmster['optin'] == '1'){ echo "checked" ; } ?> value=""  id="optin" name="optin" class="js-single optin  <?php if($ldmster['optin'] == '1'){ echo "checkvalue" ; } ?>"  />
+                                        Opt - in  <input type="checkbox" <?php if($ldmster['optin'] == '1'){ echo "checked" ; } ?> value="<?php if($ldmster['optin'] == '1'){ echo "1" ; } ?>"   id="optin" name="optin" class="js-single optin  <?php if($ldmster['optin'] == '1'){ echo "checkvalue" ; } ?>"  />
                                         </div>
                                         <div class="col-sm-2 optoption">
-                                        Opt - in Post  <input type="checkbox" <?php if($ldmster['optpst'] == '1'){ echo "checked" ; } ?>  value="" id="optpst" name="optpst" class="js-single  <?php if($ldmster['optpst'] == '1'){ echo "checkvalue" ; } ?>"  />
+                                        Opt - in Post  <input type="checkbox" <?php if($ldmster['optpst'] == '1'){ echo "checked" ; } ?>  value="<?php if($ldmster['optpst'] == '1'){ echo "1" ; } ?>" id="optpst" name="optpst" class="js-single  <?php if($ldmster['optpst'] == '1'){ echo "checkvalue" ; } ?>"  />
                                         </div>
                                        
                                         <div class="col-sm-2 optoption">
-                                        Opt - in Phone <input type="checkbox" <?php if($ldmster['optph'] == '1'){ echo "checked" ; } ?> value=""  id="optph" name="optph" class="js-single <?php if($ldmster['optph'] == '1'){ echo "checkvalue" ; } ?>"  />
+                                        Opt - in Phone <input type="checkbox" <?php if($ldmster['optph'] == '1'){ echo "checked" ; } ?> value="<?php if($ldmster['optph'] == '1'){ echo "1" ; } ?>"  id="optph" name="optph" class="js-single <?php if($ldmster['optph'] == '1'){ echo "checkvalue" ; } ?>"  />
                                         </div>
                                         
                                         <div class="col-sm-2 optoption">
-                                        Opt - in Email <input type="checkbox" <?php if($ldmster['opteml'] == '1'){ echo "checked" ; } ?> value="" id="opteml" name="opteml" class="js-single  <?php if($ldmster['opteml'] == '1'){ echo "checkvalue" ; } ?>"  />
+                                        Opt - in Email <input type="checkbox" <?php if($ldmster['opteml'] == '1'){ echo "checked" ; } ?> value="<?php if($ldmster['opteml'] == '1'){ echo "1" ; } ?>" id="opteml" name="opteml" class="js-single  <?php if($ldmster['opteml'] == '1'){ echo "checkvalue" ; } ?>"  />
                                         </div>
                                         <div class="col-sm-2 optoption">
-                                        DND <input type="checkbox" <?php if($ldmster['dnd'] == '1'){ echo "checked" ; } ?> value="" id="dnd" name="dnd" class="js-single dnd <?php if($ldmster['dnd'] == '1'){ echo "checkvalue" ; } ?>"  />
+                                        DND <input type="checkbox" <?php if($ldmster['dnd'] == '1'){ echo "checked" ; } ?> value="<?php if($ldmster['dnd'] == '1'){ echo "1" ; } ?>" id="dnd" name="dnd" class="js-single dnd <?php if($ldmster['dnd'] == '1'){ echo "checkvalue" ; } ?>"  />
                                         </div>
                          </div>
                        
@@ -1383,8 +1406,8 @@ $.ajax({
                               <!-- <button type="submit" name="leadupdateqa" class="btn btn-primary leaddisplay" style=""  id="leadupdateqa">Accept & Submit</button>  -->
                              </div>
                               <div class="col-sm-3">
-                              <!-- <button type="submit" name="leadsaveqa" class="btn btn-primary leaddisplay" style="margin-left:50px"  id="leadsaveqa">Skip </button>  -->
-                              <button type="submit" name="leadsavelead" class="btn btn-primary leaddisplay" style="margin-left:50px"  id="leadsavelead">Skip </button> 
+                             
+                              <!-- <button type="submit" name="leadsavelead" class="btn btn-primary leaddisplay" style="margin-left:50px"  id="leadsavelead">Skip </button>  -->
                              <!-- </center> -->
                              </div>
                         <?php } else{ ?>
@@ -2512,7 +2535,8 @@ $.ajax({
             var opteml = $('#opteml').val();
             var optph = $('#optph').val();
             var dnd = $('#dnd').val();
-             if(optin == ""){
+          
+            if(optin == ""){
             var optin = 0;
              }
              if(optpst == ""){
@@ -2527,12 +2551,82 @@ $.ajax({
              if(dnd == ""){
             var dnd = 0;
              }
+
+            var aa1 = $('#aa1').val();
+            var aa2 = $('#aa2').val();
+            var aa3 = $('#aa3').val();
+            var aa4 = $('#aa4').val();
+            var aa5 = $('#aa5').val();
+            var aa6 = $('#aa6').val();
+            var aa7 = $('#aa7').val();
+            var aa8 = $('#aa8').val();
+            var aa9 = $('#aa9').val();
+            var aa10 = $('#aa10').val();
+            var aa11 = $('#aa11').val();
+            var aa12 = $('#aa12').val();
+            if(aa1 == undefined)
+             {
+              var aa1 = null; 
+             }
+             if(aa2 == undefined)
+             {
+              var aa2 = null; 
+             }
+             if(aa3 == undefined)
+             {
+              var aa3 = null; 
+             }
+             if(aa4 == undefined)
+             {
+              var aa4 = null; 
+             }
+             if(aa5 == undefined)
+             {
+              var aa5= null; 
+             }
+             if(aa6 == undefined)
+             {
+              var aa6 = null; 
+             }
+             if(aa7 == undefined)
+             {
+              var aa7 = null; 
+             }
+             if(aa8 == undefined)
+             {
+              var aa8 = null; 
+             }
+             if(aa9 == undefined)
+             {
+              var aa9 = null; 
+             }
+             if(aa9 == undefined)
+             {
+              var aa9 = null; 
+             }
+             if(aa10 == undefined)
+             {
+              var aa10 = null; 
+             }
+             if(aa11 == undefined)
+             {
+              var aa11= null; 
+             }
+             if(aa12 == undefined)
+             {
+              var aa12= null; 
+             }
              
         
 
             var clscored = $('#clscored').val();
             var callrec = $('#callrec').val();
+
+            var lstat = $('#lstat').val();
+            var lsfinal = $('#lsfinal').val();
            
+
+
             var qarjtdti = $('#qarjtdti').val();
             var qarjtagti = $('#qarjtagti').val();
 
@@ -2582,8 +2676,28 @@ $.ajax({
                   clscored:clscored,
                   callrec:callrec,
 
+                  lstat:lstat,
+                  lsfinal:lsfinal,
+
                   lsdti:lsdti,
                   lsagti:lsagti,
+                    optin:optin,
+                    optph:optph,
+                    opteml:opteml,
+                    optpst:optpst,
+                    dnd:dnd,
+                    aa1:aa1,
+                    aa2:aa2,
+                    aa3:aa3,
+                    aa4:aa4,
+                    aa5:aa5,
+                    aa6:aa6,
+                    aa7:aa7,
+                    aa8:aa8,
+                    aa9:aa9,
+                    aa10:aa10,
+                    aa11:aa11,
+                    aa12:aa12,
 
                   // qaacptagtii:qaacptagtii,
                   // qaacptdtii:qaacptdtii,
@@ -2600,8 +2714,8 @@ $.ajax({
                     {         
                          
                         $("#leadupdatelead").html(response.message);
-                        top.location.href=base_url+"administrator/dashboard";//redirection
-                        // top.location.href=base_url+"cdc/dataverfication?camp_id="+<?php //echo $campaign['cnid']; ?>;//redirection
+                        // top.location.href=base_url+"administrator/dashboard";//redirection
+                        top.location.href=base_url+"cdc/leadgenerationinterface?camp_id="+<?php echo $campaign['cnid']; ?>;//redirection
                       
                     }else if(response.data=="Fail")
                     {
@@ -2697,7 +2811,9 @@ $(function() {
                     {         
                          
                         $("#leadsaveqa").html(response.message);
-                        top.location.href=base_url+"administrator/dashboard";//redirection
+                        // top.location.href=base_url+"administrator/dashboard";//redirection
+                        top.location.href=base_url+"cdc/leadgenerationinterface?camp_id="+<?php echo $campaign['cnid']; ?>;//redirection
+                      
                         // top.location.href=base_url+"cdc/dataverfication?camp_id="+<?php //echo $campaign['cnid']; ?>;//redirection
                       
                     }else if(response.data=="Fail")

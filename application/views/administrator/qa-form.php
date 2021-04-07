@@ -2592,8 +2592,8 @@ $("input:checkbox").change(function() {
             // alert(rsendto);
 
 
-            alert(qarjtdti);
-            alert(qarjtdtii);
+            // alert(qarjtdti);
+            // alert(qarjtdtii);
 
             
 
@@ -2642,8 +2642,8 @@ if((asendto != "")  &&  (rsendto != ""))
                     {         
                          
                         $("#leadupdateqa").html(response.message);
-                        top.location.href=base_url+"administrator/dashboard";//redirection
-                        // top.location.href=base_url+"cdc/dataverfication?camp_id="+<?php //echo $campaign['cnid']; ?>;//redirection
+                        // top.location.href=base_url+"administrator/dashboard";//redirection
+                        top.location.href=base_url+"cdc/qualityform?camp_id="+<?php echo $campaign['cnid']; ?>;//redirection
                       
                     }else if(response.data=="Fail")
                     {
@@ -2700,8 +2700,9 @@ else if(asendto == 2)
                     {         
                          
                         $("#leadupdateqa").html(response.message);
-                        top.location.href=base_url+"administrator/dashboard";//redirection
+                        // top.location.href=base_url+"administrator/dashboard";//redirection
                         // top.location.href=base_url+"cdc/dataverfication?camp_id="+<?php //echo $campaign['cnid']; ?>;//redirection
+                        top.location.href=base_url+"cdc/qualityform?camp_id="+<?php echo $campaign['cnid']; ?>;//redirection
                       
                     }else if(response.data=="Fail")
                     {
@@ -2763,8 +2764,8 @@ else if(asendto == 3)
                     {         
                          
                         $("#leadupdateqa").html(response.message);
-                        top.location.href=base_url+"administrator/dashboard";//redirection
-                        // top.location.href=base_url+"cdc/dataverfication?camp_id="+<?php //echo $campaign['cnid']; ?>;//redirection
+                        // top.location.href=base_url+"administrator/dashboard";//redirection
+                        top.location.href=base_url+"cdc/qualityform?camp_id="+<?php echo $campaign['cnid']; ?>;//redirection
                       
                     }else if(response.data=="Fail")
                     {
@@ -2824,8 +2825,8 @@ else if(asendto == 3)
                     {         
                          
                         $("#leadupdateqa").html(response.message);
-                        top.location.href=base_url+"administrator/dashboard";//redirection
-                        // top.location.href=base_url+"cdc/dataverfication?camp_id="+<?php //echo $campaign['cnid']; ?>;//redirection
+                        // top.location.href=base_url+"administrator/dashboard";//redirection
+                        top.location.href=base_url+"cdc/qualityform?camp_id="+<?php echo $campaign['cnid']; ?>;//redirection
                       
                     }else if(response.data=="Fail")
                     {
@@ -2885,8 +2886,8 @@ else if(asendto == 3)
                     {         
                          
                         $("#leadupdateqa").html(response.message);
-                        top.location.href=base_url+"administrator/dashboard";//redirection
-                        // top.location.href=base_url+"cdc/dataverfication?camp_id="+<?php //echo $campaign['cnid']; ?>;//redirection
+                        // top.location.href=base_url+"administrator/dashboard";//redirection
+                        top.location.href=base_url+"cdc/qualityform?camp_id="+<?php echo $campaign['cnid']; ?>;//redirection
                       
                     }else if(response.data=="Fail")
                     {
@@ -2944,8 +2945,8 @@ else if(rsendto == 3)
                     {         
                          
                         $("#leadupdateqa").html(response.message);
-                        top.location.href=base_url+"administrator/dashboard";//redirection
-                        // top.location.href=base_url+"cdc/dataverfication?camp_id="+<?php //echo $campaign['cnid']; ?>;//redirection
+                        // top.location.href=base_url+"administrator/dashboard";//redirection
+                        top.location.href=base_url+"cdc/qualityform?camp_id="+<?php echo $campaign['cnid']; ?>;//redirection
                       
                     }else if(response.data=="Fail")
                     {
@@ -3045,8 +3046,8 @@ $(function() {
                     {         
                          
                         $("#leadsaveqa").html(response.message);
-                        top.location.href=base_url+"administrator/dashboard";//redirection
-                        // top.location.href=base_url+"cdc/dataverfication?camp_id="+<?php //echo $campaign['cnid']; ?>;//redirection
+                        // top.location.href=base_url+"administrator/dashboard";//redirection
+                        top.location.href=base_url+"cdc/qualityform?camp_id="+<?php echo $campaign['cnid']; ?>;//redirection
                       
                     }else if(response.data=="Fail")
                     {

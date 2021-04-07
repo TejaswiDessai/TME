@@ -244,7 +244,7 @@
 						$data['leadmaster'] = $this->Administrator_Model->get_leadmasterby_campaigniddv($cids);
 						// print_r($data['leadmaster']); 
 						if(empty($data['leadmaster'])){
-							$this->session->set_flashdata('success', 'Data verification id finished for this campaign.');
+							$this->session->set_flashdata('success', 'Data verification is finished for this campaign.');
 							redirect('cdc/selectCampaignforDataVerification');
 							
 						}
@@ -332,7 +332,7 @@
 						// print_r($data['leadmaster']); 
 						if(empty($data['leadmaster'])){
 							$this->session->set_flashdata('success', 'CDC finished for this campaign.');
-							// redirect('cdc/selectCampaignforDataVerification');
+							redirect('cdc/selectCampaignForCDC');
 							
 						}
 						// print_r($postDatalmid);
@@ -459,8 +459,8 @@
 						$data['leadmaster'] = $this->Administrator_Model->get_leadmasterby_campaignQA($cids);
 						// print_r($data['leadmaster']); 
 						if(empty($data['leadmaster'])){
-							$this->session->set_flashdata('success', 'Data verification id finished for this campaign.');
-							redirect('cdc/selectCampaignforDataVerification');
+							$this->session->set_flashdata('success', 'Quality verification is finished for this campaign.');
+							redirect('cdc/selectCampaignForQA');
 							
 						}
 
@@ -479,7 +479,7 @@
 							$data['assetitledv'] = $this->Administrator_Model->get_assetitle_byleadmaster($ldmster['lmid']);
 							$data['comptypedv'] = $this->Administrator_Model->get_comptype_byleadmaster($ldmster['lmid']);
 						}else if(empty($data['leadmaster'])){
-							// $this->session->set_flashdata('success', 'Data verification id finished.');
+							// $this->session->set_flashdata('success', 'Data verification is finished.');
 							redirect('administrator/dashboard');
 						}
 
@@ -528,8 +528,8 @@
 						$data['leadmaster'] = $this->Administrator_Model->get_leadmasterby_campaign_lead_generation_with_rlc_lock($cids,$postDatalmid);
 						// print_r($data['leadmaster']); 
 						if(empty($data['leadmaster'])){
-							$this->session->set_flashdata('success', 'Data verification id finished for this campaign.');
-							redirect('cdc/selectCampaignforDataVerification');
+							$this->session->set_flashdata('success', 'Lead verification is finished for this campaign.');
+							redirect('cdc/selectCampaignForleadGeneration');
 							
 						}
 
@@ -2644,7 +2644,7 @@
 					echo json_encode(array(
 						"statusCode"=>"Success",
 						// "lead_id"=>$addleadandcdcdata,
-						"message"=>"Data Verified Successfully.."
+						"message"=>"Quality Verified Successfully.."
 					));
 				}else{
 					echo json_encode(array(
@@ -2768,7 +2768,7 @@
 					echo json_encode(array(
 						"statusCode"=>"Success",
 						// "lead_id"=>$addleadandcdcdata,
-						"message"=>"Data Verified Successfully.."
+						"message"=>"Quality Verified Successfully.."
 					));
 				}else{
 					echo json_encode(array(
@@ -2897,7 +2897,7 @@
 					echo json_encode(array(
 						"statusCode"=>"Success",
 						// "lead_id"=>$addleadandcdcdata,
-						"message"=>"Data Verified Successfully.."
+						"message"=>"Quality Verified Successfully.."
 					));
 				}else{
 					echo json_encode(array(
@@ -3041,7 +3041,7 @@
 					echo json_encode(array(
 						"statusCode"=>"Success",
 						// "lead_id"=>$addleadandcdcdata,
-						"message"=>"Data Verified Successfully.."
+						"message"=>"Quality Verified Successfully.."
 					));
 				}else{
 					echo json_encode(array(
@@ -3151,6 +3151,7 @@
 				'qastat' => 'qualified', //accept/rejection by cdc
 				
 				'qaacpt' => '1',
+				'qaload' => '1',
 				
 				'pcomt' => $pcomt 
 				
@@ -3169,7 +3170,7 @@
 					echo json_encode(array(
 						"statusCode"=>"Success",
 						// "lead_id"=>$addleadandcdcdata,
-						"message"=>"Data Verified Successfully.."
+						"message"=>"Quality Verified Successfully.."
 					));
 				}else{
 					echo json_encode(array(
@@ -3279,6 +3280,7 @@
 				'qastat' => 'qualified', //accept/rejection by cdc
 				
 				'qaacpt' => '1',
+				'qalsload' => '1', //send to lead generation
 				
 				'pcomt' => $pcomt 
 				
@@ -3297,7 +3299,7 @@
 					echo json_encode(array(
 						"statusCode"=>"Success",
 						// "lead_id"=>$addleadandcdcdata,
-						"message"=>"Data Verified Successfully.."
+						"message"=>"Quality Verified Successfully.."
 					));
 				}else{
 					echo json_encode(array(
@@ -3363,34 +3365,44 @@
 			} else{
 			$callrec = NULL;
 			}
+			if(!empty($_GET['lstat']) || ($_GET['lstat'] =='0') )
+			{
+				$lstat =  $_GET['lstat'];
+			} else{
+			$lstat = NULL;
+			}
+			if(!empty($_GET['lsfinal']) || ($_GET['lsfinal'] =='0') )
+			{
+				$lsfinal =  $_GET['lsfinal'];
+			} else{
+			$lsfinal = NULL;
+			}
 
-			// $mychecked2 = implode(',', $checked);
 			
-
-				// // print_r($_POST['dvsbtg']);exit();
-				// if($mychecked2 == "0"){  // Accept
-					
-				// 	if(empty($_POST['qaacptdti'])){
-				// 		$qaacptagti = $_SESSION['empcode'];
-				// 		$qaacptdti = $old_date; //Data Verification|Rej_date and time_I
-				// 		$qaacptagtii = $postagent1;
-				// 		$qaacptdtii = $postdate1;
-						
-				// 		}else{
-				// 		$qaacptagtii = $_SESSION['empcode'];
-						
-				// 		$qaacptdtii = $old_date; //Data Verification|Rej_date and time_I
-				// 		$qaacptagti = $postagent1;
-				// 		$qaacptdti = $postdate1;
-						
-				// 		}
-				
-				// }else{				
-
-				// 	exit();
-				
-
-				// }
+			if(!empty($_GET['optin']))
+			{
+				$optin = 1;
+			} else{
+				$optin = 0 ;
+			}
+			if(!empty($_GET['optpst']))
+			{
+				$optpost = 1;
+			} else{
+				$optpost = 0 ;
+			}
+			if(!empty($_GET['optph']))
+			{
+				$optph = 1;
+			} else{
+				$optph = 0 ;
+			}
+			if(!empty($_GET['opteml']))
+			{
+				$opteml = 1;
+			} else{
+				$opteml = 0 ;
+			}
 			
 					$pcomt= "lead:".$_SESSION['empcode'].":".$old_date."#".$_GET['pcomt'];
 
@@ -3398,8 +3410,30 @@
 				$datacdcandlead = array(
 				'rlc' => '0', // record is closed
 
+				'optin' => $optin,
+				'optpst' => $optpost,
+				'optph' => $optph,
+				'opteml' => $opteml,
+				'dnd' => $_GET['dnd'],
+				
+
+				'aa1' => $_GET['aa1'],
+				'aa2' => $_GET['aa2'],
+				'aa3' => $_GET['aa3'],
+				'aa4' => $_GET['aa4'],
+				'aa5' => $_GET['aa5'],
+				'aa6' => $_GET['aa6'],
+				'aa7' => $_GET['aa7'],
+				'aa8' => $_GET['aa8'],
+				'aa9' => $_GET['aa9'],
+				'aa10' => $_GET['aa10'],
+				'aa11' => $_GET['aa11'],
+				'aa12' => $_GET['aa12'],
+
 				'clscored' => $clscored, 
 				'callrec' => $callrec, 
+				'lstat' => $lstat, 
+				'lsfinal' => $lsfinal, 
 
 				'lsload' => '1', //  next level
 				'lsagti' =>  $_SESSION['empcode'], // submit agent name 
@@ -3414,6 +3448,15 @@
 			    // exit();
 			
 				$addleadandcdcdata = $this->Administrator_Model->update_leaddata($datacdcandlead,$lmid);
+
+				// $datarecordrlc = array(
+				// 	'rlc' => 0,
+				// );
+	
+				// // get data 
+				// $data['rlcremove']= $this->Administrator_Model->update_recordlockonleadgeneration($_SESSION['empcode'],$datarecordrlc);
+				$data['rlcremove'] = $this->Administrator_Model->update_recordlockonlogin($_SESSION['empcode']);
+				
 				// $addleadandcdcdatacomment = $this->Administrator_Model->update_leaddatacomment( $_POST['pcomt'],$lmid);
 				// print_r($addcampaigndata);  die;
 				
@@ -3423,7 +3466,7 @@
 					echo json_encode(array(
 						"statusCode"=>"Success",
 						// "lead_id"=>$addleadandcdcdata,
-						"message"=>"Data Verified Successfully.."
+						"message"=>"Lead Verified Successfully.."
 					));
 				}else{
 					echo json_encode(array(
@@ -3467,6 +3510,20 @@
 				$old_date = date('Y-m-d H:i:s');         // works
 				$middle = strtotime($old_date);             // returns bool(false)
 				$new_date = date('Y-m-d H:i:s', $middle);
+
+				if(!empty($_GET['dvsbtg']))
+				{
+					$dvsbtg = $_GET['dvsbtg'];
+				} else{
+				$dvsbtg = 0 ;
+				}
+				if(!empty($_GET['dvrejtg']))
+				{
+					$dvrejtg = $_GET['dvrejtg'];
+				} else{
+				$dvrejtg = 0 ;
+				}
+
 
 				if(empty($_GET['stagtidi']))
 				{
@@ -3623,6 +3680,9 @@
 
 				'emailver' => $_GET['emailver'],
 				'aum' => $aum,
+				'dvsbtg' => $dvsbtg,
+				'dvrejtg' => $dvrejtg,
+				
 				// tag
 				// 'ontag' => 0, // Submit and 0 = new, 1 = needs to be reworked
 				'sbsvtag' => $sbsvtag, //  Submit till 5 times
@@ -4426,6 +4486,87 @@
 			//   print_r($datacdcandlead);
 			 
 			    // exit();
+			
+				$addleadandcdcdata = $this->Administrator_Model->update_leaddata($datacdcandlead,$lmid);
+				// print_r($addcampaigndata);  die;
+				
+				// exit();
+				if($addleadandcdcdata == true){
+			
+					echo json_encode(array(
+						"statusCode"=>"Success",
+						// "lead_id"=>$addleadandcdcdata,
+						"message"=>"Data Verified Successfully.."
+					));
+				}else{
+					echo json_encode(array(
+						"statusCode"=>"Fail",
+						"message"=>"Lead failed.."
+					));
+				}
+			
+		}
+		public function leadgenerationupdatelstat()
+		{		
+			
+			$lmid = $_GET['ids'];
+			
+			$lstat = $_GET['lstat'];
+			$old_date = date('Y-m-d H:i:s'); 
+			$lsagent = $_SESSION['empcode'];
+		
+
+				$datacdcandlead = array(
+			
+			
+		
+				'lstat' => $lstat,
+				'lsstatdt' => $old_date,
+				'lsagent' => $lsagent
+				
+						
+				);
+			
+			
+				$addleadandcdcdata = $this->Administrator_Model->update_leaddata($datacdcandlead,$lmid);
+				// print_r($addcampaigndata);  die;
+				
+				// exit();
+				if($addleadandcdcdata == true){
+			
+					echo json_encode(array(
+						"statusCode"=>"Success",
+						// "lead_id"=>$addleadandcdcdata,
+						"message"=>"Data Verified Successfully.."
+					));
+				}else{
+					echo json_encode(array(
+						"statusCode"=>"Fail",
+						"message"=>"Lead failed.."
+					));
+				}
+			
+		}
+		public function leadgenerationupdatelsfinal()
+		{		
+			
+			$lmid = $_GET['ids'];
+			
+			$lsfinal = $_GET['lsfinal'];
+		
+		
+		
+
+				$datacdcandlead = array(
+			
+			
+		
+				'lsfinal' => $lsfinal
+				
+				
+						
+				);
+			
 			
 				$addleadandcdcdata = $this->Administrator_Model->update_leaddata($datacdcandlead,$lmid);
 				// print_r($addcampaigndata);  die;

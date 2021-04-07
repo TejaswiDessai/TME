@@ -23,26 +23,30 @@
         counter-increment: Serial;      /* Increment the Serial counter */
     
     }
-    .note-toolbar{
+    /* .note-toolbar{
         display: none;
     }
     .note-popover{
         display: none;
-    }
+    } */
     .dataTables_filter {
     display: none;
     } 
-    #email_123{
+    /* #email_123{
         height:34px;
-    }
+    } */
     #navbar-logo{
         height: 6.5rem;
     }
-l    /* #navbar{
+   #navbar{
         height: 01px;
-    } */
+       
+    }
+   .navbar{
+             margin-bottom: 0px;
+    }
     </style>
-    <script type="text/javascript">
+    <!-- <script type="text/javascript">
     $(document).ready(function(){
         $('#example').dataTable( {
   "searching": false
@@ -85,7 +89,7 @@ l    /* #navbar{
             })
         });
     });
-    </script>
+    </script> -->
 
 
 
@@ -110,7 +114,7 @@ l    /* #navbar{
            
             <!-- Page-header end -->
             <!-- Page-body start -->
-            <div class="page-body">
+            <!-- <div class="page-body"> -->
                 <!-- DOM/Jquery table start -->
                <!-- Sign in modal start -->
     <!-- <div class="modal fade" id="sign-in-modal" tabindex="-1">
@@ -223,73 +227,207 @@ $(document).on("click", ".gotoupdatelead", function () {
     window.location = base_url+"cdc/leadgeneration?camp_id=<?php echo $_SESSION['campaign_id']; ?>&lmid="+ids+"&empcode=<?php echo $_SESSION['empcode']; ?>";
    
 });
+$(document).on("click", ".gotoupdateleadlstat", function () {
+    var ids = $(this).attr('data-id');
+   
+    var lstat =   $(this).closest('tr').find('.lstatclass').val();
+    var row = $(this).attr('data-row');
+    $this  = $(this);
+    
+    // alert(ids);
+   
+    // alert(lstat);
+    // alert(row);
+    if(lstat == ""){
+    alert("Please Select status");
+    exit;
+    }
+   
+    // window.location = base_url+"cdc/leadgeneration?camp_id=<?php echo $_SESSION['campaign_id']; ?>&lmid="+ids+"&empcode=<?php echo $_SESSION['empcode']; ?>";
+      
+
+     
+        var urlq = '<?php echo base_url("cdc/leadgenerationupdatelstat");?>';
+        // alert(urlq);
+        console.log(urlq+"?ids="+ids+"&row="+row+"&lstat="+lstat);
+      
+        $.ajax({
+               url :'<?php echo base_url("cdc/leadgenerationupdatelstat");?>',
+                type: 'GET', 
+                // contentType: "application/json",
+                dataType: 'json',              
+                data: {
+                   
+                    ids:ids,
+                    lstat:lstat             
+                   
+				},
+        async: true,
+                cache: false,
+                success: function(response){
+                   
+                    var text = response.statusCode;
+                    console.log("check");
+                    if(response.statusCode == "Success") 
+                    {   
+                       
+                        // alert("Call status updated successfully");
+                        $this.closest("td").find("#gotoupdateleadlstat").html("Updated <i class='icofont icofont-check'></i>");
+                      
+                       
+                        // top.location.href=base_url+"administrator/dashboard";//redirection
+                        // top.location.href=base_url+"cdc/dataverfication?camp_id="+<?php //echo $campaign['cnid']; ?>;//redirection
+                      
+                    }else if(response.data=="Fail")
+                    {
+                        $("#leadupdateqa").html(response.message);
+                        
+					          }
+
+                   
+
+                },
+                error: function (error) {
+                  alert("Error");
+                  }
+              
+            });
+
+
+});
+$(document).on("click", ".gotoupdateleadlsfinal", function () {
+    var ids = $(this).attr('data-id');
+   
+    var lsfinal =   $(this).closest('tr').find('.lsfinalclass').val();
+    var row = $(this).attr('data-row');
+    $this  = $(this);
+    
+  
+   
+    // window.location = base_url+"cdc/leadgeneration?camp_id=<?php echo $_SESSION['campaign_id']; ?>&lmid="+ids+"&empcode=<?php echo $_SESSION['empcode']; ?>";
+      
+
+     
+        var urlq = '<?php echo base_url("cdc/leadgenerationupdatelsfinal");?>';
+        // alert(urlq);
+        console.log(urlq+"?ids="+ids+"&row="+row+"&lsfinal="+lsfinal);
+      
+        $.ajax({
+               url :'<?php echo base_url("cdc/leadgenerationupdatelsfinal");?>',
+                type: 'GET', 
+                // contentType: "application/json",
+                dataType: 'json',              
+                data: {
+                   
+                    ids:ids,
+                    lsfinal:lsfinal             
+                   
+				},
+        async: true,
+                cache: false,
+                success: function(response){
+                    $("#leadupdateqa").hide();
+                    var text = response.statusCode;
+                    console.log("check");
+                    if(response.statusCode == "Success") 
+                    {         
+                        //  alert("Call displosition updated successfully");
+                         $this.closest("td").find("#gotoupdateleadlsfinal").html("Updated <i class='icofont icofont-check'></i>");
+                        // $("#gotoupdateleadlsfinal").attr("disabled", true); 
+                        // $("#gotoupdateleadlsfinal").html("Updated <i class='icofont icofont-check'></i>");
+                         
+                        // top.location.href=base_url+"administrator/dashboard";//redirection
+                        // top.location.href=base_url+"cdc/dataverfication?camp_id="+<?php //echo $campaign['cnid']; ?>;//redirection
+                      
+                    }else if(response.data=="Fail")
+                    {
+                        $("#leadupdateqa").html(response.message);
+                        
+					          }
+
+                   
+
+                },
+                error: function (error) {
+                  alert("Error");
+                  }
+              
+            });
+
+
+});
 
 
 // $(".passingID").click(function () {
-    $(document).on("click", ".passingID", function () {
-    var ids = $(this).attr('data-id');
-    var row = $(this).attr('data-row');
+//     $(document).on("click", ".passingID", function () {
+//     var ids = $(this).attr('data-id');
+//     var row = $(this).attr('data-row');
     
-    var sp = ids.split('@');
-    var flname = sp[0];
-    var sp_email = flname.split('.') ;
-    var lastVal = sp_email.pop(); 
-    // alert(flname);
+//     var sp = ids.split('@');
+//     var flname = sp[0];
+//     var sp_email = flname.split('.') ;
+//     var lastVal = sp_email.pop(); 
+//     // alert(flname);
     
-    // console.log(sp[0]); // john.doe
-    // console.log(sp[1]); // email.com
-    var first_of_firstString = flname.substring(0, 1);
-    var first_of_secondString = lastVal.substring(0, 1);
-    let count = 0
-    let position = flname.indexOf('.')
+//     // console.log(sp[0]); // john.doe
+//     // console.log(sp[1]); // email.com
+//     var first_of_firstString = flname.substring(0, 1);
+//     var first_of_secondString = lastVal.substring(0, 1);
+//     let count = 0
+//     let position = flname.indexOf('.')
 
-    while (position !== -1) {
-    count++
-    position = flname.indexOf('.', position + 1)
-    }
+//     while (position !== -1) {
+//     count++
+//     position = flname.indexOf('.', position + 1)
+//     }
 
-    if (count>0) {
-    var option1 = sp_email[0]+"."+lastVal+"@"+sp[1];
-    var option2 = lastVal+"."+sp_email[0]+"@"+sp[1];
-    var option3 = sp_email[0]+"@"+sp[1];
-    var option4 = lastVal+"@"+sp[1];
-    var option5 = first_of_firstString+"@"+sp[1];
-    var option6 = first_of_secondString+"@"+sp[1];
-    var option7 = first_of_firstString+"."+first_of_secondString+"@"+sp[1];
-    var option8 = first_of_firstString+"."+lastVal+"@"+sp[1];
-    var option9 = first_of_firstString+lastVal+"@"+sp[1];
-    var values = [option1, option2, option3, option4,option5,option6,option7,option8,option9];
-    }
-    else
-    {
-        var option1 = ids;
-        var option2 = first_of_firstString+"@"+sp[1];
-        var values = [option1,option2];
-    }
+//     if (count>0) {
+//     var option1 = sp_email[0]+"."+lastVal+"@"+sp[1];
+//     var option2 = lastVal+"."+sp_email[0]+"@"+sp[1];
+//     var option3 = sp_email[0]+"@"+sp[1];
+//     var option4 = lastVal+"@"+sp[1];
+//     var option5 = first_of_firstString+"@"+sp[1];
+//     var option6 = first_of_secondString+"@"+sp[1];
+//     var option7 = first_of_firstString+"."+first_of_secondString+"@"+sp[1];
+//     var option8 = first_of_firstString+"."+lastVal+"@"+sp[1];
+//     var option9 = first_of_firstString+lastVal+"@"+sp[1];
+//     var values = [option1, option2, option3, option4,option5,option6,option7,option8,option9];
+//     }
+//     else
+//     {
+//         var option1 = ids;
+//         var option2 = first_of_firstString+"@"+sp[1];
+//         var values = [option1,option2];
+//     }
     
 
-    var select = $('<select>').prop('id', 'email_123')
-                    .prop('name', 'email').prop('class', 'form-control');
+//     var select = $('<select>').prop('id', 'email_123')
+//                     .prop('name', 'email').prop('class', 'form-control');
 
-    $(values).each(function() {
-      select.append($("<option>")
-        .prop('value', this)
-        .text(this.charAt(0).toUpperCase() + this.slice(1)));
-    });
+//     $(values).each(function() {
+//       select.append($("<option>")
+//         .prop('value', this)
+//         .text(this.charAt(0).toUpperCase() + this.slice(1)));
+//     });
 
-    var label = $("<label>").prop('for', 'pets')
-                   .text("Select mail: ");
-    var br = $("<br>");
-    $("#idkl").val(row);
-    $('#containercheck').empty();
-    $('#containercheck').append(label).append(select).append(br);
-    // $("#idkl").val( sp[0] );
-    $('#myModal').modal('show');
-});
+//     var label = $("<label>").prop('for', 'pets')
+//                    .text("Select mail: ");
+//     var br = $("<br>");
+//     $("#idkl").val(row);
+//     $('#containercheck').empty();
+//     $('#containercheck').append(label).append(select).append(br);
+//     // $("#idkl").val( sp[0] );
+//     $('#myModal').modal('show');
+// });
 
+// $(document).ready(function() {
+//     $('#dom-jqry').DataTable( {
+//         "lengthMenu": [[5, 10, 50, -1], [5, 10, 15, 50]]
+//     } );
+// } );
 $(document).ready(function() {
     $('#dom-jqry').DataTable( {
-        "lengthMenu": [[5, 10, 50, -1], [5, 10, 15, 50]]
+        "lengthMenu": [[5, 10], [5, 10]]
     } );
 } );
 
@@ -341,64 +479,9 @@ $(document).ready(function() {
                             <input type="hidden" value="<?php echo $Campid; ?>" id="campaign_id" name="campaign_id">
                             </td>
                             
-                            <!-- <td>
-                                <select style="height:34px;" class="form-control form-control-default "  name="leadstatus" id="leadstatus">
-                                    <option value="">Lead Status</option>
-                                    <option value="New" <?php if( isset($Stage) && $Stage == "New") { echo "selected" ; } ?>>New</option>
-                                    <option value="Open" <?php if( isset($Stage) && $Stage == "Open") { echo "selected" ; } ?> >Open</option>
-                                    <option value="Closed" <?php if( isset($Stage) && $Stage == "Closed") { echo "selected" ; } ?>>Closed</option>
-                                    <option value="All" <?php if( isset($Stage) && $Stage == "All") { echo "selected" ; } ?>>All</option>
-                                </select>
-                            </td> -->
-                            <td>
-                                <select style="height:34px;" class="form-control form-control-default "  name="leadlimit" id="leadlimit">
-                                    <option value="5" <?php if( isset($leadlimit) && $leadlimit == "5") { echo "selected" ; } ?>>5</option>
-                                    <option value="10" <?php if( isset($leadlimit) && $leadlimit == "10") { echo "selected" ; } ?>>10</option>
-                                   
-                                </select>
-                            </td>
-                            <!-- <td>
-                                <select style="height:34px;" class="form-control form-control-default "  name="email_sent_time" id="email_sent_time">
-                                    <option value="">Select Time</option>
-                                    <option value="1" <?php if( isset($email_sent_time) && $email_sent_time == "1") { echo "selected" ; } ?>>1 Hr Old</option>
-                                    <option value="2" <?php if( isset($email_sent_time) && $email_sent_time == "2") { echo "selected" ; } ?> >2 Hr Old</option>
-                                    <option value="3" <?php if( isset($email_sent_time) && $email_sent_time == "3") { echo "selected" ; } ?>>3 Hr Old</option>
-                                    <option value="4" <?php if( isset($email_sent_time) && $email_sent_time == "4") { echo "selected" ; } ?>>More than 3 Hr</option>
-                                </select>
-                            </td> -->
-                            <!-- <td>
-                            <input type="text" name="search_email" class="form-control form-control-default " value="<?php if(isset($search_email)){ echo $search_email;}?>" id="search_email" placeholder="Search by Email">
-                           <input type="text" value="<?php echo $agent_email?>" class="form-control form-control-default " name="from" id="from">
-                            <input type="hidden" value="<?php echo $agent_password?>" class="form-control form-control-default " name="pass" id="pass"> -->
-                            </td> 
-                            <!-- <td>
-                            <select style="width:200px;height:34px;" class="form-control form-control-default "  name="search_email_status" id="search_email_status">
-                                <option value="">Email Status</option>
-                                <option value="Test Mail Sent"  <?php if( isset($search_email_status) && $search_email_status == "Test Mail Sent") { echo "selected" ; } ?> >Test Mail Sent</option>
-                                <option value="Bounced" <?php if( isset($search_email_status) && $search_email_status == "Bounced") { echo "selected" ; } ?> >Bounced</option>
-                                <option value="Reviewed" <?php if( isset($search_email_status) && $search_email_status == "Reviewed") { echo "selected" ; } ?>>Reviewed</option>
-                                <option value="Accepted" <?php if( isset($search_email_status) && $search_email_status == "Accepted") { echo "selected" ; } ?>>Accepted</option>
-                                <option value="Not Available" <?php if( isset($search_email_status) && $search_email_status == "Not Available") { echo "selected" ; } ?>>Not Available</option>
-                                <option value="Out of Office" <?php if( isset($search_email_status) && $search_email_status == "Out of Office") { echo "selected" ; } ?>>Out of Office</option>
-                                <option value="Generic email" <?php if( isset($search_email_status) && $search_email_status == "Generic email") { echo "selected" ; } ?>>Generic email</option>
-                                <option value="Dead contact" <?php if( isset($search_email_status) && $search_email_status == "Dead contact") { echo "selected" ; } ?>>Dead contact</option>
-                                <option value="Incorrect Info" <?php if( isset($search_email_status) && $search_email_status == "Incorrect Info") { echo "selected" ; } ?>>Incorrect Info</option>
-                                <option value="Refused" <?php if( isset($search_email_status) && $search_email_status == "Refused") { echo "selected" ; } ?>>Refused</option>
-                            </select>
-                            </td> -->
-                            <td>
-                                <input  class="btn btn-primary" type="submit" name="submit">
-                            </td>
-                            <!-- <td>
-                                <a class="btn btn-primary" href="">Refresh</a>
-                            </td> -->
+                           
                             </tr>
-                            <tr>
-                            <td>
-                            <!-- <a href="#" id="randomSelect"></a> -->
-                            <!-- <input type="checkbox" id="changeFormat"  />&nbsp;Change Email Format -->
-                            </td>
-                            </tr>
+                          
                             </table>
                             </form>
                        
@@ -421,7 +504,7 @@ $(document).ready(function() {
                                         <th>Last Name</th>
                                         <th>Domain</th>
                                         <th>State & Country </th>
-                                        <th>Company Size</th>
+                                      
                                         <th>Job title</th>
                                         <th>LinkedIn URL</th>
                                         <th>Email</th>
@@ -429,12 +512,12 @@ $(document).ready(function() {
                                         <th>Call Status</th>
                                         <th>Comments</th>
                                        
-                                        <th>Call Verified in CDC</th>
+                                        <!-- <th>Call Verified in CDC</th> -->
                                         <!-- <th>Send To<br><input type="checkbox" class="emailsend_all  emailclass"  onclick="toggle(this);"/></th> -->
-                                        <th>Change Status<br><input type="checkbox" class="emailstatus_all emailstatus" onclick="toggle(this);" /></th>
+                                        <!-- <th>Change Status<br><input type="checkbox" class="emailstatus_all emailstatus" onclick="toggle(this);" /></th> -->
                                         <!-- <th>Sent Timestamp</th>
                                         <th>Email Sent From</th> -->
-                                        <th>Change Format</th>
+                                        <th>View Lead</th>
                                     </tr>
                                 </thead>
                                 <tbody >
@@ -457,6 +540,7 @@ $(document).ready(function() {
                                         <td>
                                         <input type="hidden" name="row_id" id="row_id_<?php echo $post['lmid'];?>" value="<?php echo $post['lmid'];?>">
                                         <input type="hidden" name="leadid" id="leadid_<?php echo  $i;?>" value="<?php echo $post['lmid'];?>">
+                                        <!-- <input type="hidden" name="lstatnew" id="lstatnew_<?php echo  $i;?>" value="<?php echo $post['lstat'];?>"> -->
                                         <?php echo $post['fname']; ?></td>
                                         <td><?php echo $post['lname']; ?></td>
                                         <td><?php 
@@ -465,10 +549,8 @@ $(document).ready(function() {
                                         // echo $query->num_rows();
 
                                         ?></td>
-                                         <td><?php echo $post['city']." / ".$post['state']; ?></td>
-                                        <td>
-                                        <?php echo $post['empsize']; ?>
-                                        </td>
+                                         <td><?php echo $post['state']." / ".$post['countryname']; ?></td>
+                                       
                                         <td>
                                         <?php echo $post['jtitle']; ?>
                                         </td>
@@ -479,12 +561,33 @@ $(document).ready(function() {
                                         <?php echo $post['email']; ?>
                                         </td>
                                         <td>
+                                        
                                         <?php 
-                                        if(isset($post['lsfinal']) && ($post['lsfinal'] == '0') ){echo "Open";} else{ echo "Empty"; }?>
+                                       // if(isset($post['lsfinal']) && ($post['lsfinal'] == '0') ){echo "Open";} else{ echo "Empty"; }?>
+                                        <select style="margin-bottom: 5px;height:34px;" class="form-control form-control-default lsfinalclass "  name="lsfinal" id="lsfinal_<?php echo  $i;?>">
+                                           
+                                            <option value="0" <?php if(isset($post['lsfinal']) && ($post['lsfinal'] =='0') ){ echo "Selected"; } ?> >Open</option>
+                                            <option value="1" <?php if(isset($post['lsfinal']) && ($post['lsfinal'] =='1') ){ echo "Selected"; } ?> >Closed</option>
+                                           
+                                            </select>
+                                          
+                                            <button type="button" data-toggle="tooltip" title="Update"  class="btn btn-info btn-sm gotoupdateleadlsfinal" data-id="<?php echo $post['lmid'];?>" id="gotoupdateleadlsfinal"
+                                             data-row="<?php echo $i;?>"><i class="icofont icofont-edit"></i></button>
+                                      
                                         </td>
                                         <td>
-                                        <?php 
-                                        if(isset($post['lstat']) ){ echo $post['lstat'];} else{ echo "Empty"; }?>
+                                        <!-- <p id='plstat'><?php 
+                                        //if(isset($post['lstat']) ){ //echo $post['lstat'];} else{ echo "Empty"; }?></p> -->
+                                          
+                                          <select style="margin-bottom: 5px;height:34px;"  class="form-control form-control-default lstatclass"  name="lstat" id="lstat_<?php echo  $i;?>" required="">
+                                            <option value="">Change Status</option>
+                                            <option value="on-hold" <?php if(isset($post['lstat']) && ($post['lstat'] =='on-hold') ){ echo "Selected"; } ?> >on-hold</option>
+                                            <option value="voicemail" <?php if(isset($post['lstat']) && ($post['lstat'] =='voicemail') ){ echo "Selected"; } ?> >voicemail</option>
+                                            <option value="call-back" <?php if(isset($post['lstat']) && ($post['lstat'] =='call-back') ){ echo "Selected" ;} ?> >call-back</option>
+                                            </select>
+                                            <button type="button" class="btn btn-info btn-sm gotoupdateleadlstat" data-toggle="tooltip" title="Update" data-id="<?php echo $post['lmid'];?>" id="gotoupdateleadlstat"
+                                             data-row="<?php echo $i;?>"><i class="icofont icofont-edit"></i></button>
+                                           
                                         </td>
                                         <td>
                                         <?php //echo  $post['pcomt']; ?>
@@ -504,16 +607,16 @@ $(document).ready(function() {
                                             } ?>
                                         </td>
                                        
-                                        <td>
-                                            <?php if(isset($post['cvr']) && ($post['cvr']  == '1') ){echo "Yes";} else { echo "Call Unverified in CDC" ; }?>
-                                        </td>
+                                        <!-- <td>
+                                            <?php //if(isset($post['cvr']) && ($post['cvr']  == '1') ){echo "Yes";} else { echo "Call Unverified in CDC" ; }?>
+                                        </td> -->
                                         <!-- <td>
                                          
                                             <input type="checkbox" class ="emailclass checkbox_emailclass" value="<?php echo $i;?>" name="email_list_<?php echo $i;?>" id="email_list_<?php echo $i;?>"><?php //echo $i;?>
                                         </td> -->
-                                        <td>
+                                        <!-- <td>
                                             <input type="checkbox" class ="emailstatus checkbox_emailstatus"  value="<?php echo $i;?>" name="email_list_<?php echo $i;?>" id="email_list_<?php echo $i;?>"><?php //echo $i;?>
-                                        </td>
+                                        </td> -->
                                         <td>
                                             <!-- <a href ="<?php echo base_url();?>cdc/leadgeneration" class="btn btn-info btn-sm" data-id="<?php echo $post['email'];?>" data-row="<?php echo $i;?>">Go to Update</a> -->
                                             <button type="button" class="btn btn-info btn-sm gotoupdatelead" data-id="<?php echo $post['lmid'];?>" data-row="<?php echo $i;?>">Go to Update</button>
@@ -576,7 +679,7 @@ $(document).ready(function() {
                 <!--  -->
 
                  <!-- DOM/Jquery table end -->
-                 <div class="form-group row" style="border:1px solid; padding-top:10px;width:100%">
+                 <!-- <div class="form-group row" style="border:1px solid; padding-top:10px;width:100%">
                     
                    
                     <div class="col-sm-2">
@@ -597,8 +700,8 @@ $(document).ready(function() {
                     <div class="col-sm-1">
                     </div>
                     <div class="col-sm-2">
-                    <!-- <label>Closer Status</label> -->
-                        <select style="height:34px;" class="form-control form-control-default "  name="email_close_status" id="email_close_status">
+                    <label>Closer Status</label> -->
+                        <!-- <select style="height:34px;" class="form-control form-control-default "  name="email_close_status" id="email_close_status">
                             <option value="">Closer Status</option>
                             <option value="New" >New</option>
                             <option value="Open">Open</option>
@@ -616,7 +719,7 @@ $(document).ready(function() {
                         <input class="btn btn-primary" type="button" id="update_email" value="Update Email">
                     </div>
                 </div>
-            </div>
+            </div> -->
 
 
    <!-- Modal -->
@@ -727,14 +830,14 @@ $(".emailclass").click(function() {
           
 });
 $(".emailstatus").click(function() {
-    
+    alert("Hi");
     var notChecked = [], checked = [];
               // $(":checkbox").map(function() {
               $(".emailstatus").map(function() {
               
                   this.checked ? checked.push(this.id) : notChecked.push(this.id);
               });
-              // alert();
+              alert(checked);
             if(checked == ""){ // if unchecked any field
               $("#update_email").attr("disabled", true);
             }else{

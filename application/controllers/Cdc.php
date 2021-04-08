@@ -587,14 +587,29 @@
 						
 						$_SESSION['campaign_id'] = $camp_id;
 
-						
+						// print_r($_SESSION['campaign_id']);
 						$data['empcode'] = $this->session->userdata('empcode');
 						$data['Campid'] = $camp_id;
 						$leadlimit = $this->input->post('leadlimit');
 						$data['leadlimit'] = $leadlimit;
-						
-						$data['leadmaster'] = $this->Administrator_Model->get_leadmasterby_campaign_lead_generation($cids);
+						// print_r($leadlimit); 
+						$data['leadmaster'] = $this->Administrator_Model->get_leadmasterby_campaign_lead_generation($cids,$leadlimit);
 						// print_r($data['leadmaster']); 
+						// echo "<pre>";
+						// 	print_r($data['leadmaster']); 
+						// 	echo "</pre>";
+						foreach ($data['leadmaster'] as $ldmster) {
+						
+							
+							if(isset($ldmster['lsagent']) && !empty($ldmster['lsagent'])){
+								// print_r($ldmster['lsagent']);
+								$data['leadmaster'] = $this->Administrator_Model->get_leadmasterby_campaign_lead_generation($cids,$leadlimit,$data['empcode']);
+							}
+							// else{
+							// 	$data['leadmaster'] = $this->Administrator_Model->get_leadmasterby_campaign_lead_generation($cids,$leadlimit);	
+							// }
+						}
+
 						if(empty($data['leadmaster'])){
 							$this->session->set_flashdata('success', 'Lead Generation finished for this campaign.');
 							redirect('cdc/selectCampaignForleadGeneration');
@@ -4553,7 +4568,8 @@
 			$lmid = $_GET['ids'];
 			
 			$lsfinal = $_GET['lsfinal'];
-		
+			$old_date = date('Y-m-d H:i:s'); 
+			$lsagent = $_SESSION['empcode'];
 		
 		
 
@@ -4561,7 +4577,9 @@
 			
 			
 		
-				'lsfinal' => $lsfinal
+				'lsfinal' => $lsfinal,
+				'lsstatdt' => $old_date,
+				'lsagent' => $lsagent
 				
 				
 						

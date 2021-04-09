@@ -2250,8 +2250,8 @@
 			$cdcsb = $_POST['cdcsb'];
 			$evloadposted = $_POST['evload'];
 			
-			// print_r($_POST['checked']);
-			// // exit();
+			// print_r($_POST['cdcrjt']); echo "Hii";
+			// exit();
 			
 				$old_date = date('Y-m-d H:i:s');         // works
 				$middle = strtotime($old_date);             // returns bool(false)
@@ -2641,6 +2641,7 @@
 				
 				'ontag' => '1', 
 				'pload' => '0', 
+				'dvload' => '0', 
 				'cdcload' => NULL, 
 				'evload' => NULL, //  next level
 				'qarjtagti' => $qarjtagti, // submit agent name 
@@ -4408,8 +4409,8 @@
 				// 'cdcload' => '0', // next level ready to load
 				'cdcload' => NULL, // next level ready to load
 				'rlc' => '0', // record is closed
-				'cdcrjt' => $cdcrjt, 
-				'cdcsb' => $cdcsb, 
+				// 'cdcrjt' => $cdcrjt, 
+				// 'cdcsb' => $cdcsb, 
 				//  'ontag' => $ontag, 
 				// 'dvload' => $dvload, //  next level
 				// 'dvstat' => $dvstat, //  dvstat

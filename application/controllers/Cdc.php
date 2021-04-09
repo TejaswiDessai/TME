@@ -605,9 +605,9 @@
 								// print_r($ldmster['lsagent']);
 								$data['leadmaster'] = $this->Administrator_Model->get_leadmasterby_campaign_lead_generation($cids,$leadlimit,$data['empcode']);
 							}
-							// else{
-							// 	$data['leadmaster'] = $this->Administrator_Model->get_leadmasterby_campaign_lead_generation($cids,$leadlimit);	
-							// }
+							else{
+								$data['leadmaster'] = $this->Administrator_Model->get_leadmasterby_campaign_lead_generation($cids,$leadlimit);	
+							}
 						}
 
 						if(empty($data['leadmaster'])){

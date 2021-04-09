@@ -3057,8 +3057,38 @@ public function get_campaign_fordataverification()
 
 		}	
 
-		public function get_delivery_leads($username = FALSE, $limit = FALSE, $offset = FALSE)
+		public function get_delivery_leads($username = FALSE, $limit = FALSE, $offset = FALSE,$campid,$delivery_status,$qa_status,$ls_status)
 		{
+			
+			if(isset($campid) && $delivery_status != '' && $qa_status != '' && $ls_status != '')
+			{
+				$cond = "where leadmaster.cids = '$campid' and leadmaster.dytg = $delivery_status and leadmaster.qastat = '$qa_status' and leadmaster.clscored  = $ls_status";
+			}
+			else if(isset($campid) && $delivery_status != '' && $qa_status == '' && $ls_status == '')
+			{
+				$cond = "where leadmaster.cids = '$campid' and leadmaster.dytg = $delivery_status";
+			}
+			else if(isset($campid) && $delivery_status == '' && $qa_status != ''  && $ls_status == '')
+			{
+				$cond = "where leadmaster.cids = '$campid' and leadmaster.qastat = '$qa_status'";
+			}
+			else if(isset($campid) && $delivery_status == '' && $qa_status == ''  && $ls_status != '')
+			{
+				$cond = "where leadmaster.cids = '$campid' and leadmaster.clscored = $ls_status";
+			}
+			else if(isset($campid) && $delivery_status == '' && $qa_status == ''  && $ls_status == '')
+			{
+				$cond = "where leadmaster.cids = '$campid'";
+			}
+			else if(!isset($campid) && $delivery_status != '')
+			{
+				$cond = "where leadmaster.dytg = $delivery_status";
+			}
+			else
+			{
+				$cond = null;
+			}
+			// echo $cond;
 			$sql = " SELECT leadmaster.lmid,
 			leadmaster.cids,
 			leadmaster.sal,
@@ -3123,6 +3153,7 @@ public function get_campaign_fordataverification()
 			 LEFT JOIN joblevels ON ((leadmaster.jlevel = joblevels.jid)))
 			 LEFT JOIN dept ON ((leadmaster.dname = dept.dcd)))
 			 LEFT JOIN comptype ON ((leadmaster.ctyp = comptype.ctypid)))
+			$cond 
 			--  where leadmaster.qaload = 1 and leadmaster.cdcsb <=4 and
 			--  leadmaster.cdcrjt <=4
 		  ORDER BY leadmaster.lmid limit 20;";
@@ -3155,5 +3186,106 @@ public function get_campaign_fordataverification()
 			} else {
 				return false;
 			}
+		}
+
+		public function get_delivery_leads_export($username = FALSE, $limit = FALSE, $offset = FALSE,$campid,$delivery_status,$qa_status)
+		{
+			
+			if(isset($campid) && $delivery_status != '' && $qa_status != '')
+			{
+				$cond = "where leadmaster.cids = '$campid' and leadmaster.dytg = $delivery_status and leadmaster.qastat = '$qa_status'";
+			}
+			else if(isset($campid) && $delivery_status != '' && $qa_status == '')
+			{
+				$cond = "where leadmaster.cids = '$campid' and leadmaster.dytg = $delivery_status";
+			}
+			else if(isset($campid) && $delivery_status == '' && $qa_status != '')
+			{
+				$cond = "where leadmaster.cids = '$campid' and leadmaster.qastat = '$qa_status'";
+			}
+			else if(isset($campid) && $delivery_status == '' && $qa_status == '')
+			{
+				$cond = "where leadmaster.cids = '$campid'";
+			}
+			else if(!isset($campid) && $delivery_status != '')
+			{
+				$cond = "where leadmaster.dytg = $delivery_status";
+			}
+			else
+			{
+				$cond = null;
+			}
+			// echo $cond;
+			$sql = " SELECT leadmaster.lmid,
+			leadmaster.cids,
+			leadmaster.sal,
+			leadmaster.fname,
+			leadmaster.lname,
+			leadmaster.jtitle,
+			joblevels.joblevel,
+			joblevels.joblist,
+			dept.department,
+			leadmaster.cname,
+			comptype.ctypname,
+			industry.industry,
+			industry.subindustry,
+			leadmaster.sectyp,
+				CASE
+					WHEN (leadmaster.sectyp = 0) THEN 'Unknown'::text
+					WHEN (leadmaster.sectyp = 1) THEN 'Public'::text
+					WHEN (leadmaster.sectyp = 2) THEN 'Private'::text
+					WHEN (leadmaster.sectyp = 3) THEN 'Government'::text
+					WHEN (leadmaster.sectyp = 4) THEN 'Non - Profit'::text
+					ELSE NULL::text
+				END AS sector,
+			leadmaster.empsize,
+			leadmaster.arevenue,
+			leadmaster.mlbl,
+				CASE
+					WHEN (leadmaster.mlbl = 0) THEN 'Thousands'::text
+					WHEN (leadmaster.mlbl = 1) THEN 'Millions'::text
+					WHEN (leadmaster.mlbl = 2) THEN 'Billions'::text
+					WHEN (leadmaster.mlbl = 3) THEN 'Trillions'::text
+					ELSE NULL::text
+				END AS denomination,
+			leadmaster.email,
+			leadmaster.phone,
+			leadmaster.linetype,
+				CASE
+					WHEN (leadmaster.linetype = 1) THEN 'Unknown'::text
+					WHEN (leadmaster.linetype = 2) THEN 'Direct'::text
+					WHEN (leadmaster.linetype = 3) THEN 'Board'::text
+					ELSE NULL::text
+				END AS linetypes,
+			leadmaster.phext,
+			leadmaster.altphn,
+			leadmaster.address,
+			leadmaster.city,
+			leadmaster.state,
+			leadmaster.zipcode,
+			country.countryname,
+			country.currnme,
+			timezone.abbrev,
+			leadmaster.domain,
+			leadmaster.plink,
+			leadmaster.empszlink,
+			leadmaster.indlink,
+			leadmaster.revszlink,
+			leadmaster.othrlink,
+			leadmaster.aum
+		   FROM ((((((leadmaster
+			 LEFT JOIN country ON ((leadmaster.country = country.countrycd)))
+			 LEFT JOIN timezone ON ((leadmaster.timez = timezone.zids)))
+			 LEFT JOIN industry ON ((leadmaster.sindtry = industry.subindustrycd)))
+			 LEFT JOIN joblevels ON ((leadmaster.jlevel = joblevels.jid)))
+			 LEFT JOIN dept ON ((leadmaster.dname = dept.dcd)))
+			 LEFT JOIN comptype ON ((leadmaster.ctyp = comptype.ctypid)))
+			$cond 
+			--  where leadmaster.qaload = 1 and leadmaster.cdcsb <=4 and
+			--  leadmaster.cdcrjt <=4
+		  ORDER BY leadmaster.lmid limit 20;";
+		  $query = $this->db->query($sql);
+		  return $query->result_array();
+		// return $query;
 		}
 }

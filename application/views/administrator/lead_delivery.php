@@ -118,7 +118,7 @@ $(document).ready(function(){
                             <tr>
                             <td>
                             <!-- <a href="<?php echo base_url();?>administrator/export_csv">Export</a> -->
-                                <a class="btn btn-primary" href="<?php echo base_url();?>administrator/export_csv">Export in CSV</a>
+                                <a class="btn btn-primary" href="<?php echo base_url();?>administrator/export_csv?camp_id=<?php echo $Campid;?>&delivery_status=<?php echo $delivery_status;?>&qa_status=<?php echo $qa_status; ?>&ls_status=<?php echo $ls_status;?>">Export in CSV</a>
                             </td>
                             </tr>
                             </table>

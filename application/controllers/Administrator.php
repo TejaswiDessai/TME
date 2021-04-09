@@ -2863,6 +2863,8 @@ public function getPrivillage(){
 			$data['users'] = $this->Administrator_Model->get_delivery_leads(FALSE, $config['per_page'], $offset,$campid,$delivery_status,$qa_status,$ls_status);
 			$data['campaigns'] = $this->Administrator_Model->get_campaign();
 			$data['Campid'] = $campid;
+			$data['qa_status'] = $qa_status;
+			$data['ls_status'] = $ls_status;
 			$data['delivery_status'] = $delivery_status;
 			$this->load->view('administrator/header-script');
 			$this->load->view('administrator/header');
@@ -2871,7 +2873,7 @@ public function getPrivillage(){
 			$this->load->view('administrator/footer');
 		}
 
-		public function export_csv($offset = 0,$campid = null,$delivery_status=null,$qa_status=null){ 
+		public function export_csv($offset = 0,$campid = null,$delivery_status=null,$qa_status=null,$ls_status=null){ 
 			// file name 
 			// Pagination Config
 			$config['base_url'] = base_url(). 'administrator/users/';
@@ -2884,9 +2886,19 @@ public function getPrivillage(){
 			header("Content-Description: File Transfer"); 
 			header("Content-Disposition: attachment; filename=$filename"); 
 			header("Content-Type: application/csv; ");
-		   // get data 
-		   
-			$usersData = $this->Administrator_Model->get_delivery_leads_export(FALSE, $config['per_page'], $offset,$campid,$delivery_status,$qa_status);
+		   // get data
+		   	if(isset( $_GET['camp_id'])) 
+		   		$campid = $_GET['camp_id'];
+			
+			if(isset( $_GET['qa_status']))		
+				$qa_status = $_GET['qa_status'];
+			
+			if(isset($_GET['delivery_status']))
+				$delivery_status = $_GET['delivery_status'];
+			
+			if(isset($_GET['ls_status']))
+				$ls_status = $_GET['ls_status'];
+			$usersData = $this->Administrator_Model->get_delivery_leads_export(FALSE, $config['per_page'], $offset,$campid,$delivery_status,$qa_status,$ls_status);
 			// file creation 
 			$file = fopen('php://output','w');
 			$header = array("Lead Id","Campaign Id","Sal","First Name","Last Name"); 

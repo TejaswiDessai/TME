@@ -3062,23 +3062,23 @@ public function get_campaign_fordataverification()
 			
 			if(isset($campid) && $delivery_status != '' && $qa_status != '' && $ls_status != '')
 			{
-				$cond = "where leadmaster.cids = '$campid' and leadmaster.dytg = $delivery_status and leadmaster.qastat = '$qa_status' and leadmaster.clscored  = $ls_status";
+				$cond = "where leadmaster.cids = $campid and leadmaster.dytg = $delivery_status and leadmaster.qastat = '$qa_status' and leadmaster.clscored  = $ls_status";
 			}
 			else if(isset($campid) && $delivery_status != '' && $qa_status == '' && $ls_status == '')
 			{
-				$cond = "where leadmaster.cids = '$campid' and leadmaster.dytg = $delivery_status";
+				$cond = "where leadmaster.cids = $campid and leadmaster.dytg = $delivery_status";
 			}
 			else if(isset($campid) && $delivery_status == '' && $qa_status != ''  && $ls_status == '')
 			{
-				$cond = "where leadmaster.cids = '$campid' and leadmaster.qastat = '$qa_status'";
+				$cond = "where leadmaster.cids = $campid and leadmaster.qastat = '$qa_status'";
 			}
 			else if(isset($campid) && $delivery_status == '' && $qa_status == ''  && $ls_status != '')
 			{
-				$cond = "where leadmaster.cids = '$campid' and leadmaster.clscored = $ls_status";
+				$cond = "where leadmaster.cids = $campid and leadmaster.clscored = $ls_status";
 			}
 			else if(isset($campid) && $delivery_status == '' && $qa_status == ''  && $ls_status == '')
 			{
-				$cond = "where leadmaster.cids = '$campid'";
+				$cond = "where leadmaster.cids = $campid";
 			}
 			else if(!isset($campid) && $delivery_status != '')
 			{
@@ -3188,22 +3188,26 @@ public function get_campaign_fordataverification()
 			}
 		}
 
-		public function get_delivery_leads_export($username = FALSE, $limit = FALSE, $offset = FALSE,$campid,$delivery_status,$qa_status)
+		public function get_delivery_leads_export($username = FALSE, $limit = FALSE, $offset = FALSE,$campid,$delivery_status,$qa_status,$ls_status)
 		{
 			
-			if(isset($campid) && $delivery_status != '' && $qa_status != '')
+			if(isset($campid) && $delivery_status != '' && $qa_status != '' && $ls_status != '')
 			{
-				$cond = "where leadmaster.cids = '$campid' and leadmaster.dytg = $delivery_status and leadmaster.qastat = '$qa_status'";
+				$cond = "where leadmaster.cids = '$campid' and leadmaster.dytg = $delivery_status and leadmaster.qastat = '$qa_status' and leadmaster.clscored  = $ls_status";
 			}
-			else if(isset($campid) && $delivery_status != '' && $qa_status == '')
+			else if(isset($campid) && $delivery_status != '' && $qa_status == '' && $ls_status == '')
 			{
 				$cond = "where leadmaster.cids = '$campid' and leadmaster.dytg = $delivery_status";
 			}
-			else if(isset($campid) && $delivery_status == '' && $qa_status != '')
+			else if(isset($campid) && $delivery_status == '' && $qa_status != ''  && $ls_status == '')
 			{
 				$cond = "where leadmaster.cids = '$campid' and leadmaster.qastat = '$qa_status'";
 			}
-			else if(isset($campid) && $delivery_status == '' && $qa_status == '')
+			else if(isset($campid) && $delivery_status == '' && $qa_status == ''  && $ls_status != '')
+			{
+				$cond = "where leadmaster.cids = '$campid' and leadmaster.clscored = $ls_status";
+			}
+			else if(isset($campid) && $delivery_status == '' && $qa_status == ''  && $ls_status == '')
 			{
 				$cond = "where leadmaster.cids = '$campid'";
 			}

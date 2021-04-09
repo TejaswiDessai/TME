@@ -2117,7 +2117,7 @@ public function get_campaign_fordataverification()
 		}
 	public function get_campaignforlead_generation()
 	{
-		
+		  
 		
 			$this->db->select('campaign.cids,campaign.cnid,campaign.campnm');
 			$this->db->group_by('campaign.cids');

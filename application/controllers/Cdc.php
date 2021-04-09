@@ -1736,7 +1736,8 @@
 				'sbsvtag' => '1', // Submit 1st time
 				'pload' => '1', // next level ready to load
 				'rlc' => '0', // record is closed
-				'dvload' => '1', // record is closed
+				'dvload' => '0', // record is closed
+				'ontag' => '0', 
 				'dvsbtg' => '0', // record is closed
 				'dvrejtg' => '0', // record is closed
 			

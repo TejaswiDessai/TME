@@ -598,7 +598,7 @@ document.getElementById("randomSelect").addEventListener("click", function() {
                                         <?php echo $post['jtitle']; ?>
                                         </td>
                                         <td>
-                                        <a href="<?php echo $post['plink']; ?>">Click here</a>
+                                        <a href="<?php echo $post['plink']; ?>" target="_new">Click here</a>
                                         </td>
                                     </tr>
                                 <?php endforeach; ?>

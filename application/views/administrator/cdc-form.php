@@ -1279,7 +1279,7 @@ $.ajax({
                             </div>
                             <div class="col-sm-2">
                                 <select class="form-control form-control-sm"  name="ddispositionclass" id="ddispositionclass">
-                                    <option value="">Disposition Class</option>
+                                    <option value="">Disposition Class- In Progress</option>
                                     <option value="0"<?php if(isset($ldmster) && $ldmster['ddispositionclass'] == '0'){ echo "selected" ; } ?>>Live</option>
                                     <option value="1"<?php if(isset($ldmster) && $ldmster['ddispositionclass'] == '1'){ echo "selected" ; } ?>>Dead</option>
                                 </select>
@@ -2289,7 +2289,7 @@ $.ajax({
         required: true
       },
       ddispositionclass : {
-        required: true
+        // required: true
       },
       fname : {
         required: true,
@@ -2655,11 +2655,11 @@ $("input:checkbox").change(function() {
             var cdclst = $('#cdclst').val();
             var callrec = $('#callrec').val();
             var cvr = $('#cvr').val();
-            // alert(lcalldisp); exit;
+            // alert(ddispositionclass); exit;
           
             // var url = encodeURI("<?php //echo base_url("cdc/ajax_update_datacdc");?>");
 
-            if(ddispositionclass != "" && cvr != "")
+            if(cvr != "")
             {
             var url = encodeURI("<?php echo base_url("cdc/ajax_update_datacdc");?>");
           
@@ -2917,7 +2917,7 @@ $(function() {
             var callrec = $('#callrec').val();
             var cvr = $('#cvr').val();
 
-            if(ddispositionclass != "" && cvr != "")
+            if(cvr != "")
             {
             // var url = encodeURI("<?php //echo base_url("cdc/ajax_update_datacdc");?>");
             var url = encodeURI("<?php echo base_url("cdc/ajax_save_leaddatacdc");?>");

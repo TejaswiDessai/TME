@@ -224,7 +224,78 @@ $(document).on("click", ".gotoupdatelead", function () {
     var ids = $(this).attr('data-id');
     var row = $(this).attr('data-row');
     // alert(ids);
+
+
     window.location = base_url+"cdc/leadgeneration?camp_id=<?php echo $_SESSION['campaign_id']; ?>&lmid="+ids+"&empcode=<?php echo $_SESSION['empcode']; ?>";
+   
+});
+
+$(document).on("click", ".refreshbtn", function () {
+    
+//update record lock
+var rlc = 0; //lock 1
+var lmid1 = $('#leadid_1').val();
+var lmid2 = $('#leadid_2').val();
+var lmid3 = $('#leadid_3').val();
+var lmid4 = $('#leadid_4').val();
+var lmid5 = $('#leadid_5').val();
+var lmid6 = $('#leadid_6').val();
+var lmid7 = $('#leadid_7').val();
+var lmid8 = $('#leadid_8').val();
+var lmid9 = $('#leadid_9').val();
+var lmid10 = $('#leadid_10').val();
+
+// alert("L1 = "+lmid1+"L2 = "+lmid2+"L3 = "+lmid3+"L4 = "+lmid4+"L5 = "+lmid5);
+var emp_id = $('#empcode').val();
+// alert(emp_id);
+
+var urlq = '<?php echo base_url("administrator/updaterecordlock");?>';
+// alert(urlq);
+console.log(urlq+"?lmid1="+lmid1+"&lmid2="+lmid2+"&rlc="+rlc+"&emp_id="+emp_id);
+$.ajax({
+      url:'<?php echo base_url("administrator/updaterecordlock");?>',
+      method: 'get',
+      data: {
+        lmid1: lmid1,
+        lmid2: lmid2,
+        lmid3: lmid3,
+        lmid4: lmid4,
+        lmid5: lmid5,
+        lmid6: lmid6,
+        lmid7: lmid7,
+        lmid8: lmid8,
+        lmid9: lmid9,
+        lmid10: lmid10,
+        rlc:rlc,
+        emp_id:emp_id
+      },
+      dataType: 'json',
+      success: function(response){
+
+        console.log("check");
+                    // var dataResult = JSON.parse(response);
+                    if(response.statusCode == "Success") 
+                    {         
+                      alert("Success in success");
+                      console.log("Record is opened/locked now");     
+                      window.location = base_url+"cdc/leadgenerationinterface?camp_id=<?php echo $_SESSION['campaign_id']; ?>";
+                      
+                    }else if(response.data=="Fail")
+                    {
+                      alert("fail/check if record is already opened");  
+                      window.location = base_url+"cdc/leadgenerationinterface?camp_id=<?php echo $_SESSION['campaign_id']; ?>";
+                        
+					          }
+      },
+      error: function()
+      {
+        window.location = base_url+"cdc/leadgenerationinterface?camp_id=<?php echo $_SESSION['campaign_id']; ?>";
+      }
+  });
+
+
+
+    
    
 });
 $(document).on("click", ".gotoupdateleadlstat", function () {
@@ -234,8 +305,6 @@ $(document).on("click", ".gotoupdateleadlstat", function () {
     var row = $(this).attr('data-row');
     $this  = $(this);
     
-    // alert(ids);
-   
     // alert(lstat);
     // alert(row);
     if(lstat == ""){
@@ -271,8 +340,8 @@ $(document).on("click", ".gotoupdateleadlstat", function () {
                     if(response.statusCode == "Success") 
                     {   
                        
-                        // alert("Call status updated successfully");
-                        $this.closest("td").find("#gotoupdateleadlstat").html("Updated <i class='icofont icofont-check'></i>");
+                        alert("Call status updated successfully");
+                        $this.closest("td").find("#gotoupdateleadlstat").html("<i class='icofont icofont-edit'></i><i class='icofont icofont-check'></i>");
                       
                        
                         // top.location.href=base_url+"administrator/dashboard";//redirection
@@ -331,8 +400,8 @@ $(document).on("click", ".gotoupdateleadlsfinal", function () {
                     console.log("check");
                     if(response.statusCode == "Success") 
                     {         
-                        //  alert("Call displosition updated successfully");
-                         $this.closest("td").find("#gotoupdateleadlsfinal").html("Updated <i class='icofont icofont-check'></i>");
+                         alert("Call displosition updated successfully");
+                         $this.closest("td").find("#gotoupdateleadlsfinal").html("<i class='icofont icofont-edit'></i> <i class='icofont icofont-check'></i>");
                         // $("#gotoupdateleadlsfinal").attr("disabled", true); 
                         // $("#gotoupdateleadlsfinal").html("Updated <i class='icofont icofont-check'></i>");
                          
@@ -478,8 +547,19 @@ $(document).ready(function() {
                             <?php endforeach; ?>
                             <input type="hidden" value="<?php echo $Campid; ?>" id="campaign_id" name="campaign_id">
                             </td>
-                            
-                           
+                            <td>
+                                <select style="height:34px;" class="form-control form-control-default "  name="leadlimit" id="leadlimit">
+                                    <option value="5" <?php if( isset($leadlimit) && $leadlimit == "5") { echo "selected" ; } ?>>5</option>
+                                    <option value="10" <?php if( isset($leadlimit) && $leadlimit == "10") { echo "selected" ; } ?>>10</option>
+                                    </select>
+                             </td>
+                             <td>
+                                <input  class="btn btn-primary" type="submit" name="submit" value="Fetch Record">
+                            </td>
+                            <td>
+                               
+                                <!-- <button class="btn btn-primary refreshbtn">Refresh <i class="icofont icofont-refresh"></i></button> -->
+                            </td>
                             </tr>
                           
                             </table>
@@ -506,11 +586,12 @@ $(document).ready(function() {
                                         <th>State & Country </th>
                                       
                                         <th>Job title</th>
+                                        <th>Comapany Name</th>
                                         <th>LinkedIn URL</th>
                                         <th>Email</th>
                                         <th>Call Disposition</th>
                                         <th>Call Status</th>
-                                        <th>Comments</th>
+                                        
                                        
                                         <!-- <th>Call Verified in CDC</th> -->
                                         <!-- <th>Send To<br><input type="checkbox" class="emailsend_all  emailclass"  onclick="toggle(this);"/></th> -->
@@ -555,7 +636,10 @@ $(document).ready(function() {
                                         <?php echo $post['jtitle']; ?>
                                         </td>
                                         <td>
-                                        <a href="<?php echo $post['plink']; ?>">Click here</a>
+                                        <?php echo $post['cname']; ?>
+                                        </td>
+                                        <td>
+                                        <a href="<?php echo $post['plink']; ?>" target="_blank">Click here</a>
                                         </td>
                                         <td>
                                         <?php echo $post['email']; ?>
@@ -589,23 +673,7 @@ $(document).ready(function() {
                                              data-row="<?php echo $i;?>"><i class="icofont icofont-edit"></i></button>
                                            
                                         </td>
-                                        <td>
-                                        <?php //echo  $post['pcomt']; ?>
-                                        <?php if(isset($post['pcomt']) && $post['pcomt'] != '') {
-                                            $arr = explode("#", $post['pcomt']);
-                                            
-                                            $withoutchar = $arr[0];
-                                            if(!empty($arr[1])){
-                                                $first = $arr[1];
-                                                echo  $first; 
-                                            }else{
-                                                echo $withoutchar; 
-                                            }
-                                            
-                                            }else{
-                                            echo "";
-                                            } ?>
-                                        </td>
+                                       
                                        
                                         <!-- <td>
                                             <?php //if(isset($post['cvr']) && ($post['cvr']  == '1') ){echo "Yes";} else { echo "Call Unverified in CDC" ; }?>

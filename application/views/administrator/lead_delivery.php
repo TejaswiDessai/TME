@@ -77,6 +77,19 @@ $(document).ready(function(){
                 <!-- DOM/Jquery table start -->
 
                 <div class="card">
+                <div class="card-block">
+                        <!-- <form action="<?php echo base_url();?>administrator/user_report" method="post" > -->
+                        <table>
+                            <tr>
+                            <td>
+                                <a class="btn btn-primary" href="">Export in CSV</a>
+                            </td>
+                            </tr>
+                            </table>
+                            <!-- </form> -->
+                       
+                    </div>
+                    <!-- <br> -->
                     <div class="card-block">
                         <div class="table-responsive dt-responsive">
                             <table id="dom-jqry" class="table table-striped table-bordered nowrap">
@@ -135,7 +148,7 @@ $(document).ready(function(){
                                          <td><?php echo $post->address;?></td>
                                          <td><?php echo $post->zipcode;?></td>
                                          <td><?php echo $post->domain;?></td>
-                                         <td><a class="label label-inverse-success" href='<?php echo $post->plink;?>'>Prospect Link</a></td>
+                                         <td><a class="label label-inverse-success" href='<?php echo $post->plink;?>' target="_new">Prospect Link</a></td>
                                         <!-- <td> -->
                                                 <?php //if($post['status'] == 0){ ?>
                                                <!-- <a class="label label-inverse-primary enable" href='<?php echo base_url(); ?>administrator/enable/<?php echo $post->lmid; ?>?table=<?php echo base64_encode('users'); ?>'>Active</a> -->

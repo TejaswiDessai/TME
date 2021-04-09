@@ -3123,6 +3123,8 @@ public function get_campaign_fordataverification()
 			 LEFT JOIN joblevels ON ((leadmaster.jlevel = joblevels.jid)))
 			 LEFT JOIN dept ON ((leadmaster.dname = dept.dcd)))
 			 LEFT JOIN comptype ON ((leadmaster.ctyp = comptype.ctypid)))
+			--  where leadmaster.qaload = 1 and leadmaster.cdcsb <=4 and
+			--  leadmaster.cdcrjt <=4
 		  ORDER BY leadmaster.lmid limit 20;";
 		  $query = $this->db->query($sql);
 		//   return $query->result_array();

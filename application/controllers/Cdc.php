@@ -601,13 +601,13 @@
 						foreach ($data['leadmaster'] as $ldmster) {
 						
 							
-							if(isset($ldmster['lsagent']) && !empty($ldmster['lsagent'])){
+							if(isset($ldmster['lsagent']) && !empty($ldmster['lsagent']) && ($ldmster['lsagent']==$data['empcode'])){
 								// print_r($ldmster['lsagent']);
 								$data['leadmaster'] = $this->Administrator_Model->get_leadmasterby_campaign_lead_generation($cids,$leadlimit,$data['empcode']);
 							}
-							else{
-								$data['leadmaster'] = $this->Administrator_Model->get_leadmasterby_campaign_lead_generation($cids,$leadlimit);	
-							}
+							// else{
+							// 	$data['leadmaster'] = $this->Administrator_Model->get_leadmasterby_campaign_lead_generation($cids,$leadlimit);	
+							// }
 						}
 
 						if(empty($data['leadmaster'])){

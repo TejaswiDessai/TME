@@ -1737,6 +1737,8 @@
 				'pload' => '1', // next level ready to load
 				'rlc' => '0', // record is closed
 				'dvload' => '1', // record is closed
+				'dvsbtg' => '0', // record is closed
+				'dvrejtg' => '0', // record is closed
 			
 
 				// 'svagtidi' => '1' // save Agent Name
@@ -2351,9 +2353,14 @@
 			$callrec = NULL;
 			}
 
-		
+			if(!empty($_POST['ddispositionclass']) || ($_POST['ddispositionclass'] =='0') )
+			{
+				$ddispositionclass =  $_POST['ddispositionclass'];
+			} else{
+			$ddispositionclass = NULL;
+			}
 			
-				$ddispositionclass = $_POST['ddispositionclass'];
+				// $ddispositionclass = $_POST['ddispositionclass'];
 			
 				$cvr = $_POST['cvr'];
 			
@@ -3902,9 +3909,14 @@
 				} else{
 				$callrec = NULL;
 				}
-		
+				if(!empty($_GET['ddispositionclass']) || ($_GET['ddispositionclass'] =='0') )
+				{
+					$ddispositionclass =  $_GET['ddispositionclass'];
+				} else{
+				$ddispositionclass = NULL;
+				}
 			
-				$ddispositionclass = $_GET['ddispositionclass'];
+				// $ddispositionclass = $_GET['ddispositionclass'];
 				
 				$cvr = $_GET['cvr'];
 
@@ -4137,9 +4149,21 @@
 				} else{
 				$cdclst = NULL;
 				}
+				if(!empty($_GET['callrec']) || ($_GET['callrec'] =='0') )
+				{
+					$callrec =  $_GET['callrec'];
+				} else{
+				$callrec = NULL;
+				}
+				if(!empty($_GET['ddispositionclass']) || ($_GET['ddispositionclass'] =='0') )
+				{
+					$ddispositionclass =  $_GET['ddispositionclass'];
+				} else{
+				$ddispositionclass = NULL;
+				}
 		
 			
-				$ddispositionclass = $_GET['ddispositionclass'];
+				// $ddispositionclass = $_GET['ddispositionclass'];
 				
 				$cvr = $_GET['cvr'];
 
@@ -4204,7 +4228,7 @@
 				'cvr' => $cvr, 
 				'ddispositionclass' => $ddispositionclass, 
 				'cdclst' => $cdclst, 
-				
+				'callrec' => $callrec,
 
 				'aa1' => $_GET['aa1'],
 				'aa2' => $_GET['aa2'],
@@ -4306,8 +4330,21 @@
 			} else{
 			$cdclst = NULL;
 			}
+
+			if(!empty($_POST['callrec']) || ($_POST['callrec'] =='0') )
+			{
+				$callrec =  $_POST['callrec'];
+			} else{
+			$callrec = NULL;
+			}
+			if(!empty($_POST['ddispositionclass']) || ($_POST['ddispositionclass'] =='0') )
+			{
+				$ddispositionclass =  $_POST['ddispositionclass'];
+			} else{
+			$ddispositionclass = NULL;
+			}
 			
-			$ddispositionclass = $_POST['ddispositionclass'];
+			// $ddispositionclass = $_POST['ddispositionclass'];
 			$cvr = $_POST['cvr'];
 			
 			$mychecked2 = implode(',', $checked);
@@ -4364,6 +4401,7 @@
 				'cvr' => $cvr, 
 				'ddispositionclass' => $ddispositionclass, 
 				'cdclst' => $cdclst, 
+				'callrec' => $callrec, 
 
 
 				// 'cdcload' => '0', // next level ready to load

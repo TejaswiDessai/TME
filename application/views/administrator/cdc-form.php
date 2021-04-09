@@ -2813,8 +2813,8 @@ $(function() {
                   var cdcsb = parseInt(cdcsb1)+1; // incremataion for dv  Accept
                 }
     
-                if(cdcsb == '3'){
-                  var cdcsb = '3';
+                if(cdcsb == '4'){
+                  var cdcsb = '4';
                   var cdcsv = '0';
                 }
                 var cdcrjt = $('#cdcrjt').val(); 
@@ -2828,7 +2828,7 @@ $(function() {
               var cdcrjt = parseInt(cdcrjt1)+1; // incremataion for dv  rejection
             }
  
-            if(cdcrjt == '3'){
+            if(cdcrjt == '4'){
               var cdcrjt = '3';
               var cdcsv = '0';
             }

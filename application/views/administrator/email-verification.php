@@ -449,6 +449,7 @@ document.getElementById("randomSelect").addEventListener("click", function() {
                                 <option value="Reviewed" <?php if( isset($search_email_status) && $search_email_status == "Reviewed") { echo "selected" ; } ?>>Reviewed</option>
                                 <option value="Accepted" <?php if( isset($search_email_status) && $search_email_status == "Accepted") { echo "selected" ; } ?>>Accepted</option>
                                 <option value="Confirmed" <?php if( isset($search_email_status) && $search_email_status == "Confirmed") { echo "selected" ; } ?> >Confirmed</option>
+                                <option value="Blocked" <?php if( isset($search_email_status) && $search_email_status == "Blocked") { echo "selected" ; } ?> >Blocked</option>
                                 <option value="Not Available" <?php if( isset($search_email_status) && $search_email_status == "Not Available") { echo "selected" ; } ?>>Not Available</option>
                                 <option value="Out of Office" <?php if( isset($search_email_status) && $search_email_status == "Out of Office") { echo "selected" ; } ?>>Out of Office</option>
                                 <option value="Generic email" <?php if( isset($search_email_status) && $search_email_status == "Generic email") { echo "selected" ; } ?>>Generic email</option>
@@ -598,7 +599,7 @@ document.getElementById("randomSelect").addEventListener("click", function() {
                                         <?php echo $post['jtitle']; ?>
                                         </td>
                                         <td>
-                                        <a href="<?php echo $post['plink']; ?>">Click here</a>
+                                        <a href="<?php echo $post['plink']; ?>" target="_new">Click here</a>
                                         </td>
                                     </tr>
                                 <?php endforeach; ?>
@@ -667,6 +668,7 @@ document.getElementById("randomSelect").addEventListener("click", function() {
                         <option value="Reviewed" >Reviewed</option>
                         <option value="Accepted" >Accepted</option>
                         <option value="Confirmed" >Confirmed</option>
+                        <option value="Blocked" >Blocked</option>
                         <option value="Not Available" >Not Available</option>
                         <option value="Out of Office" >Out of Office</option>
                         <option value="Generic email" >Generic email</option>

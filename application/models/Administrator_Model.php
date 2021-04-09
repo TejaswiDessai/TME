@@ -1850,8 +1850,10 @@ public function get_leadmasterby_campaignQA($id = FALSE)
 	$this->db->where('leadmaster.cdcsv', NULL);
 	$this->db->where('leadmaster.qasv', NULL);
 	$this->db->where('leadmaster.sbsvtag !=', 0);
-
-	$this->db->where('leadmaster.cdclst', 0);
+		$this->db->group_start();
+		$this->db->where('leadmaster.cdclst', 0);
+		$this->db->OR_where('leadmaster.cdclst', NULL);
+		$this->db->group_end(); 
 	$this->db->where('leadmaster.cvr', 1);
 	
 	$this->db->where('leadmaster.rlc !=', 1);
@@ -1876,7 +1878,11 @@ public function get_leadmasterby_campaignQA($id = FALSE)
 		$this->db->where('leadmaster.qasv', NULL);
 		$this->db->where('leadmaster.sbsvtag !=', 0);
 	
+		// $this->db->where('leadmaster.cdclst', 0);
+		$this->db->group_start();
 		$this->db->where('leadmaster.cdclst', 0);
+		$this->db->OR_where('leadmaster.cdclst', NULL);
+		$this->db->group_end(); 
 		$this->db->where('leadmaster.cvr', 1);
 		
 		$this->db->where('leadmaster.rlc !=', 1);
@@ -1920,7 +1926,11 @@ public function get_leadmasterby_campaignQA($id = FALSE)
 	$this->db->where('qasv', NULL);
 	$this->db->where('sbsvtag !=', 0);
 
-	$this->db->where('cdclst', 0);
+	// $this->db->where('cdclst', 0);
+		$this->db->group_start();
+			$this->db->where('cdclst', 0);
+			$this->db->OR_where('cdclst', NULL);
+		$this->db->group_end(); 
 	$this->db->where('cvr', 1);
 	if(isset($postDatalmid)){
 		// $this->db->where('cids', $camp_id2);	
@@ -2119,7 +2129,11 @@ public function get_campaign_fordataverification()
 			$this->db->where('leadmaster.sbsvtag !=', 0);
 			$this->db->where('leadmaster.cdcsb <', '4');
 			$this->db->where('leadmaster.cdcrjt <', '4');
-			$this->db->where('leadmaster.cdclst', 0);
+			// $this->db->where('leadmaster.cdclst', 0);
+					$this->db->group_start();
+					$this->db->where('cdclst', 0);
+					$this->db->OR_where('cdclst', NULL);
+					$this->db->group_end(); 
 			$this->db->where('leadmaster.cvr', 1);
 			
 			$this->db->where('leadmaster.qalsload', 1);

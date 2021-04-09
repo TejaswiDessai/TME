@@ -41,6 +41,13 @@ $(document).ready(function(){
             })
         });
     });
+    $(document).ready(function(){
+    $(".emailsend_all").on('change', function () {
+                // alert("test");
+                $(this).closest('table').find('.checkbox_emailclass').prop('checked', this.checked ); 
+                // $("#send_email").attr("disabled", false);
+            });
+        }); 
 </script>
 
 
@@ -75,7 +82,7 @@ $(document).ready(function(){
                             <table id="dom-jqry" class="table table-striped table-bordered nowrap">
                                 <thead>
                                     <tr>
-                                        
+                                        <th><input type="checkbox" class="emailsend_all  emailclass"  onclick="toggle(this);"/>&nbsp;&nbsp;Select</th>
                                         <th>FName</th>
                                         <th>LName</th>
                                         <th>Email</th>
@@ -95,8 +102,8 @@ $(document).ready(function(){
                                         <th>ZipCode</th>
                                         <th>Domain</th>
                                         <th>Prospect Link</th>
-                                        <th>Action</th>
-                                        <th>Update</th>
+                                        <!-- <th>Action</th> -->
+                                        <!-- <th>Update</th> -->
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -105,12 +112,12 @@ $(document).ready(function(){
                                 $i =0;
                                 foreach($result as $post) {
                                 
-                                $j = $i++;
+                                $i++;
                                 // echo $j;
                                 ?>
                                  <tr>
-
-                                        <td><a href="edit-blog.php?id=14"><?php echo $post->sal." ". $post->fname; ?></a></td>
+                                        <td><input type="checkbox" class ="emailclass checkbox_emailclass" value="<?php echo $i;?>" name="delivery_final_<?php echo $i;?>" id="delivery_final_<?php echo $i;?>" ><?php //echo $i;?></td>
+                                        <td><?php echo $post->sal." ". $post->fname; ?></td>
                                         <td><?php echo $post->lname; ?></td>
                                         <td><?php echo $post->email; ?></td>
                                         <td><?php echo $post->phone; ?></td>
@@ -128,20 +135,18 @@ $(document).ready(function(){
                                          <td><?php echo $post->address;?></td>
                                          <td><?php echo $post->zipcode;?></td>
                                          <td><?php echo $post->domain;?></td>
-                                         <td><a class="label label-inverse-danger" href='<?php echo $post->plink;?>'>Delete</a></td>
-                                        <td>
+                                         <td><a class="label label-inverse-success" href='<?php echo $post->plink;?>'>Prospect Link</a></td>
+                                        <!-- <td> -->
                                                 <?php //if($post['status'] == 0){ ?>
-                                               <a class="label label-inverse-primary enable" href='<?php echo base_url(); ?>administrator/enable/<?php echo $post->lmid; ?>?table=<?php echo base64_encode('users'); ?>'>Active</a>
+                                               <!-- <a class="label label-inverse-primary enable" href='<?php echo base_url(); ?>administrator/enable/<?php echo $post->lmid; ?>?table=<?php echo base64_encode('users'); ?>'>Active</a> -->
                                                 <?php //}else{ ?> 
-                                                <a class="label label-inverse-warning desable" href='<?php echo base_url(); ?>administrator/desable/<?php echo $post->lmid; ?>?table=<?php echo base64_encode('users'); ?>'>Deactive</a>
+                                                <!-- <a class="label label-inverse-warning desable" href='<?php echo base_url(); ?>administrator/desable/<?php echo $post->lmid; ?>?table=<?php echo base64_encode('users'); ?>'>Deactive</a> -->
                                                 <?php //} ?>
                                                 
                                                 <!-- <a class="label label-inverse-danger delete" href='<?php echo base_url(); ?>administrator/delete/<?php echo $post->lmid; ?>?table=<?php echo base64_encode('users'); ?>'>Delete</a> -->
                                             
-                                        </td>
-                                        <td>
-                                        <a class="label label-inverse-info" href='<?php echo base_url(); ?>administrator/users/update-user/<?php echo $post->id; ?>'>Edit</a>
-                                        </td>
+                                        <!-- </td> -->
+                                        
                                     </tr>
                                 <?php }//endforeach; ?>
 

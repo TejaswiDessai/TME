@@ -117,8 +117,8 @@ $(document).ready(function(){
                             </form>
                             <tr>
                             <td>
-                            <!-- <a href="<?php echo base_url();?>administrator/export_csv">Export</a> -->
-                                <a class="btn btn-primary" href="<?php echo base_url();?>administrator/export_csv?camp_id=<?php echo $Campid;?>&delivery_status=<?php echo $delivery_status;?>&qa_status=<?php echo $qa_status; ?>&ls_status=<?php echo $ls_status;?>">Export in CSV</a>
+
+
                             </td>
                             </tr>
                             </table>
@@ -128,6 +128,7 @@ $(document).ready(function(){
                     <!-- <br> -->
                     <div class="card-block">
                         <div class="table-responsive dt-responsive">
+                        <form id="check" action="<?php echo base_url();?>administrator/export_csv" method="post" >
                             <table id="dom-jqry" class="table table-striped table-bordered nowrap">
                                 <thead>
                                     <tr>
@@ -167,14 +168,16 @@ $(document).ready(function(){
                                 // echo $j;
                                 ?>
                                  <tr>
-                                        <td><input type="checkbox" class ="emailclass checkbox_emailclass" value="<?php echo $i;?>" name="delivery_final_<?php echo $i;?>" id="delivery_final_<?php echo $i;?>" ><?php //echo $i;?></td>
+                                        <td><input type="checkbox" class ="emailclass checkbox_emailclass" value="<?php echo $post->lmid;?>" name="delivery_final_check[]" id="delivery_final_check_<?php echo $i;?>" ><?php //echo $i;?>
+                                        <input type="hidden" name="leadid" id="leadid_<?php echo $i;?>" value="<?php echo $post->lmid;?>">
+                                        </td>
                                         <td><?php echo $post->cids; ?></td>
                                         <td><?php echo $post->sal." ". $post->fname; ?></td>
                                         <td><?php echo $post->lname; ?></td>
                                         <td><?php echo $post->email; ?></td>
                                         <td><?php echo $post->phone; ?></td>
                                         <td>
-                                            <?php if($delivery_status == 0 || $delivery_status == ''){ echo "<b style='color:green';>Ready to Deliver</b>";}elseif($delivery_status == 1){ echo "<b style='color:red';>Delivered</b>";}?>
+                                            <?php if($post->dytg == 0 || $post->dytg == ''){ echo "<b style='color:green';>Ready to Deliver</b>";}elseif($post->dytg == 1){ echo "<b style='color:red';>Delivered</b>";}?>
                                         </td>
                                          <td><?php echo $post->jtitle; ?></td>
                                          <td><?php echo $post->department;?></td>
@@ -211,10 +214,22 @@ $(document).ready(function(){
 
                                  </tbody>
                             </table>
+                            <input  class="btn btn-primary" id="Export" type="submit" value="Export" name="submit">
+                                </form>
                         </div>
                     </div>
                 </div>
                 <!-- DOM/Jquery table end -->
             </div>
 
-  
+  <script>
+    $('#Export').prop("disabled", true);
+    $('input:checkbox').click(function() {
+    if ($(this).is(':checked')) {
+    $('#Export').prop("disabled", false);
+    } else {
+    if ($('.checks').filter(':checked').length < 1){
+    $('#Export').attr('disabled',true);}
+    }
+    });
+  </script>

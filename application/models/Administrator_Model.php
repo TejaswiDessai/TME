@@ -3064,7 +3064,7 @@ public function get_campaign_fordataverification()
 			{
 				$cond = "where leadmaster.cids = $campid and leadmaster.dytg = $delivery_status and leadmaster.qastat = '$qa_status' and leadmaster.clscored  = $ls_status";
 			}
-			else if(isset($campid) && $delivery_status != '' && $qa_status == '' && $ls_status == '')
+			else if($campid != '' && $delivery_status != '' && $qa_status == '' && $ls_status == '')
 			{
 				$cond = "where leadmaster.cids = $campid and leadmaster.dytg = $delivery_status";
 			}
@@ -3080,7 +3080,7 @@ public function get_campaign_fordataverification()
 			{
 				$cond = "where leadmaster.cids = $campid";
 			}
-			else if(!isset($campid) && $delivery_status != '')
+			else if($campid == '' && $delivery_status != '')
 			{
 				$cond = "where leadmaster.dytg = $delivery_status";
 			}
@@ -3093,6 +3093,7 @@ public function get_campaign_fordataverification()
 			leadmaster.cids,
 			leadmaster.sal,
 			leadmaster.fname,
+			leadmaster.dytg,
 			leadmaster.lname,
 			leadmaster.jtitle,
 			joblevels.joblevel,
@@ -3188,9 +3189,10 @@ public function get_campaign_fordataverification()
 			}
 		}
 
-		public function get_delivery_leads_export($username = FALSE, $limit = FALSE, $offset = FALSE,$campid,$delivery_status,$qa_status,$ls_status)
+		public function get_delivery_leads_export($username = FALSE, $limit = FALSE, $offset = FALSE,$campid,$delivery_status,$qa_status,$ls_status,$ids)
 		{
 			
+			$ids= implode(",", $ids);
 			if(isset($campid) && $delivery_status != '' && $qa_status != '' && $ls_status != '')
 			{
 				$cond = "where leadmaster.cids = '$campid' and leadmaster.dytg = $delivery_status and leadmaster.qastat = '$qa_status' and leadmaster.clscored  = $ls_status";
@@ -3284,7 +3286,8 @@ public function get_campaign_fordataverification()
 			 LEFT JOIN joblevels ON ((leadmaster.jlevel = joblevels.jid)))
 			 LEFT JOIN dept ON ((leadmaster.dname = dept.dcd)))
 			 LEFT JOIN comptype ON ((leadmaster.ctyp = comptype.ctypid)))
-			$cond 
+			-- $cond 
+			WHERE leadmaster.lmid IN ($ids)
 			--  where leadmaster.qaload = 1 and leadmaster.cdcsb <=4 and
 			--  leadmaster.cdcrjt <=4
 		  ORDER BY leadmaster.lmid limit 20;";

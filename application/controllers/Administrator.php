@@ -2881,24 +2881,45 @@ public function getPrivillage(){
 			$config['per_page'] = 3;
 			$config['uri_segment'] = 3;
 			$config['attributes'] = array('class' => 'paginate-link'); 
+			$check = $this->input->post('delivery_final_check');
+			$string_version= implode(",", $check);
+			$comp_proSplit= explode(",", $string_version);
+			$cnt=count($comp_proSplit);
+			for($i=0;$i<$cnt;$i++)
+			{
+				$update_lead_status = array(
+					'dytg' => 1,
+					'dyagti' => $this->session -> userdata('empcode'),
 
+				);
+				$update_lead_status = $this->Administrator_Model->update_email_lead__status($update_lead_status,$comp_proSplit[$i]);
+			}
 			$filename = 'users_'.date('Ymd').'.csv'; 
 			header("Content-Description: File Transfer"); 
 			header("Content-Disposition: attachment; filename=$filename"); 
 			header("Content-Type: application/csv; ");
 		   // get data
-		   	if(isset( $_GET['camp_id'])) 
-		   		$campid = $_GET['camp_id'];
+			$check = $this->input->post('delivery_final_check');
+			$string_version= implode(",", $check);
+			$ids = explode(',', $string_version);
 			
-			if(isset( $_GET['qa_status']))		
-				$qa_status = $_GET['qa_status'];
+		   	// if(isset( $_GET['camp_id'])) 
+		   	// 	$campid = $_GET['camp_id'];
 			
-			if(isset($_GET['delivery_status']))
-				$delivery_status = $_GET['delivery_status'];
+			// if(isset( $_GET['qa_status']))		
+			// 	$qa_status = $_GET['qa_status'];
 			
-			if(isset($_GET['ls_status']))
-				$ls_status = $_GET['ls_status'];
-			$usersData = $this->Administrator_Model->get_delivery_leads_export(FALSE, $config['per_page'], $offset,$campid,$delivery_status,$qa_status,$ls_status);
+			// if(isset($_GET['delivery_status']))
+			// 	$delivery_status = $_GET['delivery_status'];
+			
+			// if(isset($_GET['ls_status']))
+				// $ls_status = $_GET['ls_status'];
+			$campid = $this->input->post('campid');
+			$qa_status = $this->input->post('qa_status');
+			$delivery_status = $this->input->post('delivery_status');
+			$ls_status = $this->input->post('ls_status');
+
+			$usersData = $this->Administrator_Model->get_delivery_leads_export(FALSE, $config['per_page'], $offset,$campid,$delivery_status,$qa_status,$ls_status,$ids);
 			// file creation 
 			$file = fopen('php://output','w');
 			$header = array("Lead Id","Campaign Id","Sal","First Name","Last Name"); 

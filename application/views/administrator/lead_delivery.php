@@ -174,7 +174,7 @@ $(document).ready(function(){
                                         <td><?php echo $post->email; ?></td>
                                         <td><?php echo $post->phone; ?></td>
                                         <td>
-                                            <?php if($delivery_status == 0 || $delivery_status == ''){ echo "<b style='color:green';>Ready to Delivered</b>";}elseif($delivery_status == 1){ echo "<b style='color:red';>Delivered</b>";}?>
+                                            <?php if($delivery_status == 0 || $delivery_status == ''){ echo "<b style='color:green';>Ready to Deliver</b>";}elseif($delivery_status == 1){ echo "<b style='color:red';>Delivered</b>";}?>
                                         </td>
                                          <td><?php echo $post->jtitle; ?></td>
                                          <td><?php echo $post->department;?></td>

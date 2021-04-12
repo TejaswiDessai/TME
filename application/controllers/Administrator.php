@@ -2922,7 +2922,7 @@ public function getPrivillage(){
 			$usersData = $this->Administrator_Model->get_delivery_leads_export(FALSE, $config['per_page'], $offset,$campid,$delivery_status,$qa_status,$ls_status,$ids);
 			// file creation 
 			$file = fopen('php://output','w');
-			$header = array("Lead Id","Campaign Id","Sal","First Name","Last Name"); 
+			$header = array("Lead Id","Campaign Id","Sal","First Name","Last Name","Job Title","Job Level","Job List","Department","Company Name","Company Type Name","Industry","Subindustry","Sector Type","Sector","Empsize","Revenue","Denomination Code","Denomination","Email","Phone","Line Type Code","Line Types","phext","Alternate No","Address","City","State","Zipcode","Country Name","currancy","abbrev","Domain","Plink","Emp Size Link","indlink","revszlink","othrlink","aum"); 
 			fputcsv($file, $header);
 			foreach ($usersData as $key=>$line){ 
 				fputcsv($file,$line); 

@@ -3060,29 +3060,29 @@ public function get_campaign_fordataverification()
 		public function get_delivery_leads($username = FALSE, $limit = FALSE, $offset = FALSE,$campid,$delivery_status,$qa_status,$ls_status)
 		{
 			
-			if(isset($campid) && $delivery_status != '' && $qa_status != '' && $ls_status != '')
+			if(isset($campid) && $campid != '' && $delivery_status != '' && $qa_status != '' && $ls_status != '')
 			{
-				$cond = "where leadmaster.cids = $campid and leadmaster.dytg = $delivery_status and leadmaster.qastat = '$qa_status' and leadmaster.clscored  = $ls_status";
+				$cond = "and leadmaster.cids = $campid and leadmaster.dytg = $delivery_status and leadmaster.qastat = '$qa_status' and leadmaster.clscored  = $ls_status";
 			}
 			else if($campid != '' && $delivery_status != '' && $qa_status == '' && $ls_status == '')
 			{
-				$cond = "where leadmaster.cids = $campid and leadmaster.dytg = $delivery_status";
+				$cond = "and leadmaster.cids = $campid and leadmaster.dytg = $delivery_status";
 			}
-			else if(isset($campid) && $delivery_status == '' && $qa_status != ''  && $ls_status == '')
+			else if(isset($campid) && $campid != '' && $delivery_status == '' && $qa_status != ''  && $ls_status == '')
 			{
-				$cond = "where leadmaster.cids = $campid and leadmaster.qastat = '$qa_status'";
+				$cond = "and leadmaster.cids = $campid and leadmaster.qastat = '$qa_status'";
 			}
-			else if(isset($campid) && $delivery_status == '' && $qa_status == ''  && $ls_status != '')
+			else if(isset($campid) && $campid != '' && $delivery_status == '' && $qa_status == ''  && $ls_status != '')
 			{
-				$cond = "where leadmaster.cids = $campid and leadmaster.clscored = $ls_status";
+				$cond = "and leadmaster.cids = $campid and leadmaster.clscored = $ls_status";
 			}
-			else if(isset($campid) && $delivery_status == '' && $qa_status == ''  && $ls_status == '')
+			else if(isset($campid) && $campid != '' && $delivery_status == '' && $qa_status == ''  && $ls_status == '')
 			{
-				$cond = "where leadmaster.cids = $campid";
+				$cond = "and leadmaster.cids = $campid";
 			}
 			else if($campid == '' && $delivery_status != '')
 			{
-				$cond = "where leadmaster.dytg = $delivery_status";
+				$cond = "and leadmaster.dytg = $delivery_status";
 			}
 			else
 			{
@@ -3154,9 +3154,10 @@ public function get_campaign_fordataverification()
 			 LEFT JOIN joblevels ON ((leadmaster.jlevel = joblevels.jid)))
 			 LEFT JOIN dept ON ((leadmaster.dname = dept.dcd)))
 			 LEFT JOIN comptype ON ((leadmaster.ctyp = comptype.ctypid)))
-			$cond 
-			--  where leadmaster.qaload = 1 and leadmaster.cdcsb <=4 and
-			--  leadmaster.cdcrjt <=4
+			
+			where leadmaster.qaload = 1 and leadmaster.cdcsb <=4 and
+			 leadmaster.cdcrjt <=4
+			 $cond 
 		  ORDER BY leadmaster.lmid limit 20;";
 		  $query = $this->db->query($sql);
 		//   return $query->result_array();

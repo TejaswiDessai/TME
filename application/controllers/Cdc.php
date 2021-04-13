@@ -608,7 +608,7 @@
 					
 
 						if(empty($data['leadmaster'])){
-							$this->session->set_flashdata('success', 'Lead Generation finished for this campaign.');
+							// $this->session->set_flashdata('success', 'Lead Generation finished for this campaign.');
 							// redirect('cdc/selectCampaignForleadGeneration');
 						
 							
@@ -3313,7 +3313,7 @@
 				'qaacptdti' => $qaacptdti, // Data Verification|Rej_date and time_I
 				'qaacptagtii' => $qaacptagtii, // submit agent name 
 				'qaacptdtii' => $qaacptdtii, // Data Verification|Rej_date and time_I
-				'qastat' => 'qualified', //accept/rejection by cdc
+				'qastat' => 'pending', //accept/rejection by cdc
 				
 				'qaacpt' => '1',
 				'qalsload' => '1', //send to lead generation

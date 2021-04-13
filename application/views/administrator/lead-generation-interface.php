@@ -232,42 +232,20 @@ $(document).on("click", ".gotoupdatelead", function () {
 
 $(document).on("click", ".refreshbtn", function () {
     
-//update record lock
-var rlc = 0; //lock 1
-var lmid1 = $('#leadid_1').val();
-var lmid2 = $('#leadid_2').val();
-var lmid3 = $('#leadid_3').val();
-var lmid4 = $('#leadid_4').val();
-var lmid5 = $('#leadid_5').val();
-var lmid6 = $('#leadid_6').val();
-var lmid7 = $('#leadid_7').val();
-var lmid8 = $('#leadid_8').val();
-var lmid9 = $('#leadid_9').val();
-var lmid10 = $('#leadid_10').val();
+
 
 // alert("L1 = "+lmid1+"L2 = "+lmid2+"L3 = "+lmid3+"L4 = "+lmid4+"L5 = "+lmid5);
 var emp_id = $('#empcode').val();
 // alert(emp_id);
 
-var urlq = '<?php echo base_url("administrator/updaterecordlock");?>';
+var urlq = '<?php echo base_url("administrator/updaterecordlockfrom_leadgeneration");?>';
 // alert(urlq);
-console.log(urlq+"?lmid1="+lmid1+"&lmid2="+lmid2+"&rlc="+rlc+"&emp_id="+emp_id);
+// console.log(urlq+"?lmid1="+lmid1+"&lmid2="+lmid2+"&rlc="+rlc+"&emp_id="+emp_id);
 $.ajax({
-      url:'<?php echo base_url("administrator/updaterecordlock");?>',
+      url:'<?php echo base_url("administrator/updaterecordlockfrom_leadgeneration");?>',
       method: 'get',
       data: {
-        lmid1: lmid1,
-        lmid2: lmid2,
-        lmid3: lmid3,
-        lmid4: lmid4,
-        lmid5: lmid5,
-        lmid6: lmid6,
-        lmid7: lmid7,
-        lmid8: lmid8,
-        lmid9: lmid9,
-        lmid10: lmid10,
-        rlc:rlc,
-        emp_id:emp_id
+       
       },
       dataType: 'json',
       success: function(response){
@@ -276,20 +254,16 @@ $.ajax({
                     // var dataResult = JSON.parse(response);
                     if(response.statusCode == "Success") 
                     {         
-                      alert("Success in success");
+                    //   alert("Success in success");
                       console.log("Record is opened/locked now");     
                       window.location = base_url+"cdc/leadgenerationinterface?camp_id=<?php echo $_SESSION['campaign_id']; ?>";
                       
                     }else if(response.data=="Fail")
                     {
-                      alert("fail/check if record is already opened");  
-                      window.location = base_url+"cdc/leadgenerationinterface?camp_id=<?php echo $_SESSION['campaign_id']; ?>";
+                      alert("fail/please logout and log in again");  
+                    //   window.location = base_url+"cdc/leadgenerationinterface?camp_id=<?php echo $_SESSION['campaign_id']; ?>";
                         
 					          }
-      },
-      error: function()
-      {
-        window.location = base_url+"cdc/leadgenerationinterface?camp_id=<?php echo $_SESSION['campaign_id']; ?>";
       }
   });
 
@@ -548,6 +522,12 @@ $(document).ready(function() {
                             <input type="hidden" value="<?php echo $Campid; ?>" id="campaign_id" name="campaign_id">
                             </td>
                             <td>
+                                <select style="height:34px;" class="form-control form-control-default "  name="leadrectype" id="leadrectype">
+                                    <option value="assigned" <?php if( isset($leadrectype) && $leadrectype == "assigned") { echo "selected" ; } ?>>Assigned</option>
+                                    <option value="new" <?php if( isset($leadrectype) && $leadrectype == "new") { echo "selected" ; } ?>>New</option>
+                                    </select>
+                             </td>
+                            <td>
                                 <select style="height:34px;" class="form-control form-control-default "  name="leadlimit" id="leadlimit">
                                     <option value="5" <?php if( isset($leadlimit) && $leadlimit == "5") { echo "selected" ; } ?>>5</option>
                                     <option value="10" <?php if( isset($leadlimit) && $leadlimit == "10") { echo "selected" ; } ?>>10</option>
@@ -558,7 +538,7 @@ $(document).ready(function() {
                             </td>
                             <td>
                                
-                                <!-- <button class="btn btn-primary refreshbtn">Refresh <i class="icofont icofont-refresh"></i></button> -->
+                                <a class="btn btn-primary refreshbtn">Refresh <i class="icofont icofont-refresh"></i></a>
                             </td>
                             </tr>
                           

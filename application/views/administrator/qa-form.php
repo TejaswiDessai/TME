@@ -1262,6 +1262,23 @@ $.ajax({
                                   </div>
                               
                             </div>
+                            <div class="col-sm-2">
+
+                            <div class="to-do-list">
+                                        <div class="checkbox-fade fade-in-primary  col-sm-12">
+                                            <label class="check-task">
+                                                <input type="checkbox" name="callrec" id="callrec"  value="callrec">
+                                                <?php// foreach ($joblevel as $joblevel): ?>
+                                               <span  class="form-control form-control-sm cdqadisable tooltips">
+                                               <?php if($ldmster['callrec'] != "" && $ldmster['callrec'] == '1' ){ echo "Yes"; } else { echo "NO" ; } ?>
+                                               <span class="tooltiptext">Call Recording</span>
+                                                </span>
+                                                <?php// endforeach; ?>  
+                                            </label>
+                                        </div>
+                                  </div>
+                              
+                            </div>
                             
                           
                        </div>

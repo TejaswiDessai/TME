@@ -2131,6 +2131,25 @@ public function getPrivillage(){
 		}
 	}
 	// add by Amol
+
+	public function updaterecordlockfrom_leadgeneration(){ 
+	
+		$data = $this->Administrator_Model->update_recordlockonlogin($_SESSION['empcode']);
+		
+		if($data == true){
+		
+			echo json_encode(array(
+				"statusCode"=>"Success",
+				"message"=>"record Updated Successfully.."
+			));
+		}else{
+			echo json_encode(array(
+				"statusCode"=>"Fail",
+				"message"=>"Update failed.."
+			));
+		}
+	}
+	// added by Tejaswi
 	public function send_email_status()
 	{
 		// $string_version = $_GET['leadid'];

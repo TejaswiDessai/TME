@@ -591,49 +591,61 @@
 						$data['empcode'] = $this->session->userdata('empcode');
 						$data['Campid'] = $camp_id;
 						$leadlimit = $this->input->post('leadlimit');
+						$leadrectype = $this->input->post('leadrectype');
+						$refreshbtn = $this->input->post('refreshbtn');
 						$data['leadlimit'] = $leadlimit;
-						// print_r($leadlimit); 
-						$data['leadmaster'] = $this->Administrator_Model->get_leadmasterby_campaign_lead_generation($cids,$leadlimit);
+						$data['leadrectype'] = $leadrectype;
+						$data['refreshbtn'] = $refreshbtn;
+						// print_r($this->input->post('refreshbtn')); 
+						$data['leadmaster'] = $this->Administrator_Model->get_leadmasterby_campaign_lead_generation($cids,$leadlimit,$leadrectype,$data['empcode']);
 						// print_r($data['leadmaster']); 
 						// echo "<pre>";
 						// 	print_r($data['leadmaster']); 
 						// 	echo "</pre>";
-						foreach ($data['leadmaster'] as $ldmster) {
+						// foreach ($data['leadmaster'] as $ldmster) {
 						
 							
-							if(isset($ldmster['lsagent']) && !empty($ldmster['lsagent']) && ($ldmster['lsagent']==$data['empcode'])){
-								// print_r($ldmster['lsagent']);
-								$data['leadmaster'] = $this->Administrator_Model->get_leadmasterby_campaign_lead_generation($cids,$leadlimit,$data['empcode']);
-							}
-							// else{
-							// 	$data['leadmaster'] = $this->Administrator_Model->get_leadmasterby_campaign_lead_generation($cids,$leadlimit);	
-							// }
-						}
+					
 
 						if(empty($data['leadmaster'])){
 							$this->session->set_flashdata('success', 'Lead Generation finished for this campaign.');
-							redirect('cdc/selectCampaignForleadGeneration');
+							// redirect('cdc/selectCampaignForleadGeneration');
+						
 							
 						}
 
 						foreach ($data['leadmaster'] as $ldmster) {
-						
+							if (isset($data['leadmaster'])){
+								$data['countriesdv'] = $this->Administrator_Model->get_countriesbyCampaigndv($ldmster['lmid']);
+								$data['industriesdv'] = $this->Administrator_Model->get_industries_ofleadmaster($ldmster['lmid']);
+								$data['subindustriesdv'] = $this->Administrator_Model->get_subindustries_ofleadmaster($ldmster['lmid']);
+								$data['currencydv'] = $this->Administrator_Model->get_currency_ofleadmaster($ldmster['lmid']);
+								$data['timezonedv'] = $this->Administrator_Model->get_timezone_ofleadmaster($ldmster['lmid']);
+								$data['designationdv'] = $this->Administrator_Model->get_designation_ofleadmaster($ldmster['lmid']);
+								$data['departmentsdv'] = $this->Administrator_Model->get_depts_byleadmaster($ldmster['lmid']);
+								$data['assetitledv'] = $this->Administrator_Model->get_assetitle_byleadmaster($ldmster['lmid']);
+								$data['comptypedv'] = $this->Administrator_Model->get_comptype_byleadmaster($ldmster['lmid']);
+							}else if(empty($data['leadmaster'])){
+								// $this->session->set_flashdata('success', 'Data verification id finished.');
+								redirect('administrator/dashboard');
+							}
+	
 						}
 					
-						if (isset($data['leadmaster'])){
-							$data['countriesdv'] = $this->Administrator_Model->get_countriesbyCampaigndv($ldmster['lmid']);
-							$data['industriesdv'] = $this->Administrator_Model->get_industries_ofleadmaster($ldmster['lmid']);
-							$data['subindustriesdv'] = $this->Administrator_Model->get_subindustries_ofleadmaster($ldmster['lmid']);
-							$data['currencydv'] = $this->Administrator_Model->get_currency_ofleadmaster($ldmster['lmid']);
-							$data['timezonedv'] = $this->Administrator_Model->get_timezone_ofleadmaster($ldmster['lmid']);
-							$data['designationdv'] = $this->Administrator_Model->get_designation_ofleadmaster($ldmster['lmid']);
-							$data['departmentsdv'] = $this->Administrator_Model->get_depts_byleadmaster($ldmster['lmid']);
-							$data['assetitledv'] = $this->Administrator_Model->get_assetitle_byleadmaster($ldmster['lmid']);
-							$data['comptypedv'] = $this->Administrator_Model->get_comptype_byleadmaster($ldmster['lmid']);
-						}else if(empty($data['leadmaster'])){
-							// $this->session->set_flashdata('success', 'Data verification id finished.');
-							redirect('administrator/dashboard');
-						}
+						// if (isset($data['leadmaster'])){
+						// 	$data['countriesdv'] = $this->Administrator_Model->get_countriesbyCampaigndv($ldmster['lmid']);
+						// 	$data['industriesdv'] = $this->Administrator_Model->get_industries_ofleadmaster($ldmster['lmid']);
+						// 	$data['subindustriesdv'] = $this->Administrator_Model->get_subindustries_ofleadmaster($ldmster['lmid']);
+						// 	$data['currencydv'] = $this->Administrator_Model->get_currency_ofleadmaster($ldmster['lmid']);
+						// 	$data['timezonedv'] = $this->Administrator_Model->get_timezone_ofleadmaster($ldmster['lmid']);
+						// 	$data['designationdv'] = $this->Administrator_Model->get_designation_ofleadmaster($ldmster['lmid']);
+						// 	$data['departmentsdv'] = $this->Administrator_Model->get_depts_byleadmaster($ldmster['lmid']);
+						// 	$data['assetitledv'] = $this->Administrator_Model->get_assetitle_byleadmaster($ldmster['lmid']);
+						// 	$data['comptypedv'] = $this->Administrator_Model->get_comptype_byleadmaster($ldmster['lmid']);
+						// }else if(empty($data['leadmaster'])){
+						// 	// $this->session->set_flashdata('success', 'Data verification id finished.');
+						// 	redirect('administrator/dashboard');
+						// }
 
 						
 

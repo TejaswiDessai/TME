@@ -2439,7 +2439,7 @@ $("input:checkbox").change(function() {
             
                 this.checked ? checked.push(this.id) : notChecked.push(this.id);
             });
-            // alert(checked);     
+            alert(checked);     
           if(checked == ""){ // if unchecked any field
             checked = [0];
             
@@ -2452,11 +2452,63 @@ $("input:checkbox").change(function() {
             checked = [0];
             
             $("#leadupdatecdc").html("Accept & Submit");
+          }else if(checked == "optin,optpst,opteml"){ // if unchecked any field
+            checked = [0];
+            
+            $("#leadupdatecdc").html("Accept & Submit");
+          }else if(checked == "optin,optph,opteml"){ // if unchecked any field
+            checked = [0];
+            
+            $("#leadupdatecdc").html("Accept & Submit");
+          }else if(checked == "optin,opteml"){ // if unchecked any field
+            checked = [0];
+            
+            $("#leadupdatecdc").html("Accept & Submit");
+          }else if(checked == "optin,opteml"){ // if unchecked any field
+            checked = [0];
+            
+            $("#leadupdatecdc").html("Accept & Submit");
+          }else if(checked == "optin,optpst"){ // if unchecked any field
+            checked = [0];
+            
+            $("#leadupdatecdc").html("Accept & Submit");
           }else if(checked == "optpst,optph,opteml"){ // if unchecked any field
             checked = [0];
             
             $("#leadupdatecdc").html("Accept & Submit");
+          }else if(checked == "optpst,opteml"){ // if unchecked any field
+            checked = [0];
+            
+            $("#leadupdatecdc").html("Accept & Submit");
+          }else if(checked == "optph,opteml"){ // if unchecked any field
+            checked = [0];
+            
+            $("#leadupdatecdc").html("Accept & Submit");
+          }else if(checked == "optpst,optph"){ // if unchecked any field
+            checked = [0];
+            
+            $("#leadupdatecdc").html("Accept & Submit");
+          }else if(checked == "optin,optpst,optph"){ // if unchecked any field
+            checked = [0];
+            
+            $("#leadupdatecdc").html("Accept & Submit");
+          }else if(checked == "optin,optph"){ // if unchecked any field
+            checked = [0];
+            
+            $("#leadupdatecdc").html("Accept & Submit");
+          }else if(checked == "optin,opteml"){ // if unchecked any field
+            checked = [0];
+            
+            $("#leadupdatecdc").html("Accept & Submit");
           }else if(checked == "optin,optpst,optph,opteml,dnd"){ // if unchecked any field
+            checked = [0];
+            
+            $("#leadupdatecdc").html("Accept & Submit");
+          }else if(checked == "optin,optph,opteml,dnd" || checked == "optin,opteml,dnd" || checked == "optin,optpst,opteml,dnd" || checked == "optin,optpst,optph,dnd"){ // if unchecked any field
+            checked = [0];
+            
+            $("#leadupdatecdc").html("Accept & Submit");
+          }else if(checked == "optpst" || checked == "optph" ||checked == "opteml"){ // if unchecked any field
             checked = [0];
             
             $("#leadupdatecdc").html("Accept & Submit");

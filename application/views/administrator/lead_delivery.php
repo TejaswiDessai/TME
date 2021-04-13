@@ -78,28 +78,67 @@ $(document).ready(function(){
 
                 <div class="card">
                 <div class="card-block">
-                        <!-- <form action="<?php echo base_url();?>administrator/user_report" method="post" > -->
+                        <form action="<?php echo base_url();?>administrator/delivery" method="post" >
                         <table>
                             <tr>
                             <td>
-                                <a class="btn btn-primary" href="">Export in CSV</a>
+                                <select class="form-control form-control-default "  name="campid" id="campid">
+                                    <option value="">Campaign</option>
+                                    <?php foreach ($campaigns as $campaign): ?>
+                                        <option value="<?php echo $campaign['cids']; ?>" <?php if( isset($Campid) && $Campid == $campaign['cids']) { echo "selected" ; } ?>><?php echo $campaign['campnm']; ?></option>
+                                    <?php endforeach; ?>
+                                </select>
+                            </td>
+                            <td>
+                                <select class="form-control form-control-default "  name="delivery_status" id="delivery_status">
+                                    <option value="">Delivery Status</option>
+                                    <option value="0" <?php if( isset($delivery_status) && $delivery_status == "0") { echo "selected" ; } ?>>Ready to Deliver</option>
+                                    <option value="1" <?php if( isset($delivery_status) && $delivery_status == "1") { echo "selected" ; } ?>>Delivered</option>
+                                </select>
+                            </td>
+                            <td>
+                                <select class="form-control form-control-default "  name="qa_status" id="qa_status">
+                                    <option value="">QA Status</option>
+                                    <option value="qualified" <?php if( isset($qa_status) && $qa_status == "qualified") { echo "selected" ; } ?>>Accept - Qualified</option>
+                                    <option value="disqualified" <?php if( isset($qa_status) && $qa_status == "disqualified") { echo "selected" ; } ?>>Accept - DisQualified</option>
+                                </select>
+                            </td>
+                            <td>
+                                <select class="form-control form-control-default "  name="ls_status" id="ls_status">
+                                    <option value="">Lead Scored Status</option>
+                                    <option value="1" <?php if( isset($ls_status) && $ls_status == "1") { echo "selected" ; } ?>>Yes</option>
+                                    <option value="0" <?php if( isset($ls_status) && $ls_status == "0") { echo "selected" ; } ?>>No</option>
+                                </select>
+                            </td>
+                            <td>
+                                <input  class="btn btn-primary" type="submit" name="submit">
+                            </td>
+                            </tr>
+                            </form>
+                            <tr>
+                            <td>
+
+
                             </td>
                             </tr>
                             </table>
-                            <!-- </form> -->
+                            
                        
                     </div>
                     <!-- <br> -->
                     <div class="card-block">
                         <div class="table-responsive dt-responsive">
+                        <form id="check" action="<?php echo base_url();?>administrator/export_csv" method="post" >
                             <table id="dom-jqry" class="table table-striped table-bordered nowrap">
                                 <thead>
                                     <tr>
                                         <th><input type="checkbox" class="emailsend_all  emailclass"  onclick="toggle(this);"/>&nbsp;&nbsp;Select</th>
+                                        <th>Camp Id</th>
                                         <th>FName</th>
                                         <th>LName</th>
                                         <th>Email</th>
                                         <th>Phone</th>
+                                        <th>Delivery Status</th>
                                         <th>Job Title</th>
                                         <th>Department</th>
                                         <th>Company Name</th>
@@ -129,11 +168,17 @@ $(document).ready(function(){
                                 // echo $j;
                                 ?>
                                  <tr>
-                                        <td><input type="checkbox" class ="emailclass checkbox_emailclass" value="<?php echo $i;?>" name="delivery_final_<?php echo $i;?>" id="delivery_final_<?php echo $i;?>" ><?php //echo $i;?></td>
+                                        <td><input type="checkbox" class ="emailclass checkbox_emailclass" value="<?php echo $post->lmid;?>" name="delivery_final_check[]" id="delivery_final_check_<?php echo $i;?>" ><?php //echo $i;?>
+                                        <input type="hidden" name="leadid" id="leadid_<?php echo $i;?>" value="<?php echo $post->lmid;?>">
+                                        </td>
+                                        <td><?php echo $post->cids; ?></td>
                                         <td><?php echo $post->sal." ". $post->fname; ?></td>
                                         <td><?php echo $post->lname; ?></td>
                                         <td><?php echo $post->email; ?></td>
                                         <td><?php echo $post->phone; ?></td>
+                                        <td>
+                                            <?php if($post->dytg == 0 || $post->dytg == ''){ echo "<b style='color:green';>Ready to Deliver</b>";}elseif($post->dytg == 1){ echo "<b style='color:red';>Delivered</b>";}?>
+                                        </td>
                                          <td><?php echo $post->jtitle; ?></td>
                                          <td><?php echo $post->department;?></td>
                                          <td><?php echo $post->cname;?></td>
@@ -169,10 +214,22 @@ $(document).ready(function(){
 
                                  </tbody>
                             </table>
+                            <input  class="btn btn-primary" id="Export" type="submit" value="Export" name="submit">
+                                </form>
                         </div>
                     </div>
                 </div>
                 <!-- DOM/Jquery table end -->
             </div>
 
-  
+  <script>
+    $('#Export').prop("disabled", true);
+    $('input:checkbox').click(function() {
+    if ($(this).is(':checked')) {
+    $('#Export').prop("disabled", false);
+    } else {
+    if ($('.checks').filter(':checked').length < 1){
+    $('#Export').attr('disabled',true);}
+    }
+    });
+  </script>

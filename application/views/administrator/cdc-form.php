@@ -2439,7 +2439,7 @@ $("input:checkbox").change(function() {
             
                 this.checked ? checked.push(this.id) : notChecked.push(this.id);
             });
-            alert(checked);     
+            // alert(checked);     
           if(checked == ""){ // if unchecked any field
             checked = [0];
             

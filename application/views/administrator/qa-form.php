@@ -13,6 +13,11 @@
     display: block;
     margin-top: 5px;
     }
+    .asendtonone {
+   
+    display: none;
+   
+    }
    
     .select2-container--default .select2-selection--multiple {
     padding:0px 0px 0px 0px;
@@ -1363,8 +1368,9 @@ $.ajax({
                             
                              <!-- <center> -->
                                <select class="form-control form-control-sm"  name="asendto" id="asendto" style="height: 40px;" required>
-                                    <option value="1">Accept-Send to Lead</option>
+                                   
                                     <option value="2">Accept-Qualify</option>
+                                    <option value="1" class="<?php if($ldmster['dnd'] == '1'){ echo 'asendtonone';} ?>">Accept-Send to Lead</option>
                                     <option value="3">Accept-Disqualify</option>
                                 </select>
                                <select class="form-control form-control-sm"  name="rsendto" id="rsendto" style="height: 40px;" required>

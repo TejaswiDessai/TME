@@ -4633,12 +4633,19 @@
 			$old_date = date('Y-m-d H:i:s'); 
 			$lsagent = $_SESSION['empcode'];
 		
-		
+			if($lsfinal == '1')
+					{
+						$qalsload = NULL;
+					}else{
+						$qalsload ='1';
+					}
 
 				$datacdcandlead = array(
 			
 			
 		
+				'qalsload' => $qalsload,
+				'cdcload' => '1',
 				'lsfinal' => $lsfinal,
 				'lsstatdt' => $old_date,
 				'lsagent' => $lsagent

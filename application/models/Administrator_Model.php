@@ -1874,8 +1874,9 @@ public function get_leadmasterby_campaignQA($id = FALSE)
 		$this->db->join('country', 'leadmaster.country = country.countrycd');
 		
 		$this->db->order_by('leadmaster.qaacptdti','ASC');
-		$this->db->limit(5);	
-		// $this->db->limit($leadlimit);	
+		// $this->db->limit(5);	
+		// $this->db->limit($leadlimit);
+		$this->db->limit($leadlimit);		
 		$query = $this->db->get_where('leadmaster', array('leadmaster.cids' => $id));
 	
 	}
@@ -1906,7 +1907,14 @@ public function get_leadmasterby_campaignQA($id = FALSE)
 		$this->db->join('country', 'leadmaster.country = country.countrycd');
 		
 		$this->db->order_by('leadmaster.qaacptdti','ASC');
-		$this->db->limit(5);
+		// $this->db->limit(5);
+		if(isset($leadlimit) && $leadlimit != null){
+			$this->db->limit($leadlimit);	
+		}
+		
+		else{
+		$this->db->limit(5);	
+		}
 		$query = $this->db->get_where('leadmaster', array('leadmaster.cids' => $id));
 
 
@@ -1918,9 +1926,9 @@ public function get_leadmasterby_campaignQA($id = FALSE)
 		$this->db->limit($leadlimit);	
 	}
 	
-	// else{
-	// $this->db->limit(5);	
-	// }
+	else{
+	$this->db->limit(5);	
+	}
 	
 	
 	// echo $this->db->last_query(); 

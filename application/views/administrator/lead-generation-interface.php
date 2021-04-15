@@ -470,7 +470,8 @@ $(document).on("click", ".gotoupdateleadlsfinal", function () {
 // } );
 $(document).ready(function() {
     $('#dom-jqry').DataTable( {
-        "lengthMenu": [[5, 10], [5, 10]]
+        // "lengthMenu": [[5, 10], [5, 10]]
+        "lengthChange": false
     } );
 } );
 

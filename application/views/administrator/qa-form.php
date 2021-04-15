@@ -1370,7 +1370,7 @@ $.ajax({
                                <select class="form-control form-control-sm"  name="asendto" id="asendto" style="height: 40px;" required>
                                    
                                     <option value="2">Accept-Qualify</option>
-                                    <option value="1" class="<?php if(($ldmster['dnd'] == '1') || ($ldmster['cvr'] == '0') || ($ldmster['cdclst'] == '1') || ($ldmster['lsfinal'] == '1')){ echo 'asendtonone';} ?>">Accept-Send to Lead</option>
+                                    <option value="1" class="<?php if(($ldmster['dnd'] == '1') || ($ldmster['cvr'] == '0') || ($ldmster['cdclst'] == '1')){ echo 'asendtonone';} ?>">Accept-Send to Lead</option>
                                     <option value="3">Accept-Disqualify</option>
                                 </select>
                                <select class="form-control form-control-sm"  name="rsendto" id="rsendto" style="height: 40px;" required>
@@ -1384,8 +1384,8 @@ $.ajax({
                               <!-- <button type="submit" name="leadupdateqa" class="btn btn-primary leaddisplay" style=""  id="leadupdateqa">Accept & Submit</button>  -->
                              </div>
                               <div class="col-sm-3">
+                              
                               <!-- <button type="submit" name="leadsaveqa" class="btn btn-primary leaddisplay" style="margin-left:50px"  id="leadsaveqa">Skip </button>  -->
-                              <button type="submit" name="leadsaveqa" class="btn btn-primary leaddisplay" style="margin-left:50px"  id="leadsaveqa">Skip </button> 
                              <!-- </center> -->
                              </div>
                         <?php } else{ ?>

@@ -1238,7 +1238,7 @@ $.ajax({
                             <div class="to-do-list">
                                         <div class="checkbox-fade fade-in-primary  col-sm-12">
                                             <label class="check-task">
-                                                <input type="checkbox" name="ddispositionclass" id="ddispositionclass"  value="cvr">
+                                                <input type="checkbox" name="ddispositionclass" id="ddispositionclass"  value="ddispositionclass">
                                                 <?php// foreach ($joblevel as $joblevel): ?>
                                                <span  class="form-control form-control-sm cdqadisable tooltips">
                                                <?php if($ldmster['ddispositionclass'] != "" && $ldmster['ddispositionclass'] == '1' ){ echo "Dead"; } else { echo "Live" ; } ?>
@@ -1370,7 +1370,7 @@ $.ajax({
                                <select class="form-control form-control-sm"  name="asendto" id="asendto" style="height: 40px;" required>
                                    
                                     <option value="2">Accept-Qualify</option>
-                                    <option value="1" class="<?php if($ldmster['dnd'] == '1'){ echo 'asendtonone';} ?>">Accept-Send to Lead</option>
+                                    <option value="1" class="<?php if(($ldmster['dnd'] == '1') || ($ldmster['cvr'] == '0') || ($ldmster['cdclst'] == '1')){ echo 'asendtonone';} ?>">Accept-Send to Lead</option>
                                     <option value="3">Accept-Disqualify</option>
                                 </select>
                                <select class="form-control form-control-sm"  name="rsendto" id="rsendto" style="height: 40px;" required>

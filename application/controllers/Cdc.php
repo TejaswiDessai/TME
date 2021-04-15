@@ -3443,6 +3443,13 @@
 					$pcomt= "lead:".$_SESSION['empcode'].":".$old_date."#".$_GET['pcomt'];
 
 					
+					if($lsfinal == '1')
+					{
+						$qalsload = NULL;
+					}else{
+						$qalsload ='1';
+					}
+					
 				$datacdcandlead = array(
 				'rlc' => '0', // record is closed
 
@@ -3475,7 +3482,9 @@
 				'cdcload' => '1', //  next level
 				'lsagti' =>  $_SESSION['empcode'], // submit agent name 
 				'lsdti' => $old_date, // lead generation date time
-			
+				 'qalsload' => $qalsload,
+				'lsstatdt' => $old_date,
+				'lsagent' => $_SESSION['empcode'], // submit agent name 
 				
 				'pcomt' => $pcomt 
 				

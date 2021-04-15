@@ -1067,7 +1067,24 @@ $(document).ready(function() {
                         <div class="form-group row" >
                              <div class="col-sm-12 commentvisible">
                                 <label class="col-lable"><b>Comment</b></label>
-                                <input type="text"  name="pcomt" id="pcomt"  placeholder="Comment"  class="form-control form-control-sm" value="<?php echo $ldmster['pcomt']; ?>" >
+                                <!-- <input type="text"  name="pcomt" id="pcomt"  placeholder="Comment"  class="form-control form-control-sm" value="<?php echo $ldmster['pcomt']; ?>" > -->
+                                <input type="text" autocomplete = "off"  name="pcomt" id="pcomt"  placeholder="Comment"  class="form-control form-control-sm" 
+                                value="<?php if(isset($ldmster['pcomt']) && $ldmster['pcomt'] != '') {
+                                   $arr = explode("#", $ldmster['pcomt']);
+                                  
+                                   $withoutchar = $arr[0];
+                                   if(!empty($arr[1])){
+                                      $first = $arr[1];
+                                      echo  $first; 
+                                   }else{
+                                    echo $withoutchar; 
+                                   }
+                                  
+                                 }else{
+                                   echo "";
+                                 } ?>">
+                            
+                            
                             </div> 
                          </div>
                         <input type = hidden name="campaign_id" id="campaign_id" value="<?php echo $campaign['cnid']; ?>">
@@ -1081,6 +1098,7 @@ $(document).ready(function() {
                           <input type = hidden name="emp_id" id="emp_id" value="<?php echo  $_SESSION['empcode']; ?>">
                           <input type = hidden name="sbsvtag" id="sbsvtag" value="<?php echo $ldmster['sbsvtag']; ?>">
                           <input type = hidden name="qarej" id="qarej" value="<?php echo $ldmster['qarej']; ?>">
+                          <input type = hidden name="cdcrjt" id="cdcrjt" value="<?php echo $ldmster['cdcrjt']; ?>">
                           <input type = hidden name="dvrejtg" id="dvrejtg" value="<?php echo $ldmster['dvrejtg']; ?>">
                           <input type = hidden name="dvsbtg" id="dvsbtg" value="<?php echo $ldmster['dvsbtg']; ?>">
                           <input type = hidden name="rlc" id="rlc" value="<?php echo $ldmster['rlc']; ?>">
@@ -2105,6 +2123,7 @@ $("input:checkbox").change(function() {
                 checked = [0];
                 var dvsbtg1 = $('#dvsbtg').val();
                 var qarej =$('#qarej').val(); // tags of qa team
+                var cdcrjt =$('#cdcrjt').val(); // tags of qa team
                 // if(dvsbtg1 == ""){
                 //   var dvsbtg = 1;
                 // }else{
@@ -2113,18 +2132,18 @@ $("input:checkbox").change(function() {
                 if(dvsbtg1 == ""){
                   var dvsbtg = 1;
                 }else if(dvsbtg1 <= '2' && qarej == "")
-              {           
-               var dvsbtg = parseInt(dvsbtg1)+1; // incremataion for dv  rejection
-              }else if(dvsbtg1 <= '2' && qarej == "1")
-              {
+                {           
                 var dvsbtg = parseInt(dvsbtg1)+1; // incremataion for dv  rejection
-                // alert(dvsbtg);
-              }else{
-               
-                var dvsbtg = $('#dvsbtg').val(); 
-                // alert("else");
-                // alert(dvsbtg); 
-              }
+                }else if(dvsbtg1 <= '2' && qarej == "1")
+                {
+                  var dvsbtg = parseInt(dvsbtg1)+1; // incremataion for dv  rejection
+                  // alert(dvsbtg);
+                }else{
+                
+                  var dvsbtg = $('#dvsbtg').val(); 
+                  // alert("else");
+                  // alert(dvsbtg); 
+                }
     
                 if(dvsbtg == '3'){
                   var dvsbtg = '3';
@@ -2136,26 +2155,8 @@ $("input:checkbox").change(function() {
                 
           }else{ //checked -rejected
             var qarej =$('#qarej').val(); // tags of qa team
+            var cdcrjt =$('#cdcrjt').val(); // tags of qa team
             var dvsbtg =$('#dvsbtg').val();
-
-      
-            // var dvrejtg1 = $('#dvrejtg').val();
-            //  if(dvrejtg1 == ""){
-            //   var dvrejtg = 1;
-            //   }else{
-            //     var dvrejtg = parseInt(dvrejtg1)+1; // incremataion for dv  rejection
-            //   }
-
-          //    // if(dvrejtg <= '3' && qarej != '1'){
-          //   var dvrejtg1 = $('#dvrejtg').val();
-          //    if(dvrejtg1 == ""){
-          //     var dvrejtg = 1;
-          //     }else{
-          //       var dvrejtg = parseInt(dvrejtg1)+1; // incremataion for dv  rejection
-          //     }
-          // // }else{
-          // //   var dvrejtg = $('#dvrejtg').val(); 
-          // // }
 
             
             var dvrejtg1 = $('#dvrejtg').val();
@@ -2174,11 +2175,21 @@ $("input:checkbox").change(function() {
        
           
  
-            if(dvrejtg == '3' && qarej != '1'){
+            if(dvrejtg == '3' && qarej == '' && cdcrjt == ''){
+            
               var dvrejtg = '3';
               var sbsvtag = '0';
-            }else{
+             
+            }
+            
+            // if (dvrejtg == '3' && cdcrjt >= '0')
+            // {
+              
+            //   var sbsvtag = $('#sbsvtag').val();
+            // }
+            else{
               var sbsvtag = $('#sbsvtag').val();
+              // alert(sbsvtag);
             }
             // if(dvrejtg == '2'){
             //   var dvrejtg = '2';
@@ -2188,8 +2199,10 @@ $("input:checkbox").change(function() {
             // }
 
           }
-           
-        
+        //   alert(sbsvtag);
+        //       alert(cdcrjt); 
+        //       alert(dvrejtg); 
+        // exit;
             var dvrdti = $('#dvrdti').val();
             var dvragtidi = $('#dvragtidi').val();
 

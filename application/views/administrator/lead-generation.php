@@ -1245,7 +1245,7 @@ $.ajax({
                                   </div>
                               
                             </div>
-                            <!-- <div class="col-sm-2">
+                           <div class="col-sm-2">
 
                             <div class="to-do-list">
                                         <div class="checkbox-fade fade-in-primary  col-sm-12">
@@ -1253,8 +1253,8 @@ $.ajax({
                                                 <input type="checkbox" name="cdclst" id="cdclst"  value="cdclst">
                                                 <?php// foreach ($joblevel as $joblevel): ?>
                                                <span  class="form-control form-control-sm cdqadisable tooltips">
-                                               <?php// if($ldmster['cdclst'] != "" && $ldmster['cdclst'] == '1' ){ echo "Yes"; } else { echo "NO" ; } ?>
-                                               <span class="tooltiptext">Lead Score</span>
+                                               <?php if($ldmster['cdclst'] != "" && $ldmster['cdclst'] == '1' ){ echo "Yes"; } else { echo "NO" ; } ?>
+                                               <span class="tooltiptext">CDC Lead Score</span>
                                                 </span>
                                                 <?php// endforeach; ?>  
                                             </label>
@@ -1262,7 +1262,7 @@ $.ajax({
                                   </div>
                               
                             </div>
-                            <div class="col-sm-2">
+                           <!--   <div class="col-sm-2">
 
                                   <div class="to-do-list">
                                               <div class="checkbox-fade fade-in-primary  col-sm-12">

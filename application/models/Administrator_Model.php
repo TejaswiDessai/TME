@@ -1754,6 +1754,7 @@ public function get_leadmasterby_campaignidwithempcode($id = FALSE,$empcode)
 		$this->db->where('dvrejtg < 3 AND dvsbtg < 3');
 		$this->db->OR_where('dvrejtg is NULL AND dvsbtg is NULL');
 		$this->db->OR_where('qarej', 1);
+		$this->db->OR_where('cdcrjt <', '4');//if dvrej is 3, then check cdcrjt
 		$this->db->group_end(); 
 	
 		$this->db->where('ontag', 1);
@@ -1797,6 +1798,7 @@ public function get_leadmasterby_campaigniddv($id = FALSE)
 			$this->db->group_start();
 			$this->db->where('dvrejtg < 3 AND dvsbtg < 3');
 			$this->db->OR_where('qarej', 1);
+			$this->db->OR_where('cdcrjt <', '4');
 			$this->db->group_end(); 
 		
 		$this->db->where('ontag', 0);
@@ -1828,6 +1830,7 @@ public function get_leadmasterby_campaignQA($id = FALSE)
 	// $this->db->where('evload',0); 
 	$this->db->where('cdcload',1);
 	$this->db->where('qaload',null);
+	$this->db->where('qalsload',null);
 	$this->db->where('rlc !=', 1);
 		$this->db->group_start();
 		$this->db->where('ddispositionclass', '0');
@@ -1984,6 +1987,7 @@ public function get_leadmasterby_campaign_CDC($id = FALSE,$postDatalmid,$camp_id
 		$this->db->where('cdcload',NULL);
 
 		$this->db->where('qaload',null);
+		$this->db->where('qalsload',null);
 		// $this->db->where('rlc !=', 1);
 		// if(isset($postDatalmid) && isset($camp_id2)){
 		if(isset($postDatalmid)){
@@ -2043,6 +2047,7 @@ public function get_campaign_fordataverification()
 		$this->db->group_start();
 		$this->db->where('leadmaster.dvrejtg < 3 AND leadmaster.dvsbtg < 3');
 		$this->db->OR_where('leadmaster.qarej', 1);
+		$this->db->OR_where('leadmaster.cdcrjt <', '4');
 		// $this->db->OR_where('leadmaster.cdcmandt', 1);
 		$this->db->group_end(); 
 	
@@ -2083,6 +2088,7 @@ public function get_campaign_fordataverification()
 			// $this->db->where('leadmaster.cdcload',0);
 			$this->db->where('leadmaster.cdcload',NULL);
 			$this->db->where('leadmaster.qaload',null);
+			$this->db->where('leadmaster.qalsload',null);
 			$this->db->where('leadmaster.rlc !=', 1);	
 			$this->db->where('campaign.status', 2);	
 			$this->db->join('leadmaster', 'leadmaster.cids = campaign.cids');
@@ -2118,6 +2124,7 @@ public function get_campaign_fordataverification()
 			// $this->db->where('leadmaster.evload',0);
 			$this->db->where('leadmaster.cdcload',1);
 			$this->db->where('leadmaster.qaload',null);
+			$this->db->where('leadmaster.qalsload',null);
 			$this->db->where('leadmaster.rlc !=', 1);	
 			$this->db->where('campaign.status', 2);	
 			$this->db->join('leadmaster', 'leadmaster.cids = campaign.cids');

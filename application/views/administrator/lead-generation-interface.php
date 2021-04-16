@@ -314,7 +314,7 @@ $(document).on("click", ".gotoupdateleadlstat", function () {
                     if(response.statusCode == "Success") 
                     {   
                        
-                        alert("Call status updated successfully");
+                        // alert("Call status updated successfully");
                         $this.closest("td").find("#gotoupdateleadlstat").html("<i class='icofont icofont-edit'></i><i class='icofont icofont-check'></i>");
                       
                        
@@ -374,7 +374,7 @@ $(document).on("click", ".gotoupdateleadlsfinal", function () {
                     console.log("check");
                     if(response.statusCode == "Success") 
                     {         
-                         alert("Call displosition updated successfully");
+                        //  alert("Call displosition updated successfully");
                          $this.closest("td").find("#gotoupdateleadlsfinal").html("<i class='icofont icofont-edit'></i> <i class='icofont icofont-check'></i>");
                         // $("#gotoupdateleadlsfinal").attr("disabled", true); 
                         // $("#gotoupdateleadlsfinal").html("Updated <i class='icofont icofont-check'></i>");
@@ -571,8 +571,9 @@ $(document).ready(function() {
                                         <th>Comapany Name</th>
                                         <th>LinkedIn URL</th>
                                         <th>Email</th>
-                                        <th>Call Disposition</th>
-                                        <th>Call Status &nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
+                                        <th>Call Disposition  &nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
+                                        <th>Call Status &nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
+                                        <!-- <th style="Width:200px !important">Call Status</th> -->
                                         
                                        
                                         <!-- <th>Call Verified in CDC</th> -->
@@ -627,33 +628,44 @@ $(document).ready(function() {
                                         <?php echo $post['email']; ?>
                                         </td>
                                         <td>
-                                        
+                                        <div class="form-group row ">
+                                        <select style="margin-left: 6px;margin-bottom: 5px;height:34px;" class="form-control form-control-sm lsfinalclass col-sm-8 "  name="lsfinal" id="lsfinal_<?php echo  $i;?>">
+                                           
+                                           <option value="0" <?php if(isset($post['lsfinal']) && ($post['lsfinal'] =='0') ){ echo "Selected"; } ?> >Open</option>
+                                           <option value="1" <?php if(isset($post['lsfinal']) && ($post['lsfinal'] =='1') ){ echo "Selected"; } ?> >Closed</option>
+                                          
+                                           </select>
+                                         
+                                           <button type="button" style="margin-left: 2px;height: 34px;" data-toggle="tooltip" title="Update"  class="col-sm-3 btn btn-primary btn-sm gotoupdateleadlsfinal" data-id="<?php echo $post['lmid'];?>" id="gotoupdateleadlsfinal"
+                                            data-row="<?php echo $i;?>"><i class="icofont icofont-edit"></i></button>
+                                     
+                                        </div>
                                         <?php 
                                        // if(isset($post['lsfinal']) && ($post['lsfinal'] == '0') ){echo "Open";} else{ echo "Empty"; }?>
-                                        <select style="margin-bottom: 5px;height:34px;" class="form-control form-control-sm lsfinalclass "  name="lsfinal" id="lsfinal_<?php echo  $i;?>">
-                                           
-                                            <option value="0" <?php if(isset($post['lsfinal']) && ($post['lsfinal'] =='0') ){ echo "Selected"; } ?> >Open</option>
-                                            <option value="1" <?php if(isset($post['lsfinal']) && ($post['lsfinal'] =='1') ){ echo "Selected"; } ?> >Closed</option>
-                                           
-                                            </select>
-                                          
-                                            <button type="button" data-toggle="tooltip" title="Update"  class="btn btn-primary btn-sm gotoupdateleadlsfinal" data-id="<?php echo $post['lmid'];?>" id="gotoupdateleadlsfinal"
-                                             data-row="<?php echo $i;?>"><i class="icofont icofont-edit"></i></button>
-                                      
+                                        
                                         </td>
                                         <td>
+                                             <div class="form-group row">
+                                                
+                                                <!-- <div class="col-sm-2"> -->
+                                                <select style="margin-bottom: 5px;margin-left: 6px;height:34px;"  class="form-control form-control-sm lstatclass col-sm-8"  name="lstat" id="lstat_<?php echo  $i;?>" required="">
+                                                    <option value="">Change Status</option>
+                                                    <option value="on-hold" <?php if(isset($post['lstat']) && ($post['lstat'] =='on-hold') ){ echo "Selected"; } ?> >on-hold</option>
+                                                    <option value="voicemail" <?php if(isset($post['lstat']) && ($post['lstat'] =='voicemail') ){ echo "Selected"; } ?> >voicemail</option>
+                                                    <option value="call-back" <?php if(isset($post['lstat']) && ($post['lstat'] =='call-back') ){ echo "Selected" ;} ?> >call-back</option>
+                                                    </select>
+                                                <!-- </div>
+                                                <div class="col-sm-2"> -->
+                                                <button type="button" style="margin-left: 2px;height: 34px;" class="btn btn-primary col-sm-3 btn-sm gotoupdateleadlstat" data-toggle="tooltip" title="Update" data-id="<?php echo $post['lmid'];?>" id="gotoupdateleadlstat"
+                                             data-row="<?php echo $i;?>"><i class="icofont icofont-edit"></i></button>
+                                           
+                                                <!-- </div> -->
+                                            </div>
                                         <!-- <p id='plstat'><?php 
                                         //if(isset($post['lstat']) ){ //echo $post['lstat'];} else{ echo "Empty"; }?></p> -->
                                           
-                                          <select style="margin-bottom: 5px;height:34px;"  class="form-control form-control-sm lstatclass"  name="lstat" id="lstat_<?php echo  $i;?>" required="">
-                                            <option value="">Change Status</option>
-                                            <option value="on-hold" <?php if(isset($post['lstat']) && ($post['lstat'] =='on-hold') ){ echo "Selected"; } ?> >on-hold</option>
-                                            <option value="voicemail" <?php if(isset($post['lstat']) && ($post['lstat'] =='voicemail') ){ echo "Selected"; } ?> >voicemail</option>
-                                            <option value="call-back" <?php if(isset($post['lstat']) && ($post['lstat'] =='call-back') ){ echo "Selected" ;} ?> >call-back</option>
-                                            </select>
-                                            <button type="button" class="btn btn-primary btn-sm gotoupdateleadlstat" data-toggle="tooltip" title="Update" data-id="<?php echo $post['lmid'];?>" id="gotoupdateleadlstat"
-                                             data-row="<?php echo $i;?>"><i class="icofont icofont-edit"></i></button>
-                                           
+                                         
+                                          
                                         </td>
                                        
                                        

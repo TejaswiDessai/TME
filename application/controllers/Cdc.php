@@ -4272,7 +4272,7 @@
 				'cdcsv' => '0', //  Submit till 5 times
 				'cdccomp' => '1', //  if updated in cdc, set to 1
 				'rlc' => '0', // record is closed
-				'ontag' => '0', // record is closed
+				// 'ontag' => '0', // record is closed
 
 				// 'svagtidi' => '1' // save Agent Name
 				// 'svdti' => '1' // save date time

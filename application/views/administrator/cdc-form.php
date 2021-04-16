@@ -1279,8 +1279,8 @@ $.ajax({
                             </div>
                             <div class="col-sm-2">
                                 <select class="form-control form-control-sm"  name="ddispositionclass" id="ddispositionclass">
-                                    <option value="">Disposition Class- In Progress</option>
-                                    <option value="0"<?php if(isset($ldmster) && $ldmster['ddispositionclass'] == '0'){ echo "selected" ; } ?>>Live</option>
+                                    <!-- <option value="">Disposition Class- In Progress</option> -->
+                                    <option value="0"<?php if(isset($ldmster) && $ldmster['ddispositionclass'] == '0'){ echo "selected" ; } ?>>Disposition Class- Live</option>
                                     <option value="1"<?php if(isset($ldmster) && $ldmster['ddispositionclass'] == '1'){ echo "selected" ; } ?>>Dead</option>
                                 </select>
                             </div>
@@ -2291,6 +2291,12 @@ $.ajax({
       ddispositionclass : {
         // required: true
       },
+      callrec : {
+        required: true
+      },
+      cdclst : {
+        required: true
+      },
       fname : {
         required: true,
         minlength: 2
@@ -2715,7 +2721,7 @@ $("input:checkbox").change(function() {
           
             // var url = encodeURI("<?php //echo base_url("cdc/ajax_update_datacdc");?>");
 
-            if(cvr != "")
+            if(cvr != "" && callrec != "" && cdclst !="")
             {
             var url = encodeURI("<?php echo base_url("cdc/ajax_update_datacdc");?>");
           
@@ -2973,7 +2979,7 @@ $(function() {
             var callrec = $('#callrec').val();
             var cvr = $('#cvr').val();
 
-            if(cvr != "")
+            if(cvr != "" && callrec != ""  && cdclst !="")
             {
             // var url = encodeURI("<?php //echo base_url("cdc/ajax_update_datacdc");?>");
             var url = encodeURI("<?php echo base_url("cdc/ajax_save_leaddatacdc");?>");

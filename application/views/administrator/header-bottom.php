@@ -165,6 +165,16 @@ $userteam = explode(',',$userteam1);
                         </a>
                     </li> -->
                     <li class="nav-item">
+                      
+                      <a href="#!">
+                      <i class="icofont icofont-fast-delivery"></i>
+                          <span>Delivery</span>
+                      </a>
+                      <ul class="tree-1">
+                      <li><a href="<?php echo base_url(); ?>administrator/delivery">Delivery</a></li>
+                      </ul>
+                    </li>
+                    <li class="nav-item">
                         <a href="#!">
                             <i class="ti-layout"></i>
                             <span>Users</span>
@@ -197,16 +207,7 @@ $userteam = explode(',',$userteam1);
                             <!-- <li><a href="<?php //echo base_url(); ?>administrator/delivery" data-i18n="nav.basic-components.alert">Delivery</a></li> -->
                         </ul>
                     </li>
-                    <li class="nav-item">
-                      
-                        <a href="#!">
-                        <i class="icofont icofont-fast-delivery"></i>
-                            <span>Delivery</span>
-                        </a>
-                        <ul class="tree-1">
-                        <li><a href="<?php echo base_url(); ?>administrator/delivery">Delivery</a></li>
-                        </ul>
-                    </li>
+                   
                 <?php } ?>
                   
                    

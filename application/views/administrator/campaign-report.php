@@ -119,9 +119,10 @@
                                         <th>Total Accepted</th>
                                         <th>1st Accept</th>
                                         <th>2nd Accept</th>
-                                        <th>CDC Total Accept</th>
-                                        <th>CDC Rejct</th>
                                         <th>CDC Pending</th>
+                                        <th>CDC Total Accept</th>
+                                        <th>CDC Reject</th>
+                                        
                                         <th>QA Accept- Qalified</th>
                                         <th>QA Accept- Dis-Qalified</th>
                                         <th>QA Reject</th>
@@ -258,6 +259,23 @@
                                         <!-- </td> -->
                                         <td>
                                             <?php 
+                                         $cdc_pending = $this->db->query("select * from leadmaster
+                                         where 
+                                         rlc != 1
+                                         and evload = 1
+                                         and sbsvtag != 0
+                                         and cdcsb < 4
+                                         and cdcrjt < 4
+                                         and cdcsv is NULL
+                                         and qasv is NULL
+                                         and cdcload is NULL
+                                         and qaload is NULL
+                                         and cids = '".$post['cids']."'");
+                                         echo $cdc_pending->num_rows();
+                                         ?>
+                                         </td>
+                                        <td>
+                                            <?php 
                                          $cdc_total_accept = $this->db->query("select * from leadmaster
                                          where 
                                          rlc = 0
@@ -286,17 +304,7 @@
                                          echo $cdc_reject->num_rows();
                                          ?>
                                          </td>
-                                         <td>
-                                            <?php 
-                                         $cdc_pending = $this->db->query("select * from leadmaster
-                                         where 
-                                         rlc = 0
-                                         and cdcload = 1
                                          
-                                         and cids = '".$post['cids']."'");
-                                         echo $cdc_pending->num_rows();
-                                         ?>
-                                         </td>
                                          <td>
                                             <?php 
                                          $qa_accept_qualify = $this->db->query("select * from leadmaster

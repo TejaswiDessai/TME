@@ -13,6 +13,11 @@
     display: block;
     margin-top: 5px;
     }
+    .asendtonone {
+   
+    display: none;
+   
+    }
    
     .select2-container--default .select2-selection--multiple {
     padding:0px 0px 0px 0px;
@@ -1233,7 +1238,7 @@ $.ajax({
                             <div class="to-do-list">
                                         <div class="checkbox-fade fade-in-primary  col-sm-12">
                                             <label class="check-task">
-                                                <input type="checkbox" name="ddispositionclass" id="ddispositionclass"  value="cvr">
+                                                <input type="checkbox" name="ddispositionclass" id="ddispositionclass"  value="ddispositionclass">
                                                 <?php// foreach ($joblevel as $joblevel): ?>
                                                <span  class="form-control form-control-sm cdqadisable tooltips">
                                                <?php if($ldmster['ddispositionclass'] != "" && $ldmster['ddispositionclass'] == '1' ){ echo "Dead"; } else { echo "Live" ; } ?>
@@ -1255,6 +1260,23 @@ $.ajax({
                                                <span  class="form-control form-control-sm cdqadisable tooltips">
                                                <?php if($ldmster['cdclst'] != "" && $ldmster['cdclst'] == '1' ){ echo "Yes"; } else { echo "NO" ; } ?>
                                                <span class="tooltiptext">CDC Lead Score Tag</span>
+                                                </span>
+                                                <?php// endforeach; ?>  
+                                            </label>
+                                        </div>
+                                  </div>
+                              
+                            </div>
+                            <div class="col-sm-2">
+
+                            <div class="to-do-list">
+                                        <div class="checkbox-fade fade-in-primary  col-sm-12">
+                                            <label class="check-task">
+                                                <input type="checkbox" name="callrec" id="callrec"  value="callrec">
+                                                <?php// foreach ($joblevel as $joblevel): ?>
+                                               <span  class="form-control form-control-sm cdqadisable tooltips">
+                                               <?php if($ldmster['callrec'] != "" && $ldmster['callrec'] == '1' ){ echo "Yes"; } else { echo "NO" ; } ?>
+                                               <span class="tooltiptext">Call Recording</span>
                                                 </span>
                                                 <?php// endforeach; ?>  
                                             </label>
@@ -1346,8 +1368,9 @@ $.ajax({
                             
                              <!-- <center> -->
                                <select class="form-control form-control-sm"  name="asendto" id="asendto" style="height: 40px;" required>
-                                    <option value="1">Accept-Send to Lead</option>
+                                   
                                     <option value="2">Accept-Qualify</option>
+                                    <option value="1" class="<?php if(($ldmster['dnd'] == '1') || ($ldmster['cvr'] == '0') || ($ldmster['cdclst'] == '1')){ echo 'asendtonone';} ?>">Accept-Send to Lead</option>
                                     <option value="3">Accept-Disqualify</option>
                                 </select>
                                <select class="form-control form-control-sm"  name="rsendto" id="rsendto" style="height: 40px;" required>
@@ -1361,8 +1384,8 @@ $.ajax({
                               <!-- <button type="submit" name="leadupdateqa" class="btn btn-primary leaddisplay" style=""  id="leadupdateqa">Accept & Submit</button>  -->
                              </div>
                               <div class="col-sm-3">
+                              
                               <!-- <button type="submit" name="leadsaveqa" class="btn btn-primary leaddisplay" style="margin-left:50px"  id="leadsaveqa">Skip </button>  -->
-                              <button type="submit" name="leadsaveqa" class="btn btn-primary leaddisplay" style="margin-left:50px"  id="leadsaveqa">Skip </button> 
                              <!-- </center> -->
                              </div>
                         <?php } else{ ?>

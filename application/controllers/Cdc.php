@@ -591,49 +591,61 @@
 						$data['empcode'] = $this->session->userdata('empcode');
 						$data['Campid'] = $camp_id;
 						$leadlimit = $this->input->post('leadlimit');
+						$leadrectype = $this->input->post('leadrectype');
+						$refreshbtn = $this->input->post('refreshbtn');
 						$data['leadlimit'] = $leadlimit;
-						// print_r($leadlimit); 
-						$data['leadmaster'] = $this->Administrator_Model->get_leadmasterby_campaign_lead_generation($cids,$leadlimit);
+						$data['leadrectype'] = $leadrectype;
+						$data['refreshbtn'] = $refreshbtn;
+						// print_r($this->input->post('refreshbtn')); 
+						$data['leadmaster'] = $this->Administrator_Model->get_leadmasterby_campaign_lead_generation($cids,$leadlimit,$leadrectype,$data['empcode']);
 						// print_r($data['leadmaster']); 
 						// echo "<pre>";
 						// 	print_r($data['leadmaster']); 
 						// 	echo "</pre>";
-						foreach ($data['leadmaster'] as $ldmster) {
+						// foreach ($data['leadmaster'] as $ldmster) {
 						
 							
-							if(isset($ldmster['lsagent']) && !empty($ldmster['lsagent']) && ($ldmster['lsagent']==$data['empcode'])){
-								// print_r($ldmster['lsagent']);
-								$data['leadmaster'] = $this->Administrator_Model->get_leadmasterby_campaign_lead_generation($cids,$leadlimit,$data['empcode']);
-							}
-							// else{
-							// 	$data['leadmaster'] = $this->Administrator_Model->get_leadmasterby_campaign_lead_generation($cids,$leadlimit);	
-							// }
-						}
+					
 
 						if(empty($data['leadmaster'])){
-							$this->session->set_flashdata('success', 'Lead Generation finished for this campaign.');
-							redirect('cdc/selectCampaignForleadGeneration');
+							// $this->session->set_flashdata('success', 'Lead Generation finished for this campaign.');
+							// redirect('cdc/selectCampaignForleadGeneration');
+						
 							
 						}
 
 						foreach ($data['leadmaster'] as $ldmster) {
-						
+							if (isset($data['leadmaster'])){
+								$data['countriesdv'] = $this->Administrator_Model->get_countriesbyCampaigndv($ldmster['lmid']);
+								$data['industriesdv'] = $this->Administrator_Model->get_industries_ofleadmaster($ldmster['lmid']);
+								$data['subindustriesdv'] = $this->Administrator_Model->get_subindustries_ofleadmaster($ldmster['lmid']);
+								$data['currencydv'] = $this->Administrator_Model->get_currency_ofleadmaster($ldmster['lmid']);
+								$data['timezonedv'] = $this->Administrator_Model->get_timezone_ofleadmaster($ldmster['lmid']);
+								$data['designationdv'] = $this->Administrator_Model->get_designation_ofleadmaster($ldmster['lmid']);
+								$data['departmentsdv'] = $this->Administrator_Model->get_depts_byleadmaster($ldmster['lmid']);
+								$data['assetitledv'] = $this->Administrator_Model->get_assetitle_byleadmaster($ldmster['lmid']);
+								$data['comptypedv'] = $this->Administrator_Model->get_comptype_byleadmaster($ldmster['lmid']);
+							}else if(empty($data['leadmaster'])){
+								// $this->session->set_flashdata('success', 'Data verification id finished.');
+								redirect('administrator/dashboard');
+							}
+	
 						}
 					
-						if (isset($data['leadmaster'])){
-							$data['countriesdv'] = $this->Administrator_Model->get_countriesbyCampaigndv($ldmster['lmid']);
-							$data['industriesdv'] = $this->Administrator_Model->get_industries_ofleadmaster($ldmster['lmid']);
-							$data['subindustriesdv'] = $this->Administrator_Model->get_subindustries_ofleadmaster($ldmster['lmid']);
-							$data['currencydv'] = $this->Administrator_Model->get_currency_ofleadmaster($ldmster['lmid']);
-							$data['timezonedv'] = $this->Administrator_Model->get_timezone_ofleadmaster($ldmster['lmid']);
-							$data['designationdv'] = $this->Administrator_Model->get_designation_ofleadmaster($ldmster['lmid']);
-							$data['departmentsdv'] = $this->Administrator_Model->get_depts_byleadmaster($ldmster['lmid']);
-							$data['assetitledv'] = $this->Administrator_Model->get_assetitle_byleadmaster($ldmster['lmid']);
-							$data['comptypedv'] = $this->Administrator_Model->get_comptype_byleadmaster($ldmster['lmid']);
-						}else if(empty($data['leadmaster'])){
-							// $this->session->set_flashdata('success', 'Data verification id finished.');
-							redirect('administrator/dashboard');
-						}
+						// if (isset($data['leadmaster'])){
+						// 	$data['countriesdv'] = $this->Administrator_Model->get_countriesbyCampaigndv($ldmster['lmid']);
+						// 	$data['industriesdv'] = $this->Administrator_Model->get_industries_ofleadmaster($ldmster['lmid']);
+						// 	$data['subindustriesdv'] = $this->Administrator_Model->get_subindustries_ofleadmaster($ldmster['lmid']);
+						// 	$data['currencydv'] = $this->Administrator_Model->get_currency_ofleadmaster($ldmster['lmid']);
+						// 	$data['timezonedv'] = $this->Administrator_Model->get_timezone_ofleadmaster($ldmster['lmid']);
+						// 	$data['designationdv'] = $this->Administrator_Model->get_designation_ofleadmaster($ldmster['lmid']);
+						// 	$data['departmentsdv'] = $this->Administrator_Model->get_depts_byleadmaster($ldmster['lmid']);
+						// 	$data['assetitledv'] = $this->Administrator_Model->get_assetitle_byleadmaster($ldmster['lmid']);
+						// 	$data['comptypedv'] = $this->Administrator_Model->get_comptype_byleadmaster($ldmster['lmid']);
+						// }else if(empty($data['leadmaster'])){
+						// 	// $this->session->set_flashdata('success', 'Data verification id finished.');
+						// 	redirect('administrator/dashboard');
+						// }
 
 						
 
@@ -3301,7 +3313,7 @@
 				'qaacptdti' => $qaacptdti, // Data Verification|Rej_date and time_I
 				'qaacptagtii' => $qaacptagtii, // submit agent name 
 				'qaacptdtii' => $qaacptdtii, // Data Verification|Rej_date and time_I
-				'qastat' => 'qualified', //accept/rejection by cdc
+				'qastat' => 'pending', //accept/rejection by cdc
 				
 				'qaacpt' => '1',
 				'qalsload' => '1', //send to lead generation
@@ -3431,6 +3443,13 @@
 					$pcomt= "lead:".$_SESSION['empcode'].":".$old_date."#".$_GET['pcomt'];
 
 					
+					if($lsfinal == '1')
+					{
+						$qalsload = NULL;
+					}else{
+						$qalsload ='1';
+					}
+					
 				$datacdcandlead = array(
 				'rlc' => '0', // record is closed
 
@@ -3460,9 +3479,12 @@
 				'lsfinal' => $lsfinal, 
 
 				'lsload' => '1', //  next level
+				'cdcload' => '1', //  next level
 				'lsagti' =>  $_SESSION['empcode'], // submit agent name 
 				'lsdti' => $old_date, // lead generation date time
-			
+				 'qalsload' => $qalsload,
+				'lsstatdt' => $old_date,
+				'lsagent' => $_SESSION['empcode'], // submit agent name 
 				
 				'pcomt' => $pcomt 
 				
@@ -4611,12 +4633,19 @@
 			$old_date = date('Y-m-d H:i:s'); 
 			$lsagent = $_SESSION['empcode'];
 		
-		
+			if($lsfinal == '1')
+					{
+						$qalsload = NULL;
+					}else{
+						$qalsload ='1';
+					}
 
 				$datacdcandlead = array(
 			
 			
 		
+				'qalsload' => $qalsload,
+				'cdcload' => '1',
 				'lsfinal' => $lsfinal,
 				'lsstatdt' => $old_date,
 				'lsagent' => $lsagent

@@ -1,11 +1,11 @@
-<link rel="stylesheet" type="text/css" href="<?php echo base_url(); ?>admintemplate/bower_components/datatables.net-bs4/css/dataTables.bootstrap4.min.css">
+<!-- <link rel="stylesheet" type="text/css" href="<?php echo base_url(); ?>admintemplate/bower_components/datatables.net-bs4/css/dataTables.bootstrap4.min.css">
     <link rel="stylesheet" type="text/css" href="<?php echo base_url(); ?>admintemplate/assets/pages/data-table/css/buttons.dataTables.min.css">
     <link rel="stylesheet" type="text/css" href="<?php echo base_url(); ?>admintemplate/bower_components/datatables.net-responsive-bs4/css/responsive.bootstrap4.min.css">
     <link rel="stylesheet" type="text/css" href="<?php echo base_url(); ?>admintemplate/bower_components/ekko-lightbox/dist/ekko-lightbox.css">
     <link rel="stylesheet" type="text/css" href="<?php echo base_url(); ?>admintemplate/bower_components/lightbox2/dist/css/lightbox.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script> -->
     <style>
     body
     {
@@ -35,7 +35,7 @@
     /* #email_123{
         height:34px;
     } */
-    #navbar-logo{
+    /* #navbar-logo{
         height: 6.5rem;
     }
    #navbar{
@@ -44,7 +44,7 @@
     }
    .navbar{
              margin-bottom: 0px;
-    }
+    } */
     </style>
     <!-- <script type="text/javascript">
     $(document).ready(function(){
@@ -232,42 +232,20 @@ $(document).on("click", ".gotoupdatelead", function () {
 
 $(document).on("click", ".refreshbtn", function () {
     
-//update record lock
-var rlc = 0; //lock 1
-var lmid1 = $('#leadid_1').val();
-var lmid2 = $('#leadid_2').val();
-var lmid3 = $('#leadid_3').val();
-var lmid4 = $('#leadid_4').val();
-var lmid5 = $('#leadid_5').val();
-var lmid6 = $('#leadid_6').val();
-var lmid7 = $('#leadid_7').val();
-var lmid8 = $('#leadid_8').val();
-var lmid9 = $('#leadid_9').val();
-var lmid10 = $('#leadid_10').val();
+
 
 // alert("L1 = "+lmid1+"L2 = "+lmid2+"L3 = "+lmid3+"L4 = "+lmid4+"L5 = "+lmid5);
 var emp_id = $('#empcode').val();
 // alert(emp_id);
 
-var urlq = '<?php echo base_url("administrator/updaterecordlock");?>';
+var urlq = '<?php echo base_url("administrator/updaterecordlockfrom_leadgeneration");?>';
 // alert(urlq);
-console.log(urlq+"?lmid1="+lmid1+"&lmid2="+lmid2+"&rlc="+rlc+"&emp_id="+emp_id);
+// console.log(urlq+"?lmid1="+lmid1+"&lmid2="+lmid2+"&rlc="+rlc+"&emp_id="+emp_id);
 $.ajax({
-      url:'<?php echo base_url("administrator/updaterecordlock");?>',
+      url:'<?php echo base_url("administrator/updaterecordlockfrom_leadgeneration");?>',
       method: 'get',
       data: {
-        lmid1: lmid1,
-        lmid2: lmid2,
-        lmid3: lmid3,
-        lmid4: lmid4,
-        lmid5: lmid5,
-        lmid6: lmid6,
-        lmid7: lmid7,
-        lmid8: lmid8,
-        lmid9: lmid9,
-        lmid10: lmid10,
-        rlc:rlc,
-        emp_id:emp_id
+       
       },
       dataType: 'json',
       success: function(response){
@@ -276,20 +254,16 @@ $.ajax({
                     // var dataResult = JSON.parse(response);
                     if(response.statusCode == "Success") 
                     {         
-                      alert("Success in success");
+                    //   alert("Success in success");
                       console.log("Record is opened/locked now");     
                       window.location = base_url+"cdc/leadgenerationinterface?camp_id=<?php echo $_SESSION['campaign_id']; ?>";
                       
                     }else if(response.data=="Fail")
                     {
-                      alert("fail/check if record is already opened");  
-                      window.location = base_url+"cdc/leadgenerationinterface?camp_id=<?php echo $_SESSION['campaign_id']; ?>";
+                      alert("fail/please logout and log in again");  
+                    //   window.location = base_url+"cdc/leadgenerationinterface?camp_id=<?php echo $_SESSION['campaign_id']; ?>";
                         
 					          }
-      },
-      error: function()
-      {
-        window.location = base_url+"cdc/leadgenerationinterface?camp_id=<?php echo $_SESSION['campaign_id']; ?>";
       }
   });
 
@@ -496,7 +470,8 @@ $(document).on("click", ".gotoupdateleadlsfinal", function () {
 // } );
 $(document).ready(function() {
     $('#dom-jqry').DataTable( {
-        "lengthMenu": [[5, 10], [5, 10]]
+        // "lengthMenu": [[5, 10], [5, 10]]
+        "lengthChange": false
     } );
 } );
 
@@ -548,7 +523,13 @@ $(document).ready(function() {
                             <input type="hidden" value="<?php echo $Campid; ?>" id="campaign_id" name="campaign_id">
                             </td>
                             <td>
-                                <select style="height:34px;" class="form-control form-control-default "  name="leadlimit" id="leadlimit">
+                                <select style="height:34px;" class="form-control form-control-sm "  name="leadrectype" id="leadrectype">
+                                    <option value="assigned" <?php if( isset($leadrectype) && $leadrectype == "assigned") { echo "selected" ; } ?>>Assigned</option>
+                                    <option value="new" <?php if( isset($leadrectype) && $leadrectype == "new") { echo "selected" ; } ?>>New</option>
+                                    </select>
+                             </td>
+                            <td>
+                                <select style="height:34px;" class="form-control form-control-sm "  name="leadlimit" id="leadlimit">
                                     <option value="5" <?php if( isset($leadlimit) && $leadlimit == "5") { echo "selected" ; } ?>>5</option>
                                     <option value="10" <?php if( isset($leadlimit) && $leadlimit == "10") { echo "selected" ; } ?>>10</option>
                                     </select>
@@ -558,7 +539,7 @@ $(document).ready(function() {
                             </td>
                             <td>
                                
-                                <!-- <button class="btn btn-primary refreshbtn">Refresh <i class="icofont icofont-refresh"></i></button> -->
+                                <a class="btn btn-primary refreshbtn" style="color:white;">Refresh <i class="icofont icofont-refresh"></i></a>
                             </td>
                             </tr>
                           
@@ -571,6 +552,7 @@ $(document).ready(function() {
                     <div id='loader' style='display: none;'>
                     <!-- <img src='<?php echo base_url(); ?>assets/images/download.png' width='32px' height='32px'> -->
                     </div>
+                    <div class="card-block">
                     <!-- Image loader -->
                         <div class="table-responsive dt-responsive">
                             <table id="dom-jqry" class="table table-striped table-bordered nowrap table1">
@@ -590,7 +572,7 @@ $(document).ready(function() {
                                         <th>LinkedIn URL</th>
                                         <th>Email</th>
                                         <th>Call Disposition</th>
-                                        <th>Call Status</th>
+                                        <th>Call Status &nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
                                         
                                        
                                         <!-- <th>Call Verified in CDC</th> -->
@@ -648,14 +630,14 @@ $(document).ready(function() {
                                         
                                         <?php 
                                        // if(isset($post['lsfinal']) && ($post['lsfinal'] == '0') ){echo "Open";} else{ echo "Empty"; }?>
-                                        <select style="margin-bottom: 5px;height:34px;" class="form-control form-control-default lsfinalclass "  name="lsfinal" id="lsfinal_<?php echo  $i;?>">
+                                        <select style="margin-bottom: 5px;height:34px;" class="form-control form-control-sm lsfinalclass "  name="lsfinal" id="lsfinal_<?php echo  $i;?>">
                                            
                                             <option value="0" <?php if(isset($post['lsfinal']) && ($post['lsfinal'] =='0') ){ echo "Selected"; } ?> >Open</option>
                                             <option value="1" <?php if(isset($post['lsfinal']) && ($post['lsfinal'] =='1') ){ echo "Selected"; } ?> >Closed</option>
                                            
                                             </select>
                                           
-                                            <button type="button" data-toggle="tooltip" title="Update"  class="btn btn-info btn-sm gotoupdateleadlsfinal" data-id="<?php echo $post['lmid'];?>" id="gotoupdateleadlsfinal"
+                                            <button type="button" data-toggle="tooltip" title="Update"  class="btn btn-primary btn-sm gotoupdateleadlsfinal" data-id="<?php echo $post['lmid'];?>" id="gotoupdateleadlsfinal"
                                              data-row="<?php echo $i;?>"><i class="icofont icofont-edit"></i></button>
                                       
                                         </td>
@@ -663,13 +645,13 @@ $(document).ready(function() {
                                         <!-- <p id='plstat'><?php 
                                         //if(isset($post['lstat']) ){ //echo $post['lstat'];} else{ echo "Empty"; }?></p> -->
                                           
-                                          <select style="margin-bottom: 5px;height:34px;"  class="form-control form-control-default lstatclass"  name="lstat" id="lstat_<?php echo  $i;?>" required="">
+                                          <select style="margin-bottom: 5px;height:34px;"  class="form-control form-control-sm lstatclass"  name="lstat" id="lstat_<?php echo  $i;?>" required="">
                                             <option value="">Change Status</option>
                                             <option value="on-hold" <?php if(isset($post['lstat']) && ($post['lstat'] =='on-hold') ){ echo "Selected"; } ?> >on-hold</option>
                                             <option value="voicemail" <?php if(isset($post['lstat']) && ($post['lstat'] =='voicemail') ){ echo "Selected"; } ?> >voicemail</option>
                                             <option value="call-back" <?php if(isset($post['lstat']) && ($post['lstat'] =='call-back') ){ echo "Selected" ;} ?> >call-back</option>
                                             </select>
-                                            <button type="button" class="btn btn-info btn-sm gotoupdateleadlstat" data-toggle="tooltip" title="Update" data-id="<?php echo $post['lmid'];?>" id="gotoupdateleadlstat"
+                                            <button type="button" class="btn btn-primary btn-sm gotoupdateleadlstat" data-toggle="tooltip" title="Update" data-id="<?php echo $post['lmid'];?>" id="gotoupdateleadlstat"
                                              data-row="<?php echo $i;?>"><i class="icofont icofont-edit"></i></button>
                                            
                                         </td>
@@ -687,7 +669,7 @@ $(document).ready(function() {
                                         </td> -->
                                         <td>
                                             <!-- <a href ="<?php echo base_url();?>cdc/leadgeneration" class="btn btn-info btn-sm" data-id="<?php echo $post['email'];?>" data-row="<?php echo $i;?>">Go to Update</a> -->
-                                            <button type="button" class="btn btn-info btn-sm gotoupdatelead" data-id="<?php echo $post['lmid'];?>" data-row="<?php echo $i;?>">Go to Update</button>
+                                            <button type="button" class="btn btn-primary btn-sm gotoupdatelead" data-id="<?php echo $post['lmid'];?>" data-row="<?php echo $i;?>">Go to Update</button>
                                             <!-- <button type="button" class="btn btn-info btn-sm passingID" data-id="<?php echo $post['email'];?>" data-row="<?php echo $i;?>">Change Format</button> -->
 
                                         </td>
@@ -827,28 +809,10 @@ $(document).ready(function() {
                     
                 </div>
                 </div>
-                <!-- <div id="menu2" class="tab-pane fade">
-                <h3>Menu 2</h3>
-                <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam.</p>
-                </div>
-                <div id="menu3" class="tab-pane fade">
-                <h3>Menu 3</h3>
-                <p>Eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.</p>
-                </div> -->
+           
             </div>
             </div>
-                                        <!-- <form>
-                                        <br><input type="text" id="email" name="email" class="form-control" placeholder="Email"><br>
-                                            <input type="password" id="password" name="password" class="form-control" placeholder="Password">    <br>
-                                            <div class="form-group">
-                                                <input type="text" id="sub" class="form-control" placeholder="Subject">
-                                            </div>
-                                            <div class="form-group">
-                                            <textarea rows="6" style="width: 100%;" name="mail_body" id="mail_body" placeholder="Email Body"></textarea>
-                                           
-                                        </div>
-                                        </form> -->
-                                    </div>
+         </div>
         </div>
         <div class="modal-footer">
             <?php if($Stage == "New"){?>
@@ -864,113 +828,3 @@ $(document).ready(function() {
   </div>
 
 
-  
-
-
-
-            <script>
-            $(".emailstatus_all").on('change', function () {
-                // alert("test");
-                $(this).closest('table').find('.checkbox_emailstatus').prop('checked', this.checked ); 
-                $("#update_email").attr("disabled", false);
-            }); 
-            $(".emailsend_all").on('change', function () {
-                // alert("test");
-                $(this).closest('table').find('.checkbox_emailclass').prop('checked', this.checked ); 
-                $("#send_email").attr("disabled", false);
-            }); 
-            
-// $("input:checkbox").change(function() {
-$(".emailclass").click(function() {
-    
-  var notChecked = [], checked = [];
-            // $(":checkbox").map(function() {
-            $(".emailclass").map(function() {
-            
-                this.checked ? checked.push(this.id) : notChecked.push(this.id);
-            });
-            // alert();
-          if(checked == ""){ // if unchecked any field
-            $("#send_email").attr("disabled", true);
-          }else{
-            $("#send_email").attr("disabled", false);
-          }
-          
-});
-$(".emailstatus").click(function() {
-    alert("Hi");
-    var notChecked = [], checked = [];
-              // $(":checkbox").map(function() {
-              $(".emailstatus").map(function() {
-              
-                  this.checked ? checked.push(this.id) : notChecked.push(this.id);
-              });
-              alert(checked);
-            if(checked == ""){ // if unchecked any field
-              $("#update_email").attr("disabled", true);
-            }else{
-              $("#update_email").attr("disabled", false);
-            }
-            
-  });
-
-
-
-
-        //      $( document ).ready(function() {
-        //     $("#format").on('click', function() 
-        //         {
-        //         alert("Test");
-        //     var email = $('#email').val();
-        //         $combinations = array();
-        //         $words = sizeof($email);
-        //         $combos = 1;
-        //         for($i = $words; $i > 0; $i--) {
-        //             $combos *= $i;
-        //         }
-        //         while(sizeof($combinations) < $combos) {
-        //             shuffle($arr);
-        //             $combo = implode(" ", $arr);
-        //             if(!in_array($combo, $combinations)) {
-        //                 $combinations[] = $combo;
-        //             }
-        //         }
-        //         return $combinations;
-        //     }
-        // });
-        
-    //     $( document ).ready(function() {
-    //         $('#email_143').change(function(){
-        
-    //         alert("test");
-    //     });
-    // });
-// });
-    $(function() {
-        $('#email_143').on('click', function() {
-            var email_123 = $('#email_123').val();
-            var id = $('#idkl').val();
-            // alert("test"+id);
-            $("#email_"+id).val(email_123);
-            $('#myModal').modal('hide');
-        // alert("test"+email_123);
-     });
-     // $(document).ready(function() {
-
-        $("#send_email").on('click', function() 
-        {
-            $('#myModalemail').modal('show');
-        });
-        $("#update_email").on('click', function() 
-        {
-            $('#myModalemail').modal('show');
-        });
-
-
-
-         
-    });
-
-
-
-</script>

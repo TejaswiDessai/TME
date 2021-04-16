@@ -13,7 +13,7 @@
     }
     .table1
     {
-        border-collapse: separate;
+        border-collapse: separate !important;
         height: 10px; overflow-y: auto; overflow-x: hidden;
     }
 
@@ -32,6 +32,15 @@
     .dataTables_filter {
     display: none;
     } 
+
+    .table1 tbody tr {
+min-height: 30px !important;/* or whatever height you need to make them all consistent */
+}
+    .table1 tbody tr td {
+min-height: 30px !important;/* or whatever height you need to make them all consistent */
+padding-bottom:0px;
+}
+   
     /* #email_123{
         height:34px;
     } */
@@ -555,7 +564,7 @@ $(document).ready(function() {
                     <div class="card-block">
                     <!-- Image loader -->
                         <div class="table-responsive dt-responsive">
-                            <table id="dom-jqry" class="table table-striped table-bordered nowrap table1">
+                            <table id="dom-jqry" style="border-collapse: separate !important" class="table table-striped table-bordered nowrap table1">
                                 <thead>
                                     <tr>
                                         <th>S.no</th>

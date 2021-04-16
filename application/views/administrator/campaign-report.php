@@ -307,13 +307,13 @@
                                          $cdc_reject = $this->db->query("select * from leadmaster
                                          where 
                                          dvcomt = '1' 
-                                         and cdcload = 1
+                                         and cdcrjt >= 1
                                          and rlc = 0
                                          and cdcrjt >= 1
-                                         and cdcload = NULL
-                                         and evload = NULL
+                                         and cdcload is NULL
+                                         and evload is NULL
                                          and ontag = 1
-                                         and (cdcrjtagti != null OR cdcrjtagti != null)
+                                         and (cdcrjtagti is not null OR cdcrjtagti is not null)
                                          and cids = '".$post['cids']."'");
                                          echo $cdc_reject->num_rows();
                                          ?>

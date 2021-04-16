@@ -1,11 +1,11 @@
-<link rel="stylesheet" type="text/css" href="<?php echo base_url(); ?>admintemplate/bower_components/datatables.net-bs4/css/dataTables.bootstrap4.min.css">
+<!-- <link rel="stylesheet" type="text/css" href="<?php echo base_url(); ?>admintemplate/bower_components/datatables.net-bs4/css/dataTables.bootstrap4.min.css">
     <link rel="stylesheet" type="text/css" href="<?php echo base_url(); ?>admintemplate/assets/pages/data-table/css/buttons.dataTables.min.css">
     <link rel="stylesheet" type="text/css" href="<?php echo base_url(); ?>admintemplate/bower_components/datatables.net-responsive-bs4/css/responsive.bootstrap4.min.css">
     <link rel="stylesheet" type="text/css" href="<?php echo base_url(); ?>admintemplate/bower_components/ekko-lightbox/dist/ekko-lightbox.css">
     <link rel="stylesheet" type="text/css" href="<?php echo base_url(); ?>admintemplate/bower_components/lightbox2/dist/css/lightbox.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script> -->
     <style>
     body
     {
@@ -35,7 +35,7 @@
     /* #email_123{
         height:34px;
     } */
-    #navbar-logo{
+    /* #navbar-logo{
         height: 6.5rem;
     }
    #navbar{
@@ -44,7 +44,7 @@
     }
    .navbar{
              margin-bottom: 0px;
-    }
+    } */
     </style>
     <!-- <script type="text/javascript">
     $(document).ready(function(){
@@ -523,13 +523,13 @@ $(document).ready(function() {
                             <input type="hidden" value="<?php echo $Campid; ?>" id="campaign_id" name="campaign_id">
                             </td>
                             <td>
-                                <select style="height:34px;" class="form-control form-control-default "  name="leadrectype" id="leadrectype">
+                                <select style="height:34px;" class="form-control form-control-sm "  name="leadrectype" id="leadrectype">
                                     <option value="assigned" <?php if( isset($leadrectype) && $leadrectype == "assigned") { echo "selected" ; } ?>>Assigned</option>
                                     <option value="new" <?php if( isset($leadrectype) && $leadrectype == "new") { echo "selected" ; } ?>>New</option>
                                     </select>
                              </td>
                             <td>
-                                <select style="height:34px;" class="form-control form-control-default "  name="leadlimit" id="leadlimit">
+                                <select style="height:34px;" class="form-control form-control-sm "  name="leadlimit" id="leadlimit">
                                     <option value="5" <?php if( isset($leadlimit) && $leadlimit == "5") { echo "selected" ; } ?>>5</option>
                                     <option value="10" <?php if( isset($leadlimit) && $leadlimit == "10") { echo "selected" ; } ?>>10</option>
                                     </select>
@@ -539,7 +539,7 @@ $(document).ready(function() {
                             </td>
                             <td>
                                
-                                <a class="btn btn-primary refreshbtn">Refresh <i class="icofont icofont-refresh"></i></a>
+                                <a class="btn btn-primary refreshbtn" style="color:white;">Refresh <i class="icofont icofont-refresh"></i></a>
                             </td>
                             </tr>
                           
@@ -571,7 +571,7 @@ $(document).ready(function() {
                                         <th>LinkedIn URL</th>
                                         <th>Email</th>
                                         <th>Call Disposition</th>
-                                        <th>Call Status</th>
+                                        <th>Call Status &nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
                                         
                                        
                                         <!-- <th>Call Verified in CDC</th> -->
@@ -629,14 +629,14 @@ $(document).ready(function() {
                                         
                                         <?php 
                                        // if(isset($post['lsfinal']) && ($post['lsfinal'] == '0') ){echo "Open";} else{ echo "Empty"; }?>
-                                        <select style="margin-bottom: 5px;height:34px;" class="form-control form-control-default lsfinalclass "  name="lsfinal" id="lsfinal_<?php echo  $i;?>">
+                                        <select style="margin-bottom: 5px;height:34px;" class="form-control form-control-sm lsfinalclass "  name="lsfinal" id="lsfinal_<?php echo  $i;?>">
                                            
                                             <option value="0" <?php if(isset($post['lsfinal']) && ($post['lsfinal'] =='0') ){ echo "Selected"; } ?> >Open</option>
                                             <option value="1" <?php if(isset($post['lsfinal']) && ($post['lsfinal'] =='1') ){ echo "Selected"; } ?> >Closed</option>
                                            
                                             </select>
                                           
-                                            <button type="button" data-toggle="tooltip" title="Update"  class="btn btn-info btn-sm gotoupdateleadlsfinal" data-id="<?php echo $post['lmid'];?>" id="gotoupdateleadlsfinal"
+                                            <button type="button" data-toggle="tooltip" title="Update"  class="btn btn-primary btn-sm gotoupdateleadlsfinal" data-id="<?php echo $post['lmid'];?>" id="gotoupdateleadlsfinal"
                                              data-row="<?php echo $i;?>"><i class="icofont icofont-edit"></i></button>
                                       
                                         </td>
@@ -644,13 +644,13 @@ $(document).ready(function() {
                                         <!-- <p id='plstat'><?php 
                                         //if(isset($post['lstat']) ){ //echo $post['lstat'];} else{ echo "Empty"; }?></p> -->
                                           
-                                          <select style="margin-bottom: 5px;height:34px;"  class="form-control form-control-default lstatclass"  name="lstat" id="lstat_<?php echo  $i;?>" required="">
+                                          <select style="margin-bottom: 5px;height:34px;"  class="form-control form-control-sm lstatclass"  name="lstat" id="lstat_<?php echo  $i;?>" required="">
                                             <option value="">Change Status</option>
                                             <option value="on-hold" <?php if(isset($post['lstat']) && ($post['lstat'] =='on-hold') ){ echo "Selected"; } ?> >on-hold</option>
                                             <option value="voicemail" <?php if(isset($post['lstat']) && ($post['lstat'] =='voicemail') ){ echo "Selected"; } ?> >voicemail</option>
                                             <option value="call-back" <?php if(isset($post['lstat']) && ($post['lstat'] =='call-back') ){ echo "Selected" ;} ?> >call-back</option>
                                             </select>
-                                            <button type="button" class="btn btn-info btn-sm gotoupdateleadlstat" data-toggle="tooltip" title="Update" data-id="<?php echo $post['lmid'];?>" id="gotoupdateleadlstat"
+                                            <button type="button" class="btn btn-primary btn-sm gotoupdateleadlstat" data-toggle="tooltip" title="Update" data-id="<?php echo $post['lmid'];?>" id="gotoupdateleadlstat"
                                              data-row="<?php echo $i;?>"><i class="icofont icofont-edit"></i></button>
                                            
                                         </td>
@@ -668,7 +668,7 @@ $(document).ready(function() {
                                         </td> -->
                                         <td>
                                             <!-- <a href ="<?php echo base_url();?>cdc/leadgeneration" class="btn btn-info btn-sm" data-id="<?php echo $post['email'];?>" data-row="<?php echo $i;?>">Go to Update</a> -->
-                                            <button type="button" class="btn btn-info btn-sm gotoupdatelead" data-id="<?php echo $post['lmid'];?>" data-row="<?php echo $i;?>">Go to Update</button>
+                                            <button type="button" class="btn btn-primary btn-sm gotoupdatelead" data-id="<?php echo $post['lmid'];?>" data-row="<?php echo $i;?>">Go to Update</button>
                                             <!-- <button type="button" class="btn btn-info btn-sm passingID" data-id="<?php echo $post['email'];?>" data-row="<?php echo $i;?>">Change Format</button> -->
 
                                         </td>

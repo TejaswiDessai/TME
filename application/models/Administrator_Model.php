@@ -1857,6 +1857,7 @@ public function get_leadmasterby_campaignQA($id = FALSE)
 		$this->db->where('leadmaster.qasv', NULL);
 		$this->db->where('leadmaster.sbsvtag !=', 0);
 		$this->db->where('leadmaster.dnd !=', '1');
+		$this->db->where('leadmaster.lsagent',NULL);
 		// $this->db->where('leadmaster.cdclst', 0);
 		$this->db->group_start();
 		$this->db->where('leadmaster.cdclst', 0);

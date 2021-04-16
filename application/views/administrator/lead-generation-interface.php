@@ -552,6 +552,7 @@ $(document).ready(function() {
                     <div id='loader' style='display: none;'>
                     <!-- <img src='<?php echo base_url(); ?>assets/images/download.png' width='32px' height='32px'> -->
                     </div>
+                    <div class="card-block">
                     <!-- Image loader -->
                         <div class="table-responsive dt-responsive">
                             <table id="dom-jqry" class="table table-striped table-bordered nowrap table1">
@@ -808,28 +809,10 @@ $(document).ready(function() {
                     
                 </div>
                 </div>
-                <!-- <div id="menu2" class="tab-pane fade">
-                <h3>Menu 2</h3>
-                <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam.</p>
-                </div>
-                <div id="menu3" class="tab-pane fade">
-                <h3>Menu 3</h3>
-                <p>Eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.</p>
-                </div> -->
+           
             </div>
             </div>
-                                        <!-- <form>
-                                        <br><input type="text" id="email" name="email" class="form-control" placeholder="Email"><br>
-                                            <input type="password" id="password" name="password" class="form-control" placeholder="Password">    <br>
-                                            <div class="form-group">
-                                                <input type="text" id="sub" class="form-control" placeholder="Subject">
-                                            </div>
-                                            <div class="form-group">
-                                            <textarea rows="6" style="width: 100%;" name="mail_body" id="mail_body" placeholder="Email Body"></textarea>
-                                           
-                                        </div>
-                                        </form> -->
-                                    </div>
+         </div>
         </div>
         <div class="modal-footer">
             <?php if($Stage == "New"){?>
@@ -845,113 +828,3 @@ $(document).ready(function() {
   </div>
 
 
-  
-
-
-
-            <script>
-            $(".emailstatus_all").on('change', function () {
-                // alert("test");
-                $(this).closest('table').find('.checkbox_emailstatus').prop('checked', this.checked ); 
-                $("#update_email").attr("disabled", false);
-            }); 
-            $(".emailsend_all").on('change', function () {
-                // alert("test");
-                $(this).closest('table').find('.checkbox_emailclass').prop('checked', this.checked ); 
-                $("#send_email").attr("disabled", false);
-            }); 
-            
-// $("input:checkbox").change(function() {
-$(".emailclass").click(function() {
-    
-  var notChecked = [], checked = [];
-            // $(":checkbox").map(function() {
-            $(".emailclass").map(function() {
-            
-                this.checked ? checked.push(this.id) : notChecked.push(this.id);
-            });
-            // alert();
-          if(checked == ""){ // if unchecked any field
-            $("#send_email").attr("disabled", true);
-          }else{
-            $("#send_email").attr("disabled", false);
-          }
-          
-});
-$(".emailstatus").click(function() {
-    alert("Hi");
-    var notChecked = [], checked = [];
-              // $(":checkbox").map(function() {
-              $(".emailstatus").map(function() {
-              
-                  this.checked ? checked.push(this.id) : notChecked.push(this.id);
-              });
-              alert(checked);
-            if(checked == ""){ // if unchecked any field
-              $("#update_email").attr("disabled", true);
-            }else{
-              $("#update_email").attr("disabled", false);
-            }
-            
-  });
-
-
-
-
-        //      $( document ).ready(function() {
-        //     $("#format").on('click', function() 
-        //         {
-        //         alert("Test");
-        //     var email = $('#email').val();
-        //         $combinations = array();
-        //         $words = sizeof($email);
-        //         $combos = 1;
-        //         for($i = $words; $i > 0; $i--) {
-        //             $combos *= $i;
-        //         }
-        //         while(sizeof($combinations) < $combos) {
-        //             shuffle($arr);
-        //             $combo = implode(" ", $arr);
-        //             if(!in_array($combo, $combinations)) {
-        //                 $combinations[] = $combo;
-        //             }
-        //         }
-        //         return $combinations;
-        //     }
-        // });
-        
-    //     $( document ).ready(function() {
-    //         $('#email_143').change(function(){
-        
-    //         alert("test");
-    //     });
-    // });
-// });
-    $(function() {
-        $('#email_143').on('click', function() {
-            var email_123 = $('#email_123').val();
-            var id = $('#idkl').val();
-            // alert("test"+id);
-            $("#email_"+id).val(email_123);
-            $('#myModal').modal('hide');
-        // alert("test"+email_123);
-     });
-     // $(document).ready(function() {
-
-        $("#send_email").on('click', function() 
-        {
-            $('#myModalemail').modal('show');
-        });
-        $("#update_email").on('click', function() 
-        {
-            $('#myModalemail').modal('show');
-        });
-
-
-
-         
-    });
-
-
-
-</script>

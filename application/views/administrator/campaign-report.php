@@ -276,7 +276,7 @@
                                          </td>
                                         <td>
                                             <?php 
-                                         $cdc_total_accept = $this->db->query("select * from leadmaster
+                                         $cdc_first_accept = $this->db->query("select * from leadmaster
                                          where 
                                          rlc = 0
                                          and cdcload = 1
@@ -286,7 +286,20 @@
                                          and cdcsb >= 1
                                          and cdcsbagti is not null
                                          and cids = '".$post['cids']."'");
-                                         echo $cdc_total_accept->num_rows();
+                                         $cdcfirstA = $cdc_first_accept->num_rows();
+                                         $cdc_second_accept = $this->db->query("select * from leadmaster
+                                         where 
+                                         rlc = 0
+                                         and cdcload = 1
+                                         and evload = 1
+                                         and ontag = 1
+                                         and dvcomt = '1' 
+                                         and cdcsb >= 1
+                                         
+                                         and cdcsbagtii is not null
+                                         and cids = '".$post['cids']."'");
+                                         $cdcsecondA = $cdc_second_accept->num_rows();
+                                         echo $cdctotal = $cdcfirstA + $cdcsecondA;
                                          ?>
                                          </td>
                                          <td>

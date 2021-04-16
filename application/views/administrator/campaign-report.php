@@ -283,7 +283,8 @@
                                          and evload = 1
                                          and ontag = 1
                                          and dvcomt = '1' 
-                                         and (cdcsbagti != null OR cdcsbagtii != null)
+                                         and cdcsb >= 1
+                                         and cdcsbagti is not null
                                          and cids = '".$post['cids']."'");
                                          echo $cdc_total_accept->num_rows();
                                          ?>

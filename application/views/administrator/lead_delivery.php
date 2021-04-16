@@ -54,7 +54,7 @@ $(document).ready(function(){
 
             <div class="page-header">
                 <div class="page-header-title">
-                    <h4>List Users</h4>
+                    <h4>Delivery</h4>
                 </div>
                 <div class="page-header-breadcrumb">
                     <ul class="breadcrumb-title">
@@ -63,9 +63,9 @@ $(document).ready(function(){
                                 <i class="icofont icofont-home"></i>
                             </a>
                         </li>
-                        <li class="breadcrumb-item"><a href="#!">Users</a>
+                        <li class="breadcrumb-item"><a href="#!">Leads</a>
                         </li>
-                        <li class="breadcrumb-item"><a href="#!">List Users</a>
+                        <li class="breadcrumb-item"><a href="#!">Delivery</a>
                         </li>
                     </ul>
                 </div>

@@ -125,7 +125,7 @@
                                         <th>QA Pending</th>
                                         <th>QA Accept- Qalified</th>
                                         <th>QA Accept- Dis-Qalified</th>
-                                        <th>QA Reject</th>
+                                        <th>QA Reject- Dis-Qalified</th>
                                         
                                         <th>QA Sent to Lead</th>
                                         <th>Ready To Deliver</th>
@@ -368,8 +368,11 @@
                                          $qa_reject = $this->db->query("select * from leadmaster
                                          where 
                                          rlc = 0
-                                         and cdcload = 1
-                                         
+                                         and evload = 1
+                                         and qasv = 0
+                                         and cdcload is NULL
+                                         and qastat = 'disqualified'
+                                         and qarej = 1
                                          and cids = '".$post['cids']."'");
                                          echo $qa_reject->num_rows();
                                          ?>

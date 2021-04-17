@@ -3115,11 +3115,11 @@ public function get_campaign_fordataverification()
 			}
 			else if(isset($campid) && $campid != '' && $delivery_status == '' && $qa_status != '' && $qa_status == 'qualified'  && $ls_status == '')
 			{
-				$cond = "and leadmaster.cids = $campid and leadmaster.qastat = '$qa_status'  and leadmaster.qaload = 1 ";
+				$cond = "and leadmaster.cids = $campid and leadmaster.qastat = '$qa_status'  and leadmaster.qaload = 1 and qaacpt = 1";
 			}
 			else if(isset($campid) && $campid != '' && $delivery_status == '' && $qa_status != '' && $qa_status == 'disqualified'  && $ls_status == '')
 			{
-				$cond = "and leadmaster.cids = $campid and leadmaster.qastat = '$qa_status' and leadmaster.qaload = 0 ";
+				$cond = "and leadmaster.cids = $campid and leadmaster.qastat = '$qa_status' and (leadmaster.qaload = 0 OR leadmaster.qaload is null) and qaacpt = 1 ";
 			}
 			else if(isset($campid) && $campid != '' && $delivery_status == '' && $qa_status == ''  && $ls_status != '')
 			{

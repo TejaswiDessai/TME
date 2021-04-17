@@ -3153,7 +3153,7 @@ public function get_campaign_fordataverification()
 			{
 				$cond = null;
 			}
-			echo $cond;
+			// echo $cond;
 			$sql = " SELECT leadmaster.lmid,
 			leadmaster.cids,
 			leadmaster.sal,

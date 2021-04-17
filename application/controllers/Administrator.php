@@ -2832,6 +2832,7 @@ public function getPrivillage(){
 		$config['per_page'] = '';
 		$config['uri_segment'] = 3;
 		$config['attributes'] = array('class' => 'paginate-link');
+		$camp_status = $this->input->post('campaign_status');
 		$campid =$this->input->post('campid');
 		$user_id =$this->input->post('user_id');
 		$stage =$this->input->post('stage');
@@ -2849,12 +2850,13 @@ public function getPrivillage(){
 		// print_r($data['users']);
 		//  print_r($user_id);
 		$data['users_name'] = $this->Administrator_Model->get_users(FALSE, $config['per_page'], $offset);
-		$data['users'] = $this->Administrator_Model->get_campaign();
+		$data['users'] = $this->Administrator_Model->get_campaign_report(FALSE, $config['per_page'], $offset,$camp_status);
 		$data['user_id'] = $user_id;
 		$data['Campid'] = $campid;
 		$data['Stage'] = $stage;
 		$data['From'] = $from;
 		$data['To'] = $to;
+		$data['campaign_status'] = $camp_status;
 		$this->load->view('administrator/header-script');
 		$this->load->view('administrator/header');
 		$this->load->view('administrator/header-bottom');

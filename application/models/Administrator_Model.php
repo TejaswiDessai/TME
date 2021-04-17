@@ -3329,4 +3329,33 @@ public function get_campaign_fordataverification()
 		  return $query->result_array();
 		// return $query;
 		}
+		// get_campaign_report function Added by Amol 
+		public function get_campaign_report($campaigns = FALSE, $limit = FALSE, $offset = FALSE, $camp_status)
+		{
+			if ($limit) {
+				$this->db->limit($limit, $offset);
+			}
+			if($camp_status != '')
+			{
+				$query = $this->db->where('campaign.status', $camp_status);
+			}
+			else
+			{
+				$query = $this->db->where('campaign.status', 2);
+			}
+			if($campaigns === FALSE){
+				$this->db->order_by('campaign.cids', 'DESC');
+				$this->db->join('clientscd', 'clientscd.clientid = campaign.clientids');
+				
+				$query = $this->db->get('campaign');
+				// echo $this->db->last_query(); 
+				return $query->result_array(); 
+			}
+
+			// $query = $this->db->where('campaign.status', 2);
+			$query = $this->db->get('campaign');
+			
+			return $query->row_array();
+		}
+
 }

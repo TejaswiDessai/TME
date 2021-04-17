@@ -64,7 +64,7 @@
 
             <div class="page-header">
                 <div class="page-header-title">
-                    <h4>List Users</h4>
+                    <h4>Campaign Report</h4>
                 </div>
                 <div class="page-header-breadcrumb">
                     <ul class="breadcrumb-title">
@@ -73,9 +73,9 @@
                                 <i class="icofont icofont-home"></i>
                             </a>
                         </li>
-                        <li class="breadcrumb-item"><a href="#!">Users</a>
+                        <li class="breadcrumb-item"><a href="#!">Campaign</a>
                         </li>
-                        <li class="breadcrumb-item"><a href="#!">List Users</a>
+                        <li class="breadcrumb-item"><a href="#!">Campaign Report</a>
                         </li>
                     </ul>
                 </div>
@@ -88,9 +88,20 @@
                
                 <div class="card">
                     <div class="card-block">
-                        <form action="<?php echo base_url();?>administrator/user_report" method="post" >
+                        <form action="<?php echo base_url();?>administrator/campaign_report" method="post" >
                         <table>
                             <tr>
+                                <td>
+                                <select class="form-control form-control-default "  name="campaign_status" id="campaign_status">
+                                    <option value="">Campaign Status</option>
+                                    <option value="1" <?php if( isset($campaign_status) && $campaign_status == "1") { echo "selected" ; } ?>>Closed</option>
+                                    <option value="2" <?php if( isset($campaign_status) && $campaign_status == "2") { echo "selected" ; } ?> selected>Open</option>
+                                    <option value="3" <?php if( isset($campaign_status) && $campaign_status == "3") { echo "selected" ; } ?>>On Hold</option>
+                                </select>
+                                </td>
+                                <td>
+                                <input type="submit" class="btn btn-primary" value="Search">
+                                </td>
                             <td>
                                 <a class="btn btn-primary" href="">Refresh</a>
                             </td>
@@ -128,6 +139,7 @@
                                         <th>QA Reject- Dis-Qalified</th>
                                         
                                         <th>QA Sent to Lead</th>
+                                        <th>LS Pending</th>
                                         <th>Ready To Deliver</th>
                                         <th>Delivered</th>
                                         <!-- <th>DC Pending with 1st Reject</th> -->
@@ -387,6 +399,17 @@
                                          and lsload = 1
                                          and cids = '".$post['cids']."'");
                                          echo $qa_sent_to_lead->num_rows();
+                                         ?>
+                                         </td>
+                                         <td>
+                                            <?php 
+                                         $ls_pending = $this->db->query("select * from leadmaster
+                                         where 
+                                         rlc = 0
+                                         and qaacpt = 1
+                                         and lsload = 0
+                                         and cids = '".$post['cids']."'");
+                                         echo $ls_pending->num_rows();
                                          ?>
                                          </td>
                                          <td>

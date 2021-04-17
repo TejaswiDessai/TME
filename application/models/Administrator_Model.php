@@ -3113,6 +3113,22 @@ public function get_campaign_fordataverification()
 			{
 				$cond = "and leadmaster.cids = $campid and  leadmaster.dytg = 1  and leadmaster.qaload = 1";
 			}
+			else if(isset($campid) && $campid != '' && $delivery_status == '0' && $qa_status != '' && $qa_status == 'qualified'  && $ls_status == '')
+			{
+				$cond = "and leadmaster.cids = $campid and leadmaster.qastat = '$qa_status'  and leadmaster.qaload = 1 and qaacpt = 1";
+			}
+			else if(isset($campid) && $campid != '' && $delivery_status == '0' && $qa_status != '' && $qa_status == 'disqualified'  && $ls_status == '')
+			{
+				$cond = "and leadmaster.cids = $campid and leadmaster.qastat = '$qa_status' and (leadmaster.qaload = 0 OR leadmaster.qaload is null) and qaacpt = 1 ";
+			}
+			else if(isset($campid) && $campid != '' && $delivery_status == '1' && $qa_status != '' && $qa_status == 'qualified'  && $ls_status == '')
+			{
+				$cond = "and leadmaster.cids = $campid and leadmaster.qastat = '$qa_status'  and leadmaster.qaload = 1 and qaacpt = 1";
+			}
+			else if(isset($campid) && $campid != '' && $delivery_status == '1' && $qa_status != '' && $qa_status == 'disqualified'  && $ls_status == '')
+			{
+				$cond = "and leadmaster.cids = $campid and leadmaster.qastat = '$qa_status' and (leadmaster.qaload = 0 OR leadmaster.qaload is null) and qaacpt = 1 ";
+			}
 			else if(isset($campid) && $campid != '' && $delivery_status == '' && $qa_status != '' && $qa_status == 'qualified'  && $ls_status == '')
 			{
 				$cond = "and leadmaster.cids = $campid and leadmaster.qastat = '$qa_status'  and leadmaster.qaload = 1 and qaacpt = 1";
@@ -3137,7 +3153,7 @@ public function get_campaign_fordataverification()
 			{
 				$cond = null;
 			}
-			// echo $cond;
+			echo $cond;
 			$sql = " SELECT leadmaster.lmid,
 			leadmaster.cids,
 			leadmaster.sal,

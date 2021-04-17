@@ -342,6 +342,7 @@
                                          and qasv is NULL
                                          and cdcload = 1
                                          and qaload is NULL
+                                         and lsload is NULL
                                          and cids = '".$post['cids']."'");
                                          echo $qa_pending->num_rows();
                                          ?>
@@ -352,10 +353,10 @@
                                          where 
                                          rlc = 0
                                          and qaacpt = 1
-                                         and qastat = 'qualified'
+                                         and qastat = 'disqualified'
                                          and evload = 1
-                                         and qaload = 1
-                                         and cdcload = null
+                                         
+                                         and qasv = 0
                                          and cids = '".$post['cids']."'");
                                          echo $qa_accept_qualify->num_rows();
                                          ?>

@@ -291,7 +291,7 @@
                                          $cdc_first_accept = $this->db->query("select * from leadmaster
                                          where 
                                          rlc = 0
-                                         and cdcload = 1
+                                        
                                          and evload = 1
                                          and ontag = 1
                                          and dvcomt = '1' 
@@ -302,7 +302,7 @@
                                          $cdc_second_accept = $this->db->query("select * from leadmaster
                                          where 
                                          rlc = 0
-                                         and cdcload = 1
+                                         
                                          and evload = 1
                                          and ontag = 1
                                          and dvcomt = '1' 

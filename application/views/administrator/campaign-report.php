@@ -134,9 +134,9 @@
                                         <th>CDC Total Accept</th>
                                         <th>CDC Reject</th>
                                         <th>QA Pending</th>
-                                        <th>QA Accept- Qalified</th>
-                                        <th>QA Accept- Dis-Qalified</th>
-                                        <th>QA Reject- Dis-Qalified</th>
+                                        <th>QA Accept- Qualified</th>
+                                        <th>QA Accept- Dis-Qualified</th>
+                                        <th>QA Reject- Dis-Qualified</th>
                                         
                                         <th>QA Sent to Lead</th>
                                         <th>LS Pending</th>

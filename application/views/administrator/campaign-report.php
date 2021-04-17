@@ -353,10 +353,10 @@
                                          where 
                                          rlc = 0
                                          and qaacpt = 1
-                                         and qastat = 'disqualified'
+                                         and qastat = 'qualified'
                                          and evload = 1
-                                         
-                                         and qasv = 0
+                                         and qaload = 1
+                                         and evload = 1
                                          and cids = '".$post['cids']."'");
                                          echo $qa_accept_qualify->num_rows();
                                          ?>
@@ -369,9 +369,8 @@
                                          and qaacpt = 1
                                          and qastat = 'disqualified'
                                          and evload = 1
-                                         and qaload = 1
+                                         
                                          and qasv = 0
-                                         and cdcload = null
                                          and cids = '".$post['cids']."'");
                                          echo $qa_accept_disqualify->num_rows();
                                          ?>

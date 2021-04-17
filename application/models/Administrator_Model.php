@@ -3093,17 +3093,33 @@ public function get_campaign_fordataverification()
 		public function get_delivery_leads($username = FALSE, $limit = FALSE, $offset = FALSE,$campid,$delivery_status,$qa_status,$ls_status)
 		{
 			
-			if(isset($campid) && $campid != '' && $delivery_status != '' && $qa_status != '' && $ls_status != '')
+			if(isset($campid) && $campid != '' && $delivery_status != '' && $qa_status != ''  && $ls_status != '')
 			{
 				$cond = "and leadmaster.cids = $campid and leadmaster.dytg = $delivery_status and leadmaster.qastat = '$qa_status' and leadmaster.clscored  = $ls_status";
 			}
-			else if($campid != '' && $delivery_status != '' && $qa_status == '' && $ls_status == '')
+			else if(isset($campid) && $campid != '' && $delivery_status != '' && $qa_status != '' && $qa_status == 'qualified' && $ls_status != '')
 			{
-				$cond = "and leadmaster.cids = $campid and leadmaster.dytg = $delivery_status";
+				$cond = "and leadmaster.cids = $campid and leadmaster.dytg = $delivery_status and leadmaster.qastat = '$qa_status' and leadmaster.qaload = 1 and leadmaster.clscored  = $ls_status";
 			}
-			else if(isset($campid) && $campid != '' && $delivery_status == '' && $qa_status != ''  && $ls_status == '')
+			else if(isset($campid) && $campid != '' && $delivery_status != '' && $qa_status != '' && $qa_status == 'disqualified'  && $ls_status != '')
 			{
-				$cond = "and leadmaster.cids = $campid and leadmaster.qastat = '$qa_status'";
+				$cond = "and leadmaster.cids = $campid and leadmaster.dytg = $delivery_status and leadmaster.qastat = '$qa_status' and leadmaster.clscored  = $ls_status";
+			}
+			else if($campid != '' && $delivery_status != '' && $delivery_status == '0' && $qa_status == '' && $ls_status == '')
+			{
+				$cond = "and leadmaster.cids = $campid and  leadmaster.dytg is null  and leadmaster.qaload = 1";
+			}
+			else if($campid != '' && $delivery_status != '' && $delivery_status == '1' && $qa_status == '' && $ls_status == '')
+			{
+				$cond = "and leadmaster.cids = $campid and  leadmaster.dytg = 1  and leadmaster.qaload = 1";
+			}
+			else if(isset($campid) && $campid != '' && $delivery_status == '' && $qa_status != '' && $qa_status == 'qualified'  && $ls_status == '')
+			{
+				$cond = "and leadmaster.cids = $campid and leadmaster.qastat = '$qa_status'  and leadmaster.qaload = 1 ";
+			}
+			else if(isset($campid) && $campid != '' && $delivery_status == '' && $qa_status != '' && $qa_status == 'disqualified'  && $ls_status == '')
+			{
+				$cond = "and leadmaster.cids = $campid and leadmaster.qastat = '$qa_status' and leadmaster.qaload = 0 ";
 			}
 			else if(isset($campid) && $campid != '' && $delivery_status == '' && $qa_status == ''  && $ls_status != '')
 			{
@@ -3111,7 +3127,7 @@ public function get_campaign_fordataverification()
 			}
 			else if(isset($campid) && $campid != '' && $delivery_status == '' && $qa_status == ''  && $ls_status == '')
 			{
-				$cond = "and leadmaster.cids = $campid";
+				$cond = "and leadmaster.cids = $campid ";
 			}
 			else if($campid == '' && $delivery_status != '')
 			{
@@ -3188,7 +3204,7 @@ public function get_campaign_fordataverification()
 			 LEFT JOIN dept ON ((leadmaster.dname = dept.dcd)))
 			 LEFT JOIN comptype ON ((leadmaster.ctyp = comptype.ctypid)))
 			
-			where leadmaster.qaload = 1 and leadmaster.cdcsb <=4 and
+			where leadmaster.cdcsb <=4 and
 			 leadmaster.cdcrjt <=4
 			 $cond 
 		  ORDER BY leadmaster.lmid limit 20;";

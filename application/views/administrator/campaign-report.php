@@ -417,8 +417,10 @@
                                          $ready_to_deliver = $this->db->query("select * from leadmaster
                                             where 
                                             qaload = 1
-                                            and dytg != 1
                                             and qaacpt = 1
+                                            and qastat = 'qualified'
+                                            and evload = 1
+                                            and (dytg = 0 OR dytg is null)
                                             and cdcsb <=4 
 			                                and cdcrjt <=4
                                          and cids = '".$post['cids']."'");

@@ -3143,7 +3143,7 @@ public function get_campaign_fordataverification()
 			}
 			else if(isset($campid) && $campid != '' && $delivery_status == '' && $qa_status == ''  && $ls_status == '')
 			{
-				$cond = "and leadmaster.cids = $campid ";
+				$cond = "and leadmaster.cids = $campid  and leadmaster.qaload = 1 and (leadmaster.dytg = 0 OR leadmaster.dytg is null)";
 			}
 			else if($campid == '' && $delivery_status != '')
 			{

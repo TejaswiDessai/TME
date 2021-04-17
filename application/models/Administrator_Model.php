@@ -3151,7 +3151,7 @@ public function get_campaign_fordataverification()
 			}
 			else
 			{
-				$cond = null;
+				$cond = "and leadmaster.qaload = 1";
 			}
 			// echo $cond;
 			$sql = " SELECT leadmaster.lmid,

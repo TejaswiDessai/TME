@@ -1011,8 +1011,12 @@
 
 				// tag
 				'pload' => '1', // next level ready to load
-
-				
+				'rlc' => '0', // No next level ready to load- save means here
+				'dvload' => '0', // record is closed
+				'ontag' => '0', 
+				'dvsbtg' => '0', // record is closed
+				'dvrejtg' => '0', // record is closed
+				'sbsvtag' => '1', 
 
 				// 'svagtidi' => '1' // save Agent Name
 				// 'svdti' => '1' // save date time
@@ -1195,7 +1199,12 @@
 
 				// tag
 				'pload' => '0', // No next level ready to load- save means here
-
+				'rlc' => '0', // No next level ready to load- save means here
+				'sbsvtag' => '0', 
+				'dvload' => '0', // record is closed
+				'ontag' => '0', 
+				'dvsbtg' => '0', // record is closed
+				'dvrejtg' => '0', // record is closed
 				
 
 				'svagtidi' => $_SESSION['empcode'], // save Agent Name
@@ -1309,6 +1318,44 @@
 						$timezones = 0 ;
 					}
 
+					if(!empty($_POST['lcalldisp'])|| ($_GET['lcalldisp'] =='0'))
+					{
+						$lcalldisp =  $_GET['lcalldisp'];
+					} else{
+					$lcalldisp = NULL;
+					}
+					
+					if(!empty($_GET['lcallstat']) || ($_GET['lcallstat'] =='0') )
+					{
+						$lcallstat =  $_GET['lcallstat'];
+					} else{
+					$lcallstat = NULL;
+					}
+			
+					if(!empty($_GET['cdclst']) || ($_GET['cdclst'] =='0') )
+					{
+						$cdclst =  $_GET['cdclst'];
+					} else{
+					$cdclst = NULL;
+					}
+					if(!empty($_GET['callrec']) || ($_GET['callrec'] =='0') )
+					{
+						$callrec =  $_GET['callrec'];
+					} else{
+					$callrec = NULL;
+					}
+					if(!empty($_GET['ddispositionclass']) || ($_GET['ddispositionclass'] =='0') )
+					{
+						$ddispositionclass =  $_GET['ddispositionclass'];
+					} else{
+					$ddispositionclass = NULL;
+					}
+				
+					// $ddispositionclass = $_GET['ddispositionclass'];
+					
+					$cvr = $_GET['cvr'];
+
+
 				$datacdcandlead = array(
 				'cids' => $_GET['campaign_idcids'],
 				
@@ -1377,11 +1424,27 @@
 				'aa10' => $_GET['aa10'],
 				'aa11' => $_GET['aa11'],
 				'aa12' => $_GET['aa12'],
-
+				
+				'lcalldisp' => $lcalldisp, 
+				'lcallstat' => $lcallstat, 
+				'cvr' => $cvr, 
+				'ddispositionclass' => $ddispositionclass, 
+				'cdclst' => $cdclst, 
+				'callrec' => $callrec, 
 				
 				
 				// tag
+				'pload' => '1', // next level ready to load
+				'rlc' => '0', // No next level ready to load- save means here
+				'sbsvtag' => '1', 
+				'dvload' => '0', // record is closed
+				'ontag' => '0', 
+				'dvsbtg' => '0', // record is closed
+				'dvrejtg' => '0', // record is closed
+
 				'cdcload' => '1', // submit to next level
+				'cdcsb' => '1', // submit to next level
+				'cdcrjt' => '0', // submit to next level
 
 				
 
@@ -1569,8 +1632,9 @@
 				
 				// tag
 				'cdcsv' => '0', // Save only
-
-				
+				'rlc' => '0', // No next level ready to load- save means here
+				'sbsvtag' => '0', 
+				'dvrejtg' => '0', 
 
 				'cdcsvagti' => $_SESSION['empcode'], // save Agent Name
 				'cdcsvdti' => $old_date // save date time

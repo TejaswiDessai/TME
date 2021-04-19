@@ -120,7 +120,7 @@ $.ajax({
         // $('.questionrow').html("");
         $('.questionrow').append('<div class="col-sm-6 card ansdiv">'+
                                    '<p><b>'+data['questions']+'</b></p>'+
-                                      '<input type="text" value=""  name="aa' + index + '" id="aa' + index + '"  placeholder="Answer for Question 2"  class="form-control form-control-sm ">'+
+                                      '<input type="text" value=""  autocomplete = "off" name="aa' + index + '" id="aa' + index + '"  placeholder="Answer for Question 2"  class="form-control form-control-sm ">'+
                                                                      
                           '</div>');
 
@@ -247,21 +247,21 @@ $.ajax({
                                 </select>
                             </div>
                             <div class="col-sm-2">
-                                <input type="text"  name="fname" id="fname"  placeholder="First Name"   class="form-control form-control-sm cdqadisable">
+                                <input type="text"  name="fname" id="fname"  placeholder="First Name"  autocomplete = "off"  class="form-control form-control-sm cdqadisable">
                                 <input type="hidden" name="inclistnew" id="inclistnew" value="<?php echo $campaign['inclistnew']; ?>">
                                 <span style='color:#FF0000' id="fname_msg"></span>
                             </div>
                             
                             <div class="col-sm-2">
-                                <input type="text"  name="lname" id="lname"  placeholder="Last Name"   class="form-control form-control-sm cdqadisable">
+                                <input type="text"  name="lname" id="lname"  placeholder="Last Name"  autocomplete = "off"  class="form-control form-control-sm cdqadisable">
                                 <span style='color:#FF0000' id="lname_msg"></span>
                             </div>
                             <div class="col-sm-3">
-                                <input type="text"  name="jtitle" id="jtitle"  placeholder="Job Title"  class="form-control form-control-sm cdqadisable">
+                                <input type="text"  name="jtitle" id="jtitle"  placeholder="Job Title"  autocomplete = "off" class="form-control form-control-sm cdqadisable">
                             </div>
                             <div class="col-sm-2">
                                 <!-- <select class="js-example-basic-multiple col-sm-12 cdqadisable" multiple="multiple" name="desid[]" id="desid"> -->
-                                <select class="form-control form-control-sm cdqadisable" name="jlevel" id="jlevel">
+                                <select class="form-control form-control-sm cdqadisable" name="jlevel" id="jlevel" >
                                 <option value="">Job Level</option>
                                 <?php foreach ($joblevel as $joblevel): ?>
                                     <option value="<?php echo $joblevel['joblids']; ?>"><?php echo $joblevel['joblevel']; ?></option>
@@ -294,12 +294,12 @@ $.ajax({
                             </div> 
                             <div class="col-sm-2">
                                 <div class="newsletter-signup">
-                                <input type="text"  name="email" id="email"  placeholder="Email"  class="form-control form-control-sm cdqadisable">
+                                <input type="text"  autocomplete = "off" name="email" id="email"  placeholder="Email"  class="form-control form-control-sm cdqadisable">
                                </div>
                                 <span style='color:#FF0000' id="email_msg"></span>
                             </div>
                             <div class="col-sm-2">
-                                <input type="text"  name="phone" id="phone"  placeholder="Phone" maxlength="15"  class="form-control form-control-sm cdqadisable">
+                                <input type="text"  autocomplete = "off"  name="phone" id="phone"  placeholder="Phone" maxlength="15"  class="form-control form-control-sm cdqadisable">
                                 <span style='color:#FF0000' id="phone_msg"></span>
                             </div>
                             <div class="col-sm-2">
@@ -307,11 +307,11 @@ $.ajax({
                             </div>
                             
                             <div class="col-sm-2">
-                                <input type="text"  name="phext" id="phext"  placeholder="Extension" maxlength="5"  class="form-control form-control-sm cdqadisable">
+                                <input type="text"  autocomplete = "off" name="phext" id="phext"  placeholder="Extension" maxlength="5"  class="form-control form-control-sm cdqadisable">
                             </div>
                             <div class="col-sm-2">
                           
-                                <input type="text"  name="plink" id="plink"  placeholder="Prospect Link"  class="form-control form-control-sm"  >
+                                <input type="text"  autocomplete = "off"  name="plink" id="plink"  placeholder="Prospect Link"  class="form-control form-control-sm"  >
                                
                                 <span style='color:#FF0000' id="url_msg"></span>
                             </div>
@@ -330,7 +330,7 @@ $.ajax({
                            </div>
                               <div class="col-sm-2">
                                 <div class="compcheck">
-                                <input type="text"  name="company_name" id="company_name"  placeholder="Company Name"  class="form-control form-control-sm cdqadisable">
+                                <input type="text" autocomplete = "off"  name="company_name" id="company_name"  placeholder="Company Name"  class="form-control form-control-sm cdqadisable">
                                 </div>
                                 <span style='color:#FF0000' id="comp_msg"></span>
                               </div> 
@@ -338,17 +338,17 @@ $.ajax({
 
 
                             <div class="col-sm-2">
-                                <input type="text"  name="address" id="address"  placeholder="Address"  class="form-control form-control-sm cdqadisable">
+                                <input type="text"  autocomplete = "off" name="address" id="address"  placeholder="Address"  class="form-control form-control-sm cdqadisable">
                            </div>
                            <div class="col-sm-2">
-                                <input type="text"  name="city" id="city"  placeholder="City"  class="form-control form-control-sm cdqadisable">
+                                <input type="text"  autocomplete = "off" name="city" id="city"  placeholder="City"  class="form-control form-control-sm cdqadisable">
                            </div>
                            <div class="col-sm-2">
-                                <input type="text"  name="state" id="state"  placeholder="State"  class="form-control form-control-sm cdqadisable">
+                                <input type="text"  autocomplete = "off" name="state" id="state"  placeholder="State"  class="form-control form-control-sm cdqadisable">
                                 </select>
                             </div>
                             <div class="col-sm-2">
-                                <input type="text"  name="zip_code" id="zip_code"  placeholder="Zip Code"  class="form-control form-control-sm cdqadisable">
+                                <input type="text"  autocomplete = "off" name="zip_code" id="zip_code"  placeholder="Zip Code"  class="form-control form-control-sm cdqadisable">
                            </div>
                            
                             
@@ -442,7 +442,7 @@ $.ajax({
                     <div class="form-group row">
                         <div class="col-sm-2">
                         <div class="tooltips">
-                                <input type="text"  name="empsize" id="empsize" maxlength="6" placeholder="Actual Employee Size"  class="form-control form-control-sm cdqadisable">
+                                <input type="text"  autocomplete = "off"  name="empsize" id="empsize" maxlength="6" placeholder="Actual Employee Size"  class="form-control form-control-sm cdqadisable">
                                
                                 <span class="tooltiptext"> Select range  between <?php echo $campaign['emplbnd']; ?> & <?php echo $campaign['empubnd']; ?></span>
                                 </div>
@@ -450,7 +450,7 @@ $.ajax({
                             </div>
                             <div class="col-sm-2">
                               <div class="tooltips">
-                                <input type="text"  name="arevenue" id="arevenue" maxlength="15" placeholder="Actual Revenue Size"  class="form-control form-control-sm cdqadisable">
+                                <input type="text"  autocomplete = "off"  name="arevenue" id="arevenue" maxlength="15" placeholder="Actual Revenue Size"  class="form-control form-control-sm cdqadisable">
                                 <span class="tooltiptext"> Select range  between <?php echo $campaign['revlbnd']; ?> <?php echo $campaign['revlbdim']; ?> 
                           & <?php echo $campaign['revubnd']; ?> <?php echo $campaign['revubdim']; ?></span>
                               </div>
@@ -480,13 +480,13 @@ $.ajax({
                             </div>          
                             <div class="col-sm-2">
                                 <div class="domaincheck">
-                                <input type="text"  name="domain" id="domain"  placeholder="Domain" value=""  class="form-control form-control-sm cdqadisable">
+                                <input type="text"  autocomplete = "off"  name="domain" id="domain"  placeholder="Domain" value=""  class="form-control form-control-sm cdqadisable">
                                 </div>
                                 <span style='color:#FF0000' id="domain_msg"></span>
                               </div>
                             
                             <div class="col-sm-2">
-                                <input type="text"  name="empszlink" id="empszlink" value=""   placeholder="Employee Size Link"  class="form-control form-control-sm">
+                                <input type="text"  autocomplete = "off" name="empszlink" id="empszlink" value=""   placeholder="Employee Size Link"  class="form-control form-control-sm">
                             </div>
                            
                         </div>
@@ -495,13 +495,13 @@ $.ajax({
                         <div class="form-group row">
                            
                         <div class="col-sm-2 ">
-                                <input type="text"  name="indlink" id="indlink"  placeholder="Industry Link" value="" class="form-control form-control-sm">
+                                <input type="text"  autocomplete = "off" name="indlink" id="indlink"  placeholder="Industry Link" value="" class="form-control form-control-sm">
                             </div>
                             <div class="col-sm-2">
-                                <input type="text"  name="revszlink" id="revszlink" value=""    placeholder="Revenue Size Link"  class="form-control form-control-sm revsizehide">
+                                <input type="text"  autocomplete = "off" name="revszlink" id="revszlink" value=""    placeholder="Revenue Size Link"  class="form-control form-control-sm revsizehide">
                             </div>
                             <div class="col-sm-2">
-                                <input type="text"  name="othrlink" id="othrlink" value=""  placeholder="Other Link"  class="form-control form-control-sm">
+                                <input type="text"  autocomplete = "off"  name="othrlink" id="othrlink" value=""  placeholder="Other Link"  class="form-control form-control-sm">
                             </div>
                             <div class="col-sm-2">
                                 <select class="form-control form-control-sm"  name="emailver" id="emailver">
@@ -511,7 +511,7 @@ $.ajax({
                                 </select>
                             </div>
                             <div class="col-sm-2">
-                                <input type="text"  name="aum" id="aum"  placeholder="Asset Under Management"  class="form-control form-control-sm aumdis">
+                                <input type="text"  autocomplete = "off"  name="aum" id="aum"  placeholder="Asset Under Management"  class="form-control form-control-sm aumdis">
                             </div>
                             <div class="col-sm-2">
                                 <select class="form-control form-control-sm commentvisible" name="assetid" id="assetid">
@@ -619,7 +619,7 @@ $.ajax({
                         <div class="form-group row" >
                              <div class="col-sm-12 commentvisible">
                                 <label class="col-lable"><b>Comment</b></label>
-                                <input type="text"  name="pcomt" id="pcomt"  placeholder="Comment"  class="form-control form-control-sm">
+                                <input type="text"  autocomplete = "off" name="pcomt" id="pcomt"  placeholder="Comment"  class="form-control form-control-sm">
                             </div> 
                          </div>
                         <input type = hidden name="campaign_id" id="campaign_id" value="<?php echo $campaign['cnid']; ?>">

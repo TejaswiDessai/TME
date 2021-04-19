@@ -64,7 +64,7 @@
 
             <div class="page-header">
                 <div class="page-header-title">
-                    <h4>List Users</h4>
+                    <h4>Campaign Report</h4>
                 </div>
                 <div class="page-header-breadcrumb">
                     <ul class="breadcrumb-title">
@@ -73,9 +73,9 @@
                                 <i class="icofont icofont-home"></i>
                             </a>
                         </li>
-                        <li class="breadcrumb-item"><a href="#!">Users</a>
+                        <li class="breadcrumb-item"><a href="#!">Campaign</a>
                         </li>
-                        <li class="breadcrumb-item"><a href="#!">List Users</a>
+                        <li class="breadcrumb-item"><a href="#!">Campaign Report</a>
                         </li>
                     </ul>
                 </div>
@@ -88,9 +88,20 @@
                
                 <div class="card">
                     <div class="card-block">
-                        <form action="<?php echo base_url();?>administrator/user_report" method="post" >
+                        <form action="<?php echo base_url();?>administrator/campaign_report" method="post" >
                         <table>
                             <tr>
+                                <td>
+                                <select class="form-control form-control-default "  name="campaign_status" id="campaign_status">
+                                    <option value="">Campaign Status</option>
+                                    <option value="1" <?php if( isset($campaign_status) && $campaign_status == "1") { echo "selected" ; } ?>>Closed</option>
+                                    <option value="2" <?php if( isset($campaign_status) && $campaign_status == "2") { echo "selected" ; } ?> selected>Open</option>
+                                    <option value="3" <?php if( isset($campaign_status) && $campaign_status == "3") { echo "selected" ; } ?>>On Hold</option>
+                                </select>
+                                </td>
+                                <td>
+                                <input type="submit" class="btn btn-primary" value="Search">
+                                </td>
                             <td>
                                 <a class="btn btn-primary" href="">Refresh</a>
                             </td>
@@ -119,14 +130,16 @@
                                         <th>Total Accepted</th>
                                         <th>1st Accept</th>
                                         <th>2nd Accept</th>
-                                        <th>CDC Total Accept</th>
-                                        <th>CDC Rejct</th>
                                         <th>CDC Pending</th>
-                                        <th>QA Accept- Qalified</th>
-                                        <th>QA Accept- Dis-Qalified</th>
-                                        <th>QA Reject</th>
+                                        <th>CDC Total Accept</th>
+                                        <th>CDC Reject</th>
                                         <th>QA Pending</th>
+                                        <th>QA Accept- Qualified</th>
+                                        <th>QA Accept- Dis-Qualified</th>
+                                        <th>QA Reject- Dis-Qualified</th>
+                                        
                                         <th>QA Sent to Lead</th>
+                                        <th>LS Pending</th>
                                         <th>Ready To Deliver</th>
                                         <th>Delivered</th>
                                         <!-- <th>DC Pending with 1st Reject</th> -->
@@ -258,16 +271,47 @@
                                         <!-- </td> -->
                                         <td>
                                             <?php 
-                                         $cdc_total_accept = $this->db->query("select * from leadmaster
+                                         $cdc_pending = $this->db->query("select * from leadmaster
+                                         where 
+                                         rlc != 1
+                                         and evload = 1
+                                         and sbsvtag != 0
+                                         and cdcsb < 4
+                                         and cdcrjt < 4
+                                         and cdcsv is NULL
+                                         and qasv is NULL
+                                         and cdcload is NULL
+                                         and qaload is NULL
+                                         and cids = '".$post['cids']."'");
+                                         echo $cdc_pending->num_rows();
+                                         ?>
+                                         </td>
+                                        <td>
+                                            <?php 
+                                         $cdc_first_accept = $this->db->query("select * from leadmaster
                                          where 
                                          rlc = 0
-                                         and cdcload = 1
+                                        
                                          and evload = 1
                                          and ontag = 1
                                          and dvcomt = '1' 
-                                         and (cdcsbagti != null OR cdcsbagtii != null)
+                                         and cdcsb >= 1
+                                         and cdcsbagti is not null
                                          and cids = '".$post['cids']."'");
-                                         echo $cdc_total_accept->num_rows();
+                                         $cdcfirstA = $cdc_first_accept->num_rows();
+                                         $cdc_second_accept = $this->db->query("select * from leadmaster
+                                         where 
+                                         rlc = 0
+                                         
+                                         and evload = 1
+                                         and ontag = 1
+                                         and dvcomt = '1' 
+                                         and cdcsb >= 1
+                                         
+                                         and cdcsbagtii is not null
+                                         and cids = '".$post['cids']."'");
+                                         $cdcsecondA = $cdc_second_accept->num_rows();
+                                         echo $cdctotal = $cdcfirstA + $cdcsecondA;
                                          ?>
                                          </td>
                                          <td>
@@ -275,26 +319,32 @@
                                          $cdc_reject = $this->db->query("select * from leadmaster
                                          where 
                                          dvcomt = '1' 
-                                         and cdcload = 1
+                                         and cdcrjt >= 1
                                          and rlc = 0
                                          and cdcrjt >= 1
-                                         and cdcload = NULL
-                                         and evload = NULL
+                                         and cdcload is NULL
+                                         and evload is NULL
                                          and ontag = 1
-                                         and (cdcrjtagti != null OR cdcrjtagti != null)
+                                         and (cdcrjtagti is not null OR cdcrjtagti is not null)
                                          and cids = '".$post['cids']."'");
                                          echo $cdc_reject->num_rows();
                                          ?>
                                          </td>
                                          <td>
                                             <?php 
-                                         $cdc_pending = $this->db->query("select * from leadmaster
+                                         $qa_pending = $this->db->query("select * from leadmaster
                                          where 
-                                         rlc = 0
+                                         rlc != 1
+                                         and cdcsb < 4
+                                         and cdcrjt < 4
+                                         and sbsvtag != 0
+                                         and cdcsv is NULL
+                                         and qasv is NULL
                                          and cdcload = 1
-                                         
+                                         and qaload is NULL
+                                         and lsload is NULL
                                          and cids = '".$post['cids']."'");
-                                         echo $cdc_pending->num_rows();
+                                         echo $qa_pending->num_rows();
                                          ?>
                                          </td>
                                          <td>
@@ -306,7 +356,7 @@
                                          and qastat = 'qualified'
                                          and evload = 1
                                          and qaload = 1
-                                         and cdcload = null
+                                         and evload = 1
                                          and cids = '".$post['cids']."'");
                                          echo $qa_accept_qualify->num_rows();
                                          ?>
@@ -319,9 +369,8 @@
                                          and qaacpt = 1
                                          and qastat = 'disqualified'
                                          and evload = 1
-                                         and qaload = 1
+                                         
                                          and qasv = 0
-                                         and cdcload = null
                                          and cids = '".$post['cids']."'");
                                          echo $qa_accept_disqualify->num_rows();
                                          ?>
@@ -331,23 +380,16 @@
                                          $qa_reject = $this->db->query("select * from leadmaster
                                          where 
                                          rlc = 0
-                                         and cdcload = 1
-                                         
+                                         and evload = 1
+                                         and qasv = 0
+                                         and cdcload is NULL
+                                         and qastat = 'disqualified'
+                                         and qarej = 1
                                          and cids = '".$post['cids']."'");
                                          echo $qa_reject->num_rows();
                                          ?>
                                          </td>
-                                         <td>
-                                            <?php 
-                                         $qa_pending = $this->db->query("select * from leadmaster
-                                         where 
-                                         rlc = 0
-                                         and cdcload = 1
                                          
-                                         and cids = '".$post['cids']."'");
-                                         echo $qa_pending->num_rows();
-                                         ?>
-                                         </td>
                                          <td>
                                             <?php 
                                          $qa_sent_to_lead = $this->db->query("select * from leadmaster
@@ -361,11 +403,24 @@
                                          </td>
                                          <td>
                                             <?php 
+                                         $ls_pending = $this->db->query("select * from leadmaster
+                                         where 
+                                         rlc = 0
+                                         and qaacpt = 1
+                                         and lsload = 0
+                                         and cids = '".$post['cids']."'");
+                                         echo $ls_pending->num_rows();
+                                         ?>
+                                         </td>
+                                         <td>
+                                            <?php 
                                          $ready_to_deliver = $this->db->query("select * from leadmaster
                                             where 
                                             qaload = 1
-                                            and dytg != 1
                                             and qaacpt = 1
+                                            and qastat = 'qualified'
+                                            and evload = 1
+                                            and (dytg = 0 OR dytg is null)
                                             and cdcsb <=4 
 			                                and cdcrjt <=4
                                          and cids = '".$post['cids']."'");

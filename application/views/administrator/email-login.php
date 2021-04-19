@@ -54,9 +54,9 @@
                                         <div class="checkbox-fade fade-in-primary">
                                         </div>
                                     </div>
-                                    <div class="col-sm-5 col-xs-12 forgot-phone text-right">
+                                    <!-- <div class="col-sm-5 col-xs-12 forgot-phone text-right">
                                         <a href="<?php echo base_url(); ?>administrator/index" class="text-right f-w-600 text-inverse"> Login?</a>
-                                    </div>
+                                    </div> -->
                                 </div>
                                 <div class="row m-t-30">
                                     <div class="col-md-12">

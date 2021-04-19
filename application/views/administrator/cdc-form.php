@@ -1225,7 +1225,7 @@ $.ajax({
                                             <label class="check-task">
                                                 <input type="checkbox" name="assetid" id="assetid"  value="assetid">
                                                 <?php// foreach ($joblevel as $joblevel): ?>
-                                               <span  class="form-control form-control-sm cdqadisable tooltips"><?php if($ldmster['atitle'] != "" ){ echo $assetitledv['title']; } else { echo "Asset title is Empty" ; } ?>
+                                               <span  class="form-control form-control-sm cdqadisable tooltips"><?php if($ldmster['atitle'] != "" && $ldmster['atitle'] != '0'){ echo $assetitledv['title']; } else { echo "Asset title is Empty" ; } ?>
                                                <span class="tooltiptext">Asset Title</span>
                                                 </span>
                                                 <?php// endforeach; ?>  

@@ -1206,7 +1206,7 @@ var arevenuevalue = $('#arevenue').val();
               //     $('#mlbl').not(this).find('option[value="' + check + '"]').hide();
               // });
             
-    alert("million and trillion");
+    // alert("million and trillion");
     } else if(lrevrange == "billion" && urevrange ==  "trillion"){
       if($('#mlbl').val()==0){
         var m = arevenuevalue*1000;

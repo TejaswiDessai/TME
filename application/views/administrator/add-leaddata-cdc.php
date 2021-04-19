@@ -1736,10 +1736,12 @@ if(lmid == undefined){
             $('#opteml').val("1");
             $('#optph').val("1");
             $('#optpst').val("1");
+            $('#dnd').val("0");
             $('.optoption').show();
             $("#opteml").prop('checked', true);
             $("#optph").prop('checked', true);
             $("#optpst").prop('checked', true);
+            $("#dnd").prop('checked', false);
            
           
                

@@ -1155,7 +1155,7 @@ $.ajax({
                                             <label class="check-task">
                                                 <input type="checkbox" name="assetid" id="assetid"  value="assetid">
                                                 <?php// foreach ($joblevel as $joblevel): ?>
-                                               <span  class="form-control form-control-sm cdqadisable tooltips"><?php if($ldmster['atitle'] != "" ){ echo $assetitledv['title']; } else { echo "Asset title is Empty" ; } ?>
+                                               <span  class="form-control form-control-sm cdqadisable tooltips"><?php if($ldmster['atitle'] != "" && $ldmster['atitle'] != '0' ){ echo $assetitledv['title']; } else { echo "Asset title is Empty" ; } ?>
                                                <span class="tooltiptext">Asset Title</span>
                                                 </span>
                                                 <?php// endforeach; ?>  
@@ -1337,7 +1337,7 @@ $.ajax({
                                         <div class="col-sm-2 optoption">
                                         Opt - in Email <input type="checkbox" <?php if($ldmster['opteml'] == '1'){ echo "checked" ; } ?> value="<?php if($ldmster['opteml'] == '1'){ echo "1" ; } ?>" id="opteml" name="opteml" class="js-single  <?php if($ldmster['opteml'] == '1'){ echo "checkvalue" ; } ?>"  />
                                         </div>
-                                        <div class="col-sm-2 optoption">
+                                        <div class="col-sm-2">
                                         DND <input type="checkbox" <?php if($ldmster['dnd'] == '1'){ echo "checked" ; } ?> value="<?php if($ldmster['dnd'] == '1'){ echo "1" ; } ?>" id="dnd" name="dnd" class="js-single dnd <?php if($ldmster['dnd'] == '1'){ echo "checkvalue" ; } ?>"  />
                                         </div>
                          </div>

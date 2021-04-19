@@ -29,7 +29,45 @@
     border-color: gray;
     outline:none;
 } */
+.tooltips {
+  position: relative;
+  display: inline-block;
+  border-bottom: 1px dotted black;
+}
+.tooltips .tooltiptext {
+  visibility: hidden;
+  width: 120px;
+  background-color: #555;
+  color: #fff;
+  text-align: center;
+  border-radius: 6px;
+  padding: 5px 0;
+  position: absolute;
+  z-index: 1;
+  bottom: 125%;
+  left: 50%;
+  margin-left: -60px;
+  opacity: 0;
+  transition: opacity 0.3s;
+}
 
+.tooltips .tooltiptext::after {
+  content: "";
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  margin-left: -5px;
+  border-width: 5px;
+  border-style: solid;
+  border-color: #555 transparent transparent transparent;
+}
+
+.tooltips:hover .tooltiptext {
+  visibility: visible;
+  opacity: 1;
+  font-size: 12px;
+  padding:5px;
+}
  </style>
 <script>
 
@@ -79,10 +117,10 @@ $.ajax({
         // $('.questionrow').append('<select><option value="'+data['qid']+'">'+data['questions']+'</option></select');
        
           index++;
-        $('.questionrow').html("");
+        // $('.questionrow').html("");
         $('.questionrow').append('<div class="col-sm-6 card ansdiv">'+
                                    '<p><b>'+data['questions']+'</b></p>'+
-                                      '<input type="text" value=""  name="aa' + index + '" id="aa' + index + '"  placeholder="Answer for Question 2"  class="form-control form-control-sm ">'+
+                                      '<input type="text" value=""  autocomplete = "off" name="aa' + index + '" id="aa' + index + '"  placeholder="Answer for Question 2"  class="form-control form-control-sm ">'+
                                                                      
                           '</div>');
 
@@ -128,11 +166,11 @@ $.ajax({
             <div class="form-group row"> 
              <div class="col-sm-2" style="margin-left: 200px;margin-top: -25px;">
                                 <select name="rec_type_id" id="rec_type_id"  class="form-control form-control-sm">
-                                      <option value="1">Data </option>
+                                      <!-- <option value="1">Data </option> -->
                                       <option value="2">CDQA </option>
                                 </select>
                   </div> 
-                <div class="col-sm-2" style="margin-top: -20px;">
+                <div class="col-sm-4" style="margin-top: -20px;">
                 <?php foreach ($campaigns as $campaign): ?>
                  <label class="col-lable"><b>Campaign Name: <?php echo $campaign['campnm']; ?></b></label>
                  <?php endforeach; ?>
@@ -209,21 +247,21 @@ $.ajax({
                                 </select>
                             </div>
                             <div class="col-sm-2">
-                                <input type="text"  name="fname" id="fname"  placeholder="First Name"   class="form-control form-control-sm cdqadisable">
+                                <input type="text"  name="fname" id="fname"  placeholder="First Name"  autocomplete = "off"  class="form-control form-control-sm cdqadisable">
                                 <input type="hidden" name="inclistnew" id="inclistnew" value="<?php echo $campaign['inclistnew']; ?>">
                                 <span style='color:#FF0000' id="fname_msg"></span>
                             </div>
                             
                             <div class="col-sm-2">
-                                <input type="text"  name="lname" id="lname"  placeholder="Last Name"   class="form-control form-control-sm cdqadisable">
+                                <input type="text"  name="lname" id="lname"  placeholder="Last Name"  autocomplete = "off"  class="form-control form-control-sm cdqadisable">
                                 <span style='color:#FF0000' id="lname_msg"></span>
                             </div>
                             <div class="col-sm-3">
-                                <input type="text"  name="jtitle" id="jtitle"  placeholder="Job Title"  class="form-control form-control-sm cdqadisable">
+                                <input type="text"  name="jtitle" id="jtitle"  placeholder="Job Title"  autocomplete = "off" class="form-control form-control-sm cdqadisable">
                             </div>
                             <div class="col-sm-2">
                                 <!-- <select class="js-example-basic-multiple col-sm-12 cdqadisable" multiple="multiple" name="desid[]" id="desid"> -->
-                                <select class="form-control form-control-sm cdqadisable" name="jlevel" id="jlevel">
+                                <select class="form-control form-control-sm cdqadisable" name="jlevel" id="jlevel" >
                                 <option value="">Job Level</option>
                                 <?php foreach ($joblevel as $joblevel): ?>
                                     <option value="<?php echo $joblevel['joblids']; ?>"><?php echo $joblevel['joblevel']; ?></option>
@@ -256,12 +294,12 @@ $.ajax({
                             </div> 
                             <div class="col-sm-2">
                                 <div class="newsletter-signup">
-                                <input type="text"  name="email" id="email"  placeholder="Email"  class="form-control form-control-sm cdqadisable">
+                                <input type="text"  autocomplete = "off" name="email" id="email"  placeholder="Email"  class="form-control form-control-sm cdqadisable">
                                </div>
                                 <span style='color:#FF0000' id="email_msg"></span>
                             </div>
                             <div class="col-sm-2">
-                                <input type="text"  name="phone" id="phone"  placeholder="Phone" maxlength="15"  class="form-control form-control-sm cdqadisable">
+                                <input type="text"  autocomplete = "off"  name="phone" id="phone"  placeholder="Phone" maxlength="15"  class="form-control form-control-sm cdqadisable">
                                 <span style='color:#FF0000' id="phone_msg"></span>
                             </div>
                             <div class="col-sm-2">
@@ -269,11 +307,11 @@ $.ajax({
                             </div>
                             
                             <div class="col-sm-2">
-                                <input type="text"  name="phext" id="phext"  placeholder="Extension" maxlength="5"  class="form-control form-control-sm cdqadisable">
+                                <input type="text"  autocomplete = "off" name="phext" id="phext"  placeholder="Extension" maxlength="5"  class="form-control form-control-sm cdqadisable">
                             </div>
                             <div class="col-sm-2">
                           
-                                <input type="text"  name="plink" id="plink"  placeholder="Prospect Link"  class="form-control form-control-sm"  >
+                                <input type="text"  autocomplete = "off"  name="plink" id="plink"  placeholder="Prospect Link"  class="form-control form-control-sm"  >
                                
                                 <span style='color:#FF0000' id="url_msg"></span>
                             </div>
@@ -292,7 +330,7 @@ $.ajax({
                            </div>
                               <div class="col-sm-2">
                                 <div class="compcheck">
-                                <input type="text"  name="company_name" id="company_name"  placeholder="Company Name"  class="form-control form-control-sm cdqadisable">
+                                <input type="text" autocomplete = "off"  name="company_name" id="company_name"  placeholder="Company Name"  class="form-control form-control-sm cdqadisable">
                                 </div>
                                 <span style='color:#FF0000' id="comp_msg"></span>
                               </div> 
@@ -300,17 +338,17 @@ $.ajax({
 
 
                             <div class="col-sm-2">
-                                <input type="text"  name="address" id="address"  placeholder="Address"  class="form-control form-control-sm cdqadisable">
+                                <input type="text"  autocomplete = "off" name="address" id="address"  placeholder="Address"  class="form-control form-control-sm cdqadisable">
                            </div>
                            <div class="col-sm-2">
-                                <input type="text"  name="city" id="city"  placeholder="City"  class="form-control form-control-sm cdqadisable">
+                                <input type="text"  autocomplete = "off" name="city" id="city"  placeholder="City"  class="form-control form-control-sm cdqadisable">
                            </div>
                            <div class="col-sm-2">
-                                <input type="text"  name="state" id="state"  placeholder="State"  class="form-control form-control-sm cdqadisable">
+                                <input type="text"  autocomplete = "off" name="state" id="state"  placeholder="State"  class="form-control form-control-sm cdqadisable">
                                 </select>
                             </div>
                             <div class="col-sm-2">
-                                <input type="text"  name="zip_code" id="zip_code"  placeholder="Zip Code"  class="form-control form-control-sm cdqadisable">
+                                <input type="text"  autocomplete = "off" name="zip_code" id="zip_code"  placeholder="Zip Code"  class="form-control form-control-sm cdqadisable">
                            </div>
                            
                             
@@ -356,8 +394,16 @@ $.ajax({
                                </select>
                            </div> -->
 
+                            <!-- toolbar options -->
+                            <div id="toolbar-options" class="hidden">
+                                  <a href="#myModalemail" data-target="#myModalemail" data-toggle="modal"><i class="icofont icofont-info-circle"></i></a>
+                                                          
+                            </div>
+
 
                             <div class="col-sm-2">
+                            <div data-toolbar="user-options"  id="info-toolbar">
+
                               <select class="js-example-basic-single"  name="industrycd" id="industrycd">
                               <option value="">Industry</option>
                               <?php foreach ($industries as $industry): ?>
@@ -365,8 +411,10 @@ $.ajax({
                                 <?php endforeach; ?>
                                 </select>
                                 <span style='color:#FF0000' id="industry_id_msg"></span>
+                             </div>
                             </div>
                             <div class="col-sm-2">
+                            <div data-toolbar="user-options"  id="grow-toolbar">
                                 <select class="js-example-basic-single" name="subindustrycd" id="subindustrycd">
                                 <option value="">Sub Industry</option>
                                 <?php foreach ($industriessub as $sub): ?>
@@ -374,6 +422,7 @@ $.ajax({
                                 <?php endforeach; ?>
                                 </select>
                                 <span style='color:#FF0000' id="subindustry_id_msg"></span>
+                            </div>
                             </div>
                             <div class="col-sm-2">
                                 <select class="form-control form-control-sm cdqadisable" name="sectyp" id="sectyp">
@@ -392,11 +441,20 @@ $.ajax({
                 <hr>
                     <div class="form-group row">
                         <div class="col-sm-2">
-                                <input type="text"  name="empsize" id="empsize" maxlength="15" placeholder="Actual Employee Size"  class="form-control form-control-sm cdqadisable">
+                        <div class="tooltips">
+                                <input type="text"  autocomplete = "off"  name="empsize" id="empsize" maxlength="6" placeholder="Actual Employee Size"  class="form-control form-control-sm cdqadisable">
+                               
+                                <span class="tooltiptext"> Select range  between <?php echo $campaign['emplbnd']; ?> & <?php echo $campaign['empubnd']; ?></span>
+                                </div>
                                 <span style='color:#FF0000' id="empsize_msg"></span>
                             </div>
                             <div class="col-sm-2">
-                                <input type="text"  name="arevenue" id="arevenue" maxlength="15" placeholder="Actual Revenue Size"  class="form-control form-control-sm cdqadisable">
+                              <div class="tooltips">
+                                <input type="text"  autocomplete = "off"  name="arevenue" id="arevenue" maxlength="15" placeholder="Actual Revenue Size"  class="form-control form-control-sm cdqadisable">
+                                <span class="tooltiptext"> Select range  between <?php echo $campaign['revlbnd']; ?> <?php echo $campaign['revlbdim']; ?> 
+                          & <?php echo $campaign['revubnd']; ?> <?php echo $campaign['revubdim']; ?></span>
+                              </div>
+                               
                                 <span style='color:#FF0000' id="revsize_msg"></span>
                             </div>
                             
@@ -422,13 +480,13 @@ $.ajax({
                             </div>          
                             <div class="col-sm-2">
                                 <div class="domaincheck">
-                                <input type="text"  name="domain" id="domain"  placeholder="Domain" value=""  class="form-control form-control-sm cdqadisable">
+                                <input type="text"  autocomplete = "off"  name="domain" id="domain"  placeholder="Domain" value=""  class="form-control form-control-sm cdqadisable">
                                 </div>
                                 <span style='color:#FF0000' id="domain_msg"></span>
                               </div>
                             
                             <div class="col-sm-2">
-                                <input type="text"  name="empszlink" id="empszlink" value=""   placeholder="Employee Size Link"  class="form-control form-control-sm">
+                                <input type="text"  autocomplete = "off" name="empszlink" id="empszlink" value=""   placeholder="Employee Size Link"  class="form-control form-control-sm">
                             </div>
                            
                         </div>
@@ -437,13 +495,13 @@ $.ajax({
                         <div class="form-group row">
                            
                         <div class="col-sm-2 ">
-                                <input type="text"  name="indlink" id="indlink"  placeholder="Industry Link" value="" class="form-control form-control-sm">
+                                <input type="text"  autocomplete = "off" name="indlink" id="indlink"  placeholder="Industry Link" value="" class="form-control form-control-sm">
                             </div>
                             <div class="col-sm-2">
-                                <input type="text"  name="revszlink" id="revszlink" value=""    placeholder="Revenue Size Link"  class="form-control form-control-sm revsizehide">
+                                <input type="text"  autocomplete = "off" name="revszlink" id="revszlink" value=""    placeholder="Revenue Size Link"  class="form-control form-control-sm revsizehide">
                             </div>
                             <div class="col-sm-2">
-                                <input type="text"  name="othrlink" id="othrlink" value=""  placeholder="Other Link"  class="form-control form-control-sm">
+                                <input type="text"  autocomplete = "off"  name="othrlink" id="othrlink" value=""  placeholder="Other Link"  class="form-control form-control-sm">
                             </div>
                             <div class="col-sm-2">
                                 <select class="form-control form-control-sm"  name="emailver" id="emailver">
@@ -453,7 +511,7 @@ $.ajax({
                                 </select>
                             </div>
                             <div class="col-sm-2">
-                                <input type="text"  name="aum" id="aum"  placeholder="Asset Under Management"  class="form-control form-control-sm aumdis">
+                                <input type="text"  autocomplete = "off"  name="aum" id="aum"  placeholder="Asset Under Management"  class="form-control form-control-sm aumdis">
                             </div>
                             <div class="col-sm-2">
                                 <select class="form-control form-control-sm commentvisible" name="assetid" id="assetid">
@@ -465,6 +523,71 @@ $.ajax({
                             </div> 
                         </div>
                         <hr>
+                        <div class="form-group row">
+                        <div class="col-sm-2">
+                                <select class="form-control form-control-sm commentvisible"  name="cvr" id="cvr">
+                                    <option value="">Call Verified</option>
+                                    <option value="1"<?php // if(isset($ldmster) && $ldmster['cvr'] == '1'){ echo "selected" ; } ?>>Yes</option>
+                                    <option value="0"<?php //if(isset($ldmster) && $ldmster['cvr'] == '0'){ echo "selected" ; } ?>>No</option>
+                                </select>
+                            </div>
+
+                        <div class="col-sm-2">
+                          <select class="form-control form-control-sm commentvisible"  name="lcalldisp" id="lcalldisp">
+                              <option value="">Call Disposition</option>
+                            
+                              <option value="Voicemail"<?php // if(isset($ldmster) && $ldmster['lcalldisp'] == 'Voicemail'){ echo "selected" ; } ?>>Voicemail</option>
+                              <option value="VM_DBN"<?php // if(isset($ldmster) && $ldmster['lcalldisp'] == 'VM_DBN'){ echo "selected" ; } ?>>VM_DBN</option>
+                              <option value="VM_DIRECT"<?php //if(isset($ldmster) && $ldmster['lcalldisp'] == 'VM_DIRECT'){ echo "selected" ; } ?>>VM_DIRECT</option>
+                              <option value="VM_EXTN"<?php //if(isset($ldmster) && $ldmster['lcalldisp'] == 'VM_EXTN'){ echo "selected" ; } ?>>VM_EXTN</option>
+                              <option value="POC"<?php //if(isset($ldmster) && $ldmster['lcalldisp'] == 'POC'){ echo "selected" ; } ?>>POC</option>
+                              <option value="Assistant CNF"<?php //if(isset($ldmster) && $ldmster['lcalldisp'] == 'Assistant CNF'){ echo "selected" ; } ?>>Assistant CNF</option>
+                              <option value="Assistant VM"<?php //if(isset($ldmster) && $ldmster['lcalldisp'] == 'Assistant VM'){ echo "selected" ; } ?>>Assistant VM</option>
+                              <option value="Assistant Extn"<?php //if(isset($ldmster) && $ldmster['lcalldisp'] == 'Assistant Extn'){ echo "selected" ; } ?>>Assistant Extn</option>
+                              <option value="Operator"<?php //if(isset($ldmster) && $ldmster['lcalldisp'] == 'Operator'){ echo "selected" ; } ?>>Operator</option>
+                              <option value="OPR_CNF"<?php //if(isset($ldmster) && $ldmster['lcalldisp'] == 'OPR_CNF'){ echo "selected" ; } ?>>OPR_CNF</option>
+                              <option value="OPR_VM"<?php //if(isset($ldmster) && $ldmster['lcalldisp'] == 'OPR_VM'){ echo "selected" ; } ?>>OPR_VM</option>
+                              <option value="VM but Prospect Left"<?php// if(isset($ldmster) && $ldmster['lcalldisp'] == 'VM but Prospect Left'){ echo "selected" ; } ?>>VM but Prospect Left</option>
+                              <option value="OPR_NOTFR"<?php //if(isset($ldmster) && $ldmster['lcalldisp'] == 'OPR_NOTFR'){ echo "selected" ; } ?>>OPR_NOTFR</option>
+                              <option value="ONLY EMAIL"<?php //if(isset($ldmster) && $ldmster['lcalldisp'] == 'ONLY EMAIL'){ echo "selected" ; } ?>>ONLY EMAIL</option>
+                              <option value="Lead"<?php //if(isset($ldmster) && $ldmster['lcalldisp'] == 'Lead'){ echo "selected" ; } ?>>Lead</option>
+                              <option value="Half Lead"<?php //if(isset($ldmster) && $ldmster['lcalldisp'] == 'Half Lead'){ echo "selected" ; } ?>>Half Lead</option>
+                          </select>
+                            </div>
+                            <div class="col-sm-2">
+                                <select class="form-control form-control-sm commentvisible"  name="lcallstat" id="lcallstat">
+                                    <option value="">Call on hold/call back</option>
+                                    <option value="0"<?php // if(isset($ldmster) && $ldmster['lcallstat'] == '1'){ echo "selected" ; } ?>>Call back</option>
+                                    <option value="2"<?php //(isset($ldmster) && $ldmster['lcallstat'] == '2'){ echo "selected" ; } ?>>complete</option>
+                                </select>
+                            </div>
+                            <div class="col-sm-2">
+                                <select class="form-control form-control-sm commentvisible"  name="ddispositionclass" id="ddispositionclass">
+                                <!-- <option value="">Disposition Class- In Progress</option> -->
+                                <option value="0" <?php //if(isset($ldmster) && $ldmster['ddispositionclass'] == '0'){ echo "selected" ; } ?>>Disposition Class- Live</option>
+                                    <option value="1" <?php //if(isset($ldmster) && $ldmster['ddispositionclass'] == '1'){ echo "selected" ; } ?>>Dead</option>
+                                </select>
+                            </div>
+                            <div class="col-sm-2">
+                                <select class="form-control form-control-sm commentvisible"  name="cdclst" id="cdclst">
+                                    <option value="">Lead Score</option>
+                                    <option value="1"<?php // if(isset($ldmster) && $ldmster['cdclst'] == '1'){ echo "selected" ; } ?>>Yes</option>
+                                    <option value="0"<?php // if(isset($ldmster) && $ldmster['cdclst'] == '0'){ echo "selected" ; } ?>>No</option>
+                                </select>
+                            </div>
+                            <div class="col-sm-2">
+                                <select class="form-control form-control-sm commentvisible"  name="callrec" id="callrec">
+                                    <option value="">Call Recording</option>
+                                    <option value="1"<?php //if(isset($ldmster) && $ldmster['callrec'] == '1'){ echo "selected" ; } ?>>Yes</option>
+                                    <option value="0"<?php //if(isset($ldmster) && $ldmster['callrec'] == '0'){ echo "selected" ; } ?>>No</option>
+                                </select>
+                            </div>
+                            
+                          
+                       </div>
+
+
+
                           <div class="form-group row optindiv">
                                        
                                        <div class="col-sm-2">
@@ -481,7 +604,7 @@ $.ajax({
                                         <div class="col-sm-2 optoption">
                                         Opt - in Email <input type="checkbox" value="" id="opteml" name="opteml" class="js-single"  />
                                         </div>
-                                        <div class="col-sm-2 optoption">
+                                        <div class="col-sm-2 ">
                                         DND <input type="checkbox" value="" id="dnd" name="dnd" class="js-single dnd"  />
                                         </div>
                          </div>
@@ -496,19 +619,22 @@ $.ajax({
                         <div class="form-group row" >
                              <div class="col-sm-12 commentvisible">
                                 <label class="col-lable"><b>Comment</b></label>
-                                <input type="text"  name="pcomt" id="pcomt"  placeholder="Comment"  class="form-control form-control-sm">
+                                <input type="text"  autocomplete = "off" name="pcomt" id="pcomt"  placeholder="Comment"  class="form-control form-control-sm">
                             </div> 
                          </div>
                         <input type = hidden name="campaign_id" id="campaign_id" value="<?php echo $campaign['cnid']; ?>">
                         <input type = hidden name="campaign_idcids" id="campaign_idcids" value="<?php echo $campaign['cids']; ?>">
                         
+                        <div class="col-sm-12">
+                             <center>
                         <button type="submit" name="leadsubmit" class="btn btn-primary leaddisplay" style=""  id="leadsubmit">Submit </button> 
-                        <button type="submit" name="leadsave" class="btn btn-primary leaddisplay" style=""  id="leadsave">Skip </button> 
+                        <!-- <button type="submit" name="leadsave" class="btn btn-primary leaddisplay" style="margin-left:50px"   id="leadsave">Skip </button>  -->
                         <!-- <input class="submit" class ="" type="submit" value="SUBMIT"> -->
                         <!-- below buttons are for cdqa save and submit -->
                         <button type="submit" name="submit" class="btn btn-primary cdqadisplay"   id="cdqasubmit">Submit  </button> 
-                        <button type="submit" name="submit" class="btn btn-primary cdqadisplay"  id="cdqasave">Skip  </button> 
-                       
+                        <!-- <button type="submit" name="submit" class="btn btn-primary cdqadisplay" style="margin-left:50px"   id="cdqasave">Skip  </button>  -->
+                            </center>
+                          </div>
 
                     </div>
                       
@@ -527,7 +653,88 @@ $.ajax({
 <input type="hidden" id="revubdimmlbl" value="<?php echo $campaign['revubdim']; ?>"/>
 
    
+ <!-- Modal -->
+ <div class="modal fade" id="myModalemail" role="dialog">
+    <div class="modal-dialog">
+    
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <!-- <h4 class="modal-title">Modal Header</h4> -->
+        </div>
+        <div class="modal-body">
+        <div class="mail-body-content">
+                                        <form>
+                                            <div class="form-group row">
+                                               
+                                                <!-- <div class="col-sm-6">
+                                                <select class="form-control form-control-sm cdqadisable" name="" id="">
+                                                    <option value="1">Industry</option>                                  
+                                            
+                                                    <option value="2">Sub Industry</option>
+                                              
+                                                </select>
+                                              </div> -->
+                                                <div class="col-sm-12">
+                                                  <input type ="text"  id="search_text" name="search_text" class="form-control form-control-sm" placeholder="Search here...">
+                                                </div>
+                                            </div>
+                                           
+                                        </form>
+                                        <div id="resultdiv"></div>
+                                        <div style="clear:both"></div>
+		                                    <br />
+                                    </div>
+        </div>
+        <div class="modal-footer">
+        <button type="button" id="searchbtn" name ="searchbtn" class="btn btn-primary">Search</button>
+          <button type="button" class="btn btn-danger " data-dismiss="modal">Close</button>
+        </div>
+      </div>
+      
+    </div>
+  </div>
+
+
+
      <script>
+
+$(document).ready(function(){
+	// load_data();
+	function load_data(query)
+	{
+		$.ajax({
+			// url:"fetch.php",
+      url:'<?php echo base_url("cdc/getsearcresultofindustry");?>',
+			method:"post",
+			data:{query:query},
+			success:function(data)
+			{
+				$('#resultdiv').html(data);
+			}
+		});
+	}
+	
+	$('#search_text').keyup(function(){
+		var search = $(this).val();
+		if(search != '')
+		{
+			load_data(search);
+		}
+		else
+		{
+			// load_data();			
+		}
+	});
+});
+// end of search result
+
+
+
+
+
+
 $('#empsize').blur(function(){
   var lbound = $('#php_lbound').val();
   // var lbound = 1;
@@ -568,8 +775,8 @@ $('#country_id').change(function(){
 
         //    Add options
        $.each(response,function(index,data){
-          $('#timezone').append('<option value="'+data['zoneid']+'">'+data['abbrev']+'</option>');
-          
+          // $('#timezone').append('<option value="'+data['zoneid']+'">'+data['abbrev']+'</option>');
+          $('#timezone').append('<option value="'+data['zids']+'" >'+data['abbrev']+'</option>');
         });
         // $('#country_id').multiselect("rebuild");
         // callB();
@@ -857,7 +1064,7 @@ var arevenuevalue = $('#arevenue').val();
               //     $('#mlbl').not(this).find('option[value="' + check + '"]').hide();
               // });
             
-    alert("million and trillion");
+    // alert("million and trillion");
     } else if(lrevrange == "billion" && urevrange ==  "trillion"){
       if($('#mlbl').val()==0){
         var m = arevenuevalue*1000;
@@ -1142,22 +1349,29 @@ $(document).ready(function() {
   $("#revszlink").prop('disabled', true);
   $('#revszlink').val("NA");
 
-  $('.commentvisible').hide();
+  // $('.commentvisible').hide();
   // $('.revsizehide').hide();
 
-  $('.leaddisplay').show(); //buttons
-  $('.cdqadisplay').hide();//buttons
+  // $('.leaddisplay').show(); //buttons
+  // $('.cdqadisplay').hide();//buttons
   // load questions of campaign on load 
-  $('.optoption').hide();
+  // $('.optoption').hide();
     
-    $('.optin').change(function()
+  $('.optin').change(function()
       {
         if ($('#optin').is(':checked')) {
             $('#optin').val("1");
             $('#opteml').val("1");
             $('#optph').val("1");
             $('#optpst').val("1");
+            $('#dnd').val("0");
             $('.optoption').show();
+            $("#opteml").prop('checked', true);
+            $("#optph").prop('checked', true);
+            $("#optpst").prop('checked', true);
+            $("#dnd").prop('checked', false);
+           
+           
           
                
         }else{
@@ -1169,23 +1383,94 @@ $(document).ready(function() {
                
         };
       });
+
+
+      $('#opteml').change(function()
+      {
+        var checksupp = $('#opteml').prop('checked');
+       
+            if(checksupp == true)
+            {
+              $('#opteml').val("1");
+            }
+            else
+            {
+              $('#opteml').val("0");
+            }
+
+          });
+     
+      $('#optph').change(function()
+      {
+        var checksupp = $('#optph').prop('checked');
+        
+            if(checksupp == true)
+            {
+              $('#optph').val("1");
+            }
+            else
+            {
+              $('#optph').val("0");
+            }
+
+          });
+     
+      $('#optpst').change(function()
+      {
+        var checksupp = $('#optpst').prop('checked');
+        
+            if(checksupp == true)
+            {
+              $('#optpst').val("1");
+            }
+            else
+            {
+              $('#optpst').val("0");
+            }
+
+          });
+      // $('.dnd').change(function()
+      // {
+      //   if ($('#dnd').is(':checked')) {
+      //       $('#optin').val("0");
+      //       $('#opteml').val("0");
+      //       $('#optph').val("0");
+      //       $('#optpst').val("0");
+      //       $('.optoption').hide();   
+      //   }else{
+      //       $('#optin').val("1");
+      //       $('#opteml').val("1");
+      //       $('#optph').val("1");
+      //       $('#optpst').val("1");
+      //       $('.optoption').show();
+               
+      //   };
+      // });
+
       $('.dnd').change(function()
       {
         if ($('#dnd').is(':checked')) {
+          $("#optin").prop('checked', false);
+          $('.dnd').val("1");
             $('#optin').val("0");
             $('#opteml').val("0");
             $('#optph').val("0");
             $('#optpst').val("0");
+            $("#optin").prop('checked', false);
+            
             $('.optoption').hide();   
         }else{
             $('#optin').val("1");
             $('#opteml').val("1");
             $('#optph').val("1");
             $('#optpst').val("1");
+            $("#optin").prop('checked', true);
+            $('.dnd').val("0");
             $('.optoption').show();
                
         };
       });
+
 
 
   $("#basic-form").validate({
@@ -1193,22 +1478,38 @@ $(document).ready(function() {
         sal : {
         required: true
       },
+      cvr : {
+        required: true
+      },
+      ddispositionclass : {
+        // required: true
+      },
+      callrec : {
+        required: true
+      },
+      cdclst : {
+        required: true
+      },
       fname : {
         required: true,
-        minlength: 2
+        minlength: 2,
+        customvalidation: true
       },
       lname : {
         required: true,
-        minlength: 2
+        minlength: 2,
+        customvalidation: true
       },
       jtitle : {
-        required: true
+        required: true,
+        customvalidation: true
       },
       jlevel : {
         required: true
       },
         company_name : {
-        required: true
+        required: true,
+        customvalidation: true
         // minlength: 3
       },
       dcd : {
@@ -1223,15 +1524,18 @@ $(document).ready(function() {
         required: true        
       },
       address : {
-        required: true
+        required: true,
+        customvalidation: true
         // minlength: 4
       },
       city : {
-        required: true
+        required: true,
+        customvalidation: true
         // minlength: 5
       },
       state : {
-        required: true
+        required: true,
+        customvalidation: true
         // minlength: 5
       },
       zip_code : {
@@ -1329,6 +1633,15 @@ $(document).ready(function() {
       }
     }
   });
+  $.validator.addMethod("customvalidation",
+           function(value, element) {
+             return /^[A-Za-z\d=#$%!*&()+',?./><@_ -]+$/.test(value); // validation for RÃ¤feldstrasse word
+           },
+   "Sorry, no special characters allowed"
+   );
+
+
+
 });
  </script>
 
@@ -1836,8 +2149,17 @@ $(document).ready(function() {
             var aa12 = 0;
            }
           
+
+            var lcalldisp = $('#lcalldisp').val();
+            var lcallstat = $('#lcallstat').val();
+            var ddispositionclass = $('#ddispositionclass').val();
+            var cdclst = $('#cdclst').val();
+            var callrec = $('#callrec').val();
+            var cvr = $('#cvr').val();
+
+
           
-           if(fname != "" && lname != "" && company_name != "" && jlevel != "" && jtitle != "" && desid != "" && dcd !="" && email != "" && phone !="" && plink !="" && address != "" && city != "" && state != ""  && country_id != "" && industrycd != "" && subindustrycd != "" && empsize != "" && domain !=""  && empszlink != "" && revszlink != ""  && zip_code !="" ){
+           if(cvr != "" && callrec != "" && cdclst !="" && fname != "" && lname != "" && company_name != "" && jlevel != "" && jtitle != "" && desid != "" && dcd !="" && email != "" && phone !="" && plink !="" && address != "" && city != "" && state != ""  && country_id != "" && industrycd != "" && subindustrycd != "" && empsize != "" && domain !=""  && empszlink != "" && revszlink != ""  && zip_code !="" ){
            var url = encodeURI("<?php echo base_url("cdc/ajax_submit_leadandcdcbyCDQA");?>");
            console.log(url+"?campaign_id="+campaign_id+"&sal="+sal+"&fname="+fname+"&lname="+lname+"&jtitle="+jtitle+"&desid="+desid+"&jlevel="+jlevel+"&dcd="+dcd+"&email="+email+"&phone="+phone+"&altphn="+altphn+"&phext="+phext+"&plink="+plink+"&company_name="+company_name+"&address="+address+"&city="+city+"&state="+state+"&zip_code="+zip_code+"&country_id="+country_id+"&timezone="+timezone+"&ctype="+ctype+"&linetype="+linetype+"&industrycd="+industrycd+"&subindustrycd="+subindustrycd+"&sectyp="+sectyp+"&empsize="+empsize+"&mlbl="+mlbl+"&curr="+curr+"&arevenue="+arevenue+"&empszlink="+empszlink+"&indlink="+indlink+"&domain="+domain+"&othrlink="+othrlink+"&revszlink="+revszlink+"&emailver="+emailver+"&aum="+aum+"&assetid="+assetid+"&optin="+optin+"&optpst="+optpst+"&optph="+optph+"&opteml="+opteml+"&optoption="+optoption+"&aa1="+aa1+"&aa2="+aa2+"&aa3="+aa3+"&aa4="+aa4+"&aa5="+aa5+"&aa6="+aa6+"&aa7="+aa7+"&aa8="+aa8+"&aa9="+aa9+"&aa10="+aa10+"&aa11="+aa11+"&aa12="+aa12+"&pcomt="+pcomt);
           
@@ -1905,6 +2227,15 @@ $(document).ready(function() {
                     aa10:aa10,
                     aa11:aa11,
                     aa12:aa12,
+
+
+                    lcalldisp:lcalldisp,
+                    lcallstat:lcallstat,
+                    ddispositionclass:ddispositionclass,
+                    cdclst:cdclst,
+                    callrec:callrec,
+                    cvr:cvr,
+
                     pcomt:pcomt     
                     
                     

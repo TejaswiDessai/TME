@@ -3017,7 +3017,7 @@ public function getPrivillage(){
 			{
 				// echo "Please Enter Correct OTP : <a href='javascript: history.go(-1)'>Back</a>";
 				
-				echo "<script>alert('OTP verification Failed ! Enter correct OTP..!');location.href = 'http://localhost/TME/administrator/email_login?id=$campaign_id';</script>";
+				echo "<script>alert('OTP verification Failed ! Enter correct OTP..!');location.href = 'http://mehp-dbs/administrator/email_login?id=$campaign_id';</script>";
 				// redirect("administrator/email_login?id=$campaign_id");
 			}
 

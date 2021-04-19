@@ -130,6 +130,8 @@
                                         <th>Total Accepted</th>
                                         <th>1st Accept</th>
                                         <th>2nd Accept</th>
+                                        <th>EV Pending</th>
+                                        <th>EV Done</th>
                                         <th>CDC Pending</th>
                                         <th>CDC Total Accept</th>
                                         <th>CDC Reject</th>
@@ -269,6 +271,32 @@
                                          echo $second_accept->num_rows();
                                           ?></td>
                                         <!-- </td> -->
+                                        <td>
+                                        <?php 
+                                         $ev_pending = $this->db->query("select * from leadmaster
+                                         where 
+                                         rlc != 1
+                                         and dvload = 1
+                                         and sbsvtag != 0
+                                         and evcomp is NULL
+                                         and cids = '".$post['cids']."'");
+                                         echo $ev_pending->num_rows();
+                                         ?>
+                                        </td>
+                                        <td>
+                                        <?php 
+                                         $ev_done = $this->db->query("select * from leadmaster
+                                         where 
+                                         rlc != 1
+                                         and evload = 1
+                                         and evdisp = 4
+                                         and evcomp = 1
+                                         and cdcsb = 0
+                                         and cdcrjt = 0
+                                         and cids = '".$post['cids']."'");
+                                         echo $ev_done->num_rows();
+                                         ?>
+                                        </td>
                                         <td>
                                             <?php 
                                          $cdc_pending = $this->db->query("select * from leadmaster

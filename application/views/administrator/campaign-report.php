@@ -131,6 +131,7 @@
                                         <th>1st Accept</th>
                                         <th>2nd Accept</th>
                                         <th>EV Pending</th>
+                                        <th>EV InProccess</th>
                                         <th>EV Done</th>
                                         <th>CDC Pending</th>
                                         <th>CDC Total Accept</th>
@@ -281,6 +282,16 @@
                                          and evcomp is NULL
                                          and cids = '".$post['cids']."'");
                                          echo $ev_pending->num_rows();
+                                         ?>
+                                        </td>
+                                        <td>
+                                        <?php 
+                                         $ev_inproccess = $this->db->query("select * from leadmaster
+                                         where
+                                         dvload = 1
+                                         and evcomp = 2
+                                         and cids = '".$post['cids']."'");
+                                         echo $ev_inproccess->num_rows();
                                          ?>
                                         </td>
                                         <td>

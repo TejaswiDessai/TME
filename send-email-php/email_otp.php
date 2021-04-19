@@ -31,7 +31,7 @@ if(isset($_POST["emp_id"], $_POST["user_type"],$_POST['email']))
         
         if(pg_num_rows($result1) == 0 )
         {
-            echo "<script>alert('The Employee Id or User Type are incorrect!');location.href = 'http://localhost/TME/administrator/forget-password';</script>";
+            echo "<script>alert('The Employee Id or User Type are incorrect!');location.href = 'http://mehp-dbs/administrator/forget-password';</script>";
             
         }
         else
@@ -124,7 +124,7 @@ if(isset($_POST["emp_id"], $_POST["user_type"],$_POST['email']))
                 // send mail
                 $mail->Send();
                 $msg = "Mail sent successfully";
-                echo "<script>alert('Please check your email to get OTP!');location.href = 'http://localhost/TME/administrator/otp_verification?cid=$campaign_id&c=$encryption';</script>";
+                echo "<script>alert('Please check your email to get OTP!');location.href = 'http://mehp-dbs/administrator/otp_verification?cid=$campaign_id&c=$encryption';</script>";
                 
             } catch (phpmailerException $e) {
                 $msg = $e->getMessage();

@@ -435,7 +435,7 @@
                                          where 
                                          rlc = 0
                                          and qaacpt = 1
-                                         and lsload = 1
+                                         and qalsload = 1
                                          and cids = '".$post['cids']."'");
                                          echo $qa_sent_to_lead->num_rows();
                                          ?>
@@ -446,10 +446,11 @@
                                          where 
                                          rlc = 0
                                          and qaacpt = 1
-                                         and lsload = 0
+                                         and qalsload = 1
+                                         and lsagent is NULL
                                          and cids = '".$post['cids']."'");
                                          echo $ls_pending->num_rows();
-                                         ?>
+                                         //"qalsload = 1  and lsagent is NULL" is added by Tejaswi?> 
                                          </td>
                                          <td>
                                             <?php 

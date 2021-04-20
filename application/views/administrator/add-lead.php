@@ -80,6 +80,24 @@ $(document).ready(function () {
     }, 'slow');
 });
 
+$(document).ready(function() {
+ 
+ $(window).keydown(function(event){
+   if(event.keyCode == 13) { // disable Enter key on form submission
+     event.preventDefault();
+     return false;
+   }
+ });
+
+ 
+ $('#pcomt').keydown(function(event){
+   if(event.keyCode == 51) { // disable # key on form submission
+     event.preventDefault();
+     return false;
+   }
+ });
+});
+
 //below code for retreive button on change on rect type
 $(document).ready(function() { 
   $(".aumdis").attr("disabled", true);   // aum disable
@@ -699,6 +717,18 @@ $.ajax({
 
 
      <script>
+
+// function avoidSplChars(e) {  
+//         e = e || window.event;  
+//         var bad = /[^\sa-z\d]/i,  
+//             key = String.fromCharCode(e.keyCode || e.which);  
+//         if (e.which !== 0 && e.charCode !== 0 && bad.test(key)) {  
+//             e.returnValue = false;  
+//             if (e.preventDefault) {  
+//                 e.preventDefault();  
+//             }  
+//         }  
+//     }  
 
 $(document).ready(function(){
 	// load_data();

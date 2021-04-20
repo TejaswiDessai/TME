@@ -1354,7 +1354,7 @@
 					// $ddispositionclass = $_GET['ddispositionclass'];
 					
 					$cvr = $_GET['cvr'];
-
+					$pcomt= "CDQA:".$_SESSION['empcode'].":".$old_date."#".$_GET['pcomt'];
 
 				$datacdcandlead = array(
 				'cids' => $_GET['campaign_idcids'],
@@ -1398,7 +1398,7 @@
 				'indlink' => $_GET['indlink'],
 				'revszlink' => $_GET['revszlink'],
 				'empszlink' => $_GET['empszlink'],
-				'pcomt' => $_GET['pcomt'],
+				'pcomt' => $pcomt,
 
 				'othrlink' => $_GET['othrlink'],
 
@@ -1931,7 +1931,8 @@
 				    $timezones = 0 ;
 				}
 
-
+				$pcomt = "DC:".$_SESSION['empcode'].":".$old_date."#".$_GET['pcomt'];
+				
 				$datacdcandlead = array(
 				'cids' => $_GET['campaign_idcids'],
 				
@@ -1974,7 +1975,7 @@
 				'indlink' => $_GET['indlink'],
 				'revszlink' => $_GET['revszlink'],
 				'empszlink' => $_GET['empszlink'],
-				'pcomt' => $_GET['pcomt'],
+				'pcomt' => $pcomt,
 
 				'othrlink' => $_GET['othrlink'],
 
@@ -2253,9 +2254,11 @@
 						$svagtidi= NULL;
 					}
 					
+					$pcomt= "DV:".$_SESSION['empcode'].":".$old_date."#".$_POST['pcomt'];
+
 					$datacdcandlead = array(
 						'dvrejectreason' => $mychecked2,
-						'pcomt' => $_POST['pcomt'],
+						'pcomt' => $pcomt,
 						
 						
 						// tag
@@ -3741,7 +3744,8 @@
 				// }else{
 				// 	$atitle= NULL;
 				// }
-				
+				$pcomt= "DC:".$_SESSION['empcode'].":".$old_date."#".$_GET['pcomt'];
+
 				$datacdcandlead = array(
 				'cids' => $_GET['campaign_idcids'],
 				
@@ -3784,7 +3788,7 @@
 				'indlink' => $_GET['indlink'],
 				'revszlink' => $_GET['revszlink'],
 				'empszlink' => $_GET['empszlink'],
-				'pcomt' => $_GET['pcomt'],
+				'pcomt' => $pcomt,
 
 				'othrlink' => $_GET['othrlink'],
 

@@ -1069,19 +1069,20 @@ $(document).ready(function() {
                                 <label class="col-lable"><b>Comment</b></label>
                                 <!-- <input type="text"  name="pcomt" id="pcomt"  placeholder="Comment"  class="form-control form-control-sm" value="<?php echo $ldmster['pcomt']; ?>" > -->
                                 <input type="text" autocomplete = "off"  name="pcomt" id="pcomt"  placeholder="Comment"  class="form-control form-control-sm" 
-                                value="<?php if(isset($ldmster['pcomt']) && $ldmster['pcomt'] != '') {
+                                value="<?php if(isset($ldmster['pcomt']) && $ldmster['pcomt'] != '' && strpos($ldmster['pcomt'], '#') !== false ) {
                                    $arr = explode("#", $ldmster['pcomt']);
                                   
                                    $withoutchar = $arr[0];
+                                   $first = $arr[1];
                                    if(!empty($arr[1])){
                                       $first = $arr[1];
                                       echo  $first; 
                                    }else{
-                                    echo $withoutchar; 
+                                    echo $first;
                                    }
                                   
                                  }else{
-                                   echo "";
+                                   echo $ldmster['pcomt'];
                                  } ?>">
                             
                             
@@ -1832,11 +1833,17 @@ var arevenuevalue = $('#arevenue').val();
 $(document).ready(function() {
  
   $(window).keydown(function(event){
-    if(event.keyCode == 13) {
+    if(event.keyCode == 13) { // disable Enter key on form submission
       event.preventDefault();
       return false;
     }
   });
+  $('#pcomt').keydown(function(event){
+   if(event.keyCode == 51) { // disable # key on form submission
+     event.preventDefault();
+     return false;
+   }
+ });
 });
 
 

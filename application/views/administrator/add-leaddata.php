@@ -1911,7 +1911,7 @@ if(lmid == undefined){
         async: true,
                 cache: false,
                 success: function(response){
-                    $("#leadsave").hide();
+                    // $("#leadsave").hide();
                     var text = response.statusCode;
                     console.log("check");
                     if(response.statusCode == "Success") 
@@ -2137,7 +2137,7 @@ if(lmid == undefined){
         async: true,
                 cache: false,
                 success: function(response){
-                    $("#leadsave").hide();
+                    // $("#leadsave").hide();
                     var text = response.statusCode;
                     console.log("check");
                     if(response.statusCode == "Success") 

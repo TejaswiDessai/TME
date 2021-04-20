@@ -133,7 +133,7 @@ echo $date;
 			$this->session->unset_userdata('empcode');
 			$this->session->unset_userdata('image');
 			$this->session->unset_userdata('site_logo');
-
+			$this->session->unset_userdata('token');
 			//Set Message
 			$this->session->set_flashdata('success', 'You are logged out.');
 			
@@ -2951,6 +2951,78 @@ public function getPrivillage(){
 			fclose($file); 
 			exit; 
 		}
+
+		public function email_login($page = 'email-login'){
+			if (!file_exists(APPPATH.'views/administrator/'.$page.'.php')) {
+				show_404();
+			}
+			$data['title'] = ucfirst($page);
+			$camp_id = $_GET['id'];
+			$data['camp_id'] = $camp_id;
+			$this->load->view('administrator/header-script');
+			//$this->load->view('administrator/header');
+			//$this->load->view('administrator/header-bottom');
+			$this->load->view('administrator/'.$page, $data);
+			$this->load->view('administrator/footer');
+		}
+		public function otp_verification($page = 'otp-verify-form'){
+			if (!file_exists(APPPATH.'views/administrator/'.$page.'.php')) {
+				show_404();
+			}
+			$data['title'] = ucfirst($page);
+			// echo $_GET['main_otp'];
+			$cid = $_GET['cid'];
+			$encryption = $_GET['c'];
+			
+			$ciphering = "BF-CBC";
+			// Use OpenSSl encryption method
+			$iv_length = openssl_cipher_iv_length($ciphering);
+			$options = 0;
+			$encryption_iv = random_bytes($iv_length);
+			$decryption_iv = random_bytes($iv_length);
+  
+			// Store the decryption key
+			$decryption_key = openssl_digest(php_uname(), 'MD5', TRUE);
+			
+			// Descrypt the string
+			$decryption = openssl_decrypt ($encryption, $ciphering,
+            $decryption_key, $options, $encryption_iv);
+			
+			$newstring = substr($decryption, -6);
+			$data['main_otp'] = $newstring;
+			$data['campaign_id'] = $cid;
+			$this->load->view('administrator/header-script');
+			//$this->load->view('administrator/header');
+			//$this->load->view('administrator/header-bottom');
+			$this->load->view('administrator/'.$page, $data);
+			$this->load->view('administrator/footer');
+		}
+
+		public function otp_verification_complete()
+		{
+			$campaign_id = $this->input->post('campaign_id');
+			$main_otp = $this->input->post('main_otp');
+			$user_otp = $this->input->post('otp');
+			$token = array(
+				'token' => 'success',
+			);
+		
+			$this->session->set_userdata($token);
+			if($main_otp == $user_otp)
+			{
+				
+				redirect("/cdc/addlead?camp_id=$campaign_id");
+			}
+			else
+			{
+				// echo "Please Enter Correct OTP : <a href='javascript: history.go(-1)'>Back</a>";
+				
+				echo "<script>alert('OTP verification Failed ! Enter correct OTP..!');location.href = 'http://mehp-dbs/administrator/email_login?id=$campaign_id';</script>";
+				// redirect("administrator/email_login?id=$campaign_id");
+			}
+
+		}
+
 }
 
 

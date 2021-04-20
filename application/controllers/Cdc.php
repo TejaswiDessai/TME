@@ -16,7 +16,17 @@
 				$postData = $this->input->post();
 				$postData1 = $postData['campaign_id'];
 			}
+			$otp_verification = null;
+			if($this->session->userdata('token') != '')
+			{
+				$otp_verification = $this->session->userdata('token');
+			}
+			
 		
+			if($otp_verification != "success")
+			{
+				redirect("administrator/email_login?id=$postData1");
+			}
 
 						
 						// print_r($postData1);

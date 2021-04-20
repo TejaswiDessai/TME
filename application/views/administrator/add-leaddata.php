@@ -1920,9 +1920,24 @@ if(lmid == undefined){
                         $("#leadsubmit").html(response.message);
                         top.location.href=base_url+"cdc/addleaddata?camp_id="+<?php echo $campaign['cnid']; ?>;//redirection
                       
-                    }else if(response.data=="Fail")
+                    }
+                    else if(response.statusCode =="Fail")
                     {
                         $("#leadsubmit").html(response.message);
+                        
+					          }
+                    else if(response.statusCode =="Exist")
+                    {
+                      alert("Email Exist");
+
+                      // $("#leadsubmit").html(response.message);
+                        
+					          }
+                    else if(response.statusCode =="plink")
+                    {
+                      alert("Prospect Link Exist");
+
+                      // $("#leadsubmit").html(response.message);
                         
 					          }
 
@@ -2134,6 +2149,20 @@ if(lmid == undefined){
                     }else if(response.data=="Fail")
                     {
                         $("#leadupdate").html(response.message);
+                        
+					          }
+                    else if(response.statusCode =="Exist")
+                    {
+                      alert("Email Exist");
+
+                      // $("#leadsubmit").html(response.message);
+                        
+					          }
+                    else if(response.statusCode =="plink")
+                    {
+                      alert("Prospect Link Exist");
+
+                      // $("#leadsubmit").html(response.message);
                         
 					          }
 

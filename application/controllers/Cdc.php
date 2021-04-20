@@ -1835,9 +1835,33 @@
 								
 				);
 			
-			//   print_r($datacdcandlead);
-			//      exit();
 			
+				$checkforEmail = $this->Administrator_Model->get_email_duplication_count_leadmaster($_GET['email']);
+				if($checkforEmail == true)
+				{
+					echo json_encode(array(
+						"statusCode"=>"Exist",
+						// "campaign_id"=>$addcampaigndata,
+						// "from"=>$from,
+						// "pass"=>$pass,
+						"message"=>"Email is already Exist"
+					));
+					return;
+				}
+				$checkforplink = $this->Administrator_Model->get_plink_duplication_count_leadmaster($_GET['plink']);
+				
+				if($checkforplink == true)
+				{
+					echo json_encode(array(
+						"statusCode"=>"plink",
+						// "campaign_id"=>$addcampaigndata,
+						// "from"=>$from,
+						// "pass"=>$pass,
+						"message"=>"Prospect link is already Exist"
+					));
+					return;
+				}
+				
 				$addleadandcdcdata = $this->Administrator_Model->add_leaddata($datacdcandlead);
 				// print_r($addcampaigndata);  die;
 				
@@ -1849,7 +1873,7 @@
 						"lead_id"=>$addleadandcdcdata,
 						"message"=>"Lead Added Successfully.."
 					));
-				}else{
+				}else if($addleadandcdcdata != true){
 					echo json_encode(array(
 						"statusCode"=>"Fail",
 						"message"=>"Add data Lead failed.."
@@ -3830,6 +3854,32 @@
 			//   print_r($datacdcandlead);
 			//      exit();
 			
+			$checkforEmail = $this->Administrator_Model->get_email_duplication_count_leadmaster($_GET['email']);
+			if($checkforEmail == true)
+			{
+				echo json_encode(array(
+					"statusCode"=>"Exist",
+					// "campaign_id"=>$addcampaigndata,
+					// "from"=>$from,
+					// "pass"=>$pass,
+					"message"=>"Email is already Exist"
+				));
+				return;
+			}
+			$checkforplink = $this->Administrator_Model->get_plink_duplication_count_leadmaster($_GET['plink']);
+			
+			if($checkforplink == true)
+			{
+				echo json_encode(array(
+					"statusCode"=>"plink",
+					// "campaign_id"=>$addcampaigndata,
+					// "from"=>$from,
+					// "pass"=>$pass,
+					"message"=>"Prospect link is already Exist"
+				));
+				return;
+			}
+
 				$addleadandcdcdata = $this->Administrator_Model->update_leaddata($datacdcandlead,$lmid);
 				// print_r($addcampaigndata);  die;
 				

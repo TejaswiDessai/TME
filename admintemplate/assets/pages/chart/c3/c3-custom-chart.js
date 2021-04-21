@@ -117,8 +117,8 @@ $(document).ready(function() {
         data: {
             // iris data from R
             columns: [
-                ['data1', 30],
-                ['data2', 120],
+                ['Delivered', 30],
+                ['Remaining', 120],
             ],
             type: 'pie',
             onclick: function(d, i) { console.log("onclick", d, i); },

@@ -23,7 +23,7 @@
             $empcode = $this->session->userdata('empcode');
             $Role = $this->session->userdata('role');
             ?>
-                <div class="row">
+            <div class="row">
                 <?php if( $type['rolenm'] == "Administrator" || $this->session->userdata('role') == 0){?>
                     <div class="col-md-12 col-xl-4">
                         <!-- table card start -->
@@ -193,6 +193,54 @@
                         </div>
                         <!-- widget-success-card end -->
                     </div>
+                    <div class="col-md-12 col-lg-4">
+                        <div class="card">
+                            <div class="card-header">
+                                <h5>Leads Regions</h5>
+                            </div>
+                            <div class="card-block">
+                                <canvas id="myChart" width="400" height="400"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-12 col-lg-4">
+                        <div class="card">
+                            <div class="card-header">
+                                <h5>Leads Industries</h5>
+                            </div>
+                            <div class="card-block">
+                                <canvas id="myChart1" width="400" height="400"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-12 col-lg-4">
+                        <div class="card">
+                            <div class="card-header">
+                                <h5>Bar chart</h5>
+                             
+                            </div>
+                            <div class="card-block">
+                                <canvas id="barChart" width="400" height="400"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-12 col-lg-4">
+                        <div class="card">
+                            <div class="card-header">
+                                <h5>Total Leads</h5>
+                               
+                            </div>
+                            <div class="card-block">
+                                <div id="chart3"></div>
+                            </div>
+                        </div>
+                    </div>
+                    
+
+                    
+
+
+                    
                     <?php } ?>
                     <?php if( $type['rolenm'] == "Team Member" || $this->session->userdata('role') == 4 || $this->session->userdata('role') == 5 || $this->session->userdata('role') == 6){?>
                     <div class="col-lg-12">

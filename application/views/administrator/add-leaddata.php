@@ -98,6 +98,13 @@ $(document).ready(function() {
      return false;
    }
  });
+
+ $('#pcomt').keydown(function(event){
+   if(event.keyCode == 51) { // disable # key on form submission
+     event.preventDefault();
+     return false;
+   }
+ });
 });
 
 //below code for retreive button on change on rect type
@@ -704,19 +711,20 @@ $(document).ready(function() {
                              <div class="col-sm-12  comt">
                                 <label class="col-lable"><b>Comment</b></label>
                                 <input type="text" autocomplete = "off"  name="pcomt" id="pcomt"  placeholder="Comment"  class="form-control form-control-sm" 
-                                value="<?php if(isset($ldmster['pcomt']) && $ldmster['pcomt'] != '') {
+                                value="<?php if(isset($ldmster['pcomt']) && $ldmster['pcomt'] != '' && strpos($ldmster['pcomt'], '#') !== false ) {
                                    $arr = explode("#", $ldmster['pcomt']);
                                   
                                    $withoutchar = $arr[0];
+                                   $first = $arr[1];
                                    if(!empty($arr[1])){
                                       $first = $arr[1];
                                       echo  $first; 
                                    }else{
-                                    echo $withoutchar; 
+                                    echo $first;
                                    }
                                   
                                  }else{
-                                   echo "";
+                                   echo $ldmster['pcomt'];
                                  } ?>">
                             </div> 
                          </div>
@@ -1903,7 +1911,7 @@ if(lmid == undefined){
         async: true,
                 cache: false,
                 success: function(response){
-                    $("#leadsave").hide();
+                    // $("#leadsave").hide();
                     var text = response.statusCode;
                     console.log("check");
                     if(response.statusCode == "Success") 
@@ -1912,9 +1920,24 @@ if(lmid == undefined){
                         $("#leadsubmit").html(response.message);
                         top.location.href=base_url+"cdc/addleaddata?camp_id="+<?php echo $campaign['cnid']; ?>;//redirection
                       
-                    }else if(response.data=="Fail")
+                    }
+                    else if(response.statusCode =="Fail")
                     {
                         $("#leadsubmit").html(response.message);
+                        
+					          }
+                    else if(response.statusCode =="Exist")
+                    {
+                      alert("Record already Exist");
+
+                      // $("#leadsubmit").html(response.message);
+                        
+					          }
+                    else if(response.statusCode =="plink")
+                    {
+                      alert("Record already Exist");
+
+                      // $("#leadsubmit").html(response.message);
                         
 					          }
 
@@ -2114,7 +2137,7 @@ if(lmid == undefined){
         async: true,
                 cache: false,
                 success: function(response){
-                    $("#leadsave").hide();
+                    // $("#leadsave").hide();
                     var text = response.statusCode;
                     console.log("check");
                     if(response.statusCode == "Success") 
@@ -2126,6 +2149,20 @@ if(lmid == undefined){
                     }else if(response.data=="Fail")
                     {
                         $("#leadupdate").html(response.message);
+                        
+					          }
+                    else if(response.statusCode =="Exist")
+                    {
+                      alert("Record already Exist");
+
+                      // $("#leadsubmit").html(response.message);
+                        
+					          }
+                    else if(response.statusCode =="plink")
+                    {
+                      alert("Record already Exist");
+
+                      // $("#leadsubmit").html(response.message);
                         
 					          }
 
@@ -2334,6 +2371,19 @@ if(lmid == undefined){
                     }else if(response.statusCode=="Fail")
                     {
                         $("#leadsave").html(response.message);
+                        
+					          } else if(response.statusCode =="Exist")
+                    {
+                      alert("Record already Exist");
+
+                      // $("#leadsubmit").html(response.message);
+                        
+					          }
+                    else if(response.statusCode =="plink")
+                    {
+                      alert("Record already Exist");
+
+                      // $("#leadsubmit").html(response.message);
                         
 					          }
 

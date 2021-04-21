@@ -2307,7 +2307,7 @@ if(lmid == undefined){
         async: true,
                 cache: false,
                 success: function(response){
-                    $("#leadsavecdc").hide();
+                    // $("#leadsavecdc").hide();
                     var text = response.statusCode;
                     console.log("check");
                     if(response.statusCode == "Success") 
@@ -2318,9 +2318,22 @@ if(lmid == undefined){
                         top.location.href=base_url+"cdc/cdcform?camp_id="+<?php echo $campaign['cnid']; ?>;//redirection
                       
                       
-                    }else if(response.data=="Fail")
+                    }else if(response.statusCode=="Fail")
                     {
                         $("#leadupdatecdc").html(response.message);
+                        
+                      } else if(response.statusCode =="Exist")
+                    {
+                      alert("Record already Exist");
+
+                      // $("#leadsubmit").html(response.message);
+                        
+					          }
+                    else if(response.statusCode =="plink")
+                    {
+                      alert("Record already Exist");
+
+                      // $("#leadsubmit").html(response.message);
                         
 					          }
 
@@ -2630,6 +2643,19 @@ if(lmid == undefined){
                     {
                         $("#leadsave").html(response.message);
                         
+                      } else if(response.statusCode =="Exist")
+                    {
+                      alert("Record already Exist");
+
+                      // $("#leadsubmit").html(response.message);
+                        
+					          }
+                    else if(response.statusCode =="plink")
+                    {
+                      alert("Record already Exist");
+
+                      // $("#leadsubmit").html(response.message);
+                        
 					          }
 
                    
@@ -2637,7 +2663,7 @@ if(lmid == undefined){
                 },
                 
                 error: function (error) {
-                  alert("Already exists");
+                  alert("Error");
                   // location.reload();
                   }
               

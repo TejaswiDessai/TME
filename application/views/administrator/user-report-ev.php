@@ -64,7 +64,7 @@
 
             <div class="page-header">
                 <div class="page-header-title">
-                    <h4>List Users</h4>
+                    <h4>Email Verification Report</h4>
                 </div>
                 <div class="page-header-breadcrumb">
                     <ul class="breadcrumb-title">
@@ -73,9 +73,9 @@
                                 <i class="icofont icofont-home"></i>
                             </a>
                         </li>
-                        <li class="breadcrumb-item"><a href="#!">Users</a>
+                        <li class="breadcrumb-item"><a href="#!">Report</a>
                         </li>
-                        <li class="breadcrumb-item"><a href="#!">List Users</a>
+                        <li class="breadcrumb-item"><a href="#!">Email Verification Report</a>
                         </li>
                     </ul>
                 </div>
@@ -161,6 +161,7 @@
                                        where 
                                        ev.evagnt = '".$post['empcode']."'
                                        and leadmaster.cids = '".$Campid."'
+                                       and (statdt >= '".$From."' and statdt <= '".$To."')
                                         ");
                                        echo $ev_done->num_rows();
                                         // echo "Total: ".$post['numbers'] + $post['savednumbers'];
@@ -176,6 +177,7 @@
                                          ev.closer_status = 'Open'
                                          and ev.evagnt = '".$post['empcode']."'
                                          and leadmaster.cids = '".$Campid."'
+                                         and (statdt >= '".$From."' and statdt <= '".$To."')
                                          ");
                                          echo $ev_open->num_rows();
                                          ?></td>
@@ -185,7 +187,9 @@
                                          where 
                                          ev.closer_status = 'Closed'
                                          and leadmaster.cids = '".$Campid."'
-                                         and ev.evagnt = '".$post['empcode']."'");
+                                         and ev.evagnt = '".$post['empcode']."'
+                                         and (statdt >= '".$From."' and statdt <= '".$To."')
+                                         ");
                                          echo $ev_closed->num_rows();
                                          ?></td>
                                         

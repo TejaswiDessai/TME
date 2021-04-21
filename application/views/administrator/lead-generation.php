@@ -2716,7 +2716,7 @@ $.ajax({
         async: true,
                 cache: false,
                 success: function(response){
-                    $("#leadsaveqa").hide();
+                    // $("#leadsaveqa").hide();
                     var text = response.statusCode;
                     console.log("check");
                     if(response.statusCode == "Success") 
@@ -2726,7 +2726,7 @@ $.ajax({
                         // top.location.href=base_url+"administrator/dashboard";//redirection
                         top.location.href=base_url+"cdc/leadgenerationinterface?camp_id="+<?php echo $campaign['cnid']; ?>;//redirection
                       
-                    }else if(response.data=="Fail")
+                    }else if(response.statusCode=="Fail")
                     {
                         $("#leadupdatelead").html(response.message);
                         

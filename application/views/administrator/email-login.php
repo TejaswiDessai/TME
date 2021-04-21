@@ -16,36 +16,23 @@
                                    
                                 </div>
                             <div class="auth-box">
-                                <div class="row m-b-20">
+                                <!-- <div class="row m-b-20">
                                     <div class="col-md-12">
                                         <h3 class="text-left txt-primary">Login To Open Form</h3>
                                     </div>
-                                </div>
+                                </div> -->
                                 <hr/>
-                                  <?php echo form_open('/send-email-php/email_otp.php'); ?>
+                                  <?php //echo form_open('/send-email-php/email_otp.php'); ?>
                                 <!-- <div class="input-group"> -->
                                 <div class="col-md-12">
                                 <div class="col-sm-12">
                                 <input type="hidden" name="campaign_id" value="<?php echo $camp_id;?>" class="form-control" required="">
-                                    <input type="text" name="emp_id" class="form-control" placeholder="Employee Id" required="">
+                                    <input type="hidden" name="emp_id" value="<?php echo $empcode;?>" class="form-control" required="">
                                     <span class="md-line"></span>
+                                    <p style="color:black;"><b>Are you sure to generate a one time password<br><br> that would last only for 1 hour?</b></p>
                                 </div>
-                                <br>
-                                <div class="col-sm-12">
-                                    <input type="text"  name="email" id="email"  placeholder="Email"   class="form-control form-control-sm cdqadisable" required="">
-                                    <span style='color:#FF0000' id="lname_msg"></span>
-                                </div>
-                                <br>
-                                <div class="col-sm-12">
-                                <select class="form-control form-control-default "  name="user_type" id="user_type" required="">
-                                    <option value="1">Admin</option>
-                                    <option value="2">Core Team</option>
-                                    <option value="3">Manager</option>
-                                    <option value="4">Team Lead</option>
-                                    <option value="5" selected>Team Member</option>
-                                    <option value="6">Developers</option>
-                                </select>
-                                </div>
+                                
+                                
                                     </div>
                                 <!-- </div> -->
                                
@@ -60,20 +47,22 @@
                                 </div>
                                 <div class="row m-t-30">
                                     <div class="col-md-12">
-                                        <button type="submit" class="btn btn-primary btn-md btn-block waves-effect text-center m-b-20">Submit</button>
+                                    <a href="http://mehp-dbs/send-email-php/email_otp.php?cid=<?php echo $camp_id?>&empcode=<?php echo $empcode?>"><button class="btn btn-primary">Yes</button> </a>
+                                    <a href="http://mehp-dbs/administrator/otp_verification?cid=<?php echo $camp_id?>&c=no"><button class="btn btn-primary">No</button></a>
+                                        <!-- <button type="submit" class="btn btn-primary btn-md btn-block waves-effect text-center m-b-20">Submit</button> -->
                                     </div>
                                 </div>
                                 <hr/>
                                 <div class="row">
                                     <div class="col-md-7">
                                         <p class="text-inverse text-left m-b-0">Thank you!</p>
-                                        <p class="text-inverse text-left"><b>Your Development Team</b></p>
+                                        <p class="text-inverse text-left"><b>Hello Prospect</b></p>
                                     </div>
                                     <div class="col-md-4">
                                         <img src="<?php echo base_url(); ?>admintemplate/assets/images/auth/index.png" alt="small-logo.png" style="width:128px">
                                     </div>
                                 </div>
-                            </form>
+                            <!-- </form> -->
                             </div>
                        
                         <!-- end of form -->

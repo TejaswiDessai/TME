@@ -2959,6 +2959,7 @@ public function getPrivillage(){
 			$data['title'] = ucfirst($page);
 			$camp_id = $_GET['id'];
 			$data['camp_id'] = $camp_id;
+			$data['empcode'] = $this->session->userdata('empcode');
 			$this->load->view('administrator/header-script');
 			//$this->load->view('administrator/header');
 			//$this->load->view('administrator/header-bottom');
@@ -2973,23 +2974,49 @@ public function getPrivillage(){
 			// echo $_GET['main_otp'];
 			$cid = $_GET['cid'];
 			$encryption = $_GET['c'];
-			
-			$ciphering = "BF-CBC";
-			// Use OpenSSl encryption method
-			$iv_length = openssl_cipher_iv_length($ciphering);
-			$options = 0;
-			$encryption_iv = random_bytes($iv_length);
-			$decryption_iv = random_bytes($iv_length);
-  
-			// Store the decryption key
-			$decryption_key = openssl_digest(php_uname(), 'MD5', TRUE);
-			
-			// Descrypt the string
-			$decryption = openssl_decrypt ($encryption, $ciphering,
-            $decryption_key, $options, $encryption_iv);
-			
-			$newstring = substr($decryption, -6);
-			$data['main_otp'] = $newstring;
+			if($encryption != "no")
+			{
+				$ciphering = "BF-CBC";
+				// Use OpenSSl encryption method
+				$iv_length = openssl_cipher_iv_length($ciphering);
+				$options = 0;
+				$encryption_iv = random_bytes($iv_length);
+				$decryption_iv = random_bytes($iv_length);
+	
+				// Store the decryption key
+				$decryption_key = openssl_digest(php_uname(), 'MD5', TRUE);
+				
+				// Descrypt the string
+				$decryption = openssl_decrypt ($encryption, $ciphering,
+				$decryption_key, $options, $encryption_iv);
+				
+				$newstring = substr($decryption, -6);
+				
+				$data['main_otp'] = $newstring;
+			}
+			else
+			{
+				$empcode = $this->session->userdata('empcode');
+				$result=$this->Administrator_Model->get_otp_from_users($empcode)->row();
+				$u_time = $result->otp_time;
+				$u_time = date(strtotime($u_time));
+				$currentTime = time();
+				// $currentTime = date("Y-m-d H:i:s");
+				$EXPIRATION_TIME = '+60 minutes';
+				// echo $u_time; die;
+				$expTime = strtotime($EXPIRATION_TIME, $u_time);
+				// echo $currentTime."---".$expTime;
+				if($currentTime <= $expTime)
+				{
+					$data['main_otp'] = $result->otp;
+				}
+				else
+				{
+					//echo "OTP expired"; 
+					echo "<script>alert('OTP expired..');location.href = 'http://localhost/TME/send-email-php/email_otp.php?cid=$cid&empcode=$empcode';</script>";
+					// die;
+				}
+			}
 			$data['campaign_id'] = $cid;
 			$this->load->view('administrator/header-script');
 			//$this->load->view('administrator/header');
@@ -3003,6 +3030,15 @@ public function getPrivillage(){
 			$campaign_id = $this->input->post('campaign_id');
 			$main_otp = $this->input->post('main_otp');
 			$user_otp = $this->input->post('otp');
+			$startdate = date("Y-m-d H:i:s");
+			$empcode = $this->session -> userdata('empcode');
+			$update_otp = array(
+				'otp' =>$main_otp,
+				'otp_time' => $startdate
+								
+				);
+			$addcampaigndata = $this->Administrator_Model->update_otp_in_users($update_otp,$empcode);
+
 			$token = array(
 				'token' => 'success',
 			);

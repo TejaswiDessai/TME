@@ -107,21 +107,7 @@
                                     <?php endforeach; ?>
                                 </select>
                             </td>
-                            <td>
-                                <select class="form-control form-control-default "  name="stage" id="stage">
-                                    <option value="">Data Collection</option>
-                                   
-                                    <!-- <option value="datacollect" <?php// if( isset($Stage) && $Stage == "datacollect") { echo "selected" ; } ?>>Data Collection</option> -->
-                                    <option value="verified" <?php if( isset($Stage) && $Stage == "verified") { echo "selected" ; } ?>>Data Verified</option>
-                                  
-                                    
-                                    <!-- <option value="All">All</option> -->
-
-                                    <!-- <?php //foreach ($users as $campaign): ?>
-                                        <option value="<?php //echo $campaign['emp_id']; ?>"><?php //echo $campaign['fname']; ?></option>
-                                    <?php //endforeach; ?> -->
-                                </select>
-                            </td>
+                            
                             <td>
                             From: </td><td><input class="form-control" type="datetime-local" value="<?php if(isset($From)){ echo $From;}?>" name="from"  id="example-datetime-local-input">
                             </td>
@@ -158,11 +144,8 @@
                                         <th>Username</th>
                                         
                                         <th>Total EV</th>
-                                        
-                                        <th>EV Closed</th>
-                                      
                                         <th>EV Open</th>
-                                        
+                                        <th>EV Closed</th>
                                     </tr>
                                 </thead>
                                 <tbody >
@@ -173,13 +156,13 @@
                                         <td><a href=""><?php echo $post['fname']; ?></a></td>
                                         
                                         <td><?php 
-                                       $ev_pending = $this->db->query("select * from ev
+                                       $ev_done = $this->db->query("select * from ev
                                        left join leadmaster ON ev.lmid=leadmaster.lmid
                                        where 
                                        ev.evagnt = '".$post['empcode']."'
                                        and leadmaster.cids = '".$Campid."'
                                         ");
-                                       echo $ev_pending->num_rows();
+                                       echo $ev_done->num_rows();
                                         // echo "Total: ".$post['numbers'] + $post['savednumbers'];
                                         // $query = $this->db->query("SELECT * FROM leadmaster where stagtidi = '".$post['emp_id']."'");
                                         // echo $query->num_rows();
@@ -187,23 +170,23 @@
                                         ?></td>
                                          
                                          <td><?php 
-                                         $ev_inproccess = $this->db->query("select * from ev
+                                         $ev_open = $this->db->query("select * from ev
                                          left join leadmaster ON ev.lmid=leadmaster.lmid 
                                          where
                                          ev.closer_status = 'Open'
                                          and ev.evagnt = '".$post['empcode']."'
                                          and leadmaster.cids = '".$Campid."'
                                          ");
-                                         echo $ev_inproccess->num_rows();
+                                         echo $ev_open->num_rows();
                                          ?></td>
                                          <td><?php 
-                                         $ev_done = $this->db->query("select * from ev
+                                         $ev_closed = $this->db->query("select * from ev
                                          left join leadmaster ON ev.lmid=leadmaster.lmid
                                          where 
                                          ev.closer_status = 'Closed'
                                          and leadmaster.cids = '".$Campid."'
                                          and ev.evagnt = '".$post['empcode']."'");
-                                         echo $ev_done->num_rows();
+                                         echo $ev_closed->num_rows();
                                          ?></td>
                                         
                                     </tr>

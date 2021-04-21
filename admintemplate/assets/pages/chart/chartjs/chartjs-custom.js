@@ -4,15 +4,49 @@ $(document).ready(function(){
     var ctx = document.getElementById("myChart");
     var data = {
         labels: [
-            "A", "B", "C", "D "
+            "U.S.A.", "U.K.", "China", "Australia and New Zealand"
         ],
         datasets: [{
-            data: [40, 10, 40, 10],
+            data: [40, 50, 10, 30],
             backgroundColor: [
+                "#68a3ed",
+                "#FCC9BA",
+                "#B8EDF0",
+                "#B4C1D7"
+            ],
+            borderWidth: [
+                "0px",
+                "0px",
+                "0px",
+                "0px"
+            ],
+            borderColor: [
                 "#1ABC9C",
                 "#FCC9BA",
                 "#B8EDF0",
                 "#B4C1D7"
+
+            ]
+        }]
+    };
+
+    var myDoughnutChart = new Chart(ctx, {
+        type: 'doughnut',
+        data: data
+    });
+    /*Doughnut chart*/
+    var ctx = document.getElementById("myChart1");
+    var data = {
+        labels: [
+            "Agriculture", "Chemical and Materials", "Computer Services", "Energy"
+        ],
+        datasets: [{
+            data: [40, 50, 10, 30],
+            backgroundColor: [
+                "#ff5722",
+                "#61bfab",
+                "#B8EDF0",
+                "#6a0303"
             ],
             borderWidth: [
                 "0px",

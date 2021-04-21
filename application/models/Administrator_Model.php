@@ -3003,7 +3003,20 @@ public function get_campaign_fordataverification()
 		public function get_email_duplication_count_leadmaster($email)
 		{
 			$this->db->select('lmid');
+			$this->db->where('email', $email);			
+			$result = $this->db->get('leadmaster');
+			// echo $this->db->last_query(); 
+			if ($result->num_rows() >= 1) {
+               return true;        
+			}else{
+				return false;
+			}
+		}
+		public function get_email_duplication_count_leadmaster_update($email,$lmid)
+		{
+			$this->db->select('lmid');
 			$this->db->where('email', $email);
+			$this->db->where('lmid !=', $lmid);
 			$result = $this->db->get('leadmaster');
 			// echo $this->db->last_query(); 
 			if ($result->num_rows() >= 1) {
@@ -3016,6 +3029,19 @@ public function get_campaign_fordataverification()
 		{
 			$this->db->select('lmid');
 			$this->db->where('plink', $plink);
+			$result = $this->db->get('leadmaster');
+			// echo $this->db->last_query(); 
+			if ($result->num_rows() >= 1) {
+               return true;        
+			}else{
+				return false;
+			}
+		}
+		public function get_plink_duplication_count_leadmaster_update($plink,$lmid)
+		{
+			$this->db->select('lmid');
+			$this->db->where('plink', $plink);
+			$this->db->where('lmid !=', $lmid);
 			$result = $this->db->get('leadmaster');
 			// echo $this->db->last_query(); 
 			if ($result->num_rows() >= 1) {

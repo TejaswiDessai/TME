@@ -1911,7 +1911,7 @@ if(lmid == undefined){
         async: true,
                 cache: false,
                 success: function(response){
-                    $("#leadsave").hide();
+                    // $("#leadsave").hide();
                     var text = response.statusCode;
                     console.log("check");
                     if(response.statusCode == "Success") 
@@ -1920,9 +1920,24 @@ if(lmid == undefined){
                         $("#leadsubmit").html(response.message);
                         top.location.href=base_url+"cdc/addleaddata?camp_id="+<?php echo $campaign['cnid']; ?>;//redirection
                       
-                    }else if(response.data=="Fail")
+                    }
+                    else if(response.statusCode =="Fail")
                     {
                         $("#leadsubmit").html(response.message);
+                        
+					          }
+                    else if(response.statusCode =="Exist")
+                    {
+                      alert("Record already Exist");
+
+                      // $("#leadsubmit").html(response.message);
+                        
+					          }
+                    else if(response.statusCode =="plink")
+                    {
+                      alert("Record already Exist");
+
+                      // $("#leadsubmit").html(response.message);
                         
 					          }
 
@@ -2122,7 +2137,7 @@ if(lmid == undefined){
         async: true,
                 cache: false,
                 success: function(response){
-                    $("#leadsave").hide();
+                    // $("#leadsave").hide();
                     var text = response.statusCode;
                     console.log("check");
                     if(response.statusCode == "Success") 
@@ -2134,6 +2149,20 @@ if(lmid == undefined){
                     }else if(response.data=="Fail")
                     {
                         $("#leadupdate").html(response.message);
+                        
+					          }
+                    else if(response.statusCode =="Exist")
+                    {
+                      alert("Record already Exist");
+
+                      // $("#leadsubmit").html(response.message);
+                        
+					          }
+                    else if(response.statusCode =="plink")
+                    {
+                      alert("Record already Exist");
+
+                      // $("#leadsubmit").html(response.message);
                         
 					          }
 
@@ -2342,6 +2371,19 @@ if(lmid == undefined){
                     }else if(response.statusCode=="Fail")
                     {
                         $("#leadsave").html(response.message);
+                        
+					          } else if(response.statusCode =="Exist")
+                    {
+                      alert("Record already Exist");
+
+                      // $("#leadsubmit").html(response.message);
+                        
+					          }
+                    else if(response.statusCode =="plink")
+                    {
+                      alert("Record already Exist");
+
+                      // $("#leadsubmit").html(response.message);
                         
 					          }
 

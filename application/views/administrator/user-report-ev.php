@@ -174,8 +174,10 @@
                                         
                                         <td><?php 
                                        $ev_pending = $this->db->query("select * from ev
+                                       left join leadmaster ON ev.lmid=leadmaster.lmid
                                        where 
-                                       evagnt = '".$post['empcode']."'
+                                       ev.evagnt = '".$post['empcode']."'
+                                       and leadmaster.cids = '".$Campid."'
                                         ");
                                        echo $ev_pending->num_rows();
                                         // echo "Total: ".$post['numbers'] + $post['savednumbers'];
@@ -186,17 +188,21 @@
                                          
                                          <td><?php 
                                          $ev_inproccess = $this->db->query("select * from ev
+                                         left join leadmaster ON ev.lmid=leadmaster.lmid 
                                          where
-                                         closer_status = 'Open'
-                                         and evagnt = '".$post['empcode']."'
+                                         ev.closer_status = 'Open'
+                                         and ev.evagnt = '".$post['empcode']."'
+                                         and leadmaster.cids = '".$Campid."'
                                          ");
                                          echo $ev_inproccess->num_rows();
                                          ?></td>
                                          <td><?php 
                                          $ev_done = $this->db->query("select * from ev
+                                         left join leadmaster ON ev.lmid=leadmaster.lmid
                                          where 
-                                         closer_status = 'Closed'
-                                         and evagnt = '".$post['empcode']."'");
+                                         ev.closer_status = 'Closed'
+                                         and leadmaster.cids = '".$Campid."'
+                                         and ev.evagnt = '".$post['empcode']."'");
                                          echo $ev_done->num_rows();
                                          ?></td>
                                         

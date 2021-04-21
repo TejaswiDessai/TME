@@ -3407,4 +3407,39 @@ public function get_campaign_fordataverification()
 			$this->db->where('empcode',$empcode);
 			return $this->db->get('users');
 		}
+
+		public function get_user_report_ev($campid,$user_id,$from,$to,$stage)
+		{
+			$this->db->select('*');
+			$this->db->from('users');
+			$this->db->where('users.cid_type', 'ME');
+			$this->db->where('users.status', 0);
+			
+			if(isset($user_id) && $user_id != null)
+			{
+				$this->db->where('users.empcode', $user_id);
+			}
+			
+			else
+			{
+				// $this->db->group_start();
+				// $this->db->where("stdti >= now()::date + interval '0h'");
+				// // $this->db->OR_where("svdti>= now()::date + interval '0h'");
+				// $this->db->group_end();
+			}
+			// $this->db->group_by('leadmaster.cids');
+			$this->db->group_by('users.fname');
+			$this->db->group_by('users.empcode');
+			$this->db->group_by('users.last_login');
+			// $this->db->group_by('leadmaster.lmid');
+			$this->db->group_by('users.id');
+			
+			// $this->db->group_by('campaign.cids');
+			// $this->db->group_by('campaign.campnm');
+			$query=$this->db->get();
+			// echo $this->db->last_query(); 
+			// show_error($this->db->last_query(), 200, "SQL");
+			return $data=$query->result_array();
+
+		}	
 }

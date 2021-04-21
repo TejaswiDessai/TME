@@ -3106,7 +3106,7 @@ public function getPrivillage(){
 			
 			// 	$data['users'] = $this->Administrator_Model->get_user_report($campid,$user_id,$from,$to,$stage);
 			// }else{
-				$data['users'] = $this->Administrator_Model->get_user_report_dc($campid,$user_id,$from,$to,$stage);
+				$data['users'] = $this->Administrator_Model->get_user_report_ev($campid,$user_id,$from,$to,$stage);
 			// }
 			
 			

@@ -53,6 +53,10 @@
      <!-- toolbar css -->
      <link rel="stylesheet" type="text/css" href="<?php echo base_url(); ?>admintemplate/assets/pages/toolbar/jquery.toolbar.css">
     <link rel="stylesheet" type="text/css" href="<?php echo base_url(); ?>admintemplate/assets/pages/toolbar/custom-toolbar.css">
+      <!-- Chartlist chart css -->
+      <link rel="stylesheet" type="text/css" href="<?php echo base_url(); ?>admintemplate/bower_components/chartist/dist/chartist.css">
+    <!-- C3 chart -->
+    <link rel="stylesheet" href="<?php echo base_url(); ?>admintemplate/bower_components/c3/c3.css" type="text/css" media="all">
     <!-- Style.css -->
     <link rel="stylesheet" type="text/css" href="<?php echo base_url(); ?>admintemplate/assets/css/style.css">
     <!--color css-->

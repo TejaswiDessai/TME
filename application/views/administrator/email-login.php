@@ -50,6 +50,7 @@
                                     <a href="http://mehp-dbs/send-email-php/email_otp.php?cid=<?php echo $camp_id?>&empcode=<?php echo $empcode?>"><button class="btn btn-primary">Yes</button> </a>
                                     <a href="http://mehp-dbs/administrator/otp_verification?cid=<?php echo $camp_id?>&c=no"><button class="btn btn-primary">No</button></a>
                                         <!-- <button type="submit" class="btn btn-primary btn-md btn-block waves-effect text-center m-b-20">Submit</button> -->
+                                        <p style="color:black;padding-top:10px;"><i>Note: Click "No", If you have active OTP</i></p>
                                     </div>
                                 </div>
                                 <hr/>

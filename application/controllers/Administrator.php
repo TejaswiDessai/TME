@@ -2991,8 +2991,15 @@ public function getPrivillage(){
 				$decryption_key, $options, $encryption_iv);
 				
 				$newstring = substr($decryption, -6);
-				
+				$empcode = $this->session->userdata('empcode');
 				$data['main_otp'] = $newstring;
+				$startdate = date("Y-m-d H:i:s");
+				$update_otp = array(
+					'otp' =>$newstring,
+					'otp_time' => $startdate
+									
+					);
+				$addcampaigndata = $this->Administrator_Model->update_otp_in_users($update_otp,$empcode);
 			}
 			else
 			{
@@ -3018,6 +3025,7 @@ public function getPrivillage(){
 				}
 			}
 			$data['campaign_id'] = $cid;
+			$data['empcode'] = $this->session -> userdata('empcode');
 			$this->load->view('administrator/header-script');
 			//$this->load->view('administrator/header');
 			//$this->load->view('administrator/header-bottom');
@@ -3032,12 +3040,12 @@ public function getPrivillage(){
 			$user_otp = $this->input->post('otp');
 			$startdate = date("Y-m-d H:i:s");
 			$empcode = $this->session -> userdata('empcode');
-			$update_otp = array(
-				'otp' =>$main_otp,
-				'otp_time' => $startdate
+			// $update_otp = array(
+			// 	'otp' =>$main_otp,
+			// 	'otp_time' => $startdate
 								
-				);
-			$addcampaigndata = $this->Administrator_Model->update_otp_in_users($update_otp,$empcode);
+			// 	);
+			// $addcampaigndata = $this->Administrator_Model->update_otp_in_users($update_otp,$empcode);
 
 			$token = array(
 				'token' => 'success',

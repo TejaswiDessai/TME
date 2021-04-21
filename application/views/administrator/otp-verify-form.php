@@ -1,3 +1,17 @@
+<script>
+var timeleft = 60;
+var downloadTimer = setInterval(function(){
+  if(timeleft <= 0){
+    clearInterval(downloadTimer);
+  }
+  document.getElementById("progressBar").value = 60 - timeleft;
+  timeleft -= 1;
+  if(timeleft == 0)
+  {
+    location.href = 'http://mehp-dbs/cdc/selectCampaign';
+  }
+}, 1000);
+</script>
 
             <section class="login p-fixed d-flex text-center bg-primary common-img-bg">
         <!-- Container-fluid starts -->
@@ -29,6 +43,7 @@
                                     <input type="hidden" name="campaign_id" value="<?php echo $campaign_id;?>">
                                     <input type="hidden" name="main_otp" value="<?php echo $main_otp;?>">
                                     <input type="text" name="otp" class="form-control" placeholder="Enter OTP here" required="">
+                                    <progress value="0" max="60" id="progressBar"></progress>
                                     <span class="md-line"></span>
                                 </div>
                                 <br>
@@ -53,7 +68,7 @@
                                 <div class="row">
                                     <div class="col-md-7">
                                         <p class="text-inverse text-left m-b-0">Thank you!</p>
-                                        <p class="text-inverse text-left"><b>Your Development Team</b></p>
+                                        <p class="text-inverse text-left"><b>Hello Prospect</b></p>
                                     </div>
                                     <div class="col-md-4">
                                         <img src="<?php echo base_url(); ?>admintemplate/assets/images/auth/index.png" alt="small-logo.png" style="width:128px">

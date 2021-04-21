@@ -3440,5 +3440,19 @@ public function get_campaign_fordataverification()
 			
 			return $query->row_array();
 		}
+		public function update_otp_in_users($update_otp,$empcode)
+		{
+				$this->db->where('empcode', $empcode);
+				$this->db->update('users', $update_otp);
+			return true;
+		}
 
+		public function get_otp_from_users($empcode)
+		{
+			
+			$this->db->select('otp,otp_time');
+			// $this->db->from('users');
+			$this->db->where('empcode',$empcode);
+			return $this->db->get('users');
+		}
 }

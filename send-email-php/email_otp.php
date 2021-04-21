@@ -1,10 +1,11 @@
 <?php
 session_start();
 // echo "test";
-$campaign_id = $_POST['campaign_id'];
-$emp_id = $_POST['emp_id'];
-$email = $_POST['email'];
-$user_type = $_POST['user_type'];
+$campaign_id = $_GET['cid'];
+
+$emp_id = $_GET['empcode'];
+// $email = $_POST['email'];
+// $user_type = $_POST['user_type'];
 $otp = random_int(100000, 999999);
 $string = "main_otp=$otp";
 $ciphering = "BF-CBC";
@@ -23,20 +24,26 @@ $encryption_key = openssl_digest(php_uname(), 'MD5', TRUE);
 $encryption = openssl_encrypt($string, $ciphering,
         $encryption_key, $options, $encryption_iv);
 
-if(isset($_POST["emp_id"], $_POST["user_type"],$_POST['email'])) 
+if(isset($emp_id) && $emp_id != null) 
     {     
         $connect = pg_connect("host=localhost dbname=Forerunner user=postgres password=password@123");
         
-        $result1 = pg_query($connect,"SELECT * FROM users WHERE (emp_id = '".$emp_id."' OR empcode = '".$emp_id."') AND  role = '".$user_type."'");
+        $result1 = pg_query($connect,"SELECT * FROM users WHERE (emp_id = $emp_id OR empcode = $emp_id)");
         
         if(pg_num_rows($result1) == 0 )
         {
-            echo "<script>alert('The Employee Id or User Type are incorrect!');location.href = 'http://mehp-dbs/administrator/forget-password';</script>";
+            echo "<script>alert('Please check you are logged in or not!');location.href = 'http://mehp-dbs/';</script>";
             
         }
         else
         {
-
+            while ($row = pg_fetch_row($result1)) {
+                $fname = $row[2];
+                $lname =  $row[3];
+              }
+              $email_string = $fname.".".$lname."@"."mehp.com";
+              $email =  strtolower($email_string);
+            
             $_SESSION["logged_in"] = true; 
             $_SESSION["emp_id"] = $emp_id; 
             $_SESSION['main_otp'] = $otp;

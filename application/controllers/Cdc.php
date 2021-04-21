@@ -21,11 +21,12 @@
 			{
 				$otp_verification = $this->session->userdata('token');
 			}
-			
+			$empcode = $this->session->userdata('empcode');
 		
 			if($otp_verification != "success")
 			{
-				redirect("administrator/email_login?id=$postData1");
+				redirect("administrator/email_login?id=$postData1&empcode=$empcode");
+				// echo "<script>alert('Are you sure to generate a one time password that would last only for 1 hour?');location.href = 'http://localhost/TME/send-email-php/email_otp.php?cid=$postData1&empcode=$empcode';</script>";
 			}
 
 						

@@ -2274,8 +2274,8 @@ $(document).ready(function() {
                 cache: false,
                 success: function(response){
                   console.log("Success");
-                  $("#cdqasubmit").html("Submitted!");
-                  $("#cdqasubmit").prop('disabled', true);
+                  // $("#cdqasubmit").html("Submitted!");
+                  // $("#cdqasubmit").prop('disabled', true);
                   $("#cdqasave").hide();
                   // top.location.href=base_url+"administrator/dashboard";//redirection
                   // console.log(response);
@@ -2288,12 +2288,20 @@ $(document).ready(function() {
                         top.location.href=base_url+"cdc/addlead?camp_id="+<?php echo $campaign['cnid']; ?>;//redirection
                         // $("#addcampbtn").prop('disabled', true);
                         // top.location.href=base_url+"campaigns/addsuppressionList?camp_id="+response.campaign_id;//redirection
-                    }else if(response.statusCode=="Fail")
-                    {
-                      alert("in Fail"); 
-                        $("#cdqasubmit").html(response.message);
-                        
-					          }
+                      } else if(response.statusCode =="Exist")
+                      {
+                        alert("Record already Exist");
+
+                        // $("#leadsubmit").html(response.message);
+                          
+                      }
+                      else if(response.statusCode =="plink")
+                      {
+                        alert("Record already Exist");
+
+                        // $("#leadsubmit").html(response.message);
+                          
+                      }
 
                    
 

@@ -209,7 +209,7 @@
                             <div class="">
                                 <div class="row-table">
                                     <div class="col-sm-3 card-block-big">
-                                        <i class="icofont icofont-star"></i>
+                                    <i class="icofont icofont-fast-delivery"></i>
                                     </div>
                                     <div class="col-sm-9">
                                         <h4>Total Leads <?php $query = $this->db->query("SELECT * FROM leadmaster ");

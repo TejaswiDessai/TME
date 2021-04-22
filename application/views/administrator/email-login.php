@@ -21,6 +21,7 @@
                                         <h3 class="text-left txt-primary">Login To Open Form</h3>
                                     </div>
                                 </div> -->
+                                <a href="http://mehp-dbs/cdc/selectCampaign">EXIT </a>
                                 <hr/>
                                   <?php //echo form_open('/send-email-php/email_otp.php'); ?>
                                 <!-- <div class="input-group"> -->

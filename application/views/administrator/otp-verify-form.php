@@ -62,6 +62,7 @@ var downloadTimer = setInterval(function(){
                                 <div class="row m-t-30">
                                     <div class="col-md-12">
                                         <button type="submit" class="btn btn-primary btn-md btn-block waves-effect text-center m-b-20">Submit</button>
+                                        <a href="http://mehp-dbs/administrator/email_login?id=<?php echo $campaign_id?>&empcode=<?php echo $empcode?>">EXIT </a>
                                     </div>
                                 </div>
                                 <hr/>

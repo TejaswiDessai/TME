@@ -2991,8 +2991,15 @@ public function getPrivillage(){
 				$decryption_key, $options, $encryption_iv);
 				
 				$newstring = substr($decryption, -6);
-				
+				$empcode = $this->session->userdata('empcode');
 				$data['main_otp'] = $newstring;
+				$startdate = date("Y-m-d H:i:s");
+				$update_otp = array(
+					'otp' =>$newstring,
+					'otp_time' => $startdate
+									
+					);
+				$addcampaigndata = $this->Administrator_Model->update_otp_in_users($update_otp,$empcode);
 			}
 			else
 			{
@@ -3018,6 +3025,7 @@ public function getPrivillage(){
 				}
 			}
 			$data['campaign_id'] = $cid;
+			$data['empcode'] = $this->session -> userdata('empcode');
 			$this->load->view('administrator/header-script');
 			//$this->load->view('administrator/header');
 			//$this->load->view('administrator/header-bottom');
@@ -3032,12 +3040,12 @@ public function getPrivillage(){
 			$user_otp = $this->input->post('otp');
 			$startdate = date("Y-m-d H:i:s");
 			$empcode = $this->session -> userdata('empcode');
-			$update_otp = array(
-				'otp' =>$main_otp,
-				'otp_time' => $startdate
+			// $update_otp = array(
+			// 	'otp' =>$main_otp,
+			// 	'otp_time' => $startdate
 								
-				);
-			$addcampaigndata = $this->Administrator_Model->update_otp_in_users($update_otp,$empcode);
+			// 	);
+			// $addcampaigndata = $this->Administrator_Model->update_otp_in_users($update_otp,$empcode);
 
 			$token = array(
 				'token' => 'success',
@@ -3059,6 +3067,70 @@ public function getPrivillage(){
 
 		}
 
+		public function user_report_ev($offset = 0){
+			$this->load->model('Administrator_Model');
+			// Pagination Config
+			$config['base_url'] = base_url(). 'campaigns/campaign/';
+			$config['total_rows'] = $this->db->count_all('campaign');
+			$config['per_page'] = '';
+			$config['uri_segment'] = 3;
+			$config['attributes'] = array('class' => 'paginate-link');
+			if($this->input->post('campid') != null)
+			{
+				$campid = $this->input->post('campid');
+			}
+			else
+			{
+				$campid = 1014;
+			}
+			
+			$user_id =$this->input->post('user_id');
+			$stage =$this->input->post('stage');
+			$from =$this->input->post('from');
+			if($from == "")
+			{
+				$from = date('Y-m-d 00:00:00');
+			}
+			$to =$this->input->post('to');
+			if($to == "")
+			{
+				$to = date('Y-m-d H:i:s');
+			}
+			// print_r($to);  
+			// print_r($from);
+			// Init Pagination
+			$this->pagination->initialize($config);
+		
+			$data['title'] = 'Latest Campaigns';
+			// print_r($user_id);
+			
+			// 	$data['users'] = $this->Administrator_Model->get_user_report($campid,$user_id,$from,$to,$stage);
+			// }else{
+				$data['users'] = $this->Administrator_Model->get_user_report_ev($campid,$user_id,$from,$to,$stage);
+			// }
+			
+			
+			
+	
+			// print_r($data['users']);
+			//  print_r($user_id);
+			$data['users_name'] = $this->Administrator_Model->get_users(FALSE, $config['per_page'], $offset);
+			$data['campaigns'] = $this->Administrator_Model->get_campaign();
+			$data['empcode'] = $this->session->userdata('empcode');
+			$data['user_id'] = $user_id;
+			$data['Campid'] = $campid;
+			$data['Stage'] = $stage;
+			$data['From'] = $from;
+			$data['To'] = $to;
+			$this->load->view('administrator/header-script');
+			$this->load->view('administrator/header');
+			$this->load->view('administrator/header-bottom');
+			
+				$this->load->view('administrator/user-report-ev', $data);
+			
+	
+			$this->load->view('administrator/footer');
+		}
 }
 
 

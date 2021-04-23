@@ -2729,6 +2729,15 @@ public function getPrivillage(){
 			$addcampaigndata = $this->Administrator_Model->update_email_status($datacampaignUpdate,$comp_proSplit[$i]);
 			if($closer_status == "Closed")
 			{
+				$evdisp = null;
+				if($email_status == "Accepted" || $email_status == "Confirmed" || $email_status == "Out of Office")
+				{
+					$evdisp = 4;
+				}
+				else
+				{
+					$evdisp = 5;
+				}
 				$checkForCDCTag_cdcsb = $this->Administrator_Model->check_cdc_tag_cdcsb($leadid[$i]);
 				
 				$checkForCDCTag_cdcrjt = $this->Administrator_Model->check_cdc_tag_cdcrjt($leadid[$i]);
@@ -2738,7 +2747,7 @@ public function getPrivillage(){
 						'evload' => 1,
 						'evcomp' => 1,
 						'email'=> $comp_proSplit[$i],
-						'evdisp' =>4,
+						'evdisp' =>$evdisp,
 						'cdcsb' => 0,
 						'cdcrjt' => 0,
 						'rlc' => 0,   
@@ -2750,7 +2759,7 @@ public function getPrivillage(){
 					'evload' => 1,
 					'evcomp' => 1,
 					'email'=> $comp_proSplit[$i],
-					'evdisp' =>4,
+					'evdisp' =>$evdisp,
 					'rlc' => 0,
 
 					);

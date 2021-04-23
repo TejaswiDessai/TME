@@ -2684,6 +2684,10 @@ public function getPrivillage(){
 		$leadid = explode(',', $string_version);
 		// print_r($leadid);die;
 		// echo $_GET['leadid'];
+		$original_email = $_GET['original_email'];
+		$original_email= implode(",", $original_email);
+		$original_email= explode(",", $original_email);
+
 		$email1 = $_GET['change_status_of'];
 		$string_version1= implode(",", $email1);
 		$comp_proSplit= explode(",", $string_version1);
@@ -2733,10 +2737,14 @@ public function getPrivillage(){
 				if($email_status == "Accepted" || $email_status == "Confirmed" || $email_status == "Out of Office")
 				{
 					$evdisp = 4;
+					$evload = 1;
+					$final_email = $comp_proSplit[$i];
 				}
 				else
 				{
 					$evdisp = 5;
+					$evload = 0;
+					$final_email = $original_email;
 				}
 				$checkForCDCTag_cdcsb = $this->Administrator_Model->check_cdc_tag_cdcsb($leadid[$i]);
 				
@@ -2744,9 +2752,9 @@ public function getPrivillage(){
 				if($checkForCDCTag_cdcsb == null && $checkForCDCTag_cdcrjt == null)
 				{
 					$update_lead_status = array(
-						'evload' => 1,
+						'evload' => $evload,
 						'evcomp' => 1,
-						'email'=> $comp_proSplit[$i],
+						'email'=> $final_email,
 						'evdisp' =>$evdisp,
 						'cdcsb' => 0,
 						'cdcrjt' => 0,
@@ -2756,9 +2764,9 @@ public function getPrivillage(){
 				else
 				{
 					$update_lead_status = array(
-					'evload' => 1,
+					'evload' => $evload,
 					'evcomp' => 1,
-					'email'=> $comp_proSplit[$i],
+					'email'=> $final_email,
 					'evdisp' =>$evdisp,
 					'rlc' => 0,
 

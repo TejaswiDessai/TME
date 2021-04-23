@@ -199,7 +199,7 @@
                                          left join leadmaster ON ev.lmid=leadmaster.lmid
                                          where 
                                          ev.closer_status = 'Closed'
-                                         and (ev.status != 'Accepted' or ev.status != 'Confirmed' or ev.status != 'Out of Office')
+                                         and (ev.status != 'Accepted' AND ev.status != 'Confirmed' AND ev.status != 'Out of Office')
                                          and leadmaster.cids = '".$Campid."'
                                          and ev.evagnt = '".$post['empcode']."'
                                          and (statdt >= '".$From."' and statdt <= '".$To."')

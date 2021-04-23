@@ -2744,7 +2744,7 @@ public function getPrivillage(){
 				{
 					$evdisp = 5;
 					$evload = 0;
-					$final_email = $original_email;
+					$final_email = $original_email[$i];
 				}
 				$checkForCDCTag_cdcsb = $this->Administrator_Model->check_cdc_tag_cdcsb($leadid[$i]);
 				

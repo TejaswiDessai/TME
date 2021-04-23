@@ -1916,6 +1916,23 @@
 			$cids = $_GET['campaign_idcids'];
 			$lmid = $_GET['lmid'];
 
+			// $emailrand = $_GET['emailrand'];
+			// if($emailrand == '1'){
+			// 	$randno = rand(10,100);
+			// 	$email = $_GET['email'].$randno."del";
+			// }else{
+			// 	$email = $_GET['email'];
+			// }
+
+			// $plinkrand = $_GET['plinkrand'];
+			// if($plinkrand == '1'){
+			// 	$randnop = rand(10,100);
+			// 	$plink = $_GET['plink'].$randnop."del";
+			// }else{
+			// 	$plink = $_GET['plink'];
+			// }
+			
+
 			if(!isset($_SESSION['empcode'])){
 				
 			
@@ -1995,6 +2012,51 @@
 
 				$pcomt = "DC:".$_SESSION['empcode'].":".$old_date."#".$_GET['pcomt'];
 				
+
+				$checkforEmail = $this->Administrator_Model->get_email_duplication_count_leadmaster_update($_GET['email'],$lmid);
+				if($checkforEmail == true)
+				{
+					// $emailrand = $_GET['emailrand'];
+						// if($emailrand == '1'){
+							$randno = rand(10,1000);
+							$email = $_GET['email'].$randno."del";
+						// }else{
+						// 	$email = $_GET['email'];
+						// }
+					// echo json_encode(array(
+					// 	"statusCode"=>"Exist",
+					// 	// "campaign_id"=>$addcampaigndata,
+					// 	// "from"=>$from,
+					// 	// "pass"=>$pass,
+					// 	"message"=>"Email is already Exist"
+					// ));
+					// return;
+				}
+				else{
+					$email = $_GET['email'];
+				}
+				$checkforplink = $this->Administrator_Model->get_plink_duplication_count_leadmaster_update($_GET['plink'],$lmid);
+				
+				if($checkforplink == true)
+				{
+	
+					$randnop = rand(10,1000);
+					$plink = $_GET['plink'].$randnop."del";
+					// echo json_encode(array(
+					// 	"statusCode"=>"plink",
+					// 	// "campaign_id"=>$addcampaigndata,
+					// 	// "from"=>$from,
+					// 	// "pass"=>$pass,
+					// 	"message"=>"Prospect link is already Exist"
+					// ));
+					// return;
+				}
+				else{
+					$plink = $_GET['plink'];
+				}
+	
+
+
 				$datacdcandlead = array(
 				'cids' => $_GET['campaign_idcids'],
 				
@@ -2007,12 +2069,12 @@
 
 				'jlevel' => $_GET['desid'],
 				'dname' => $_GET['dcd'], //department
-				'email' => $_GET['email'],
+				'email' => $email,
 				'phone' => $_GET['phone'],
 				'altphn' => $_GET['altphn'],
 
 				'phext' => $phext,
-				'plink' => $_GET['plink'],
+				'plink' => $plink,
 				'cname' => $_GET['company_name'],
 				'address' => $_GET['address'],
 
@@ -2059,60 +2121,35 @@
 			//   print_r($datacdcandlead);
 			//      exit();
 			if($lmid > 1){
-			$checkforEmail = $this->Administrator_Model->get_email_duplication_count_leadmaster_update($_GET['email'],$lmid);
-			if($checkforEmail == true)
-			{
-				echo json_encode(array(
-					"statusCode"=>"Exist",
-					// "campaign_id"=>$addcampaigndata,
-					// "from"=>$from,
-					// "pass"=>$pass,
-					"message"=>"Email is already Exist"
-				));
-				return;
-			}
-			$checkforplink = $this->Administrator_Model->get_plink_duplication_count_leadmaster_update($_GET['plink'],$lmid);
-			
-			if($checkforplink == true)
-			{
-				echo json_encode(array(
-					"statusCode"=>"plink",
-					// "campaign_id"=>$addcampaigndata,
-					// "from"=>$from,
-					// "pass"=>$pass,
-					"message"=>"Prospect link is already Exist"
-				));
-				return;
-			}
-
+		
 				$addleadandcdcdata = $this->Administrator_Model->update_leaddata($datacdcandlead,$lmid);
 			}else{ //new save
 
-				$checkforEmail = $this->Administrator_Model->get_email_duplication_count_leadmaster($_GET['email']);
-				if($checkforEmail == true)
-				{
-					echo json_encode(array(
-						"statusCode"=>"Exist",
-						// "campaign_id"=>$addcampaigndata,
-						// "from"=>$from,
-						// "pass"=>$pass,
-						"message"=>"Email is already Exist"
-					));
-					return;
-				}
-				$checkforplink = $this->Administrator_Model->get_plink_duplication_count_leadmaster($_GET['plink']);
+				// $checkforEmail = $this->Administrator_Model->get_email_duplication_count_leadmaster($email);
+				// if($checkforEmail == true)
+				// {
+				// 	echo json_encode(array(
+				// 		"statusCode"=>"Exist",
+				// 		// "campaign_id"=>$addcampaigndata,
+				// 		// "from"=>$from,
+				// 		// "pass"=>$pass,
+				// 		"message"=>"Email is already Exist"
+				// 	));
+				// 	return;
+				// }
+				// $checkforplink = $this->Administrator_Model->get_plink_duplication_count_leadmaster($plink);
 				
-				if($checkforplink == true)
-				{
-					echo json_encode(array(
-						"statusCode"=>"plink",
-						// "campaign_id"=>$addcampaigndata,
-						// "from"=>$from,
-						// "pass"=>$pass,
-						"message"=>"Prospect link is already Exist"
-					));
-					return;
-				}
+				// if($checkforplink == true)
+				// {
+				// 	echo json_encode(array(
+				// 		"statusCode"=>"plink",
+				// 		// "campaign_id"=>$addcampaigndata,
+				// 		// "from"=>$from,
+				// 		// "pass"=>$pass,
+				// 		"message"=>"Prospect link is already Exist"
+				// 	));
+				// 	return;
+				// }
 
 
 
@@ -4426,6 +4463,26 @@
 				
 				$cvr = $_GET['cvr'];
 
+				$checkforEmail = $this->Administrator_Model->get_email_duplication_count_leadmaster_update($_GET['email'],$lmid);
+				if($checkforEmail == true)
+				{
+					$randno = rand(10,1000);
+					$email = $_GET['email'].$randno."del";
+				}else{
+					$email = $_GET['email'];
+				}
+
+				$checkforplink = $this->Administrator_Model->get_plink_duplication_count_leadmaster_update($_GET['plink'],$lmid);
+				
+				if($checkforplink == true)
+				{
+					$randnop = rand(10,1000);
+					$plink = $_GET['plink'].$randnop."del";
+				}else{
+					$plink = $_GET['plink'];
+				}
+
+
 
 				$datacdcandlead = array(
 				'cids' => $_GET['campaign_idcids'],
@@ -4439,12 +4496,12 @@
 
 				'jlevel' => $_GET['desid'],
 				'dname' => $_GET['dcd'], //department
-				'email' => $_GET['email'],
+				'email' => $email,
 				'phone' => $_GET['phone'],
 				'altphn' => $_GET['altphn'],
 
 				'phext' => $phext,
-				'plink' => $_GET['plink'],
+				'plink' => $plink,
 				'cname' => $_GET['company_name'],
 				'address' => $_GET['address'],
 
@@ -4518,31 +4575,7 @@
 			
 			//   print_r($datacdcandlead);
 			//      exit();
-			$checkforEmail = $this->Administrator_Model->get_email_duplication_count_leadmaster_update($_GET['email'],$lmid);
-			if($checkforEmail == true)
-			{
-				echo json_encode(array(
-					"statusCode"=>"Exist",
-					// "campaign_id"=>$addcampaigndata,
-					// "from"=>$from,
-					// "pass"=>$pass,
-					"message"=>"Email is already Exist"
-				));
-				return;
-			}
-			$checkforplink = $this->Administrator_Model->get_plink_duplication_count_leadmaster_update($_GET['plink'],$lmid);
 			
-			if($checkforplink == true)
-			{
-				echo json_encode(array(
-					"statusCode"=>"plink",
-					// "campaign_id"=>$addcampaigndata,
-					// "from"=>$from,
-					// "pass"=>$pass,
-					"message"=>"Prospect link is already Exist"
-				));
-				return;
-			}
 				$addleadandcdcdata = $this->Administrator_Model->update_leaddata($datacdcandlead,$lmid);
 				// print_r($addcampaigndata);  die;
 				

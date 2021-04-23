@@ -373,8 +373,18 @@
                             </div>
                         </div>
                     </div>
-                   
                     <div class="col-md-12 col-lg-4">
+                        <div class="card">
+                            <div class="card-header">
+                                <h5>Total Leads</h5>
+                               
+                            </div>
+                            <div class="card-block">
+                            <canvas id="bar_canvas_countries"></canvas>
+                            </div>
+                        </div>
+                    </div>  
+                    <!-- <div class="col-md-12 col-lg-4">
                         <div class="card">
                             <div class="card-header">
                                 <h5>Leads Regions</h5>
@@ -383,7 +393,7 @@
                                 <canvas id="myChart" width="400" height="400"></canvas>
                             </div>
                         </div>
-                    </div>
+                    </div> -->
                     <div class="col-md-12 col-lg-4">
                         <div class="card">
                             <div class="card-header">
@@ -412,10 +422,11 @@
                                
                             </div>
                             <div class="card-block">
-                                <div id="chart3"></div>
+                            <canvas id="bar_canvas"></canvas>
                             </div>
                         </div>
-                    </div> -->  
+                    </div>   -->
+                   
                     
 
 
@@ -576,54 +587,138 @@
                         
                     </div>
                     <?php } ?>
-                    <!-- <div class="col-md-6 col-xl-3">
-                        <div class="card social-widget-card">
-                            <div class="card-block-big bg-facebook">
-                                <h3>1165 +</h3>
-                                <span class="m-t-10">Facebook Users</span>
-                                <i class="icofont icofont-social-facebook"></i>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-6 col-xl-3">
-                        <div class="card social-widget-card">
-                            <div class="card-block-big bg-twitter">
-                                <h3>780 +</h3>
-                                <span class="m-t-10">Twitter Users</span>
-                                <i class="icofont icofont-social-twitter"></i>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-6 col-xl-3">
-                        <div class="card social-widget-card">
-                            <div class="card-block-big bg-linkein">
-                                <h3>998 +</h3>
-                                <span class="m-t-10">Linked In Users</span>
-                                <i class="icofont icofont-brand-linkedin"></i>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-6 col-xl-3">
-                        <div class="card social-widget-card">
-                            <div class="card-block-big bg-google-plus">
-                                <h3>650 +</h3>
-                                <span class="m-t-10">Google Plus Users</span>
-                                <i class="icofont icofont-social-google-plus"></i>
-                            </div>
-                        </div>
-                    </div> -->
+                   
                 </div>
             </div>
+           
+          
+<!-- <link rel="stylesheet"  
+ href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css"> -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js">
+</script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.1.4/Chart.min.js">
+</script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js">
+</script>
+            <?php 
+                                // $stmt = pg_query("SELECT language, nos  FROM chart_data");
+                                $stmt_bar_bar_countries = pg_query("SELECT countryname, COUNT(lmid) as counts
+                                FROM country
+                                    JOIN leadmaster on leadmaster.country= country.countrycd
+                                GROUP BY countryname
+                                ORDER BY  COUNT(lmid) DESC LIMIT 5;");
+                                // echo "No of records : ".pg_num_rows($stmt_bar)."<br>";		
+
+
+                                $php_data_array_bar_countries = Array(); // create PHP array
+                                ?>
+                             
+                                <?php 
+                                    while ($row_bar_countries = pg_fetch_object($stmt_bar_bar_countries)) {
+                                    ?>
+                              
+                                <?php $php_data_array_bar_countries[] = $row_bar_countries; // Adding to array
+                                }?>
+                              
+                                <?php  json_encode($php_data_array_bar_countries); 
+
+                                // Transfor PHP array to JavaScript two dimensional array 
+                                echo "<script>
+                                        var my_2d_bar_countries = ".json_encode($php_data_array_bar_countries)."
+                               
+                                        </script>";
+                                ?>
 
        <script>
+
+       
  $(document).ready(function(){
-            /*Doughnut chart*/
+
+    // var language = [];
+    // var nos = [];
+
+    // for(var i in my_2d_bar) {
+    //     language.push(my_2d_bar[i].language);
+    //     nos.push(my_2d_bar[i].nos);
+    // }
+
+    // var chartdata = {
+    //     labels: language,
+    //     datasets : [
+    //     {
+    //     label: 'Countries Count:',
+    //     backgroundColor: '#68a3ed',
+    //     borderColor: 'rgba(200, 200, 200, 0.75)',
+    //     hoverBackgroundColor: 'rgba(200, 200, 200, 1)',
+    //     hoverBorderColor: 'rgba(200, 200, 200, 1)',
+    //     data: nos
+    //     }
+    //     ]
+    // };
+   
+
+    
+    // var bar_canvas = $("#bar_canvas");
+   
+    
+    // var barGraph = new Chart(bar_canvas, {
+    //     type: 'bar',
+    //     data: chartdata
+    // });
+//ENd
+
+
+    var countryname = [];
+    var counts = [];
+
+    for(var i in my_2d_bar_countries) {
+        
+        
+       
+        countryname.push(my_2d_bar_countries[i].countryname);
+        counts.push(parseInt(my_2d_bar_countries[i].counts));
+     
+    }
+
+    var chartdata_countries = {
+        labels: countryname,
+        datasets : [
+        {
+        label: 'Countries Count:',
+        backgroundColor: '#68a3ed',
+        borderColor: 'rgba(200, 200, 200, 0.75)',
+        hoverBackgroundColor: 'rgba(200, 200, 200, 1)',
+        hoverBorderColor: 'rgba(200, 200, 200, 1)',
+        data: counts
+        }
+        ]
+    };
+   
+
+    
+    var bar_canvas_countries = $("#bar_canvas_countries");
+   
+    
+    var barGraph1 = new Chart(bar_canvas_countries, {
+        type: 'bar',
+        data: chartdata_countries
+    });
+   
+   
+
+
+
+
+
+            /*Doughnut chart - Working*/
     var ctx = document.getElementById("myChart");
-    var data = {
+    var chartdata1 = {
         labels: [
             "U.S.A.", "U.K.", "China", "Australia and New Zealand"
+            // language
         ],
         datasets: [{
+            // data: nos,
             data: [40, 50, 10, 30],
             backgroundColor: [
                 "#68a3ed",
@@ -649,7 +744,7 @@
 
     var myDoughnutChart = new Chart(ctx, {
         type: 'doughnut',
-        data: data
+        data: chartdata1
     });
     /*Doughnut chart*/
 

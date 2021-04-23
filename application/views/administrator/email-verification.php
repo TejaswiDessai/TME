@@ -1332,7 +1332,8 @@ $(".emailstatus").click(function() {
                     camp_cnid:camp_cnid,
                     leadid:leadid,
                     comment:comment,
-                    email_close_status:email_close_status
+                    email_close_status:email_close_status,
+                    original_email:original_email
 				},
                 cache: false,
                 success: function(response){

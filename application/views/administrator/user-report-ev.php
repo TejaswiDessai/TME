@@ -145,7 +145,8 @@
                                         
                                         <th>Total EV</th>
                                         <th>EV Open</th>
-                                        <th>EV Closed</th>
+                                        <th>EV Closed(Delivered)</th>
+                                        <th>EV Closed(Not Delivered/ Rejected)</th>
                                     </tr>
                                 </thead>
                                 <tbody >
@@ -186,13 +187,25 @@
                                          left join leadmaster ON ev.lmid=leadmaster.lmid
                                          where 
                                          ev.closer_status = 'Closed'
+                                         and (ev.status = 'Accepted' or ev.status = 'Confirmed' or ev.status = 'Out of Office')
                                          and leadmaster.cids = '".$Campid."'
                                          and ev.evagnt = '".$post['empcode']."'
                                          and (statdt >= '".$From."' and statdt <= '".$To."')
                                          ");
                                          echo $ev_closed->num_rows();
                                          ?></td>
-                                        
+                                         <td><?php 
+                                         $ev_closed_rej = $this->db->query("select * from ev
+                                         left join leadmaster ON ev.lmid=leadmaster.lmid
+                                         where 
+                                         ev.closer_status = 'Closed'
+                                         and (ev.status != 'Accepted' AND ev.status != 'Confirmed' AND ev.status != 'Out of Office')
+                                         and leadmaster.cids = '".$Campid."'
+                                         and ev.evagnt = '".$post['empcode']."'
+                                         and (statdt >= '".$From."' and statdt <= '".$To."')
+                                         ");
+                                         echo $ev_closed_rej->num_rows();
+                                         ?></td>
                                     </tr>
                                 <?php endforeach; ?>
 

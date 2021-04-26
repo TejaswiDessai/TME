@@ -525,11 +525,13 @@
                                     data.addRow([my_2d[i][0], parseInt(my_2d[i][1])]);
                                 // above row adds the JavaScript two dimensional array data into required chart format
                                     var options = {
-                                        title:'Overall leads distributed at joblevel',
+                                                    title:'Overall leads distributed at joblevel',
                                                     width:600,
                                                     height:300,
                                                     titleTextStyle: {color: '#757575',fontSize: 16,bold: false} ,
-                                                    position: "none"      
+                                                    position: "none"  ,
+                                                    // legend: {'position':'left','alignment':'center'},
+                                                    chartArea: {width: '80%', height: '75%'},
                                                 };
 
                                         // Instantiate and draw the chart

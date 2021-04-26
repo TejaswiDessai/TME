@@ -199,7 +199,7 @@
 
                     </div>
                     
-                    <div class="col-md-12 col-lg-4">
+                    <!-- <div class="col-md-12 col-lg-4">
                         <div class="card">
                             <div class="card-header">
                                 <h5>Total</h5>
@@ -213,7 +213,7 @@
                                     </div>
                                     <div class="col-sm-9">
                                         <h4>Total Leads <?php $query = $this->db->query("SELECT * FROM leadmaster ");
-                                                    echo $query->num_rows();?>
+                                                    // echo $query->num_rows();?>
                                         <h6>Ready to deliver
                                         <?php $querydel = $this->db->query("select * from leadmaster
                                             where 
@@ -224,7 +224,7 @@
                                             and (dytg = 0 OR dytg is null)
                                             and cdcsb <=4 
 			                                and cdcrjt <=4 ");
-                                          echo $querydel->num_rows();?>
+                                        //   echo $querydel->num_rows();?>
                                         </h6>
                                     </div>
                                 </div>
@@ -233,15 +233,15 @@
                         
                         </div>
                         </div>
-                     </div>
+                     </div> -->
                             
-                    <div class="col-md-12 col-lg-4">
+                    <!-- <div class="col-md-12 col-lg-4">
                         <div class="card">
                             <div class="card-header">
                                 <h5>Top 10 Leads Countries</h5>
                             </div>
                             <div class="card-block"  id="chart_div">
-                                <!-- <div id="chart_div"></div> -->
+                                <div id="chart_div"></div> -->
                                 <?php 
                                 // $stmt = pg_query("SELECT language, nos  FROM chart_data");
                                 $stmt = pg_query("SELECT countryname, COUNT(lmid)
@@ -309,71 +309,333 @@
                                     }
                                 </script>
 
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-12 col-lg-4">
+                            <!-- </div>
+                        </div> 
+                    </div> -->
+                   
+          
+                  
+
+
+                    <div class="col-md-12 col-lg-6">
                         <div class="card">
                             <div class="card-header">
-                                <h5>Top 10 Leads Industries</h5>
+                                <h5>Top 10 Countries</h5>
                             </div>
-                            <div class="card-block"  id="chart_div_ind">
-                                <!-- <div id="chart_div"></div> -->
+                            <div class="card-block">
+                            <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+                            <div id="top_x_div_desi"></div>
+
                                 <?php 
                                 // $stmt = pg_query("SELECT language, nos  FROM chart_data");
-                                $stmt_ind = pg_query("SELECT industry, COUNT(lmid)
-                                FROM industry
-                                    JOIN leadmaster on leadmaster.indtry= industry.industrycd
-                                GROUP BY industry
-                                ORDER BY COUNT DESC LIMIT 10;");
-                                $php_data_array_ind = Array(); // create PHP array
+                                $stmt_desi_bar = pg_query("SELECT countryname, COUNT(lmid)
+                                FROM country
+                                    JOIN leadmaster on leadmaster.country= country.countrycd
+                                GROUP BY countrycd,countryname
+                                ORDER BY COUNT DESC LIMIT 10;;");
+                                $php_data_array_desi_bar = Array(); // create PHP array
                                 ?>
                                
                                 <?php 
-                                    while ($row_ind = pg_fetch_row($stmt_ind)) {
+                                    while ($row_desi_bar = pg_fetch_row($stmt_desi_bar)) {
                                     ?>
                               
-                                <?php $php_data_array_ind[] = $row_ind; // Adding to array
+                                <?php $php_data_array_desi_bar[] = $row_desi_bar; // Adding to array
                                 }?>
                                
-                                <?php  json_encode($php_data_array_ind); 
+                                <?php json_encode($php_data_array_desi_bar); 
 
                                
                                 echo "<script>
-                                        var my_2d_ind = ".json_encode($php_data_array_ind)."
+                                        var my_2d_desi_bar = ".json_encode($php_data_array_desi_bar)."
                                 </script>";
                                 ?>
 
 
-                                <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-                                <script>
-                                google.charts.load('current', {'packages':['corechart']});
+                               
+   <script>
+ 
+                        google.charts.load('current', {'packages':['bar']});
+                        google.charts.setOnLoadCallback(drawStuff1);
+
+                        function drawStuff1() {
+                           
+                            var data1 = new google.visualization.DataTable();
+                            data1.addColumn('string', 'Industries');
+                            data1.addColumn('number', 'Nos');
+                                        for(i = 0; i < my_2d_ind_bar.length; i++)
+                                        data1.addRow([my_2d_ind_bar[i][0], parseInt(my_2d_ind_bar[i][1])]);
+
+                            var options1 = {
+                            title: 'Chess opening moves',
+                            // width: 900,
+                            legend: { position: 'none' },
+                            chart: { title: 'How the leads are distributed',
+                                    subtitle: '' },
+                            bars: 'horizontal', // Required for Material Bar Charts.
+                            axes: {
+                                x: {
+                                0: { side: 'top', label: 'Numbers'} // Top x-axis.
+                                }
+                            },
+                            bar: { 
+                                // groupWidth: "90%"
+                             }
+                            };
+
+                            var chart1 = new google.charts.Bar(document.getElementById('top_x_div1'));
+                            chart1.draw(data1, options1);
+                        };
+
+//End industry chart
+
+
+
+
+                                google.charts.load('current', {'packages':['bar']});
                                     // Draw the pie chart when Charts is loaded.
-                                    google.charts.setOnLoadCallback(draw_my_chart_ind);
+                                    google.charts.setOnLoadCallback(drawStuffdesi);
                                     // Callback that draws the pie chart
-                                    function draw_my_chart_ind() {
+                                    function drawStuffdesi() {
                                         // Create the data table .
-                                        var data_ind = new google.visualization.DataTable();
-                                        data_ind.addColumn('string', 'Industries');
-                                        data_ind.addColumn('number', 'Nos');
-                                        for(i = 0; i < my_2d_ind.length; i++)
-                                        data_ind.addRow([my_2d_ind[i][0], parseInt(my_2d_ind[i][1])]);
+                                        var data_desi_bar = new google.visualization.DataTable();
+                                        data_desi_bar.addColumn('string', 'Countries');
+                                        data_desi_bar.addColumn('number', 'Nos');
+                                        for(i = 0; i < my_2d_desi_bar.length; i++)
+                                        data_desi_bar.addRow([my_2d_desi_bar[i][0], parseInt(my_2d_desi_bar[i][1])]);
                                 // above row adds the JavaScript two dimensional array data into required chart format
-                                    var options_ind = {title:'How the leads are distributed',
+                                    var options_desi_bar = {
+                                                        title: 'Chess opening moves',
+                                                        // width: 900,
+                                                        legend: { position: 'none' },
+                                                        chart: { 
+                                                            title: 'How the leads are distributed',
+                                                            subtitle: '' },
+                                                        bars: 'horizontal', // Required for Material Bar Charts.
+                                                        axes: {
+                                                            x: {
+                                                            0: { side: 'top', label: 'Numbers'} // Top x-axis.
+                                                            }
+                                                        },
+                                                        bar: {
+                                                            //  groupWidth: "90%"
+                                                             }
+                                                };
+
+                                        // Instantiate and draw the chart
+                                        var chart_desi_bar = new google.charts.Bar(document.getElementById('top_x_div_desi'));
+                                        chart_desi_bar.draw(data_desi_bar, options_desi_bar);
+                                    }// End countries
+
+
+                                google.charts.load('current', {'packages':['bar']});
+                                    // Draw the pie chart when Charts is loaded.
+                                    google.charts.setOnLoadCallback(drawStuffdesi1);
+                                    // Callback that draws the pie chart
+                                    function drawStuffdesi1() {
+                                        // Create the data table .
+                                        var data_desi1_bar = new google.visualization.DataTable();
+                                        data_desi1_bar.addColumn('string', 'Designations');
+                                        data_desi1_bar.addColumn('number', 'Nos');
+                                        for(i = 0; i < my_2d_desi1_bar.length; i++)
+                                        data_desi1_bar.addRow([my_2d_desi1_bar[i][0], parseInt(my_2d_desi1_bar[i][1])]);
+                                // above row adds the JavaScript two dimensional array data into required chart format
+                                    var options_desi1_bar = {
+                                                        title: 'How the leads are distributed',
+                                                        // width: 900,
+                                                        legend: { position: 'none' },
+                                                        chart: { 
+                                                            title: 'How the leads are distributed',
+                                                            subtitle: '' },
+                                                        bars: 'horizontal', // Required for Material Bar Charts.
+                                                        axes: {
+                                                            x: {
+                                                            0: { side: 'top', label: 'Numbers'} // Top x-axis.
+                                                            }
+                                                        },
+                                                        bar: {
+                                                            //  groupWidth: "90%"
+                                                             }
+                                                };
+
+                                        // Instantiate and draw the chart
+                                        var chart_desi1_bar = new google.charts.Bar(document.getElementById('top_x_desi1'));
+                                        chart_desi1_bar.draw(data_desi1_bar, options_desi1_bar);
+                                    }
+
+                                  // Designation
+                                    // Pie chart for jlevel
+                                  google.charts.load('current', {'packages':['corechart']});
+                                    // Draw the pie chart when Charts is loaded.
+                                    google.charts.setOnLoadCallback(draw_my_chart);
+                                    // Callback that draws the pie chart
+                                    function draw_my_chart() {
+                                        // Create the data table .
+                                        var data = new google.visualization.DataTable();
+                                        data.addColumn('string', 'Country');
+                                        data.addColumn('number', 'Nos');
+                                        for(i = 0; i < my_2d.length; i++)
+                                    data.addRow([my_2d[i][0], parseInt(my_2d[i][1])]);
+                                // above row adds the JavaScript two dimensional array data into required chart format
+                                    var options = {title:'How the leads are distributed',
                                                     // width:600,
                                                     // height:500
                                                 };
 
                                         // Instantiate and draw the chart
-                                        var chart_ind = new google.visualization.PieChart(document.getElementById('chart_div_ind'));
-                                        chart_ind.draw(data_ind, options_ind);
+                                        var chart = new google.visualization.PieChart(document.getElementById('chart_div'));
+                                        chart.draw(data, options);
                                     }
                                 </script>
 
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-12 col-lg-4">
+                    <div class="col-md-12 col-lg-6">
+                        <div class="card">
+                            <div class="card-header">
+                                <h5>Top 10 Industries</h5>
+                            </div>
+                            <div class="card-block">
+                            <!-- <div id="top_x_div"></div> -->
+                            <div id="top_x_div1"></div>
+                                <?php 
+                                // $stmt = pg_query("SELECT language, nos  FROM chart_data");
+                                $stmt_ind_bar = pg_query("SELECT industry, COUNT(lmid)
+                                FROM industry
+                                    JOIN leadmaster on leadmaster.indtry= industry.industrycd
+                                GROUP BY industry
+                                ORDER BY COUNT DESC LIMIT 10;");
+                                $php_data_array_ind_bar = Array(); // create PHP array
+                                ?>
+                               
+                                <?php 
+                                    while ($row_ind_bar = pg_fetch_row($stmt_ind_bar)) {
+                                    ?>
+                              
+                                <?php $php_data_array_ind_bar[] = $row_ind_bar; // Adding to array
+                                }?>
+                               
+                                <?php // json_encode($php_data_array_ind_bar); 
+
+                               
+                                echo "<script>
+                                        var my_2d_ind_bar = ".json_encode($php_data_array_ind_bar)."
+                                </script>";
+                                ?>
+
+
+                                <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+                               
+
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="col-md-12 col-lg-6">
+                        <div class="card">
+                            <div class="card-header">
+                                <h5>Top 10 Designations</h5>
+                            </div>
+                            <div class="card-block">
+                            <!-- <div id="top_x_div"></div> -->
+                            <div id="top_x_desi1"></div>
+                                <?php 
+                                // $stmt = pg_query("SELECT language, nos  FROM chart_data");
+                                $stmt_desi1_bar = pg_query("SELECT joblist, COUNT(lmid)
+                                FROM joblevels
+                                    JOIN leadmaster on leadmaster.jlevel= joblevels.jid
+                                GROUP BY joblist
+                                ORDER BY COUNT DESC LIMIT 10;");
+                                $php_data_array_ind_bar = Array(); // create PHP array
+                                ?>
+                               
+                                <?php 
+                                    while ($row_desi1_bar = pg_fetch_row($stmt_desi1_bar)) {
+                                    ?>
+                              
+                                <?php $php_data_array_desi1_bar[] = $row_desi1_bar; // Adding to array
+                                }?>
+                               
+                                <?php // json_encode($php_data_array_desi1_bar); 
+
+                               
+                                echo "<script>
+                                        var my_2d_desi1_bar = ".json_encode($php_data_array_desi1_bar)."
+                                </script>";
+                                ?>
+
+
+                                <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+                               
+
+                            </div>
+                        </div>
+                    </div>
+                 
+    <div class="col-md-12 col-lg-6">
+                        <div class="card">
+                            <div class="card-header">
+                                <h5>Job Leveles on Pie Chart </h5>
+                            </div>
+                            <div class="card-block"  id="chart_div">
+                                <!-- <div id="chart_div"></div> -->
+                                <?php 
+                                // $stmt = pg_query("SELECT language, nos  FROM chart_data");
+                                $stmt = pg_query("SELECT joblevel, COUNT(lmid)
+                                FROM joblevels
+                                    JOIN leadmaster on leadmaster.jlevel= joblevels.jid
+                                GROUP BY joblevel
+                                ORDER BY COUNT DESC LIMIT 10;");
+                                // echo "No of records : ".pg_num_rows($stmt)."<br>";		
+
+
+                                $php_data_array = Array(); // create PHP array
+                                ?>
+                                <!-- <table>
+                                <tr> <th>Country</th><th>Nos</th></tr> -->
+                                
+                                <?php 
+                                    while ($row = pg_fetch_row($stmt)) {
+                                    ?>
+                                
+                                <!-- <tr>
+                                    
+                                    <td> <?php //echo  $row[0];?></td>
+                                    <td> <?php //echo  $row[1];?></td>
+                                
+                                    </tr> -->
+                                <?php $php_data_array[] = $row; // Adding to array
+                                }?>
+                                <!-- </table> -->
+                                <!-- 
+                                //print_r( $php_data_array);
+                                // You can display the json_encode output here.  -->
+                                <?php  json_encode($php_data_array); 
+
+                                // Transfor PHP array to JavaScript two dimensional array 
+                                echo "<script>
+                                        var my_2d = ".json_encode($php_data_array)."
+                                </script>";
+                                ?>
+
+
+                                
+
+                               
+                                <script>
+                            
+                                </script>
+
+                            </div>
+                        </div> 
+                    </div>
+
+
+
+                    
+                    <!-- <div class="col-md-12 col-lg-4">
                         <div class="card">
                             <div class="card-header">
                                 <h5>Total Leads</h5>
@@ -383,7 +645,7 @@
                             <canvas id="bar_canvas_countries"></canvas>
                             </div>
                         </div>
-                    </div>  
+                    </div>   -->
                     <!-- <div class="col-md-12 col-lg-4">
                         <div class="card">
                             <div class="card-header">
@@ -394,7 +656,7 @@
                             </div>
                         </div>
                     </div> -->
-                    <div class="col-md-12 col-lg-4">
+                    <!-- <div class="col-md-12 col-lg-4">
                         <div class="card">
                             <div class="card-header">
                                 <h5>Leads Industries</h5>
@@ -403,8 +665,8 @@
                                 <canvas id="myChart1" width="400" height="400"></canvas>
                             </div>
                         </div>
-                    </div>
-                    <div class="col-md-12 col-lg-4">
+                    </div> -->
+                    <!-- <div class="col-md-12 col-lg-4">
                         <div class="card">
                             <div class="card-header">
                                 <h5>Bar chart</h5>
@@ -414,7 +676,7 @@
                                 <canvas id="barChart" width="400" height="400"></canvas>
                             </div>
                         </div>
-                    </div>
+                    </div> -->
                     <!-- <div class="col-md-12 col-lg-4">
                         <div class="card">
                             <div class="card-header">
@@ -594,39 +856,39 @@
           
 <!-- <link rel="stylesheet"  
  href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css"> -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js">
+    <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js">
 </script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.1.4/Chart.min.js">
 </script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js">
-</script>
+</script> -->
             <?php 
-                                // $stmt = pg_query("SELECT language, nos  FROM chart_data");
-                                $stmt_bar_bar_countries = pg_query("SELECT countryname, COUNT(lmid) as counts
-                                FROM country
-                                    JOIN leadmaster on leadmaster.country= country.countrycd
-                                GROUP BY countryname
-                                ORDER BY  COUNT(lmid) DESC LIMIT 5;");
-                                // echo "No of records : ".pg_num_rows($stmt_bar)."<br>";		
+                                // // $stmt = pg_query("SELECT language, nos  FROM chart_data");
+                                // $stmt_bar_bar_countries = pg_query("SELECT countryname, COUNT(lmid) as counts
+                                // FROM country
+                                //     JOIN leadmaster on leadmaster.country= country.countrycd
+                                // GROUP BY countryname
+                                // ORDER BY  COUNT(lmid) DESC LIMIT 5;");
+                                // // echo "No of records : ".pg_num_rows($stmt_bar)."<br>";		
 
 
-                                $php_data_array_bar_countries = Array(); // create PHP array
+                                // $php_data_array_bar_countries = Array(); // create PHP array
                                 ?>
                              
                                 <?php 
-                                    while ($row_bar_countries = pg_fetch_object($stmt_bar_bar_countries)) {
+                                   // while ($row_bar_countries = pg_fetch_object($stmt_bar_bar_countries)) {
                                     ?>
                               
-                                <?php $php_data_array_bar_countries[] = $row_bar_countries; // Adding to array
+                                <?php// $php_data_array_bar_countries[] = $row_bar_countries; // Adding to array
                                 }?>
                               
-                                <?php  json_encode($php_data_array_bar_countries); 
+                                <?php  //json_encode($php_data_array_bar_countries); 
 
                                 // Transfor PHP array to JavaScript two dimensional array 
-                                echo "<script>
-                                        var my_2d_bar_countries = ".json_encode($php_data_array_bar_countries)."
+                                // echo "<script>
+                                //         var my_2d_bar_countries = ".json_encode($php_data_array_bar_countries)."
                                
-                                        </script>";
+                                //         </script>";
                                 ?>
 
        <script>
@@ -668,41 +930,41 @@
 //ENd
 
 
-    var countryname = [];
-    var counts = [];
+    // var countryname = [];
+    // var counts = [];
 
-    for(var i in my_2d_bar_countries) {
+    // for(var i in my_2d_bar_countries) {
         
         
        
-        countryname.push(my_2d_bar_countries[i].countryname);
-        counts.push(parseInt(my_2d_bar_countries[i].counts));
+    //     countryname.push(my_2d_bar_countries[i].countryname);
+    //     counts.push(parseInt(my_2d_bar_countries[i].counts));
      
-    }
+    // }
 
-    var chartdata_countries = {
-        labels: countryname,
-        datasets : [
-        {
-        label: 'Countries Count:',
-        backgroundColor: '#68a3ed',
-        borderColor: 'rgba(200, 200, 200, 0.75)',
-        hoverBackgroundColor: 'rgba(200, 200, 200, 1)',
-        hoverBorderColor: 'rgba(200, 200, 200, 1)',
-        data: counts
-        }
-        ]
-    };
+    // var chartdata_countries = {
+    //     labels: countryname,
+    //     datasets : [
+    //     {
+    //     label: 'Countries Count:',
+    //     backgroundColor: '#68a3ed',
+    //     borderColor: 'rgba(200, 200, 200, 0.75)',
+    //     hoverBackgroundColor: 'rgba(200, 200, 200, 1)',
+    //     hoverBorderColor: 'rgba(200, 200, 200, 1)',
+    //     data: counts
+    //     }
+    //     ]
+    // };
    
 
     
-    var bar_canvas_countries = $("#bar_canvas_countries");
+    // var bar_canvas_countries = $("#bar_canvas_countries");
    
     
-    var barGraph1 = new Chart(bar_canvas_countries, {
-        type: 'bar',
-        data: chartdata_countries
-    });
+    // var barGraph1 = new Chart(bar_canvas_countries, {
+    //     type: 'bar',
+    //     data: chartdata_countries
+    // });
    
    
 

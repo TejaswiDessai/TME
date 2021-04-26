@@ -368,7 +368,7 @@
 
                             var options1 = {
                             title: 'Chess opening moves',
-                            // height: 900,
+                            height: 300,
                             legend: { position: 'none' },
                             chart: { title: 'How the leads are distributed',
                                     subtitle: '' },
@@ -405,8 +405,8 @@
                                         data_desi_bar.addRow([my_2d_desi_bar[i][0], parseInt(my_2d_desi_bar[i][1])]);
                                 // above row adds the JavaScript two dimensional array data into required chart format
                                     var options_desi_bar = {
-                                                        title: 'Chess opening moves',
-                                                        // width: 900,
+                                                        title: 'How the leads are distributed',
+                                                        height: 300,
                                                         legend: { position: 'none' },
                                                         chart: { 
                                                             title: 'How the leads are distributed',
@@ -442,7 +442,7 @@
                                 // above row adds the JavaScript two dimensional array data into required chart format
                                     var options_desi1_bar = {
                                                         title: 'How the leads are distributed',
-                                                        // width: 900,
+                                                        height: 300,
                                                         legend: { position: 'none' },
                                                         chart: { 
                                                             title: 'How the leads are distributed',
@@ -479,7 +479,7 @@
                                 // above row adds the JavaScript two dimensional array data into required chart format
                                     var options = {title:'How the leads are distributed',
                                                     // width:600,
-                                                    // height:500
+                                                    height:300
                                                 };
 
                                         // Instantiate and draw the chart

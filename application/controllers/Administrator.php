@@ -2472,19 +2472,22 @@ public function getPrivillage(){
 				if($checkforEmail == true) //1st If
 				{
 					// $TO = $firstCharFname.".".$lastname."@".$domain;
-					$TO = $lastname.".".$firstname."@".$domain;
+					// $TO = $lastname.".".$firstname."@".$domain;
+					$TO = $firstname."@".$domain;
 					$checkforEmail = $this->Administrator_Model->get_email_duplication_count($TO,$agent_id);
 					if($checkforEmail == true) //2nd If
 					{
-						$TO = $firstname.".".$firstCharLname."@".$domain;
+						// $TO = $firstname.".".$firstCharLname."@".$domain;
+						$TO = $firstCharFname.$lastname."@".$domain;
 						$checkforEmail = $this->Administrator_Model->get_email_duplication_count($TO,$agent_id);
 						if($checkforEmail == true) //3rd If
 						{
-							$TO = $firstCharFname.$firstCharLname."@".$domain;
+							
+							$TO = $firstCharFname.".".$lastname."@".$domain;
 							$checkforEmail = $this->Administrator_Model->get_email_duplication_count($TO,$agent_id);
 							if($checkforEmail == true) //4th If
 							{
-								$TO = $firstname."@".$domain;
+								$TO = $firstname.$lastname."@".$domain;
 								$checkforEmail = $this->Administrator_Model->get_email_duplication_count($TO,$agent_id);
 								if($checkforEmail == true) //5th If
 								{
@@ -2492,11 +2495,11 @@ public function getPrivillage(){
 									$checkforEmail = $this->Administrator_Model->get_email_duplication_count($TO,$agent_id);
 									if($checkforEmail == true) // 6th If
 									{
-										$TO = $firstCharFname.$lastname."@".$domain;
+										$TO = $lastname.".".$firstname."@".$domain;
 										$checkforEmail = $this->Administrator_Model->get_email_duplication_count($TO,$agent_id);
 										if($checkforEmail == true) // 7th If
 										{
-											$TO = $firstCharFname.".".$lastname."@".$domain;
+											$TO = $firstCharFname.$firstCharLname."@".$domain;
 										}
 										// else // 7th Else
 										// {
@@ -2510,23 +2513,27 @@ public function getPrivillage(){
 								}
 								else // 5th Else
 								{
-									$TO = $firstname."@".$domain;
+									// $TO = $firstname."@".$domain;
+									$TO = $firstname.$lastname."@".$domain;
 								}
 							}
 							else //4th Else
 							{
-								$TO = $firstCharFname.$firstCharLname."@".$domain;
+								// $TO = $firstCharFname.$firstCharLname."@".$domain;
+								$TO = $firstCharFname.".".$lastname."@".$domain;
 								
 							}
 						}
 						else //3rd Else
 						{
-							$TO = $firstname.".".$firstCharLname."@".$domain;
+							// $TO = $firstname.".".$firstCharLname."@".$domain;
+							$TO = $firstCharFname.$lastname."@".$domain;
 						}
 					}
 					else //2nd Else
 					{
-						$TO = $lastname.".".$firstname."@".$domain;
+						$TO = $firstname."@".$domain;
+						// $TO = $lastname.".".$firstname."@".$domain;
 						// $TO = $firstCharFname.".".$lastname."@".$domain;
 					}
 				}

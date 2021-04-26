@@ -60,7 +60,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="">
+                            <div class="" style="height:108px;">
                                 <div class="row-table">
                                     <div class="col-sm-6 card-block-big br">
                                         <div class="row">
@@ -95,6 +95,11 @@
                         </div>
                         <!-- table card end -->
                     </div>
+
+
+
+                  
+                    
                     <div class="col-md-12 col-xl-4">
                         <!-- table card start -->
                         <div class="card table-card">
@@ -103,7 +108,7 @@
                                     <div class="col-sm-6 card-block-big br">
                                         <div class="row">
                                             <div class="col-sm-4">
-                                                <div id="barchart" style="height:40px;width:40px;"></div>
+                                            <i class="icofont icofont-trophy-alt text-primary"></i>
                                             </div>
                                             <div class="col-sm-8 text-center">
                                                 <h5>
@@ -118,11 +123,13 @@
                                     <div class="col-sm-6 card-block-big">
                                         <div class="row ">
                                             <div class="col-sm-4">
-                                                <i class="icofont icofont-network text-primary"></i>
+                                            <i class="icofont icofont-lens  text-primary"></i>
+                                          
+                                             
                                             </div>
                                             <div class="col-sm-8 text-center">
                                                 <h5>600</h5>
-                                                <span>Network</span>
+                                                <span>Campaign Live</span>
                                             </div>
                                         </div>
                                     </div>
@@ -132,8 +139,8 @@
                                 <div class="row-table">
                                     <div class="col-sm-6 card-block-big br">
                                         <div class="row ">
-                                            <div class="col-sm-4">
-                                                <div id="barchart2" style="height:40px;width:40px;"></div>
+                                            <div class="col-sm-4 ">
+                                            <i class="icofont icofont-star text-primary"></i>
                                             </div>
                                             <div class="col-sm-8 text-center">
                                                 <h5>
@@ -141,18 +148,18 @@
                                                     echo $query->num_rows();?>
                                                 </h5>
                                                 </h5>
-                                                <span>Leads</span>
+                                                <span>Total Leads</span>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="col-sm-6 card-block-big">
                                         <div class="row ">
                                             <div class="col-sm-4">
-                                                <i class="icofont icofont-network-tower text-primary"></i>
+                                            <i class="icofont icofont-speed-meter  text-primary"></i>
                                             </div>
                                             <div class="col-sm-8 text-center">
-                                                <h5>100%</h5>
-                                                <span>Connections</span>
+                                                <h5>500</h5>
+                                                <span>Campaigns Pending</span>
                                             </div>
                                         </div>
                                     </div>
@@ -161,43 +168,77 @@
                         </div>
                         <!-- table card end -->
                     </div>
+
+                    
                     <div class="col-md-12 col-xl-4">
-                        <!-- widget primary card start -->
-                        <div class="card table-card widget-primary-card">
+                        <!-- table card start -->
+                        <div class="card table-card">
                             <div class="">
                                 <div class="row-table">
-                                    <div class="col-sm-3 card-block-big">
-                                        <i class="icofont icofont-star"></i>
+                                    <div class="col-sm-6 card-block-big br">
+                                        <div class="row">
+                                            <div class="col-sm-4">
+                                            <i class="icofont icofont-growth  text-primary"></i>
+                                            </div>
+                                            <div class="col-sm-8 text-center">
+                                                <h5>
+                                                <?php $query = $this->db->query("SELECT * FROM campaign ");
+                                                    echo $query->num_rows();?>
+                                                </h5>
+                                                </h5>
+                                                <span>Data Stage</span>
+                                            </div>
+                                        </div>
                                     </div>
-                                    <div class="col-sm-9">
-                                        <h4>1000 +</h4>
-                                        <h6>Campaigns Completed</h6>
+                                    <div class="col-sm-6 card-block-big">
+                                        <div class="row ">
+                                            <div class="col-sm-4">
+                                                <i class="icofont icofont-network text-primary"></i>
+                                            </div>
+                                            <div class="col-sm-8 text-center">
+                                                <h5>400</h5>
+                                                <span>EV stage</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="" style="height:108px;">
+                                <div class="row-table">
+                                    <div class="col-sm-6 card-block-big br">
+                                        <div class="row ">
+                                            <div class="col-sm-4">
+                                            <i class="icofont icofont-live-support text-primary"></i>
+                                         
+                                            </div>
+                                            <div class="col-sm-8 text-center">
+                                                <h5>
+                                                <?php $query = $this->db->query("SELECT * FROM leadmaster where cdcload = 1 ");
+                                                    echo $query->num_rows();?>
+                                                </h5>
+                                                </h5>
+                                                <span>CDC Stage</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6 card-block-big">
+                                        <div class="row ">
+                                            <div class="col-sm-4">
+                                            <i class="icofont icofont-tick-boxed text-primary"></i>
+                                          
+                                            </div>
+                                            <div class="col-sm-8 text-center">
+                                                <h5>400</h5>
+                                                <span>QA stage</span>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        <!-- widget primary card end -->
-                        <!-- widget-success-card start -->
-                        <div class="card table-card widget-success-card">
-                            <div class="">
-                                <div class="row-table">
-                                    <div class="col-sm-3 card-block-big">
-                                        <i class="icofont icofont-trophy-alt"></i>
-                                    </div>
-                                    <div class="col-sm-9">
-                                        <h4>150000+</h4>
-                                        <h6>Leads Delivered</h6>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                     
-                       
-                        <!-- widget-success-card end -->
-                     
-
-
+                        <!-- table card end -->
                     </div>
+                   
                     
                     <!-- <div class="col-md-12 col-lg-4">
                         <div class="card">
@@ -298,9 +339,15 @@
                                         for(i = 0; i < my_2d.length; i++)
                                     data.addRow([my_2d[i][0], parseInt(my_2d[i][1])]);
                                 // above row adds the JavaScript two dimensional array data into required chart format
-                                    var options = {title:'How the leads are distributed',
+                                    var options = {
+                                        title:'How the leads are distributed',
                                                     // width:600,
                                                     // height:500
+                                                    color:red,
+                                                    pieSliceTextStyle: {
+                                                            color: 'red',
+                                                        },
+
                                                 };
 
                                         // Instantiate and draw the chart
@@ -320,7 +367,7 @@
                     <div class="col-md-12 col-lg-6">
                         <div class="card">
                             <div class="card-header">
-                                <h5>Top 10 Countries</h5>
+                                <h5>Top 10 countries</h5>
                             </div>
                             <div class="card-block">
                             <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
@@ -370,12 +417,12 @@
                             title: 'Chess opening moves',
                             height: 300,
                             legend: { position: 'none' },
-                            chart: { title: 'How the leads are distributed',
+                            chart: { title: 'Leads distributed in top 10 industries',
                                     subtitle: '' },
                             bars: 'horizontal', // Required for Material Bar Charts.
                             axes: {
                                 x: {
-                                0: { side: 'top', label: 'Numbers'} // Top x-axis.
+                                0: { side: 'top', label: 'No. of leads'} // Top x-axis.
                                 }
                             },
                             bar: { 
@@ -400,21 +447,21 @@
                                         // Create the data table .
                                         var data_desi_bar = new google.visualization.DataTable();
                                         data_desi_bar.addColumn('string', 'Countries');
-                                        data_desi_bar.addColumn('number', 'Nos');
+                                        data_desi_bar.addColumn('number', 'No. of leads');
                                         for(i = 0; i < my_2d_desi_bar.length; i++)
                                         data_desi_bar.addRow([my_2d_desi_bar[i][0], parseInt(my_2d_desi_bar[i][1])]);
                                 // above row adds the JavaScript two dimensional array data into required chart format
                                     var options_desi_bar = {
-                                                        title: 'How the leads are distributed',
+                                                        title: 'Leads distributed in top 10 countries',
                                                         height: 300,
                                                         legend: { position: 'none' },
                                                         chart: { 
-                                                            title: 'How the leads are distributed',
+                                                            title: 'Leads distributed in top 10 countries',
                                                             subtitle: '' },
                                                         bars: 'horizontal', // Required for Material Bar Charts.
                                                         axes: {
                                                             x: {
-                                                            0: { side: 'top', label: 'Numbers'} // Top x-axis.
+                                                            0: { side: 'top', label: 'No. of leads'} // Top x-axis.
                                                             }
                                                         },
                                                         bar: {
@@ -441,16 +488,16 @@
                                         data_desi1_bar.addRow([my_2d_desi1_bar[i][0], parseInt(my_2d_desi1_bar[i][1])]);
                                 // above row adds the JavaScript two dimensional array data into required chart format
                                     var options_desi1_bar = {
-                                                        title: 'How the leads are distributed',
+                                                        title: 'Leads distributed in top 10 designations',
                                                         height: 300,
                                                         legend: { position: 'none' },
                                                         chart: { 
-                                                            title: 'How the leads are distributed',
+                                                            title: 'Leads distributed in top 10 designations',
                                                             subtitle: '' },
                                                         bars: 'horizontal', // Required for Material Bar Charts.
                                                         axes: {
                                                             x: {
-                                                            0: { side: 'top', label: 'Numbers'} // Top x-axis.
+                                                            0: { side: 'top', label: 'No. of leads'} // Top x-axis.
                                                             }
                                                         },
                                                         bar: {
@@ -477,14 +524,19 @@
                                         for(i = 0; i < my_2d.length; i++)
                                     data.addRow([my_2d[i][0], parseInt(my_2d[i][1])]);
                                 // above row adds the JavaScript two dimensional array data into required chart format
-                                    var options = {title:'How the leads are distributed',
-                                                    // width:600,
-                                                    height:300
+                                    var options = {
+                                        title:'Overall leads distributed at joblevel',
+                                                    width:600,
+                                                    height:300,
+                                                    titleTextStyle: {color: '#757575',fontSize: 16,bold: false} ,
+                                                    position: "none"      
                                                 };
 
                                         // Instantiate and draw the chart
                                         var chart = new google.visualization.PieChart(document.getElementById('chart_div'));
                                         chart.draw(data, options);
+
+                                        
                                     }
                                 </script>
 

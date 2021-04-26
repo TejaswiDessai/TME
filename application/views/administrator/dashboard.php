@@ -368,7 +368,7 @@
 
                             var options1 = {
                             title: 'Chess opening moves',
-                            // width: 900,
+                            // height: 900,
                             legend: { position: 'none' },
                             chart: { title: 'How the leads are distributed',
                                     subtitle: '' },
@@ -379,7 +379,7 @@
                                 }
                             },
                             bar: { 
-                                // groupWidth: "90%"
+                                groupWidth: "90%"
                              }
                             };
 
@@ -418,7 +418,7 @@
                                                             }
                                                         },
                                                         bar: {
-                                                            //  groupWidth: "90%"
+                                                             groupWidth: "90%"
                                                              }
                                                 };
 
@@ -454,7 +454,7 @@
                                                             }
                                                         },
                                                         bar: {
-                                                            //  groupWidth: "90%"
+                                                             groupWidth: "90%"
                                                              }
                                                 };
 

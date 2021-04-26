@@ -24,7 +24,7 @@
             $Role = $this->session->userdata('role');
             ?>
             <div class="row">
-                <?php if( $type['rolenm'] == "Administrator" || $this->session->userdata('role') == 0){?>
+                <?php if( $type['rolenm'] == "Administrator" || $this->session->userdata('role') == 0|| $this->session->userdata('role') == 6 || $this->session->userdata('role') == 2){?>
                     <div class="col-md-12 col-xl-4">
                         <!-- table card start -->
                         <div class="card table-card">

@@ -37,7 +37,7 @@
                                             </div>
                                             <div class="col-sm-8 text-center">
                                                 <h5>
-                                                <?php $query = $this->db->query('SELECT * FROM users');
+                                                <?php $query = $this->db->query('SELECT * FROM users where exp_date is null');
                                                     echo $query->num_rows();?>
                                                 </h5>
                                                 <span>All Employees</span>
@@ -51,7 +51,7 @@
                                             </div>
                                             <div class="col-sm-8 text-center">
                                                 <h5>
-                                                <?php $query = $this->db->query("SELECT * FROM users where cid_type='TMB'");
+                                                <?php $query = $this->db->query("SELECT * FROM users where cid_type='TMB'and exp_date is null");
                                                     echo $query->num_rows();?>
                                                 </h5>
                                                 <span>TMB</span>
@@ -69,7 +69,7 @@
                                             </div>
                                             <div class="col-sm-8 text-center">  
                                                 <h5>
-                                                <?php $query = $this->db->query("SELECT * FROM users where cid_type='ME'");
+                                                <?php $query = $this->db->query("SELECT * FROM users where cid_type='ME' and exp_date is null");
                                                     echo $query->num_rows();?>
                                                 </h5>
                                                 <span>ME</span>
@@ -83,7 +83,7 @@
                                             </div>
                                             <div class="col-sm-8 text-center">
                                                 <h5>
-                                                <?php $query = $this->db->query("SELECT * FROM users where cid_type='HP'");
+                                                <?php $query = $this->db->query("SELECT * FROM users where cid_type ='HP' and exp_date is null");
                                                     echo $query->num_rows();?>
                                                 </h5>
                                                 <span>HP</span>
@@ -128,11 +128,16 @@
                                              
                                             </div>
                                             <div class="col-sm-8 text-center">
-                                                <h5><?php $querylive = $this->db->query("SELECT campaign.campnm FROM leadmaster join campaign on campaign.cids = leadmaster.cids
-where leadmaster.stdti >= now()::date + interval '-6 MONTH' OR leadmaster.stdtii >= now()::date + interval '-6 MONTH' group by campaign.campnm
-");
-                                                    echo $querylive->num_rows();?></h5>
-                                                <span>Campaigns Live</span>
+                                                <h5>
+                                                    <?php 
+//                                                     $querylive = $this->db->query("SELECT * FROM leadmaster join campaign on campaign.cids = leadmaster.cids
+// where leadmaster.stdti >= now()::date + interval '-6 MONTH'
+// OR leadmaster.stdtii >= now()::date + interval '-6 MONTH' ");
+                                                    $querylive = $this->db->query("SELECT * FROM leadmaster join campaign on campaign.cids = leadmaster.cids
+                                                    where campaign.startdt >= now()::date + interval '-6 MONTH' and campaign.status = 2
+                                                    ");
+                                                    echo $live = $querylive->num_rows();?></h5>
+                                                <span>Leads from live campaigns</span>
                                             </div>
                                         </div>
                                     </div>
@@ -143,18 +148,20 @@ where leadmaster.stdti >= now()::date + interval '-6 MONTH' OR leadmaster.stdtii
                                     <div class="col-sm-6 card-block-big br">
                                         <div class="row ">
                                             <div class="col-sm-4 ">
-                                            <i class="icofont icofont-archive text-primary"></i>
-                                            <!-- <i class="icofont icofont-star text-primary"></i> -->
+                                            <!-- <i class="icofont icofont-archive text-primary"></i> -->
+                                            <i class="icofont icofont-star text-primary"></i>
                                             </div>
                                             <div class="col-sm-8 text-center">
                                                 <h5>
-                                                <?php $query = $this->db->query("SELECT campaign.campnm FROM campaign 
-                                                        where campaign.startdt < now()::date + interval '-6 MONTH'
-                                                        group by campaign.campnm ");
-                                                    echo $query->num_rows();?>
+                                                <?php // $query = $this->db->query("SELECT campaign.campnm FROM campaign 
+                                                       // where campaign.startdt < now()::date + interval '-6 MONTH'
+                                                       // group by campaign.campnm ");
+                                                       $query = $this->db->query("SELECT * from leadmaster");
+
+                                                    echo $totalleads = $query->num_rows();?>
                                                 </h5>
                                                 </h5>
-                                                <span>Campaigns Archived</span>
+                                                <span>Total leads</span>
                                             </div>
                                         </div>
                                     </div>
@@ -164,14 +171,11 @@ where leadmaster.stdti >= now()::date + interval '-6 MONTH' OR leadmaster.stdtii
                                             <i class="icofont icofont-speed-meter  text-primary"></i>
                                             </div>
                                             <div class="col-sm-8 text-center">
-                                                <h5>
-                                                <?php $querypen = $this->db->query("SELECT campaign.campnm FROM leadmaster join campaign on campaign.cids = leadmaster.cids
-where campaign.startdt >= now()::date + interval '-6 MONTH' and 
-  leadmaster.stdti is NULL and campaign.status = 2
-group by campaign.campnm");
-                                                    echo $querypen->num_rows();?>
+                                                <h5><?php
+                                               $pending = $totalleads- $live;
+                                                    echo $pending;?>
                                                 </h5>
-                                                <span>Campaigns Pending</span>
+                                                <span>Leads pending</span>
                                             </div>
                                         </div>
                                     </div>

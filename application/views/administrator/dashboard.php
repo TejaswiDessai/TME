@@ -1324,9 +1324,9 @@
                                             <div>
                                             <div style="padding:10px;float:left;"><b>Total Submited: <?php
                                             $date_start = strtotime('-' . date('w') . ' days');
-                                             $submit1_total = $this->db->query("select * from leadmaster where  leadmaster.stdti > current_date - 7 AND leadmaster.stagtidi = '".$empcode."' ");
+                                             $submit1_total = $this->db->query("select * from leadmaster where  leadmaster.stdti > current_date - 14 AND leadmaster.stagtidi = '".$empcode."' ");
                                              $submit1 = $submit1_total->num_rows();
-                                             $submit2_total = $this->db->query("select * from leadmaster where  leadmaster.stdtii > current_date - 7 AND stagtidii = '".$empcode."' ");
+                                             $submit2_total = $this->db->query("select * from leadmaster where  leadmaster.stdtii > current_date - 14 AND stagtidii = '".$empcode."' ");
                                              echo $submit1 + $submit2_total->num_rows();
                                             
                                             ?>

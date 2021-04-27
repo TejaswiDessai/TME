@@ -60,7 +60,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="" style="height:108px;">
+                            <div class="" style="height:122px;">
                                 <div class="row-table">
                                     <div class="col-sm-6 card-block-big br">
                                         <div class="row">
@@ -225,7 +225,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="" style="height:108px;">
+                            <div class="" style="height:122px;">
                                 <div class="row-table">
                                     <div class="col-sm-6 card-block-big br">
                                         <div class="row ">

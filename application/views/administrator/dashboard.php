@@ -960,119 +960,119 @@
                                             $monday = $this->db->query("select * from leadmaster where ontag = 1
                                             and rlc = 0
                                             and pload = 0
-                                            and (stagtidi = '".$empcode."' OR stagtidii = '".$empcode."')
+                                            and (stagtidi = '".$empcode."')
                                             and dvagtidi is not null
                                             and dvagtidii is null
-                                            and dvragtidi is null
+                                            
                                             and (dvsbtg = 0 OR dvsbtg = 1 OR dvsbtg = 2)
                                             and dvload = 1 and leadmaster.stdti > current_date - 7 and leadmaster.stdti < current_date - 6 ");
                                             $monday_1 = $monday->num_rows();
-                                            $monday = $this->db->query("select * from leadmaster where ontag = 1
+                                            $monday_2 = $this->db->query("select * from leadmaster where ontag = 1
                                             and rlc = 0
                                             and pload = 0
-                                            and (stagtidi = '".$empcode."' OR stagtidii = '".$empcode."')
+                                            and (stagtidii = '".$empcode."')
                                             and dvagtidi is not null
                                             and dvagtidii is not null
-                                            and dvragtidi is null
+                                            
                                             and (dvsbtg = 0 OR dvsbtg = 1 OR dvsbtg = 2)
-                                            and dvload = 1 and leadmaster.stdti > current_date - 7 and leadmaster.stdti < current_date - 6 ");
-                                            $monday_2 = $monday->num_rows();
+                                            and dvload = 1 and leadmaster.stdtii > current_date - 7 and leadmaster.stdtii < current_date - 6 ");
+                                            $monday_2 = $monday_2->num_rows();
                                             echo $monday_total = $monday_1 + $monday_2;
                                              ?>
                                             </td>
                                             <td>
                                             <?php
-                                            $tuesday = $this->db->query("select * from leadmaster where ontag = 1
+                                            $tuesday_1 = $this->db->query("select * from leadmaster where ontag = 1
                                             and rlc = 0
                                             and pload = 0
-                                            and (stagtidi = '".$empcode."' OR stagtidii = '".$empcode."')
+                                            and (stagtidi = '".$empcode."')
                                             and dvagtidi is not null
                                             and dvagtidii is null
-                                            and dvragtidi is null
+                                            
                                             and (dvsbtg = 0 OR dvsbtg = 1 OR dvsbtg = 2)
                                             and dvload = 1 and leadmaster.stdti > current_date - 6 and leadmaster.stdti < current_date - 5 ");
-                                            $tuesday_1 = $tuesday->num_rows();
-                                            $tuesday = $this->db->query("select * from leadmaster where ontag = 1
+                                            $tuesday_1 = $tuesday_1->num_rows();
+                                            $tuesday_2 = $this->db->query("select * from leadmaster where ontag = 1
                                             and rlc = 0
                                             and pload = 0
-                                            and (stagtidi = '".$empcode."' OR stagtidii = '".$empcode."')
+                                            and (stagtidii = '".$empcode."')
                                             and dvagtidi is not null
                                             and dvagtidii is not null
-                                            and dvragtidi is null
+                                            
                                             and (dvsbtg = 0 OR dvsbtg = 1 OR dvsbtg = 2)
-                                            and dvload = 1 and leadmaster.stdti > current_date - 6 and leadmaster.stdti < current_date - 5 ");
-                                            $tuesday_2 = $tuesday->num_rows();
+                                            and dvload = 1 and leadmaster.stdtii > current_date - 6 and leadmaster.stdtii < current_date - 5 ");
+                                            $tuesday_2 = $tuesday_2->num_rows();
                                             echo $tuesday_total = $tuesday_1 + $tuesday_2;
                                              ?>
                                             </td>
                                             <td>
                                             <?php 
-                                            $wed = $this->db->query("select * from leadmaster where ontag = 1
+                                            $wed_1 = $this->db->query("select * from leadmaster where ontag = 1
                                             and rlc = 0
                                             and pload = 0
-                                            and (stagtidi = '".$empcode."' OR stagtidii = '".$empcode."')
+                                            and (stagtidi = '".$empcode."')
                                             and dvagtidi is not null
                                             and dvagtidii is null
-                                            and dvragtidi is null
+  
                                             and (dvsbtg = 0 OR dvsbtg = 1 OR dvsbtg = 2)
                                             and dvload = 1 and leadmaster.stdti > current_date - 5 and leadmaster.stdti < current_date - 4 ");
-                                            $wed_1 = $wed->num_rows();
-                                            $wed = $this->db->query("select * from leadmaster where ontag = 1
+                                            $wed_1 = $wed_1->num_rows();
+                                            $wed_2 = $this->db->query("select * from leadmaster where ontag = 1
                                             and rlc = 0
                                             and pload = 0
-                                            and (stagtidi = '".$empcode."' OR stagtidii = '".$empcode."')
+                                            and (stagtidii = '".$empcode."')
                                             and dvagtidi is not null
                                             and dvagtidii is not null
                                             
                                             and (dvsbtg = 0 OR dvsbtg = 1 OR dvsbtg = 2)
-                                            and dvload = 1 and leadmaster.stdti > current_date - 5 and leadmaster.stdti < current_date - 4 ");
-                                            $wed_2 = $wed->num_rows();
+                                            and dvload = 1 and leadmaster.stdtii > current_date - 5 and leadmaster.stdtii < current_date - 4 ");
+                                            $wed_2 = $wed_2->num_rows();
                                             echo $wed_total = $wed_1 + $wed_2;
                                              ?>
                                             </td>
                                             <td>
                                             <?php 
-                                            $thursday = $this->db->query("select * from leadmaster where ontag = 1
+                                            $thursday_1 = $this->db->query("select * from leadmaster where ontag = 1
                                             and rlc = 0
                                             and pload = 0
                                             and dvagtidi is not null
                                             and dvagtidii is null
-                                            and (stagtidi = '".$empcode."' OR stagtidii = '".$empcode."')
+                                            and (stagtidi = '".$empcode."')
                                             and (dvsbtg = 0 OR dvsbtg = 1 OR dvsbtg = 2)
                                             and dvload = 1 and leadmaster.stdti > current_date - 4 and leadmaster.stdti < current_date - 3 ");
-                                            $thursday_1 = $thursday->num_rows();
-                                            $thursday = $this->db->query("select * from leadmaster where ontag = 1
+                                            $thursday_1 = $thursday_1->num_rows();
+                                            $thursday_2 = $this->db->query("select * from leadmaster where ontag = 1
                                             and rlc = 0
                                             and pload = 0
                                             and dvagtidi is not null
                                             and dvagtidii is not null
-                                            and (stagtidi = '".$empcode."' OR stagtidii = '".$empcode."')
+                                            and (stagtidii = '".$empcode."')
                                             and (dvsbtg = 0 OR dvsbtg = 1 OR dvsbtg = 2)
-                                            and dvload = 1 and leadmaster.stdti > current_date - 4 and leadmaster.stdti < current_date - 3 ");
-                                            $thursday_2 = $thursday->num_rows();
+                                            and dvload = 1 and leadmaster.stdtii > current_date - 4 and leadmaster.stdtii < current_date - 3 ");
+                                            $thursday_2 = $thursday_2->num_rows();
                                             echo $thursday_total = $thursday_1+$thursday_2;
                                              ?>
                                             </td>
                                             <td>
                                             <?php 
-                                            $friday = $this->db->query("select * from leadmaster where ontag = 1
+                                            $friday_1 = $this->db->query("select * from leadmaster where ontag = 1
                                             and rlc = 0
                                             and pload = 0
-                                            and (stagtidi = '".$empcode."' OR stagtidii = '".$empcode."')
+                                            and (stagtidi = '".$empcode."')
                                             and dvagtidi is not null
                                             and dvagtidii is null
                                             and (dvsbtg = 0 OR dvsbtg = 1 OR dvsbtg = 2)
                                             and dvload = 1 and leadmaster.stdti > current_date - 3 and leadmaster.stdti < current_date - 2 ");
-                                            $friday_1 = $friday->num_rows();
-                                            $friday = $this->db->query("select * from leadmaster where ontag = 1
+                                            $friday_1 = $friday_1->num_rows();
+                                            $friday_2 = $this->db->query("select * from leadmaster where ontag = 1
                                             and rlc = 0
                                             and pload = 0
-                                            and (stagtidi = '".$empcode."' OR  stagtidii = '".$empcode."')
+                                            and (stagtidii = '".$empcode."')
                                             and dvagtidi is not null
                                             and dvagtidii is not null
                                             and (dvsbtg = 0 OR dvsbtg = 1 OR dvsbtg = 2)
-                                            and dvload = 1 and leadmaster.stdti > current_date - 3 and leadmaster.stdti < current_date - 2 ");
-                                            $friday_2 = $friday->num_rows();
+                                            and dvload = 1 and leadmaster.stdtii > current_date - 3 and leadmaster.stdtii < current_date - 2 ");
+                                            $friday_2 = $friday_2->num_rows();
                                             echo $friday_total = $friday_1+$friday_2;
                                              ?>
                                             </td>
@@ -1081,7 +1081,7 @@
                                             $sat_1 = $this->db->query("select * from leadmaster where ontag = 1
                                             and rlc = 0
                                             and pload = 0
-                                            and (stagtidi = '".$empcode."' OR  stagtidii = '".$empcode."')
+                                            and (stagtidi = '".$empcode."')
                                             and dvagtidi is not null
                                             and dvagtidii is null
                                             and (dvsbtg = 0 OR dvsbtg = 1 OR dvsbtg = 2)
@@ -1090,11 +1090,11 @@
                                             $sat_2 = $this->db->query("select * from leadmaster where ontag = 1
                                             and rlc = 0
                                             and pload = 0
-                                            and (stagtidi = '".$empcode."' OR  stagtidii = '".$empcode."')
+                                            and (stagtidii = '".$empcode."')
                                             and dvagtidi is not null
                                             and dvagtidii is not null
                                             and (dvsbtg = 0 OR dvsbtg = 1 OR dvsbtg = 2)
-                                            and dvload = 1 and leadmaster.stdti > current_date - 2 and leadmaster.stdti < current_date - 1 ");
+                                            and dvload = 1 and leadmaster.stdtii > current_date - 2 and leadmaster.stdtii < current_date - 1 ");
                                             $sat_2 = $sat_2->num_rows();
                                             echo $sat_total = $sat_1+$sat_2;
                                              ?>
@@ -1104,7 +1104,7 @@
                                             $sun_1 = $this->db->query("select * from leadmaster where ontag = 1
                                             and rlc = 0
                                             and pload = 0
-                                            and (stagtidi = '".$empcode."' OR  stagtidii = '".$empcode."')
+                                            and (stagtidi = '".$empcode."')
                                             and dvagtidi is not null
                                             and dvagtidi is null
                                             and (dvsbtg = 0 OR dvsbtg = 1 OR dvsbtg = 2)
@@ -1113,11 +1113,11 @@
                                             $sun_2 = $this->db->query("select * from leadmaster where ontag = 1
                                             and rlc = 0
                                             and pload = 0
-                                            and (stagtidi = '".$empcode."' OR  stagtidii = '".$empcode."')
+                                            and (stagtidii = '".$empcode."')
                                             and dvagtidi is not null
                                             and dvagtidii is not null
                                             and (dvsbtg = 0 OR dvsbtg = 1 OR dvsbtg = 2)
-                                            and dvload = 1 and leadmaster.stdti > current_date - 1 and leadmaster.stdti < current_date - 0 ");
+                                            and dvload = 1 and leadmaster.stdtii > current_date - 1 and leadmaster.stdtii < current_date - 0 ");
                                             $sun_2 = $sun_2->num_rows();
                                             echo $sun_total = $sun_1+$sun_2;
                                              ?>
@@ -1127,7 +1127,7 @@
                                             $today_1 = $this->db->query("select * from leadmaster where ontag = 1
                                             and rlc = 0
                                             and pload = 0
-                                            and (stagtidi = '".$empcode."' OR  stagtidii = '".$empcode."')
+                                            and (stagtidi = '".$empcode."')
                                             and dvagtidi is not null
                                             and dvagtidi is null
                                             and (dvsbtg = 0 OR dvsbtg = 1 OR dvsbtg = 2)
@@ -1136,11 +1136,11 @@
                                             $today_2 = $this->db->query("select * from leadmaster where ontag = 1
                                             and rlc = 0
                                             and pload = 0
-                                            and (stagtidi = '".$empcode."' OR  stagtidii = '".$empcode."')
+                                            and (stagtidii = '".$empcode."')
                                             and dvagtidi is not null
                                             and dvagtidii is not null
                                             and (dvsbtg = 0 OR dvsbtg = 1 OR dvsbtg = 2)
-                                            and dvload = 1 and leadmaster.stdti = current_date");
+                                            and dvload = 1 and leadmaster.stdtii = current_date");
                                             $today_2 = $today_2->num_rows();
                                             echo $today_total = $today_1+$today_2;
                                              ?>

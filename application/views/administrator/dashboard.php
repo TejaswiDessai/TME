@@ -948,10 +948,11 @@
                                             <td>
                                             <?php
                                             $date_start = strtotime('-' . date('w') . ' days');
-                                             $submit1_total = $this->db->query("select * from leadmaster WHERE leadmaster.stdti > current_date - 7 ");
+                                             $submit1_total = $this->db->query("select * from leadmaster where  leadmaster.stdti > current_date - 7 AND leadmaster.stagtidi = '".$empcode."' ");
                                              $submit1 = $submit1_total->num_rows();
-                                             $submit2_total = $this->db->query("SELECT * FROM leadmaster where  stagtidii = '".$empcode."' ");
+                                             $submit2_total = $this->db->query("select * from leadmaster where  leadmaster.stdtii > current_date - 7 AND stagtidii = '".$empcode."' ");
                                              echo $submit1 + $submit2_total->num_rows();
+                                            
                                             ?>
                                             </td>
                                             <td>
@@ -959,6 +960,7 @@
                                             $monday = $this->db->query("select * from leadmaster where ontag = 1
                                             and rlc = 0
                                             and pload = 0
+                                            and (stdti = $empcode OR and stdtii = $empcode)
                                             and dvagtidi is not null
                                             and dvagtidii is null
                                             and dvragtidi is null
@@ -968,6 +970,7 @@
                                             $monday = $this->db->query("select * from leadmaster where ontag = 1
                                             and rlc = 0
                                             and pload = 0
+                                            and (stdti = $empcode OR and stdtii = $empcode)
                                             and dvagtidi is not null
                                             and dvagtidii is not null
                                             and dvragtidi is null
@@ -982,6 +985,7 @@
                                             $tuesday = $this->db->query("select * from leadmaster where ontag = 1
                                             and rlc = 0
                                             and pload = 0
+                                            and (stdti = $empcode OR and stdtii = $empcode)
                                             and dvagtidi is not null
                                             and dvagtidii is null
                                             and dvragtidi is null
@@ -991,6 +995,7 @@
                                             $tuesday = $this->db->query("select * from leadmaster where ontag = 1
                                             and rlc = 0
                                             and pload = 0
+                                            and (stdti = $empcode OR and stdtii = $empcode)
                                             and dvagtidi is not null
                                             and dvagtidii is not null
                                             and dvragtidi is null
@@ -1005,6 +1010,7 @@
                                             $wed = $this->db->query("select * from leadmaster where ontag = 1
                                             and rlc = 0
                                             and pload = 0
+                                            and (stdti = $empcode OR and stdtii = $empcode)
                                             and dvagtidi is not null
                                             and dvagtidii is null
                                             and dvragtidi is null
@@ -1014,6 +1020,7 @@
                                             $wed = $this->db->query("select * from leadmaster where ontag = 1
                                             and rlc = 0
                                             and pload = 0
+                                            and (stdti = $empcode OR and stdtii = $empcode)
                                             and dvagtidi is not null
                                             and dvagtidii is not null
                                             
@@ -1030,7 +1037,7 @@
                                             and pload = 0
                                             and dvagtidi is not null
                                             and dvagtidii is null
-                                            
+                                            and (stdti = $empcode OR and stdtii = $empcode)
                                             and (dvsbtg = 0 OR dvsbtg = 1 OR dvsbtg = 2)
                                             and dvload = 1 and leadmaster.stdti > current_date - 4 and leadmaster.stdti < current_date - 3 ");
                                             $thursday_1 = $thursday->num_rows();
@@ -1039,7 +1046,7 @@
                                             and pload = 0
                                             and dvagtidi is not null
                                             and dvagtidii is not null
-                                            
+                                            and (stdti = $empcode OR and stdtii = $empcode)
                                             and (dvsbtg = 0 OR dvsbtg = 1 OR dvsbtg = 2)
                                             and dvload = 1 and leadmaster.stdti > current_date - 4 and leadmaster.stdti < current_date - 3 ");
                                             $thursday_2 = $thursday->num_rows();
@@ -1051,6 +1058,7 @@
                                             $friday = $this->db->query("select * from leadmaster where ontag = 1
                                             and rlc = 0
                                             and pload = 0
+                                            and (stdti = $empcode OR and stdtii = $empcode)
                                             and dvagtidi is not null
                                             and dvagtidii is null
                                             and (dvsbtg = 0 OR dvsbtg = 1 OR dvsbtg = 2)
@@ -1059,6 +1067,7 @@
                                             $friday = $this->db->query("select * from leadmaster where ontag = 1
                                             and rlc = 0
                                             and pload = 0
+                                            and (stdti = $empcode OR and stdtii = $empcode)
                                             and dvagtidi is not null
                                             and dvagtidii is not null
                                             and (dvsbtg = 0 OR dvsbtg = 1 OR dvsbtg = 2)
@@ -1072,6 +1081,7 @@
                                             $sat_1 = $this->db->query("select * from leadmaster where ontag = 1
                                             and rlc = 0
                                             and pload = 0
+                                            and (stdti = $empcode OR and stdtii = $empcode)
                                             and dvagtidi is not null
                                             and dvagtidii is null
                                             and (dvsbtg = 0 OR dvsbtg = 1 OR dvsbtg = 2)
@@ -1080,6 +1090,7 @@
                                             $sat_2 = $this->db->query("select * from leadmaster where ontag = 1
                                             and rlc = 0
                                             and pload = 0
+                                            and (stdti = $empcode OR and stdtii = $empcode)
                                             and dvagtidi is not null
                                             and dvagtidii is not null
                                             and (dvsbtg = 0 OR dvsbtg = 1 OR dvsbtg = 2)
@@ -1093,6 +1104,7 @@
                                             $sun_1 = $this->db->query("select * from leadmaster where ontag = 1
                                             and rlc = 0
                                             and pload = 0
+                                            and (stdti = $empcode OR and stdtii = $empcode)
                                             and dvagtidi is not null
                                             and dvagtidi is null
                                             and (dvsbtg = 0 OR dvsbtg = 1 OR dvsbtg = 2)
@@ -1101,6 +1113,7 @@
                                             $sun_2 = $this->db->query("select * from leadmaster where ontag = 1
                                             and rlc = 0
                                             and pload = 0
+                                            and (stdti = $empcode OR and stdtii = $empcode)
                                             and dvagtidi is not null
                                             and dvagtidii is not null
                                             and (dvsbtg = 0 OR dvsbtg = 1 OR dvsbtg = 2)
@@ -1114,6 +1127,7 @@
                                             $today_1 = $this->db->query("select * from leadmaster where ontag = 1
                                             and rlc = 0
                                             and pload = 0
+                                            and (stdti = $empcode OR and stdtii = $empcode)
                                             and dvagtidi is not null
                                             and dvagtidi is null
                                             and (dvsbtg = 0 OR dvsbtg = 1 OR dvsbtg = 2)
@@ -1122,6 +1136,7 @@
                                             $today_2 = $this->db->query("select * from leadmaster where ontag = 1
                                             and rlc = 0
                                             and pload = 0
+                                            and (stdti = $empcode OR and stdtii = $empcode)
                                             and dvagtidi is not null
                                             and dvagtidii is not null
                                             and (dvsbtg = 0 OR dvsbtg = 1 OR dvsbtg = 2)

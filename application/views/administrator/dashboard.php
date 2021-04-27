@@ -116,7 +116,7 @@
                                                     echo $query->num_rows();?>
                                                 </h5>
                                                 </h5>
-                                                <span>Campaigns</span>
+                                                <span>Total Campaigns</span>
                                             </div>
                                         </div>
                                     </div>
@@ -128,8 +128,11 @@
                                              
                                             </div>
                                             <div class="col-sm-8 text-center">
-                                                <h5>600</h5>
-                                                <span>Campaign Live</span>
+                                                <h5><?php $querylive = $this->db->query("SELECT campaign.campnm FROM leadmaster join campaign on campaign.cids = leadmaster.cids
+where leadmaster.stdti >= now()::date + interval '-6 MONTH' OR leadmaster.stdtii >= now()::date + interval '-6 MONTH' group by campaign.campnm
+");
+                                                    echo $querylive->num_rows();?></h5>
+                                                <span>Campaigns Live</span>
                                             </div>
                                         </div>
                                     </div>
@@ -140,15 +143,18 @@
                                     <div class="col-sm-6 card-block-big br">
                                         <div class="row ">
                                             <div class="col-sm-4 ">
-                                            <i class="icofont icofont-star text-primary"></i>
+                                            <i class="icofont icofont-archive text-primary"></i>
+                                            <!-- <i class="icofont icofont-star text-primary"></i> -->
                                             </div>
                                             <div class="col-sm-8 text-center">
                                                 <h5>
-                                                <?php $query = $this->db->query("SELECT * FROM leadmaster ");
+                                                <?php $query = $this->db->query("SELECT campaign.campnm FROM campaign 
+                                                        where campaign.startdt < now()::date + interval '-6 MONTH'
+                                                        group by campaign.campnm ");
                                                     echo $query->num_rows();?>
                                                 </h5>
                                                 </h5>
-                                                <span>Total Leads</span>
+                                                <span>Campaigns Archived</span>
                                             </div>
                                         </div>
                                     </div>
@@ -158,7 +164,13 @@
                                             <i class="icofont icofont-speed-meter  text-primary"></i>
                                             </div>
                                             <div class="col-sm-8 text-center">
-                                                <h5>500</h5>
+                                                <h5>
+                                                <?php $querypen = $this->db->query("SELECT campaign.campnm FROM leadmaster join campaign on campaign.cids = leadmaster.cids
+where campaign.startdt >= now()::date + interval '-6 MONTH' and 
+  leadmaster.stdti is NULL and campaign.status = 2
+group by campaign.campnm");
+                                                    echo $querypen->num_rows();?>
+                                                </h5>
                                                 <span>Campaigns Pending</span>
                                             </div>
                                         </div>
@@ -182,8 +194,10 @@
                                             </div>
                                             <div class="col-sm-8 text-center">
                                                 <h5>
-                                                <?php $query = $this->db->query("SELECT * FROM campaign ");
-                                                    echo $query->num_rows();?>
+                                                <?php $queryds = $this->db->query("SELECT * FROM leadmaster 
+                                                        where leadmaster.stdti is Not NULL
+                                                        and evload is null and cdcload is null and qaload is null ");
+                                                    echo $queryds->num_rows();?>
                                                 </h5>
                                                 </h5>
                                                 <span>Data Stage</span>
@@ -196,7 +210,11 @@
                                                 <i class="icofont icofont-network text-primary"></i>
                                             </div>
                                             <div class="col-sm-8 text-center">
-                                                <h5>400</h5>
+                                                <h5> <?php $queryev = $this->db->query("SELECT * FROM leadmaster 
+                                                        where dvload = 1 and evload is null and cdcload is null and qaload is null ");
+                                                    echo $queryev->num_rows();?>
+                                                
+                                                </h5>
                                                 <span>EV stage</span>
                                             </div>
                                         </div>
@@ -213,8 +231,9 @@
                                             </div>
                                             <div class="col-sm-8 text-center">
                                                 <h5>
-                                                <?php $query = $this->db->query("SELECT * FROM leadmaster where cdcload = 1 ");
-                                                    echo $query->num_rows();?>
+                                                <?php $querycdc = $this->db->query("SELECT * FROM leadmaster 
+                                                        where evload = 1 and cdcload is null and qaload is null ");
+                                                    echo $querycdc->num_rows();?>
                                                 </h5>
                                                 </h5>
                                                 <span>CDC Stage</span>
@@ -228,7 +247,9 @@
                                           
                                             </div>
                                             <div class="col-sm-8 text-center">
-                                                <h5>400</h5>
+                                                <h5>  <?php $queryqa = $this->db->query("SELECT * FROM leadmaster 
+                                                        where cdcload = 1 and qaload is null ");
+                                                    echo $queryqa->num_rows();?></h5>
                                                 <span>QA stage</span>
                                             </div>
                                         </div>
@@ -238,7 +259,7 @@
                         </div>
                         <!-- table card end -->
                     </div>
-                   
+                  
                     
                     <!-- <div class="col-md-12 col-lg-4">
                         <div class="card">
@@ -343,10 +364,7 @@
                                         title:'How the leads are distributed',
                                                     // width:600,
                                                     // height:500
-                                                    color:red,
-                                                    pieSliceTextStyle: {
-                                                            color: 'red',
-                                                        },
+                                                 
 
                                                 };
 
@@ -528,7 +546,7 @@
                                                     title:'Overall leads distributed at joblevel',
                                                     width:600,
                                                     height:300,
-                                                    titleTextStyle: {color: '#757575',fontSize: 16,bold: false} ,
+                                                    titleTextStyle: {color: '#757575',fontSize: 15,bold: false} ,
                                                     position: "none"  ,
                                                     // legend: {'position':'left','alignment':'center'},
                                                     chartArea: {width: '80%', height: '75%'},

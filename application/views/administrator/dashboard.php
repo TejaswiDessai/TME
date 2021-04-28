@@ -350,7 +350,7 @@
 
                                 
 
-                                <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+                                <!-- <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script> -->
                                 <script>
                                 google.charts.load('current', {'packages':['corechart']});
                                     // Draw the pie chart when Charts is loaded.
@@ -392,7 +392,8 @@
                                 <h5>Top 10 countries</h5>
                             </div>
                             <div class="card-block">
-                            <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+                            <script type="text/javascript" src="<?php echo base_url(); ?>admintemplate/bower_components/gChart/loader.js"></script>
+                            <!-- <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script> -->
                             <div id="top_x_div_desi"></div>
 
                                 <?php 
@@ -601,7 +602,7 @@
                                 ?>
 
 
-                                <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+                                <!-- <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script> -->
                                
 
                             </div>
@@ -643,7 +644,7 @@
                                 ?>
 
 
-                                <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+                                <!-- <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script> -->
                                
 
                             </div>

@@ -37,7 +37,7 @@
                                             </div>
                                             <div class="col-sm-8 text-center">
                                                 <h5>
-                                                <?php $query = $this->db->query('SELECT * FROM users where exp_date is null');
+                                                <?php $query = $this->db->query('SELECT * FROM users where status = 0');
                                                     echo $query->num_rows();?>
                                                 </h5>
                                                 <span>All Employees</span>
@@ -51,7 +51,7 @@
                                             </div>
                                             <div class="col-sm-8 text-center">
                                                 <h5>
-                                                <?php $query = $this->db->query("SELECT * FROM users where cid_type='TMB'and exp_date is null");
+                                                <?php $query = $this->db->query("SELECT * FROM users where cid_type='TMB'and status = 0");
                                                     echo $query->num_rows();?>
                                                 </h5>
                                                 <span>TMB</span>
@@ -69,7 +69,7 @@
                                             </div>
                                             <div class="col-sm-8 text-center">  
                                                 <h5>
-                                                <?php $query = $this->db->query("SELECT * FROM users where cid_type='ME' and exp_date is null");
+                                                <?php $query = $this->db->query("SELECT * FROM users where cid_type='ME' and status = 0");
                                                     echo $query->num_rows();?>
                                                 </h5>
                                                 <span>ME</span>
@@ -83,7 +83,7 @@
                                             </div>
                                             <div class="col-sm-8 text-center">
                                                 <h5>
-                                                <?php $query = $this->db->query("SELECT * FROM users where cid_type ='HP' and exp_date is null");
+                                                <?php $query = $this->db->query("SELECT * FROM users where cid_type ='HP' and status = 0");
                                                     echo $query->num_rows();?>
                                                 </h5>
                                                 <span>HP</span>
@@ -137,7 +137,7 @@
                                                     where campaign.startdt >= now()::date + interval '-6 MONTH' and campaign.status = 2
                                                     ");
                                                     echo $live = $querylive->num_rows();?></h5>
-                                                <span>Leads from live campaigns</span>
+                                                <span>Leads in live campaigns</span>
                                             </div>
                                         </div>
                                     </div>
@@ -653,7 +653,7 @@
     <div class="col-md-12 col-lg-6">
                         <div class="card">
                             <div class="card-header">
-                                <h5>Job Leveles on Pie Chart </h5>
+                                <h5>Job Level on Pie Chart </h5>
                             </div>
                             <div class="card-block"  id="chart_div">
                                 <!-- <div id="chart_div"></div> -->

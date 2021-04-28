@@ -750,6 +750,65 @@
 			// echo $this->db->last_query(); 
 			return $query->result_array();
 		}
+		public function get_userslist($userstatus,$cid_type,$roles)
+		{
+			
+			$emp_id = $this->session->userdata('emp_id');
+			$manager = $this->get_manager_by_emp($emp_id);
+			$this->db->join('roles', 'roles.rid = users.role');
+
+			if(isset($userstatus) && $userstatus == "deactivated")
+			{
+				$this->db->where('users.status',1);
+			}
+			if(isset($userstatus) && $userstatus == "active"){
+				$this->db->where('users.status',0);	
+			}
+			if(isset($cid_type) && $cid_type == "TMB")
+			{
+				$this->db->where('users.cid_type','TMB');
+			}
+			if(isset($cid_type) && $cid_type == "HP")
+			{
+				$this->db->where('users.cid_type','HP');
+			}
+			if(isset($cid_type) && $cid_type == "ME")
+			{
+				$this->db->where('users.cid_type','ME');
+			
+			}
+			if(isset($roles) && $roles == "1")
+			{
+				$this->db->where('users.role','1');
+			}
+			if(isset($roles) && $roles == "2")
+			{
+				$this->db->where('users.role','2');
+			}
+			if(isset($roles) && $roles == "3")
+			{
+				$this->db->where('users.role','3');
+			}
+			if(isset($roles) && $roles == "4")
+			{
+				$this->db->where('users.role','4');
+			}
+			if(isset($roles) && $roles == "5")
+			{
+				$this->db->where('users.role','5');
+			}
+			if(isset($roles) && $roles == "6")
+			{
+				$this->db->where('users.role','6');
+			}
+			
+			
+			$this->db->order_by('users.id', 'DESC');
+			$query = $this->db->get('users');
+			
+			// echo $this->db->last_query(); 
+			return $query->result_array();
+		}
 		public function get_usersforreport($username = FALSE, $limit = FALSE, $offset = FALSE)
 		{
 			$emp_id = $this->session->userdata('emp_id');

@@ -99,7 +99,7 @@ echo $date;
 					// $this->Administrator_Model->update_recordlockonlogin($empcode);
 					
 					//Set Message
-					$this->session->set_flashdata('success', 'Welcome to administrator Dashboard.');
+					// $this->session->set_flashdata('success', 'Welcome to administrator Dashboard.');
 					redirect('administrator/dashboard');
 
 					 
@@ -248,7 +248,16 @@ echo $date;
 
 			$data['title'] = 'Latest Users';
 
-			$data['users'] = $this->Administrator_Model->get_users(FALSE, $config['per_page'], $offset);
+			$userstatus = $this->input->post('userstatus');
+			$data['userstatus'] = $userstatus;
+			$cid_type = $this->input->post('cid_type');
+			$data['cid_type'] = $cid_type;
+			$roles = $this->input->post('roles');
+			$data['roles'] = $roles;
+// print_r($userstatus);
+			$data['users'] = $this->Administrator_Model->get_userslist($userstatus,$cid_type,$roles);
+		
+			
 
 			 	$this->load->view('administrator/header-script');
 		 	 	 $this->load->view('administrator/header');

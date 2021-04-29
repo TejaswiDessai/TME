@@ -576,7 +576,7 @@
                                                     position: 'labeled',
                                                     textStyle: {
                                                         // fontName: 'monospace',
-                                                        fontSize: 9
+                                                        fontSize: 7
                                                     }
                                                     },
                                                      sliceVisibilityThreshold: 0,

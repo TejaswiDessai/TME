@@ -801,6 +801,10 @@
 			{
 				$this->db->where('users.role','6');
 			}
+			if(!isset($userstatus) && !isset($roles) && !isset($cid_type))
+			{
+				$this->db->where('users.status',0);
+			}
 			
 			
 			$this->db->order_by('users.id', 'DESC');

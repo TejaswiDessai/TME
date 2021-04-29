@@ -579,6 +579,9 @@
                                                         fontSize: 9
                                                     }
                                                     },
+                                                    pieSliceTextStyle: {
+                                                    fontSize: 8
+                                                    },
                                                      sliceVisibilityThreshold: 0,
                                                     chartArea: {width: '80%', height: '75%'},
                                                 };

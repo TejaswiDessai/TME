@@ -369,7 +369,25 @@
                                                     // width:600,
                                                     // height:500
                                                  
-
+                                                    chartArea: {
+            left: "3%",
+            top: "13%",
+            height: "94%",
+            width: "94%"
+        },
+    is3D: true,
+    pieSliceText: 'none',
+    legend: {
+      position: 'labeled',
+      textStyle: {
+        fontName: 'monospace',
+        fontSize: 9
+      }
+    },
+    pieSliceTextStyle: {
+      fontSize: 8
+    },
+    sliceVisibilityThreshold: 0
                                                 };
 
                                         // Instantiate and draw the chart
@@ -553,7 +571,15 @@
                                                     height:300,
                                                     titleTextStyle: {color: '#757575',fontSize: 15,bold: false} ,
                                                     position: "none"  ,
-                                                    // legend: {'position':'left','alignment':'center'},
+                                                    is3D: true,                                                   
+                                                    legend: {
+                                                    position: 'labeled',
+                                                    textStyle: {
+                                                        // fontName: 'monospace',
+                                                        fontSize: 9
+                                                    }
+                                                    },
+                                                     sliceVisibilityThreshold: 0,
                                                     chartArea: {width: '80%', height: '75%'},
                                                 };
 

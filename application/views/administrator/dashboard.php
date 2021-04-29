@@ -571,12 +571,12 @@
                                                     height:300,
                                                     titleTextStyle: {color: '#757575',fontSize: 15,bold: false} ,
                                                     position: "none"  ,
-                                                    is3D: true,                                                   
+                                                    // is3D: true,                                                   
                                                     legend: {
                                                     position: 'labeled',
                                                     textStyle: {
                                                         // fontName: 'monospace',
-                                                        fontSize: 7
+                                                        fontSize: 9
                                                     }
                                                     },
                                                      sliceVisibilityThreshold: 0,

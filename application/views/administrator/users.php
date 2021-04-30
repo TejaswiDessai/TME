@@ -64,6 +64,62 @@ $(document).ready(function(){
                 </div>
             </div>
            
+            <div class="card">
+                    <div class="card-block">
+                    <!-- <input type="hidden" value="<?php //echo $empcode;?>" id="empcode"> -->
+                        <form action="<?php echo base_url(); ?>administrator/users/users" method="post">
+                            <table class="table" style="margin-bottom:10px;">
+                            <tr>
+                            <!-- <td>
+                            <?php //foreach ($campaigns as $campaign): ?>
+                                <label class="col-lable"><b>Campaign Name: <?php //echo $campaign['campnm']; ?></b></label>
+                                <input type="hidden" value="<?php//echo $campaign['cids']; ?>" id="campnm">
+                            <?php //endforeach; ?>
+                            <input type="hidden" value="<?php //echo $Campid; ?>" id="campaign_id" name="campaign_id">
+                            </td> -->
+                            <td>
+                                <select style="height:34px;" class="form-control form-control-sm "  name="userstatus" id="userstatus">
+                                <option value="">Select Status</option>
+                                <option value="active" <?php if( isset($userstatus) && $userstatus == "active") { echo "selected" ; } ?>>Active</option>
+                                    <option value="deactivated" <?php if( isset($userstatus) && $userstatus == "deactivated") { echo "selected" ; } ?>>Deactivated</option>
+                                    </select>
+                             </td>
+                            <td>
+                                <select style="height:34px;" class="form-control form-control-sm "  name="cid_type" id="cid_type">
+                                    <option value="">Select Company</option>
+                                    <option value="ME" <?php if( isset($cid_type) && $cid_type == "ME") { echo "selected" ; } ?>>ME</option>
+                                    <option value="HP" <?php if( isset($cid_type) && $cid_type == "HP") { echo "selected" ; } ?>>HP</option>
+                                    <option value="TMB" <?php if( isset($cid_type) && $cid_type == "TMB") { echo "selected" ; } ?>>TMB</option>
+                                    </select>
+                             </td>
+                            <td>
+                                <select style="height:34px;" class="form-control form-control-sm "  name="roles" id="roles">
+                                    <option value="">Select Role</option>
+                                    <option value="1" <?php if( isset($roles) && $roles == "1") { echo "selected" ; } ?>>Administator</option>
+                                    <option value="2" <?php if( isset($roles) && $roles == "2") { echo "selected" ; } ?>>Core Team</option>
+                                    <option value="3" <?php if( isset($roles) && $roles == "3") { echo "selected" ; } ?>>Manager</option>
+                                    <option value="4" <?php if( isset($roles) && $roles == "4") { echo "selected" ; } ?>>Team Lead</option>
+                                    <option value="5" <?php if( isset($roles) && $roles == "5") { echo "selected" ; } ?>>Team member</option>
+                                    <option value="6" <?php if( isset($roles) && $roles == "6") { echo "selected" ; } ?>>Developer</option>
+                                    </select>
+                             </td>
+                            
+                             <td>
+                                <input  class="btn btn-primary" type="submit" name="submit" value="Fetch Record">
+                            </td>
+                            <td>
+                               
+                                <a class="btn btn-primary refreshbtn" style="color:white;" href=''>Refresh <i class="icofont icofont-refresh"></i></a>
+                            </td>
+                            </tr>
+                          
+                            </table>
+                            </form>
+                       
+                    </div>
+                    <br>
+
+
             <!-- Page-header end -->
             <!-- Page-body start -->
             <div class="page-body">

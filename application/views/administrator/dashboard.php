@@ -37,7 +37,7 @@
                                             </div>
                                             <div class="col-sm-8 text-center">
                                                 <h5>
-                                                <?php $query = $this->db->query('SELECT * FROM users where exp_date is null');
+                                                <?php $query = $this->db->query('SELECT * FROM users where status = 0');
                                                     echo $query->num_rows();?>
                                                 </h5>
                                                 <span>All Employees</span>
@@ -51,7 +51,7 @@
                                             </div>
                                             <div class="col-sm-8 text-center">
                                                 <h5>
-                                                <?php $query = $this->db->query("SELECT * FROM users where cid_type='TMB'and exp_date is null");
+                                                <?php $query = $this->db->query("SELECT * FROM users where cid_type='TMB'and status = 0");
                                                     echo $query->num_rows();?>
                                                 </h5>
                                                 <span>TMB</span>
@@ -69,7 +69,7 @@
                                             </div>
                                             <div class="col-sm-8 text-center">  
                                                 <h5>
-                                                <?php $query = $this->db->query("SELECT * FROM users where cid_type='ME' and exp_date is null");
+                                                <?php $query = $this->db->query("SELECT * FROM users where cid_type='ME' and status = 0");
                                                     echo $query->num_rows();?>
                                                 </h5>
                                                 <span>ME</span>
@@ -83,7 +83,7 @@
                                             </div>
                                             <div class="col-sm-8 text-center">
                                                 <h5>
-                                                <?php $query = $this->db->query("SELECT * FROM users where cid_type ='HP' and exp_date is null");
+                                                <?php $query = $this->db->query("SELECT * FROM users where cid_type ='HP' and status = 0");
                                                     echo $query->num_rows();?>
                                                 </h5>
                                                 <span>HP</span>
@@ -137,7 +137,7 @@
                                                     where campaign.startdt >= now()::date + interval '-6 MONTH' and campaign.status = 2
                                                     ");
                                                     echo $live = $querylive->num_rows();?></h5>
-                                                <span>Leads from live campaigns</span>
+                                                <span>Leads in live campaigns</span>
                                             </div>
                                         </div>
                                     </div>
@@ -350,7 +350,7 @@
 
                                 
 
-                                <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+                                <!-- <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script> -->
                                 <script>
                                 google.charts.load('current', {'packages':['corechart']});
                                     // Draw the pie chart when Charts is loaded.
@@ -369,7 +369,25 @@
                                                     // width:600,
                                                     // height:500
                                                  
-
+                                                    chartArea: {
+            left: "3%",
+            top: "13%",
+            height: "94%",
+            width: "94%"
+        },
+    is3D: true,
+    pieSliceText: 'none',
+    legend: {
+      position: 'labeled',
+      textStyle: {
+        fontName: 'monospace',
+        fontSize: 9
+      }
+    },
+    pieSliceTextStyle: {
+      fontSize: 8
+    },
+    sliceVisibilityThreshold: 0
                                                 };
 
                                         // Instantiate and draw the chart
@@ -392,7 +410,8 @@
                                 <h5>Top 10 countries</h5>
                             </div>
                             <div class="card-block">
-                            <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+                            <script type="text/javascript" src="<?php echo base_url(); ?>admintemplate/bower_components/gChart/loader.js"></script>
+                            <!-- <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script> -->
                             <div id="top_x_div_desi"></div>
 
                                 <?php 
@@ -552,7 +571,18 @@
                                                     height:300,
                                                     titleTextStyle: {color: '#757575',fontSize: 15,bold: false} ,
                                                     position: "none"  ,
-                                                    // legend: {'position':'left','alignment':'center'},
+                                                    // is3D: true,                                                   
+                                                    legend: {
+                                                    position: 'labeled',
+                                                    textStyle: {
+                                                        // fontName: 'monospace',
+                                                        fontSize: 9
+                                                    }
+                                                    },
+                                                    pieSliceTextStyle: {
+                                                    fontSize: 8
+                                                    },
+                                                     sliceVisibilityThreshold: 0,
                                                     chartArea: {width: '80%', height: '75%'},
                                                 };
 
@@ -601,7 +631,7 @@
                                 ?>
 
 
-                                <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+                                <!-- <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script> -->
                                
 
                             </div>
@@ -643,7 +673,7 @@
                                 ?>
 
 
-                                <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+                                <!-- <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script> -->
                                
 
                             </div>
@@ -653,7 +683,7 @@
     <div class="col-md-12 col-lg-6">
                         <div class="card">
                             <div class="card-header">
-                                <h5>Job Leveles on Pie Chart </h5>
+                                <h5>Job Level on Pie Chart </h5>
                             </div>
                             <div class="card-block"  id="chart_div">
                                 <!-- <div id="chart_div"></div> -->

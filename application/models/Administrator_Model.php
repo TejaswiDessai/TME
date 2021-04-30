@@ -2989,8 +2989,9 @@ public function get_campaign_fordataverification()
 
 		public function get_email_duplication_count($FinalEmail,$agent_id)
 		{
+			$email = strtolower($FinalEmail);
 			$this->db->select('lmid');
-			$this->db->where('email', $FinalEmail);
+			$this->db->where('email', $email);
 			$result = $this->db->get('ev');
 			// echo $this->db->last_query(); 
 			if ($result->num_rows() >= 1) {

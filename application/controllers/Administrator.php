@@ -2294,7 +2294,7 @@ public function getPrivillage(){
 				$datacampaign = array(
 					'lmid' => $leadid[$i], 
 					'evagnt' => $this->session -> userdata('empcode'),
-					'email' => $comp_proSplit[$i],
+					'email' => strtolower($comp_proSplit[$i]),
 					'status' =>$email_status,
 					'fmail' =>$from,
 					'comment' => $comment,
@@ -2646,7 +2646,7 @@ public function getPrivillage(){
 								$datacampaign = array(
 									'lmid' => $leadid[$i], 
 									'evagnt' => $this->session -> userdata('empcode'),
-									'email' => $TO,
+									'email' => strtolower($TO),
 									'status' =>'',
 									'fmail' =>$from,
 									'comment' => '',

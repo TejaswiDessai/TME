@@ -122,6 +122,12 @@
 			$query = $this->db->get('emplzid');
 			return $query->result_array();
 		}
+		public function get_company()
+		{
+			$query = $this->db->get('comptype');
+			return $query->result_array();
+
+		}
 		public function get_revenuesize(){
 			
 			$query = $this->db->get('compsize');                       
@@ -3443,4 +3449,351 @@ public function get_campaign_fordataverification()
 			return $data=$query->result_array();
 
 		}	
+
+		// public function get_available_leads($username = FALSE, $limit = FALSE, $offset = FALSE,$dcd,$ctype,$levelid,$sector_id)
+		// {
+		// 	$deptStr = '';
+		// 	if(isset($dcd) && $dcd != 0) {
+		// 	$deptStr = implode(',',$dcd);
+		// 	}
+			
+		// 	$levelid1 = '';
+		// 	if(isset($levelid) && $levelid != 0) {
+		// 	$levelid1 = implode(',',$levelid);
+
+		// 	}
+		// 	$company_type = '';
+		// 	if(isset($ctype) && $ctype != 0) {
+		// 	$company_type = implode(',',$ctype);
+		// 	}
+			
+		// 	$sector_id_industry = '';
+		// 	if(isset($sector_id) && $sector_id != 0) {
+		// 	$sector_id_industry = implode(',',$sector_id);
+
+		// 	}
+		// 	if($deptStr != '' &&  $levelid1 != '' && $company_type != '' && $sector_id_industry!= '' ) {
+		// 	$cond = "where dname = $deptStr AND jlevel = $levelid1 AND sectyp = $sector_id_industry AND ctyp = $company_type";
+		// 	}
+		// 	elseif($deptStr != '' &&  $levelid1 != '' && $company_type != '' && $sector_id_industry == '' ) {
+		// 	$cond = "where dname = $deptStr AND jlevel = $levelid1 AND ctyp = $company_type";
+		// 	}
+		// 	elseif($deptStr != '' &&  $levelid1 != '' && $company_type == '' && $sector_id_industry != '' ) {
+		// 	$cond = "where dname = $deptStr AND jlevel = $levelid1 AND sectyp = $sector_id_industry";
+		// 	}
+		// 	elseif($deptStr != '' &&  $levelid1 != '' && $company_type == '' && $sector_id_industry == '' ) {
+		// 	$cond = "where dname = $deptStr AND jlevel = $levelid1 ";
+		// 	}
+		// 	elseif($deptStr == '' &&  $levelid1 == '' && $company_type != '' && $sector_id_industry != '' ) {
+		// 	$cond = "where ctyp = $company_type AND sectyp = $sector_id_industry ";
+		// 	}
+		// 	elseif($deptStr == '' &&  $levelid1 != '' && $company_type != '' && $sector_id_industry == '' ) {
+		// 	$cond = "where jlevel = $levelid1 AND ctyp = $company_type ";
+		// 	}
+		// 	elseif($deptStr != '' &&  $levelid1 == '' && $company_type != '' && $sector_id_industry == '' ) {
+		// 	$cond = "where dname = $deptStr AND ctyp = $company_type ";
+		// 	}
+		// 	elseif($deptStr == '' &&  $levelid1 != '' && $company_type == '' && $sector_id_industry != '' ) {
+		// 	$cond = "where jlevel = $levelid1 AND sectyp = $sector_id_industry ";
+		// 	}
+		// 	elseif($deptStr != '' &&  $levelid1 == '' && $company_type == '' && $sector_id_industry == ''){
+		// 		$cond = "where dname = $deptStr";
+		// 	}
+		// 	elseif($deptStr == '' &&  $levelid1 != '' && $company_type == '' && $sector_id_industry == ''){
+		// 		$cond = "where jlevel = $levelid1";
+		// 	}
+		// 	elseif($deptStr == '' &&  $levelid1 == '' && $company_type != '' && $sector_id_industry == ''){
+		// 		$cond = "where ctyp = $company_type";
+		// 	}
+		// 	elseif($deptStr == '' &&  $levelid1 == '' && $company_type == '' && $sector_id_industry != ''){
+		// 		$cond = "where sectyp = $sector_id_industry";
+		// 	}
+		// 	else
+		// 	{
+		// 		$cond = null;
+		// 	}
+			
+		// 	// echo $cond; die;
+		// 	$sql = " SELECT leadmaster.lmid,
+		// 	leadmaster.cids,
+		// 	leadmaster.sal,
+		// 	leadmaster.fname,
+		// 	leadmaster.dytg,
+		// 	leadmaster.lname,
+		// 	leadmaster.jtitle,
+		// 	joblevels.joblevel,
+		// 	joblevels.joblist,
+		// 	dept.department,
+		// 	leadmaster.cname,
+		// 	comptype.ctypname,
+		// 	industry.industry,
+		// 	industry.subindustry,
+		// 	leadmaster.sectyp,
+		// 		CASE
+		// 			WHEN (leadmaster.sectyp = 0) THEN 'Unknown'::text
+		// 			WHEN (leadmaster.sectyp = 1) THEN 'Public'::text
+		// 			WHEN (leadmaster.sectyp = 2) THEN 'Private'::text
+		// 			WHEN (leadmaster.sectyp = 3) THEN 'Government'::text
+		// 			WHEN (leadmaster.sectyp = 4) THEN 'Non - Profit'::text
+		// 			ELSE NULL::text
+		// 		END AS sector,
+		// 	leadmaster.empsize,
+		// 	leadmaster.arevenue,
+		// 	leadmaster.mlbl,
+		// 		CASE
+		// 			WHEN (leadmaster.mlbl = 0) THEN 'Thousands'::text
+		// 			WHEN (leadmaster.mlbl = 1) THEN 'Millions'::text
+		// 			WHEN (leadmaster.mlbl = 2) THEN 'Billions'::text
+		// 			WHEN (leadmaster.mlbl = 3) THEN 'Trillions'::text
+		// 			ELSE NULL::text
+		// 		END AS denomination,
+		// 	leadmaster.email,
+		// 	leadmaster.phone,
+		// 	leadmaster.linetype,
+		// 		CASE
+		// 			WHEN (leadmaster.linetype = 1) THEN 'Unknown'::text
+		// 			WHEN (leadmaster.linetype = 2) THEN 'Direct'::text
+		// 			WHEN (leadmaster.linetype = 3) THEN 'Board'::text
+		// 			ELSE NULL::text
+		// 		END AS linetypes,
+		// 	leadmaster.phext,
+		// 	leadmaster.altphn,
+		// 	leadmaster.address,
+		// 	leadmaster.city,
+		// 	leadmaster.state,
+		// 	leadmaster.zipcode,
+		// 	country.countryname,
+		// 	country.currnme,
+		// 	timezone.abbrev,
+		// 	leadmaster.domain,
+		// 	leadmaster.plink,
+		// 	leadmaster.empszlink,
+		// 	leadmaster.indlink,
+		// 	leadmaster.revszlink,
+		// 	leadmaster.othrlink,
+		// 	leadmaster.aum
+		//    FROM ((((((leadmaster
+		// 	 LEFT JOIN country ON ((leadmaster.country = country.countrycd)))
+		// 	 LEFT JOIN timezone ON ((leadmaster.timez = timezone.zids)))
+		// 	 LEFT JOIN industry ON ((leadmaster.sindtry = industry.subindustrycd)))
+		// 	 LEFT JOIN joblevels ON ((leadmaster.jlevel = joblevels.jid)))
+		// 	 LEFT JOIN dept ON ((leadmaster.dname = dept.dcd)))
+		// 	 LEFT JOIN comptype ON ((leadmaster.ctyp = comptype.ctypid)))
+			
+		// 	 $cond limit 10
+		//    ;";
+		//   $query = $this->db->query($sql);
+		// //   return $query->result_array();
+		// return $query;
+		// }
+
+		public function get_all_record_leadmasterby_dc($dcd,$levelid,$ctype,$sector_id)
+		{
+		
+		
+		$this->db->where('sbsvtag <', 6);
+		// $this->db->where('sbsvtag <', 3);
+		$this->db->where('sbsvtag !=', 0);
+		// $this->db->where('dvrejtg <', '3');
+		// $this->db->where('dvsbtg <', '3');
+		$this->db->where('qaacpt', NULL);
+		$this->db->where('qasv', NULL);
+
+			$this->db->group_start();
+			$this->db->where('dvrejtg < 3 AND dvsbtg < 3');
+			$this->db->OR_where('qarej', 1);
+			$this->db->OR_where('cdcrjt <', '4');
+			$this->db->group_end(); 
+		
+		$this->db->where('ontag', 0);
+		$this->db->where('pload', 1);
+		$this->db->where('dvload',0);
+		$this->db->where('evload',null);
+		$this->db->where('cdcload',null);
+		$this->db->where('qaload',null);
+		$this->db->where('rlc !=', 1);
+		$this->db->order_by('stdti','ASC');
+		$this->db->order_by('stdtii','ASC');
+		// $this->db->limit(1);
+		$query = $this->db->get('leadmaster');
+		// echo $this->db->last_query(); 
+		// echo $string;
+		// die;
+		return $query->num_rows(); 
+	}
+// Added by Amol
+	public function get_all_record_leadmasterby_dv($dcd,$levelid,$ctype,$sector_id)
+	{
+		
+		// $this->db->where('leadmaster.rlc !=', 1);
+		// $this->db->where('leadmaster.evcomp', null);
+		$this->db->where('sbsvtag <', 6);
+		$this->db->where('sbsvtag !=', 0);
+		$this->db->where('qaacpt', NULL);
+		$this->db->where('qasv', NULL);
+		// $this->db->where('ontag', 1);
+		// $this->db->where('pload', 0);
+		$this->db->where('dvload',1);
+		$this->db->where('evload',null);
+		$this->db->where('cdcload',null);
+		$this->db->where('qaload',null);
+		$this->db->where('rlc !=', 1);
+		// $this->db->order_by('stdti','ASC');
+		// $this->db->order_by('stdtii','ASC');
+		// $this->db->limit(1);
+		$query = $this->db->get('leadmaster');
+		// echo $this->db->last_query(); 
+		// echo $string;
+		// die;
+		return $query->num_rows();
+	}
+
+	// Added by Amol
+	public function get_all_record_leadmasterby_CDC($dcd,$levelid,$ctype,$sector_id)
+	{
+	
+		
+		// $this->db->where('cdcsb <', '4');
+		// $this->db->where('cdcrjt <', '4');
+		// $this->db->where('sbsvtag !=', 0);
+		// $this->db->where('cdcsv !=', 0);
+		// $this->db->where('cdcsv', NULL);
+		// $this->db->where('qasv',NULL);
+		$this->db->where('evload',1);
+		// $this->db->where('cdcload',0);
+		$this->db->where('cdcload',NULL);
+
+		$this->db->where('qaload',null);
+		// $this->db->where('qalsload',null);
+		// $this->db->where('rlc !=', 1);
+		// if(isset($postDatalmid) && isset($camp_id2)){
+		// if(isset($postDatalmid)){
+		// 	// $this->db->where('cids', $camp_id2);	
+		// 	$this->db->where('lmid', $postDatalmid);
+		// 	$this->db->where('rlc =', 1);	
+		// }else{
+		// 	$this->db->where('rlc !=', 1);
+		// }
+		// $this->db->order_by('evdti','ASC');
+		// $this->db->limit(1);
+		$query = $this->db->get('leadmaster');
+		// echo $this->db->last_query(); 
+		// echo $string;
+		// die;
+
+		return $query->num_rows();
+		// return $query->result_array();
+	}
+	
+	// Added by Amol 
+	public function get_all_record_leadmasterby_campaignQA($dcd,$levelid,$ctype,$sector_id)
+	{
+		
+		
+	// $this->db->where('cdcsb <', '4');
+	// $this->db->where('cdcrjt <', '4');
+	// $this->db->where('cdcsv !=', 0);
+	// $this->db->where('cdcsv', NULL);
+	// $this->db->where('qasv', NULL);
+	// $this->db->where('sbsvtag !=', 0);
+	// $this->db->where('evload',0); 
+	$this->db->where('cdcload',1);
+	$this->db->where('qaload',null);
+	// $this->db->where('qalsload',null);
+	// $this->db->where('rlc !=', 1);
+	// 	$this->db->group_start();
+	// 	$this->db->where('ddispositionclass', '0');
+	// 	$this->db->OR_where('ddispositionclass', NULL);
+	// 	$this->db->group_end(); 
+	// $this->db->order_by('cdcsbdti','ASC');
+	// $this->db->order_by('cdcsbdtii','ASC');
+	// $this->db->limit(1);
+	$query = $this->db->get('leadmaster');
+	// echo $this->db->last_query(); 
+	// echo $string;
+	// die;
+	return $query->num_rows();
+		// return $query->result_array();
+	}
+// Added by Amol 
+public function get_all_record_leadmasterby_QAdone($dcd,$levelid,$ctype,$sector_id)
+{
+	
+	
+// $this->db->where('cdcsb <', '4');
+// $this->db->where('cdcrjt <', '4');
+// $this->db->where('cdcsv !=', 0);
+// $this->db->where('cdcsv', NULL);
+$this->db->where('qaacpt', 1);
+// $this->db->where('sbsvtag !=', 0);
+$this->db->where('qastat','qualified'); 
+// $this->db->where('cdcload',1);
+$this->db->where('qaload',1);
+// $this->db->where('qalsload',null);
+// $this->db->where('rlc !=', 1);
+$this->db->group_start();
+$this->db->where('dytg', '0');
+$this->db->OR_where('dytg', NULL);
+$this->db->group_end(); 	
+// $this->db->order_by('cdcsbdti','ASC');
+// $this->db->order_by('cdcsbdtii','ASC');
+// $this->db->limit(1);
+$query = $this->db->get('leadmaster');
+// echo $this->db->last_query(); 
+// echo $string;
+// die;
+return $query->num_rows();
+	// return $query->result_array();
+}
+
+public function get_all_record_leadmasterby_Delivered($dcd,$levelid,$ctype,$sector_id)
+{
+	$this->db->where('dytg', '1');
+	$query = $this->db->get('leadmaster');
+	return $query->num_rows();
+	}
+
+	public function get_all_record_leadmasterby_dcPending($dcd,$levelid,$ctype,$sector_id)
+	{
+		$this->db->where('sbsvtag <', 6);
+		// $this->db->where('sbsvtag <', 3);
+		$this->db->where('sbsvtag !=', 0);
+		$this->db->where('qasv', NULL);
+		// $this->db->where('dvrejtg <', '3');
+		// $this->db->where('dvsbtg <', '3');
+		$this->db->where('qaacpt', NULL);
+
+		$this->db->group_start();
+		$this->db->where('dvrejtg < 3 AND dvsbtg < 3');
+		$this->db->OR_where('dvrejtg is NULL AND dvsbtg is NULL');
+		$this->db->OR_where('qarej', 1);
+		$this->db->OR_where('cdcrjt <', '4');//if dvrej is 3, then check cdcrjt
+		$this->db->group_end(); 
+
+		$this->db->where('ontag', 1);
+		$this->db->where('pload', 0);
+		$this->db->where('dvload',0);
+		$this->db->where('evload',null);
+		$this->db->where('cdcload',null);
+		$this->db->where('qaload',null);
+		$this->db->where('rlc !=', 1);
+		// $this->db->group_start();
+		// 		$this->db->where('stagtidi',$empcode);
+				// $this->db->OR_where('stagtidii',$empcode);
+		// 		$this->db->OR_where('stagtidi', NULL);
+		// $this->db->group_end(); 
+
+			// $this->db->order_by('dvrejtg','DESC');
+			$this->db->order_by('dvrdti','ASC');
+			$this->db->order_by('dvrdtii','ASC');
+		
+		
+		// $this->db->limit(1);
+		$query = $this->db->get('leadmaster');
+		// echo $this->db->last_query();  
+		// echo $string;
+		// die;
+		return $query->num_rows();
+	} 
+
 }

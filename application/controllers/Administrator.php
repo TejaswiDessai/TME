@@ -2252,7 +2252,8 @@ public function getPrivillage(){
 				//  echo $e->errorMessage(); //Pretty error messages from PHPMailer
 					echo json_encode(array(
 						"statusCode"=>"Email Fail",
-						"error"=>"Google Authentication Error: Please check your Gmail Username & Password..",
+						// "error"=>"Google Authentication Error: Please check your Gmail Username & Password..",
+						"error" => $e->errorMessage()
 					));
 					return;
 				} catch (Exception $e) {
@@ -2608,7 +2609,8 @@ public function getPrivillage(){
 							// echo $e->errorMessage(); //Pretty error messages from PHPMailer
 							echo json_encode(array(
 								"statusCode"=>"Email Fail",
-								"error"=>"Google Authentication Error: Please check your Gmail Username & Password..",
+								// "error"=>"Google Authentication Error: Please check your Gmail Username & Password..",
+								"error" => $e->errorMessage()
 							));
 							return;
 						} catch (Exception $e) {

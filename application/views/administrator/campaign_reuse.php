@@ -394,7 +394,7 @@ $(document).ready(function(){
 
                                  </tbody>
                             </table>
-                            <input  class="btn btn-primary" id="Import" type="submit" value="Import to Campaign" name="submit">
+                            <!-- <input  class="btn btn-primary" id="Import" type="submit" value="Import to Campaign" name="submit"> -->
                                 </form>
                         </div>
                     </div>

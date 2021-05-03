@@ -62,7 +62,7 @@
     <!--color css-->
     <link rel="stylesheet" type="text/css" href="<?php echo base_url(); ?>admintemplate/assets/css/color/color-1.css" id="color"/>
     <script src="http://cdn.ckeditor.com/4.7.1/full/ckeditor.js"></script>
-    
+    <!-- <script type="text/javascript" src="<?php echo base_url(); ?>admintemplate/bower_components/validate/ckeditor/ckeditor.js"></script> -->
     
      <!-- Required Jqurey -->
     
@@ -72,8 +72,8 @@
     <script type="text/javascript" src="<?php echo base_url(); ?>admintemplate/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="<?php echo base_url(); ?>admintemplate/assets/pages/form-validation/validate.js"></script>
    
-
-    <script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.11.1/jquery.validate.min.js"></script>
+    <script type="text/javascript" src="<?php echo base_url(); ?>admintemplate/bower_components/validate/jquery.validate.min.js"></script>
+    <!-- <script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.11.1/jquery.validate.min.js"></script> -->
 
 </head>
 <style>

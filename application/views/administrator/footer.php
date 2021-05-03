@@ -20,17 +20,17 @@
     <script type="text/javascript" src="<?php echo base_url(); ?>admintemplate/assets/pages/dashboard/horizontal-timeline/js/main.js"></script>
     
      <!-- Chart js -->
-     <script type="text/javascript" src="<?php echo base_url(); ?>admintemplate/bower_components/chart.js/dist/Chart.js"></script>
+     <!-- <script type="text/javascript" src="<?php echo base_url(); ?>admintemplate/bower_components/chart.js/dist/Chart.js"></script> -->
      <!-- c3 chart js -->
-     <script src="<?php echo base_url(); ?>admintemplate/bower_components/d3/d3.min.js"></script>
-    <script src="<?php echo base_url(); ?>admintemplate/bower_components/c3/c3.js"></script>
+     <!-- <script src="<?php echo base_url(); ?>admintemplate/bower_components/d3/d3.min.js"></script>
+    <script src="<?php echo base_url(); ?>admintemplate/bower_components/c3/c3.js"></script> -->
     
     
      <!-- amchart js -->
-    <script type="text/javascript" src="<?php echo base_url(); ?>admintemplate/assets/pages/dashboard/amchart/js/amcharts.js"></script>
+    <!-- <script type="text/javascript" src="<?php echo base_url(); ?>admintemplate/assets/pages/dashboard/amchart/js/amcharts.js"></script>
     <script type="text/javascript" src="<?php echo base_url(); ?>admintemplate/assets/pages/dashboard/amchart/js/serial.js"></script>
     <script type="text/javascript" src="<?php echo base_url(); ?>admintemplate/assets/pages/dashboard/amchart/js/light.js"></script>
-    <script type="text/javascript" src="<?php echo base_url(); ?>admintemplate/assets/pages/dashboard/amchart/js/custom-amchart.js"></script>
+    <script type="text/javascript" src="<?php echo base_url(); ?>admintemplate/assets/pages/dashboard/amchart/js/custom-amchart.js"></script> -->
     <!-- i18next.min.js -->
     <script type="text/javascript" src="<?php echo base_url(); ?>admintemplate/bower_components/i18next/i18next.min.js"></script>
     <script type="text/javascript" src="<?php echo base_url(); ?>admintemplate/bower_components/i18next-xhr-backend/i18nextXHRBackend.min.js"></script>
@@ -50,17 +50,20 @@
     <script type="text/javascript" src="<?php echo base_url(); ?>admintemplate/assets/js/jquery.quicksearch.js"></script>
     
       <!-- Summernote js -->
-    <script type="text/javascript" src="<?php echo base_url(); ?>admintemplate/bower_components/summernote/dist/summernote.js"></script>
+    <!-- <script type="text/javascript" src="<?php echo base_url(); ?>admintemplate/bower_components/summernote/dist/summernote.js"></script>
     <script type="text/javascript" src="<?php echo base_url(); ?>admintemplate/bower_components/summernote/lang/summernote-ko-KR.js"></script>
-    <script type="text/javascript" src="<?php echo base_url(); ?>admintemplate/assets/pages/summernote/custom-note.js"></script>
+    <script type="text/javascript" src="<?php echo base_url(); ?>admintemplate/assets/pages/summernote/custom-note.js"></script> -->
 
     <script type="text/javascript" src="<?php echo base_url(); ?>admintemplate/assets/pages/toolbar/custom-toolbar.js"></script>
       <script type="text/javascript"src="<?php echo base_url(); ?>admintemplate/assets/pages/toolbar/jquery.toolbar.min.js"></script>
     <!-- Custom js -->
-    <script src="<?php echo base_url(); ?>admintemplate/assets/pages/chart/c3/c3-custom-chart.js"></script>
-    <script type="text/javascript" src="<?php echo base_url(); ?>admintemplate/assets/pages/dashboard/custom-dashboard.js"></script>
-    <script type="text/javascript" src="<?php echo base_url(); ?>admintemplate/assets/js/script.js"></script>
-    <script type="text/javascript" src="<?php echo base_url(); ?>admintemplate/assets/pages/chart/chartjs/chartjs-custom.js"></script>
+    <!-- <script src="<?php echo base_url(); ?>admintemplate/assets/pages/chart/c3/c3-custom-chart.js"></script> -->
+    <!-- <script type="text/javascript" src="<?php echo base_url(); ?>admintemplate/assets/pages/dashboard/custom-dashboard.js"></script> -->
+    <script type="text/javascript" src="<?php echo base_url(); ?>admintemplate/assets/js/script.js"></script> 
+    <!-- Important script.js -->
+
+    <!-- <script type="text/javascript" src="<?php echo base_url(); ?>admintemplate/assets/pages/chart/chartjs/chartjs-custom.js"></script> -->
+
       <script type="text/javascript" src="<?php echo base_url(); ?>admintemplate/assets/pages/advance-elements/select2-custom.js"></script>
    
       <script src="<?php echo base_url(); ?>admintemplate/bower_components/datatables.net/js/jquery.dataTables.min.js"></script>
@@ -98,45 +101,6 @@
         'wrapAround': true
     })
     </script> 
-<!-- <input type = hidden name="emp_id" id="emp_id" value="<?php echo  $_SESSION['empcode']; ?>">
-    <script>
-var emp_id = $('#emp_id').val();
-alert(emp_id);
-    var base_url = "<?php echo base_url() ?>";
-   
-        var timeSinceLastMove = 0;
 
-        $(document).mousemove(function() {
-
-            timeSinceLastMove = 0;
-        });
-        $(document).click(function() {
-
-        timeSinceLastMove = 0;
-        });
-        $(document).keyup(function() {
-
-            timeSinceLastMove = 0;
-        });
-
-        checkTime();
-
-        function checkTime() {
-console.log(timeSinceLastMove);
-            timeSinceLastMove++;
-
-            if (timeSinceLastMove > 10 * 60 ) {  //10 mints
-            // if (timeSinceLastMove == 599 ) {  //10 mints
-                alert("Session is Out");
-                
-                window.location = base_url+"administrator/logout";
-            }
-            if(emp_id === undefined)
-            {
-                window.location = base_url+"administrator/logout"; 
-            }
-            setTimeout(checkTime, 1000); // check evry 1 second
-        }
-</script>  -->
     </body>
 </html>

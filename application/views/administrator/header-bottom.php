@@ -99,11 +99,11 @@ $userteam = explode(',',$userteam1);
                                 <span>Data verification</span>
                             </a>
                             <ul class="tree-1">
-                       
-                                <li><a href="<?php echo base_url(); ?>cdc/selectCampaignforDataVerification">
-                          
-                               Data verification
-                            </a></li>
+                                <li>
+                                    <a href="<?php echo base_url(); ?>cdc/selectCampaignforDataVerification">
+                                     Data verification
+                                     </a>
+                                </li>
                             </ul>
                         </li>
                     <?php } ?>
@@ -114,8 +114,9 @@ $userteam = explode(',',$userteam1);
                             <span data-i18n="nav.basic-components.main">Email Verification</span>
                         </a>
                         <ul class="tree-1">
-                       
-                            <li><a href="<?php echo base_url(); ?>administrator/selectCampaignForEmailVerification" data-i18n="nav.basic-components.alert">Email Verification</a></li>
+                            <li>
+                                <a href="<?php echo base_url(); ?>administrator/selectCampaignForEmailVerification" data-i18n="nav.basic-components.alert">Email Verification</a>
+                            </li>
                         </ul>
                     </li>
                     <?php } ?>
@@ -133,15 +134,16 @@ $userteam = explode(',',$userteam1);
                     <?php } ?>
                     <?php if((in_array('10',$userteam))){?>
                         <li class="nav-item">
-                        <a href="#!">
-                        <i class="icofont icofont-chart-line-alt"></i>
-                            <span data-i18n="nav.basic-components.main">Quality Assurance</span>
-                        </a>
-                        <ul class="tree-1">
-                           
-                            <li><a href="<?php echo base_url(); ?>cdc/selectCampaignForQA" data-i18n="nav.basic-components.alert">Quality Assurance</a></li>
-                        </ul>
-                    </li>
+                            <a href="#!">
+                            <i class="icofont icofont-chart-line-alt"></i>
+                                <span data-i18n="nav.basic-components.main">Quality Assurance</span>
+                            </a>
+                                <ul class="tree-1">
+                                    <li>
+                                        <a href="<?php echo base_url(); ?>cdc/selectCampaignForQA" data-i18n="nav.basic-components.alert">Quality Assurance</a>
+                                    </li>
+                                </ul>
+                        </li>
                     <?php } ?>
                     <?php if((in_array('11',$userteam))){?>
                         <li class="nav-item">
@@ -151,7 +153,9 @@ $userteam = explode(',',$userteam1);
                         </a>
                         <ul class="tree-1">
                            
-                            <li><a href="<?php echo base_url(); ?>cdc/selectCampaignForleadGeneration" data-i18n="nav.basic-components.alert">Lead Generation</a></li>
+                            <li>
+                                <a href="<?php echo base_url(); ?>cdc/selectCampaignForleadGeneration" data-i18n="nav.basic-components.alert">Lead Generation</a>
+                            </li>
                         </ul>
                     </li>
                     <?php } ?>

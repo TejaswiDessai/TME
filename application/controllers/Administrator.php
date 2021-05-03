@@ -41,6 +41,7 @@
 		    show_404();
 		   }
 		   $data['title'] = ucfirst($page);
+		   $data['empcode'] = $this->session->userdata('empcode');
 		   $this->load->view('administrator/header-script');
 		   $this->load->view('administrator/header');
 		   $this->load->view('administrator/header-bottom');
@@ -2251,7 +2252,8 @@ public function getPrivillage(){
 				//  echo $e->errorMessage(); //Pretty error messages from PHPMailer
 					echo json_encode(array(
 						"statusCode"=>"Email Fail",
-						"error"=>"Google Authentication Error: Please check your Gmail Username & Password..",
+						// "error"=>"Google Authentication Error: Please check your Gmail Username & Password..",
+						"error" => $e->errorMessage()
 					));
 					return;
 				} catch (Exception $e) {
@@ -2303,7 +2305,7 @@ public function getPrivillage(){
 				$datacampaign = array(
 					'lmid' => $leadid[$i], 
 					'evagnt' => $this->session -> userdata('empcode'),
-					'email' => $comp_proSplit[$i],
+					'email' => strtolower($comp_proSplit[$i]),
 					'status' =>$email_status,
 					'fmail' =>$from,
 					'comment' => $comment,
@@ -2607,7 +2609,8 @@ public function getPrivillage(){
 							// echo $e->errorMessage(); //Pretty error messages from PHPMailer
 							echo json_encode(array(
 								"statusCode"=>"Email Fail",
-								"error"=>"Google Authentication Error: Please check your Gmail Username & Password..",
+								// "error"=>"Google Authentication Error: Please check your Gmail Username & Password..",
+								"error" => $e->errorMessage()
 							));
 							return;
 						} catch (Exception $e) {
@@ -2655,7 +2658,7 @@ public function getPrivillage(){
 								$datacampaign = array(
 									'lmid' => $leadid[$i], 
 									'evagnt' => $this->session -> userdata('empcode'),
-									'email' => $TO,
+									'email' => strtolower($TO),
 									'status' =>'',
 									'fmail' =>$from,
 									'comment' => '',
@@ -3163,6 +3166,96 @@ public function getPrivillage(){
 			
 	
 			$this->load->view('administrator/footer');
+		}
+
+		public function campaign_reuse($offset = 0)
+		{
+			// Pagination Config
+			$config['base_url'] = base_url(). 'administrator/users/';
+			$config['total_rows'] = $this->db->count_all('users');
+			$config['per_page'] = 3;
+			$config['uri_segment'] = 3;
+			$config['attributes'] = array('class' => 'paginate-link');
+
+			// Init Pagination
+			$this->pagination->initialize($config);
+
+			$data['title'] = 'Latest Users';
+			$data['clients'] = $this->Administrator_Model->get_clients();
+			$data['countries'] = $this->Administrator_Model->get_countries();
+			$data['regions'] = $this->Administrator_Model->get_regions();
+			$data['industries'] = $this->Administrator_Model->get_industries();
+			$data['departments'] = $this->Administrator_Model->get_depts();
+			$data['empsize'] = $this->Administrator_Model->get_empsize();
+			$data['revsize'] = $this->Administrator_Model->get_revenuesize();
+			$data['designation'] = $this->Administrator_Model->get_designation();
+			$data['lbound'] = $this->Administrator_Model->get_empsize();
+			$data['ubound'] = $this->Administrator_Model->get_empsize();
+			$data['company'] = $this->Administrator_Model->get_company();
+			$data['revnlbound'] = $this->Administrator_Model->get_revenuesize();
+			$data['revnubound'] = $this->Administrator_Model->get_revenuesize();
+			$data['frequency_type'] = $this->Administrator_Model->get_frequency_type();
+			$data['frequency'] = $this->Administrator_Model->get_frequency();
+			$dcd = $this->input->post('dcd');
+			// print_r($dcd);
+			$levelid = $this->input->post('levelid');
+			// print_r($levelid);die;
+			$ctype = $this->input->post('ctype');
+			// echo $ctype;
+			$sector_id = $this->input->post('sector_id');
+			// $data['users'] = $this->Administrator_Model->get_available_leads(FALSE, $config['per_page'], $offset,$dcd,$ctype,$levelid,$sector_id);
+			$data['leadmaster_dcPending'] = $this->Administrator_Model->get_all_record_leadmasterby_dcPending($dcd,$levelid,$ctype,$sector_id);
+			$data['leadmaster_dcCleared'] = $this->Administrator_Model->get_all_record_leadmasterby_dc($dcd,$levelid,$ctype,$sector_id);
+			$data['leadmaster_dvCleared'] = $this->Administrator_Model->get_all_record_leadmasterby_dv($dcd,$levelid,$ctype,$sector_id);
+			$data['leadmaster_evCleared'] = $this->Administrator_Model->get_all_record_leadmasterby_CDC($dcd,$levelid,$ctype,$sector_id);
+			$data['leadmaster_cdcCleared'] = $this->Administrator_Model->get_all_record_leadmasterby_campaignQA($dcd,$levelid,$ctype,$sector_id);
+			$data['leadmaster_qaCleared'] = $this->Administrator_Model->get_all_record_leadmasterby_QAdone($dcd,$levelid,$ctype,$sector_id);
+			$data['leadmaster_delivered'] = $this->Administrator_Model->get_all_record_leadmasterby_Delivered($dcd,$levelid,$ctype,$sector_id);
+			$data['campaigns'] = $this->Administrator_Model->get_campaign();
+			$data['dcd'] = $dcd;
+			$data['levelid'] = $levelid;
+			$data['sector_id'] = $sector_id;
+			$data['ctype'] = $ctype;
+			$this->load->view('administrator/header-script');
+			$this->load->view('administrator/header');
+			$this->load->view('administrator/header-bottom');
+			$this->load->view('administrator/campaign_reuse', $data);
+			$this->load->view('administrator/footer');
+		}
+
+		public function reuse_campaign($id = '126')
+		{
+			$data['campaign_record'] = $this->Administrator_Model->get_campaign_by_id($id);
+			$data['clients'] = $this->Administrator_Model->get_clients();
+			$data['countries'] = $this->Administrator_Model->get_countries();
+			$data['regions'] = $this->Administrator_Model->get_regions();
+			$data['subregions'] = $this->Administrator_Model->get_subregions();
+			$data['industries'] = $this->Administrator_Model->get_industries();
+			$data['subindustries'] = $this->Administrator_Model->get_subindustries();
+			$data['departments'] = $this->Administrator_Model->get_depts();
+			$data['empsize'] = $this->Administrator_Model->get_empsize();
+			$data['revsize'] = $this->Administrator_Model->get_revenuesize();
+			$data['job_level'] = $this->Administrator_Model->get_designation();
+			$data['designation'] = $this->Administrator_Model->get_sub_designation();
+			$data['lbound'] = $this->Administrator_Model->get_empsize();
+			$data['ubound'] = $this->Administrator_Model->get_empsize();
+			$data['revnlbound'] = $this->Administrator_Model->get_revenuesize();
+			$data['revnubound'] = $this->Administrator_Model->get_revenuesize();
+			$data['frequency_type'] = $this->Administrator_Model->get_frequency_type();
+			$data['frequency'] = $this->Administrator_Model->get_frequency();
+
+			
+			  
+			  if (empty($data['campaign_record'])) {
+				  show_404();
+			  }
+			  $data['title'] = 'Update Campaign';
+  
+			  $this->load->view('administrator/header-script');
+				 $this->load->view('administrator/header');
+				 $this->load->view('administrator/header-bottom');
+				  $this->load->view('administrator/campaign_reuse_new', $data);
+				$this->load->view('administrator/footer');
 		}
 }
 

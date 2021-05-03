@@ -1,4 +1,8 @@
-
+<!-- 
+This form is used when cdc team accepts or rejects of lead coming after email verification
+He can edit form in add-leaddata-cdc form
+Developed by Tejaswi
+-->
 
 <style>
     label.error {
@@ -1883,9 +1887,7 @@ $("input:checkbox").change(function() {
                     {
                         $("#leadupdatecdc").html(response.message);
                         
-					          }
-
-                   
+					          } 
 
                 },
                 error: function (error) {

@@ -1,5 +1,10 @@
 
-
+<!-- This is the page where user can insert new data. he can access this form for one hour.
+once user selects campaign then otp will get genertae and will get sent to users mehp account.
+and the he can insert data 
+This is the short way for CDC team to insert data.
+Below form is  developed by Tejaswi
+-->
 <style>
     label.error {
     color: red;
@@ -126,16 +131,12 @@ $.ajax({
       dataType: 'json',
       success: function(response){
 
-      //    Remove options 
-    //  $('#country_id').find('option').not(':first').remove();
-     
 
       //    Add options
      $.each(response,function(index,data){
-        // $('.questionrow').append('<select><option value="'+data['qid']+'">'+data['questions']+'</option></select');
-       
+     
           index++;
-        // $('.questionrow').html("");
+       
         $('.questionrow').append('<div class="col-sm-6 card ansdiv">'+
                                    '<p><b>'+data['questions']+'</b></p>'+
                                       '<input type="text" value=""  autocomplete = "off" name="aa' + index + '" id="aa' + index + '"  placeholder="Answer for Question 2"  class="form-control form-control-sm ">'+
@@ -200,19 +201,7 @@ $.ajax({
      <?php foreach ($campaigns as $campaign): ?>
      
       <?php endforeach; ?>
-    <!-- <div class="page-header-breadcrumb">
-        <ul class="breadcrumb-title">
-            <li class="breadcrumb-item">
-                <a href="index-2.html">
-                    <i class="icofont icofont-home"></i>
-                </a>
-            </li>
-            <li class="breadcrumb-item"><a href="#!">Data Lead And CDC</a>
-            </li>
-            <li class="breadcrumb-item"><a href="#!">Add Lead</a>
-            </li>
-        </ul>
-    </div> -->
+   
 </div>
 <!-- Page header end -->
 <!-- Page body start -->
@@ -221,19 +210,11 @@ $.ajax({
         <div class="col-sm-12">
             <!-- Basic Form Inputs card start -->
             <div class="card" id="camp_form">
-              <!-- <form id="basic-form" method="POST" enctype="multipart/form-data"> -->
+            
                 <div class="card-header">
                  <div class="form-group row"> 
-                 <!-- <div class="col-sm-3">
-                                <select name="rec_type_id" id="rec_type_id"  class="form-control form-control-sm">
-                                      <option value="1">Data </option>
-                                      <option value="2">CDQA </option>
-                                </select>
-                            </div> -->
-                    
-                       
+                
                   </div>
-           
                 </div>
                 
                 <div class="card-block">
@@ -241,20 +222,9 @@ $.ajax({
                         <div class="validation_errors_alert">
 
                         </div>
-                       
                     </div>
                     <div class="col-sm-12" >
-                        <!-- <?php 
-                        // echo form_open_multipart('campaigns/add_campaign');
-                         ?> -->
-                        <!-- <?php 
-                        // echo form_open_multipart('', array('id' => 'addcampForm')) ?> -->
-                        <!-- <form id="basic-form" method="POST" enctype="multipart/form-data"> -->
-
-                       
-                      
                         <div class="form-group row">
-                           
                             <div class="col-sm-1">
                                  <select name="sal" id="sal"  class="form-control  form-control-sm cdqadisable">
                                       <option value="Mr">Mr.</option>
@@ -278,7 +248,6 @@ $.ajax({
                                 <input type="text"  name="jtitle" id="jtitle"  placeholder="Job Title"  autocomplete = "off" class="form-control form-control-sm cdqadisable">
                             </div>
                             <div class="col-sm-2">
-                                <!-- <select class="js-example-basic-multiple col-sm-12 cdqadisable" multiple="multiple" name="desid[]" id="desid"> -->
                                 <select class="form-control form-control-sm cdqadisable" name="jlevel" id="jlevel" >
                                 <option value="">Job Level</option>
                                 <?php foreach ($joblevel as $joblevel): ?>
@@ -288,7 +257,6 @@ $.ajax({
                                 </select>
                             </div>
                             <div class="col-sm-2">
-                                <!-- <select class="js-example-basic-multiple col-sm-12 cdqadisable" multiple="multiple" name="desid[]" id="desid"> -->
                                 <select class="js-example-basic-single" name="desid" id="desid">
                                 <option value="">Designation</option>
                                 <?php foreach ($designation as $designation): ?>
@@ -296,8 +264,6 @@ $.ajax({
                                 <?php endforeach; ?>  
                                 </select>
                             </div>
-                            
-                           
                         </div>
 
                         <hr>
@@ -335,9 +301,8 @@ $.ajax({
                             </div>
                         
                       </div>
-                            <hr>
+              <hr>
                         <div class="form-group row">
-                             
                               <div class="col-sm-2">
                                <select name="linetype" id="linetype"  class="form-control  form-control-sm cdqadisable">
                                      <option value="0">Line Type</option>
@@ -353,8 +318,6 @@ $.ajax({
                                 <span style='color:#FF0000' id="comp_msg"></span>
                               </div> 
 
-
-
                             <div class="col-sm-2">
                                 <input type="text"  autocomplete = "off" name="address" id="address"  placeholder="Address"  class="form-control form-control-sm cdqadisable">
                            </div>
@@ -368,29 +331,24 @@ $.ajax({
                             <div class="col-sm-2">
                                 <input type="text"  autocomplete = "off" name="zip_code" id="zip_code"  placeholder="Zip Code"  class="form-control form-control-sm cdqadisable">
                            </div>
-                           
-                            
                         </div>
                        <hr>
 
                         <div class="form-group row">
-
-                        <div class="col-sm-2">
-                                     <select class="js-example-basic-single" name="country_id" id="country_id">
-                                     <option value="">Countries</option>
-                                 <?php foreach ($countriesofcampaign as $countriesofcampaign): ?>
-                                    <option value="<?php echo $countriesofcampaign['countrycd']; ?>"  ><?php echo $countriesofcampaign['countryname']; ?></option>
-                                <?php endforeach; ?>
-                                </select>
-                                <span style='color:#FF0000' id="country_id_msg"></span>
-                            </div>
+                          <div class="col-sm-2">
+                                      <select class="js-example-basic-single" name="country_id" id="country_id">
+                                      <option value="">Countries</option>
+                                  <?php foreach ($countriesofcampaign as $countriesofcampaign): ?>
+                                      <option value="<?php echo $countriesofcampaign['countrycd']; ?>"  ><?php echo $countriesofcampaign['countryname']; ?></option>
+                                  <?php endforeach; ?>
+                                  </select>
+                                  <span style='color:#FF0000' id="country_id_msg"></span>
+                              </div>
                             
                             <div class="col-sm-2">
                               <select class="js-example-basic-single"  name="timezone" id="timezone">
                               <option value="">Timezone</option>
-                              <?php //foreach ($timezones as $tz): ?>
-                                    <!-- <option value="<?php //echo $tz['zoneid']; ?>"><?php// echo $tz['zonename']; ?></option> -->
-                                <?php //endforeach; ?> 
+                            
                                 </select>
                                 <span style='color:#FF0000' id="timezone_msg"></span>
                             </div>
@@ -404,13 +362,7 @@ $.ajax({
                                </select>
                            </div>
                            
-                           <!-- <div class="col-sm-2">
-                               <select name="linetype" id="linetype"  class="form-control  form-control-sm cdqadisable">
-                                     <option value="0">unknown</option>
-                                     <option value="1">Direct</option>
-                                     <option value="2">Board</option>  
-                               </select>
-                           </div> -->
+                        
 
                             <!-- toolbar options -->
                             <div id="toolbar-options" class="hidden">
@@ -420,16 +372,15 @@ $.ajax({
 
 
                             <div class="col-sm-2">
-                            <div data-toolbar="user-options"  id="info-toolbar">
-
-                              <select class="js-example-basic-single"  name="industrycd" id="industrycd">
-                              <option value="">Industry</option>
-                              <?php foreach ($industries as $industry): ?>
-                                    <option value="<?php echo $industry['industrycd']; ?>"><?php echo $industry['industry']; ?></option>
-                                <?php endforeach; ?>
-                                </select>
-                                <span style='color:#FF0000' id="industry_id_msg"></span>
-                             </div>
+                                <div data-toolbar="user-options"  id="info-toolbar">
+                                  <select class="js-example-basic-single"  name="industrycd" id="industrycd">
+                                    <option value="">Industry</option>
+                                    <?php foreach ($industries as $industry): ?>
+                                          <option value="<?php echo $industry['industrycd']; ?>"><?php echo $industry['industry']; ?></option>
+                                      <?php endforeach; ?>
+                                  </select>
+                                    <span style='color:#FF0000' id="industry_id_msg"></span>
+                                </div>
                             </div>
                             <div class="col-sm-2">
                             <div data-toolbar="user-options"  id="grow-toolbar">
@@ -480,20 +431,16 @@ $.ajax({
                             <div class="col-sm-2">
                                 <select class="form-control form-control-sm cdqadisable" name="mlbl" id="mlbl">
                                 
-                               
                                     <option value="0">K</option>
-                                    <!-- <option value="1">Hundred Thousand</option> -->
                                     <option value="1">M</option>
                                     <option value="2">B</option>
                                     <option value="3">T</option>
-                                    </select>
+                                 </select>
                             </div>          
                             <div class="col-sm-2">
                                 <select class="form-control form-control-sm cdqadisable" name="curr" id="curr">
                                     <option value="1">USD</option>                                  
-                                <!-- <?php //foreach ($currency as $currency): ?> -->
-                                    <!-- <option value="<?php //echo $currency['currid']; ?>"><?php //echo $currency['currab']; ?></option> -->
-                                <!-- <?php//endforeach; ?> -->
+                                
                                    </select>
                             </div>          
                             <div class="col-sm-2">
@@ -545,67 +492,62 @@ $.ajax({
                         <div class="col-sm-2">
                                 <select class="form-control form-control-sm commentvisible"  name="cvr" id="cvr">
                                     <option value="">Call Verified</option>
-                                    <option value="1"<?php // if(isset($ldmster) && $ldmster['cvr'] == '1'){ echo "selected" ; } ?>>Yes</option>
-                                    <option value="0"<?php //if(isset($ldmster) && $ldmster['cvr'] == '0'){ echo "selected" ; } ?>>No</option>
+                                    <option value="1">Yes</option>
+                                    <option value="0">No</option>
                                 </select>
                             </div>
 
                         <div class="col-sm-2">
-                          <select class="form-control form-control-sm commentvisible"  name="lcalldisp" id="lcalldisp">
-                              <option value="">Call Disposition</option>
-                            
-                              <option value="Voicemail"<?php // if(isset($ldmster) && $ldmster['lcalldisp'] == 'Voicemail'){ echo "selected" ; } ?>>Voicemail</option>
-                              <option value="VM_DBN"<?php // if(isset($ldmster) && $ldmster['lcalldisp'] == 'VM_DBN'){ echo "selected" ; } ?>>VM_DBN</option>
-                              <option value="VM_DIRECT"<?php //if(isset($ldmster) && $ldmster['lcalldisp'] == 'VM_DIRECT'){ echo "selected" ; } ?>>VM_DIRECT</option>
-                              <option value="VM_EXTN"<?php //if(isset($ldmster) && $ldmster['lcalldisp'] == 'VM_EXTN'){ echo "selected" ; } ?>>VM_EXTN</option>
-                              <option value="POC"<?php //if(isset($ldmster) && $ldmster['lcalldisp'] == 'POC'){ echo "selected" ; } ?>>POC</option>
-                              <option value="Assistant CNF"<?php //if(isset($ldmster) && $ldmster['lcalldisp'] == 'Assistant CNF'){ echo "selected" ; } ?>>Assistant CNF</option>
-                              <option value="Assistant VM"<?php //if(isset($ldmster) && $ldmster['lcalldisp'] == 'Assistant VM'){ echo "selected" ; } ?>>Assistant VM</option>
-                              <option value="Assistant Extn"<?php //if(isset($ldmster) && $ldmster['lcalldisp'] == 'Assistant Extn'){ echo "selected" ; } ?>>Assistant Extn</option>
-                              <option value="Operator"<?php //if(isset($ldmster) && $ldmster['lcalldisp'] == 'Operator'){ echo "selected" ; } ?>>Operator</option>
-                              <option value="OPR_CNF"<?php //if(isset($ldmster) && $ldmster['lcalldisp'] == 'OPR_CNF'){ echo "selected" ; } ?>>OPR_CNF</option>
-                              <option value="OPR_VM"<?php //if(isset($ldmster) && $ldmster['lcalldisp'] == 'OPR_VM'){ echo "selected" ; } ?>>OPR_VM</option>
-                              <option value="VM but Prospect Left"<?php// if(isset($ldmster) && $ldmster['lcalldisp'] == 'VM but Prospect Left'){ echo "selected" ; } ?>>VM but Prospect Left</option>
-                              <option value="OPR_NOTFR"<?php //if(isset($ldmster) && $ldmster['lcalldisp'] == 'OPR_NOTFR'){ echo "selected" ; } ?>>OPR_NOTFR</option>
-                              <option value="ONLY EMAIL"<?php //if(isset($ldmster) && $ldmster['lcalldisp'] == 'ONLY EMAIL'){ echo "selected" ; } ?>>ONLY EMAIL</option>
-                              <option value="Lead"<?php //if(isset($ldmster) && $ldmster['lcalldisp'] == 'Lead'){ echo "selected" ; } ?>>Lead</option>
-                              <option value="Half Lead"<?php //if(isset($ldmster) && $ldmster['lcalldisp'] == 'Half Lead'){ echo "selected" ; } ?>>Half Lead</option>
-                          </select>
+                                <select class="form-control form-control-sm commentvisible"  name="lcalldisp" id="lcalldisp">
+                                    <option value="">Call Disposition</option>
+                                  
+                                    <option value="Voicemail">Voicemail</option>
+                                    <option value="VM_DBN">VM_DBN</option>
+                                    <option value="VM_DIRECT">VM_DIRECT</option>
+                                    <option value="VM_EXTN">VM_EXTN</option>
+                                    <option value="POC">POC</option>
+                                    <option value="Assistant CNF">Assistant CNF</option>
+                                    <option value="Assistant VM">Assistant VM</option>
+                                    <option value="Assistant Extn">Assistant Extn</option>
+                                    <option value="Operator">Operator</option>
+                                    <option value="OPR_CNF">OPR_CNF</option>
+                                    <option value="OPR_VM">OPR_VM</option>
+                                    <option value="VM but Prospect Left">VM but Prospect Left</option>
+                                    <option value="OPR_NOTFR">OPR_NOTFR</option>
+                                    <option value="ONLY EMAIL">ONLY EMAIL</option>
+                                    <option value="Lead">Lead</option>
+                                    <option value="Half Lead">Half Lead</option>
+                                </select>
                             </div>
                             <div class="col-sm-2">
                                 <select class="form-control form-control-sm commentvisible"  name="lcallstat" id="lcallstat">
                                     <option value="">Call on hold/call back</option>
-                                    <option value="0"<?php // if(isset($ldmster) && $ldmster['lcallstat'] == '1'){ echo "selected" ; } ?>>Call back</option>
-                                    <option value="2"<?php //(isset($ldmster) && $ldmster['lcallstat'] == '2'){ echo "selected" ; } ?>>complete</option>
+                                    <option value="0">Call back</option>
+                                    <option value="2">complete</option>
                                 </select>
                             </div>
                             <div class="col-sm-2">
                                 <select class="form-control form-control-sm commentvisible"  name="ddispositionclass" id="ddispositionclass">
-                                <!-- <option value="">Disposition Class- In Progress</option> -->
-                                <option value="0" <?php //if(isset($ldmster) && $ldmster['ddispositionclass'] == '0'){ echo "selected" ; } ?>>Disposition Class- Live</option>
-                                    <option value="1" <?php //if(isset($ldmster) && $ldmster['ddispositionclass'] == '1'){ echo "selected" ; } ?>>Dead</option>
+                              
+                                <option value="0">Disposition Class- Live</option>
+                                    <option value="1">Dead</option>
                                 </select>
                             </div>
                             <div class="col-sm-2">
                                 <select class="form-control form-control-sm commentvisible"  name="cdclst" id="cdclst">
                                     <option value="">Lead Score</option>
-                                    <option value="1"<?php // if(isset($ldmster) && $ldmster['cdclst'] == '1'){ echo "selected" ; } ?>>Yes</option>
-                                    <option value="0"<?php // if(isset($ldmster) && $ldmster['cdclst'] == '0'){ echo "selected" ; } ?>>No</option>
+                                    <option value="1">Yes</option>
+                                    <option value="0">No</option>
                                 </select>
                             </div>
                             <div class="col-sm-2">
                                 <select class="form-control form-control-sm commentvisible"  name="callrec" id="callrec">
                                     <option value="">Call Recording</option>
-                                    <option value="1"<?php //if(isset($ldmster) && $ldmster['callrec'] == '1'){ echo "selected" ; } ?>>Yes</option>
-                                    <option value="0"<?php //if(isset($ldmster) && $ldmster['callrec'] == '0'){ echo "selected" ; } ?>>No</option>
+                                    <option value="1">Yes</option>
+                                    <option value="0">No</option>
                                 </select>
                             </div>
-                            
-                          
                        </div>
-
-
-
                           <div class="form-group row optindiv">
                                        
                                        <div class="col-sm-2">
@@ -685,15 +627,6 @@ $.ajax({
         <div class="mail-body-content">
                                         <form>
                                             <div class="form-group row">
-                                               
-                                                <!-- <div class="col-sm-6">
-                                                <select class="form-control form-control-sm cdqadisable" name="" id="">
-                                                    <option value="1">Industry</option>                                  
-                                            
-                                                    <option value="2">Sub Industry</option>
-                                              
-                                                </select>
-                                              </div> -->
                                                 <div class="col-sm-12">
                                                   <input type ="text"  id="search_text" name="search_text" class="form-control form-control-sm" placeholder="Search here...">
                                                 </div>
@@ -718,17 +651,7 @@ $.ajax({
 
      <script>
 
-// function avoidSplChars(e) {  
-//         e = e || window.event;  
-//         var bad = /[^\sa-z\d]/i,  
-//             key = String.fromCharCode(e.keyCode || e.which);  
-//         if (e.which !== 0 && e.charCode !== 0 && bad.test(key)) {  
-//             e.returnValue = false;  
-//             if (e.preventDefault) {  
-//                 e.preventDefault();  
-//             }  
-//         }  
-//     }  
+
 
 $(document).ready(function(){
 	// load_data();
@@ -831,9 +754,6 @@ $('#country_id').change(function(){
           });
 
 
-
-
-
         }
     });
 });
@@ -850,7 +770,7 @@ $('#arevenue').change(function(){
 $('#mlbl').blur(function(){   // revenue range change
 // $('#arevenue').blur(function(){   // revenue range change
  
-var arevenuevalue = $('#arevenue').val();
+  var arevenuevalue = $('#arevenue').val();
 
   var lrevrange = $('#revlbdimmlbl').val(); //lower range  for eg million /billion
   var urevrange = $('#revubdimmlbl').val();
@@ -921,7 +841,7 @@ var arevenuevalue = $('#arevenue').val();
       var m = arevenuevalue*1000000000;
       var urevrangenumber1 = urevrangenumber*1000000000;
       var lrevrangenumber1 = lrevrangenumber*1000000000;
-      // alert(m+" "+lrevrangenumber1+" "+urevrangenumber1);
+     
     
       if(m > parseInt(urevrangenumber1) || m < parseInt(lrevrangenumber1)){
         alert("not in range");
@@ -950,8 +870,7 @@ var arevenuevalue = $('#arevenue').val();
       var m = arevenuevalue*1000000000000;
       var urevrangenumber1 = urevrangenumber*1000000000000;
       var lrevrangenumber1 = lrevrangenumber*1000000000000;
-      // alert(m+" "+lrevrangenumber1+" "+urevrangenumber1);
-    
+     
       if(m > parseInt(urevrangenumber1) || m < parseInt(lrevrangenumber1)){
         alert("not in range");
         $('#arevenue').val("");
@@ -987,22 +906,10 @@ var arevenuevalue = $('#arevenue').val();
       } else if($('#mlbl').val()==3){
         var m = arevenuevalue*1000000000000;
       }
-      // alert(m);
+      
       var urevrangenumber1 = urevrangenumber*1000000;
       var lrevrangenumber1 = lrevrangenumber*1000;
-    // alert("hundred and million");
-            //  var ch = "0"; // thousand
-            //   var ch1 = "1"; // million
-            //   var check = "2"; //billion
-            //   var check2 = "3"; // trillion
-            //   $('select').each(function() {
-            //     $('#mlbl').not(this).find('option[value="' + check2 + '"]').hide();
-            //       $('#mlbl').not(this).find('option[value="' + ch + '"]').prop('disabled', false); 
-            //       $('#mlbl').not(this).find('option[value="' + ch1 + '"]').prop('disabled', false); 
-            //       $('#mlbl').not(this).find('option[value="' + check + '"]').hide();
-            //   });
-
-
+    
 
     }else if(lrevrange == "hundred" && urevrange ==  "billion"){
       if($('#mlbl').val()==0){
@@ -1017,17 +924,7 @@ var arevenuevalue = $('#arevenue').val();
       }
       var urevrangenumber1 = urevrangenumber*1000000000;
       var lrevrangenumber1 = lrevrangenumber*1000;
-    // alert("hundred and billion");
-              // var ch = "0"; // thousand
-              // var ch1 = "1"; // million
-              // var check = "2"; //billion
-              // var check2 = "3"; // trillion
-              // $('select').each(function() {
-              //     $('#mlbl').not(this).find('option[value="' + check2 + '"]').hide();
-              //     $('#mlbl').not(this).find('option[value="' + ch + '"]').prop('disabled', false); 
-              //     $('#mlbl').not(this).find('option[value="' + ch1 + '"]').hide();
-              //     $('#mlbl').not(this).find('option[value="' + check + '"]').prop('disabled', false); 
-              // });
+   
     }else if(lrevrange == "hundred" && urevrange ==  "trillion"){
     
       var urevrangenumber1 = urevrangenumber*1000000000000;
@@ -1042,8 +939,7 @@ var arevenuevalue = $('#arevenue').val();
       } else if($('#mlbl').val()==3){
         var m = arevenuevalue*1000000000000;
       }
-      // alert(m);
-    // alert("hundred and trillion");
+    
     }else if(lrevrange == "million" && urevrange ==  "billion"){
       if($('#mlbl').val()==0){
         var m = arevenuevalue*1000;
@@ -1057,19 +953,7 @@ var arevenuevalue = $('#arevenue').val();
       }
       var urevrangenumber1 = urevrangenumber*1000000000;
       var lrevrangenumber1 = lrevrangenumber*1000000;
-    // alert("million and bllion");
-              // var ch = "0"; // thousand
-              // var ch1 = "1"; // million
-              // var check = "2"; //billion
-              // var check2 = "3"; // trillion
-              // $('select').each(function() {
-              //   $('#mlbl').not(this).find('option[value="' + check2 + '"]').hide();
-              //     $('#mlbl').not(this).find('option[value="' + ch + '"]').hide();
-              //     $('#mlbl').not(this).find('option[value="' + ch1 + '"]').prop('disabled', false); 
-              //     $('#mlbl').not(this).find('option[value="' + check + '"]').prop('disabled', false); 
-              // });
-
-
+   
     } else if(lrevrange == "million" && urevrange ==  "trillion"){
       if($('#mlbl').val()==0){
         var m = arevenuevalue*1000;
@@ -1083,18 +967,7 @@ var arevenuevalue = $('#arevenue').val();
       }
       var urevrangenumber1 = urevrangenumber*1000000000000;
       var lrevrangenumber1 = lrevrangenumber*1000000;
-              // var ch = "0"; // thousand
-              // var ch1 = "1"; // million
-              // var check = "2"; //billion
-              // var check2 = "3"; // trillion
-              // $('select').each(function() {
-              //   $('#mlbl').not(this).find('option[value="' + check2 + '"]').prop('disabled', false);
-              //     $('#mlbl').not(this).find('option[value="' + ch + '"]').hide();
-              //     $('#mlbl').not(this).find('option[value="' + ch1 + '"]').prop('disabled', false); 
-              //     $('#mlbl').not(this).find('option[value="' + check + '"]').hide();
-              // });
-            
-    // alert("million and trillion");
+         
     } else if(lrevrange == "billion" && urevrange ==  "trillion"){
       if($('#mlbl').val()==0){
         var m = arevenuevalue*1000;
@@ -1108,25 +981,14 @@ var arevenuevalue = $('#arevenue').val();
       }
       var urevrangenumber1 = urevrangenumber*1000000000000;
       var lrevrangenumber1 = lrevrangenumber*1000000000;
-      
-      // alert("billion and trillion");
-              // var ch = "0"; // thousand
-              // var ch1 = "1"; // million
-              // var check = "2"; //billion
-              // var check2 = "3"; // trillion
-              // $('select').each(function() {
-              //   $('#mlbl').not(this).find('option[value="' + check2 + '"]').prop('disabled', false);
-              //     $('#mlbl').not(this).find('option[value="' + ch + '"]').hide();
-              //     $('#mlbl').not(this).find('option[value="' + ch1 + '"]').hide();
-              //     $('#mlbl').not(this).find('option[value="' + check + '"]').prop('disabled', false); 
-              // });
+     
     }
-    // alert(m+" "+lrevrangenumber1+" "+urevrangenumber1);
+ 
     if(m > parseInt(urevrangenumber1) || m < parseInt(lrevrangenumber1)){
         alert("not in range");
         $('#arevenue').val("");
       }else{
-        // alert("in range ");
+       
       }
   }
 
@@ -1139,9 +1001,8 @@ var arevenuevalue = $('#arevenue').val();
     var industrycd = $(this).val();
     if (industrycd != '')
     {
-        // $('#subindustrycd').prop('disabled', false);
-    }
-    // alert(sector_id);
+      
+    }  
     // AJAX request
     $.ajax({
         url:'<?php echo base_url("cdc/getIndustry");?>',
@@ -1157,7 +1018,7 @@ var arevenuevalue = $('#arevenue').val();
        $.each(response,function(index,data){
           $('#subindustrycd').append('<option value="'+data['subindustrycd']+'">'+data['subindustry']+'</option>');
         });
-        // $('#industrycd').multiselect("rebuild");
+      
         }
     });
 });
@@ -1198,26 +1059,11 @@ var arevenuevalue = $('#arevenue').val();
             }
             return isValid;
         });
-        // $("#phone").keypress(function (e) {
-        //     var keyCode = e.keyCode || e.which;
- 
-        //     $("#phone_msg").html("");
- 
-        //     //Regex for Valid Characters i.e. Alphabets and Numbers.
-          
-        //     var regex = /^[0-9]+$/;
- 
-        //     //Validate TextBox value against the Regex.
-        //     var isValid = regex.test(String.fromCharCode(keyCode));
-        //     if (!isValid) {
-        //         $("#phone_msg").html("Only Numbers allowed.");
-        //     }
-        //     return isValid;
-        // });
+        
     });
   
   // Check unique Email function // check inclusion and exclusion email in db table
-    // $('.newsletter-signup input:first').on('keyup', function(){ 
+    
     $('.newsletter-signup input:first').focusout(function(){
       var email = $('#email').val();
       var inclistnew = $('#inclistnew').val();
@@ -1238,7 +1084,7 @@ var arevenuevalue = $('#arevenue').val();
         dataType: 'json',
         success: function(response){
           $( '#email_msg' ).html("response");
-          // alert(response.exclusionemail);
+         
           if(response.inclusionemail == "true")
           {
             $("#email_msg").html("");
@@ -1248,8 +1094,7 @@ var arevenuevalue = $('#arevenue').val();
           {
             $("#email_msg").html("Not in Inclusion Email List");
             console.log("false");
-            // $('#email').val("");
-            // return false;	
+           
           }
           else if(response.exclusionemail == "true")
           {
@@ -1459,23 +1304,7 @@ $(document).ready(function() {
             }
 
           });
-      // $('.dnd').change(function()
-      // {
-      //   if ($('#dnd').is(':checked')) {
-      //       $('#optin').val("0");
-      //       $('#opteml').val("0");
-      //       $('#optph').val("0");
-      //       $('#optpst').val("0");
-      //       $('.optoption').hide();   
-      //   }else{
-      //       $('#optin').val("1");
-      //       $('#opteml').val("1");
-      //       $('#optph').val("1");
-      //       $('#optpst').val("1");
-      //       $('.optoption').show();
-               
-      //   };
-      // });
+     
 
       $('.dnd').change(function()
       {
@@ -1510,9 +1339,6 @@ $(document).ready(function() {
       },
       cvr : {
         required: true
-      },
-      ddispositionclass : {
-        // required: true
       },
       callrec : {
         required: true
@@ -1630,23 +1456,11 @@ $(document).ready(function() {
       },
       emailver: {
         required: true
-      },
-      optpst: {
-        // required: true
-      },
-      optph: {
-        // required: true
-      },
-      optin: {
-        // required: true
-      },
-      opteml: {
-        // required: true
       }
      
     },
     submitHandler: function(form) {
-// alert();
+
     },
     messages : {
         company_name: {
@@ -1682,7 +1496,7 @@ $(document).ready(function() {
          
             var campaign_id = $('#campaign_id').val();
             var campaign_idcids = $('#campaign_idcids').val();
-          //  alert(campaign_idcids);
+        
             var sal = $('#sal').val();
             var fname = $('#fname').val();
             var lname = $('#lname').val();
@@ -1734,7 +1548,7 @@ $(document).ready(function() {
               var revszlink = $('#revszlink').val();
             }
         
-// alert(revszlink);
+
             var othrlink = $('#othrlink').val();
             var emailver = $('#emailver').val();
             var aum = $('#aum').val();
@@ -1767,8 +1581,7 @@ $(document).ready(function() {
            
             $.ajax({
                 url :'<?php echo base_url("cdc/ajax_add_new_leadandcdc");?>',
-                type: 'GET', 
-                // contentType: "application/json",
+                type: 'GET',               
                 dataType: 'json',              
                 data: {
                    
@@ -1812,25 +1625,7 @@ $(document).ready(function() {
                     emailver:emailver,
                     aum:aum                 
                     
-                    // assetid:assetid,
-                    // optin:optin,
-                    // optph:optph,
-                    // opteml:opteml,
-                    // optpst:optpst,
-                    // optoption:optoption,
-                    // aa1:aa1,
-                    // aa2:aa2,
-                    // aa3:aa3,
-                    // aa4:aa4,
-                    // aa5:aa5,
-                    // aa6:aa6,
-                    // aa7:aa7,
-                    // aa8:aa8,
-                    // aa9:aa9,
-                    // aa10:aa10,
-                    // aa11:aa11,
-                    // aa12:aa12,
-                    // pcomt:pcomt     
+                       
                     
                     
 				},
@@ -1838,20 +1633,18 @@ $(document).ready(function() {
                 cache: false,
                 success: function(response){
 
-                  // $("#leadsubmit").html("Submitted!");
-                  // $("#leadsubmit").prop('disabled', true);
+                
                   $("#leadsave").hide();
-                  // top.location.href=base_url+"administrator/dashboard";//redirection
+                  
                     var text = response.statusCode;
                     console.log("check");
-                    // var dataResult = JSON.parse(response);
+                   
                     if(response.statusCode == "Success") 
                     {         
-                      // alert("Success in success");               
+                                  
                         $("#leadsubmit").html(response.message);
                         top.location.href=base_url+"cdc/addlead?camp_id="+<?php echo $campaign['cnid']; ?>;//redirection
-                        // $("#addcampbtn").prop('disabled', true);
-                        // top.location.href=base_url+"campaigns/addsuppressionList?camp_id="+response.campaign_id;//redirection
+                     
                     }else if(response.data=="Fail")
                     {
                         $("#leadsubmit").html(response.message);
@@ -1881,7 +1674,7 @@ $(document).ready(function() {
          
             var campaign_id = $('#campaign_id').val();
             var campaign_idcids = $('#campaign_idcids').val();
-            // alert(campaign_idcids);
+          
             var sal = $('#sal').val();
             var fname = $('#fname').val();
             var lname = $('#lname').val();
@@ -2009,46 +1802,22 @@ $(document).ready(function() {
                     emailver:emailver,
                     aum:aum                 
                     
-                    // assetid:assetid,
-                    // optin:optin,
-                    // optph:optph,
-                    // opteml:opteml,
-                    // optpst:optpst,
-                    // optoption:optoption,
-                    // aa1:aa1,
-                    // aa2:aa2,
-                    // aa3:aa3,
-                    // aa4:aa4,
-                    // aa5:aa5,
-                    // aa6:aa6,
-                    // aa7:aa7,
-                    // aa8:aa8,
-                    // aa9:aa9,
-                    // aa10:aa10,
-                    // aa11:aa11,
-                    // aa12:aa12,
-                    // pcomt:pcomt     
+                   
                     
 				},
-        // async: true,
-                // cache: false,
+       
                 success: function(response){
 
-                  // $("#leadsave").html("Saved!");
-                  // $("#leadsave").prop('disabled', true);
-                  // $("#leadsubmit").hide();
-                  // top.location.href=base_url+"administrator/dashboard";//redirection
-                  // var dataResult = JSON.parse(response);
+                 
                     var text = response.statusCode;
                     console.log("check");
                    
                     if(response.statusCode == "Success") 
                     {     
-                      // alert("Success");                   
+                                
                         $("#leadsave").html(response.message);
                         top.location.href=base_url+"cdc/addlead?camp_id="+<?php echo $campaign['cnid']; ?>;//redirection
-                        // $("#addcampbtn").prop('disabled', true);
-                        // top.location.href=base_url+"campaigns/addsuppressionList?camp_id="+response.campaign_id;//redirection
+                      
                     }else if(response.statusCode=="Fail")
                     {
                         $("#leadsave").html(response.message);
@@ -2061,7 +1830,7 @@ $(document).ready(function() {
                 
                 error: function (error) {
                   alert("Error");
-                  // location.reload();
+                  
                   }
               
             });
@@ -2274,32 +2043,26 @@ $(document).ready(function() {
                 cache: false,
                 success: function(response){
                   console.log("Success");
-                  // $("#cdqasubmit").html("Submitted!");
-                  // $("#cdqasubmit").prop('disabled', true);
+                  
                   $("#cdqasave").hide();
-                  // top.location.href=base_url+"administrator/dashboard";//redirection
-                  // console.log(response);
-                  // var respons = JSON.parse(JSON.stringify(response));
-                  // console.log(respons);
+                 
                     if(response.statusCode == "Success") 
                     {        
                           
                         $("#cdqasubmit").html(response.message);
                         top.location.href=base_url+"cdc/addlead?camp_id="+<?php echo $campaign['cnid']; ?>;//redirection
-                        // $("#addcampbtn").prop('disabled', true);
-                        // top.location.href=base_url+"campaigns/addsuppressionList?camp_id="+response.campaign_id;//redirection
+                      
                       } else if(response.statusCode =="Exist")
                       {
                         alert("Record already Exist");
 
-                        // $("#leadsubmit").html(response.message);
+                     
                           
                       }
                       else if(response.statusCode =="plink")
                       {
                         alert("Record already Exist");
 
-                        // $("#leadsubmit").html(response.message);
                           
                       }
 
@@ -2308,8 +2071,7 @@ $(document).ready(function() {
                 },
                 error: function (error) {
                   alert("Error");
-                  // top.location.href=base_url+"cdc/addlead?camp_id="+<?php echo $campaign['cnid']; ?>;//redirection
-                  // location.reload();
+                
                   }
               
             });
@@ -2508,15 +2270,10 @@ $(document).ready(function() {
 
                   console.log("Success");
                   
-
-
-                  // var respons = JSON.parse(JSON.stringify(response));
-                  // var text = respons.statusCode;
-                    // console.log(text);
                   
                     if(response.statusCode == "Success") 
                     {             
-                      // alert("Success");           
+                     
                         $("#cdqasave").html(response.message);
                         top.location.href=base_url+"cdc/addlead?camp_id="+<?php echo $campaign['cnid']; ?>;//redirection
                     }else if(response.statusCode=="Fail")
@@ -2531,7 +2288,7 @@ $(document).ready(function() {
                 error: function (error) {
                   alert("Error");
                   
-                  // location.reload();
+                
               }
               
             });

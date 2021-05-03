@@ -1,4 +1,8 @@
-
+<!-- 
+This is the interface page of lead when users accepts a lead from QA module and sends record for lead generation.
+Here user can access multiple leads at a time and changes the status of leads.
+Developed by Tejaswi
+-->
     <style>
     body
     {

@@ -1,4 +1,8 @@
-
+<!-- Developed by Tejaswi
+Form is is regarding adding a lead with a validations.
+If data id already in leadmaster then we can update lead using this form.
+This is also known as DC form
+-->
 
 <style>
     label.error {
@@ -29,16 +33,7 @@
     right: 15px;
 }
     
-/*     
-      .form-control option:hover {
-          background: pink;
-            
-     box-shadow: 0 0 10px 10px #e1358f inset;
-        }
-        select:focus{
-    border-color: gray;
-    outline:none;
-} */
+
 .tooltips {
   position: relative;
   display: inline-block;
@@ -80,8 +75,6 @@
 }
  </style>
 <script>
-
-
 var base_url = "<?php echo base_url() ?>";
 $(document).ready(function () {
     // Handler for .ready() called.
@@ -113,35 +106,10 @@ $(document).ready(function() {
   if (sbsvtag1 > 0) {
     $('.comt').show();
   }
-
-
   $(".aumdis").attr("disabled", true);   // aum disable
-  $(".ansdiv").hide();   // ans div hide
-  $('.cdqadisplay').hide();
   $('.commentvisible').hide();
-  $('.optindiv').hide();
-    $('#rec_type_id').bind('change', function() {
-     
-        var value = $(this).val();
-        if (value == 2) { // if cdqa is selected
-          $('.commentvisible').show();
-          $('.optindiv').show();
-          $('.cdqadisplay').show();
-          $('.leaddisplay').hide();
-          $(".ansdiv").show(); 
-
-          var campaign_id = $('#campaign_id').val();
-
-         
-        }else{
-          $('.commentvisible').hide();
-          $('.optindiv').hide();
-          $(".ansdiv").hide(); 
-          $('.leaddisplay').show();
-          $('.cdqadisplay').hide();
-            
-        }
-    }).trigger('change');
+  
+  
  
     $('#ctype').bind('change', function() {
       var value = $(this).val();
@@ -162,60 +130,33 @@ $(document).ready(function() {
 <form id="basic-form" method="POST" enctype="multipart/form-data">
 <div class="page-header">
     <div class="page-header-title col-sm-12">
-        <h4>Add Lead</h4> 
-        
-      
+        <h4>Add Lead</h4>
             <div class="form-group row"> 
-               <div class="col-sm-2" style="margin-left: 200px;margin-top: -25px;">
-                                <!-- <select name="rec_type_id" id="rec_type_id"  class="form-control form-control-sm">
-                                      <option value="1">Data </option>
-                                      <option value="2">CDQA </option>
-                                </select> -->
+               <div class="col-sm-2" style="margin-left: 165px;margin-top: -25px;">
+                              
                   </div> 
                 <div class="col-sm-4" style="margin-top: -20px;">
-                <?php foreach ($campaigns as $campaign): ?>
-                 <label class="col-lable"><b>Campaign Name: <?php echo $campaign['campnm']; ?></b></label>
-                 <?php endforeach; ?>
-               
+                    <?php foreach ($campaigns as $campaign): ?>
+                    <label class="col-lable"><b>Campaign Name: <?php echo $campaign['campnm']; ?></b></label>
+                    <?php endforeach; ?>
                 </div> 
                 <div class="col-sm-4" style="margin-top: -25px;">
                       <?php foreach ($leadmaster as $ldmster1){
                         print_r($ldmster1['lmid']);
-                      } 
-                ?>
-     
+                      } ?>
                 </div>
-                
-            </div>   
-                           
+            </div>          
     </div>
-     <?php foreach ($campaigns as $campaign): ?>
-      
-      <?php endforeach;
-      //  print_r($campaign['tid']);
-       
-       ?>
-     <?php// foreach ($designation as $designationss): ?>
-     
-      <?php  
-      // print_r($designationss['jid']); 
-      // $desicamp = explode(' ',$designationss['jid']);
-      // print_r($desicamp); 
-      // print_r(implode(',',$designationss['jid'])); 
-      //  explode(',',$designationss['jid']);
-    
-   // endforeach; ?>
+
+     <?php foreach ($campaigns as $campaign): ?>      
+      <?php endforeach; ?>
 
      <?php foreach ($leadmaster as $ldmster): 
       // print_r($ldmster['dvrejectreason']);
-      $dvrejectreason = explode(',',$ldmster['dvrejectreason']);
-      // print_r($ldmster);
+      $dvrejectreason = explode(',',$ldmster['dvrejectreason']);  
      
       ?>
-     
-      
-      
-   
+    
 </div>
 <!-- Page header end -->
 <!-- Page body start -->
@@ -224,13 +165,9 @@ $(document).ready(function() {
         <div class="col-sm-12">
             <!-- Basic Form Inputs card start -->
             <div class="card" id="camp_form">
-              <!-- <form id="basic-form" method="POST" enctype="multipart/form-data"> -->
                 <div class="card-header">
-                 <div class="form-group row"> 
-                
-                       
+                  <div class="form-group row">       
                   </div>
-           
                 </div>
                 
                 <div class="card-block">
@@ -238,20 +175,12 @@ $(document).ready(function() {
                         <div class="validation_errors_alert">
 
                         </div>
-                       
                     </div>
                     <div class="col-sm-12" >
                         <!-- <?php 
                         // echo form_open_multipart('campaigns/add_campaign');
                          ?> -->
-                        <!-- <?php 
-                        // echo form_open_multipart('', array('id' => 'addcampForm')) ?> -->
-                        <!-- <form id="basic-form" method="POST" enctype="multipart/form-data"> -->
-
-                       
-                      
                         <div class="form-group row">
-                           
                             <div class="col-sm-1">
                                  <select name="sal" id="sal"  class="form-control  form-control-sm cdqadisable">
                                  <option value="Mr">Mr.</option>
@@ -285,19 +214,17 @@ $(document).ready(function() {
                                  ?>">
                             </div>
                             <div class="col-sm-2">
-                                <!-- <select class="js-example-basic-multiple col-sm-12 cdqadisable" multiple="multiple" name="desid[]" id="desid"> -->
                                 <select class="form-control form-control-sm cdqadisable" name="jlevel" id="jlevel">
-                                <option value="">Job Level</option>
-                                <?php foreach ($joblevel as $joblevel): ?>
-                                    <option value="<?php echo $joblevel['joblids']; ?>"  <?php if(isset($ldmster) && $ldmster['jlevel'] == $joblevel['joblids']){ echo "selected" ; } ?> ><?php echo $joblevel['joblevel']; ?></option>
-                                <?php endforeach; ?>  
-                               
+                                  <option value="">Job Level</option>
+                                  <?php foreach ($joblevel as $joblevel): ?>
+                                      <option value="<?php echo $joblevel['joblids']; ?>"  <?php if(isset($ldmster) && $ldmster['jlevel'] == $joblevel['joblids']){ echo "selected" ; } ?> ><?php echo $joblevel['joblevel']; ?></option>
+                                  <?php endforeach; ?>
                                 </select>
                             </div>
                             <div class="col-sm-2 <?php
                                  if(isset($ldmster) && in_array('desid',$dvrejectreason)) { echo "form-bg-inverse" ; } 
                                  ?>">
-                                <!-- <select class="js-example-basic-multiple col-sm-12 cdqadisable" multiple="multiple" name="desid[]" id="desid"> -->
+                             
                                 <select class="js-example-basic-single <?php
                                  if(isset($ldmster) && in_array('desid',$dvrejectreason)) { echo "form-bg-inverse" ; } 
                                  ?>" name="desid" id="desid">
@@ -307,23 +234,21 @@ $(document).ready(function() {
                                 <?php endforeach; ?>  
                                 </select>
                             </div>
-                            
-                           
                         </div>
 
                         <hr>
                         <div class="form-group row">
-                        <div class="col-sm-2  <?php
-                                 if(isset($ldmster) && in_array('dcd',$dvrejectreason)) { echo "form-bg-inverse" ; } 
-                                 ?>">
-                                 <select class="js-example-basic-single <?php
-                                 if(isset($ldmster) && in_array('dcd',$dvrejectreason)) { echo "form-bg-inverse" ; } 
-                                 ?>" name="dcd" id="dcd">
-                                    <option value=""> Department</option>
-                                <?php foreach ($departments as $dept): ?>
-                                    <option value="<?php echo $dept['dcd']; ?>"  <?php if(isset($ldmster) && $ldmster['dname'] == $dept['dcd']){ echo "selected" ; } ?> ><?php echo $dept['department']; ?></option>
-                                <?php endforeach; ?>
-                                </select>
+                          <div class="col-sm-2  <?php
+                                  if(isset($ldmster) && in_array('dcd',$dvrejectreason)) { echo "form-bg-inverse" ; } 
+                                  ?>">
+                                  <select class="js-example-basic-single <?php
+                                  if(isset($ldmster) && in_array('dcd',$dvrejectreason)) { echo "form-bg-inverse" ; } 
+                                  ?>" name="dcd" id="dcd">
+                                      <option value=""> Department</option>
+                                  <?php foreach ($departments as $dept): ?>
+                                      <option value="<?php echo $dept['dcd']; ?>"  <?php if(isset($ldmster) && $ldmster['dname'] == $dept['dcd']){ echo "selected" ; } ?> ><?php echo $dept['department']; ?></option>
+                                  <?php endforeach; ?>
+                                  </select>
                             </div> 
                             <div class="col-sm-2">
                                 <div class="newsletter-signup">
@@ -355,7 +280,6 @@ $(document).ready(function() {
                                  ?>">
                             </div>
                             <div class="col-sm-2">
-                          
                                 <input type="text"  name="plink" id="plink" autocomplete = "off"  placeholder="Prospect Link"  class="form-control form-control-sm 
                                 <?php
                                  if(isset($ldmster) && in_array('plink',$dvrejectreason)) { echo "form-bg-inverse" ; } 
@@ -363,11 +287,9 @@ $(document).ready(function() {
                                
                                 <span style='color:#FF0000' id="url_msg"></span>
                             </div>
-                        
                       </div>
-                            <hr>
+         <hr>
                         <div class="form-group row">
-                             
                               <div class="col-sm-2">
                                <select name="linetype" id="linetype"  class="form-control  form-control-sm cdqadisable <?php
                                  if(isset($ldmster) && in_array('linetype',$dvrejectreason)) { echo "form-bg-inverse" ; } 
@@ -397,20 +319,9 @@ $(document).ready(function() {
                                  ?>"  value ="<?php if(isset($ldmster)){  echo $ldmster['cname']; }?>">
                              <?php  } ?>
 
-
-
-
-
-
-                                <!-- <input type="text"  name="company_name" id="company_name"  
-                                placeholder="Company Name"  class="form-control form-control-sm cdqadisable <?php
-                                 if(isset($ldmster) && in_array('company_name',$dvrejectreason)) { echo "form-bg-inverse" ; } 
-                                 ?>"  value ="<?php if(isset($ldmster)){  echo $ldmster['cname']; }?>"> -->
                                 </div>
                                 <span style='color:#FF0000' id="comp_msg"></span>
                               </div> 
-
-
 
                             <div class="col-sm-2">
                                 <input type="text"  name="address" autocomplete = "off" id="address"  placeholder="Address"  value ="<?php if(isset($ldmster)){  echo $ldmster['address']; }?>"
@@ -437,26 +348,23 @@ $(document).ready(function() {
                                  if(isset($ldmster) && in_array('zip_code',$dvrejectreason)) { echo "form-bg-inverse" ; } 
                                  ?>">
                            </div>
-                           
-                            
                         </div>
                        <hr>
 
                         <div class="form-group row">
-
-                        <div class="col-sm-2 <?php
-                                 if(isset($ldmster) && in_array('country_id',$dvrejectreason)) { echo "form-bg-inverse" ; } 
-                                 ?>">
-                                     <select class="js-example-basic-single <?php
-                                 if(isset($ldmster) && in_array('country_id',$dvrejectreason)) { echo "form-bg-inverse" ; } 
-                                 ?>" name="country_id" id="country_id">
-                                     <option value="">Countries</option>
-                                 <?php foreach ($countriesofcampaign as $countriesofcampaign): ?>
-                                    <option value="<?php echo $countriesofcampaign['countrycd']; ?>" <?php if(isset($ldmster) && $ldmster['country'] == $countriesofcampaign['countrycd']){ echo "selected" ; } ?>  ><?php echo $countriesofcampaign['countryname']; ?></option>
-                                <?php endforeach; ?>
-                                </select>
-                                <span style='color:#FF0000' id="country_id_msg"></span>
-                            </div>
+                            <div class="col-sm-2 <?php
+                                  if(isset($ldmster) && in_array('country_id',$dvrejectreason)) { echo "form-bg-inverse" ; } 
+                                  ?>">
+                                      <select class="js-example-basic-single <?php
+                                  if(isset($ldmster) && in_array('country_id',$dvrejectreason)) { echo "form-bg-inverse" ; } 
+                                  ?>" name="country_id" id="country_id">
+                                      <option value="">Countries</option>
+                                  <?php foreach ($countriesofcampaign as $countriesofcampaign): ?>
+                                      <option value="<?php echo $countriesofcampaign['countrycd']; ?>" <?php if(isset($ldmster) && $ldmster['country'] == $countriesofcampaign['countrycd']){ echo "selected" ; } ?>  ><?php echo $countriesofcampaign['countryname']; ?></option>
+                                  <?php endforeach; ?>
+                                  </select>
+                                  <span style='color:#FF0000' id="country_id_msg"></span>
+                              </div>
                             
                             <div class="col-sm-2 <?php
                                  if(isset($ldmster) && in_array('timezone',$dvrejectreason)) { echo "form-bg-inverse" ; } 
@@ -472,8 +380,6 @@ $(document).ready(function() {
                                  ?>
                                     <option value="<?php echo $tz['zids']; ?>"  <?php if(isset($ldmster) && $ldmster['timez'] == $tz['zids']){ echo "selected" ; } ?>><?php echo $tz['abbrev']; ?></option>
                                 <?php endforeach;  }?>
-                                
-                                
                                 </select>
                                 <span style='color:#FF0000' id="timezone_msg"></span>
                             </div>
@@ -489,10 +395,9 @@ $(document).ready(function() {
                                </select>
                            </div>
                             <!-- toolbar options -->
-                            <div id="toolbar-options" class="hidden">
+                              <div id="toolbar-options" class="hidden">
                                 <a href="#myModalemail" data-target="#myModalemail" data-toggle="modal"><i class="icofont icofont-info-circle"></i></a>
-                               
-                            </div>
+                              </div>
                           
                             <div class="col-sm-2  <?php
                                  if(isset($ldmster) && in_array('industrycd',$dvrejectreason)) { echo "form-bg-inverse" ; } 
@@ -528,18 +433,15 @@ $(document).ready(function() {
                             <div class="col-sm-2">
                                 <select class="form-control form-control-sm cdqadisable <?php
                                  if(isset($ldmster) && in_array('sectyp',$dvrejectreason)) { echo "form-bg-inverse" ; } 
-                                 ?>" name="sectyp" id="sectyp">
-                                  
+                                 ?>" name="sectyp" id="sectyp">                                  
                                     <option value="0">Sector Type</option>
                                     <option value="0"  <?php if(isset($ldmster) && $ldmster['sectyp'] == 0){ echo "selected" ; } ?>>Unknown</option>
                                     <option value="1"  <?php if(isset($ldmster) && $ldmster['sectyp'] == 1){ echo "selected" ; } ?>>Public</option>
                                     <option value="2" <?php if(isset($ldmster) && $ldmster['sectyp'] == 2){ echo "selected" ; } ?>>Private</option>
                                     <option value="3" <?php if(isset($ldmster) && $ldmster['sectyp'] == 3){ echo "selected" ; } ?>>Government</option>
                                     <option value="4" <?php if(isset($ldmster) && $ldmster['sectyp'] == 4){ echo "selected" ; } ?>>Non-Profit </option>
-                               
-                                    </select>
+                               </select>
                             </div>
-
                         </div>
                 <hr>
                     <div class="form-group row">
@@ -551,10 +453,7 @@ $(document).ready(function() {
                                  ?>">
                                 <span class="tooltiptext"> Select range  between <?php echo $campaign['emplbnd']; ?> & <?php echo $campaign['empubnd']; ?></span>
                         </div>
-
-                               
-                                
-                                <span style='color:#FF0000' id="empsize_msg"></span>
+                          <span style='color:#FF0000' id="empsize_msg"></span>
                                
                             </div>
                             <div class="col-sm-2">
@@ -578,8 +477,7 @@ $(document).ready(function() {
                                 
                                
                                     <option value="0" <?php if(isset($ldmster) && $ldmster['mlbl'] == 0){ echo "selected" ; } ?> >K</option>
-                                    <!-- <option value="1">Hundred Thousand</option> -->
-                                    <option value="1" <?php if(isset($ldmster) && $ldmster['mlbl'] == 1){ echo "selected" ; } ?>>M</option>
+                                   <option value="1" <?php if(isset($ldmster) && $ldmster['mlbl'] == 1){ echo "selected" ; } ?>>M</option>
                                     <option value="2"<?php if(isset($ldmster) && $ldmster['mlbl'] == 2){ echo "selected" ; } ?>>B</option>
                                     <option value="3"<?php if(isset($ldmster) && $ldmster['mlbl'] == 3){ echo "selected" ; } ?>>T</option>
                                     </select>
@@ -673,32 +571,7 @@ $(document).ready(function() {
                             </div>  -->
                         </div>
                         <hr>
-                          <!-- <div class="form-group row optindiv">
-                                       
-                                       <div class="col-sm-2">
-                                        Opt - in  <input type="checkbox" value=""  id="optin" name="optin" class="js-single optin"  />
-                                        </div>
-                                        <div class="col-sm-2 optoption">
-                                        Opt - in Post  <input type="checkbox" value="" id="optpst" name="optpst" class="js-single"  />
-                                        </div>
-                                       
-                                        <div class="col-sm-2 optoption">
-                                        Opt - in Phone <input type="checkbox" value=""  id="optph" name="optph" class="js-single"  />
-                                        </div>
-                                        
-                                        <div class="col-sm-2 optoption">
-                                        Opt - in Email <input type="checkbox" value="" id="opteml" name="opteml" class="js-single"  />
-                                        </div>
-                                        <div class="col-sm-2 optoption">
-                                        DND <input type="checkbox" value="" id="dnd" name="dnd" class="js-single dnd"  />
-                                        </div>
-                         </div> -->
-                       
-
-                        <!-- <div class="form-group row questionrow">  
-                         
-                          
-                        </div>  -->
+                     
                         <br>
 
                         
@@ -757,11 +630,7 @@ $(document).ready(function() {
                             </div>
                         <?php } ?>
                         
-                        <!-- <input class="submit" class ="" type="submit" value="SUBMIT"> -->
-                        <!-- below buttons are for cdqa save and submit -->
-                        <!-- <button type="submit" name="submit" class="btn btn-primary cdqadisplay"   id="cdqasubmit">Submit Lead </button> 
-                        <button type="submit" name="submit" class="btn btn-primary cdqadisplay"  id="cdqasave">Save Lead </button> 
-                        -->
+                    
 
                     </div>
                       
@@ -793,27 +662,18 @@ $(document).ready(function() {
         </div>
         <div class="modal-body">
         <div class="mail-body-content">
-                                        <form>
-                                            <div class="form-group row">
-                                               
-                                                <!-- <div class="col-sm-6">
-                                                <select class="form-control form-control-sm cdqadisable" name="" id="">
-                                                    <option value="1">Industry</option>                                  
-                                            
-                                                    <option value="2">Sub Industry</option>
-                                              
-                                                </select>
-                                              </div> -->
-                                                <div class="col-sm-12">
-                                                  <input type ="text"  id="search_text" name="search_text" class="form-control form-control-sm" placeholder="Search here...">
-                                                </div>
-                                            </div>
-                                           
-                                        </form>
-                                        <div id="resultdiv"></div>
-                                        <div style="clear:both"></div>
-		                                    <br />
-                                    </div>
+            <form>
+                <div class="form-group row">                  
+                    <div class="col-sm-12">
+                      <input type ="text"  id="search_text" name="search_text" class="form-control form-control-sm" placeholder="Search here...">
+                    </div>
+                </div>
+                
+            </form>
+         <div id="resultdiv"></div>
+                <div style="clear:both"></div>
+                <br />
+               </div>
         </div>
         <div class="modal-footer">
         <button type="button" id="searchbtn" name ="searchbtn" class="btn btn-primary">Search</button>
@@ -861,19 +721,15 @@ $(document).ready(function(){
 
 $('#empsize').blur(function(){
   var lbound = $('#php_lbound').val();
-  // var lbound = 1;
   var ubound = $('#php_ubound').val();
-  // alert(parseInt(ubound));
   var value = $(this).val();
-  
-  
-  if ( value > parseInt(ubound) || value < parseInt(lbound)) 
- {
-  $("#empsize_msg").html("Not in Range");
-  $(this).val("");
- }else{
-  $("#empsize_msg").html("");
- }
+    if ( value > parseInt(ubound) || value < parseInt(lbound)) 
+    {
+      $("#empsize_msg").html("Not in Range");
+      $(this).val("");
+    }else{
+      $("#empsize_msg").html("");
+    }
 
 
 
@@ -1013,13 +869,13 @@ var arevenuevalue = $('#arevenue').val();
       var m = arevenuevalue*1000000;
       var urevrangenumber1 = urevrangenumber*1000000;
       var lrevrangenumber1 = lrevrangenumber*1000000;
-      // alert(m+" "+lrevrangenumber1+" "+urevrangenumber1);
+     
     
       if(m > parseInt(urevrangenumber1) || m < parseInt(lrevrangenumber1)){
         alert("not in range");
         $('#arevenue').val("");
       }else{
-        // alert("in range");
+      
       }
     }else{
       alert("not in range of Million");
@@ -1070,7 +926,6 @@ var arevenuevalue = $('#arevenue').val();
       var m = arevenuevalue*1000000000000;
       var urevrangenumber1 = urevrangenumber*1000000000000;
       var lrevrangenumber1 = lrevrangenumber*1000000000000;
-      // alert(m+" "+lrevrangenumber1+" "+urevrangenumber1);
     
       if(m > parseInt(urevrangenumber1) || m < parseInt(lrevrangenumber1)){
         alert("not in range");
@@ -1107,21 +962,9 @@ var arevenuevalue = $('#arevenue').val();
       } else if($('#mlbl').val()==3){
         var m = arevenuevalue*1000000000000;
       }
-      // alert(m);
       var urevrangenumber1 = urevrangenumber*1000000;
       var lrevrangenumber1 = lrevrangenumber*1000;
-    // alert("hundred and million");
-            //  var ch = "0"; // thousand
-            //   var ch1 = "1"; // million
-            //   var check = "2"; //billion
-            //   var check2 = "3"; // trillion
-            //   $('select').each(function() {
-            //     $('#mlbl').not(this).find('option[value="' + check2 + '"]').hide();
-            //       $('#mlbl').not(this).find('option[value="' + ch + '"]').prop('disabled', false); 
-            //       $('#mlbl').not(this).find('option[value="' + ch1 + '"]').prop('disabled', false); 
-            //       $('#mlbl').not(this).find('option[value="' + check + '"]').hide();
-            //   });
-
+   
 
 
     }else if(lrevrange == "hundred" && urevrange ==  "billion"){
@@ -1137,17 +980,7 @@ var arevenuevalue = $('#arevenue').val();
       }
       var urevrangenumber1 = urevrangenumber*1000000000;
       var lrevrangenumber1 = lrevrangenumber*1000;
-    // alert("hundred and billion");
-              // var ch = "0"; // thousand
-              // var ch1 = "1"; // million
-              // var check = "2"; //billion
-              // var check2 = "3"; // trillion
-              // $('select').each(function() {
-              //     $('#mlbl').not(this).find('option[value="' + check2 + '"]').hide();
-              //     $('#mlbl').not(this).find('option[value="' + ch + '"]').prop('disabled', false); 
-              //     $('#mlbl').not(this).find('option[value="' + ch1 + '"]').hide();
-              //     $('#mlbl').not(this).find('option[value="' + check + '"]').prop('disabled', false); 
-              // });
+   
     }else if(lrevrange == "hundred" && urevrange ==  "trillion"){
     
       var urevrangenumber1 = urevrangenumber*1000000000000;
@@ -1162,8 +995,7 @@ var arevenuevalue = $('#arevenue').val();
       } else if($('#mlbl').val()==3){
         var m = arevenuevalue*1000000000000;
       }
-      // alert(m);
-    // alert("hundred and trillion");
+    
     }else if(lrevrange == "million" && urevrange ==  "billion"){
       if($('#mlbl').val()==0){
         var m = arevenuevalue*1000;
@@ -1177,17 +1009,7 @@ var arevenuevalue = $('#arevenue').val();
       }
       var urevrangenumber1 = urevrangenumber*1000000000;
       var lrevrangenumber1 = lrevrangenumber*1000000;
-    // alert("million and bllion");
-              // var ch = "0"; // thousand
-              // var ch1 = "1"; // million
-              // var check = "2"; //billion
-              // var check2 = "3"; // trillion
-              // $('select').each(function() {
-              //   $('#mlbl').not(this).find('option[value="' + check2 + '"]').hide();
-              //     $('#mlbl').not(this).find('option[value="' + ch + '"]').hide();
-              //     $('#mlbl').not(this).find('option[value="' + ch1 + '"]').prop('disabled', false); 
-              //     $('#mlbl').not(this).find('option[value="' + check + '"]').prop('disabled', false); 
-              // });
+   
 
 
     } else if(lrevrange == "million" && urevrange ==  "trillion"){
@@ -1203,18 +1025,7 @@ var arevenuevalue = $('#arevenue').val();
       }
       var urevrangenumber1 = urevrangenumber*1000000000000;
       var lrevrangenumber1 = lrevrangenumber*1000000;
-              // var ch = "0"; // thousand
-              // var ch1 = "1"; // million
-              // var check = "2"; //billion
-              // var check2 = "3"; // trillion
-              // $('select').each(function() {
-              //   $('#mlbl').not(this).find('option[value="' + check2 + '"]').prop('disabled', false);
-              //     $('#mlbl').not(this).find('option[value="' + ch + '"]').hide();
-              //     $('#mlbl').not(this).find('option[value="' + ch1 + '"]').prop('disabled', false); 
-              //     $('#mlbl').not(this).find('option[value="' + check + '"]').hide();
-              // });
-            
-    // alert("million and trillion");
+           
     } else if(lrevrange == "billion" && urevrange ==  "trillion"){
       if($('#mlbl').val()==0){
         var m = arevenuevalue*1000;
@@ -1259,9 +1070,9 @@ var arevenuevalue = $('#arevenue').val();
     var industrycd = $(this).val();
     if (industrycd != '')
     {
-        // $('#subindustrycd').prop('disabled', false);
+     
     }
-    // alert(sector_id);
+   
     // AJAX request
     $.ajax({
         url:'<?php echo base_url("cdc/getIndustry");?>',
@@ -1323,7 +1134,7 @@ var arevenuevalue = $('#arevenue').val();
     });
   
   // Check unique Email function // check inclusion and exclusion email in db table
-    // $('.newsletter-signup input:first').on('keyup', function(){ 
+    
       $('.newsletter-signup input:first').focusout(function(){
       var email = $('#email').val();
       var inclistnew = $('#inclistnew').val();
@@ -1344,7 +1155,7 @@ var arevenuevalue = $('#arevenue').val();
         dataType: 'json',
         success: function(response){
           $( '#email_msg' ).html("response");
-          // alert(response.exclusionemail);
+         
           if(response.inclusionemail == "true")
           {
             $("#email_msg").html("");
@@ -1354,8 +1165,7 @@ var arevenuevalue = $('#arevenue').val();
           {
             $("#email_msg").html("Not in Inclusion Email List");
             console.log("false");
-            // $('#email').val("");
-            // return false;	
+         
           }
           else if(response.exclusionemail == "true")
           {
@@ -1491,8 +1301,7 @@ $(document).ready(function() {
 var rlc = 1; //lock 1
 var lmid = $('#lmid').val();
 var emp_id = $('#emp_id').val();
-// alert(emp_id);
-// $this->session -> userdata('email')
+
 if(emp_id === undefined){
   
             window.location = base_url+"administrator/logout";
@@ -1522,7 +1331,7 @@ $.ajax({
                     // var dataResult = JSON.parse(response);
                     if(response.statusCode == "Success") 
                     {         
-                      // alert("Success in success");
+                     
                       console.log("Record is opened/locked now");     
                       
                     }else if(response.data=="Fail")
@@ -1534,7 +1343,7 @@ $.ajax({
   });
 }else{
   alert("record already opened");
-  // top.location.href=base_url+"cdc/selectCampaignforlead";//redirection
+ 
 }
 
 
@@ -1545,52 +1354,8 @@ if(lmid == undefined){
 
 }
  
-  $('.commentvisible').hide();
-  // $('.revsizehide').hide();
-
-  $('.leaddisplay').show(); //buttons
-  $('.cdqadisplay').hide();//buttons
-  // load questions of campaign on load 
-  $('.optoption').hide();
-    
-    $('.optin').change(function()
-      {
-        if ($('#optin').is(':checked')) {
-            $('#optin').val("1");
-            $('#opteml').val("1");
-            $('#optph').val("1");
-            $('#optpst').val("1");
-            $('.optoption').show();
-          
-               
-        }else{
-            $('#optin').val("0");
-            $('#opteml').val("0");
-            $('#optph').val("0");
-            $('#optpst').val("0");
-            $('.optoption').hide();
-               
-        };
-      });
-      $('.dnd').change(function()
-      {
-        if ($('#dnd').is(':checked')) {
-            $('#optin').val("0");
-            $('#opteml').val("0");
-            $('#optph').val("0");
-            $('#optpst').val("0");
-            $('.optoption').hide();   
-        }else{
-            $('#optin').val("1");
-            $('#opteml').val("1");
-            $('#optph').val("1");
-            $('#optpst').val("1");
-            $('.optoption').show();
-               
-        };
-      });
-
-
+  $('.commentvisible').hide(); 
+  $('.optoption').hide(); 
   $("#basic-form").validate({
     rules: {
         sal : {
@@ -1676,11 +1441,7 @@ if(lmid == undefined){
       },
       aum: {
         number: true
-      },
-      // empsize: {
-      //   required: true,
-      //   number: true
-      // },
+      },     
       email: {
         required: true,
         email: true
@@ -1711,23 +1472,12 @@ if(lmid == undefined){
       },
       emailver: {
         required: true
-      },
-      optpst: {
-        // required: true
-      },
-      optph: {
-        // required: true
-      },
-      optin: {
-        // required: true
-      },
-      opteml: {
-        // required: true
       }
+      
      
     },
     submitHandler: function(form) {
-// alert();
+
     },
     messages : {
         company_name: {
@@ -1767,14 +1517,14 @@ if(lmid == undefined){
             exit;
           }
           if(empid == ''){
-            // alert("Null");
+         
             window.location = base_url+"administrator/logout";
             exit;
           }
-          //  alert(empid);
+        
             var campaign_id = $('#campaign_id').val();
             var campaign_idcids = $('#campaign_idcids').val();
-          //  alert(campaign_idcids);
+        
             var sal = $('#sal').val();
             var fname = $('#fname').val();
             var lname = $('#lname').val();
@@ -1826,37 +1576,19 @@ if(lmid == undefined){
               var revszlink = $('#revszlink').val();
             }
         
-// alert(revszlink);
+
             var othrlink = $('#othrlink').val();
             var emailver = $('#emailver').val();
             var aum = $('#aum').val();
             var assetid = $('#assetid').val();
             
-            var optin = $('#optin').val();
-            var optpst = $('#optpst').val();
-            var opteml = $('#opteml').val();
-            var optph = $('#optph').val();
-            var optoption = $('#optoption').val();
-
-            var aa1 = $('#aa1').val();
-            var aa2 = $('#aa2').val();
-            var aa3 = $('#aa3').val();
-            var aa4 = $('#aa4').val();
-            var aa5 = $('#aa5').val();
-            var aa6 = $('#aa6').val();
-            var aa7 = $('#aa7').val();
-            var aa8 = $('#aa8').val();
-            var aa9 = $('#aa9').val();
-            var aa10 = $('#aa10').val();
-            var aa11 = $('#aa11').val();
-            var aa12 = $('#aa12').val();
-          
+           
             
            
             if(fname != "" && lname != "" && company_name != "" && jlevel != "" && jtitle != "" && desid != "" && dcd !="" && email != "" && phone !="" && plink !="" && address != "" && city != "" && state != ""  && country_id != "" && industrycd != "" && subindustrycd != "" && empsize != "" && domain !=""  && empszlink != "" && revszlink != ""  && zip_code !="" ){
            
             var url = encodeURI("<?php echo base_url("cdc/ajax_add_new_leaddata");?>");
-            console.log(url+"?campaign_id="+campaign_id+"&sal="+sal+"&fname="+fname+"&lname="+lname+"&jtitle="+jtitle+"&desid="+desid+"&jlevel="+jlevel+"&dcd="+dcd+"&email="+email+"&phone="+phone+"&altphn="+altphn+"&phext="+phext+"&plink="+plink+"&company_name="+company_name+"&address="+address+"&city="+city+"&state="+state+"&zip_code="+zip_code+"&country_id="+country_id+"&timezone="+timezone+"&ctype="+ctype+"&linetype="+linetype+"&industrycd="+industrycd+"&subindustrycd="+subindustrycd+"&sectyp="+sectyp+"&empsize="+empsize+"&mlbl="+mlbl+"&curr="+curr+"&arevenue="+arevenue+"&empszlink="+empszlink+"&indlink="+indlink+"&domain="+domain+"&othrlink="+othrlink+"&revszlink="+revszlink+"&emailver="+emailver+"&aum="+aum+"&assetid="+assetid+"&optin="+optin+"&optpst="+optpst+"&optph="+optph+"&opteml="+opteml+"&optoption="+optoption+"&aa1="+aa1+"&aa2="+aa2+"&aa3="+aa3+"&aa4="+aa4+"&aa5="+aa5+"&aa6="+aa6+"&aa7="+aa7+"&aa8="+aa8+"&aa9="+aa9+"&aa10="+aa10+"&aa11="+aa11+"&aa12="+aa12+"&pcomt="+pcomt);
+            console.log(url+"?campaign_id="+campaign_id+"&sal="+sal+"&fname="+fname+"&lname="+lname+"&jtitle="+jtitle+"&desid="+desid+"&jlevel="+jlevel+"&dcd="+dcd+"&email="+email+"&phone="+phone+"&altphn="+altphn+"&phext="+phext+"&plink="+plink+"&company_name="+company_name+"&address="+address+"&city="+city+"&state="+state+"&zip_code="+zip_code+"&country_id="+country_id+"&timezone="+timezone+"&ctype="+ctype+"&linetype="+linetype+"&industrycd="+industrycd+"&subindustrycd="+subindustrycd+"&sectyp="+sectyp+"&empsize="+empsize+"&mlbl="+mlbl+"&curr="+curr+"&arevenue="+arevenue+"&empszlink="+empszlink+"&indlink="+indlink+"&domain="+domain+"&othrlink="+othrlink+"&revszlink="+revszlink+"&emailver="+emailver+"&aum="+aum+"&assetid="+assetid+"&pcomt="+pcomt);
            
             $.ajax({
                 url :'<?php echo base_url("cdc/ajax_add_new_leaddata");?>',
@@ -1929,15 +1661,11 @@ if(lmid == undefined){
                     else if(response.statusCode =="Exist")
                     {
                       alert("Record already Exist");
-
-                      // $("#leadsubmit").html(response.message);
                         
 					          }
                     else if(response.statusCode =="plink")
                     {
                       alert("Record already Exist");
-
-                      // $("#leadsubmit").html(response.message);
                         
 					          }
 
@@ -1967,7 +1695,7 @@ if(lmid == undefined){
             exit;
           }
           if(empid == ''){
-            // alert("Null");
+       
             window.location = base_url+"administrator/logout";
             exit;
           }
@@ -1984,7 +1712,7 @@ if(lmid == undefined){
             var sbsvtag = parseInt(sbsvtag1)+1; // incremataion
             var lmid = $('#lmid').val();
            
-          //  alert(sbsvtag);
+     
 
             var sal = $('#sal').val();
             var fname = $('#fname').val();
@@ -2039,30 +1767,13 @@ if(lmid == undefined){
               var revszlink = $('#revszlink').val();
             }
         
-// alert(revszlink);
+
             var othrlink = $('#othrlink').val();
             var emailver = $('#emailver').val();
             var aum = $('#aum').val();
             var assetid = $('#assetid').val();
             
-            var optin = $('#optin').val();
-            var optpst = $('#optpst').val();
-            var opteml = $('#opteml').val();
-            var optph = $('#optph').val();
-            var optoption = $('#optoption').val();
-
-            var aa1 = $('#aa1').val();
-            var aa2 = $('#aa2').val();
-            var aa3 = $('#aa3').val();
-            var aa4 = $('#aa4').val();
-            var aa5 = $('#aa5').val();
-            var aa6 = $('#aa6').val();
-            var aa7 = $('#aa7').val();
-            var aa8 = $('#aa8').val();
-            var aa9 = $('#aa9').val();
-            var aa10 = $('#aa10').val();
-            var aa11 = $('#aa11').val();
-            var aa12 = $('#aa12').val();
+            
 
             var dvsbtg = $('#dvsbtg').val();
             var dvrejtg = $('#dvrejtg').val();
@@ -2071,7 +1782,7 @@ if(lmid == undefined){
            
             if(fname != "" && lname != "" && company_name != ""  && jtitle != "" && desid != "" && dcd !="" && email != "" && phone !="" && plink !="" && address != "" && city != "" && state != ""  && country_id != "" && industrycd != "" && subindustrycd != "" && empsize != "" && domain !=""  && empszlink != "" && revszlink != ""  && zip_code !="" ){
             var url = encodeURI("<?php echo base_url("cdc/ajax_update_leaddata");?>");
-            console.log(url+"?campaign_id="+campaign_id+"&lmid="+lmid+"&campaign_idcids="+campaign_idcids+"&sbsvtag="+sbsvtag+"&sal="+sal+"&fname="+fname+"&lname="+lname+"&jtitle="+jtitle+"&desid="+desid+"&jlevel="+jlevel+"&dcd="+dcd+"&email="+email+"&phone="+phone+"&altphn="+altphn+"&phext="+phext+"&plink="+plink+"&company_name="+company_name+"&address="+address+"&city="+city+"&state="+state+"&zip_code="+zip_code+"&country_id="+country_id+"&timezone="+timezone+"&ctype="+ctype+"&linetype="+linetype+"&industrycd="+industrycd+"&subindustrycd="+subindustrycd+"&sectyp="+sectyp+"&empsize="+empsize+"&mlbl="+mlbl+"&curr="+curr+"&arevenue="+arevenue+"&empszlink="+empszlink+"&indlink="+indlink+"&domain="+domain+"&othrlink="+othrlink+"&revszlink="+revszlink+"&emailver="+emailver+"&aum="+aum+"&assetid="+assetid+"&optin="+optin+"&optpst="+optpst+"&optph="+optph+"&opteml="+opteml+"&optoption="+optoption+"&aa1="+aa1+"&aa2="+aa2+"&aa3="+aa3+"&aa4="+aa4+"&aa5="+aa5+"&aa6="+aa6+"&aa7="+aa7+"&aa8="+aa8+"&aa9="+aa9+"&aa10="+aa10+"&aa11="+aa11+"&aa12="+aa12+"&pcomt="+pcomt);
+            console.log(url+"?campaign_id="+campaign_id+"&lmid="+lmid+"&campaign_idcids="+campaign_idcids+"&sbsvtag="+sbsvtag+"&sal="+sal+"&fname="+fname+"&lname="+lname+"&jtitle="+jtitle+"&desid="+desid+"&jlevel="+jlevel+"&dcd="+dcd+"&email="+email+"&phone="+phone+"&altphn="+altphn+"&phext="+phext+"&plink="+plink+"&company_name="+company_name+"&address="+address+"&city="+city+"&state="+state+"&zip_code="+zip_code+"&country_id="+country_id+"&timezone="+timezone+"&ctype="+ctype+"&linetype="+linetype+"&industrycd="+industrycd+"&subindustrycd="+subindustrycd+"&sectyp="+sectyp+"&empsize="+empsize+"&mlbl="+mlbl+"&curr="+curr+"&arevenue="+arevenue+"&empszlink="+empszlink+"&indlink="+indlink+"&domain="+domain+"&othrlink="+othrlink+"&revszlink="+revszlink+"&emailver="+emailver+"&aum="+aum+"&assetid="+assetid+"&pcomt="+pcomt);
            
             $.ajax({
                 url :'<?php echo base_url("cdc/ajax_update_leaddata");?>',
@@ -2137,7 +1848,7 @@ if(lmid == undefined){
         async: true,
                 cache: false,
                 success: function(response){
-                    // $("#leadsave").hide();
+               
                     var text = response.statusCode;
                     console.log("check");
                     if(response.statusCode == "Success") 
@@ -2155,14 +1866,13 @@ if(lmid == undefined){
                     {
                       alert("Record already Exist");
 
-                      // $("#leadsubmit").html(response.message);
+                
                         
 					          }
                     else if(response.statusCode =="plink")
                     {
                       alert("Record already Exist");
 
-                      // $("#leadsubmit").html(response.message);
                         
 					          }
 
@@ -2211,17 +1921,6 @@ if(lmid == undefined){
             var jtitle = $('#jtitle').val();
             var desid = $('#desid').val();
             var jlevel = $('#jlevel').val();
-
-
-          //   var sbsvtag1 = $('#sbsvtag').val();
-          //   // var sbsvtag = parseInt(sbsvtag1)+1; // incremataion
-           
-          //  if(sbsvtag1 == undefined){
-          //   var sbsvtag = "";
-          //  }else{
-          //   var sbsvtag = parseInt(sbsvtag1)+1; // incremataion
-          //  }
-          //  alert(sbsvtag);
            
             var dcd = $('#dcd').val();
             var email = $('#email').val();
@@ -2270,38 +1969,16 @@ if(lmid == undefined){
               var revszlink = $('#revszlink').val();
             }
         
-// alert(revszlink);
             var othrlink = $('#othrlink').val();
             var emailver = $('#emailver').val();
             var aum = $('#aum').val();
             var assetid = $('#assetid').val();
-            
-            var optin = $('#optin').val();
-            var optpst = $('#optpst').val();
-            var opteml = $('#opteml').val();
-            var optph = $('#optph').val();
-            var optoption = $('#optoption').val();
-
-            var aa1 = $('#aa1').val();
-            var aa2 = $('#aa2').val();
-            var aa3 = $('#aa3').val();
-            var aa4 = $('#aa4').val();
-            var aa5 = $('#aa5').val();
-            var aa6 = $('#aa6').val();
-            var aa7 = $('#aa7').val();
-            var aa8 = $('#aa8').val();
-            var aa9 = $('#aa9').val();
-            var aa10 = $('#aa10').val();
-            var aa11 = $('#aa11').val();
-            var aa12 = $('#aa12').val();
-          
-            
            
             if(fname != "" && lname != "" && company_name != ""  && jtitle != "" && desid != "" && dcd !="" && email != "" && phone !="" && plink !="" && address != "" && city != "" && state != ""  && country_id != "" && industrycd != "" && subindustrycd != "" && empsize != "" && domain !=""  && empszlink != "" && revszlink != ""  && zip_code !="" ){
            
 
             var url = encodeURI("<?php echo base_url("cdc/ajax_save_leaddata");?>");
-            console.log(url+"?campaign_idcids="+campaign_idcids+"&lmid="+lmid+"&campaign_id="+campaign_id+"&sal="+sal+"&fname="+fname+"&lname="+lname+"&jtitle="+jtitle+"&desid="+desid+"&jlevel="+jlevel+"&dcd="+dcd+"&email="+email+"&phone="+phone+"&altphn="+altphn+"&phext="+phext+"&plink="+plink+"&company_name="+company_name+"&address="+address+"&city="+city+"&state="+state+"&zip_code="+zip_code+"&country_id="+country_id+"&timezone="+timezone+"&ctype="+ctype+"&linetype="+linetype+"&industrycd="+industrycd+"&subindustrycd="+subindustrycd+"&sectyp="+sectyp+"&empsize="+empsize+"&mlbl="+mlbl+"&curr="+curr+"&arevenue="+arevenue+"&empszlink="+empszlink+"&indlink="+indlink+"&domain="+domain+"&othrlink="+othrlink+"&revszlink="+revszlink+"&emailver="+emailver+"&aum="+aum+"&assetid="+assetid+"&optin="+optin+"&optpst="+optpst+"&optph="+optph+"&opteml="+opteml+"&optoption="+optoption+"&aa1="+aa1+"&aa2="+aa2+"&aa3="+aa3+"&aa4="+aa4+"&aa5="+aa5+"&aa6="+aa6+"&aa7="+aa7+"&aa8="+aa8+"&aa9="+aa9+"&aa10="+aa10+"&aa11="+aa11+"&aa12="+aa12+"&pcomt="+pcomt);
+            console.log(url+"?campaign_idcids="+campaign_idcids+"&lmid="+lmid+"&campaign_id="+campaign_id+"&sal="+sal+"&fname="+fname+"&lname="+lname+"&jtitle="+jtitle+"&desid="+desid+"&jlevel="+jlevel+"&dcd="+dcd+"&email="+email+"&phone="+phone+"&altphn="+altphn+"&phext="+phext+"&plink="+plink+"&company_name="+company_name+"&address="+address+"&city="+city+"&state="+state+"&zip_code="+zip_code+"&country_id="+country_id+"&timezone="+timezone+"&ctype="+ctype+"&linetype="+linetype+"&industrycd="+industrycd+"&subindustrycd="+subindustrycd+"&sectyp="+sectyp+"&empsize="+empsize+"&mlbl="+mlbl+"&curr="+curr+"&arevenue="+arevenue+"&empszlink="+empszlink+"&indlink="+indlink+"&domain="+domain+"&othrlink="+othrlink+"&revszlink="+revszlink+"&emailver="+emailver+"&aum="+aum+"&assetid="+assetid+"&pcomt="+pcomt);
            
             $.ajax({
                 url :'<?php echo base_url("cdc/ajax_save_leaddata");?>',
@@ -2312,7 +1989,7 @@ if(lmid == undefined){
                   campaign_id: campaign_id,
                   campaign_idcids: campaign_idcids,
                   lmid: lmid,
-                  // sbsvtag :sbsvtag,
+               
                     sal:sal,
                     fname:fname,
                     lname: lname,
@@ -2366,8 +2043,7 @@ if(lmid == undefined){
                       // alert("Success");                   
                         $("#leadsave").html(response.message);
                         top.location.href=base_url+"cdc/addleaddata?camp_id="+<?php echo $campaign['cnid']; ?>;//redirection
-                        // $("#addcampbtn").prop('disabled', true);
-                        // top.location.href=base_url+"campaigns/addsuppressionList?camp_id="+response.campaign_id;//redirection
+                        
                     }else if(response.statusCode=="Fail")
                     {
                         $("#leadsave").html(response.message);
@@ -2376,15 +2052,11 @@ if(lmid == undefined){
                     {
                       alert("Record already Exist");
 
-                      // $("#leadsubmit").html(response.message);
-                        
 					          }
                     else if(response.statusCode =="plink")
                     {
                       alert("Record already Exist");
 
-                      // $("#leadsubmit").html(response.message);
-                        
 					          }
 
                    
@@ -2393,7 +2065,7 @@ if(lmid == undefined){
                 
                 error: function (error) {
                   alert("Error");
-                  // location.reload();
+              
                   }
               
             });
@@ -2402,4 +2074,4 @@ if(lmid == undefined){
         }
         });
     });
-</script>     
+</script>   

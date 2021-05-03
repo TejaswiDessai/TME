@@ -19,9 +19,7 @@
                 <a class="mobile-menu" id="mobile-collapse" href="#!">
                     <i class="ti-menu"></i>
                 </a>
-                <a class="mobile-search morphsearch-search" href="#">
-                    <i class="ti-search"></i>
-                </a>
+                
                 <a href="<?php echo base_url(); ?>administrator/dashboard">
                  
                          <img class="img-fluid" width="200" src="<?php echo base_url(); ?>assets/images/4wmkfa.gif" alt="Theme-Logo" />
@@ -39,12 +37,7 @@
                                 <i class="ti-menu"></i>
                             </a>
                         </li>
-                       <!-- <li>
-                            <a class="main-search morphsearch-search" href="#">
-                                 themify icon 
-                                <i class="ti-search"></i>
-                            </a>
-                        </li> -->
+                      
                         <li>
                             <a href="#!" onclick="javascript:toggleFullScreen()">
                                 <i class="ti-fullscreen"></i>
@@ -56,11 +49,7 @@
                       
                         <li class="user-profile header-notification">
                             <a href="#!">
-                            <!-- <?php //if($this->session->userdata('image')){ ?>
-                                <img src="<?php //echo base_url(); ?>assets/images/<?php //echo $this->session->userdata('image'); ?>" alt="User-Profile-Image" style="border-radius: 25px;">
-                            <?php// }else{ ?>
-                                <img src="<?php //echo base_url(); ?>admintemplate/assets/images/user.png" alt="User-Profile-Image">
-                            <?php //} ?> -->
+                           
                                 <span><?php echo $this->session->userdata('username'); ?></span>
                                 <i class="ti-angle-down"></i>
                             </a>
@@ -77,16 +66,7 @@
                                         <i class="ti-lock"></i> Change Password
                                     </a>
                                 </li>
-                                <!-- <li>
-                                    <a href="<?php echo base_url(); ?>administrator/inbox">
-                                        <i class="ti-email"></i> My Messages
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="<?php echo base_url(); ?>administrator/settings">
-                                        <i class="ti-settings"></i> Settings
-                                    </a>
-                                </li> -->
+                               
                                 <li>
                                     <a href="<?php echo base_url(); ?>administrator/logout">
                                         <i class="ti-layout-sidebar-left"></i> Logout

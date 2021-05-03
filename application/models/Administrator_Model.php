@@ -1921,13 +1921,11 @@ public function get_leadmasterby_campaignQA($id = FALSE)
 	if(isset($leadrectype) && $leadrectype == "new"){
 		$this->db->where('leadmaster.cdcsb <', '4');
 		$this->db->where('leadmaster.cdcrjt <', '4');
-		// $this->db->where('cdcsv !=', 0);
 		$this->db->where('leadmaster.cdcsv', NULL);
 		$this->db->where('leadmaster.qasv', NULL);
 		$this->db->where('leadmaster.sbsvtag !=', 0);
 		$this->db->where('leadmaster.dnd !=', '1');
 		$this->db->where('leadmaster.lsagent',NULL);
-		// $this->db->where('leadmaster.cdclst', 0);
 		$this->db->group_start();
 		$this->db->where('leadmaster.cdclst', 0);
 		$this->db->OR_where('leadmaster.cdclst', NULL);
@@ -2003,8 +2001,7 @@ public function get_leadmasterby_campaignQA($id = FALSE)
 	
 	// echo $this->db->last_query(); 
 	
-	// die;
-	// return $data=$query->result_array();
+	
 		return $query->result_array();
 	}
 	public function get_leadmasterby_campaign_lead_generation_with_rlc_lock($id = FALSE,$postDatalmid)
@@ -2013,40 +2010,37 @@ public function get_leadmasterby_campaignQA($id = FALSE)
 		
 	$this->db->where('cdcsb <', '4');
 	$this->db->where('cdcrjt <', '4');
-	// $this->db->where('cdcsv !=', 0);
 	$this->db->where('cdcsv', NULL);
 	$this->db->where('qasv', NULL);
 	$this->db->where('sbsvtag !=', 0);
 	$this->db->where('dnd !=', '1');
-	// $this->db->where('cdclst', 0);
 		$this->db->group_start();
 			$this->db->where('cdclst', 0);
 			$this->db->OR_where('cdclst', NULL);
 		$this->db->group_end(); 
 	$this->db->where('cvr', 1);
 	if(isset($postDatalmid)){
-		// $this->db->where('cids', $camp_id2);	
+		
 		$this->db->where('lmid', $postDatalmid);
 		$this->db->where('rlc =', 1);	
 	}else{
 		$this->db->where('rlc !=', 1);
 	}
 	
-	// $this->db->where('rlc !=', 1);
+	
 	$this->db->where('qalsload', 1);
 			$this->db->group_start();
 			$this->db->where('lsfinal', '0');
 			$this->db->OR_where('lsfinal', NULL);
 			$this->db->group_end(); 
-	// $this->db->where('lsfinal !=', 1);
+	
 
 	
 	$this->db->order_by('qaacptdti','ASC');
 	$this->db->limit(1);
 	$query = $this->db->get_where('leadmaster', array('cids' => $id));
 	// echo $this->db->last_query(); 
-	// echo $string;
-	// die;
+	
 
 		return $query->result_array();
 	}

@@ -410,88 +410,88 @@ $(document).ready(function() {
     // /*chatbar js end*/
 
     //Language chage dropdown start
-    i18next.use(window.i18nextXHRBackend).init({
-                debug: !1,
-                fallbackLng: !1,
-                backend: {
-                    loadPath: "assets/locales/{{lng}}/{{ns}}.json"
-                },
-                returnObjects: !0
-            },
-            function(err, t) {
-                jqueryI18next.init(i18next, $)
-            }),
-        $(".lng-dropdown a").on("click", function() {
+    // i18next.use(window.i18nextXHRBackend).init({
+    //             debug: !1,
+    //             fallbackLng: !1,
+    //             backend: {
+    //                 loadPath: "assets/locales/{{lng}}/{{ns}}.json"
+    //             },
+    //             returnObjects: !0
+    //         },
+    //         function(err, t) {
+    //             jqueryI18next.init(i18next, $)
+    //         }),
+    //     $(".lng-dropdown a").on("click", function() {
 
-            var $this = $(this),
-                selected_lng = $this.data("lng");
-            i18next.changeLanguage(selected_lng, function(err, t) {
-                    $(".main-menu-content").localize()
-                }),
-                $this.parent("li").siblings("li").children("a").removeClass("active"), $this.addClass("active"), $(".lng-dropdown a").removeClass("active");
-            var drop_lng = $('.lng-dropdown a[data-lng="' + selected_lng + '"]').addClass("active");
-            $(".lng-dropdown #dropdown-active-item").html(drop_lng.html())
-        })
+    //         var $this = $(this),
+    //             selected_lng = $this.data("lng");
+    //         i18next.changeLanguage(selected_lng, function(err, t) {
+    //                 $(".main-menu-content").localize()
+    //             }),
+    //             $this.parent("li").siblings("li").children("a").removeClass("active"), $this.addClass("active"), $(".lng-dropdown a").removeClass("active");
+    //         var drop_lng = $('.lng-dropdown a[data-lng="' + selected_lng + '"]').addClass("active");
+    //         $(".lng-dropdown #dropdown-active-item").html(drop_lng.html())
+    //     })
         //Language chage dropdown end
 });
 
 /* Search header start */
-(function() {
-    var isAnimating;
-    var morphSearch = document.getElementById('morphsearch'),
-        input = morphSearch.querySelector('input.morphsearch-input'),
-        ctrlClose = morphSearch.querySelector('span.morphsearch-close'),
-        isOpen = isAnimating = false,
-        isHideAnimate = morphsearch.querySelector('.morphsearch-form'),
-        // show/hide search area
-        toggleSearch = function(evt) {
-            // return if open and the input gets focused
-            if (evt.type.toLowerCase() === 'focus' && isOpen) return false;
+// (function() {
+//     var isAnimating;
+//     var morphSearch = document.getElementById('morphsearch'),
+//         input = morphSearch.querySelector('input.morphsearch-input'),
+//         ctrlClose = morphSearch.querySelector('span.morphsearch-close'),
+//         isOpen = isAnimating = false,
+//         isHideAnimate = morphsearch.querySelector('.morphsearch-form'),
+//         // show/hide search area
+//         toggleSearch = function(evt) {
+//             // return if open and the input gets focused
+//             if (evt.type.toLowerCase() === 'focus' && isOpen) return false;
 
-            var offsets = morphsearch.getBoundingClientRect();
-            if (isOpen) {
-                classie.remove(morphSearch, 'open');
+//             var offsets = morphsearch.getBoundingClientRect();
+//             if (isOpen) {
+//                 classie.remove(morphSearch, 'open');
 
-                // trick to hide input text once the search overlay closes
-                // todo: hardcoded times, should be done after transition ends
-                //if( input.value !== '' ) {
-                setTimeout(function() {
-                    classie.add(morphSearch, 'hideInput');
-                    setTimeout(function() {
-                        classie.add(isHideAnimate, 'p-absolute');
-                        classie.remove(morphSearch, 'hideInput');
-                        input.value = '';
-                    }, 300);
-                }, 500);
-                //}
+//                 // trick to hide input text once the search overlay closes
+//                 // todo: hardcoded times, should be done after transition ends
+//                 //if( input.value !== '' ) {
+//                 setTimeout(function() {
+//                     classie.add(morphSearch, 'hideInput');
+//                     setTimeout(function() {
+//                         classie.add(isHideAnimate, 'p-absolute');
+//                         classie.remove(morphSearch, 'hideInput');
+//                         input.value = '';
+//                     }, 300);
+//                 }, 500);
+//                 //}
 
-                input.blur();
-            } else {
-                classie.remove(isHideAnimate, 'p-absolute');
-                classie.add(morphSearch, 'open');
-            }
-            isOpen = !isOpen;
-        };
+//                 input.blur();
+//             } else {
+//                 classie.remove(isHideAnimate, 'p-absolute');
+//                 classie.add(morphSearch, 'open');
+//             }
+//             isOpen = !isOpen;
+//         };
 
-    // events
-    input.addEventListener('focus', toggleSearch);
-    ctrlClose.addEventListener('click', toggleSearch);
-    // esc key closes search overlay
-    // keyboard navigation events
-    document.addEventListener('keydown', function(ev) {
-        var keyCode = ev.keyCode || ev.which;
-        if (keyCode === 27 && isOpen) {
-            toggleSearch(ev);
-        }
-    });
-    var morphSearch_search = document.getElementsByClassName('morphsearch-search');
-    $(".morphsearch-search").on('click', toggleSearch);
+//     // events
+//     input.addEventListener('focus', toggleSearch);
+//     ctrlClose.addEventListener('click', toggleSearch);
+//     // esc key closes search overlay
+//     // keyboard navigation events
+//     document.addEventListener('keydown', function(ev) {
+//         var keyCode = ev.keyCode || ev.which;
+//         if (keyCode === 27 && isOpen) {
+//             toggleSearch(ev);
+//         }
+//     });
+//     var morphSearch_search = document.getElementsByClassName('morphsearch-search');
+//     $(".morphsearch-search").on('click', toggleSearch);
 
-    /***** for demo purposes only: don't allow to submit the form *****/
-    morphSearch.querySelector('button[type="submit"]').addEventListener('click', function(ev) {
-        ev.preventDefault();
-    });
-})();
+//     /***** for demo purposes only: don't allow to submit the form *****/
+//     morphSearch.querySelector('button[type="submit"]').addEventListener('click', function(ev) {
+//         ev.preventDefault();
+//     });
+// })();
 /* Search header end */
 
 // toggle full screen
@@ -536,9 +536,9 @@ $(document).on('click', '[data-toggle="lightbox"]', function(event) {
 /* --------------------------------------------------------
         Color picker - demo only
         --------------------------------------------------------   */
-(function() {
-    $('<div class="color-picker"><a href="#" class="handle"><i class="icofont icofont-color-bucket"></i></a><div class="settings-header"><h3>Setting panel</h3></div><div class="section"><h3 class="color">Normal color schemes:</h3><div class="colors"><a href="#" class="color-1" ></a><a href="#" class="color-2" ></a><a href="#" class="color-3" ></a><a href="#" class="color-4" ></a><a href="#" class="color-5"></a><a href="#" class="color-6"></a></div></div></div>').appendTo($('body'));
-})();
+// (function() {
+//     $('<div class="color-picker"><a href="#" class="handle"><i class="icofont icofont-color-bucket"></i></a><div class="settings-header"><h3>Setting panel</h3></div><div class="section"><h3 class="color">Normal color schemes:</h3><div class="colors"><a href="#" class="color-1" ></a><a href="#" class="color-2" ></a><a href="#" class="color-3" ></a><a href="#" class="color-4" ></a><a href="#" class="color-5"></a><a href="#" class="color-6"></a></div></div></div>').appendTo($('body'));
+// })();
 
 /*Gradient Color*/
 

@@ -293,24 +293,16 @@
 		function cdcform(){
 			
 			$data['title'] = 'Create Lead';
-			// print_r($_SESSION);
-			// print_r($_SESSION['timeout']);
-
-
-
+		
 			if(isset($_GET['camp_id'])){
 				$postData1 = $_GET['camp_id']; 
 			}else{
 				$postData = $this->input->post();
 				$postData1 = $postData['campaign_id'];
-				// $postData2 = $postData['campaign_idcids'];
+			
 			}
 
 		
-			// if(isset($_GET['lmid'])){
-			// 	$postDatalmid = $_GET['lmid']; 
-			// }
-
 			$postDatalmid = NULL;
 						if(isset($_GET['lmid']))
 							$postDatalmid = $_GET['lmid'];
@@ -321,7 +313,7 @@
 						foreach ($data['campaigns'] as $camp) {
 						
 						}
-						// echo $camp['cnid'];
+					
 						$camp_id = NULL;
 						if(isset($camp['cnid']))
 							$camp_id = $camp['cnid'];
@@ -335,18 +327,15 @@
 							$cids = $camp['cids'];
 						
 						$_SESSION['campaign_id'] = $camp_id;
-						
-			// $data['cids_camp'] = $camp_id;
-			// $data['campaign_id'] = $camp_id;
 			
 						$data['leadmaster'] = $this->Administrator_Model->get_leadmasterby_campaign_CDC($cids,$postDatalmid,$camp_id2);
-						// print_r($data['leadmaster']); 
+					
 						if(empty($data['leadmaster'])){
 							$this->session->set_flashdata('success', 'CDC finished for this campaign.');
 							redirect('cdc/selectCampaignForCDC');
 							
 						}
-						// print_r($postDatalmid);
+					
 						foreach ($data['leadmaster'] as $ldmster) {
 						
 						}
@@ -363,7 +352,7 @@
 
 							$myArray1 = explode(',', $myArray);
 							$data['countriesofcampaign'] = $this->Administrator_Model->get_countriesofCampaign($camp_id,$myArray1);
-							// print_r($data['countriesofcampaign']);
+						
 							$data['industries1'] = $this->Administrator_Model->get_industries_byCampaign($camp_id);
 							foreach($data['industries1'] as $ind){
 								$myind = implode(',', $ind);
@@ -379,28 +368,24 @@
 								}
 								$mydpArray1 = explode(',', $mydpArray);
 								$data['departments'] = $this->Administrator_Model->get_depts_byCampaign($camp_id,$mydpArray1);
-							// $data['departments'] = $this->Administrator_Model->get_depts_byCampaign($mydpArray1);
-						   
+							
 							$data['designation1'] = $this->Administrator_Model->get_designation_byCampaign($camp_id);
 							foreach($data['designation1'] as $ds){
 								$mydesi = implode(',', $ds);
 								}
 								$mydesiarry = explode(',', $mydesi);
 							$data['designation'] = $this->Administrator_Model->get_designation_ofCampaign($camp_id,$mydesiarry);
-							// print_r($data['designation1']); 
-							// print_r($data['designation']); 
-							// print_r($mydesiarry); 
+							
 							$data['joblevel'] = $this->Administrator_Model->get_joblevels_byCampaign($camp_id,$mydesiarry);
-						
-						// print_r($data['joblevel']); 
+					
 							$data['timezones'] = $this->Administrator_Model->get_timezonesbyCampaign($camp_id,$myArray1);
 							
 							$data['currency'] = $this->Administrator_Model->get_currencybyCampaign($camp_id,$myArray1);
-							// print_r($data['timezones']);
+							
 							$data['comptype'] = $this->Administrator_Model->get_comptype();
 							
 							$data['assetitle'] = $this->Administrator_Model->get_assetitle_byCampaign($camp_id);
-							// print_r($data['assetitle']);
+						
 
 						if (isset($data['leadmaster'])){
 							$data['countriesdv'] = $this->Administrator_Model->get_countriesbyCampaigndv($ldmster['lmid']);
@@ -413,7 +398,7 @@
 							$data['assetitledv'] = $this->Administrator_Model->get_assetitle_byleadmaster($ldmster['lmid']);
 							$data['comptypedv'] = $this->Administrator_Model->get_comptype_byleadmaster($ldmster['lmid']);
 						}else if(empty($data['leadmaster'])){
-							// $this->session->set_flashdata('success', 'Data verification id finished.');
+						
 							redirect('administrator/dashboard');
 						}
 
@@ -428,17 +413,17 @@
 			}else{
 				$rectype=0;	
 			}
-			// print_R($rectype);
+			
 			if($rectype == 2){
-				// print_r($data['leadmaster']); 
+		
 				$this->load->view('administrator/add-leaddata-cdc', $data);
-				// $this->load->view('administrator/cdc-form', $data);
+			
 			}else{
-				// print_r($data['leadmaster']);
+			
 				$this->load->view('administrator/cdc-form', $data);
 				
 			}
-			//  $this->load->view('administrator/'.$page, $data);
+			
 			$this->load->view('administrator/footer');
 		
 		}
@@ -446,29 +431,27 @@
 		function qualityform($page = 'qa-form'){
 			
 			$data['title'] = 'Create Lead';
-			// print_r($_SESSION);
-			// print_r($_SESSION['timeout']);
+			
 			if(isset($_GET['camp_id'])){
 				$postData1 = $_GET['camp_id']; 
 			}else{
 				$postData = $this->input->post();
 				$postData1 = $postData['campaign_id'];
 			}
-		// print_r($postData1);
-
+		
 						$data['campaigns'] = $this->Administrator_Model->get_campaign_by_id($postData1);
 
 						foreach ($data['campaigns'] as $camp) {
 						
 						}
-						// echo $camp['cnid'];
+						
 						$camp_id = $camp['cnid'];
 						
 						$cids = $camp['cids'];
 					
 						
 						$data['leadmaster'] = $this->Administrator_Model->get_leadmasterby_campaignQA($cids);
-						// print_r($data['leadmaster']); 
+					
 						if(empty($data['leadmaster'])){
 							$this->session->set_flashdata('success', 'Quality verification is finished for this campaign.');
 							redirect('cdc/selectCampaignForQA');
@@ -490,11 +473,9 @@
 							$data['assetitledv'] = $this->Administrator_Model->get_assetitle_byleadmaster($ldmster['lmid']);
 							$data['comptypedv'] = $this->Administrator_Model->get_comptype_byleadmaster($ldmster['lmid']);
 						}else if(empty($data['leadmaster'])){
-							// $this->session->set_flashdata('success', 'Data verification is finished.');
+						
 							redirect('administrator/dashboard');
 						}
-
-						
 
 
 			$this->load->view('administrator/header-script');
@@ -507,37 +488,30 @@
 		function leadgeneration($page = 'lead-generation'){
 			
 			$data['title'] = 'Create Lead';
-			// print_r($_SESSION);
-			// print_r($_SESSION['timeout']);
+			
 			if(isset($_GET['camp_id'])){
 				$postData1 = $_GET['camp_id']; 
 			}else{
 				$postData = $this->input->post();
 				$postData1 = $postData['campaign_id'];
 			}
-		// print_r($postData1);
-
+		
 						$data['campaigns'] = $this->Administrator_Model->get_campaign_by_id($postData1);
 
 						foreach ($data['campaigns'] as $camp) {
 						
 						}
-						// echo $camp['cnid'];
 					
 						$camp_id = $camp['cnid'];
 						
 						$cids = $camp['cids'];
 
-
 						$postDatalmid = NULL;
 						if(isset($_GET['lmid']))
 							$postDatalmid = $_GET['lmid'];
 
-						
-
-						// $data['leadmaster'] = $this->Administrator_Model->get_leadmasterby_campaign_lead_generation($cids);
 						$data['leadmaster'] = $this->Administrator_Model->get_leadmasterby_campaign_lead_generation_with_rlc_lock($cids,$postDatalmid);
-						// print_r($data['leadmaster']); 
+					
 						if(empty($data['leadmaster'])){
 							$this->session->set_flashdata('success', 'Lead verification is finished for this campaign.');
 							redirect('cdc/selectCampaignForleadGeneration');
@@ -559,13 +533,9 @@
 							$data['assetitledv'] = $this->Administrator_Model->get_assetitle_byleadmaster($ldmster['lmid']);
 							$data['comptypedv'] = $this->Administrator_Model->get_comptype_byleadmaster($ldmster['lmid']);
 						}else if(empty($data['leadmaster'])){
-							// $this->session->set_flashdata('success', 'Data verification id finished.');
+					
 							redirect('administrator/dashboard');
 						}
-
-						
-
-
 			$this->load->view('administrator/header-script');
 			$this->load->view('administrator/header');
 			$this->load->view('administrator/header-bottom');
@@ -576,29 +546,25 @@
 		function leadgenerationinterface($page = 'lead-generation-interface'){
 			
 			$data['title'] = 'Create Lead';
-			// print_r($_SESSION);
-			// print_r($_SESSION['timeout']);
+			
 			if(isset($_GET['camp_id'])){
 				$postData1 = $_GET['camp_id']; 
 			}else{
 				$postData = $this->input->post();
 				$postData1 = $postData['campaign_id'];
 			}
-		// print_r($postData1);
-						
 						$data['campaigns'] = $this->Administrator_Model->get_campaign_by_id($postData1);
 
 						foreach ($data['campaigns'] as $camp) {
 						
 						}
-						// echo $camp['cnid'];
+						
 						$camp_id = $camp['cnid'];
 						
 						$cids = $camp['cids'];
 						
 						$_SESSION['campaign_id'] = $camp_id;
 
-						// print_r($_SESSION['campaign_id']);
 						$data['empcode'] = $this->session->userdata('empcode');
 						$data['Campid'] = $camp_id;
 						$leadlimit = $this->input->post('leadlimit');
@@ -607,21 +573,11 @@
 						$data['leadlimit'] = $leadlimit;
 						$data['leadrectype'] = $leadrectype;
 						$data['refreshbtn'] = $refreshbtn;
-						// print_r($this->input->post('refreshbtn')); 
-						$data['leadmaster'] = $this->Administrator_Model->get_leadmasterby_campaign_lead_generation($cids,$leadlimit,$leadrectype,$data['empcode']);
-						// print_r($data['leadmaster']); 
-						// echo "<pre>";
-						// 	print_r($data['leadmaster']); 
-						// 	echo "</pre>";
-						// foreach ($data['leadmaster'] as $ldmster) {
-						
-							
 					
+						$data['leadmaster'] = $this->Administrator_Model->get_leadmasterby_campaign_lead_generation($cids,$leadlimit,$leadrectype,$data['empcode']);
+						
 
 						if(empty($data['leadmaster'])){
-							// $this->session->set_flashdata('success', 'Lead Generation finished for this campaign.');
-							// redirect('cdc/selectCampaignForleadGeneration');
-						
 							
 						}
 
@@ -637,30 +593,13 @@
 								$data['assetitledv'] = $this->Administrator_Model->get_assetitle_byleadmaster($ldmster['lmid']);
 								$data['comptypedv'] = $this->Administrator_Model->get_comptype_byleadmaster($ldmster['lmid']);
 							}else if(empty($data['leadmaster'])){
-								// $this->session->set_flashdata('success', 'Data verification id finished.');
+							
 								redirect('administrator/dashboard');
 							}
 	
 						}
 					
-						// if (isset($data['leadmaster'])){
-						// 	$data['countriesdv'] = $this->Administrator_Model->get_countriesbyCampaigndv($ldmster['lmid']);
-						// 	$data['industriesdv'] = $this->Administrator_Model->get_industries_ofleadmaster($ldmster['lmid']);
-						// 	$data['subindustriesdv'] = $this->Administrator_Model->get_subindustries_ofleadmaster($ldmster['lmid']);
-						// 	$data['currencydv'] = $this->Administrator_Model->get_currency_ofleadmaster($ldmster['lmid']);
-						// 	$data['timezonedv'] = $this->Administrator_Model->get_timezone_ofleadmaster($ldmster['lmid']);
-						// 	$data['designationdv'] = $this->Administrator_Model->get_designation_ofleadmaster($ldmster['lmid']);
-						// 	$data['departmentsdv'] = $this->Administrator_Model->get_depts_byleadmaster($ldmster['lmid']);
-						// 	$data['assetitledv'] = $this->Administrator_Model->get_assetitle_byleadmaster($ldmster['lmid']);
-						// 	$data['comptypedv'] = $this->Administrator_Model->get_comptype_byleadmaster($ldmster['lmid']);
-						// }else if(empty($data['leadmaster'])){
-						// 	// $this->session->set_flashdata('success', 'Data verification id finished.');
-						// 	redirect('administrator/dashboard');
-						// }
-
-						
-
-
+					
 			$this->load->view('administrator/header-script');
 			$this->load->view('administrator/header');
 			$this->load->view('administrator/header-bottom');
@@ -671,21 +610,7 @@
 		function selectCampaign($page = 'select-campaign'){
 			$data['title'] = 'Create Lead';
 			$data['campaigns'] = $this->Administrator_Model->get_campaign();
-                        // $data['clients'] = $this->Administrator_Model->get_clients();
-                        // $data['countries'] = $this->Administrator_Model->get_countries();
-                        // $data['regions'] = $this->Administrator_Model->get_regions();
-                        // $data['industries'] = $this->Administrator_Model->get_industries();
-                        // $data['departments'] = $this->Administrator_Model->get_depts();
-                        // $data['empsize'] = $this->Administrator_Model->get_empsize();
-                        // $data['revsize'] = $this->Administrator_Model->get_revenuesize();
-						// $data['designation'] = $this->Administrator_Model->get_designation();
-						// $data['timezones'] = $this->Administrator_Model->get_timezones();
-						// $data['lbound'] = $this->Administrator_Model->get_empsize();
-						// $data['ubound'] = $this->Administrator_Model->get_empsize();
-
-						// $data['revnlbound'] = $this->Administrator_Model->get_revenuesize();
-						// $data['revnubound'] = $this->Administrator_Model->get_revenuesize();
-						// $data['assetitle'] = $this->Administrator_Model->get_assetitle();
+                       
 			
 			
 			$this->load->view('administrator/header-script');
@@ -724,7 +649,6 @@
 
 		function selectCampaignForCDC($page = 'select-campaign-cdc'){
 			$data['title'] = 'Create Lead';
-			// $data['campaigns'] = $this->Administrator_Model->get_campaign_fordataverification();
 			$data['campaigns'] = $this->Administrator_Model->get_campaignforCDC();		  
 			
 			
@@ -737,7 +661,7 @@
 		}
 		function selectCampaignForQA($page = 'select-campaign-QA'){
 			$data['title'] = 'Create Lead';
-			// $data['campaigns'] = $this->Administrator_Model->get_campaign_fordataverification();
+		
 			$data['campaigns'] = $this->Administrator_Model->get_campaignforQA();		  
 			
 			
@@ -750,7 +674,7 @@
 		}
 		function selectCampaignForleadGeneration($page = 'select-campaign-lead-generation'){
 			$data['title'] = 'Create Lead';
-			// $data['campaigns'] = $this->Administrator_Model->get_campaign_fordataverification();
+		
 			$data['campaigns'] = $this->Administrator_Model->get_campaignforlead_generation();		  
 			
 			
@@ -771,19 +695,11 @@
 		}
 		
 		public function getsearcresultofindustry(){ 
-			
-			// $postquery = $_POST['query'];
-			
-			// // get data 
-			// $data = $this->Administrator_Model->getsearchresult($postquery);
-			// return $data;
-			// echo json_encode($data); 
-
-
+		
 
 			$output = '';
 			$query = '';
-			// $this->load->model('ajaxsearch_model');
+		
 			if($this->input->post('query'))
 			{
 			 $query = $this->input->post('query');
@@ -823,9 +739,6 @@
 			echo $output;
 		
 
-
-
-
 		}
 
 		function fetch($page = 'fetch'){
@@ -844,8 +757,7 @@
 		public function gettimezones(){ 
 			
 			$country_id = $_GET['country_id'];
-			
-			// get data 
+		
 			$data = $this->Administrator_Model->gettimezonesbycountry($country_id);
 			echo json_encode($data); 
 		}
@@ -876,10 +788,7 @@
 				redirect('administrator/logout');
 				Exit();
 			}
-			// $revnlbound_range = '';
-			// if(!empty($_GET['revnlbound_range'])) {
-			// $revnlbound_range = $_GET['revnlbound_range'];
-			// }
+		
 				// Concatenation Of String 
 				$trimfname=$_GET['fname'];
 				$trimlname=$_GET['lname'];
@@ -959,8 +868,7 @@
 				'lname' => $_GET['lname'],
 				'conname' => $conname, //concate strings
 				'jtitle' => $_GET['jtitle'],
-				// 'desid' => $_GET['desid'],
-
+				
 				'jlevel' => $_GET['desid'],
 				'dname' => $_GET['dcd'], //department
 				'email' => $_GET['email'],
@@ -993,33 +901,14 @@
 				'indlink' => $_GET['indlink'],
 				'revszlink' => $_GET['revszlink'],
 				'empszlink' => $_GET['empszlink'],
-				// 'pcomt' => $_GET['pcomt'],
-
+				
 				'othrlink' => $_GET['othrlink'],
 
 				'emailver' => $_GET['emailver'],
 				'aum' => $aum,
-				// 'atitle' => $_GET['assetid'],
-
-				// 'optin' => $optin,
-				// 'optpst' => $optpost,
-				// 'optph' => $optph,
-				// 'opteml' => $opteml,
 				
 
-				// 'aa1' => $_GET['aa1'],
-				// 'aa2' => $_GET['aa2'],
-				// 'aa3' => $_GET['aa3'],
-				// 'aa4' => $_GET['aa4'],
-				// 'aa5' => $_GET['aa5'],
-				// 'aa6' => $_GET['aa6'],
-				// 'aa7' => $_GET['aa7'],
-				// 'aa8' => $_GET['aa8'],
-				// 'aa9' => $_GET['aa9'],
-				// 'aa10' => $_GET['aa10'],
-				// 'aa11' => $_GET['aa11'],
-				// 'aa12' => $_GET['aa12'],
-
+				
 				// tag
 				'pload' => '1', // next level ready to load
 				'rlc' => '0', // No next level ready to load- save means here
@@ -1029,20 +918,14 @@
 				'dvrejtg' => '0', // record is closed
 				'sbsvtag' => '1', 
 
-				// 'svagtidi' => '1' // save Agent Name
-				// 'svdti' => '1' // save date time
 				'stagtidi' => $_SESSION['empcode'], // submit agent name
 				'stdti' => $old_date  // submit date time
 								
 				);
 			
-			//   print_r($datacdcandlead);
-			//      exit();
 			
 				$addleadandcdcdata = $this->Administrator_Model->add_leadandcdc($datacdcandlead);
-				// print_r($addcampaigndata);  die;
-				
-
+			
 				if($addleadandcdcdata == true){
 			
 					echo json_encode(array(
@@ -1062,10 +945,7 @@
 		public function ajax_save_leadandcdc()
 		{
 			$campaign_id = $_GET['campaign_id'];
-			// $revnlbound_range = '';
-			// if(!empty($_GET['revnlbound_range'])) {
-			// $revnlbound_range = $_GET['revnlbound_range'];
-			// }
+		
 				// Concatenation Of String 
 				$trimfname=$_GET['fname'];
 				$trimlname=$_GET['lname'];
@@ -1147,8 +1027,7 @@
 				'lname' => $_GET['lname'],
 				'conname' => $conname, //concate strings
 				'jtitle' => $_GET['jtitle'],
-				// 'desid' => $_GET['desid'],
-
+				
 				'jlevel' => $_GET['desid'],
 				'dname' => $_GET['dcd'], //department
 				'email' => $_GET['email'],
@@ -1181,33 +1060,12 @@
 				'indlink' => $_GET['indlink'],
 				'revszlink' => $_GET['revszlink'],
 				'empszlink' => $_GET['empszlink'],
-				// 'pcomt' => $_GET['pcomt'],
-
+				
 				'othrlink' => $_GET['othrlink'],
 
 				'emailver' => $_GET['emailver'],
 				'aum' =>$aum,
-				// 'atitle' => $_GET['assetid'],
-
-				// 'optin' => $optin,
-				// 'optpst' => $optpost,
-				// 'optph' => $optph,
-				// 'opteml' => $opteml,
 				
-
-				// 'aa1' => $_GET['aa1'],
-				// 'aa2' => $_GET['aa2'],
-				// 'aa3' => $_GET['aa3'],
-				// 'aa4' => $_GET['aa4'],
-				// 'aa5' => $_GET['aa5'],
-				// 'aa6' => $_GET['aa6'],
-				// 'aa7' => $_GET['aa7'],
-				// 'aa8' => $_GET['aa8'],
-				// 'aa9' => $_GET['aa9'],
-				// 'aa10' => $_GET['aa10'],
-				// 'aa11' => $_GET['aa11'],
-				// 'aa12' => $_GET['aa12'],
-
 				// tag
 				'pload' => '0', // No next level ready to load- save means here
 				'rlc' => '0', // No next level ready to load- save means here
@@ -1220,16 +1078,10 @@
 
 				'svagtidi' => $_SESSION['empcode'], // save Agent Name
 				'svdti' => $old_date // save date time
-				//'stagtidi' => '1', // submit agent name
-				//'stdti' => $new_date // submit date time
 				
-
-
 								
 				);
 			
-			//   print_r($datacdcandlead);
-			    //  exit();
 			
 				$addleadandcdcdata = $this->Administrator_Model->add_leadandcdc($datacdcandlead);
 				
@@ -1253,10 +1105,7 @@
 		public function ajax_submit_leadandcdcbyCDQA()
 		{
 			$campaign_id = $_GET['campaign_id'];
-			// $revnlbound_range = '';
-			// if(!empty($_GET['revnlbound_range'])) {
-			// $revnlbound_range = $_GET['revnlbound_range'];
-			// }
+			
 				// Concatenation Of String 
 				$trimfname=$_GET['fname'];
 				$trimlname=$_GET['lname'];
@@ -1267,9 +1116,7 @@
 
 
 				$old_date = date('Y-m-d H:i:s');            // works
-				// $middle = strtotime($old_date);             // returns bool(false)
-				// $new_date = date('Y-m-d H:i:s', $middle);
-				// print_r($old_date);
+			
 				if(!empty($_GET['aum']))
 					{
 						$aum = $_GET['aum'];
@@ -1362,7 +1209,6 @@
 					$ddispositionclass = NULL;
 					}
 				
-					// $ddispositionclass = $_GET['ddispositionclass'];
 					
 					$cvr = $_GET['cvr'];
 					$pcomt= "CDQA:".$_SESSION['empcode'].":".$old_date."#".$_GET['pcomt'];
@@ -1375,7 +1221,7 @@
 				'lname' => $_GET['lname'],
 				'conname' => $conname, //concate strings
 				'jtitle' => $_GET['jtitle'],
-				// 'desid' => $_GET['desid'],
+				
 
 				'jlevel' => $_GET['desid'],
 				'dname' => $_GET['dcd'], //department
@@ -1461,25 +1307,16 @@
 
 				'cdcsbagti' => $_SESSION['empcode'], // save Agent Name
 				'cdcsbdti' => $old_date // save date time
-				//'stagtidi' => '1', // submit agent name
-				//'stdti' => $new_date // submit date time
-				
-
-
-								
+							
 				);
 			
-			
 				
-				// $updateleadandcdcdata = $this->Administrator_Model->update_leadandcdcbyCDQA($datacdcandlead,$campaign_id);
 				$checkforEmail = $this->Administrator_Model->get_email_duplication_count_leadmaster($_GET['email']);
 				if($checkforEmail == true)
 				{
 					echo json_encode(array(
 						"statusCode"=>"Exist",
-						// "campaign_id"=>$addcampaigndata,
-						// "from"=>$from,
-						// "pass"=>$pass,
+					
 						"message"=>"Email is already Exist"
 					));
 					return;
@@ -1490,9 +1327,7 @@
 				{
 					echo json_encode(array(
 						"statusCode"=>"plink",
-						// "campaign_id"=>$addcampaigndata,
-						// "from"=>$from,
-						// "pass"=>$pass,
+						
 						"message"=>"Prospect link is already Exist"
 					));
 					return;
@@ -1501,7 +1336,7 @@
 				
 				
 				$updateleadandcdcdata = $this->Administrator_Model->add_leadandcdcbyCDQA($datacdcandlead);
-				// print_r(addcampaigndata); 
+				
 
 				if($updateleadandcdcdata == true){
 			
@@ -1522,10 +1357,7 @@
 		public function ajax_save_leadandcdcbyCDQA()
 		{
 			$campaign_id = $_GET['campaign_id'];
-			// $revnlbound_range = '';
-			// if(!empty($_GET['revnlbound_range'])) {
-			// $revnlbound_range = $_GET['revnlbound_range'];
-			// }
+			
 				// Concatenation Of String 
 				$trimfname=$_GET['fname'];
 				$trimlname=$_GET['lname'];
@@ -1606,8 +1438,7 @@
 				'lname' => $_GET['lname'],
 				'conname' => $conname, //concate strings
 				'jtitle' => $_GET['jtitle'],
-				// 'desid' => $_GET['desid'],
-
+				
 				'jlevel' => $_GET['desid'],
 				'dname' => $_GET['dcd'], //department
 				'email' => $_GET['email'],
@@ -1676,21 +1507,13 @@
 
 				'cdcsvagti' => $_SESSION['empcode'], // save Agent Name
 				'cdcsvdti' => $old_date // save date time
-				//'stagtidi' => '1', // submit agent name
-				//'stdti' => $new_date // submit date time
-				
-
-
 								
 				);
 			
 			
 			
-				// $updateleadandcdcdata = $this->Administrator_Model->update_leadandcdcbyCDQA($datacdcandlead,$campaign_id);
-				// print_r(addcampaigndata); 
 				$updateleadandcdcdata = $this->Administrator_Model->add_leadandcdcbyCDQA($datacdcandlead);
 				
-				// echo json_encode($updateleadandcdcdata );
 				if($updateleadandcdcdata == true){
 			
 					echo json_encode(array(
@@ -1713,7 +1536,6 @@
 			$campaign_id = $_GET['campaign_id'];
 			$cids = $_GET['campaign_idcids'];
 			
-			// $_SESSION['empcode']= NULL;
 			if(!isset($_SESSION['empcode'])){
 				
 			
@@ -1721,10 +1543,7 @@
 				Exit();
 			}
 
-			// $revnlbound_range = '';
-			// if(!empty($_GET['revnlbound_range'])) {
-			// $revnlbound_range = $_GET['revnlbound_range'];
-			// }
+			
 				// Concatenation Of String 
 				$trimfname=$_GET['fname'];
 				$trimlname=$_GET['lname'];
@@ -1804,9 +1623,7 @@
 				'lname' => $_GET['lname'],
 				'conname' => $conname, //concate strings
 				'jtitle' => $_GET['jtitle'],
-				// 'desid' => $_GET['desid'],
-
-				// 'jlevel' => $_GET['jlevel'],
+			
 				'jlevel' => $_GET['desid'],
 				'dname' => $_GET['dcd'], //department
 				'email' => $_GET['email'],
@@ -1839,14 +1656,13 @@
 				'indlink' => $_GET['indlink'],
 				'revszlink' => $_GET['revszlink'],
 				'empszlink' => $_GET['empszlink'],
-				// 'pcomt' => $_GET['pcomt'],
-
+				
 				'othrlink' => $_GET['othrlink'],
 
 				'emailver' => $_GET['emailver'],
 				'aum' => $aum,
 				// tag
-				// 'ontag' => 0, // Submit and 0 = new
+				
 				'sbsvtag' => '1', // Submit 1st time
 				'pload' => '1', // next level ready to load
 				'rlc' => '0', // record is closed
@@ -1855,9 +1671,6 @@
 				'dvsbtg' => '0', // record is closed
 				'dvrejtg' => '0', // record is closed
 			
-
-				// 'svagtidi' => '1' // save Agent Name
-				// 'svdti' => '1' // save date time
 				'stagtidi' => $_SESSION['empcode'], // submit agent name 
 				'stdti' => $old_date  // submit date time
 								
@@ -1869,9 +1682,6 @@
 				{
 					echo json_encode(array(
 						"statusCode"=>"Exist",
-						// "campaign_id"=>$addcampaigndata,
-						// "from"=>$from,
-						// "pass"=>$pass,
 						"message"=>"Email is already Exist"
 					));
 					return;
@@ -1882,18 +1692,13 @@
 				{
 					echo json_encode(array(
 						"statusCode"=>"plink",
-						// "campaign_id"=>$addcampaigndata,
-						// "from"=>$from,
-						// "pass"=>$pass,
 						"message"=>"Prospect link is already Exist"
 					));
 					return;
 				}
 				
 				$addleadandcdcdata = $this->Administrator_Model->add_leaddata($datacdcandlead);
-				// print_r($addcampaigndata);  die;
-				
-
+			
 				if($addleadandcdcdata == true){
 			
 					echo json_encode(array(
@@ -1916,21 +1721,6 @@
 			$cids = $_GET['campaign_idcids'];
 			$lmid = $_GET['lmid'];
 
-			// $emailrand = $_GET['emailrand'];
-			// if($emailrand == '1'){
-			// 	$randno = rand(10,100);
-			// 	$email = $_GET['email'].$randno."del";
-			// }else{
-			// 	$email = $_GET['email'];
-			// }
-
-			// $plinkrand = $_GET['plinkrand'];
-			// if($plinkrand == '1'){
-			// 	$randnop = rand(10,100);
-			// 	$plink = $_GET['plink'].$randnop."del";
-			// }else{
-			// 	$plink = $_GET['plink'];
-			// }
 			
 
 			if(!isset($_SESSION['empcode'])){
@@ -2016,21 +1806,10 @@
 				$checkforEmail = $this->Administrator_Model->get_email_duplication_count_leadmaster_update($_GET['email'],$lmid);
 				if($checkforEmail == true)
 				{
-					// $emailrand = $_GET['emailrand'];
-						// if($emailrand == '1'){
+					
 							$randno = rand(10,1000);
 							$email = $_GET['email'].$randno."del";
-						// }else{
-						// 	$email = $_GET['email'];
-						// }
-					// echo json_encode(array(
-					// 	"statusCode"=>"Exist",
-					// 	// "campaign_id"=>$addcampaigndata,
-					// 	// "from"=>$from,
-					// 	// "pass"=>$pass,
-					// 	"message"=>"Email is already Exist"
-					// ));
-					// return;
+						
 				}
 				else{
 					$email = $_GET['email'];
@@ -2042,14 +1821,7 @@
 	
 					$randnop = rand(10,1000);
 					$plink = $_GET['plink'].$randnop."del";
-					// echo json_encode(array(
-					// 	"statusCode"=>"plink",
-					// 	// "campaign_id"=>$addcampaigndata,
-					// 	// "from"=>$from,
-					// 	// "pass"=>$pass,
-					// 	"message"=>"Prospect link is already Exist"
-					// ));
-					// return;
+					
 				}
 				else{
 					$plink = $_GET['plink'];
@@ -2065,8 +1837,7 @@
 				'lname' => $_GET['lname'],
 				'conname' => $conname, //concate strings
 				'jtitle' => $_GET['jtitle'],
-				// 'desid' => $_GET['desid'],
-
+				
 				'jlevel' => $_GET['desid'],
 				'dname' => $_GET['dcd'], //department
 				'email' => $email,
@@ -2113,53 +1884,20 @@
 
 				'svagtidi' => $_SESSION['empcode'], // save Agent Name
 				'svdti' => $old_date // save date time
-				// 'stagtidi' => $_SESSION['empcode'], // submit agent name 
-				// 'stdti' => $old_date  // submit date time
+			
 								
 				);
 			
-			//   print_r($datacdcandlead);
-			//      exit();
+			
 			if($lmid > 1){
 		
 				$addleadandcdcdata = $this->Administrator_Model->update_leaddata($datacdcandlead,$lmid);
 			}else{ //new save
 
-				// $checkforEmail = $this->Administrator_Model->get_email_duplication_count_leadmaster($email);
-				// if($checkforEmail == true)
-				// {
-				// 	echo json_encode(array(
-				// 		"statusCode"=>"Exist",
-				// 		// "campaign_id"=>$addcampaigndata,
-				// 		// "from"=>$from,
-				// 		// "pass"=>$pass,
-				// 		"message"=>"Email is already Exist"
-				// 	));
-				// 	return;
-				// }
-				// $checkforplink = $this->Administrator_Model->get_plink_duplication_count_leadmaster($plink);
-				
-				// if($checkforplink == true)
-				// {
-				// 	echo json_encode(array(
-				// 		"statusCode"=>"plink",
-				// 		// "campaign_id"=>$addcampaigndata,
-				// 		// "from"=>$from,
-				// 		// "pass"=>$pass,
-				// 		"message"=>"Prospect link is already Exist"
-				// 	));
-				// 	return;
-				// }
-
-
-
 				$addleadandcdcdata = $this->Administrator_Model->save_leaddata($datacdcandlead);
 			}
 				
-				
-				// print_r($addcampaigndata);  die;
-				
-
+			
 				if($addleadandcdcdata == true){
 			
 					echo json_encode(array(
@@ -2193,7 +1931,6 @@
 				$middle = strtotime($old_date);             // returns bool(false)
 				$new_date = date('Y-m-d H:i:s', $middle);
 
-			// $mychecked = explode(',', $checked);
 		
 			if(!isset($_SESSION['empcode'])){
 				
@@ -2257,18 +1994,6 @@
 
 			$mychecked2 = implode(',', $checked);
 			
-			// if((($_POST['dvrejtg'] >= 1) AND ($_POST['dvsbtg'] != 0) ) OR (($_POST['dvrejtg'] != 0) AND ($_POST['dvsbtg'] >= 1 )))
-			
-			// best if((($_POST['dvsbtg'] == 1) AND ($_POST['dvrejtg'] == 0)) OR (($_POST['dvsbtg'] == 0) AND ($_POST['dvrejtg'] == 1)))
-			
-			// if(!empty($_POST['dvdti'] ) AND !empty($_POST['dvrdti'] ))
-
-			
-			// if(($_POST['dvrejtg'] > '1') AND ($_POST['dvsbtg'] != '1'))
-			// if(($_POST['dvrejtg'] > '1') AND ($_POST['dvsbtg'] != '1'))
-			// {
-
-				// print_r($_POST['dvsbtg']);exit();
 				if($mychecked2 == "0"){  // Accept
 					$dvload = "1"; // go to next level-- Accept
 					$dvstat ="1"; //Data Verification|Tag for On Accept / Reject /Discard
@@ -2276,14 +2001,7 @@
 					 $dvrejtg = $_POST['dvrejtg'];
 					 $dvsbtg = $_POST['dvsbtg']; //Data Verification|Submission Tag
 					
-					// $dvagtidii = $_SESSION['empcode']; //Data Verification Accept|Agent ID_I
-					// $dvragtidii = $postagent2;
-					// $dvdtii = $old_date; //Data Verification Accept|date and time_I
-					// $dvrdtii = $postdate2;
-					// $dvragtidi = $postagent1;
-					// $dvrdti = $postdate1;
-					// $dvagtidi = $postagentaccept1;
-					// $dvdti = $postdateaccept1;
+					
 					if(empty($_POST['dvdti'])){
 					$dvagtidi = $_SESSION['empcode']; //Data Verification Accept|Agent ID_I
 					$dvragtidii = $postagent2;
@@ -2304,8 +2022,6 @@
 					$dvdti = $postdateaccept1;
 					}
 
-
-	
 					
 				}else{
 					$dvload = "0"; // Reject
@@ -2313,16 +2029,8 @@
 					$dvrejtg = $_POST['dvrejtg'];
 					$dvsbtg = $_POST['dvsbtg'];
 					$ontag = "1"; //null = new, 0 = needs to be reworked
-	
-					// $dvragtidii = $_SESSION['empcode'];
-					// $dvagtidii = $postagentaccept2;
-					// $dvdtii = $postdateaccept2;
-					// $dvrdtii = $old_date; //Data Verification|Rej_date and time_I
-					// $dvragtidi = $postagent1;
-					// $dvrdti = $postdate1;
-					// $dvagtidi = $postagentaccept1;
-					// $dvdti = $postdateaccept1;
 
+					
 					if(empty($_POST['dvrdti'])){
 					$dvragtidi = $_SESSION['empcode'];
 					$dvagtidii = $postagentaccept2;
@@ -2344,64 +2052,10 @@
 					}
 
 				}
-
-
-
-
-			// }else{
-
-			// 	if($mychecked2 == "0"){  // Accept
-			// 					$dvload = "1"; // go to next level-- Accept
-			// 					$dvstat ="1"; //Data Verification|Tag for On Accept / Reject /Discard
-			// 					$ontag = "1"; //null = new, 0 = needs to be reworked
-			// 					$dvsbtg = $_POST['dvsbtg']; //Data Verification|Submission Tag
-			// 					$dvrejtg = $_POST['dvrejtg'];
-		
-			// 					$dvagtidi = $_SESSION['empcode']; //Data Verification Accept|Agent ID_I
-			// 					// $dvragtidi = NULL;
-			// 					$dvragtidi = $postagent1;
-			// 					$dvdti = $old_date; //Data Verification Accept|date and time_I
-			// 					// $dvrdti = NULL;
-			// 					$dvrdti = $postdate1;
-			// 					$dvrdtii = $postdate2;
-			// 					$dvdtii = $postdateaccept2;
-			// 					$dvagtidii = $postagentaccept2;
-			// 					$dvragtidii = $postagent2;
-								
-							
-								
-			// 				}else{
-			// 					$dvload = "0"; // Reject
-			// 					$dvstat ="2";
-			// 					$dvrejtg = $_POST['dvrejtg'];
-			// 					$dvsbtg = $_POST['dvsbtg'];
-			// 					$ontag = "1"; //null = new, 0 = needs to be reworked
-		
-			// 					$dvragtidi = $_SESSION['empcode'];
-			// 					// $dvagtidi = NULL;
-			// 					$dvagtidi = $postagentaccept1;
-								
-			// 					// $dvdti = NULL ;
-			// 					$dvdti = $postdateaccept1;
-			// 					$dvrdti = $old_date; //Data Verification|Rej_date and time_I
-			// 					$dvrdtii = $postdate2;
-			// 					$dvdtii = $postdateaccept2;
-			// 					$dvagtidii = $postagentaccept2;
-			// 					$dvragtidii = $postagent2;
-		
-								
-			// 				}
-
-			
-			// }
-
 					if($sbsvtag == 0){
 					$svdti = $old_date;	
 					$svagtidi = $_SESSION['empcode'];
-					// $dvagtidi = NULL;
-					// $dvagtidii = NULL;
-					// $dvdti = NULL;
-					// $dvdtii = NULL;
+					
 					}else{
 						$svdti = NULL;
 						$svagtidi= NULL;
@@ -2415,7 +2069,7 @@
 						
 						
 						// tag
-						// 'ontag' => 0, // Submit and 0 = new, 1 = needs to be reworked
+						
 						'sbsvtag' => $sbsvtag, //  Submit till 5 times
 						'svagtidi' => $svagtidi, 
 						'svdti' => $svdti, 
@@ -2426,8 +2080,7 @@
 						'ontag' => $ontag, 
 						'dvload' => $dvload, //  next level
 						'dvstat' => $dvstat, //  dvstat
-						// 'svagtidi' => '1' // save Agent Name
-						// 'svdti' => '1' // save date time
+						
 						'dvagtidi' => $dvagtidi, // submit agent name 
 						'dvragtidi' => $dvragtidi, // submit agent name 
 						'dvdti' => $dvdti,  // submit date time
@@ -2441,21 +2094,13 @@
 										
 					);
 			
-			// 	print_r($lmid); echo "Hiii";
-			// 	print_r($_POST['sbsvtag']); echo "Hiii";
-			//   print_r($datacdcandlead);
-			 
-			    
 			
 				$addleadandcdcdata = $this->Administrator_Model->update_leaddata($datacdcandlead,$lmid);
-				// print_r($addcampaigndata);  die;
-				
-				// exit();
+			
 				if($addleadandcdcdata == true){
 			
 					echo json_encode(array(
-						"statusCode"=>"Success",
-						// "lead_id"=>$addleadandcdcdata,
+						"statusCode"=>"Success",					
 						"message"=>"Data Verified Successfully.."
 					));
 				}else{
@@ -2481,15 +2126,12 @@
 			$cdcrjt = $_POST['cdcrjt'];
 			$cdcsb = $_POST['cdcsb'];
 			$evloadposted = $_POST['evload'];
-			
-			// print_r($_POST['cdcrjt']); echo "Hii";
-			// exit();
-			
+		
 				$old_date = date('Y-m-d H:i:s');         // works
 				$middle = strtotime($old_date);             // returns bool(false)
 				$new_date = date('Y-m-d H:i:s', $middle);
 
-			// $mychecked = explode(',', $checked);
+		
 
 			if(!empty($_POST['cdcsv']))
 			{
@@ -2511,21 +2153,21 @@
 			} else{
 			$postagent1 = NULL;
 			}
-		if(!empty($_POST['cdcrjtdti']))
-			{
-				$postdate1 =  $_POST['cdcrjtdti'];
-			} else{
-			$postdate1 = NULL;
-			}
+			if(!empty($_POST['cdcrjtdti']))
+				{
+					$postdate1 =  $_POST['cdcrjtdti'];
+				} else{
+				$postdate1 = NULL;
+				}
 
-		if(!empty($_POST['cdcrjtagtii']))
-			{
-				$postagent2 =  $_POST['cdcrjtagtii'];
-			} else{
-			$postagent2 = NULL;
-			}
-		if(!empty($_POST['cdcrjtdtii']))
-			{
+			if(!empty($_POST['cdcrjtagtii']))
+				{
+					$postagent2 =  $_POST['cdcrjtagtii'];
+				} else{
+				$postagent2 = NULL;
+				}
+			if(!empty($_POST['cdcrjtdtii']))
+				{
 				$postdate2 =  $_POST['cdcrjtdtii'];
 			} else{
 			$postdate2 = NULL;
@@ -2593,8 +2235,6 @@
 			$ddispositionclass = NULL;
 			}
 			
-				// $ddispositionclass = $_POST['ddispositionclass'];
-			
 				$cvr = $_POST['cvr'];
 			
 
@@ -2602,23 +2242,13 @@
 			
 		
 
-			// if(($_POST['cdcrjt'] > 1) OR ($_POST['cdcsb'] > 1) )
-			// {
-
 				if($mychecked2 == "0"){  // Accept
 					$cdcload = "1"; // go to next level-- Accept
 					
 					 $ontag = "1"; //null = new, 0 = needs to be reworked
 					 $cdcrjt = $_POST['cdcrjt'];
 					 $cdcsb = $_POST['cdcsb']; //Data Verification|Submission Tag
-					//  $cdcsbagtii = $_SESSION['empcode']; // Accept|Agent ID_I
-					//  $cdcrjtagtii = $postagent2;
-					//  $cdcsbdtii = $old_date; // Accept|date and time_I
-					//  $cdcrjtdtii = $postdate2;
-					//  $cdcrjtagti = $postagent1;
-					//  $cdcrjtdti = $postdate1;
-					//  $cdcsbagti = $postagentaccept1;
-					//  $cdcsbdti = $postdateaccept1;
+				
 					if(empty($_POST['cdcsbdti'])){
 						$cdcsbagti = $_SESSION['empcode']; // Accept|Agent ID_I
 						$cdcrjtagtii = $postagent2;
@@ -2642,22 +2272,14 @@
 				
 					
 				}else{
-					// $cdcload = "0"; // Reject
+				
 					$cdcload = NULL; // Reject
 				
 					$cdcrjt = $_POST['cdcrjt'];
 					$cdcsb = $_POST['cdcsb'];
 					$ontag = "1"; //null = new, 0 = needs to be reworked
 
-					// $cdcrjtagtii = $_SESSION['empcode'];
-					// $cdcsbagtii = $postagentaccept2;
-					// $cdcsbdtii = $postdateaccept2;
-					// $cdcrjtdtii = $old_date; //|Rej_date and time_I
-					// $cdcrjtagti = $postagent1;
-					// $cdcrjtdti = $postdate1;
-					// $cdcsbagti = $postagentaccept1;
-					// $cdcsbdti = $postdateaccept1;
-
+				
 					if(empty($_POST['cdcrjtdti'])){
 					$cdcrjtagti = $_SESSION['empcode'];
 					$cdcsbagtii = $postagentaccept2;
@@ -2693,15 +2315,11 @@
 					
 					$pcomt= "CDC:".$_SESSION['empcode'].":".$old_date."#".$_POST['pcomt'];
 
-					// $arr = explode("/", $pcomt);
-					// $firsts = $arr[0];
-// 		print_r($first);
-// exit();
+					
 
 				$datacdcandlead = array(
 				'dvrejectreason' => $mychecked2,
-				// tag
-				// 'ontag' => 0, // Submit and 0 = new, 1 = needs to be reworked
+				
 				'cdcsv' => $cdcsv, //  Submit till 5 times
 				'cdcsvagti' => $cdcsvagti, 
 				'cdcsvdti' => $cdcsvdti, 
@@ -2718,9 +2336,6 @@
 				'ddispositionclass' => $ddispositionclass, 
 				'cdclst' => $cdclst, 
 				'callrec' => $callrec, 
-			
-				// 'svagtidi' => '1' // save Agent Name
-				// 'svdti' => '1' // save date time
 			
 				'cdcsbagti' => $cdcsbagti, // submit agent name 
 				'cdcrjtagti' => $cdcrjtagti, // submit agent name 
@@ -2755,26 +2370,16 @@
 				'aa11' => $_POST['aa11'],
 				'aa12' => $_POST['aa12']
 
-
-			
 								
 				);
-			// 	print_r($lmid); echo "Hiii";
-			// 	print_r($_POST['cdcsv']); echo "Hiii";
-			//   print_r($datacdcandlead);
-			 
-			    // exit();
+			
 			
 				$addleadandcdcdata = $this->Administrator_Model->update_leaddata($datacdcandlead,$lmid);
-				// $addleadandcdcdatacomment = $this->Administrator_Model->update_leaddatacomment( $_POST['pcomt'],$lmid);
-				// print_r($addcampaigndata);  die;
 				
-				// exit();
 				if($addleadandcdcdata == true){
 			
 					echo json_encode(array(
 						"statusCode"=>"Success",
-						// "lead_id"=>$addleadandcdcdata,
 						"message"=>"Data Verified Successfully.."
 					));
 				}else{
@@ -2788,16 +2393,11 @@
 		}
 		public function ajax_update_qatodc()
 		{
-			
-			
 			$campaign_id = $_POST['campaign_id'];
 			$cids = $_POST['campaign_idcids'];
 			
 			$lmid = $_POST['lmid'];
 			$checked = $_POST['checked'];
-			
-			// print_r($_POST['checked']);
-			// // exit();
 			
 				$old_date = date('Y-m-d H:i:s');         // works
 				$middle = strtotime($old_date);             // returns bool(false)
@@ -2839,8 +2439,6 @@
 
 			$mychecked2 = implode(',', $checked);
 			
-
-				// print_r($_POST['dvsbtg']);exit();
 				if($mychecked2 == "0"){  // Accept
 				
 					exit();
@@ -2888,18 +2486,12 @@
 								
 				);
 			
-			    // exit();
-			
 				$addleadandcdcdata = $this->Administrator_Model->update_leaddata($datacdcandlead,$lmid);
-				// $addleadandcdcdatacomment = $this->Administrator_Model->update_leaddatacomment( $_POST['pcomt'],$lmid);
-				// print_r($addcampaigndata);  die;
 				
-				// exit();
 				if($addleadandcdcdata == true){
 			
 					echo json_encode(array(
 						"statusCode"=>"Success",
-						// "lead_id"=>$addleadandcdcdata,
 						"message"=>"Quality Verified Successfully.."
 					));
 				}else{
@@ -2921,9 +2513,7 @@
 			
 			$lmid = $_POST['lmid'];
 			$checked = $_POST['checked'];
-			
-			// print_r($_POST['checked']);
-			// // exit();
+		
 			
 				$old_date = date('Y-m-d H:i:s');         // works
 				$middle = strtotime($old_date);             // returns bool(false)
@@ -2966,7 +2556,6 @@
 			$mychecked2 = implode(',', $checked);
 			
 
-				// print_r($_POST['dvsbtg']);exit();
 				if($mychecked2 == "0"){  // Accept
 				
 					exit();
@@ -2996,8 +2585,7 @@
 				// tag
 				
 				'rlc' => '0', // record is closed
-				
-				// 'cdcload' => '0', //  next level
+			
 				'cdcload' => NULL, //  next level
 				'evload' => '1', //  next level
 				'qarjtagti' => $qarjtagti, // submit agent name 
@@ -3012,13 +2600,9 @@
 								
 				);
 			
-			    // exit();
 			
 				$addleadandcdcdata = $this->Administrator_Model->update_leaddata($datacdcandlead,$lmid);
-				// $addleadandcdcdatacomment = $this->Administrator_Model->update_leaddatacomment( $_POST['pcomt'],$lmid);
-				// print_r($addcampaigndata);  die;
-				
-				// exit();
+			
 				if($addleadandcdcdata == true){
 			
 					echo json_encode(array(
@@ -3039,15 +2623,12 @@
 		public function ajax_update_qatorej_disq()
 		{
 			
-			
 			$campaign_id = $_POST['campaign_id'];
 			$cids = $_POST['campaign_idcids'];
 			
 			$lmid = $_POST['lmid'];
 			$checked = $_POST['checked'];
 			
-			// print_r($_POST['checked']);
-			// // exit();
 			
 				$old_date = date('Y-m-d H:i:s');         // works
 				$middle = strtotime($old_date);             // returns bool(false)
@@ -3089,8 +2670,6 @@
 
 			$mychecked2 = implode(',', $checked);
 			
-
-				// print_r($_POST['dvsbtg']);exit();
 				if($mychecked2 == "0"){  // Accept
 				
 					exit();
@@ -3123,7 +2702,6 @@
 				
 				'rlc' => '0', // record is closed
 				
-				// 'cdcload' => '0', //  next level
 				'cdcload' =>NULL, //  next level
 				'evload' => '1', //  next level
 				'qarjtagti' => $qarjtagti, // submit agent name 
@@ -3144,15 +2722,11 @@
 			    // exit();
 			
 				$addleadandcdcdata = $this->Administrator_Model->update_leaddata($datacdcandlead,$lmid);
-				// $addleadandcdcdatacomment = $this->Administrator_Model->update_leaddatacomment( $_POST['pcomt'],$lmid);
-				// print_r($addcampaigndata);  die;
 				
-				// exit();
 				if($addleadandcdcdata == true){
 			
 					echo json_encode(array(
 						"statusCode"=>"Success",
-						// "lead_id"=>$addleadandcdcdata,
 						"message"=>"Quality Verified Successfully.."
 					));
 				}else{
@@ -3167,16 +2741,13 @@
 
 		public function ajax_update_qatoacc_disq()
 		{
-			// exit();
-			
+		
 			$campaign_id = $_POST['campaign_id'];
 			$cids = $_POST['campaign_idcids'];
 			
 			$lmid = $_POST['lmid'];
 			$checked = $_POST['checked'];
 			
-			// print_r($_POST['checked']);
-			// // exit();
 			
 				$old_date = date('Y-m-d H:i:s');         // works
 				$middle = strtotime($old_date);             // returns bool(false)
@@ -3218,8 +2789,6 @@
 
 			$mychecked2 = implode(',', $checked);
 			
-
-				// print_r($_POST['dvsbtg']);exit();
 				if($mychecked2 == "0"){  // Accept
 					
 					if(empty($_POST['qaacptdti'])){
@@ -3240,21 +2809,7 @@
 				}else{				
 
 					exit();
-					// if(empty($_POST['qaacptdti'])){
-					// $qaacptagti = $_SESSION['empcode'];
-					// $qaacptdti = $old_date; //Data Verification|Rej_date and time_I
-					// $qaacptagtii = $postagent1;
-					// $qaacptdtii = $postdate1;
-					
-					// }else{
-					// $qaacptagtii = $_SESSION['empcode'];
-					
-					// $qaacptdtii = $old_date; //Data Verification|Rej_date and time_I
-					// $qaacptagti = $postagent1;
-					// $qaacptdti = $postdate1;
-					
-					// }
-
+				
 				}
 				$qasvdti = $old_date;	
 				$qasvagti = $_SESSION['empcode'];
@@ -3266,8 +2821,6 @@
 				// tag
 				
 				'rlc' => '0', // record is closed
-				
-				// 'cdcload' => '0', //  next level
 				'cdcload' => NULL, //  next level
 				'evload' => '1', //  next level
 				'qaacptagti' => $qaacptagti, // submit agent name 
@@ -3285,18 +2838,13 @@
 								
 				);
 			
-			    // exit();
 			
 				$addleadandcdcdata = $this->Administrator_Model->update_leaddata($datacdcandlead,$lmid);
-				// $addleadandcdcdatacomment = $this->Administrator_Model->update_leaddatacomment( $_POST['pcomt'],$lmid);
-				// print_r($addcampaigndata);  die;
-				
-				// exit();
+			
 				if($addleadandcdcdata == true){
 			
 					echo json_encode(array(
 						"statusCode"=>"Success",
-						// "lead_id"=>$addleadandcdcdata,
 						"message"=>"Quality Verified Successfully.."
 					));
 				}else{
@@ -3311,17 +2859,13 @@
 
 		public function ajax_update_qatoacc_q()
 		{
-			// exit();
-			
+		
 			$campaign_id = $_POST['campaign_id'];
 			$cids = $_POST['campaign_idcids'];
 			
 			$lmid = $_POST['lmid'];
 			$checked = $_POST['checked'];
-			
-			// print_r($_POST['checked']);
-			// // exit();
-			
+		
 				$old_date = date('Y-m-d H:i:s');         // works
 				$middle = strtotime($old_date);             // returns bool(false)
 				$new_date = date('Y-m-d H:i:s', $middle);
@@ -3363,7 +2907,6 @@
 			$mychecked2 = implode(',', $checked);
 			
 
-				// print_r($_POST['dvsbtg']);exit();
 				if($mychecked2 == "0"){  // Accept
 					
 					if(empty($_POST['qaacptdti'])){
@@ -3397,7 +2940,6 @@
 				
 				'rlc' => '0', // record is closed
 				
-				// 'cdcload' => '0', //  next level
 				'cdcload' => NULL, //  next level
 				'evload' => '1', //  next level
 				'qaacptagti' => $qaacptagti, // submit agent name 
@@ -3414,18 +2956,12 @@
 								
 				);
 			
-			    // exit();
-			
 				$addleadandcdcdata = $this->Administrator_Model->update_leaddata($datacdcandlead,$lmid);
-				// $addleadandcdcdatacomment = $this->Administrator_Model->update_leaddatacomment( $_POST['pcomt'],$lmid);
-				// print_r($addcampaigndata);  die;
-				
-				// exit();
+			
 				if($addleadandcdcdata == true){
 			
 					echo json_encode(array(
 						"statusCode"=>"Success",
-						// "lead_id"=>$addleadandcdcdata,
 						"message"=>"Quality Verified Successfully.."
 					));
 				}else{
@@ -3440,17 +2976,13 @@
 
 		public function ajax_update_qatoacc_lead()
 		{
-			// exit();
+			
 			
 			$campaign_id = $_POST['campaign_id'];
 			$cids = $_POST['campaign_idcids'];
 			
 			$lmid = $_POST['lmid'];
 			$checked = $_POST['checked'];
-			
-			// print_r($_POST['checked']);
-			// // exit();
-			
 				$old_date = date('Y-m-d H:i:s');         // works
 				$middle = strtotime($old_date);             // returns bool(false)
 				$new_date = date('Y-m-d H:i:s', $middle);
@@ -3491,8 +3023,6 @@
 
 			$mychecked2 = implode(',', $checked);
 			
-
-				// print_r($_POST['dvsbtg']);exit();
 				if($mychecked2 == "0"){  // Accept
 					
 					if(empty($_POST['qaacptdti'])){
@@ -3526,7 +3056,6 @@
 				// tag
 				
 				'rlc' => '0', // record is closed
-				// 'cdcload' => '0', //  next level
 				'cdcload' => NULL, //  next level
 				'evload' => '1', //  next level
 				'qaacptagti' => $qaacptagti, // submit agent name 
@@ -3542,19 +3071,12 @@
 				
 								
 				);
-			
-			    // exit();
-			
 				$addleadandcdcdata = $this->Administrator_Model->update_leaddata($datacdcandlead,$lmid);
-				// $addleadandcdcdatacomment = $this->Administrator_Model->update_leaddatacomment( $_POST['pcomt'],$lmid);
-				// print_r($addcampaigndata);  die;
 				
-				// exit();
 				if($addleadandcdcdata == true){
 			
 					echo json_encode(array(
 						"statusCode"=>"Success",
-						// "lead_id"=>$addleadandcdcdata,
 						"message"=>"Quality Verified Successfully.."
 					));
 				}else{
@@ -3568,16 +3090,11 @@
 		}
 		public function ajax_update_leadgeneration()
 		{
-			// exit();
 			
 			$campaign_id = $_GET['campaign_id'];
 			$cids = $_GET['campaign_idcids'];
 			
 			$lmid = $_GET['lmid'];
-			// $checked = $_POST['checked'];
-			
-			// print_r($_POST['checked']);
-			// // exit();
 			
 				$old_date = date('Y-m-d H:i:s');         // works
 				$middle = strtotime($old_date);             // returns bool(false)
@@ -3591,23 +3108,6 @@
 				Exit();
 			}
 
-			// $qaacptagti = $_SESSION['empcode'];
-			// $qaacptdti = $old_date; //Data Verification|Rej_date and time_I
-
-			// if(!empty($_GET['lsagti']))
-			// {
-			// 	$postagent1 =  $_GET['lsagti'];
-			// } else{
-			// $postagent1 = NULL;
-			// }
-			// if(!empty($_GET['lsdti']))
-			// {
-			// 	$postdate1 =  $_GET['lsdti'];
-			// } else{
-			// $postdate1 = NULL;
-			// }
-
-		
 
 			if(!empty($_GET['clscored']) || ($_GET['clscored'] =='0') )
 			{
@@ -3660,26 +3160,23 @@
 				$opteml = 0 ;
 			}
 			
-					$pcomt= "lead:".$_SESSION['empcode'].":".$old_date."#".$_GET['pcomt'];
+			$pcomt= "lead:".$_SESSION['empcode'].":".$old_date."#".$_GET['pcomt'];
 
-					
-					if($lsfinal == '1')
-					{
-						$qalsload = NULL;
-					}else{
-						$qalsload ='1';
-					}
+			
+			if($lsfinal == '1')
+			{
+				$qalsload = NULL;
+			}else{
+				$qalsload ='1';
+			}
 					
 				$datacdcandlead = array(
 				'rlc' => '0', // record is closed
-
 				'optin' => $optin,
 				'optpst' => $optpost,
 				'optph' => $optph,
 				'opteml' => $opteml,
 				'dnd' => $_GET['dnd'],
-				
-
 				'aa1' => $_GET['aa1'],
 				'aa2' => $_GET['aa2'],
 				'aa3' => $_GET['aa3'],
@@ -3707,31 +3204,18 @@
 				'lsagent' => $_SESSION['empcode'], // submit agent name 
 				
 				'pcomt' => $pcomt 
-				
 								
 				);
 			
-			    // exit();
-			
 				$addleadandcdcdata = $this->Administrator_Model->update_leaddata($datacdcandlead,$lmid);
 
-				// $datarecordrlc = array(
-				// 	'rlc' => 0,
-				// );
-	
-				// // get data 
-				// $data['rlcremove']= $this->Administrator_Model->update_recordlockonleadgeneration($_SESSION['empcode'],$datarecordrlc);
 				$data['rlcremove'] = $this->Administrator_Model->update_recordlockonlogin($_SESSION['empcode']);
 				
-				// $addleadandcdcdatacomment = $this->Administrator_Model->update_leaddatacomment( $_POST['pcomt'],$lmid);
-				// print_r($addcampaigndata);  die;
-				
-				// exit();
+			
 				if($addleadandcdcdata == true){
 			
 					echo json_encode(array(
 						"statusCode"=>"Success",
-						// "lead_id"=>$addleadandcdcdata,
 						"message"=>"Lead Verified Successfully.."
 					));
 				}else{
@@ -3760,9 +3244,7 @@
 				Exit();
 			}
 
-			// print_r($cids);
-			// print_r($sbsvtag);
-
+			
 			// die;
 				// Concatenation Of String 
 				$trimfname=$_GET['fname'];
@@ -3807,10 +3289,7 @@
 				{
 					$stagtidii = $_SESSION['empcode'];
 				}
-				// else{
-				// 	$stagtidii = NULL;
-				// }
-
+				
 
 				if(empty($_GET['stdti']))
 				{
@@ -3828,11 +3307,7 @@
 				{
 					$stdtii = $old_date;
 				}
-				// else{
-				// 	$stdtii = NULL;
-				// }
-
-				// 'stagtidii' => $_SESSION['empcode'], // submit agent name 
+				
 
 				if(!empty($_GET['aum']))
 				{
@@ -3891,12 +3366,7 @@
 				    $timezones = 0 ;
 				}
 
-				// $atitle =$_GET['assetid'];
-				// if(!empty($atitle){
-				// 	$atitle =$_GET['assetid'];	
-				// }else{
-				// 	$atitle= NULL;
-				// }
+				
 				$pcomt= "DC:".$_SESSION['empcode'].":".$old_date."#".$_GET['pcomt'];
 
 				$datacdcandlead = array(
@@ -3907,8 +3377,6 @@
 				'lname' => $_GET['lname'],
 				'conname' => $conname, //concate strings
 				'jtitle' => $_GET['jtitle'],
-				// 'desid' => $_GET['desid'],
-
 				'jlevel' => $_GET['desid'],
 				'dname' => $_GET['dcd'], //department
 				'email' => $_GET['email'],
@@ -3951,36 +3419,26 @@
 				'dvrejtg' => $dvrejtg,
 				
 				// tag
-				// 'ontag' => 0, // Submit and 0 = new, 1 = needs to be reworked
+			
 				'sbsvtag' => $sbsvtag, //  Submit till 5 times
 				'pload' => '1', // next level ready to load
 				'rlc' => '0', // record is closed
 				'ontag' => '0', // record is closed
 
-				
-				// 'stagtidii' => $_SESSION['empcode'], // submit agent name 
-				// 'stdtii' => $old_date  // submit date time
 				'stagtidi' => $stagtidi,
 				'stagtidii' => $stagtidii, // submit agent name 
 
 				'stdti' => $stdti,
 				'stdtii' => $stdtii
-				// 'stdti' => $stdtii,  // submit date time
-				// 'stdtii' => $old_date  // submit date time
-								
+				
 				);
 			
-			//   print_r($datacdcandlead);
-			//      exit();
-			
+		
 			$checkforEmail = $this->Administrator_Model->get_email_duplication_count_leadmaster_update($_GET['email'],$lmid);
 			if($checkforEmail == true)
 			{
 				echo json_encode(array(
-					"statusCode"=>"Exist",
-					// "campaign_id"=>$addcampaigndata,
-					// "from"=>$from,
-					// "pass"=>$pass,
+					"statusCode"=>"Exist",					
 					"message"=>"Email is already Exist"
 				));
 				return;
@@ -3990,18 +3448,14 @@
 			if($checkforplink == true)
 			{
 				echo json_encode(array(
-					"statusCode"=>"plink",
-					// "campaign_id"=>$addcampaigndata,
-					// "from"=>$from,
-					// "pass"=>$pass,
+					"statusCode"=>"plink",					
 					"message"=>"Prospect link is already Exist"
 				));
 				return;
 			}
 
 				$addleadandcdcdata = $this->Administrator_Model->update_leaddata($datacdcandlead,$lmid);
-				// print_r($addcampaigndata);  die;
-				
+			
 
 				if($addleadandcdcdata == true){
 			
@@ -4023,7 +3477,7 @@
 		{
 			$campaign_id = $_GET['campaign_id'];
 			$cids = $_GET['campaign_idcids'];
-			// $sbsvtag = $_GET['sbsvtag'];
+			
 			$lmid = $_GET['lmid'];
 
 			if(!isset($_SESSION['empcode'])){
@@ -4033,10 +3487,7 @@
 				Exit();
 			}
 
-			// print_r($cids);
-			// print_r($sbsvtag);
-
-			// die;
+		
 				// Concatenation Of String 
 				$trimfname=$_GET['fname'];
 				$trimlname=$_GET['lname'];
@@ -4186,8 +3637,6 @@
 				} else{
 				$ddispositionclass = NULL;
 				}
-			
-				// $ddispositionclass = $_GET['ddispositionclass'];
 				
 				$cvr = $_GET['cvr'];
 
@@ -4200,8 +3649,7 @@
 				'lname' => $_GET['lname'],
 				'conname' => $conname, //concate strings
 				'jtitle' => $_GET['jtitle'],
-				// 'desid' => $_GET['desid'],
-
+				
 				'jlevel' => $_GET['desid'],
 				'dname' => $_GET['dcd'], //department
 				'email' => $_GET['email'],
@@ -4270,7 +3718,7 @@
 				'callrec' => $callrec, 
 
 				// tag
-				// 'ontag' => 0, // Submit and 0 = new, 1 = needs to be reworked
+				
 				'cdccomp' => '1', //  if updated in cdc, set to 1
 				'cdcsb' => $_GET['cdcsb'], //  if updated in cdc, set to 1
 				
@@ -4278,8 +3726,6 @@
 				'ontag' => '0', // record is closed
 				'cdcload' => '1', // next level
 
-				// 'svagtidi' => '1' // save Agent Name
-				// 'svdti' => '1' // save date time
 				'cdcsbagti' => $cdcsbagti, // submit agent name 
 				'cdcsbagtii' => $cdcsbagtii, // submit agent name 
 				'cdcsbdti' => $cdcsbdti,  // submit date time
@@ -4287,16 +3733,13 @@
 								
 				);
 			
-			//   print_r($datacdcandlead);
-			//      exit();
+			
 			$checkforEmail = $this->Administrator_Model->get_email_duplication_count_leadmaster_update($_GET['email'],$lmid);
 			if($checkforEmail == true)
 			{
 				echo json_encode(array(
 					"statusCode"=>"Exist",
-					// "campaign_id"=>$addcampaigndata,
-					// "from"=>$from,
-					// "pass"=>$pass,
+					
 					"message"=>"Email is already Exist"
 				));
 				return;
@@ -4307,18 +3750,14 @@
 			{
 				echo json_encode(array(
 					"statusCode"=>"plink",
-					// "campaign_id"=>$addcampaigndata,
-					// "from"=>$from,
-					// "pass"=>$pass,
+					
 					"message"=>"Prospect link is already Exist"
 				));
 				return;
 			}
 			
 				$addleadandcdcdata = $this->Administrator_Model->update_leaddata($datacdcandlead,$lmid);
-				// print_r($addcampaigndata);  die;
-				
-
+			
 				if($addleadandcdcdata == true){
 			
 					echo json_encode(array(
@@ -4339,7 +3778,7 @@
 		{
 			$campaign_id = $_GET['campaign_id'];
 			$cids = $_GET['campaign_idcids'];
-			// $sbsvtag = $_GET['sbsvtag'];
+			
 			$lmid = $_GET['lmid'];
 
 			if(!isset($_SESSION['empcode'])){
@@ -4349,10 +3788,7 @@
 				Exit();
 			}
 
-			// print_r($cids);
-			// print_r($sbsvtag);
-
-			// die;
+			
 				// Concatenation Of String 
 				$trimfname=$_GET['fname'];
 				$trimlname=$_GET['lname'];
@@ -4458,9 +3894,6 @@
 				$ddispositionclass = NULL;
 				}
 		
-			
-				// $ddispositionclass = $_GET['ddispositionclass'];
-				
 				$cvr = $_GET['cvr'];
 
 				$checkforEmail = $this->Administrator_Model->get_email_duplication_count_leadmaster_update($_GET['email'],$lmid);
@@ -4492,8 +3925,7 @@
 				'lname' => $_GET['lname'],
 				'conname' => $conname, //concate strings
 				'jtitle' => $_GET['jtitle'],
-				// 'desid' => $_GET['desid'],
-
+			
 				'jlevel' => $_GET['desid'],
 				'dname' => $_GET['dcd'], //department
 				'email' => $email,
@@ -4560,25 +3992,19 @@
 				'aa12' => $_GET['aa12'],
 
 				// tag
-				// 'ontag' => 0, // Submit and 0 = new, 1 = needs to be reworked
+				
 				'cdcsv' => '0', //  Submit till 5 times
 				'cdccomp' => '1', //  if updated in cdc, set to 1
 				'rlc' => '0', // record is closed
-				// 'ontag' => '0', // record is closed
-
-				// 'svagtidi' => '1' // save Agent Name
-				// 'svdti' => '1' // save date time
+			
 				'cdcsvagti' => $_SESSION['empcode'], // submit agent name 
 				'cdcsvdti' => $old_date  // submit date time
 								
 				);
 			
-			//   print_r($datacdcandlead);
-			//      exit();
 			
 				$addleadandcdcdata = $this->Administrator_Model->update_leaddata($datacdcandlead,$lmid);
-				// print_r($addcampaigndata);  die;
-				
+			
 
 				if($addleadandcdcdata == true){
 			
@@ -4607,15 +4033,11 @@
 			$cdcsv = $_POST['cdcsv'];
 			$cdcrjt = $_POST['cdcrjt'];
 			$cdcsb = $_POST['cdcsb'];
-			// echo "Hiiiiiiiiiiiiiiiiii";
-			// print_r($_POST['checked']);
-			// // exit();
-			
-				$old_date = date('Y-m-d H:i:s');         // works
-				$middle = strtotime($old_date);             // returns bool(false)
-				$new_date = date('Y-m-d H:i:s', $middle);
+			$old_date = date('Y-m-d H:i:s');         // works
+			$middle = strtotime($old_date);             // returns bool(false)
+			$new_date = date('Y-m-d H:i:s', $middle);
 
-			// $mychecked = explode(',', $checked);
+		
 		
 			if(!isset($_SESSION['empcode'])){
 				
@@ -4658,37 +4080,27 @@
 				$ddispositionclass =  $_POST['ddispositionclass'];
 			} else{
 			$ddispositionclass = NULL;
-			}
-			
-			// $ddispositionclass = $_POST['ddispositionclass'];
+			}			
+		
 			$cvr = $_POST['cvr'];
 			
 			$mychecked2 = implode(',', $checked);
 			
 			if($mychecked2 == "0"){  // Accept
-				// $dvload = "1"; // go to next level-- Accept
+			
 				$dvstat ="1"; //Data Verification|Tag for On Accept / Reject /Discard
-				//  $ontag = "1"; //null = new, 0 = needs to be reworked
+			
 				 $cdcrjt = $_POST['cdcrjt'];
-				//  $dvagtidi = $_SESSION['empcode']; //Data Verification Accept|Agent ID_I
-				// $dvragtidi = 0;
-				$cdcsb = $_POST['cdcsb']; //Data Verification|Submission Tag
-
-				
-				// $dvdti = $old_date; //Data Verification Accept|date and time_I
-				// $dvrdti = NULL;
-
+			
+				$cdcsb = $_POST['cdcsb']; //Data Verification|Submission Tag		
+			
 				
 			}else{
-				// $dvload = "0"; // Reject
+			
 				$dvstat ="2";
 				$cdcrjt = $_POST['cdcrjt'];
 				$cdcsb = $_POST['cdcsb'];
-				// $dvragtidi = $_SESSION['empcode'];
-				// $dvagtidi = 0;
-				// $ontag = "1"; //null = new, 0 = needs to be reworked
-				// $dvdti = NULL ;
-				// $dvrdti = $old_date; //Data Verification|Rej_date and time_I
+			
 			}
 
 			if($cdcsv == '0'){
@@ -4705,9 +4117,6 @@
 				'dvrejectreason' => $mychecked2,
 				'pcomt' => $pcomt,
 				
-				// tag
-				// 'ontag' => 0, // Submit and 0 = new, 1 = needs to be reworked
-				// 'cdcsv' => $cdcsv, //  Submit till 5 times
 				'cdcsv' => 0, //  Submit till 5 times
 				'cdcsvagti' => $cdcsvagti, 
 				'cdcsvdti' => $cdcsvdti, 
@@ -4718,31 +4127,14 @@
 				'ddispositionclass' => $ddispositionclass, 
 				'cdclst' => $cdclst, 
 				'callrec' => $callrec, 
-
-
-				// 'cdcload' => '0', // next level ready to load
 				'cdcload' => NULL, // next level ready to load
 				'rlc' => '0', // record is closed
-				// 'cdcrjt' => $cdcrjt, 
-				// 'cdcsb' => $cdcsb, 
-				//  'ontag' => $ontag, 
-				// 'dvload' => $dvload, //  next level
-				// 'dvstat' => $dvstat, //  dvstat
-				// 'svagtidi' => '1' // save Agent Name
-				// 'svdti' => '1' // save date time
-				// 'dvagtidi' => $dvagtidi, // submit agent name 
-				// 'dvragtidi' => $dvragtidi, // submit agent name 
-				// 'dvdti' => $dvdti,  // submit date time
-				// 'dvrdti' => $dvrdti, // Data Verification|Rej_date and time_I
-
-
 				'dvcomt' => 1, //accept/rejection by cdc
 				 'optin' => $_POST['optin'],
 				'optpst' => $_POST['optpst'],
 				'optph' => $_POST['optph'],
 				'opteml' => $_POST['opteml'],
 				'dnd' => $_POST['dnd'],
-				
 
 				'aa1' => $_POST['aa1'],
 				'aa2' => $_POST['aa2'],
@@ -4756,21 +4148,12 @@
 				'aa10' => $_POST['aa10'],
 				'aa11' => $_POST['aa11'],
 				'aa12' => $_POST['aa12']
-
-
-			
 								
 				);
-			// 	print_r($lmid); echo "Hiii";
-			// 	print_r($_POST['cdcsv']); echo "Hiii";
-			//   print_r($datacdcandlead);
-			 
-			    // exit();
+			
 			
 				$addleadandcdcdata = $this->Administrator_Model->update_leaddata($datacdcandlead,$lmid);
-				// print_r($addcampaigndata);  die;
 				
-				// exit();
 				if($addleadandcdcdata == true){
 			
 					echo json_encode(array(
@@ -4792,39 +4175,19 @@
 			$cids = $_POST['campaign_idcids'];
 			
 			$lmid = $_POST['lmid'];
-			// $checked = $_POST['checked'];
+		
 			$qasv = $_POST['qasv'];
-		
-		
-			
-			// print_r($_POST['checked']);
-			// // exit();
 			
 				$old_date = date('Y-m-d H:i:s');         // works
 				$middle = strtotime($old_date);             // returns bool(false)
 				$new_date = date('Y-m-d H:i:s', $middle);
 
-			// $mychecked = explode(',', $checked);
 		
 			if(!isset($_SESSION['empcode'])){
-				
-			
 				redirect('administrator/logout');
 				Exit();
 			}
-			// $mychecked2 = implode(',', $checked);
 			
-			// if($mychecked2 == "0"){  // Accept
-			
-			
-			
-				
-			// }else{
-			// 	 // Reject
-			
-			
-			// }
-
 			if($qasv == 0){
 				$qasvdti = $old_date;	
 				$qasvagti = $_SESSION['empcode'];
@@ -4836,35 +4199,22 @@
 				$pcomt= "QA:".$_SESSION['empcode'].":".$old_date."#".$_POST['pcomt'];
 
 				$datacdcandlead = array(
-			
 				'pcomt' => $pcomt,
-				
 				// tag
 		
 				'qasv' => 0, //  Submit till 5 times
 				'qasvagti' => $qasvagti, 
 				'qasvdti' => $qasvdti,
 				
-				'rlc' => '0' // record is closed
-				
-				
-						
+				'rlc' => '0' // record is closed		
 				);
-			// 	print_r($lmid); echo "Hiii";
-			// 	print_r($_POST['cdcsv']); echo "Hiii";
-			//   print_r($datacdcandlead);
-			 
-			    // exit();
 			
 				$addleadandcdcdata = $this->Administrator_Model->update_leaddata($datacdcandlead,$lmid);
-				// print_r($addcampaigndata);  die;
-				
-				// exit();
+			
 				if($addleadandcdcdata == true){
 			
 					echo json_encode(array(
 						"statusCode"=>"Success",
-						// "lead_id"=>$addleadandcdcdata,
 						"message"=>"Data Verified Successfully.."
 					));
 				}else{
@@ -4886,26 +4236,19 @@
 		
 
 				$datacdcandlead = array(
-			
-			
 		
 				'lstat' => $lstat,
 				'lsstatdt' => $old_date,
-				'lsagent' => $lsagent
-				
-						
+				'lsagent' => $lsagent		
 				);
 			
 			
 				$addleadandcdcdata = $this->Administrator_Model->update_leaddata($datacdcandlead,$lmid);
-				// print_r($addcampaigndata);  die;
-				
-				// exit();
+			
 				if($addleadandcdcdata == true){
 			
 					echo json_encode(array(
 						"statusCode"=>"Success",
-						// "lead_id"=>$addleadandcdcdata,
 						"message"=>"Data Verified Successfully.."
 					));
 				}else{
@@ -4934,28 +4277,21 @@
 
 				$datacdcandlead = array(
 			
-			
-		
 				'qalsload' => $qalsload,
 				'cdcload' => '1',
 				'lsfinal' => $lsfinal,
 				'lsstatdt' => $old_date,
 				'lsagent' => $lsagent
-				
-				
 						
 				);
 			
 			
 				$addleadandcdcdata = $this->Administrator_Model->update_leaddata($datacdcandlead,$lmid);
-				// print_r($addcampaigndata);  die;
-				
-				// exit();
+			
 				if($addleadandcdcdata == true){
 			
 					echo json_encode(array(
 						"statusCode"=>"Success",
-						// "lead_id"=>$addleadandcdcdata,
 						"message"=>"Data Verified Successfully.."
 					));
 				}else{
@@ -4975,24 +4311,17 @@
 			$email = $_GET['email'];
 			$inclistnew = $_GET['inclistnew'];
 			// get data 
-			// $data = $this->Administrator_Model->check_unique_email($email);
+		
 			$incemail = $this->Administrator_Model->get_incemail_byCampaign($campaign_id);
-			// print_r($incemail);
+			
 			if($inclistnew == 1 && !empty($incemail))
-			// if($inclistnew == 1)
+			
 			{
 				$data['inclusionemail'] = $this->Administrator_Model->check_inclusion_email($email,$campaign_id);
-				// print_r($data['inclusionemail']); 
-				// exit();
+				
 			}
-			
-
-
-			// if ($data['inclusionemail'] == true){
 				$data['exclusionemail'] = $this->Administrator_Model->check_suppression_email($email,$campaign_id);
-				// print_r($data['exclusionemail']);
-			// }
-			
+				
 			
 			echo json_encode($data); 
 		  }
@@ -5002,17 +4331,17 @@
 			$domain = $_GET['domain'];
 			$inclistnew = $_GET['inclistnew'];
 			// get data 
-			// $data = $this->Administrator_Model->check_unique_email($email);
+		
 
 			$data['domainchecksupp'] = $this->Administrator_Model->check_domain_suppression($domain,$campaign_id);
 			$incdomain = $this->Administrator_Model->get_incdomain_byCampaign($campaign_id);
-			// print_r($incemail);
+			
 			if($inclistnew == 1 && !empty($incdomain))
 			if($inclistnew == 1)
 			{
 				$data['domaincheckincl'] = $this->Administrator_Model->check_domain_incl($domain,$campaign_id);
 			}
-			// print_r($data['domainchecksupp']); die;
+			
 			
 			echo json_encode($data); 
 		  }
@@ -5022,18 +4351,17 @@
 			$company_name = $_GET['company_name'];
 			$inclistnew = $_GET['inclistnew'];
 			// get data 
-			// $data = $this->Administrator_Model->check_unique_email($email);
+			
 
 			$data['companychecksupp'] = $this->Administrator_Model->check_company_suppression($company_name,$campaign_id);
 			$inccomp = $this->Administrator_Model->get_inccomp_byCampaign($campaign_id);
-			// print_r($incemail);
+		
 			if($inclistnew == 1 && !empty($inccomp))
-			
-			// if($inclistnew == 1)
+		
 			{
 				$data['companycheckincl'] = $this->Administrator_Model->check_company_incl($company_name,$campaign_id);
 			}
-			// print_r($data['domainchecksupp']); die;
+		
 			
 			echo json_encode($data); 
 		  }
@@ -5041,8 +4369,7 @@
 		  public function getquestion(){ 
 			
 			$campaign_id = $_GET['campaign_id'];
-			// print_r($_GET['campaign_id']); die;
-			// $desiStr = implode(',',$sub_region_id);
+		
 			// get data 
 			$data = $this->Administrator_Model->getquestions_byCampaign($campaign_id);
 			echo json_encode($data); 
@@ -5088,7 +4415,7 @@
 			$stage =$this->input->post('stage');
 			$from =$this->input->post('from');
 			$to =$this->input->post('to');
-			// $old_date = date('Y-m-d H:i:s'); 
+			
 
 			if($from == "")
 			{
@@ -5100,9 +4427,6 @@
 				$to = date('Y-m-d H:i:s');
 			}
 
-			// print_r($campid);  
-			// print_r($from);
-			// Init Pagination
 			$this->pagination->initialize($config);
 		
 			$data['title'] = 'Latest Campaigns';
@@ -5110,13 +4434,6 @@
 			$data['users'] = $this->Administrator_Model->get_user_report_timelog($campid,$user_id,$from,$to,$stage);
 			
 			
-			
-			
-	
-			// print_r($data['users']);
-			//  print_r($user_id);
-			// $data['users_name'] = $this->Administrator_Model->get_users(FALSE, $config['per_page'], $offset);
-			// $data['users'] = $this->Administrator_Model->get_users(FALSE, $config['per_page'], $offset);
 			$data['campaigns'] = $this->Administrator_Model->get_campaign();
 			$data['user_id'] = $user_id;
 			$data['Campid'] = $campid;

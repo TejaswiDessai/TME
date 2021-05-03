@@ -1,4 +1,8 @@
-
+<!-- 
+This form is used when cdc team accepts or rejects of lead coming after email verification
+He can edit form in add-leaddata-cdc form
+Developed by Tejaswi
+-->
 
 <style>
     label.error {
@@ -24,17 +28,7 @@
     top: 3px;
     right: 15px;
 }
-    
-/*     
-      .form-control option:hover {
-          background: pink;
-            
-     box-shadow: 0 0 10px 10px #e1358f inset;
-        }
-        select:focus{
-    border-color: gray;
-    outline:none;
-} */
+
 .done-task span, .done-task .captions {
     text-decoration: None;
     background-color: #797373e3;
@@ -52,7 +46,7 @@
 .tooltips {
   position: relative;
   display: inline-block;
-  /* border-bottom: 1px dotted black; */
+ 
 }
 .tooltips .tooltiptext {
   visibility: hidden;
@@ -114,8 +108,7 @@
 
 .to-do-list:hover i {
   color: #0e11b9;
-    /* opacity: 1; */
-    /* transition: opacity ease-in 0.3s; */
+   
 }
 .to-do-list i {
   color: #0e11b9;
@@ -127,23 +120,14 @@
 
 
 <?php foreach ($leadmaster as $ldmster):  
-      // print_r($ldmster['dvrejectreason']);
-      // $dvrejectreason = explode(',',$ldmster['dvrejectreason']);
-      // print_r($ldmster);
      
-    endforeach;
-      //  print_r($campaign['tid']);
-       
-       ?>
+    endforeach;   ?>
  
 <script>
 
-
 var base_url = "<?php echo base_url() ?>";
-// alert(base_url);
-$(document).ready(function () {
 
-  
+$(document).ready(function () {
     // Handler for .ready() called.
     $('html, body').animate({
         scrollTop: $('#camp_form').offset().top
@@ -151,107 +135,19 @@ $(document).ready(function () {
 });
 
 
-
-
-
 //below code for retreive button on change on rect type
 $(document).ready(function() { 
-  $(".aumdis").attr("disabled", true);   // aum disable
-  // $(".ansdiv").hide();   // ans div hide
-  $('.cdqadisplay').hide();
-  // $('.commentvisible').hide();
-  // $('.optindiv').hide();
+ 
+  
+
 
   $("#gotoupdate").on('click', function() 
         {
 
-          // var rlc = 0; //lock 1
-          //   var lmid = $('#lmid').val();
-          //   var emp_id = $('#emp_id').val();
-          //   // $this->session -> userdata('email')
-          //   if(emp_id === undefined){
-          //               window.location = base_url+"administrator/logout";
-          //               exit;
-          //     }
-          //   if(emp_id == ''){
-          //     window.location = base_url+"administrator/logout";
-          //     exit;
-          //   }
-          //   // alert(emp_id);
-          //   if(rlc == "0"){
-          //   var urlq = '<?php echo base_url("cdc/updaterecordlock");?>';
-          //   console.log(urlq+'?lmid='+lmid+"&rlc="+rlc+"&emp_id="+emp_id);
-          //   $.ajax({
-          //         url:'<?php echo base_url("cdc/updaterecordlock");?>',
-          //         method: 'get',
-          //         data: {
-          //           lmid: lmid,
-          //           rlc:rlc,
-          //           emp_id:emp_id
-          //         },
-          //         dataType: 'json',
-          //         success: function(response){
-
-          //           console.log("check");
-          //                       // var dataResult = JSON.parse(response);
-          //                       if(response.statusCode == "Success") 
-          //                       {         
-          //                         // alert("Success in success");
-          //                         console.log("Record is opened/locked now");     
-                                  
-          //                       }else if(response.data=="Fail")
-          //                       {
-          //                         alert("fail/check if record is already opened");  
-                                    
-          //                       }
-          //         }
-          //     });
-          //   }else{
-          //     alert("record already opened");
-          //     // top.location.href=base_url+"cdc/selectCampaignforlead";//redirection
-          //   }
-
-
-
           window.location = base_url+"cdc/cdcform?rec_type_id=2&camp_id=<?php echo $_SESSION['campaign_id']; ?>&lmid=<?php echo $ldmster['lmid']; ?>&empcode=<?php echo $_SESSION['empcode']; ?>";
         }
   )
-    $('#rec_type_id').bind('change', function() {
-     
-        var value = $(this).val();
-        if (value == 2) { // if cdqa is selected
-          // $('.commentvisible').show();
-          $('.optindiv').show();
-          $('.cdqadisplay').show();
-          $('.leaddisplay').hide();
-          $(".ansdiv").show(); 
-          // window.location = base_url+"cdc/cdcform?rec_type_id=2&camp_id=<?php echo $_SESSION['campaign_id']; ?>&lmid=<?php echo $ldmster['lmid']; ?>";
-          var campaign_id = $('#campaign_id').val();
-
-         
-        }else{
-          // $('.commentvisible').hide();
-          $('.optindiv').hide();
-          $(".ansdiv").hide(); 
-          $('.leaddisplay').show();
-          $('.cdqadisplay').hide();
-            
-        }
-    }).trigger('change');
- 
-    $('#ctype').bind('change', function() {
-      var value = $(this).val();
-      if (value == 1 ||value == 10|| value == 4 )  { // comp type selected aum enable
-        $(".aumdis").attr("disabled", false);  
-           
-        }else{
-          $(".aumdis").val('');
-          $(".aumdis").attr("disabled", true);  
-            
-        }
-    })
-
-
+   
     var campaign_id = $('#campaign_id').val();
     var urlq = '<?php echo base_url("cdc/getquestion");?>';
 console.log(urlq+'?campaign_id='+campaign_id);
@@ -262,117 +158,88 @@ $.ajax({
       dataType: 'json',
       success: function(response){
 
-      //    Remove options 
-    //  $('#country_id').find('option').not(':first').remove();
-     
-
       //    Add options
      $.each(response,function(index,data){
-        // $('.questionrow').append('<select><option value="'+data['qid']+'">'+data['questions']+'</option></select');
        
           index++;
           var ans = 'aa'+index; 
-          // $ldmster[$ans] = 'aa'+index;
-          // alert (<?php echo "'aa'+index";?>);
+       
           var testa = <?php echo "'aa'+index";?>;
-          // alert(testa);
-        // $('.questionrow').html("");
-        // $('.questionrow').append('<div class="col-sm-6 card">'+
-        //                            '<p id='+ index +'><b>'+data['questions']+'</b></p>'+
-        //                               // '<input type="text" value="<?php //$aaa= 'aa'; if(isset($ldmster)){  echo $ldmster[$aaa]; }?>"  name="aa' + index + '" id="aa' + index + '"  placeholder="Answer for question ' + index + '"  class="form-control form-control-sm ">'+
-        //                               '<input type="text" value=""  name="aa' + index + '" id="aa' + index + '"  placeholder="Answer for question ' + index + '"  class="form-control form-control-sm ">'+
-                                                                     
-        //                   '</div>');
-
+      
 
         if(index == '1'){
           $('.questionrow').append('<div class="col-sm-6 card">'+
-                                   '<p id='+ index +'><b>'+data['questions']+'</b></p>'+
-                                      // '<input type="text" value="<?php //$aaa= 'aa'; if(isset($ldmster)){  echo $ldmster[$aaa]; }?>"  name="aa' + index + '" id="aa' + index + '"  placeholder="Answer for question ' + index + '"  class="form-control form-control-sm ">'+
+                                   '<p id='+ index +'><b>'+data['questions']+'</b></p>'+                                   
                                     '<input type="text" value="<?php  echo $ldmster['aa1']; ?>"  name="aa' + index + '" id="aa' + index + '" placeholder="Answer for question ' + index + '"  class="form-control form-control-sm ">'+
                                                                      
                           '</div>');
         }else  if(index == '2'){
           $('.questionrow').append('<div class="col-sm-6 card">'+
-                                   '<p id='+ index +'><b>'+data['questions']+'</b></p>'+
-                                      // '<input type="text" value="<?php //$aaa= 'aa'; if(isset($ldmster)){  echo $ldmster[$aaa]; }?>"  name="aa' + index + '" id="aa' + index + '"  placeholder="Answer for question ' + index + '"  class="form-control form-control-sm ">'+
+                                   '<p id='+ index +'><b>'+data['questions']+'</b></p>'+                                   
                                     '<input type="text" value="<?php  echo $ldmster['aa2']; ?>"  name="aa' + index + '" id="aa' + index + '" placeholder="Answer for question ' + index + '"  class="form-control form-control-sm ">'+
                                                                      
                           '</div>');
         }else  if(index == '3'){
           $('.questionrow').append('<div class="col-sm-6 card">'+
-                                   '<p id='+ index +'><b>'+data['questions']+'</b></p>'+
-                                      // '<input type="text" value="<?php //$aaa= 'aa'; if(isset($ldmster)){  echo $ldmster[$aaa]; }?>"  name="aa' + index + '" id="aa' + index + '"  placeholder="Answer for question ' + index + '"  class="form-control form-control-sm ">'+
+                                   '<p id='+ index +'><b>'+data['questions']+'</b></p>'+                                  
                                     '<input type="text" value="<?php  echo $ldmster['aa3']; ?>"  name="aa' + index + '" id="aa' + index + '" placeholder="Answer for question ' + index + '"  class="form-control form-control-sm ">'+
                                                                      
                           '</div>');
         }else  if(index == '4'){
           $('.questionrow').append('<div class="col-sm-6 card">'+
-                                   '<p id='+ index +'><b>'+data['questions']+'</b></p>'+
-                                      // '<input type="text" value="<?php //$aaa= 'aa'; if(isset($ldmster)){  echo $ldmster[$aaa]; }?>"  name="aa' + index + '" id="aa' + index + '"  placeholder="Answer for question ' + index + '"  class="form-control form-control-sm ">'+
+                                   '<p id='+ index +'><b>'+data['questions']+'</b></p>'+                                   
                                     '<input type="text" value="<?php  echo $ldmster['aa4']; ?>"  name="aa' + index + '" id="aa' + index + '"  placeholder="Answer for question ' + index + '"  class="form-control form-control-sm ">'+
                                                                      
                           '</div>');
         }else  if(index == '5'){
           $('.questionrow').append('<div class="col-sm-6 card">'+
-                                   '<p id='+ index +'><b>'+data['questions']+'</b></p>'+
-                                      // '<input type="text" value="<?php //$aaa= 'aa'; if(isset($ldmster)){  echo $ldmster[$aaa]; }?>"  name="aa' + index + '" id="aa' + index + '"  placeholder="Answer for question ' + index + '"  class="form-control form-control-sm ">'+
+                                   '<p id='+ index +'><b>'+data['questions']+'</b></p>'+                                  
                                     '<input type="text" value="<?php  echo $ldmster['aa5']; ?>"  name="aa' + index + '" id="aa' + index + '" placeholder="Answer for question ' + index + '"  class="form-control form-control-sm ">'+
                                                                      
                           '</div>');
         }else  if(index == '6'){
           $('.questionrow').append('<div class="col-sm-6 card">'+
-                                   '<p id='+ index +'><b>'+data['questions']+'</b></p>'+
-                                      // '<input type="text" value="<?php //$aaa= 'aa'; if(isset($ldmster)){  echo $ldmster[$aaa]; }?>"  name="aa' + index + '" id="aa' + index + '"  placeholder="Answer for question ' + index + '"  class="form-control form-control-sm ">'+
+                                   '<p id='+ index +'><b>'+data['questions']+'</b></p>'+                                   
                                     '<input type="text" value="<?php  echo $ldmster['aa6']; ?>"  name="aa' + index + '" id="aa' + index + '"  placeholder="Answer for question ' + index + '"  class="form-control form-control-sm ">'+
                                                                      
                           '</div>');
         }else  if(index == '7'){
           $('.questionrow').append('<div class="col-sm-6 card">'+
-                                   '<p id='+ index +'><b>'+data['questions']+'</b></p>'+
-                                      // '<input type="text" value="<?php //$aaa= 'aa'; if(isset($ldmster)){  echo $ldmster[$aaa]; }?>"  name="aa' + index + '" id="aa' + index + '"  placeholder="Answer for question ' + index + '"  class="form-control form-control-sm ">'+
+                                   '<p id='+ index +'><b>'+data['questions']+'</b></p>'+                                    
                                     '<input type="text" value="<?php  echo $ldmster['aa7']; ?>"  name="aa' + index + '" id="aa' + index + '" placeholder="Answer for question ' + index + '"  class="form-control form-control-sm ">'+
                                                                      
                           '</div>');
         }else  if(index == '8'){
           $('.questionrow').append('<div class="col-sm-6 card">'+
-                                   '<p id='+ index +'><b>'+data['questions']+'</b></p>'+
-                                      // '<input type="text" value="<?php //$aaa= 'aa'; if(isset($ldmster)){  echo $ldmster[$aaa]; }?>"  name="aa' + index + '" id="aa' + index + '"  placeholder="Answer for question ' + index + '"  class="form-control form-control-sm ">'+
+                                   '<p id='+ index +'><b>'+data['questions']+'</b></p>'+                                    
                                     '<input type="text" value="<?php  echo $ldmster['aa8']; ?>"  name="aa' + index + '" id="aa' + index + '" placeholder="Answer for question ' + index + '"  class="form-control form-control-sm ">'+
                                                                      
                           '</div>');
         }else  if(index == '9'){
           $('.questionrow').append('<div class="col-sm-6 card">'+
-                                   '<p id='+ index +'><b>'+data['questions']+'</b></p>'+
-                                      // '<input type="text" value="<?php //$aaa= 'aa'; if(isset($ldmster)){  echo $ldmster[$aaa]; }?>"  name="aa' + index + '" id="aa' + index + '"  placeholder="Answer for question ' + index + '"  class="form-control form-control-sm ">'+
+                                   '<p id='+ index +'><b>'+data['questions']+'</b></p>'+                                 
                                     '<input type="text" value="<?php  echo $ldmster['aa9']; ?>"  name="aa' + index + '" id="aa' + index + '"  placeholder="Answer for question ' + index + '"  class="form-control form-control-sm ">'+
                                                                      
                           '</div>');
         }else  if(index == '10'){
           $('.questionrow').append('<div class="col-sm-6 card">'+
-                                   '<p id='+ index +'><b>'+data['questions']+'</b></p>'+
-                                      // '<input type="text" value="<?php //$aaa= 'aa'; if(isset($ldmster)){  echo $ldmster[$aaa]; }?>"  name="aa' + index + '" id="aa' + index + '"  placeholder="Answer for question ' + index + '"  class="form-control form-control-sm ">'+
+                                   '<p id='+ index +'><b>'+data['questions']+'</b></p>'+                                  
                                     '<input type="text" value="<?php  echo $ldmster['aa10']; ?>"  name="aa' + index + '" id="aa' + index + '"  placeholder="Answer for question ' + index + '"  class="form-control form-control-sm ">'+
                                                                      
                           '</div>');
         }else  if(index == '11'){
           $('.questionrow').append('<div class="col-sm-6 card">'+
-                                   '<p id='+ index +'><b>'+data['questions']+'</b></p>'+
-                                      // '<input type="text" value="<?php //$aaa= 'aa'; if(isset($ldmster)){  echo $ldmster[$aaa]; }?>"  name="aa' + index + '" id="aa' + index + '"  placeholder="Answer for question ' + index + '"  class="form-control form-control-sm ">'+
+                                   '<p id='+ index +'><b>'+data['questions']+'</b></p>'+                                  
                                     '<input type="text" value="<?php  echo $ldmster['aa11']; ?>"  name="aa' + index + '" id="aa' + index + '"  placeholder="Answer for question ' + index + '"  class="form-control form-control-sm ">'+
                                                                      
                           '</div>');
         }else  if(index == '12'){
           $('.questionrow').append('<div class="col-sm-6 card">'+
-                                   '<p id='+ index +'><b>'+data['questions']+'</b></p>'+
-                                      // '<input type="text" value="<?php //$aaa= 'aa'; if(isset($ldmster)){  echo $ldmster[$aaa]; }?>"  name="aa' + index + '" id="aa' + index + '"  placeholder="Answer for question ' + index + '"  class="form-control form-control-sm ">'+
+                                   '<p id='+ index +'><b>'+data['questions']+'</b></p>'+                                  
                                     '<input type="text" value="<?php  echo $ldmster['aa12']; ?>"  name="aa' + index + '" id="aa' + index + '"  placeholder="Answer for question ' + index + '"  class="form-control form-control-sm ">'+
                                                                      
                           '</div>');
         }
-
-
-
 
         
       });
@@ -394,10 +261,6 @@ $.ajax({
 
                <button type="submit" name="gotoupdate" class="btn btn-primary" style="" id="gotoupdate">Go To Update</button>
                
-                                <!-- <select name="rec_type_id" id="rec_type_id"  class="form-control form-control-sm">
-                                      <option value="1">Data </option>
-                                      <option value="2">CDQA </option>
-                                </select> -->
                   </div> 
                 <div class="col-sm-4" style="margin-top: -20px;">
                 <?php foreach ($campaigns as $campaign): ?>
@@ -431,12 +294,11 @@ $.ajax({
       <?php foreach ($comptypedv as $comptypedv): ?>
      <?php endforeach;    ?>
      <?php foreach ($leadmaster as $ldmster): 
-      // print_r($ldmster['unverified_fields']);
+     
       $tid = explode(',',$ldmster['dvrejectreason']);
-      // print_r($tid);
+    
       ?>
-      
-      <?php //endforeach;  ?>
+     
 
       
      
@@ -466,25 +328,12 @@ $.ajax({
                        
                     </div>
                     <div class="col-sm-12" >
-                        <!-- <?php 
-                        // echo form_open_multipart('campaigns/add_campaign');
-                         ?> -->
-                        <!-- <?php 
-                        // echo form_open_multipart('', array('id' => 'addcampForm')) ?> -->
-                        <!-- <form id="basic-form" method="POST" enctype="multipart/form-data"> -->
-
                        
                       
                         <div class="form-group row">
                            
                             <div class="col-sm-1">
-                                 <!-- <select name="sal" id="sal"  class="form-control  form-control-sm cdqadisable">
-                                 <option value="Mr">Mr.</option>
-                                      <option value="Ms">Ms.</option>
-                                      <option value="Mrs">Mrs.</option>
-                                      <option value="Dr">Dr.</option>
-                                      <option value="Other">Other</option>
-                                </select> -->
+                                
                                 <div class="to-do-list">
                                         <div class="checkbox-fade fade-in-primary  col-sm-12">
                                             <label class="check-task">
@@ -499,8 +348,7 @@ $.ajax({
                             </div>
                            
                             <div class="col-sm-2">
-                                <!-- <input type="text"  name="fname" id="fname"  placeholder="First Name"   class="form-control form-control-sm cdqadisable"                             
-                                 value ="<?php //if(isset($ldmster)){  echo $ldmster['fname']; }?>" > -->
+                              
                                  <input type="hidden" name="inclistnew" id="inclistnew" value="<?php echo $campaign['inclistnew']; ?>">
                                 <span style='color:#FF0000' id="fname_msg"></span>
                                 <div class="col-sm-12">
@@ -520,9 +368,7 @@ $.ajax({
                             </div>
                             
                             <div class="col-sm-2">
-                                <!-- <input type="text"  name="lname" id="lname"  placeholder="Last Name" value ="<?php if(isset($ldmster)){  echo $ldmster['lname']; }?>"   class="form-control form-control-sm cdqadisable">
-                                <span style='color:#FF0000' id="lname_msg"></span> -->
-                               
+                            
                                 <div class="to-do-list">
                                         <div class="checkbox-fade fade-in-primary  col-sm-12">
                                             <label class="check-task">
@@ -536,8 +382,7 @@ $.ajax({
 
 
                             </div>
-                            <div class="col-sm-3">
-                                <!-- <input type="text"  name="jtitle" id="jtitle"  placeholder="Job Title" value ="<?php //if(isset($ldmster)){  echo $ldmster['jtitle']; }?>"  class="form-control form-control-sm cdqadisable"> -->
+                            <div class="col-sm-3">                              
                                 <div class="to-do-list">
                                         <div class="checkbox-fade fade-in-primary  col-sm-12">
                                             <label class="check-task">
@@ -549,43 +394,9 @@ $.ajax({
                                         </div>
                                   </div>
                             </div>
-                            <!-- <div class="col-sm-2"> -->
-                                <!-- <select class="js-example-basic-multiple col-sm-12 cdqadisable" multiple="multiple" name="desid[]" id="desid"> -->
-                                <!-- <select class="form-control form-control-sm cdqadisable" name="jlevel" id="jlevel">
-                                <option value="">Job Level</option>
-                                <?php //foreach ($joblevel as $joblevel): ?>
-                                    <option value="<?php// echo $joblevel['joblids']; ?>"  <?php //if(isset($ldmster) && $ldmster['jlevel'] == $joblevel['joblids']){ echo "selected" ; } ?> ><?php// echo $joblevel['joblevel']; ?></option>
-                                <?php //endforeach; ?>  
-                               
-                                </select> -->
-
-                                <!-- <div class="to-do-list">
-                                        <div class="checkbox-fade fade-in-primary  col-sm-12">
-                                            <label class="check-task">
-                                                <input type="checkbox" name="jlevel" id="jlevel"  value="jlevel">
-                                                <?php// foreach ($joblevel as $joblevel): ?>
-                                               <span  class="form-control form-control-sm cdqadisable">
-                                               <?php// if(isset($ldmster)){ echo $ldmster['jlevel']; } else { echo "Job level is Empty" ; } ?>
-                                               
-                                                </span>
-                                                <?php// endforeach; ?>  
-                                            </label>
-                                        </div>
-                                  </div> -->
-
-
-                            <!-- </div> -->
+                        
                             <div class="col-sm-4">
-                                <!-- <select class="js-example-basic-multiple col-sm-12 cdqadisable" multiple="multiple" name="desid[]" id="desid"> -->
-                                <!-- <select class="js-example-basic-single" name="desid" id="desid">
-                                <option value="">Designation</option> -->
-                                <?php //foreach ($designation as $designation): ?>
-                                    <!-- <option value="<?php// echo $designation['jid']; ?>" <?php //if(isset($ldmster) && $ldmster['jlevel'] == $designation['jid']){ echo "selected" ; } ?>>
-                                    <?php //echo $designation['joblist']; ?></option> -->
-                                <?php //endforeach; ?>  
-                                <!-- </select> -->
-
-
+                               
                                    <div class="to-do-list">
                                           <div class="checkbox-fade fade-in-primary  col-sm-12">
                                               <label class="check-task">
@@ -605,14 +416,6 @@ $.ajax({
                         <hr>
                         <div class="form-group row">
                         <div class="col-sm-2">
-                                 <!-- <select class="js-example-basic-single" name="dcd" id="dcd">
-                                    <option value=""> Department</option>
-                                <?php// foreach ($departments as $dept): ?>
-                                    <option value="<?php //echo $dept['dcd']; ?>"  
-                                    <?php// if(isset($ldmster) && $ldmster['dname'] == $dept['dcd']){ echo "selected" ; } ?> ><?php //echo $dept['department']; ?></option>
-                                <?php// endforeach; ?>
-                                </select> -->
-
                                 
                                 <div class="to-do-list">
                                           <div class="checkbox-fade fade-in-primary  col-sm-12">
@@ -626,8 +429,7 @@ $.ajax({
                                   </div>   
                             </div> 
                             <div class="col-sm-2">
-                                <div class="newsletter-signup">
-                                <!-- <input type="text"  name="email" id="email" value ="<?php //if(isset($ldmster)){  echo $ldmster['email']; }?>"  placeholder="Email"  class="form-control form-control-sm cdqadisable"> -->
+                                <div class="newsletter-signup">                              
                                   <div class="to-do-list">
                                           <div class="checkbox-fade fade-in-primary  col-sm-12">
                                               <label class="check-task">
@@ -644,8 +446,7 @@ $.ajax({
                                </div>
                                 <span style='color:#FF0000' id="email_msg"></span>
                             </div>
-                            <div class="col-sm-2">
-                                <!-- <input type="text"  name="phone" id="phone" value ="<?php //if(isset($ldmster)){  echo $ldmster['phone']; }?>" placeholder="Phone" maxlength="15"  class="form-control form-control-sm cdqadisable"> -->
+                            <div class="col-sm-2">                              
                                 <span style='color:#FF0000' id="phone_msg"></span>
                                 <div class="to-do-list">
                                           <div class="checkbox-fade fade-in-primary  col-sm-12">
@@ -661,8 +462,7 @@ $.ajax({
 
 
                             </div>
-                            <div class="col-sm-2">
-                                <!-- <input type="text"  name="altphn" id="altphn" value ="<?php //if(isset($ldmster)){  echo $ldmster['altphn']; }?>" placeholder="Alternate Phone Number" maxlength="10"  class="form-control form-control-sm cdqadisable"> -->
+                            <div class="col-sm-2">                                
                                 <div class="to-do-list">
                                           <div class="checkbox-fade fade-in-primary  col-sm-12">
                                               <label class="check-task">
@@ -676,8 +476,7 @@ $.ajax({
                             
                             </div>
                             
-                            <div class="col-sm-2">
-                                <!-- <input type="text"  name="phext" id="phext" value ="<?php //if(isset($ldmster)){  echo $ldmster['phext']; }?>" placeholder="Extension" maxlength="5"  class="form-control form-control-sm cdqadisable"> -->
+                            <div class="col-sm-2">                               
                                 <div class="to-do-list">
                                           <div class="checkbox-fade fade-in-primary  col-sm-12">
                                               <label class="check-task">
@@ -692,8 +491,7 @@ $.ajax({
                            
                             </div>
                             <div class="col-sm-2">
-                            
-                            <div class="to-do-list">
+                              <div class="to-do-list">
                                           <div class="checkbox-fade fade-in-primary  col-sm-12">
                                               <label class="check-task">
                                                   <input type="checkbox" name="plink" id="plink"  value="plink">
@@ -714,12 +512,7 @@ $.ajax({
                         <div class="form-group row">
                              
                               <div class="col-sm-2">
-                               <!-- <select name="linetype" id="linetype"  class="form-control  form-control-sm cdqadisable">
-                                     <option value="0">Line Type</option>
-                                     <option value="0">unknown</option>
-                                     <option value="1">Direct</option>
-                                     <option value="2">Board</option>  
-                               </select> -->
+                             
                                <div class="to-do-list">
                                             <div class="checkbox-fade fade-in-primary  col-sm-12">
                                                 <label class="check-task">
@@ -740,9 +533,7 @@ $.ajax({
                                   </div>
 
                            </div>
-                              <div class="col-sm-2">
-                                <!-- <input type="text"  name="company_name" id="company_name"  
-                                placeholder="Company Name"  class="form-control form-control-sm cdqadisable"  value ="<?php //if(isset($ldmster)){  echo $ldmster['cname']; }?>"> -->
+                              <div class="col-sm-2">                               
                                 <div class="to-do-list">
                                           <div class="checkbox-fade fade-in-primary  col-sm-12">
                                               <label class="check-task">
@@ -758,8 +549,7 @@ $.ajax({
                           </div>
 
 
-                            <div class="col-sm-2">
-                                <!-- <input type="text"  name="address" id="address"  placeholder="Address"  value ="<?php// if(isset($ldmster)){  echo $ldmster['address']; }?>" class="form-control form-control-sm cdqadisable"> -->
+                            <div class="col-sm-2">                              
                                 <div class="to-do-list">
                                           <div class="checkbox-fade fade-in-primary  col-sm-12">
                                               <label class="check-task">
@@ -771,8 +561,7 @@ $.ajax({
                                           </div>
                                 </div>
                            </div>
-                           <div class="col-sm-2">
-                                <!-- <input type="text"  name="city" id="city"  placeholder="City" value ="<?php //if(isset($ldmster)){  echo $ldmster['city']; }?>"   class="form-control form-control-sm cdqadisable"> -->
+                           <div class="col-sm-2">                               
                                 <div class="to-do-list">
                                           <div class="checkbox-fade fade-in-primary  col-sm-12">
                                               <label class="check-task">
@@ -784,8 +573,7 @@ $.ajax({
                                           </div>
                                 </div>
                            </div>
-                           <div class="col-sm-2">
-                                <!-- <input type="text"  name="state" id="state"  placeholder="State" value ="<?php if(isset($ldmster)){  echo $ldmster['state']; }?>" class="form-control form-control-sm cdqadisable"> -->
+                           <div class="col-sm-2">                             
                                 <div class="to-do-list">
                                           <div class="checkbox-fade fade-in-primary  col-sm-12">
                                               <label class="check-task">
@@ -798,8 +586,7 @@ $.ajax({
                                    
                                 </div>
                             </div>
-                            <div class="col-sm-2">
-                                <!-- <input type="text"  name="zip_code" id="zip_code"  placeholder="Zip Code" value ="<?php //if(isset($ldmster)){  echo $ldmster['zipcode']; }?>" class="form-control form-control-sm cdqadisable"> -->
+                            <div class="col-sm-2">                                
                                 <div class="to-do-list">
                                           <div class="checkbox-fade fade-in-primary  col-sm-12">
                                               <label class="check-task">
@@ -830,8 +617,6 @@ $.ajax({
                                               </label>
                                           </div>
                                   </div>     
-<!--                                  
-                                <span style='color:#FF0000' id="country_id_msg"></span> -->
                         </div>
                             
                             <div class="col-sm-2">
@@ -847,23 +632,11 @@ $.ajax({
                                           </div>
                                   </div>
 
-                              <!-- <select class="js-example-basic-single"  name="timezone" id="timezone">
-                              <option value="">Timezone</option>
-                              <?php //foreach ($timezones as $tz): ?>
-                                    <option value="<?php// echo $tz['zoneid']; ?>"  <?php //if(isset($ldmster) && $ldmster['timez'] == $tz['zoneid']){ echo "selected" ; } ?>>
-                                    <?php //echo $tz['abbrev']; ?></option>
-                                <?php //endforeach; ?> 
-                                </select> -->
-                                <!-- <span style='color:#FF0000' id="timezone_msg"></span> -->
+                            
                             </div>
 
                             <div class="col-sm-2">
-                               <!-- <select name="ctype" id="ctype"  class="form-control  form-control-sm cdqadisable"> 
-                                     <option value="0">Company Type</option>
-                                     <?php// foreach ($comptype as $comptype): ?>
-                                    <option value="<?php //echo $comptype['ctypid']; ?>"><?php //echo $comptype['ctypname']; ?></option>
-                                <?php //endforeach; ?> 
-                               </select> -->
+                             
                                <div class="to-do-list">
                                           <div class="checkbox-fade fade-in-primary  col-sm-12">
                                               <label class="check-task">
@@ -894,16 +667,7 @@ $.ajax({
                                           </div>
                                     </div> 
                                   </div> 
-
-
-                              <!-- <select class="js-example-basic-single"  name="industrycd" id="industrycd">
-                              <option value="">Industry</option>
-                              <?php// foreach ($industries as $industry): ?>
-                                    <option value="<?php //echo $industry['industrycd']; ?>" <?php //if(isset($ldmster) && $ldmster['indtry'] == $industry['industrycd']){ echo "selected" ; } ?>>
-                                    <?php// echo $industry['industry']; ?></option>
-                                <?php //endforeach; ?>
-                                </select> -->
-                                <!-- <span style='color:#FF0000' id="industry_id_msg"></span> -->
+                           
                             </div>
                             
                             <div class="col-sm-2">
@@ -919,27 +683,9 @@ $.ajax({
                                           </div>
                                   </div> 
                                 </div> 
-                                <!-- <select class="js-example-basic-single" name="subindustrycd" id="subindustrycd">
-                                <option value="">Sub Industry</option>
-                                <?php //foreach ($industriessub as $sub): ?>
-                                    <option value="<?php //echo $sub['subindustrycd']; ?>" <?php //if(isset($ldmster) && $ldmster['sindtry'] == $sub['subindustrycd']){ echo "selected" ; } ?>>
-                                    <?php //echo $sub['subindustry']; ?></option>
-                                <?php //endforeach; ?>
-                                </select> -->
-                                <!-- <span style='color:#FF0000' id="subindustry_id_msg"></span> -->
+                               
                             </div>
                             <div class="col-sm-2">
-                                <!-- <select class="form-control form-control-sm cdqadisable" name="sectyp" id="sectyp">
-                                  
-                                    <option value="0">Sector Type</option>
-                                    <option value="0">Unknown</option>
-                                    <option value="1">Public</option>
-                                    <option value="2">Private</option>
-                                    <option value="3">Government</option>
-                                    <option value="4">Non -Profit </option>
-                               
-                                    </select> -->
-
                                     <div class="to-do-list">
                                             <div class="checkbox-fade fade-in-primary  col-sm-12">
                                                 <label class="check-task">
@@ -972,8 +718,7 @@ $.ajax({
                 <hr>
                     <div class="form-group row">
                         <div class="col-sm-2">
-                        <!-- <div class="tooltips"> -->
-                                <!-- <input type="text"  name="empsize" id="empsize" maxlength="6" value ="<?php// if(isset($ldmster)){  echo $ldmster['empsize']; }?>" placeholder="Actual Employee Size"  class="form-control form-control-sm cdqadisable"> -->
+                        <!-- <div class="tooltips"> -->                               
                                 <div class="to-do-list">
                                           <div class="checkbox-fade fade-in-primary  col-sm-12">
                                               <label class="check-task">
@@ -988,15 +733,14 @@ $.ajax({
                                  </div>
                                 <!-- <span style='color:#FF0000' id="empsize_msg"></span> -->
                             </div>
-                            <div class="col-sm-2">
-                                <!-- <input type="text"  name="arevenue" id="arevenue" value ="<?php //if(isset($ldmster)){  echo $ldmster['arevenue']; }?>"  maxlength="15" placeholder="Actual Revenue Size"  class="form-control form-control-sm cdqadisable"> -->
+                            <div class="col-sm-2">                               
                                 <span style='color:#FF0000' id="revsize_msg"></span>
                                 <div class="to-do-list">
                                           <div class="checkbox-fade fade-in-primary  col-sm-12">
                                               <label class="check-task">
                                                   <input type="checkbox" name="arevenue" id="arevenue"  value="arevenue">
                                                 <span  class="form-control form-control-sm cdqadisable tooltips"><?php if(isset($ldmster['arevenue'])){  echo $ldmster['arevenue']; }else { echo "Revenue is Empty" ;} ?>
-                                                <!-- <span class="tooltiptext">Revenue</span> -->
+                                              
                                                 <span class="tooltiptext"> Revenue should be in <?php echo $campaign['revlbnd']; ?> <?php echo $campaign['revlbdim']; ?> 
                           & <?php echo $campaign['revubnd']; ?> <?php echo $campaign['revubdim']; ?></span>
                                                 </span>
@@ -1008,13 +752,7 @@ $.ajax({
                             
                             
                             <div class="col-sm-2">
-                                <!-- <select class="form-control form-control-sm cdqadisable" name="mlbl" id="mlbl">
-                                    <option value="0">K</option>
-                                    <option value="1">Hundred Thousand</option> -->
-                                    <!-- <option value="1">M</option>
-                                    <option value="2">B</option>
-                                    <option value="3">T</option>
-                                    </select> --> 
+                               
                                     <div class="to-do-list">
                                             <div class="checkbox-fade fade-in-primary  col-sm-12">
                                                 <label class="check-task">
@@ -1053,20 +791,11 @@ $.ajax({
                                               </label>
                                           </div>
                                   </div>
-
-                                <!-- <select class="form-control form-control-sm cdqadisable" name="curr" id="curr">
-                                    <option value="1">USD</option>                                  
-                                <?php //foreach ($currency as $currency): ?>
-                                    <option value="<?php //echo $currency['currid']; ?>"  
-                                    <?php //if(isset($ldmster) && $ldmster['curr'] == $currency['currid']){ echo "selected" ; } ?>><?php echo $currency['currab']; ?></option>
-                                <?php //endforeach; ?>
-                                   </select> -->
-                                
+                               
 
                             </div>          
                             <div class="col-sm-2">
-                                <div class="domaincheck">
-                                <!-- <input type="text" value ="<?php //if(isset($ldmster)){  echo $ldmster['domain']; }?>"   name="domain" id="domain"  placeholder="Domain" value=""  class="form-control form-control-sm cdqadisable"> -->
+                                <div class="domaincheck">                               
                                 <div class="to-do-list">
                                           <div class="checkbox-fade fade-in-primary  col-sm-12">
                                               <label class="check-task">
@@ -1083,12 +812,10 @@ $.ajax({
                                               </label>
                                           </div>
                                     </div>
-                                </div>
-                                <!-- <span style='color:#FF0000' id="domain_msg"></span> -->
+                                </div>                                
                               </div>
                             
-                            <div class="col-sm-2">
-                                <!-- <input type="text" value ="<?php // if(isset($ldmster)){  echo $ldmster['empszlink']; }?>"  name="empszlink" id="empszlink" value=""   placeholder="Employee Size Link"  class="form-control form-control-sm"> -->
+                            <div class="col-sm-2">                               
                                 <div class="to-do-list">
                                           <div class="checkbox-fade fade-in-primary  col-sm-12">
                                               <label class="check-task">
@@ -1112,12 +839,6 @@ $.ajax({
                         <div class="form-group row">
                            
                             <div class="col-sm-2 ">
-                               
-                                <!-- <a href="<?php //if(isset($ldmster['indlink'])){ echo $ldmster['indlink']; } ?> "target="_blank"> 
-                                <?php //if(isset($ldmster['indlink'])){  echo $ldmster['indlink']; }else { echo "Industry Link Empty" ;} ?>
-                                </a>
-                            
-                                  <input type="checkbox" value=""  id="indlink" name="indlink" class="js-single"  /> -->
                                   <div class="to-do-list">
                                           <div class="checkbox-fade fade-in-primary  col-sm-12">
                                               <label class="check-task">
@@ -1135,14 +856,13 @@ $.ajax({
                                     </div>
                               
                             </div>
-                            <div class="col-sm-2">
-                                <!-- <input type="text"  name="revszlink" id="revszlink" value ="<?php // if(isset($ldmster)){  echo $ldmster['revszlink']; }?>"  placeholder="Revenue Size Link"  class="form-control form-control-sm revsizehide"> -->
+                            <div class="col-sm-2">                               
                                 <div class="to-do-list">
                                           <div class="checkbox-fade fade-in-primary  col-sm-12">
                                               <label class="check-task">
                                                   <input type="checkbox" name="revszlink" id="revszlink"  value="revszlink">
                                                 <span  class="form-control form-control-sm cdqadisable tooltips">Revenue Link  
-                                                <!-- <a href="<?php// if($ldmster['revszlink'] != "NA"){ echo $ldmster['revszlink']; } else{  echo ""; } ?>" target="_blank" style="float:right"><i class="icofont icofont-link"></i></a> -->
+                                                
                                                 <?php if($ldmster['revszlink'] != "NA"){ ?>
                                                 <a href=" <?php echo $ldmster['revszlink']; ?>" target="_blank" style="float:right"><i class="icofont icofont-link"></i></a>
                                                   <?php } else{ ?>
@@ -1155,15 +875,14 @@ $.ajax({
                                     </div>
                             </div>
                             
-                            <div class="col-sm-2">
-                                <!-- <input type="text"  name="othrlink" id="othrlink" value ="<?php //if(isset($ldmster)){  echo $ldmster['othrlink']; }?>" placeholder="Other Link"  class="form-control form-control-sm"> -->
+                            <div class="col-sm-2">                               
                                 <div class="to-do-list">
                                           <div class="checkbox-fade fade-in-primary  col-sm-12">
                                               <label class="check-task">
                                                   <input type="checkbox" name="othrlink" id="othrlink"  value="othrlink">
                                                 <span  class="form-control form-control-sm cdqadisable tooltips">Other Link  
                                                 <?php if($ldmster['othrlink'] != ""){ ?>
-                                                <!-- <a href="<?php //if($ldmster['othrlink'] != ""){ echo $ldmster['othrlink']; } else{  echo "#"; } ?>" target="_blank" style="float:right"><i class="icofont icofont-link"></i></a> -->
+                                               
                                                 <a href="<?php echo $ldmster['othrlink']; ?>" target="_blank" style="float:right"><i class="icofont icofont-link"></i></a> 
                                                   <?php } else{ ?>
                                                     <a style="float:right"><i class="icofont icofont-unlink"></i></a>
@@ -1176,11 +895,7 @@ $.ajax({
                             
                             </div>
                             <div class="col-sm-2">
-                                <!-- <select class="form-control form-control-sm"  name="emailver" id="emailver">
-                                    <option value="0">Email Verification</option>
-                                    <option value="1">Yes</option>
-                                    <option value="0">No</option>
-                                </select> -->
+                                
                                 <div class="to-do-list">
                                             <div class="checkbox-fade fade-in-primary  col-sm-12">
                                                 <label class="check-task">
@@ -1200,7 +915,7 @@ $.ajax({
                                   </div>
                             </div>
                             <div class="col-sm-2">
-                                <!-- <input type="text"  name="aum" id="aum" value ="<?php // if(isset($ldmster)){  echo $ldmster['aum']; }?>" placeholder="Asset Under Management"  class="form-control form-control-sm aumdis"> -->
+                               
                                 <div class="to-do-list">
                                             <div class="checkbox-fade fade-in-primary  col-sm-12">
                                                 <label class="check-task">
@@ -1213,13 +928,6 @@ $.ajax({
                                   </div>
                             </div>
                             <div class="col-sm-2">
-                                <!-- <select class="form-control form-control-sm commentvisible" name="assetid" id="assetid">
-                                    <option value="0">Asset</option>
-                                    <?php //foreach ($assetitle as $assetitle): ?>
-                                    <option value="<?php// echo $assetitle['assetid']; ?>"><?php// echo $assetitle['title']; ?></option>
-                                <?php //endforeach; ?>
-                                   </select> -->
-
                                    <div class="to-do-list">
                                         <div class="checkbox-fade fade-in-primary  col-sm-12">
                                             <label class="check-task">
@@ -1388,19 +1096,14 @@ $.ajax({
                               <button type="submit" name="leadsavecdc" class="btn btn-primary leaddisplay" style="margin-left:50px"  id="leadsavecdc">Skip </button> 
                              </center>
                         <?php } else{ ?>
-                          <!-- <button type="submit" name="" class="btn btn-primary leaddisplay" style=""  id="">Limit Crossed</button>  -->
-                          <!-- <button type="submit" name="leadsavecdc" class="btn btn-primary leaddisplay" style=""  id="leadsavecdc">Discard </button>  -->
+                         
                            <?php }?>
                        <?php if(empty($ldmster)){ ?>
                         
                         <?php } ?>
                         </div>
                           </div>
-                        <!-- <input class="submit" class ="" type="submit" value="SUBMIT"> -->
-                        <!-- below buttons are for cdqa save and submit -->
-                        <!-- <button type="submit" name="submit" class="btn btn-primary cdqadisplay"   id="cdqasubmit">Submit Lead </button> 
-                        <button type="submit" name="submit" class="btn btn-primary cdqadisplay"  id="cdqasave">Save Lead </button> 
-                        -->
+                       
 
                     </div>
                       
@@ -1427,21 +1130,13 @@ $.ajax({
       <div class="modal-content">
         <div class="modal-header">
           <button type="button" class="close" data-dismiss="modal">&times;</button>
-          <!-- <h4 class="modal-title">Modal Header</h4> -->
+          
         </div>
         <div class="modal-body">
         <div class="mail-body-content">
                                         <form>
                                             <div class="form-group row">
-                                               
-                                                <!-- <div class="col-sm-6">
-                                                <select class="form-control form-control-sm cdqadisable" name="" id="">
-                                                    <option value="1">Industry</option>                                  
                                             
-                                                    <option value="2">Sub Industry</option>
-                                              
-                                                </select>
-                                              </div> -->
                                                 <div class="col-sm-12">
                                                   <input type ="text"  id="search_text" name="search_text" class="form-control form-control-sm" placeholder="Search here...">
                                                 </div>
@@ -1500,601 +1195,7 @@ $.ajax({
     // end of search result
 
 
-$('#empsize').blur(function(){
-  var lbound = $('#php_lbound').val();
-  // var lbound = 1;
-  var ubound = $('#php_ubound').val();
-  // alert(parseInt(ubound));
-  var value = $(this).val();
-  
-  
-  if ( value > parseInt(ubound) || value < parseInt(lbound)) 
- 
- {
-  $("#empsize_msg").html("Not in Range");
-  $(this).val("");
- }else{
-  $("#empsize_msg").html("");
- }
 
-
-
-});
-
-// Country change -- get timezones
-$('#country_id').change(function(){
-    var country_id = $(this).val();
-   
-    // AJAX request to get timezones
-    var urlq = '<?php echo base_url("cdc/gettimezones");?>';
-    console.log(urlq+'?country_id='+country_id);
-    $.ajax({
-        url:'<?php echo base_url("cdc/gettimezones");?>',
-        method: 'get',
-        data: {country_id: country_id},
-        dataType: 'json',
-        success: function(response){
-
-        //    Remove options 
-       $('#timezone').find('option').not(':first').remove();
-
-        //    Add options
-       $.each(response,function(index,data){
-          $('#timezone').append('<option value="'+data['zoneid']+'" >'+data['abbrev']+'</option>');
-          
-        });
-        // $('#country_id').multiselect("rebuild");
-        // callB();
-              $.ajax({
-              url:'<?php echo base_url("cdc/gettcurrency");?>',
-              method: 'get',
-              data: {country_id: country_id},
-              dataType: 'json',
-              success: function(response){
-
-              //    Remove options 
-            $('#curr').find('option').not(':first').remove();
-
-              //    Add options
-            $.each(response,function(index,data){
-                $('#curr').append('<option value="'+data['currid']+'">'+data['currab']+'</option>');
-              
-              });
-              // $('#country_id').multiselect("rebuild");
-            
-              }
-          });
-
-
-
-
-
-        }
-    });
-});
-
-
-// check revenue range for campaign
-// $('#arevenue').change(function(){
-
-//   $("#revszlink").prop('disabled', false);
-//   $('#revszlink').val("");
-  
-// });
-
-$('#mlbl').blur(function(){   // revenue range change
-// $('#arevenue').blur(function(){   // revenue range change
- 
-var arevenuevalue = $('#arevenue').val();
-
-  var lrevrange = $('#revlbdimmlbl').val(); //lower range  for eg million /billion
-  var urevrange = $('#revubdimmlbl').val();
-
-  var lrevrangenumber = $('#revlbndmlbl').val();
-  var urevrangenumber = $('#revubndmlbl').val();
-  // alert(lrevrange+" "+urevrange+" "+lrevrangenumber+" "+urevrangenumber);
- 
-  if(lrevrange == "hundred" && urevrange =="hundred" ){
-    if($('#mlbl').val()== 0){
-      var m = arevenuevalue*1000;
-      var urevrangenumber1 = urevrangenumber*1000;
-      var lrevrangenumber1 = lrevrangenumber*1000;
-      // alert(m+" "+lrevrangenumber1+" "+urevrangenumber1);
-    
-      if(m > parseInt(urevrangenumber1) || m < parseInt(lrevrangenumber1)){
-        alert("not in range");
-        $('#arevenue').val("");
-      }else{
-        alert("in range");
-      }
-    }else{
-      alert("not in range of Thousand");
-      $('#arevenue').val("");
-    }
-              var ch = "0"; // thousand
-              var ch1 = "1"; // million
-              var check = "2"; //billion
-              var check2 = "3"; // trillion
-              $('select').each(function() {
-                $('#mlbl').not(this).find('option[value="' + ch + '"]').prop('disabled', false);
-                  $('#mlbl').not(this).find('option[value="' + check + '"]').hide();
-                  $('#mlbl').not(this).find('option[value="' + ch1 + '"]').hide();
-                  $('#mlbl').not(this).find('option[value="' + check2 + '"]').hide();
-              });
-             
-  }
-  if(lrevrange == "million" && urevrange =="million" ){
-    if($('#mlbl').val()==1){
-      var m = arevenuevalue*1000000;
-      var urevrangenumber1 = urevrangenumber*1000000;
-      var lrevrangenumber1 = lrevrangenumber*1000000;
-      // alert(m+" "+lrevrangenumber1+" "+urevrangenumber1);
-    
-      if(m > parseInt(urevrangenumber1) || m < parseInt(lrevrangenumber1)){
-        alert("not in range");
-        $('#arevenue').val("");
-      }else{
-        // alert("in range");
-      }
-    }else{
-      alert("not in range of Million");
-      $('#arevenue').val("");
-    }
-              var ch = "0"; // thousand
-              var ch1 = "1"; // million
-              var check = "2"; //billion
-              var check2 = "3"; // trillion
-              $('select').each(function() {
-                $('#mlbl').not(this).find('option[value="' + ch1 + '"]').prop('disabled', false);
-                  $('#mlbl').not(this).find('option[value="' + check + '"]').hide();
-                  $('#mlbl').not(this).find('option[value="' + ch + '"]').hide();
-                  $('#mlbl').not(this).find('option[value="' + check2 + '"]').hide();
-              });
-  }
-  if(lrevrange == "billion" && urevrange =="billion" ){
-    if($('#mlbl').val()==2){
-      var m = arevenuevalue*1000000000;
-      var urevrangenumber1 = urevrangenumber*1000000000;
-      var lrevrangenumber1 = lrevrangenumber*1000000000;
-      // alert(m+" "+lrevrangenumber1+" "+urevrangenumber1);
-    
-      if(m > parseInt(urevrangenumber1) || m < parseInt(lrevrangenumber1)){
-        alert("not in range");
-        $('#arevenue').val("");
-      }else{
-        // alert("in range ");
-      }
-    }else{
-      alert("not in range of Billion");
-      $('#arevenue').val("");
-    }
-              var ch = "0"; // thousand
-              var ch1 = "1"; // million
-              var check = "2"; //billion
-              var check2 = "3"; // trillion
-              $('select').each(function() {
-                $('#mlbl').not(this).find('option[value="' + check + '"]').prop('disabled', false);
-                  $('#mlbl').not(this).find('option[value="' + ch + '"]').hide(); 
-                  $('#mlbl').not(this).find('option[value="' + ch1 + '"]').hide(); 
-                  $('#mlbl').not(this).find('option[value="' + check2 + '"]').hide();
-              });
-
-  }
-  if(lrevrange == "trillion" && urevrange =="trillion" ){
-    if($('#mlbl').val()==3){
-      var m = arevenuevalue*1000000000000;
-      var urevrangenumber1 = urevrangenumber*1000000000000;
-      var lrevrangenumber1 = lrevrangenumber*1000000000000;
-      // alert(m+" "+lrevrangenumber1+" "+urevrangenumber1);
-    
-      if(m > parseInt(urevrangenumber1) || m < parseInt(lrevrangenumber1)){
-        alert("not in range");
-        $('#arevenue').val("");
-      }else{
-        // alert("in range ");
-      }
-    }else{
-      alert("not in range of Trillion");
-      $('#arevenue').val("");
-    }
-              var ch = "0"; // thousand
-              var ch1 = "1"; // million
-              var check = "2"; //billion
-              var check2 = "3"; // trillion
-              $('select').each(function() {
-                $('#mlbl').not(this).find('option[value="' + check2 + '"]').prop('disabled', false);
-                  $('#mlbl').not(this).find('option[value="' + ch + '"]').hide();
-                  $('#mlbl').not(this).find('option[value="' + ch1 + '"]').hide();
-                  $('#mlbl').not(this).find('option[value="' + check + '"]').hide();
-              });
-
-  }
-
-  if(lrevrange != urevrange){ // different range
-   if(lrevrange == "hundred" && urevrange ==  "million"){
-      if($('#mlbl').val()==0){
-        var m = arevenuevalue*1000;
-      }else if($('#mlbl').val()==1){
-        var m = arevenuevalue*1000000;
-      }
-      else if($('#mlbl').val()==2){
-        var m = arevenuevalue*1000000000;
-      } else if($('#mlbl').val()==3){
-        var m = arevenuevalue*1000000000000;
-      }
-      // alert(m);
-      var urevrangenumber1 = urevrangenumber*1000000;
-      var lrevrangenumber1 = lrevrangenumber*1000;
-    // alert("hundred and million");
-            //  var ch = "0"; // thousand
-            //   var ch1 = "1"; // million
-            //   var check = "2"; //billion
-            //   var check2 = "3"; // trillion
-            //   $('select').each(function() {
-            //     $('#mlbl').not(this).find('option[value="' + check2 + '"]').hide();
-            //       $('#mlbl').not(this).find('option[value="' + ch + '"]').prop('disabled', false); 
-            //       $('#mlbl').not(this).find('option[value="' + ch1 + '"]').prop('disabled', false); 
-            //       $('#mlbl').not(this).find('option[value="' + check + '"]').hide();
-            //   });
-
-
-
-    }else if(lrevrange == "hundred" && urevrange ==  "billion"){
-      if($('#mlbl').val()==0){
-        var m = arevenuevalue*1000;
-      }else if($('#mlbl').val()==1){
-        var m = arevenuevalue*1000000;
-      }
-      else if($('#mlbl').val()==2){
-        var m = arevenuevalue*1000000000;
-      } else if($('#mlbl').val()==3){
-        var m = arevenuevalue*1000000000000;
-      }
-      var urevrangenumber1 = urevrangenumber*1000000000;
-      var lrevrangenumber1 = lrevrangenumber*1000;
-    // alert("hundred and billion");
-              // var ch = "0"; // thousand
-              // var ch1 = "1"; // million
-              // var check = "2"; //billion
-              // var check2 = "3"; // trillion
-              // $('select').each(function() {
-              //     $('#mlbl').not(this).find('option[value="' + check2 + '"]').hide();
-              //     $('#mlbl').not(this).find('option[value="' + ch + '"]').prop('disabled', false); 
-              //     $('#mlbl').not(this).find('option[value="' + ch1 + '"]').hide();
-              //     $('#mlbl').not(this).find('option[value="' + check + '"]').prop('disabled', false); 
-              // });
-    }else if(lrevrange == "hundred" && urevrange ==  "trillion"){
-    
-      var urevrangenumber1 = urevrangenumber*1000000000000;
-      var lrevrangenumber1 = lrevrangenumber*1000;
-      if($('#mlbl').val()==0){
-        var m = arevenuevalue*1000;
-      }else if($('#mlbl').val()==1){
-        var m = arevenuevalue*1000000;
-      }
-      else if($('#mlbl').val()==2){
-        var m = arevenuevalue*1000000000;
-      } else if($('#mlbl').val()==3){
-        var m = arevenuevalue*1000000000000;
-      }
-      // alert(m);
-    // alert("hundred and trillion");
-    }else if(lrevrange == "million" && urevrange ==  "billion"){
-      if($('#mlbl').val()==0){
-        var m = arevenuevalue*1000;
-      }else if($('#mlbl').val()==1){
-        var m = arevenuevalue*1000000;
-      }
-      else if($('#mlbl').val()==2){
-        var m = arevenuevalue*1000000000;
-      } else if($('#mlbl').val()==3){
-        var m = arevenuevalue*1000000000000;
-      }
-      var urevrangenumber1 = urevrangenumber*1000000000;
-      var lrevrangenumber1 = lrevrangenumber*1000000;
-    // alert("million and bllion");
-              // var ch = "0"; // thousand
-              // var ch1 = "1"; // million
-              // var check = "2"; //billion
-              // var check2 = "3"; // trillion
-              // $('select').each(function() {
-              //   $('#mlbl').not(this).find('option[value="' + check2 + '"]').hide();
-              //     $('#mlbl').not(this).find('option[value="' + ch + '"]').hide();
-              //     $('#mlbl').not(this).find('option[value="' + ch1 + '"]').prop('disabled', false); 
-              //     $('#mlbl').not(this).find('option[value="' + check + '"]').prop('disabled', false); 
-              // });
-
-
-    } else if(lrevrange == "million" && urevrange ==  "trillion"){
-      if($('#mlbl').val()==0){
-        var m = arevenuevalue*1000;
-      }else if($('#mlbl').val()==1){
-        var m = arevenuevalue*1000000;
-      }
-      else if($('#mlbl').val()==2){
-        var m = arevenuevalue*1000000000;
-      } else if($('#mlbl').val()==3){
-        var m = arevenuevalue*1000000000000;
-      }
-      var urevrangenumber1 = urevrangenumber*1000000000000;
-      var lrevrangenumber1 = lrevrangenumber*1000000;
-              // var ch = "0"; // thousand
-              // var ch1 = "1"; // million
-              // var check = "2"; //billion
-              // var check2 = "3"; // trillion
-              // $('select').each(function() {
-              //   $('#mlbl').not(this).find('option[value="' + check2 + '"]').prop('disabled', false);
-              //     $('#mlbl').not(this).find('option[value="' + ch + '"]').hide();
-              //     $('#mlbl').not(this).find('option[value="' + ch1 + '"]').prop('disabled', false); 
-              //     $('#mlbl').not(this).find('option[value="' + check + '"]').hide();
-              // });
-            
-    alert("million and trillion");
-    } else if(lrevrange == "billion" && urevrange ==  "trillion"){
-      if($('#mlbl').val()==0){
-        var m = arevenuevalue*1000;
-      }else if($('#mlbl').val()==1){
-        var m = arevenuevalue*1000000;
-      }
-      else if($('#mlbl').val()==2){
-        var m = arevenuevalue*1000000000;
-      } else if($('#mlbl').val()==3){
-        var m = arevenuevalue*1000000000000;
-      }
-      var urevrangenumber1 = urevrangenumber*1000000000000;
-      var lrevrangenumber1 = lrevrangenumber*1000000000;
-      
-      // alert("billion and trillion");
-              // var ch = "0"; // thousand
-              // var ch1 = "1"; // million
-              // var check = "2"; //billion
-              // var check2 = "3"; // trillion
-              // $('select').each(function() {
-              //   $('#mlbl').not(this).find('option[value="' + check2 + '"]').prop('disabled', false);
-              //     $('#mlbl').not(this).find('option[value="' + ch + '"]').hide();
-              //     $('#mlbl').not(this).find('option[value="' + ch1 + '"]').hide();
-              //     $('#mlbl').not(this).find('option[value="' + check + '"]').prop('disabled', false); 
-              // });
-    }
-    // alert(m+" "+lrevrangenumber1+" "+urevrangenumber1);
-    if(m > parseInt(urevrangenumber1) || m < parseInt(lrevrangenumber1)){
-        alert("not in range");
-        $('#arevenue').val("");
-      }else{
-        // alert("in range ");
-      }
-  }
-
-
-});
-
-
-//  Get sub industry
- $('#industrycd').change(function(){
-    var industrycd = $(this).val();
-    if (industrycd != '')
-    {
-        // $('#subindustrycd').prop('disabled', false);
-    }
-    // alert(sector_id);
-    // AJAX request
-    $.ajax({
-        url:'<?php echo base_url("cdc/getIndustry");?>',
-        method: 'get',
-        data: {industrycd: industrycd},
-        dataType: 'json',
-        success: function(response){
-
-        //    Remove options 
-       $('#subindustrycd').find('option').not(':first').remove();
-
-        //    Add options
-       $.each(response,function(index,data){
-          $('#subindustrycd').append('<option value="'+data['subindustrycd']+'">'+data['subindustry']+'</option>');
-        });
-        // $('#industrycd').multiselect("rebuild");
-        }
-    });
-});
-
-
-     // Campaign Name no special character allowed validation code
-    $(function () {
-        $("#fname").keypress(function (e) {
-            var keyCode = e.keyCode || e.which;
- 
-            $("#fname_msg").html("");
- 
-            //Regex for Valid Characters i.e. Alphabets and Numbers.
-          
-            var regex = /^[A-Za-z]+$/;
- 
-            //Validate TextBox value against the Regex.
-            var isValid = regex.test(String.fromCharCode(keyCode));
-            if (!isValid) {
-                $("#fname_msg").html("Only Alphabets allowed.");
-            }
- 
-            return isValid;
-        });
-        $("#last_name").keypress(function (e) {
-            var keyCode = e.keyCode || e.which;
- 
-            $("#lname_msg").html("");
- 
-            //Regex for Valid Characters i.e. Alphabets and Numbers.
-          
-            var regex = /^[A-Za-z]+$/;
- 
-            //Validate TextBox value against the Regex.
-            var isValid = regex.test(String.fromCharCode(keyCode));
-            if (!isValid) {
-                $("#lname_msg").html("Only Alphabets allowed.");
-            }
-            return isValid;
-        });
-       
-    });
-  
-  // Check unique Email function // check inclusion and exclusion email in db table
-    // $('.newsletter-signup input:first').on('keyup', function(){ 
-      $('.newsletter-signup input:first').focusout(function(){
-      var email = $('#email').val();
-      var inclistnew = $('#inclistnew').val();
-      var campaign_id = <?php  echo $campaign['cnid']; ?>;
-    
-      var url = '<?php echo base_url("cdc/checkemail");?>';
-      console.log(url+'?email='+email+"&campaign_id="+campaign_id);
-    // AJAX request
-    $.ajax({
-
-        url:'<?php echo base_url("cdc/checkemail");?>',
-        method: 'get',
-        data: {
-          email: email,
-          campaign_id: campaign_id,
-          inclistnew:inclistnew
-          },
-        dataType: 'json',
-        success: function(response){
-          $( '#email_msg' ).html("response");
-          // alert(response.exclusionemail);
-          if(response.inclusionemail == "true")
-          {
-            $("#email_msg").html("");
-            console.log("true");
-            return true;	
-          }else if(response.inclusionemail == "false")
-          {
-            $("#email_msg").html("Not in Inclusion Email List");
-            console.log("false");
-            // $('#email').val("");
-            // return false;	
-          }
-          else if(response.exclusionemail == "true")
-          {
-            $("#email_msg").html("Suppressed Email");
-            $('#email').val("");
-            console.log("true");
-            
-
-          } else 
-          {
-            $("#email_msg").html("");
-            console.log("true");
-            return false;	
-          }
-          
-        }
-    });
-    
-   
-});
-  
-    // Check unique domain
-    $('.domaincheck input:first').blur(function(){
-      var domain = $('#domain').val();
-      var inclistnew = $('#inclistnew').val();
-      var campaign_id = <?php  echo $campaign['cnid']; ?>;
-      var url = '<?php echo base_url("cdc/checkdomain");?>';
-      console.log(url+'?domain='+domain+"&campaign_id="+campaign_id);
-    // AJAX request
-    $.ajax({
-
-        url:'<?php echo base_url("cdc/checkdomain");?>',
-        method: 'get',
-        data: {
-          domain: domain,
-          campaign_id: campaign_id,
-          inclistnew:inclistnew
-          
-          },
-        dataType: 'json',
-        success: function(response){
-          $( '#domain_msg' ).html(response);
-          if(response.domaincheckincl == "true")
-          {
-            $("#domain_msg").html("");
-            console.log("true");
-            return true;	
-          }
-          if(response.domaincheckincl == "false")
-          {
-            $("#domain_msg").html("Not in Inclusion Doamin List");
-            console.log("true");
-            // return true;	
-          }
-          else if(response.domainchecksupp == "true")
-          {
-            $("#domain_msg").html("Suppressed Domain List");
-            console.log("true");
-            $('#domain').val("");
-            return true;	
-          } else 
-          {
-            $("#domain_msg").html("");
-            console.log("true");
-            return false;	
-          }
-          
-        }
-    });
-    
-   
-});
-
-
-
- // Check unique Company
- $('.compcheck input:first').blur(function(){
-      var company_name = $('#company_name').val();
-      var inclistnew = $('#inclistnew').val();
-      var campaign_id = <?php  echo $campaign['cnid']; ?>;
-      var url = '<?php echo base_url("cdc/checkcompanylist");?>';
-      console.log(url+'?company_name='+company_name+"&campaign_id="+campaign_id);
-    // AJAX request
-    $.ajax({
-
-        url:'<?php echo base_url("cdc/checkcompanylist");?>',
-        method: 'get',
-        data: {
-        company_name: company_name,
-        campaign_id: campaign_id,
-        inclistnew:inclistnew
-        },
-        dataType: 'json',
-        success: function(response){
-          $( '#comp_msg' ).html(response);
-          if(response.companycheckincl == "true")
-          {
-            $("#comp_msg").html("");
-            console.log("true");
-            return true;	
-          }
-          else if(response.companycheckincl == "false")
-          {
-            $("#comp_msg").html("Not in Inclusion Company List");
-            console.log("true");
-            return true;	
-          }
-          else if(response.companychecksupp == "true")
-          {
-            $("#comp_msg").html("Suppressed Company");
-            $('#company_name').val("");
-            console.log("true");
-            return true;	
-          } else 
-          {
-            $("#domain_msg").html("");
-            console.log("true");
-            return false;	
-          }
-          
-        }
-    });
-    
-   
-});
 
 $(document).ready(function() {
  
@@ -2160,18 +1261,12 @@ $.ajax({
   });
 }else{
   alert("record already opened");
-  // top.location.href=base_url+"cdc/selectCampaignforlead";//redirection
+ 
 }
 
 
-  // $("#revszlink").prop('disabled', true);
-  // $('#revszlink').val("NA");
-
-  // $('.commentvisible').hide();
-  // $('.revsizehide').hide();
-
   $('.leaddisplay').show(); //buttons
-  $('.cdqadisplay').hide();//buttons
+ 
   // load questions of campaign on load 
   $('.optoption').hide();
     
@@ -2408,19 +1503,8 @@ $.ajax({
       },
       emailver: {
         required: true
-      },
-      optpst: {
-        // required: true
-      },
-      optph: {
-        // required: true
-      },
-      optin: {
-        // required: true
-      },
-      opteml: {
-        // required: true
       }
+      
      
     },
     submitHandler: function(form) {
@@ -2518,7 +1602,7 @@ $("input:checkbox").change(function() {
             checked = [0];
             
             $("#leadupdatecdc").html("Accept & Submit");  
-          }else if(checked == "optin,optph,opteml,dnd" || checked == "optin,opteml,dnd" || checked == "optin,optpst,opteml,dnd" || checked == "optin,optpst,optph,dnd" || checked=="optpst,optph,opteml,dnd" ||checked=="optin,optpst,dnd" || checked=="optph,opteml,dnd" || checked=="optpst,optph,dnd"){ // if unchecked any field
+          }else if(checked == "optin,optph,opteml,dnd" || checked == "optin,opteml,dnd"|| checked == "optin,optph,dnd" || checked == "optin,optpst,opteml,dnd" || checked == "optin,optpst,optph,dnd" || checked=="optpst,optph,opteml,dnd" ||checked=="optin,optpst,dnd" || checked=="optph,opteml,dnd" || checked=="optpst,optph,dnd"){ // if unchecked any field
             checked = [0];
             
             $("#leadupdatecdc").html("Accept & Submit");
@@ -2565,7 +1649,7 @@ $("input:checkbox").change(function() {
                 this.checked ? checked.push(this.id) : notChecked.push(this.id);
             });
 
-            // alert(checked); 
+           
             
             var optin = $('#optin').val();
             var optpst = $('#optpst').val();
@@ -2612,13 +1696,12 @@ $("input:checkbox").change(function() {
             var cdcsb =$('#cdcsb').val();
 
             var cdcrjt1 = $('#cdcrjt').val();
-            // alert(cdcrjt1);
+          
             if(cdcrjt1 == ""){
               var cdcrjt = 1;
             }else{
               var cdcrjt = parseInt(cdcrjt1)+1; // incremataion for dv  rejection
-              // var cdcrjt = $('#cdcrjt').val()+1; // incremataion for dv  rejection
-              // alert(cdcrjt);
+            
             }
  
             if(cdcrjt == '4'){
@@ -2645,11 +1728,11 @@ $("input:checkbox").change(function() {
            
             var campaign_id = $('#campaign_id').val();
             var campaign_idcids = $('#campaign_idcids').val();
-            // var cdcsv = $('#cdcsv').val();
+         
             var evload = $('#evload').val();
 
             var aa1 = $('#aa1').val();
-            // alert(aa1);
+          
             var aa2 = $('#aa2').val();
             var aa3 = $('#aa3').val();
             var aa4 = $('#aa4').val();
@@ -2725,9 +1808,7 @@ $("input:checkbox").change(function() {
             var cdclst = $('#cdclst').val();
             var callrec = $('#callrec').val();
             var cvr = $('#cvr').val();
-            // alert(ddispositionclass); exit;
-          
-            // var url = encodeURI("<?php //echo base_url("cdc/ajax_update_datacdc");?>");
+            
 
             if(cvr != "" && callrec != "" && cdclst !="")
             {
@@ -2799,16 +1880,14 @@ $("input:checkbox").change(function() {
                     {         
                          
                         $("#leadupdatecdc").html(response.message);
-                        // top.location.href=base_url+"administrator/dashboard";//redirection
+                      
                         top.location.href=base_url+"cdc/cdcform?camp_id="+<?php echo $campaign['cnid']; ?>;//redirection
                       
                     }else if(response.data=="Fail")
                     {
                         $("#leadupdatecdc").html(response.message);
                         
-					          }
-
-                   
+					          } 
 
                 },
                 error: function (error) {
@@ -2849,7 +1928,6 @@ $(function() {
                 this.checked ? checked.push(this.id) : notChecked.push(this.id);
             });
 
-            // alert(checked);
             
             var optin = $('#optin').val();
             var optpst = $('#optpst').val();
@@ -2910,7 +1988,7 @@ $(function() {
             var cdcsv = '0';
             
             var aa1 = $('#aa1').val();
-            // alert(aa1);
+           
             var aa2 = $('#aa2').val();
             var aa3 = $('#aa3').val();
             var aa4 = $('#aa4').val();
@@ -2989,7 +2067,7 @@ $(function() {
 
             if(cvr != "" && callrec != ""  && cdclst !="")
             {
-            // var url = encodeURI("<?php //echo base_url("cdc/ajax_update_datacdc");?>");
+          
             var url = encodeURI("<?php echo base_url("cdc/ajax_save_leaddatacdc");?>");
           
             console.log(url+"?campaign_id="+campaign_id+"&lmid="+lmid+"&campaign_idcids="+campaign_idcids+"&checked="+checked+"&cdcsv="+cdcsv+"&pcomt="+pcomt);
@@ -3046,7 +2124,7 @@ $(function() {
                     {         
                          
                         $("#leadsavecdc").html(response.message);
-                        // top.location.href=base_url+"administrator/dashboard";//redirection
+                     
                         top.location.href=base_url+"cdc/cdcform?camp_id="+<?php echo $campaign['cnid']; ?>;//redirection
                     }else if(response.data=="Fail")
                     {

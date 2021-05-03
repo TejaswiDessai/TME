@@ -1,4 +1,7 @@
-
+<!-- Developed by Tejaswi
+Form is is regarding verification of a lead.
+This is also known as DV form
+-->
 
 <style>
     label.error {
@@ -25,16 +28,7 @@
     right: 15px;
 }
     
-/*     
-      .form-control option:hover {
-          background: pink;
-            
-     box-shadow: 0 0 10px 10px #e1358f inset;
-        }
-        select:focus{
-    border-color: gray;
-    outline:none;
-} */
+
 .done-task span, .done-task .captions {
     text-decoration: None;
     background-color: #797373e3;
@@ -281,25 +275,14 @@ $(document).ready(function() {
                        
                     </div>
                     <div class="col-sm-12" >
-                        <!-- <?php 
-                        // echo form_open_multipart('campaigns/add_campaign');
-                         ?> -->
-                        <!-- <?php 
-                        // echo form_open_multipart('', array('id' => 'addcampForm')) ?> -->
-                        <!-- <form id="basic-form" method="POST" enctype="multipart/form-data"> -->
+                       
 
                        
                       
                         <div class="form-group row">
                            
                             <div class="col-sm-1">
-                                 <!-- <select name="sal" id="sal"  class="form-control  form-control-sm cdqadisable">
-                                 <option value="Mr">Mr.</option>
-                                      <option value="Ms">Ms.</option>
-                                      <option value="Mrs">Mrs.</option>
-                                      <option value="Dr">Dr.</option>
-                                      <option value="Other">Other</option>
-                                </select> -->
+                              
                                 <div class="to-do-list">
                                         <div class="checkbox-fade fade-in-primary  col-sm-12">
                                             <label class="check-task">
@@ -313,9 +296,7 @@ $(document).ready(function() {
                                 </div>
                             </div>
                            
-                            <div class="col-sm-2">
-                                <!-- <input type="text"  name="fname" id="fname"  placeholder="First Name"   class="form-control form-control-sm cdqadisable"                             
-                                 value ="<?php //if(isset($ldmster)){  echo $ldmster['fname']; }?>" > -->
+                            <div class="col-sm-2">                             
                                  <input type="hidden" name="inclistnew" id="inclistnew" value="<?php echo $campaign['inclistnew']; ?>">
                                 <span style='color:#FF0000' id="fname_msg"></span>
                                 <div class="col-sm-12">
@@ -335,9 +316,6 @@ $(document).ready(function() {
                             </div>
                             
                             <div class="col-sm-2">
-                                <!-- <input type="text"  name="lname" id="lname"  placeholder="Last Name" value ="<?php if(isset($ldmster)){  echo $ldmster['lname']; }?>"   class="form-control form-control-sm cdqadisable">
-                                <span style='color:#FF0000' id="lname_msg"></span> -->
-                               
                                 <div class="to-do-list">
                                         <div class="checkbox-fade fade-in-primary  col-sm-12">
                                             <label class="check-task">
@@ -351,8 +329,7 @@ $(document).ready(function() {
 
 
                             </div>
-                            <div class="col-sm-3">
-                                <!-- <input type="text"  name="jtitle" id="jtitle"  placeholder="Job Title" value ="<?php //if(isset($ldmster)){  echo $ldmster['jtitle']; }?>"  class="form-control form-control-sm cdqadisable"> -->
+                            <div class="col-sm-3">                               
                                 <div class="to-do-list">
                                         <div class="checkbox-fade fade-in-primary  col-sm-12">
                                             <label class="check-task">
@@ -364,43 +341,8 @@ $(document).ready(function() {
                                         </div>
                                   </div>
                             </div>
-                            <!-- <div class="col-sm-2"> -->
-                                <!-- <select class="js-example-basic-multiple col-sm-12 cdqadisable" multiple="multiple" name="desid[]" id="desid"> -->
-                                <!-- <select class="form-control form-control-sm cdqadisable" name="jlevel" id="jlevel">
-                                <option value="">Job Level</option>
-                                <?php //foreach ($joblevel as $joblevel): ?>
-                                    <option value="<?php// echo $joblevel['joblids']; ?>"  <?php //if(isset($ldmster) && $ldmster['jlevel'] == $joblevel['joblids']){ echo "selected" ; } ?> ><?php// echo $joblevel['joblevel']; ?></option>
-                                <?php //endforeach; ?>  
-                               
-                                </select> -->
-
-                                <!-- <div class="to-do-list">
-                                        <div class="checkbox-fade fade-in-primary  col-sm-12">
-                                            <label class="check-task">
-                                                <input type="checkbox" name="jlevel" id="jlevel"  value="jlevel">
-                                                <?php// foreach ($joblevel as $joblevel): ?>
-                                               <span  class="form-control form-control-sm cdqadisable">
-                                               <?php// if(isset($ldmster)){ echo $ldmster['jlevel']; } else { echo "Job level is Empty" ; } ?>
-                                               
-                                                </span>
-                                                <?php// endforeach; ?>  
-                                            </label>
-                                        </div>
-                                  </div> -->
-
-
-                            <!-- </div> -->
+                           
                             <div class="col-sm-4">
-                                <!-- <select class="js-example-basic-multiple col-sm-12 cdqadisable" multiple="multiple" name="desid[]" id="desid"> -->
-                                <!-- <select class="js-example-basic-single" name="desid" id="desid">
-                                <option value="">Designation</option> -->
-                                <?php //foreach ($designation as $designation): ?>
-                                    <!-- <option value="<?php// echo $designation['jid']; ?>" <?php //if(isset($ldmster) && $ldmster['jlevel'] == $designation['jid']){ echo "selected" ; } ?>>
-                                    <?php //echo $designation['joblist']; ?></option> -->
-                                <?php //endforeach; ?>  
-                                <!-- </select> -->
-
-
                                    <div class="to-do-list">
                                           <div class="checkbox-fade fade-in-primary  col-sm-12">
                                               <label class="check-task">
@@ -420,14 +362,7 @@ $(document).ready(function() {
                         <hr>
                         <div class="form-group row">
                         <div class="col-sm-2">
-                                 <!-- <select class="js-example-basic-single" name="dcd" id="dcd">
-                                    <option value=""> Department</option>
-                                <?php// foreach ($departments as $dept): ?>
-                                    <option value="<?php //echo $dept['dcd']; ?>"  
-                                    <?php// if(isset($ldmster) && $ldmster['dname'] == $dept['dcd']){ echo "selected" ; } ?> ><?php //echo $dept['department']; ?></option>
-                                <?php// endforeach; ?>
-                                </select> -->
-
+                              
                                 
                                 <div class="to-do-list">
                                           <div class="checkbox-fade fade-in-primary  col-sm-12">
@@ -460,7 +395,7 @@ $(document).ready(function() {
                                 <span style='color:#FF0000' id="email_msg"></span>
                             </div>
                             <div class="col-sm-2">
-                                <!-- <input type="text"  name="phone" id="phone" value ="<?php //if(isset($ldmster)){  echo $ldmster['phone']; }?>" placeholder="Phone" maxlength="15"  class="form-control form-control-sm cdqadisable"> -->
+                               
                                 <span style='color:#FF0000' id="phone_msg"></span>
                                 <div class="to-do-list">
                                           <div class="checkbox-fade fade-in-primary  col-sm-12">
@@ -477,7 +412,7 @@ $(document).ready(function() {
 
                             </div>
                             <div class="col-sm-2">
-                                <!-- <input type="text"  name="altphn" id="altphn" value ="<?php //if(isset($ldmster)){  echo $ldmster['altphn']; }?>" placeholder="Alternate Phone Number" maxlength="10"  class="form-control form-control-sm cdqadisable"> -->
+                              
                                 <div class="to-do-list">
                                           <div class="checkbox-fade fade-in-primary  col-sm-12">
                                               <label class="check-task">
@@ -492,7 +427,7 @@ $(document).ready(function() {
                             </div>
                             
                             <div class="col-sm-2">
-                                <!-- <input type="text"  name="phext" id="phext" value ="<?php //if(isset($ldmster)){  echo $ldmster['phext']; }?>" placeholder="Extension" maxlength="5"  class="form-control form-control-sm cdqadisable"> -->
+                                
                                 <div class="to-do-list">
                                           <div class="checkbox-fade fade-in-primary  col-sm-12">
                                               <label class="check-task">
@@ -529,13 +464,7 @@ $(document).ready(function() {
                         <div class="form-group row">
                              
                               <div class="col-sm-2">
-                               <!-- <select name="linetype" id="linetype"  class="form-control  form-control-sm cdqadisable">
-                                     <option value="0">Line Type</option>
-                                     <option value="0">unknown</option>
-                                     <option value="1">Direct</option>
-                                     <option value="2">Board</option>  
-                               </select> -->
-                               <div class="to-do-list">
+                                         <div class="to-do-list">
                                             <div class="checkbox-fade fade-in-primary  col-sm-12">
                                                 <label class="check-task">
                                                     <input type="checkbox" name="linetype" id="linetype"  value="linetype">
@@ -556,8 +485,7 @@ $(document).ready(function() {
 
                            </div>
                               <div class="col-sm-2">
-                                <!-- <input type="text"  name="company_name" id="company_name"  
-                                placeholder="Company Name"  class="form-control form-control-sm cdqadisable"  value ="<?php //if(isset($ldmster)){  echo $ldmster['cname']; }?>"> -->
+                            
                                 <div class="to-do-list">
                                           <div class="checkbox-fade fade-in-primary  col-sm-12">
                                               <label class="check-task">
@@ -574,7 +502,7 @@ $(document).ready(function() {
 
 
                             <div class="col-sm-2">
-                                <!-- <input type="text"  name="address" id="address"  placeholder="Address"  value ="<?php// if(isset($ldmster)){  echo $ldmster['address']; }?>" class="form-control form-control-sm cdqadisable"> -->
+                               
                                 <div class="to-do-list">
                                           <div class="checkbox-fade fade-in-primary  col-sm-12">
                                               <label class="check-task">
@@ -587,7 +515,7 @@ $(document).ready(function() {
                                 </div>
                            </div>
                            <div class="col-sm-2">
-                                <!-- <input type="text"  name="city" id="city"  placeholder="City" value ="<?php //if(isset($ldmster)){  echo $ldmster['city']; }?>"   class="form-control form-control-sm cdqadisable"> -->
+                               
                                 <div class="to-do-list">
                                           <div class="checkbox-fade fade-in-primary  col-sm-12">
                                               <label class="check-task">
@@ -600,7 +528,7 @@ $(document).ready(function() {
                                 </div>
                            </div>
                            <div class="col-sm-2">
-                                <!-- <input type="text"  name="state" id="state"  placeholder="State" value ="<?php if(isset($ldmster)){  echo $ldmster['state']; }?>" class="form-control form-control-sm cdqadisable"> -->
+                               
                                 <div class="to-do-list">
                                           <div class="checkbox-fade fade-in-primary  col-sm-12">
                                               <label class="check-task">
@@ -614,7 +542,7 @@ $(document).ready(function() {
                                 </div>
                             </div>
                             <div class="col-sm-2">
-                                <!-- <input type="text"  name="zip_code" id="zip_code"  placeholder="Zip Code" value ="<?php //if(isset($ldmster)){  echo $ldmster['zipcode']; }?>" class="form-control form-control-sm cdqadisable"> -->
+                               
                                 <div class="to-do-list">
                                           <div class="checkbox-fade fade-in-primary  col-sm-12">
                                               <label class="check-task">
@@ -645,8 +573,7 @@ $(document).ready(function() {
                                               </label>
                                           </div>
                                   </div>     
-<!--                                  
-                                <span style='color:#FF0000' id="country_id_msg"></span> -->
+
                         </div>
                             
                             <div class="col-sm-2">
@@ -662,23 +589,11 @@ $(document).ready(function() {
                                           </div>
                                   </div>
 
-                              <!-- <select class="js-example-basic-single"  name="timezone" id="timezone">
-                              <option value="">Timezone</option>
-                              <?php //foreach ($timezones as $tz): ?>
-                                    <option value="<?php// echo $tz['zoneid']; ?>"  <?php //if(isset($ldmster) && $ldmster['timez'] == $tz['zoneid']){ echo "selected" ; } ?>>
-                                    <?php //echo $tz['abbrev']; ?></option>
-                                <?php //endforeach; ?> 
-                                </select> -->
-                                <!-- <span style='color:#FF0000' id="timezone_msg"></span> -->
+                             
                             </div>
 
                             <div class="col-sm-2">
-                               <!-- <select name="ctype" id="ctype"  class="form-control  form-control-sm cdqadisable"> 
-                                     <option value="0">Company Type</option>
-                                     <?php// foreach ($comptype as $comptype): ?>
-                                    <option value="<?php //echo $comptype['ctypid']; ?>"><?php //echo $comptype['ctypname']; ?></option>
-                                <?php //endforeach; ?> 
-                               </select> -->
+                              
                                <div class="to-do-list">
                                           <div class="checkbox-fade fade-in-primary  col-sm-12">
                                               <label class="check-task">
@@ -711,14 +626,7 @@ $(document).ready(function() {
                                   </div> 
 
 
-                              <!-- <select class="js-example-basic-single"  name="industrycd" id="industrycd">
-                              <option value="">Industry</option>
-                              <?php// foreach ($industries as $industry): ?>
-                                    <option value="<?php //echo $industry['industrycd']; ?>" <?php //if(isset($ldmster) && $ldmster['indtry'] == $industry['industrycd']){ echo "selected" ; } ?>>
-                                    <?php// echo $industry['industry']; ?></option>
-                                <?php //endforeach; ?>
-                                </select> -->
-                                <!-- <span style='color:#FF0000' id="industry_id_msg"></span> -->
+                             
                             </div>
                             
                             <div class="col-sm-2">
@@ -734,26 +642,10 @@ $(document).ready(function() {
                                           </div>
                                   </div> 
                                 </div> 
-                                <!-- <select class="js-example-basic-single" name="subindustrycd" id="subindustrycd">
-                                <option value="">Sub Industry</option>
-                                <?php //foreach ($industriessub as $sub): ?>
-                                    <option value="<?php //echo $sub['subindustrycd']; ?>" <?php //if(isset($ldmster) && $ldmster['sindtry'] == $sub['subindustrycd']){ echo "selected" ; } ?>>
-                                    <?php //echo $sub['subindustry']; ?></option>
-                                <?php //endforeach; ?>
-                                </select> -->
-                                <!-- <span style='color:#FF0000' id="subindustry_id_msg"></span> -->
+                               
                             </div>
                             <div class="col-sm-2">
-                                <!-- <select class="form-control form-control-sm cdqadisable" name="sectyp" id="sectyp">
-                                  
-                                    <option value="0">Sector Type</option>
-                                    <option value="0">Unknown</option>
-                                    <option value="1">Public</option>
-                                    <option value="2">Private</option>
-                                    <option value="3">Government</option>
-                                    <option value="4">Non -Profit </option>
-                               
-                                    </select> -->
+                                
 
                                     <div class="to-do-list">
                                             <div class="checkbox-fade fade-in-primary  col-sm-12">
@@ -804,7 +696,7 @@ $(document).ready(function() {
                                 <!-- <span style='color:#FF0000' id="empsize_msg"></span> -->
                             </div>
                             <div class="col-sm-2">
-                                <!-- <input type="text"  name="arevenue" id="arevenue" value ="<?php //if(isset($ldmster)){  echo $ldmster['arevenue']; }?>"  maxlength="15" placeholder="Actual Revenue Size"  class="form-control form-control-sm cdqadisable"> -->
+                               
                                 <span style='color:#FF0000' id="revsize_msg"></span>
                                 <div class="to-do-list">
                                           <div class="checkbox-fade fade-in-primary  col-sm-12">
@@ -823,13 +715,7 @@ $(document).ready(function() {
                             
                             
                             <div class="col-sm-2">
-                                <!-- <select class="form-control form-control-sm cdqadisable" name="mlbl" id="mlbl">
-                                    <option value="0">K</option>
-                                    <option value="1">Hundred Thousand</option> -->
-                                    <!-- <option value="1">M</option>
-                                    <option value="2">B</option>
-                                    <option value="3">T</option>
-                                    </select> --> 
+                               
                                     <div class="to-do-list">
                                             <div class="checkbox-fade fade-in-primary  col-sm-12">
                                                 <label class="check-task">
@@ -869,19 +755,13 @@ $(document).ready(function() {
                                           </div>
                                   </div>
 
-                                <!-- <select class="form-control form-control-sm cdqadisable" name="curr" id="curr">
-                                    <option value="1">USD</option>                                  
-                                <?php //foreach ($currency as $currency): ?>
-                                    <option value="<?php //echo $currency['currid']; ?>"  
-                                    <?php //if(isset($ldmster) && $ldmster['curr'] == $currency['currid']){ echo "selected" ; } ?>><?php echo $currency['currab']; ?></option>
-                                <?php //endforeach; ?>
-                                   </select> -->
+                                
                                 
 
                             </div>          
                             <div class="col-sm-2">
                                 <div class="domaincheck">
-                                <!-- <input type="text" value ="<?php //if(isset($ldmster)){  echo $ldmster['domain']; }?>"   name="domain" id="domain"  placeholder="Domain" value=""  class="form-control form-control-sm cdqadisable"> -->
+                               
                                 <div class="to-do-list">
                                           <div class="checkbox-fade fade-in-primary  col-sm-12">
                                               <label class="check-task">
@@ -903,7 +783,7 @@ $(document).ready(function() {
                               </div>
                             
                             <div class="col-sm-2">
-                                <!-- <input type="text" value ="<?php // if(isset($ldmster)){  echo $ldmster['empszlink']; }?>"  name="empszlink" id="empszlink" value=""   placeholder="Employee Size Link"  class="form-control form-control-sm"> -->
+                               
                                 <div class="to-do-list">
                                           <div class="checkbox-fade fade-in-primary  col-sm-12">
                                               <label class="check-task">
@@ -928,11 +808,7 @@ $(document).ready(function() {
                            
                             <div class="col-sm-2 ">
                                
-                                <!-- <a href="<?php //if(isset($ldmster['indlink'])){ echo $ldmster['indlink']; } ?> "target="_blank"> 
-                                <?php //if(isset($ldmster['indlink'])){  echo $ldmster['indlink']; }else { echo "Industry Link Empty" ;} ?>
-                                </a>
-                            
-                                  <input type="checkbox" value=""  id="indlink" name="indlink" class="js-single"  /> -->
+                                
                                   <div class="to-do-list">
                                           <div class="checkbox-fade fade-in-primary  col-sm-12">
                                               <label class="check-task">
@@ -951,7 +827,7 @@ $(document).ready(function() {
                               
                             </div>
                             <div class="col-sm-2">
-                                <!-- <input type="text"  name="revszlink" id="revszlink" value ="<?php // if(isset($ldmster)){  echo $ldmster['revszlink']; }?>"  placeholder="Revenue Size Link"  class="form-control form-control-sm revsizehide"> -->
+                                
                                 <div class="to-do-list">
                                           <div class="checkbox-fade fade-in-primary  col-sm-12">
                                               <label class="check-task">
@@ -971,7 +847,7 @@ $(document).ready(function() {
                             </div>
                             
                             <div class="col-sm-2">
-                                <!-- <input type="text"  name="othrlink" id="othrlink" value ="<?php //if(isset($ldmster)){  echo $ldmster['othrlink']; }?>" placeholder="Other Link"  class="form-control form-control-sm"> -->
+                              
                                 <div class="to-do-list">
                                           <div class="checkbox-fade fade-in-primary  col-sm-12">
                                               <label class="check-task">
@@ -990,15 +866,9 @@ $(document).ready(function() {
                                     </div>
                             
                             </div>
-                            <!-- <div class="col-sm-2">
-                                <select class="form-control form-control-sm"  name="emailver" id="emailver">
-                                    <option value="0">Email Verification</option>
-                                    <option value="1">Yes</option>
-                                    <option value="0">No</option>
-                                </select>
-                            </div> -->
+                            
                             <div class="col-sm-2">
-                                <!-- <input type="text"  name="aum" id="aum" value ="<?php // if(isset($ldmster)){  echo $ldmster['aum']; }?>" placeholder="Asset Under Management"  class="form-control form-control-sm aumdis"> -->
+                               
                                 <div class="to-do-list">
                                             <div class="checkbox-fade fade-in-primary  col-sm-12">
                                                 <label class="check-task">
@@ -1011,57 +881,11 @@ $(document).ready(function() {
                                   </div>
                             </div>
                             <div class="col-sm-4">
-                                <!-- <select class="form-control form-control-sm commentvisible" name="assetid" id="assetid">
-                                    <option value="0">Asset</option>
-                                    <?php //foreach ($assetitle as $assetitle): ?>
-                                    <option value="<?php// echo $assetitle['assetid']; ?>"><?php// echo $assetitle['title']; ?></option>
-                                <?php //endforeach; ?>
-                                   </select> -->
-
-                                   <!-- <div class="to-do-list">
-                                        <div class="checkbox-fade fade-in-primary  col-sm-12">
-                                            <label class="check-task">
-                                                <input type="checkbox" name="assetid" id="assetid"  value="assetid">
-                                                <?php// foreach ($joblevel as $joblevel): ?>
-                                               <span  class="form-control form-control-sm cdqadisable tooltips"><?php// if($ldmster['atitle'] != ""){ echo $assetitledv['title']; } else { echo "Asset title is Empty" ; } ?>
-                                               <span class="tooltiptext">Asset Title</span>
-                                                </span>
-                                                <?php// endforeach; ?>  
-                                            </label>
-                                        </div>
-                                  </div> -->
-
-
 
                             </div> 
                         </div>
                         <hr>
-                          <!-- <div class="form-group row optindiv">
-                                       
-                                       <div class="col-sm-2">
-                                        Opt - in  <input type="checkbox" value=""  id="optin" name="optin" class="js-single optin"  />
-                                        </div>
-                                        <div class="col-sm-2 optoption">
-                                        Opt - in Post  <input type="checkbox" value="" id="optpst" name="optpst" class="js-single"  />
-                                        </div>
-                                       
-                                        <div class="col-sm-2 optoption">
-                                        Opt - in Phone <input type="checkbox" value=""  id="optph" name="optph" class="js-single"  />
-                                        </div>
-                                        
-                                        <div class="col-sm-2 optoption">
-                                        Opt - in Email <input type="checkbox" value="" id="opteml" name="opteml" class="js-single"  />
-                                        </div>
-                                        <div class="col-sm-2 optoption">
-                                        DND <input type="checkbox" value="" id="dnd" name="dnd" class="js-single dnd"  />
-                                        </div>
-                         </div> -->
                        
-
-                        <!-- <div class="form-group row questionrow">  
-                         
-                          
-                        </div>  -->
                         <br>
 
                         <div class="form-group row" >
@@ -1130,11 +954,7 @@ $(document).ready(function() {
                         <?php } ?>
                         </div>
                           </div>
-                        <!-- <input class="submit" class ="" type="submit" value="SUBMIT"> -->
-                        <!-- below buttons are for cdqa save and submit -->
-                        <!-- <button type="submit" name="submit" class="btn btn-primary cdqadisplay"   id="cdqasubmit">Submit Lead </button> 
-                        <button type="submit" name="submit" class="btn btn-primary cdqadisplay"  id="cdqasave">Save Lead </button> 
-                        -->
+                        
 
                     </div>
                       
@@ -1168,14 +988,7 @@ $(document).ready(function() {
                                         <form>
                                             <div class="form-group row">
                                                
-                                                <!-- <div class="col-sm-6">
-                                                <select class="form-control form-control-sm cdqadisable" name="" id="">
-                                                    <option value="1">Industry</option>                                  
-                                            
-                                                    <option value="2">Sub Industry</option>
-                                              
-                                                </select>
-                                              </div> -->
+                                               
                                                 <div class="col-sm-12">
                                                   <input type ="text"  id="search_text" name="search_text" class="form-control form-control-sm" placeholder="Search here...">
                                                 </div>
@@ -1277,8 +1090,7 @@ $('#country_id').change(function(){
           $('#timezone').append('<option value="'+data['zoneid']+'" >'+data['abbrev']+'</option>');
           
         });
-        // $('#country_id').multiselect("rebuild");
-        // callB();
+        
               $.ajax({
               url:'<?php echo base_url("cdc/gettcurrency");?>',
               method: 'get',
@@ -1294,8 +1106,7 @@ $('#country_id').change(function(){
                 $('#curr').append('<option value="'+data['currid']+'">'+data['currab']+'</option>');
               
               });
-              // $('#country_id').multiselect("rebuild");
-            
+             
               }
           });
 
@@ -1308,13 +1119,7 @@ $('#country_id').change(function(){
 });
 
 
-// check revenue range for campaign
-// $('#arevenue').change(function(){
 
-//   $("#revszlink").prop('disabled', false);
-//   $('#revszlink').val("");
-  
-// });
 
 $('#mlbl').blur(function(){   // revenue range change
 // $('#arevenue').blur(function(){   // revenue range change
@@ -1326,14 +1131,14 @@ var arevenuevalue = $('#arevenue').val();
 
   var lrevrangenumber = $('#revlbndmlbl').val();
   var urevrangenumber = $('#revubndmlbl').val();
-  // alert(lrevrange+" "+urevrange+" "+lrevrangenumber+" "+urevrangenumber);
+  
  
   if(lrevrange == "hundred" && urevrange =="hundred" ){
     if($('#mlbl').val()== 0){
       var m = arevenuevalue*1000;
       var urevrangenumber1 = urevrangenumber*1000;
       var lrevrangenumber1 = lrevrangenumber*1000;
-      // alert(m+" "+lrevrangenumber1+" "+urevrangenumber1);
+      
     
       if(m > parseInt(urevrangenumber1) || m < parseInt(lrevrangenumber1)){
         alert("not in range");
@@ -1419,13 +1224,12 @@ var arevenuevalue = $('#arevenue').val();
       var m = arevenuevalue*1000000000000;
       var urevrangenumber1 = urevrangenumber*1000000000000;
       var lrevrangenumber1 = lrevrangenumber*1000000000000;
-      // alert(m+" "+lrevrangenumber1+" "+urevrangenumber1);
-    
+     
       if(m > parseInt(urevrangenumber1) || m < parseInt(lrevrangenumber1)){
         alert("not in range");
         $('#arevenue').val("");
       }else{
-        // alert("in range ");
+       
       }
     }else{
       alert("not in range of Trillion");
@@ -1459,18 +1263,7 @@ var arevenuevalue = $('#arevenue').val();
       // alert(m);
       var urevrangenumber1 = urevrangenumber*1000000;
       var lrevrangenumber1 = lrevrangenumber*1000;
-    // alert("hundred and million");
-            //  var ch = "0"; // thousand
-            //   var ch1 = "1"; // million
-            //   var check = "2"; //billion
-            //   var check2 = "3"; // trillion
-            //   $('select').each(function() {
-            //     $('#mlbl').not(this).find('option[value="' + check2 + '"]').hide();
-            //       $('#mlbl').not(this).find('option[value="' + ch + '"]').prop('disabled', false); 
-            //       $('#mlbl').not(this).find('option[value="' + ch1 + '"]').prop('disabled', false); 
-            //       $('#mlbl').not(this).find('option[value="' + check + '"]').hide();
-            //   });
-
+    
 
 
     }else if(lrevrange == "hundred" && urevrange ==  "billion"){
@@ -1486,17 +1279,7 @@ var arevenuevalue = $('#arevenue').val();
       }
       var urevrangenumber1 = urevrangenumber*1000000000;
       var lrevrangenumber1 = lrevrangenumber*1000;
-    // alert("hundred and billion");
-              // var ch = "0"; // thousand
-              // var ch1 = "1"; // million
-              // var check = "2"; //billion
-              // var check2 = "3"; // trillion
-              // $('select').each(function() {
-              //     $('#mlbl').not(this).find('option[value="' + check2 + '"]').hide();
-              //     $('#mlbl').not(this).find('option[value="' + ch + '"]').prop('disabled', false); 
-              //     $('#mlbl').not(this).find('option[value="' + ch1 + '"]').hide();
-              //     $('#mlbl').not(this).find('option[value="' + check + '"]').prop('disabled', false); 
-              // });
+    
     }else if(lrevrange == "hundred" && urevrange ==  "trillion"){
     
       var urevrangenumber1 = urevrangenumber*1000000000000;
@@ -1511,8 +1294,7 @@ var arevenuevalue = $('#arevenue').val();
       } else if($('#mlbl').val()==3){
         var m = arevenuevalue*1000000000000;
       }
-      // alert(m);
-    // alert("hundred and trillion");
+     
     }else if(lrevrange == "million" && urevrange ==  "billion"){
       if($('#mlbl').val()==0){
         var m = arevenuevalue*1000;
@@ -1526,17 +1308,7 @@ var arevenuevalue = $('#arevenue').val();
       }
       var urevrangenumber1 = urevrangenumber*1000000000;
       var lrevrangenumber1 = lrevrangenumber*1000000;
-    // alert("million and bllion");
-              // var ch = "0"; // thousand
-              // var ch1 = "1"; // million
-              // var check = "2"; //billion
-              // var check2 = "3"; // trillion
-              // $('select').each(function() {
-              //   $('#mlbl').not(this).find('option[value="' + check2 + '"]').hide();
-              //     $('#mlbl').not(this).find('option[value="' + ch + '"]').hide();
-              //     $('#mlbl').not(this).find('option[value="' + ch1 + '"]').prop('disabled', false); 
-              //     $('#mlbl').not(this).find('option[value="' + check + '"]').prop('disabled', false); 
-              // });
+    
 
 
     } else if(lrevrange == "million" && urevrange ==  "trillion"){
@@ -1552,18 +1324,9 @@ var arevenuevalue = $('#arevenue').val();
       }
       var urevrangenumber1 = urevrangenumber*1000000000000;
       var lrevrangenumber1 = lrevrangenumber*1000000;
-              // var ch = "0"; // thousand
-              // var ch1 = "1"; // million
-              // var check = "2"; //billion
-              // var check2 = "3"; // trillion
-              // $('select').each(function() {
-              //   $('#mlbl').not(this).find('option[value="' + check2 + '"]').prop('disabled', false);
-              //     $('#mlbl').not(this).find('option[value="' + ch + '"]').hide();
-              //     $('#mlbl').not(this).find('option[value="' + ch1 + '"]').prop('disabled', false); 
-              //     $('#mlbl').not(this).find('option[value="' + check + '"]').hide();
-              // });
+             
             
-    alert("million and trillion");
+   
     } else if(lrevrange == "billion" && urevrange ==  "trillion"){
       if($('#mlbl').val()==0){
         var m = arevenuevalue*1000;
@@ -1576,26 +1339,15 @@ var arevenuevalue = $('#arevenue').val();
         var m = arevenuevalue*1000000000000;
       }
       var urevrangenumber1 = urevrangenumber*1000000000000;
-      var lrevrangenumber1 = lrevrangenumber*1000000000;
-      
-      // alert("billion and trillion");
-              // var ch = "0"; // thousand
-              // var ch1 = "1"; // million
-              // var check = "2"; //billion
-              // var check2 = "3"; // trillion
-              // $('select').each(function() {
-              //   $('#mlbl').not(this).find('option[value="' + check2 + '"]').prop('disabled', false);
-              //     $('#mlbl').not(this).find('option[value="' + ch + '"]').hide();
-              //     $('#mlbl').not(this).find('option[value="' + ch1 + '"]').hide();
-              //     $('#mlbl').not(this).find('option[value="' + check + '"]').prop('disabled', false); 
-              // });
+      var lrevrangenumber1 = lrevrangenumber*1000000000;      
+     
     }
-    // alert(m+" "+lrevrangenumber1+" "+urevrangenumber1);
+   
     if(m > parseInt(urevrangenumber1) || m < parseInt(lrevrangenumber1)){
         alert("not in range");
         $('#arevenue').val("");
       }else{
-        // alert("in range ");
+     
       }
   }
 
@@ -1608,9 +1360,9 @@ var arevenuevalue = $('#arevenue').val();
     var industrycd = $(this).val();
     if (industrycd != '')
     {
-        // $('#subindustrycd').prop('disabled', false);
+      
     }
-    // alert(sector_id);
+   
     // AJAX request
     $.ajax({
         url:'<?php echo base_url("cdc/getIndustry");?>',
@@ -1626,7 +1378,7 @@ var arevenuevalue = $('#arevenue').val();
        $.each(response,function(index,data){
           $('#subindustrycd').append('<option value="'+data['subindustrycd']+'">'+data['subindustry']+'</option>');
         });
-        // $('#industrycd').multiselect("rebuild");
+        
         }
     });
 });
@@ -1672,163 +1424,163 @@ var arevenuevalue = $('#arevenue').val();
   
   // Check unique Email function // check inclusion and exclusion email in db table
     // $('.newsletter-signup input:first').on('keyup', function(){ 
-      $('.newsletter-signup input:first').focusout(function(){
-      var email = $('#email').val();
-      var inclistnew = $('#inclistnew').val();
-      var campaign_id = <?php  echo $campaign['cnid']; ?>;
+//       $('.newsletter-signup input:first').focusout(function(){
+//       var email = $('#email').val();
+//       var inclistnew = $('#inclistnew').val();
+//       var campaign_id = <?php  echo $campaign['cnid']; ?>;
     
-      var url = '<?php echo base_url("cdc/checkemail");?>';
-      console.log(url+'?email='+email+"&campaign_id="+campaign_id);
-    // AJAX request
-    $.ajax({
+//       var url = '<?php echo base_url("cdc/checkemail");?>';
+//       console.log(url+'?email='+email+"&campaign_id="+campaign_id);
+//     // AJAX request
+//     $.ajax({
 
-        url:'<?php echo base_url("cdc/checkemail");?>',
-        method: 'get',
-        data: {
-          email: email,
-          campaign_id: campaign_id,
-          inclistnew:inclistnew
-          },
-        dataType: 'json',
-        success: function(response){
-          $( '#email_msg' ).html("response");
-          // alert(response.exclusionemail);
-          if(response.inclusionemail == "true")
-          {
-            $("#email_msg").html("");
-            console.log("true");
-            return true;	
-          }else if(response.inclusionemail == "false")
-          {
-            $("#email_msg").html("Not in Inclusion Email List");
-            console.log("false");
-            // $('#email').val("");
-            // return false;	
-          }
-          else if(response.exclusionemail == "true")
-          {
-            $("#email_msg").html("Suppressed Email");
-            $('#email').val("");
-            console.log("true");
+//         url:'<?php echo base_url("cdc/checkemail");?>',
+//         method: 'get',
+//         data: {
+//           email: email,
+//           campaign_id: campaign_id,
+//           inclistnew:inclistnew
+//           },
+//         dataType: 'json',
+//         success: function(response){
+//           $( '#email_msg' ).html("response");
+//           // alert(response.exclusionemail);
+//           if(response.inclusionemail == "true")
+//           {
+//             $("#email_msg").html("");
+//             console.log("true");
+//             return true;	
+//           }else if(response.inclusionemail == "false")
+//           {
+//             $("#email_msg").html("Not in Inclusion Email List");
+//             console.log("false");
+//             // $('#email').val("");
+//             // return false;	
+//           }
+//           else if(response.exclusionemail == "true")
+//           {
+//             $("#email_msg").html("Suppressed Email");
+//             $('#email').val("");
+//             console.log("true");
             
 
-          } else 
-          {
-            $("#email_msg").html("");
-            console.log("true");
-            return false;	
-          }
+//           } else 
+//           {
+//             $("#email_msg").html("");
+//             console.log("true");
+//             return false;	
+//           }
           
-        }
-    });
+//         }
+//     });
     
    
-});
+// });
   
     // Check unique domain
-    $('.domaincheck input:first').blur(function(){
-      var domain = $('#domain').val();
-      var inclistnew = $('#inclistnew').val();
-      var campaign_id = <?php  echo $campaign['cnid']; ?>;
-      var url = '<?php echo base_url("cdc/checkdomain");?>';
-      console.log(url+'?domain='+domain+"&campaign_id="+campaign_id);
-    // AJAX request
-    $.ajax({
+//     $('.domaincheck input:first').blur(function(){
+//       var domain = $('#domain').val();
+//       var inclistnew = $('#inclistnew').val();
+//       var campaign_id = <?php  echo $campaign['cnid']; ?>;
+//       var url = '<?php echo base_url("cdc/checkdomain");?>';
+//       console.log(url+'?domain='+domain+"&campaign_id="+campaign_id);
+//     // AJAX request
+//     $.ajax({
 
-        url:'<?php echo base_url("cdc/checkdomain");?>',
-        method: 'get',
-        data: {
-          domain: domain,
-          campaign_id: campaign_id,
-          inclistnew:inclistnew
+//         url:'<?php echo base_url("cdc/checkdomain");?>',
+//         method: 'get',
+//         data: {
+//           domain: domain,
+//           campaign_id: campaign_id,
+//           inclistnew:inclistnew
           
-          },
-        dataType: 'json',
-        success: function(response){
-          $( '#domain_msg' ).html(response);
-          if(response.domaincheckincl == "true")
-          {
-            $("#domain_msg").html("");
-            console.log("true");
-            return true;	
-          }
-          if(response.domaincheckincl == "false")
-          {
-            $("#domain_msg").html("Not in Inclusion Doamin List");
-            console.log("true");
-            // return true;	
-          }
-          else if(response.domainchecksupp == "true")
-          {
-            $("#domain_msg").html("Suppressed Domain List");
-            console.log("true");
-            $('#domain').val("");
-            return true;	
-          } else 
-          {
-            $("#domain_msg").html("");
-            console.log("true");
-            return false;	
-          }
+//           },
+//         dataType: 'json',
+//         success: function(response){
+//           $( '#domain_msg' ).html(response);
+//           if(response.domaincheckincl == "true")
+//           {
+//             $("#domain_msg").html("");
+//             console.log("true");
+//             return true;	
+//           }
+//           if(response.domaincheckincl == "false")
+//           {
+//             $("#domain_msg").html("Not in Inclusion Doamin List");
+//             console.log("true");
+//             // return true;	
+//           }
+//           else if(response.domainchecksupp == "true")
+//           {
+//             $("#domain_msg").html("Suppressed Domain List");
+//             console.log("true");
+//             $('#domain').val("");
+//             return true;	
+//           } else 
+//           {
+//             $("#domain_msg").html("");
+//             console.log("true");
+//             return false;	
+//           }
           
-        }
-    });
+//         }
+//     });
     
    
-});
+// });
 
 
 
  // Check unique Company
- $('.compcheck input:first').blur(function(){
-      var company_name = $('#company_name').val();
-      var inclistnew = $('#inclistnew').val();
-      var campaign_id = <?php  echo $campaign['cnid']; ?>;
-      var url = '<?php echo base_url("cdc/checkcompanylist");?>';
-      console.log(url+'?company_name='+company_name+"&campaign_id="+campaign_id);
-    // AJAX request
-    $.ajax({
+//  $('.compcheck input:first').blur(function(){
+//       var company_name = $('#company_name').val();
+//       var inclistnew = $('#inclistnew').val();
+//       var campaign_id = <?php  echo $campaign['cnid']; ?>;
+//       var url = '<?php echo base_url("cdc/checkcompanylist");?>';
+//       console.log(url+'?company_name='+company_name+"&campaign_id="+campaign_id);
+//     // AJAX request
+//     $.ajax({
 
-        url:'<?php echo base_url("cdc/checkcompanylist");?>',
-        method: 'get',
-        data: {
-        company_name: company_name,
-        campaign_id: campaign_id,
-        inclistnew:inclistnew
-        },
-        dataType: 'json',
-        success: function(response){
-          $( '#comp_msg' ).html(response);
-          if(response.companycheckincl == "true")
-          {
-            $("#comp_msg").html("");
-            console.log("true");
-            return true;	
-          }
-          else if(response.companycheckincl == "false")
-          {
-            $("#comp_msg").html("Not in Inclusion Company List");
-            console.log("true");
-            return true;	
-          }
-          else if(response.companychecksupp == "true")
-          {
-            $("#comp_msg").html("Suppressed Company");
-            $('#company_name').val("");
-            console.log("true");
-            return true;	
-          } else 
-          {
-            $("#domain_msg").html("");
-            console.log("true");
-            return false;	
-          }
+//         url:'<?php echo base_url("cdc/checkcompanylist");?>',
+//         method: 'get',
+//         data: {
+//         company_name: company_name,
+//         campaign_id: campaign_id,
+//         inclistnew:inclistnew
+//         },
+//         dataType: 'json',
+//         success: function(response){
+//           $( '#comp_msg' ).html(response);
+//           if(response.companycheckincl == "true")
+//           {
+//             $("#comp_msg").html("");
+//             console.log("true");
+//             return true;	
+//           }
+//           else if(response.companycheckincl == "false")
+//           {
+//             $("#comp_msg").html("Not in Inclusion Company List");
+//             console.log("true");
+//             return true;	
+//           }
+//           else if(response.companychecksupp == "true")
+//           {
+//             $("#comp_msg").html("Suppressed Company");
+//             $('#company_name').val("");
+//             console.log("true");
+//             return true;	
+//           } else 
+//           {
+//             $("#domain_msg").html("");
+//             console.log("true");
+//             return false;	
+//           }
           
-        }
-    });
+//         }
+//     });
     
    
-});
+// });
 
 $(document).ready(function() {
  
@@ -1893,57 +1645,52 @@ $.ajax({
   });
 }else{
   alert("record already opened");
-  // top.location.href=base_url+"cdc/selectCampaignforlead";//redirection
+ 
 }
 
 
-  // $("#revszlink").prop('disabled', true);
-  // $('#revszlink').val("NA");
-
-  // $('.commentvisible').hide();
-  // $('.revsizehide').hide();
 
   $('.leaddisplay').show(); //buttons
   $('.cdqadisplay').hide();//buttons
   // load questions of campaign on load 
   $('.optoption').hide();
     
-    $('.optin').change(function()
-      {
-        if ($('#optin').is(':checked')) {
-            $('#optin').val("1");
-            $('#opteml').val("1");
-            $('#optph').val("1");
-            $('#optpst').val("1");
-            $('.optoption').show();
+    // $('.optin').change(function()
+    //   {
+    //     if ($('#optin').is(':checked')) {
+    //         $('#optin').val("1");
+    //         $('#opteml').val("1");
+    //         $('#optph').val("1");
+    //         $('#optpst').val("1");
+    //         $('.optoption').show();
           
                
-        }else{
-            $('#optin').val("0");
-            $('#opteml').val("0");
-            $('#optph').val("0");
-            $('#optpst').val("0");
-            $('.optoption').hide();
+    //     }else{
+    //         $('#optin').val("0");
+    //         $('#opteml').val("0");
+    //         $('#optph').val("0");
+    //         $('#optpst').val("0");
+    //         $('.optoption').hide();
                
-        };
-      });
-      $('.dnd').change(function()
-      {
-        if ($('#dnd').is(':checked')) {
-            $('#optin').val("0");
-            $('#opteml').val("0");
-            $('#optph').val("0");
-            $('#optpst').val("0");
-            $('.optoption').hide();   
-        }else{
-            $('#optin').val("1");
-            $('#opteml').val("1");
-            $('#optph').val("1");
-            $('#optpst').val("1");
-            $('.optoption').show();
+    //     };
+    //   });
+      // $('.dnd').change(function()
+      // {
+      //   if ($('#dnd').is(':checked')) {
+      //       $('#optin').val("0");
+      //       $('#opteml').val("0");
+      //       $('#optph').val("0");
+      //       $('#optpst').val("0");
+      //       $('.optoption').hide();   
+      //   }else{
+      //       $('#optin').val("1");
+      //       $('#opteml').val("1");
+      //       $('#optph').val("1");
+      //       $('#optpst').val("1");
+      //       $('.optoption').show();
                
-        };
-      });
+      //   };
+      // });
 
 
   $("#basic-form").validate({
@@ -1996,9 +1743,7 @@ $.ajax({
         required: true
         // minlength: 5
       },
-      timezone : {
-        // required: true
-      },
+      
       industrycd : {
         required: true
       },
@@ -2054,19 +1799,9 @@ $.ajax({
       },
       emailver: {
         required: true
-      },
-      optpst: {
-        // required: true
-      },
-      optph: {
-        // required: true
-      },
-      optin: {
-        // required: true
-      },
-      opteml: {
-        // required: true
       }
+      
+     
      
     },
     submitHandler: function(form) {
@@ -2148,8 +1883,7 @@ $("input:checkbox").change(function() {
                 }else{
                 
                   var dvsbtg = $('#dvsbtg').val(); 
-                  // alert("else");
-                  // alert(dvsbtg); 
+                  
                 }
     
                 if(dvsbtg == '3'){
@@ -2176,7 +1910,7 @@ $("input:checkbox").change(function() {
               {
                 var dvrejtg = parseInt(dvrejtg1)+1; // incremataion for dv  rejection
               }else{
-                // alert("else");
+              
                 var dvrejtg = $('#dvrejtg').val();  
               }
        
@@ -2189,27 +1923,14 @@ $("input:checkbox").change(function() {
              
             }
             
-            // if (dvrejtg == '3' && cdcrjt >= '0')
-            // {
-              
-            //   var sbsvtag = $('#sbsvtag').val();
-            // }
+           
             else{
               var sbsvtag = $('#sbsvtag').val();
               // alert(sbsvtag);
             }
-            // if(dvrejtg == '2'){
-            //   var dvrejtg = '2';
-            //   var sbsvtag = '0';
-            // }else{
-            //   var sbsvtag = $('#sbsvtag').val();
-            // }
-
+           
           }
-        //   alert(sbsvtag);
-        //       alert(cdcrjt); 
-        //       alert(dvrejtg); 
-        // exit;
+        
             var dvrdti = $('#dvrdti').val();
             var dvragtidi = $('#dvragtidi').val();
 
@@ -2228,10 +1949,6 @@ $("input:checkbox").change(function() {
             // var sbsvtag = $('#sbsvtag').val();
             // var sbsvtag = parseInt(sbsvtag1)+1; // incremataion
 
-          
-          
-
-            
             var lmid = $('#lmid').val();
 
             var pcomt = $('#pcomt').val();
@@ -2308,14 +2025,7 @@ $("input:checkbox").change(function() {
             window.location = base_url+"administrator/logout";
             exit;
           }
-          // var notChecked = [], checked = [];
-          //   $(":checkbox").map(function() {
-            
-          //       this.checked ? checked.push(this.id) : notChecked.push(this.id);
-          //   });
-          // if(checked == ""){ // if unchecked any field
-          //   checked = [0];
-          // }
+         
            var checked = [0];
 
             var campaign_id = $('#campaign_id').val();
@@ -2324,10 +2034,7 @@ $("input:checkbox").change(function() {
             var sbsvtag = '0'; // discard
             var dvrejtg = '0';
             var dvsbtg = '0';
-            // alert(sbsvtag);
-            // alert(lmid);
-            // alert(dvrejtg);
-            // alert(sbsvtag);
+           
             var lmid = $('#lmid').val();
 
             var pcomt = $('#pcomt').val();
@@ -2373,7 +2080,6 @@ $("input:checkbox").change(function() {
 					          }
 
                    
-
                 },
                 error: function (error) {
                   alert("Error");

@@ -1,17 +1,9 @@
+
+<!--
+This page involved menus, code for session timing for 10 mints
+Assigning menus according to user's role
+-->
 <?php
-
-// if (isset($_SESSION["username"])) {
-//     // only if user is logged in perform this check
-//     if ((time() - $_SESSION['timeout']) > 600) { // after 10 mints session will be log out
-//         redirect('administrator/logout');
-//       exit;
-//     } else {
-//       $_SESSION['timeout'] = time();
-//     }
-//   }
-
-
-//  if ($this->session -> userdata('email') == "" && $this->session -> userdata('login') != true && $this->session -> userdata('empcoode') == NULL  && $this->session -> userdata('role_id') != 1) {
  if ($this->session -> userdata('email') == "" && $this->session -> userdata('login') != true   && $this->session -> userdata('role_id') != 1) {
       redirect('administrator/index');
     }
@@ -20,10 +12,7 @@ $emp_id = $this->session -> userdata('emp_id');
 $usertype = $this->Administrator_Model->get_emp_usertype($emp_id);
 $userteam1 = $this->Administrator_Model->get_emp_team($emp_id);
 $userteam = explode(',',$userteam1);
-// print_r($_SESSION);
-// print_r($usertype);
-// echo "----";
-// print_r($userteam1);
+
  ?>
 
      <!-- Menu aside start -->
@@ -76,7 +65,7 @@ $userteam = explode(',',$userteam1);
                 
                     <?php if( (in_array('3',$userteam))){?>
                     <li class="nav-item">
-                        <!-- <a href="<?php echo base_url(); ?>cdc/addlead""> -->
+                     
                         <a href="<?php echo base_url(); ?>cdc/selectCampaign">
                         <i class="icofont icofont-sand-clock"></i>
                             <span>Data Lead and CDC</span>
@@ -85,20 +74,37 @@ $userteam = explode(',',$userteam1);
                     <?php } ?>
                     <?php if( (in_array('6',$userteam))){?>
                         <li class="nav-item">
-                        <!-- <a href="<?php echo base_url(); ?>cdc/addlead""> -->
-                        <a href="<?php echo base_url(); ?>cdc/selectCampaignforlead">
+                      
+                        <!-- <a href="<?php echo base_url(); ?>cdc/selectCampaignforlead"> -->
+                        <a href="#!">
                         <i class="icofont icofont-architecture-alt"></i>
                             <span>Add Lead</span>
                         </a>
+                        <ul class="tree-1">
+                           <li><a href="<?php echo base_url(); ?>cdc/selectCampaignforlead">
+                               
+                                Add Lead
+                                </a>
+                            </li>
+                        </ul>
+                        
                     </li>
                     <?php } ?>
                     <?php if( (in_array('7',$userteam))){?>
                         <li class="nav-item">
                       
-                            <a href="<?php echo base_url(); ?>cdc/selectCampaignforDataVerification">
+                            <!-- <a href="<?php echo base_url(); ?>cdc/selectCampaignforDataVerification"> -->
+                            <a href="#!">
                             <i class="icofont icofont-check-circled"></i>
                                 <span>Data verification</span>
                             </a>
+                            <ul class="tree-1">
+                       
+                                <li><a href="<?php echo base_url(); ?>cdc/selectCampaignforDataVerification">
+                          
+                               Data verification
+                            </a></li>
+                            </ul>
                         </li>
                     <?php } ?>
                     <?php if((in_array('8',$userteam))){?>
@@ -108,8 +114,7 @@ $userteam = explode(',',$userteam1);
                             <span data-i18n="nav.basic-components.main">Email Verification</span>
                         </a>
                         <ul class="tree-1">
-                            <!-- <li><a href="<?php //echo base_url(); ?>administrator/user_report" data-i18n="nav.basic-components.alert">User Status</a></li> -->
-                            <!-- <li><a href="<?php //echo base_url(); ?>administrator/team/list" data-i18n="nav.basic-components.breadcrumbs">Campaign Status</a></li> -->
+                       
                             <li><a href="<?php echo base_url(); ?>administrator/selectCampaignForEmailVerification" data-i18n="nav.basic-components.alert">Email Verification</a></li>
                         </ul>
                     </li>
@@ -121,8 +126,7 @@ $userteam = explode(',',$userteam1);
                             <span data-i18n="nav.basic-components.main">CDC</span>
                         </a>
                         <ul class="tree-1">
-                            <!-- <li><a href="<?php //echo base_url(); ?>administrator/user_report" data-i18n="nav.basic-components.alert">User Status</a></li> -->
-                            <!-- <li><a href="<?php //echo base_url(); ?>administrator/team/list" data-i18n="nav.basic-components.breadcrumbs">Campaign Status</a></li> -->
+                          
                             <li><a href="<?php echo base_url(); ?>cdc/selectCampaignForCDC" data-i18n="nav.basic-components.alert">CDC</a></li>
                         </ul>
                     </li>
@@ -134,8 +138,7 @@ $userteam = explode(',',$userteam1);
                             <span data-i18n="nav.basic-components.main">Quality Assurance</span>
                         </a>
                         <ul class="tree-1">
-                            <!-- <li><a href="<?php //echo base_url(); ?>administrator/user_report" data-i18n="nav.basic-components.alert">User Status</a></li> -->
-                            <!-- <li><a href="<?php //echo base_url(); ?>administrator/team/list" data-i18n="nav.basic-components.breadcrumbs">Campaign Status</a></li> -->
+                           
                             <li><a href="<?php echo base_url(); ?>cdc/selectCampaignForQA" data-i18n="nav.basic-components.alert">Quality Assurance</a></li>
                         </ul>
                     </li>
@@ -147,8 +150,7 @@ $userteam = explode(',',$userteam1);
                             <span data-i18n="nav.basic-components.main">Lead Generation</span>
                         </a>
                         <ul class="tree-1">
-                            <!-- <li><a href="<?php //echo base_url(); ?>administrator/user_report" data-i18n="nav.basic-components.alert">User Status</a></li> -->
-                            <!-- <li><a href="<?php //echo base_url(); ?>administrator/team/list" data-i18n="nav.basic-components.breadcrumbs">Campaign Status</a></li> -->
+                           
                             <li><a href="<?php echo base_url(); ?>cdc/selectCampaignForleadGeneration" data-i18n="nav.basic-components.alert">Lead Generation</a></li>
                         </ul>
                     </li>
@@ -157,13 +159,7 @@ $userteam = explode(',',$userteam1);
                    
                    
                     <?php if($usertype == 0 || $usertype == 1 || $usertype ==2 || $usertype ==6){?>
-                    <!-- <li class="nav-item">
-                      
-                        <a href="<?php //echo base_url(); ?>cdc/selectCampaignforDataVerification">
-                        <i class="icofont icofont-check-circled"></i>
-                            <span>Data verification</span>
-                        </a>
-                    </li> -->
+                   
                     <li class="nav-item">
                       
                       <a href="#!">
@@ -184,17 +180,7 @@ $userteam = explode(',',$userteam1);
                             <li><a href="<?php echo base_url(); ?>administrator/users/users">Users</a></li>
                         </ul>
                     </li>
-                    <!-- <li class="nav-item">
-                        <a href="#!">
-                        <i class="icofont icofont-email"></i>
-                            <span data-i18n="nav.basic-components.main">Email Verification</span>
-                        </a> -->
-                        <!-- <ul class="tree-1"> -->
-                            <!-- <li><a href="<?php //echo base_url(); ?>administrator/user_report" data-i18n="nav.basic-components.alert">User Status</a></li> -->
-                            <!-- <li><a href="<?php //echo base_url(); ?>administrator/team/list" data-i18n="nav.basic-components.breadcrumbs">Campaign Status</a></li> -->
-                            <!-- <li><a href="<?php //echo base_url(); ?>administrator/selectCampaignForEmailVerification" data-i18n="nav.basic-components.alert">Email Verification</a></li> -->
-                        <!-- </ul> -->
-                    <!-- </li> -->
+                   
                     <li class="nav-item">
                         <a href="#!">
                             <i class="ti-layout-grid2-thumb"></i>
@@ -205,25 +191,13 @@ $userteam = explode(',',$userteam1);
                             <li><a href="<?php echo base_url(); ?>administrator/campaign_report" data-i18n="nav.basic-components.breadcrumbs">Campaign Report</a></li>
                             <li><a href="<?php echo base_url(); ?>cdc/timelog_report" data-i18n="nav.basic-components.breadcrumbs">Timelog Report</a></li>
                             <li><a href="<?php echo base_url(); ?>administrator/user_report_ev" data-i18n="nav.basic-components.alert">EV Report</a></li>
-                            <!-- <li><a href="<?php //echo base_url(); ?>administrator/delivery" data-i18n="nav.basic-components.alert">Delivery</a></li> -->
+                         
                         </ul>
                     </li>
                    
                 <?php } ?>
                   
-                   
-                  
-                   
-                    <!--<li class="nav-item">
-                        <a href="#!">
-                            <i class="ti-direction-alt"></i>
-                            <span data-i18n="nav.basic-components.main">Testimonials</span>
-                        </a>
-                        <ul class="tree-1" style="display: none;">
-                            <li><a href="<?php echo base_url(); ?>administrator/testimonials/add" data-i18n="nav.basic-components.alert">Add Testimonial</a></li>
-                            <li><a href="<?php echo base_url(); ?>administrator/testimonials/list" data-i18n="nav.basic-components.breadcrumbs">List Testimonials</a></li>
-                        </ul>
-                    </li>-->
+                 
             </ul>
         </div>
     </div>
@@ -262,11 +236,9 @@ $userteam = explode(',',$userteam1);
     <?php endif; ?>
    
    
-    <!-- <input type = "hidden" name="emp_id" id="emp_id" value="<?php echo  $_SESSION['empcode']; ?>"> -->
+   
     <script>
-// var emp_id = $('#emp_id').val();
-
-    var base_url = "<?php echo base_url() ?>";
+        var base_url = "<?php echo base_url() ?>";
    
         var timeSinceLastMove = 0;
 
@@ -286,7 +258,7 @@ $userteam = explode(',',$userteam1);
         checkTime();
 
         function checkTime() {
-// console.log(timeSinceLastMove);
+        // console.log(timeSinceLastMove);
             timeSinceLastMove++;
 
             if (timeSinceLastMove > 10 * 60 ) {  //10 mints
@@ -295,10 +267,7 @@ $userteam = explode(',',$userteam1);
                 
                 window.location = base_url+"administrator/logout";
             }
-            // if(emp_id === undefined)
-            // {
-            //     window.location = base_url+"administrator/logout"; 
-            // }
+          
             setTimeout(checkTime, 1000); // check evry 1 second
         }
 </script> 

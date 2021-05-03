@@ -27,15 +27,15 @@
     <!-- ico font -->
     <link rel="stylesheet" type="text/css" href="<?php echo base_url(); ?>admintemplate/assets/icon/icofont/css/icofont.css">
     <!-- flag icon framework css -->
-    <link rel="stylesheet" type="text/css" href="<?php echo base_url(); ?>admintemplate/assets/pages/flag-icon/flag-icon.min.css">
+    <!-- <link rel="stylesheet" type="text/css" href="<?php echo base_url(); ?>admintemplate/assets/pages/flag-icon/flag-icon.min.css"> -->
     <!-- Menu-Search css -->
     <link rel="stylesheet" type="text/css" href="<?php echo base_url(); ?>admintemplate/assets/pages/menu-search/css/component.css">
     <!-- Horizontal-Timeline css -->
     <link rel="stylesheet" type="text/css" href="<?php echo base_url(); ?>admintemplate/assets/pages/dashboard/horizontal-timeline/css/style.css">
     <!-- amchart css -->
-    <link rel="stylesheet" type="text/css" href="<?php echo base_url(); ?>admintemplate/assets/pages/dashboard/amchart/css/amchart.css">
+    <!-- <link rel="stylesheet" type="text/css" href="<?php echo base_url(); ?>admintemplate/assets/pages/dashboard/amchart/css/amchart.css"> -->
     <!-- flag icon framework css -->
-    <link rel="stylesheet" type="text/css" href="<?php echo base_url(); ?>admintemplate/assets/pages/flag-icon/flag-icon.min.css">
+    <!-- <link rel="stylesheet" type="text/css" href="<?php echo base_url(); ?>admintemplate/assets/pages/flag-icon/flag-icon.min.css"> -->
     <!-- Select 2 css -->
     <link rel="stylesheet" href="<?php echo base_url(); ?>admintemplate/bower_components/select2/dist/css/select2.min.css" />
     <!-- Multi Select css -->
@@ -49,14 +49,14 @@
     <link href="<?php echo base_url(); ?>admintemplate/bower_components/jquery.filer/css/jquery.filer.css" type="text/css" rel="stylesheet" />
     <link href="<?php echo base_url(); ?>admintemplate/bower_components/jquery.filer/css/themes/jquery.filer-dragdropbox-theme.css" type="text/css" rel="stylesheet" />
      <!-- Summernote css -->
-     <link rel="stylesheet" type="text/css" href="<?php echo base_url(); ?>admintemplate/bower_components/summernote/dist/summernote.css">
+     <!-- <link rel="stylesheet" type="text/css" href="<?php echo base_url(); ?>admintemplate/bower_components/summernote/dist/summernote.css"> -->
      <!-- toolbar css -->
      <link rel="stylesheet" type="text/css" href="<?php echo base_url(); ?>admintemplate/assets/pages/toolbar/jquery.toolbar.css">
     <link rel="stylesheet" type="text/css" href="<?php echo base_url(); ?>admintemplate/assets/pages/toolbar/custom-toolbar.css">
       <!-- Chartlist chart css -->
-      <link rel="stylesheet" type="text/css" href="<?php echo base_url(); ?>admintemplate/bower_components/chartist/dist/chartist.css">
+      <!-- <link rel="stylesheet" type="text/css" href="<?php echo base_url(); ?>admintemplate/bower_components/chartist/dist/chartist.css"> -->
     <!-- C3 chart -->
-    <link rel="stylesheet" href="<?php echo base_url(); ?>admintemplate/bower_components/c3/c3.css" type="text/css" media="all">
+    <!-- <link rel="stylesheet" href="<?php echo base_url(); ?>admintemplate/bower_components/c3/c3.css" type="text/css" media="all"> -->
     <!-- Style.css -->
     <link rel="stylesheet" type="text/css" href="<?php echo base_url(); ?>admintemplate/assets/css/style.css">
     <!--color css-->

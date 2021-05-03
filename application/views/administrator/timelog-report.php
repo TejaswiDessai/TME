@@ -97,12 +97,7 @@
                             <table style="margin-bottom:10px;">
                             <tr>
                             <td>
-                                <!-- <select class="form-control form-control-default "  name="campid" id="campid" required> 
-                                    <option value="">Campaign</option>
-                                    <?php //foreach ($campaigns as $campaign): ?>
-                                        <option value="<?php// echo $campaign['cids']; ?>" <?php //if( isset($Campid) && $Campid == $campaign['cids']) { echo "selected" ; } ?>><?php// echo $campaign['campnm']; ?></option>
-                                    <?php //endforeach; ?>
-                                <!-- </select> --> 
+                                
                             </td>
                            
                           
@@ -113,10 +108,10 @@
                             To: </td><td><input class="form-control todatetimelog" type="datetime-local"  value="<?php if(isset($To)){ echo $To;}?>"  name="to" id="example-datetime-local-input1">
                             </td>
                             <td>
-                                <input  class="btn btn-primary" type="submit" name="submit">
+                                <input  class="btn btn-primary" style="margin-left:30px" type="submit" name="submit">
                             </td>
                             <td>
-                                <a class="btn btn-primary" href="">Refresh</a>
+                                <a class="btn btn-primary" style="margin-left:30px" href="">Refresh</a>
                             </td>
                             </tr>
                             </table>
@@ -124,32 +119,12 @@
                        
                     </div>
                     <br>
-                        <!-- <?php //if (isset($Stage) && $Stage == "verified")
-                       // {
-                          //  $display  = "visibility: hidden;";
-                        //}else{
-                          //  $display  = "visibility: visible;"; 
-                        //}
-
-                        ?> -->
+                      
                         <div class="table-responsive dt-responsive">
                             <table id="dom-jqry" class="table table-striped table-bordered nowrap table1">
                                 <thead>
                                     <tr>
-                                        <!-- <th>S.no</th>
-                                        <th>Username</th>
-                                        <th>Campaign Name</th>
-                                        <th>No. Of Records</th>
-                                        <?php if (isset($Stage) && $Stage == "datacollect" ||$Stage == "")
-                                        { ?>
-                                        <th>Submit & Saved</th>
-                                      <?php  } ?>
-                                        <th>Pending</th>
-                                        <th>Verified</th>
-                                        <th>Rejection</th>
-                                        <th>Accepted</th> -->
-
-
+                                      
                                         <th>S.no</th>
                                         <th>Username</th>
                                         <th>Campaign Name</th>
@@ -165,16 +140,16 @@
                                     </tr>
                                 </thead>
                                 <tbody >
-                                <?php //if(isset($Campid)){
+                                <?php 
                                     foreach($users as $post) : ?>
                                  <tr>
                                         <td></td>
-                                        <td><?php // if(isset($Campid)){
+                                        <td><?php 
                                              echo $post['fname'];
-                                             //} ?></td>
-                                        <td><?php  //if(isset($Campid)){
+                                           ?></td>
+                                        <td><?php 
                                             echo $post['campnm'];
-                                            //} ?> </td>
+                                             ?> </td>
                                         <td><?php 
                                          if(isset($Campid)){
                                             $onesub = $this->db->query("select *
@@ -196,8 +171,7 @@
                                             and agent = '".$post['empcode']."'
                                             AND cids= '".$post['cids']."'
                                             and (tim >= '".$From."' and tim <= '".$To."')    ");
-                                            // echo $onesub;
-                                            //   echo $this->db->last_query(); 
+                                          
                                             echo $onesub->num_rows();
                                          }
                                            
@@ -211,7 +185,7 @@
                                             and agent = '".$post['empcode']."'
                                             and (tim >= '".$From."' and tim <= '".$To."') 
                                             ");
-                                            //  echo $this->db->last_query(); 
+                                           
                                              echo $twosub->num_rows();
                                           }
                                           else{
@@ -328,7 +302,7 @@
                                         <td>
                                         <?php  //2nd dv reject
                                           if(isset($Campid)){
-                                            //   echo "Hiiiiii".$post['empcode'];
+                                          
                                             $tworej = $this->db->query("select *
                                             from timelog join users on users.empcode = timelog.agent
                                             join campaign on campaign.cids = timelog.cids   
@@ -353,11 +327,9 @@
                                        </td>
                                        
                                     </tr>
-                                <?php  endforeach; //}?>
+                                <?php  endforeach;?>
 
-                                <!-- <div class="paginate-link">
-                                    <?php //echo $this->pagination->create_links(); ?>
-                                </div>  -->
+                            
 
                                  </tbody>
                             </table>

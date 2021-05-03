@@ -29,16 +29,7 @@
     right: 15px;
 }
     
-/*     
-      .form-control option:hover {
-          background: pink;
-            
-     box-shadow: 0 0 10px 10px #e1358f inset;
-        }
-        select:focus{
-    border-color: gray;
-    outline:none;
-} */
+
 .tooltips {
   position: relative;
   display: inline-block;
@@ -81,9 +72,6 @@
  </style>
 
 <?php foreach ($leadmaster as $ldmster):  
-      // print_r($ldmster['dvrejectreason']);
-      // $dvrejectreason = explode(',',$ldmster['dvrejectreason']);
-      // print_r($ldmster);
      
     endforeach; ?>
 
@@ -127,38 +115,13 @@ $(document).ready(function() {
   }
 
 
-  // $(".aumdis").attr("disabled", true);   // aum disable
-  // $(".ansdiv").hide();   // ans div hide
-  // $('.cdqadisplay').hide();
-  // $('.commentvisible').hide();
-  // $('.optindiv').hide();
+  
   $("#gotocdc").on('click', function() 
         {
           window.location = base_url+"cdc/cdcform?rec_type_id=0&camp_id=<?php echo $_SESSION['campaign_id']; ?>&lmid=<?php echo $_SESSION['lmid']; ?>";
         }
   )
-    // $('#rec_type_id').bind('change', function() {
-     
-    //     var value = $(this).val();
-    //     if (value == 2) { // if cdqa is selected
-    //       // $('.commentvisible').show();
-    //       // $('.optindiv').show();
-    //       // $('.cdqadisplay').show();
-    //       // $('.leaddisplay').hide();
-    //       // $(".ansdiv").show(); 
-
-    //       var campaign_id = $('#campaign_id').val();
-
-         
-    //     }else{
-    //       // $('.commentvisible').hide();
-    //       // $('.optindiv').hide();
-    //       // $(".ansdiv").hide(); 
-    //       // $('.leaddisplay').show();
-    //       // $('.cdqadisplay').hide();
-            
-    //     }
-    // }).trigger('change');
+    
  
     $('#ctype').bind('change', function() {
       var value = $(this).val();
@@ -183,102 +146,81 @@ $.ajax({
       dataType: 'json',
       success: function(response){
 
-      //    Remove options 
-    //  $('#country_id').find('option').not(':first').remove();
-     
-
       //    Add options
      $.each(response,function(index,data){
-        // $('.questionrow').append('<select><option value="'+data['qid']+'">'+data['questions']+'</option></select');
        
           index++;
        
-        // $('.questionrow').append('<div class="col-sm-6 card">'+
-        //                            '<p id='+ index +'><b>'+data['questions']+'</b></p>'+
-        //                               '<input type="text" value=""  name="aa' + index + '" id="aa' + index + '"  placeholder="Answer for question ' + index + '"  class="form-control form-control-sm ">'+
-                                                                     
-        //                   '</div>');
+       
  if(index == '1'){
           $('.questionrow').append('<div class="col-sm-6 card">'+
-                                   '<p id='+ index +'><b>'+data['questions']+'</b></p>'+
-                                      // '<input type="text" value="<?php //$aaa= 'aa'; if(isset($ldmster)){  echo $ldmster[$aaa]; }?>"  name="aa' + index + '" id="aa' + index + '"  placeholder="Answer for question ' + index + '"  class="form-control form-control-sm ">'+
+                                   '<p id='+ index +'><b>'+data['questions']+'</b></p>'+                                  
                                     '<input type="text" value="<?php  echo $ldmster['aa1']; ?>"  name="aa' + index + '" id="aa' + index + '" placeholder="Answer for question ' + index + '"  class="form-control form-control-sm ">'+
                                                                      
                           '</div>');
         }else  if(index == '2'){
           $('.questionrow').append('<div class="col-sm-6 card">'+
-                                   '<p id='+ index +'><b>'+data['questions']+'</b></p>'+
-                                      // '<input type="text" value="<?php //$aaa= 'aa'; if(isset($ldmster)){  echo $ldmster[$aaa]; }?>"  name="aa' + index + '" id="aa' + index + '"  placeholder="Answer for question ' + index + '"  class="form-control form-control-sm ">'+
+                                   '<p id='+ index +'><b>'+data['questions']+'</b></p>'+                                  
                                     '<input type="text" value="<?php  echo $ldmster['aa2']; ?>"  name="aa' + index + '" id="aa' + index + '" placeholder="Answer for question ' + index + '"  class="form-control form-control-sm ">'+
                                                                      
                           '</div>');
         }else  if(index == '3'){
           $('.questionrow').append('<div class="col-sm-6 card">'+
-                                   '<p id='+ index +'><b>'+data['questions']+'</b></p>'+
-                                      // '<input type="text" value="<?php //$aaa= 'aa'; if(isset($ldmster)){  echo $ldmster[$aaa]; }?>"  name="aa' + index + '" id="aa' + index + '"  placeholder="Answer for question ' + index + '"  class="form-control form-control-sm ">'+
+                                   '<p id='+ index +'><b>'+data['questions']+'</b></p>'+                                    
                                     '<input type="text" value="<?php  echo $ldmster['aa3']; ?>"  name="aa' + index + '" id="aa' + index + '" placeholder="Answer for question ' + index + '"  class="form-control form-control-sm ">'+
                                                                      
                           '</div>');
         }else  if(index == '4'){
           $('.questionrow').append('<div class="col-sm-6 card">'+
-                                   '<p id='+ index +'><b>'+data['questions']+'</b></p>'+
-                                      // '<input type="text" value="<?php //$aaa= 'aa'; if(isset($ldmster)){  echo $ldmster[$aaa]; }?>"  name="aa' + index + '" id="aa' + index + '"  placeholder="Answer for question ' + index + '"  class="form-control form-control-sm ">'+
+                                   '<p id='+ index +'><b>'+data['questions']+'</b></p>'+                                  
                                     '<input type="text" value="<?php  echo $ldmster['aa4']; ?>"  name="aa' + index + '" id="aa' + index + '"  placeholder="Answer for question ' + index + '"  class="form-control form-control-sm ">'+
                                                                      
                           '</div>');
         }else  if(index == '5'){
           $('.questionrow').append('<div class="col-sm-6 card">'+
-                                   '<p id='+ index +'><b>'+data['questions']+'</b></p>'+
-                                      // '<input type="text" value="<?php //$aaa= 'aa'; if(isset($ldmster)){  echo $ldmster[$aaa]; }?>"  name="aa' + index + '" id="aa' + index + '"  placeholder="Answer for question ' + index + '"  class="form-control form-control-sm ">'+
+                                   '<p id='+ index +'><b>'+data['questions']+'</b></p>'+                                  
                                     '<input type="text" value="<?php  echo $ldmster['aa5']; ?>"  name="aa' + index + '" id="aa' + index + '" placeholder="Answer for question ' + index + '"  class="form-control form-control-sm ">'+
                                                                      
                           '</div>');
         }else  if(index == '6'){
           $('.questionrow').append('<div class="col-sm-6 card">'+
-                                   '<p id='+ index +'><b>'+data['questions']+'</b></p>'+
-                                      // '<input type="text" value="<?php //$aaa= 'aa'; if(isset($ldmster)){  echo $ldmster[$aaa]; }?>"  name="aa' + index + '" id="aa' + index + '"  placeholder="Answer for question ' + index + '"  class="form-control form-control-sm ">'+
+                                   '<p id='+ index +'><b>'+data['questions']+'</b></p>'+                                   
                                     '<input type="text" value="<?php  echo $ldmster['aa6']; ?>"  name="aa' + index + '" id="aa' + index + '"  placeholder="Answer for question ' + index + '"  class="form-control form-control-sm ">'+
                                                                      
                           '</div>');
         }else  if(index == '7'){
           $('.questionrow').append('<div class="col-sm-6 card">'+
-                                   '<p id='+ index +'><b>'+data['questions']+'</b></p>'+
-                                      // '<input type="text" value="<?php //$aaa= 'aa'; if(isset($ldmster)){  echo $ldmster[$aaa]; }?>"  name="aa' + index + '" id="aa' + index + '"  placeholder="Answer for question ' + index + '"  class="form-control form-control-sm ">'+
+                                   '<p id='+ index +'><b>'+data['questions']+'</b></p>'+                                 
                                     '<input type="text" value="<?php  echo $ldmster['aa7']; ?>"  name="aa' + index + '" id="aa' + index + '" placeholder="Answer for question ' + index + '"  class="form-control form-control-sm ">'+
                                                                      
                           '</div>');
         }else  if(index == '8'){
           $('.questionrow').append('<div class="col-sm-6 card">'+
-                                   '<p id='+ index +'><b>'+data['questions']+'</b></p>'+
-                                      // '<input type="text" value="<?php //$aaa= 'aa'; if(isset($ldmster)){  echo $ldmster[$aaa]; }?>"  name="aa' + index + '" id="aa' + index + '"  placeholder="Answer for question ' + index + '"  class="form-control form-control-sm ">'+
+                                   '<p id='+ index +'><b>'+data['questions']+'</b></p>'+                              
                                     '<input type="text" value="<?php  echo $ldmster['aa8']; ?>"  name="aa' + index + '" id="aa' + index + '" placeholder="Answer for question ' + index + '"  class="form-control form-control-sm ">'+
                                                                      
                           '</div>');
         }else  if(index == '9'){
           $('.questionrow').append('<div class="col-sm-6 card">'+
-                                   '<p id='+ index +'><b>'+data['questions']+'</b></p>'+
-                                      // '<input type="text" value="<?php //$aaa= 'aa'; if(isset($ldmster)){  echo $ldmster[$aaa]; }?>"  name="aa' + index + '" id="aa' + index + '"  placeholder="Answer for question ' + index + '"  class="form-control form-control-sm ">'+
+                                   '<p id='+ index +'><b>'+data['questions']+'</b></p>'+                                 
                                     '<input type="text" value="<?php  echo $ldmster['aa9']; ?>"  name="aa' + index + '" id="aa' + index + '"  placeholder="Answer for question ' + index + '"  class="form-control form-control-sm ">'+
                                                                      
                           '</div>');
         }else  if(index == '10'){
           $('.questionrow').append('<div class="col-sm-6 card">'+
-                                   '<p id='+ index +'><b>'+data['questions']+'</b></p>'+
-                                      // '<input type="text" value="<?php //$aaa= 'aa'; if(isset($ldmster)){  echo $ldmster[$aaa]; }?>"  name="aa' + index + '" id="aa' + index + '"  placeholder="Answer for question ' + index + '"  class="form-control form-control-sm ">'+
+                                   '<p id='+ index +'><b>'+data['questions']+'</b></p>'+                                 
                                     '<input type="text" value="<?php  echo $ldmster['aa10']; ?>"  name="aa' + index + '" id="aa' + index + '"  placeholder="Answer for question ' + index + '"  class="form-control form-control-sm ">'+
                                                                      
                           '</div>');
         }else  if(index == '11'){
           $('.questionrow').append('<div class="col-sm-6 card">'+
-                                   '<p id='+ index +'><b>'+data['questions']+'</b></p>'+
-                                      // '<input type="text" value="<?php //$aaa= 'aa'; if(isset($ldmster)){  echo $ldmster[$aaa]; }?>"  name="aa' + index + '" id="aa' + index + '"  placeholder="Answer for question ' + index + '"  class="form-control form-control-sm ">'+
+                                   '<p id='+ index +'><b>'+data['questions']+'</b></p>'+                               
                                     '<input type="text" value="<?php  echo $ldmster['aa11']; ?>"  name="aa' + index + '" id="aa' + index + '"  placeholder="Answer for question ' + index + '"  class="form-control form-control-sm ">'+
                                                                      
                           '</div>');
         }else  if(index == '12'){
           $('.questionrow').append('<div class="col-sm-6 card">'+
-                                   '<p id='+ index +'><b>'+data['questions']+'</b></p>'+
-                                      // '<input type="text" value="<?php //$aaa= 'aa'; if(isset($ldmster)){  echo $ldmster[$aaa]; }?>"  name="aa' + index + '" id="aa' + index + '"  placeholder="Answer for question ' + index + '"  class="form-control form-control-sm ">'+
+                                   '<p id='+ index +'><b>'+data['questions']+'</b></p>'+                                 
                                     '<input type="text" value="<?php  echo $ldmster['aa12']; ?>"  name="aa' + index + '" id="aa' + index + '"  placeholder="Answer for question ' + index + '"  class="form-control form-control-sm ">'+
                                                                      
                           '</div>');
@@ -300,10 +242,7 @@ $.ajax({
       
             <div class="form-group row"> 
                <div class="col-sm-2" style="margin-left: 200px;margin-top: -25px;">
-                                <!-- <select name="rec_type_id" id="rec_type_id"  class="form-control form-control-sm">
-                                      <option value="1">Data </option>
-                                      <option value="2">CDQA </option>
-                                </select> -->
+                              
                                 <button type="submit" name="gotocdc" class="btn btn-primary" style="" id="gotocdc">Go To CDC form</button>
                   </div> 
                 <div class="col-sm-4" style="margin-top: -20px;">
@@ -318,30 +257,15 @@ $.ajax({
      <?php foreach ($campaigns as $campaign): ?>
       
       <?php endforeach;
-      //  print_r($campaign['tid']);
-       
        ?>
-     <?php// foreach ($designation as $designationss): ?>
-     
-      <?php  
-      // print_r($designationss['jid']); 
-      // $desicamp = explode(' ',$designationss['jid']);
-      // print_r($desicamp); 
-      // print_r(implode(',',$designationss['jid'])); 
-      //  explode(',',$designationss['jid']);
-    
-   // endforeach; ?>
 
      <?php foreach ($leadmaster as $ldmster): 
-      // print_r($ldmster['dvrejectreason']);
-      // $dvrejectreason = explode(',',$ldmster['dvrejectreason']);
+    
       $test1 = "";
       $dvrejectreason = explode(',',$test1);
-      // print_r($ldmster);
+   
      
       ?>
-      
-      
       
    
 </div>
@@ -351,12 +275,9 @@ $.ajax({
     <div class="row">
         <div class="col-sm-12">
             <!-- Basic Form Inputs card start -->
-            <div class="card" id="camp_form">
-              <!-- <form id="basic-form" method="POST" enctype="multipart/form-data"> -->
+            <div class="card" id="camp_form">          
                 <div class="card-header">
-                 <div class="form-group row"> 
-                
-                       
+                 <div class="form-group row">    
                   </div>
            
                 </div>
@@ -369,15 +290,7 @@ $.ajax({
                        
                     </div>
                     <div class="col-sm-12" >
-                        <!-- <?php 
-                        // echo form_open_multipart('campaigns/add_campaign');
-                         ?> -->
-                        <!-- <?php 
-                        // echo form_open_multipart('', array('id' => 'addcampForm')) ?> -->
-                        <!-- <form id="basic-form" method="POST" enctype="multipart/form-data"> -->
-
-                       
-                      
+                                           
                         <div class="form-group row">
                            
                             <div class="col-sm-1">
@@ -413,7 +326,6 @@ $.ajax({
                                  ?>">
                             </div>
                             <div class="col-sm-2">
-                                <!-- <select class="js-example-basic-multiple col-sm-12 cdqadisable" multiple="multiple" name="desid[]" id="desid"> -->
                                 <select class="form-control form-control-sm cdqadisable" name="jlevel" id="jlevel">
                                 <option value="">Job Level</option>
                                 <?php foreach ($joblevel as $joblevel): ?>
@@ -425,7 +337,7 @@ $.ajax({
                             <div class="col-sm-2 <?php
                                  if(isset($ldmster) && in_array('desid',$dvrejectreason)) { echo "form-bg-inverse" ; } 
                                  ?>">
-                                <!-- <select class="js-example-basic-multiple col-sm-12 cdqadisable" multiple="multiple" name="desid[]" id="desid"> -->
+                              
                                 <select class="js-example-basic-single <?php
                                  if(isset($ldmster) && in_array('desid',$dvrejectreason)) { echo "form-bg-inverse" ; } 
                                  ?>" name="desid" id="desid">
@@ -685,7 +597,7 @@ $.ajax({
                                 
                                
                                     <option value="0" <?php if(isset($ldmster) && $ldmster['mlbl'] == 0){ echo "selected" ; } ?> >K</option>
-                                    <!-- <option value="1">Hundred Thousand</option> -->
+                                  
                                     <option value="1" <?php if(isset($ldmster) && $ldmster['mlbl'] == 1){ echo "selected" ; } ?>>M</option>
                                     <option value="2"<?php if(isset($ldmster) && $ldmster['mlbl'] == 2){ echo "selected" ; } ?>>B</option>
                                     <option value="3"<?php if(isset($ldmster) && $ldmster['mlbl'] == 3){ echo "selected" ; } ?>>T</option>
@@ -809,8 +721,7 @@ $.ajax({
                             </div>
                             <div class="col-sm-2">
                                 <select class="form-control form-control-sm"  name="ddispositionclass" id="ddispositionclass">
-                                <!-- <option value="">Disposition Class- In Progress</option> -->
-                                <option value="0" <?php if(isset($ldmster) && $ldmster['ddispositionclass'] == '0'){ echo "selected" ; } ?>>Disposition Class- Live</option>
+                                    <option value="0" <?php if(isset($ldmster) && $ldmster['ddispositionclass'] == '0'){ echo "selected" ; } ?>>Disposition Class- Live</option>
                                     <option value="1" <?php if(isset($ldmster) && $ldmster['ddispositionclass'] == '1'){ echo "selected" ; } ?>>Dead</option>
                                 </select>
                             </div>
@@ -856,30 +767,11 @@ $.ajax({
                                         DND <input type="checkbox" <?php if($ldmster['dnd'] == '1'){ echo "checked" ; } ?> value="<?php if($ldmster['dnd'] == '1'){ echo "1" ; } ?>" id="dnd" name="dnd" class="js-single dnd"  />
                                         </div>
 
-<!-- 
-                                       
-                                       <div class="col-sm-2">
-                                        Opt - in  <input type="checkbox" value=""  id="optin" name="optin" class="js-single optin"  />
-                                        </div>
-                                        <div class="col-sm-2 optoption">
-                                        Opt - in Post  <input type="checkbox" value="" id="optpst" name="optpst" class="js-single"  />
-                                        </div>
-                                       
-                                        <div class="col-sm-2 optoption">
-                                        Opt - in Phone <input type="checkbox" value=""  id="optph" name="optph" class="js-single"  />
-                                        </div>
-                                        
-                                        <div class="col-sm-2 optoption">
-                                        Opt - in Email <input type="checkbox" value="" id="opteml" name="opteml" class="js-single"  />
-                                        </div>
-                                        <div class="col-sm-2 optoption">
-                                        DND <input type="checkbox" value="" id="dnd" name="dnd" class="js-single dnd"  />
-                                        </div> -->
+
                          </div>
                        
 
-                        <div class="form-group row questionrow">  
-                         
+                        <div class="form-group row questionrow">                       
                           
                         </div> 
                         <br>
@@ -942,12 +834,6 @@ $.ajax({
                             </div>
                         <?php } ?>
                         
-                        <!-- <input class="submit" class ="" type="submit" value="SUBMIT"> -->
-                        <!-- below buttons are for cdqa save and submit -->
-                        <!-- <button type="submit" name="submit" class="btn btn-primary cdqadisplay"   id="cdqasubmit">Submit Lead </button> 
-                        <button type="submit" name="submit" class="btn btn-primary cdqadisplay"  id="cdqasave">Save Lead </button> 
-                        -->
-
                     </div>
                       
                 </div>
@@ -974,37 +860,29 @@ $.ajax({
       <div class="modal-content">
         <div class="modal-header">
           <button type="button" class="close" data-dismiss="modal">&times;</button>
-          <!-- <h4 class="modal-title">Modal Header</h4> -->
+         
         </div>
-        <div class="modal-body">
-        <div class="mail-body-content">
-                                        <form>
-                                            <div class="form-group row">
-                                               
-                                                <!-- <div class="col-sm-6">
-                                                <select class="form-control form-control-sm cdqadisable" name="" id="">
-                                                    <option value="1">Industry</option>                                  
-                                            
-                                                    <option value="2">Sub Industry</option>
-                                              
-                                                </select>
-                                              </div> -->
-                                                <div class="col-sm-12">
-                                                  <input type ="text"  id="search_text" name="search_text" class="form-control form-control-sm" placeholder="Search here...">
-                                                </div>
-                                            </div>
-                                           
-                                        </form>
-                                        <div id="resultdiv"></div>
-                                        <div style="clear:both"></div>
-		                                    <br />
-                                    </div>
+            <div class="modal-body">
+                <div class="mail-body-content">
+                    <form>
+                        <div class="form-group row">
+                          
+                            <div class="col-sm-12">
+                              <input type ="text"  id="search_text" name="search_text" class="form-control form-control-sm" placeholder="Search here...">
+                            </div>
+                        </div>
+                        
+                    </form>
+                 <div id="resultdiv"></div>
+            <div style="clear:both"></div>
+          <br />
         </div>
+      </div>
         <div class="modal-footer">
         <button type="button" id="searchbtn" name ="searchbtn" class="btn btn-primary">Search</button>
           <button type="button" class="btn btn-danger " data-dismiss="modal">Close</button>
         </div>
-      </div>
+    </div>
       
     </div>
   </div>
@@ -1113,8 +991,7 @@ $('#country_id').change(function(){
           $('#timezone').append('<option value="'+data['zids']+'" >'+data['abbrev']+'</option>');
           
         });
-        // $('#country_id').multiselect("rebuild");
-        // callB();
+       
               $.ajax({
               url:'<?php echo base_url("cdc/gettcurrency");?>',
               method: 'get',
@@ -1130,8 +1007,7 @@ $('#country_id').change(function(){
                 $('#curr').append('<option value="'+data['currid']+'">'+data['currab']+'</option>');
               
               });
-              // $('#country_id').multiselect("rebuild");
-            
+           
               }
           });
 
@@ -1153,7 +1029,7 @@ $('#arevenue').change(function(){
 });
 
 $('#mlbl').blur(function(){   // revenue range change
-// $('#arevenue').blur(function(){   // revenue range change
+
  
 var arevenuevalue = $('#arevenue').val();
 
@@ -1162,14 +1038,13 @@ var arevenuevalue = $('#arevenue').val();
 
   var lrevrangenumber = $('#revlbndmlbl').val();
   var urevrangenumber = $('#revubndmlbl').val();
-  // alert(lrevrange+" "+urevrange+" "+lrevrangenumber+" "+urevrangenumber);
+  
  
   if(lrevrange == "hundred" && urevrange =="hundred" ){
     if($('#mlbl').val()== 0){
       var m = arevenuevalue*1000;
       var urevrangenumber1 = urevrangenumber*1000;
       var lrevrangenumber1 = lrevrangenumber*1000;
-      // alert(m+" "+lrevrangenumber1+" "+urevrangenumber1);
     
       if(m > parseInt(urevrangenumber1) || m < parseInt(lrevrangenumber1)){
         alert("not in range");
@@ -1198,7 +1073,7 @@ var arevenuevalue = $('#arevenue').val();
       var m = arevenuevalue*1000000;
       var urevrangenumber1 = urevrangenumber*1000000;
       var lrevrangenumber1 = lrevrangenumber*1000000;
-      // alert(m+" "+lrevrangenumber1+" "+urevrangenumber1);
+   
     
       if(m > parseInt(urevrangenumber1) || m < parseInt(lrevrangenumber1)){
         alert("not in range");
@@ -1226,7 +1101,7 @@ var arevenuevalue = $('#arevenue').val();
       var m = arevenuevalue*1000000000;
       var urevrangenumber1 = urevrangenumber*1000000000;
       var lrevrangenumber1 = lrevrangenumber*1000000000;
-      // alert(m+" "+lrevrangenumber1+" "+urevrangenumber1);
+    
     
       if(m > parseInt(urevrangenumber1) || m < parseInt(lrevrangenumber1)){
         alert("not in range");
@@ -1255,13 +1130,12 @@ var arevenuevalue = $('#arevenue').val();
       var m = arevenuevalue*1000000000000;
       var urevrangenumber1 = urevrangenumber*1000000000000;
       var lrevrangenumber1 = lrevrangenumber*1000000000000;
-      // alert(m+" "+lrevrangenumber1+" "+urevrangenumber1);
     
       if(m > parseInt(urevrangenumber1) || m < parseInt(lrevrangenumber1)){
         alert("not in range");
         $('#arevenue').val("");
       }else{
-        // alert("in range ");
+      
       }
     }else{
       alert("not in range of Trillion");
@@ -1292,23 +1166,10 @@ var arevenuevalue = $('#arevenue').val();
       } else if($('#mlbl').val()==3){
         var m = arevenuevalue*1000000000000;
       }
-      // alert(m);
+     
       var urevrangenumber1 = urevrangenumber*1000000;
       var lrevrangenumber1 = lrevrangenumber*1000;
-    // alert("hundred and million");
-            //  var ch = "0"; // thousand
-            //   var ch1 = "1"; // million
-            //   var check = "2"; //billion
-            //   var check2 = "3"; // trillion
-            //   $('select').each(function() {
-            //     $('#mlbl').not(this).find('option[value="' + check2 + '"]').hide();
-            //       $('#mlbl').not(this).find('option[value="' + ch + '"]').prop('disabled', false); 
-            //       $('#mlbl').not(this).find('option[value="' + ch1 + '"]').prop('disabled', false); 
-            //       $('#mlbl').not(this).find('option[value="' + check + '"]').hide();
-            //   });
-
-
-
+   
     }else if(lrevrange == "hundred" && urevrange ==  "billion"){
       if($('#mlbl').val()==0){
         var m = arevenuevalue*1000;
@@ -1322,17 +1183,7 @@ var arevenuevalue = $('#arevenue').val();
       }
       var urevrangenumber1 = urevrangenumber*1000000000;
       var lrevrangenumber1 = lrevrangenumber*1000;
-    // alert("hundred and billion");
-              // var ch = "0"; // thousand
-              // var ch1 = "1"; // million
-              // var check = "2"; //billion
-              // var check2 = "3"; // trillion
-              // $('select').each(function() {
-              //     $('#mlbl').not(this).find('option[value="' + check2 + '"]').hide();
-              //     $('#mlbl').not(this).find('option[value="' + ch + '"]').prop('disabled', false); 
-              //     $('#mlbl').not(this).find('option[value="' + ch1 + '"]').hide();
-              //     $('#mlbl').not(this).find('option[value="' + check + '"]').prop('disabled', false); 
-              // });
+   
     }else if(lrevrange == "hundred" && urevrange ==  "trillion"){
     
       var urevrangenumber1 = urevrangenumber*1000000000000;
@@ -1347,8 +1198,8 @@ var arevenuevalue = $('#arevenue').val();
       } else if($('#mlbl').val()==3){
         var m = arevenuevalue*1000000000000;
       }
-      // alert(m);
-    // alert("hundred and trillion");
+   
+   
     }else if(lrevrange == "million" && urevrange ==  "billion"){
       if($('#mlbl').val()==0){
         var m = arevenuevalue*1000;
@@ -1362,18 +1213,7 @@ var arevenuevalue = $('#arevenue').val();
       }
       var urevrangenumber1 = urevrangenumber*1000000000;
       var lrevrangenumber1 = lrevrangenumber*1000000;
-    // alert("million and bllion");
-              // var ch = "0"; // thousand
-              // var ch1 = "1"; // million
-              // var check = "2"; //billion
-              // var check2 = "3"; // trillion
-              // $('select').each(function() {
-              //   $('#mlbl').not(this).find('option[value="' + check2 + '"]').hide();
-              //     $('#mlbl').not(this).find('option[value="' + ch + '"]').hide();
-              //     $('#mlbl').not(this).find('option[value="' + ch1 + '"]').prop('disabled', false); 
-              //     $('#mlbl').not(this).find('option[value="' + check + '"]').prop('disabled', false); 
-              // });
-
+   
 
     } else if(lrevrange == "million" && urevrange ==  "trillion"){
       if($('#mlbl').val()==0){
@@ -1388,18 +1228,7 @@ var arevenuevalue = $('#arevenue').val();
       }
       var urevrangenumber1 = urevrangenumber*1000000000000;
       var lrevrangenumber1 = lrevrangenumber*1000000;
-              // var ch = "0"; // thousand
-              // var ch1 = "1"; // million
-              // var check = "2"; //billion
-              // var check2 = "3"; // trillion
-              // $('select').each(function() {
-              //   $('#mlbl').not(this).find('option[value="' + check2 + '"]').prop('disabled', false);
-              //     $('#mlbl').not(this).find('option[value="' + ch + '"]').hide();
-              //     $('#mlbl').not(this).find('option[value="' + ch1 + '"]').prop('disabled', false); 
-              //     $('#mlbl').not(this).find('option[value="' + check + '"]').hide();
-              // });
             
-    alert("million and trillion");
     } else if(lrevrange == "billion" && urevrange ==  "trillion"){
       if($('#mlbl').val()==0){
         var m = arevenuevalue*1000;
@@ -1412,26 +1241,15 @@ var arevenuevalue = $('#arevenue').val();
         var m = arevenuevalue*1000000000000;
       }
       var urevrangenumber1 = urevrangenumber*1000000000000;
-      var lrevrangenumber1 = lrevrangenumber*1000000000;
-      
-      // alert("billion and trillion");
-              // var ch = "0"; // thousand
-              // var ch1 = "1"; // million
-              // var check = "2"; //billion
-              // var check2 = "3"; // trillion
-              // $('select').each(function() {
-              //   $('#mlbl').not(this).find('option[value="' + check2 + '"]').prop('disabled', false);
-              //     $('#mlbl').not(this).find('option[value="' + ch + '"]').hide();
-              //     $('#mlbl').not(this).find('option[value="' + ch1 + '"]').hide();
-              //     $('#mlbl').not(this).find('option[value="' + check + '"]').prop('disabled', false); 
-              // });
+      var lrevrangenumber1 = lrevrangenumber*1000000000;      
+     
     }
-    // alert(m+" "+lrevrangenumber1+" "+urevrangenumber1);
+    
     if(m > parseInt(urevrangenumber1) || m < parseInt(lrevrangenumber1)){
         alert("not in range");
         $('#arevenue').val("");
       }else{
-        // alert("in range ");
+        
       }
   }
 
@@ -1444,9 +1262,9 @@ var arevenuevalue = $('#arevenue').val();
     var industrycd = $(this).val();
     if (industrycd != '')
     {
-        // $('#subindustrycd').prop('disabled', false);
+      
     }
-    // alert(sector_id);
+  
     // AJAX request
     $.ajax({
         url:'<?php echo base_url("cdc/getIndustry");?>',
@@ -1462,7 +1280,7 @@ var arevenuevalue = $('#arevenue').val();
        $.each(response,function(index,data){
           $('#subindustrycd').append('<option value="'+data['subindustrycd']+'">'+data['subindustry']+'</option>');
         });
-        // $('#industrycd').multiselect("rebuild");
+      
         }
     });
 });
@@ -1528,8 +1346,7 @@ var arevenuevalue = $('#arevenue').val();
           },
         dataType: 'json',
         success: function(response){
-          $( '#email_msg' ).html("response");
-          // alert(response.exclusionemail);
+          $( '#email_msg' ).html("response");        
           if(response.inclusionemail == "true")
           {
             $("#email_msg").html("");
@@ -1538,9 +1355,7 @@ var arevenuevalue = $('#arevenue').val();
           }else if(response.inclusionemail == "false")
           {
             $("#email_msg").html("Not in Inclusion Email List");
-            console.log("false");
-            // $('#email').val("");
-            // return false;	
+            console.log("false");          
           }
           else if(response.exclusionemail == "true")
           {
@@ -1676,18 +1491,6 @@ $(document).ready(function() {
 var rlc = 1; //lock 1
 var lmid = $('#lmid').val();
 var emp_id = $('#emp_id').val();
-// alert(emp_id);
-// $this->session -> userdata('email');
-// if(emp_id === undefined){
-  
-//             window.location = base_url+"administrator/logout";
-//             exit;
-//   }
-// if(emp_id == ''){
-//   // alert("Null");
-//   window.location = base_url+"administrator/logout";
-//   exit;
-// }
 
 if(rlc == "1"){
 var urlq = '<?php echo base_url("cdc/updaterecordlock");?>';
@@ -1719,7 +1522,7 @@ $.ajax({
   });
 }else{
   alert("record already opened");
-  // top.location.href=base_url+"cdc/selectCampaignforlead";//redirection
+  
 }
 
 
@@ -1731,7 +1534,6 @@ if(lmid == undefined){
 }
  
   $('.commentvisible').hide();
-  // $('.revsizehide').hide();
 
   $('.leaddisplay').show(); //buttons
   $('.cdqadisplay').hide();//buttons
@@ -1945,10 +1747,6 @@ if(lmid == undefined){
       aum: {
         number: true
       },
-      // empsize: {
-      //   required: true,
-      //   number: true
-      // },
       email: {
         email: true,
         required: true,
@@ -1980,19 +1778,8 @@ if(lmid == undefined){
       },
       emailver: {
         required: true
-      },
-      optpst: {
-        // required: true
-      },
-      optph: {
-        // required: true
-      },
-      optin: {
-        // required: true
-      },
-      opteml: {
-        // required: true
       }
+      
      
     },
     submitHandler: function(form) {
@@ -2057,9 +1844,7 @@ if(lmid == undefined){
             var cdcsb1 = $('#cdcsb').val();
             var cdcsb = parseInt(cdcsb1)+1; // incremataion
 
-           
-          //  alert(sbsvtag);
-
+          
             var sal = $('#sal').val();
             var fname = $('#fname').val();
             var lname = $('#lname').val();
@@ -2095,7 +1880,6 @@ if(lmid == undefined){
             var empszlink = $('#empszlink').val();
             var indlink = $('#indlink').val();
 
-            
 
             var pcomt = $('#pcomt').val();
 
@@ -2110,8 +1894,7 @@ if(lmid == undefined){
               $("#revszlink").prop('disabled', false);
               var revszlink = $('#revszlink').val();
             }
-        
-// alert(revszlink);
+
             var othrlink = $('#othrlink').val();
             var emailver = $('#emailver').val();
             var aum = $('#aum').val();
@@ -2210,8 +1993,8 @@ if(lmid == undefined){
             var cdclst = $('#cdclst').val();
             var callrec = $('#callrec').val();
             var cvr = $('#cvr').val();
-            // alert(lcalldisp); exit;
-           
+          
+          
             if(cvr != "" && callrec != "" && cdclst !="" && fname != "" && lname != "" && company_name != ""  && jtitle != "" && desid != "" && dcd !="" && email != "" && phone !="" && plink !="" && address != "" && city != "" && state != ""  && country_id != "" && industrycd != "" && subindustrycd != "" && empsize != "" && domain !=""  && empszlink != "" && revszlink != ""  && zip_code !="" ){
             var url = encodeURI("<?php echo base_url("cdc/ajax_update_leaddatacdc");?>");
             console.log(url+"?campaign_id="+campaign_id+"&lmid="+lmid+"&campaign_idcids="+campaign_idcids+"&sbsvtag="+sbsvtag+"&sal="+sal+"&fname="+fname+"&lname="+lname+"&jtitle="+jtitle+"&desid="+desid+"&jlevel="+jlevel+"&dcd="+dcd+"&email="+email+"&phone="+phone+"&altphn="+altphn+"&phext="+phext+"&plink="+plink+"&company_name="+company_name+"&address="+address+"&city="+city+"&state="+state+"&zip_code="+zip_code+"&country_id="+country_id+"&timezone="+timezone+"&ctype="+ctype+"&linetype="+linetype+"&industrycd="+industrycd+"&subindustrycd="+subindustrycd+"&sectyp="+sectyp+"&empsize="+empsize+"&mlbl="+mlbl+"&curr="+curr+"&arevenue="+arevenue+"&empszlink="+empszlink+"&indlink="+indlink+"&domain="+domain+"&othrlink="+othrlink+"&revszlink="+revszlink+"&emailver="+emailver+"&aum="+aum+"&assetid="+assetid+"&optin="+optin+"&optpst="+optpst+"&optph="+optph+"&opteml="+opteml+"&aa1="+aa1+"&aa2="+aa2+"&aa3="+aa3+"&aa4="+aa4+"&aa5="+aa5+"&aa6="+aa6+"&aa7="+aa7+"&aa8="+aa8+"&aa9="+aa9+"&aa10="+aa10+"&aa11="+aa11+"&aa12="+aa12+"&pcomt="+pcomt);
@@ -2306,15 +2089,13 @@ if(lmid == undefined){
 				},
         async: true,
                 cache: false,
-                success: function(response){
-                    // $("#leadsavecdc").hide();
+                success: function(response){                 
                     var text = response.statusCode;
                     console.log("check");
                     if(response.statusCode == "Success") 
                     {         
                          
-                        $("#leadupdatecdc").html(response.message);
-                        // top.location.href=base_url+"administrator/dashboard";//redirection
+                        $("#leadupdatecdc").html(response.message);                      
                         top.location.href=base_url+"cdc/cdcform?camp_id="+<?php echo $campaign['cnid']; ?>;//redirection
                       
                       
@@ -2324,20 +2105,15 @@ if(lmid == undefined){
                         
                       } else if(response.statusCode =="Exist")
                     {
-                      alert("Record already Exist");
-
-                      // $("#leadsubmit").html(response.message);
+                      alert("Record already Exist");                  
                         
 					          }
                     else if(response.statusCode =="plink")
                     {
-                      alert("Record already Exist");
-
-                      // $("#leadsubmit").html(response.message);
+                      alert("Record already Exist");                     
                         
 					          }
 
-                   
 
                 },
                 error: function (error) {
@@ -2369,30 +2145,17 @@ if(lmid == undefined){
             window.location = base_url+"administrator/logout";
             exit;
           }
-          if(empid == ''){
-            // alert("Null");
+          if(empid == ''){           
             window.location = base_url+"administrator/logout";
             exit;
           }
            
-          //  alert(campaign_idcids);
             var sal = $('#sal').val();
             var fname = $('#fname').val();
             var lname = $('#lname').val();
             var jtitle = $('#jtitle').val();
             var desid = $('#desid').val();
             var jlevel = $('#jlevel').val();
-
-
-          //   var sbsvtag1 = $('#sbsvtag').val();
-          //   // var sbsvtag = parseInt(sbsvtag1)+1; // incremataion
-           
-          //  if(sbsvtag1 == undefined){
-            // var sbsvtag = 0;
-          //  }else{
-          //   var sbsvtag = parseInt(sbsvtag1)+1; // incremataion
-          //  }
-          //  alert(sbsvtag);
            
             var dcd = $('#dcd').val();
             var email = $('#email').val();
@@ -2440,8 +2203,6 @@ if(lmid == undefined){
               $("#revszlink").prop('disabled', false);
               var revszlink = $('#revszlink').val();
             }
-        
-// alert(revszlink);
             var othrlink = $('#othrlink').val();
             var emailver = $('#emailver').val();
             var aum = $('#aum').val();
@@ -2556,8 +2317,7 @@ if(lmid == undefined){
                    
                   campaign_id: campaign_id,
                   campaign_idcids: campaign_idcids,
-                  lmid: lmid,
-                  // sbsvtag :sbsvtag,
+                  lmid: lmid,                 
                     sal:sal,
                     fname:fname,
                     lname: lname,
@@ -2625,8 +2385,7 @@ if(lmid == undefined){
                              
                    
 				},
-        // async: true,
-                // cache: false,
+      
                 success: function(response){
 
                     var text = response.statusCode;
@@ -2634,9 +2393,9 @@ if(lmid == undefined){
                    
                     if(response.statusCode == "Success") 
                     {     
-                      // alert("Success");                   
+                                 
                         $("#leadsave").html(response.message);
-                        // top.location.href=base_url+"administrator/dashboard";//redirection
+                    
                         top.location.href=base_url+"cdc/cdcform?camp_id="+<?php echo $campaign['cnid']; ?>;//redirection
                       
                     }else if(response.statusCode=="Fail")
@@ -2646,16 +2405,11 @@ if(lmid == undefined){
                       } else if(response.statusCode =="Exist")
                     {
                       alert("Record already Exist");
-
-                      // $("#leadsubmit").html(response.message);
                         
 					          }
                     else if(response.statusCode =="plink")
                     {
                       alert("Record already Exist");
-
-                      // $("#leadsubmit").html(response.message);
-                        
 					          }
 
                    
@@ -2664,7 +2418,7 @@ if(lmid == undefined){
                 
                 error: function (error) {
                   alert("Error");
-                  // location.reload();
+                 
                   }
               
             });

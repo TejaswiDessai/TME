@@ -3103,6 +3103,19 @@ public function getPrivillage(){
 
 		}
 
+		function selectCampaignforEvReport($page = 'select-campaign-ev-report'){
+			$data['title'] = 'Create Lead';
+			$data['campaigns'] = $this->Administrator_Model->get_campaign();
+                      
+			
+			
+			$this->load->view('administrator/header-script');
+			$this->load->view('administrator/header');
+			$this->load->view('administrator/header-bottom');
+			 $this->load->view('administrator/'.$page, $data);
+			$this->load->view('administrator/footer');
+		
+		}
 		public function user_report_ev($offset = 0){
 			$this->load->model('Administrator_Model');
 			// Pagination Config
@@ -3111,7 +3124,14 @@ public function getPrivillage(){
 			$config['per_page'] = '';
 			$config['uri_segment'] = 3;
 			$config['attributes'] = array('class' => 'paginate-link');
-			if($this->input->post('campid') != null)
+			$campaign_id = $this->input->post('campaign_id');
+			$campid = $this->input->post('campid');
+			
+			if($campaign_id != null)
+			{
+				$campid = $this->input->post('campaign_id');
+			}
+			elseif($campid != null)
 			{
 				$campid = $this->input->post('campid');
 			}

@@ -143,7 +143,7 @@
                                             <!-- <th>Total Submitted</th>
                                             <th>Total Accepted</th> -->
                                             <?php 
-                                            $d14 = $intervaldiff;
+                                            $d14 = $intervaldiff; //old date
                                             $d13 = $d14-1;
                                             $d12 = $d13-1;
                                             $d11 = $d12-1;
@@ -157,7 +157,7 @@
                                             $d3 = $d4-1;
                                             $d2 = $d3-1;
                                             $d1 = $d2-1;
-                                            $d0 = $d1-1;
+                                            $d0 = $d1-1;// current date
                                             ?>
                                             <th><?php echo date('d/m',strtotime("- $d14 days"));?></th>
                                             <th><?php echo date('d/m',strtotime("- $d13 days"));?></th>
@@ -563,9 +563,9 @@
                                             
                                             <td><?php
                                             $date_start = strtotime('-' . date('w') . ' days');
-                                             $submit1_total = $this->db->query("select * from leadmaster where  leadmaster.stdti > current_date - $intervaldiff AND leadmaster.stagtidi = '".$post['empcode']."' ");
+                                             $submit1_total = $this->db->query("select * from leadmaster where  (leadmaster.stdti >= current_date - $d14 AND leadmaster.stdti <= current_date - $d0) AND leadmaster.stagtidi = '".$post['empcode']."' ");
                                              $submit1 = $submit1_total->num_rows();
-                                             $submit2_total = $this->db->query("select * from leadmaster where  leadmaster.stdtii > current_date - $intervaldiff AND stagtidii = '".$post['empcode']."' ");
+                                             $submit2_total = $this->db->query("select * from leadmaster where  (leadmaster.stdtii >= current_date - $d14 AND leadmaster.stdtii <= current_date - $d0) AND stagtidii = '".$post['empcode']."' ");
                                              echo $submit1 + $submit2_total->num_rows();
                                             
                                             ?></td>

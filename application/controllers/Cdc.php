@@ -4447,6 +4447,45 @@
 			$this->load->view('administrator/footer');
 		}
 
+		public function user_accpeted_report($offset = 0){
+			$this->load->model('Administrator_Model');
+			// Pagination Config
+			$config['base_url'] = base_url(). 'campaigns/campaign/';
+			$config['total_rows'] = $this->db->count_all('campaign');
+			$config['per_page'] = '';
+			$config['uri_segment'] = 3;
+			$config['attributes'] = array('class' => 'paginate-link');
+			$campid =$this->input->post('campid');
+			
+			
+			
+			$intervaldiff =$this->input->post('intervaldiff');
+			
+			if(!isset($intervaldiff)){
+				$intervaldiff=14;
+			}
+
+		
+			$this->pagination->initialize($config);
+		
+			$data['title'] = 'Latest Campaigns';
+
+			// $data['users'] = $this->Administrator_Model->get_user_report_timelog($campid,$user_id,$from,$to,$stage);
+			$data['users'] = $this->Administrator_Model->get_users_for_accpted_report();
+			
+			
+			$data['campaigns'] = $this->Administrator_Model->get_campaign();
+		
+			$data['intervaldiff'] = $intervaldiff;
+
+			
+			$this->load->view('administrator/header-script');
+			$this->load->view('administrator/header');
+			$this->load->view('administrator/header-bottom');
+			$this->load->view('administrator/user-accepted-report', $data);
+			$this->load->view('administrator/footer');
+		}
+
 
 
 	}

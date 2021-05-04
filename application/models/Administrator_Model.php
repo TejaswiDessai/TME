@@ -756,6 +756,20 @@
 			// echo $this->db->last_query(); 
 			return $query->result_array();
 		}
+		public function get_users_for_accpted_report($username = FALSE, $limit = FALSE, $offset = FALSE)
+		{
+		
+		
+
+		
+				$this->db->order_by('users.id', 'DESC');
+				$this->db->where('users.status',0);	
+				$query = $this->db->get('users');
+				return $query->result_array(); 
+			
+
+		
+		}
 		public function get_userslist($userstatus,$cid_type,$roles)
 		{
 			

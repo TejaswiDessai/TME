@@ -662,8 +662,24 @@
                     </div>   -->
                    
                     
-
-
+ <!--HORIZONTAL BAR CHART Start-->
+ <!-- <div class="col-md-12 col-lg-6">
+                        <div class="card">
+                            <div class="card-header">
+                                <h5>HORIZONTAL BAR CHART</h5>
+                                <span>Lorem ipsum dolor sit amet, consectetur adipisicing elit</span>
+                                <div class="card-header-right">
+                                    <i class="icofont icofont-rounded-down"></i>
+                                    <i class="icofont icofont-refresh"></i>
+                                    <i class="icofont icofont-close-circled"></i>
+                                </div>
+                            </div>
+                            <div class="card-block">
+                                <div class="ct-chart-horizontal2 ct-perfect-fourth"></div>
+                            </div>
+                        </div>
+                    </div> -->
+                    <!--HORIZONTAL BAR CHART Ends-->
 
 
                     
@@ -1175,7 +1191,7 @@
                                             and pload = 0
                                             and (stagtidi = '".$empcode."')
                                             and dvagtidi is not null
-                                            and dvagtidi is null
+                                            and dvagtidii is null
                                             and (dvsbtg = 0 OR dvsbtg = 1 OR dvsbtg = 2)
                                             and dvload = 1 and leadmaster.stdti > current_date - 1 and leadmaster.stdti < current_date - 0 ");
                                             $sun_1 = $sun_1->num_rows();
@@ -1198,7 +1214,7 @@
                                             and pload = 0
                                             and (stagtidi = '".$empcode."')
                                             and dvagtidi is not null
-                                            and dvagtidi is null
+                                            and dvagtidii is null
                                             and (dvsbtg = 0 OR dvsbtg = 1 OR dvsbtg = 2)
                                             and dvload = 1 and leadmaster.stdti = current_date");
                                             $today_1 = $today_1->num_rows();
@@ -1244,41 +1260,35 @@
             </div>
            
           
-<!-- <link rel="stylesheet"  
- href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css"> -->
-    <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js">
-</script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.1.4/Chart.min.js">
-</script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js">
-</script> -->
+
             <?php 
-                                // // $stmt = pg_query("SELECT language, nos  FROM chart_data");
-                                // $stmt_bar_bar_countries = pg_query("SELECT countryname, COUNT(lmid) as counts
-                                // FROM country
-                                //     JOIN leadmaster on leadmaster.country= country.countrycd
-                                // GROUP BY countryname
-                                // ORDER BY  COUNT(lmid) DESC LIMIT 5;");
-                                // // echo "No of records : ".pg_num_rows($stmt_bar)."<br>";		
+                                // $stmt = pg_query("SELECT language, nos  FROM chart_data");
+                                $stmt_bar_bar_countries = pg_query("SELECT countryname, COUNT(lmid) as counts
+                                FROM country
+                                    JOIN leadmaster on leadmaster.country= country.countrycd
+                                GROUP BY countryname
+                                ORDER BY  COUNT(lmid) DESC LIMIT 5;");
+                               
+                                // echo "No of records : ".pg_num_rows($stmt_bar)."<br>";		
 
 
-                                // $php_data_array_bar_countries = Array(); // create PHP array
+                                $php_data_array_bar_countries = Array(); // create PHP array
                                 ?>
                              
                                 <?php 
-                                   // while ($row_bar_countries = pg_fetch_object($stmt_bar_bar_countries)) {
+                                   while ($row_bar_countries = pg_fetch_object($stmt_bar_bar_countries)) {
                                     ?>
                               
-                                <?php// $php_data_array_bar_countries[] = $row_bar_countries; // Adding to array
+                                <?php $php_data_array_bar_countries[] = $row_bar_countries; // Adding to array
                                 }?>
                               
                                 <?php  //json_encode($php_data_array_bar_countries); 
 
                                 // Transfor PHP array to JavaScript two dimensional array 
-                                // echo "<script>
-                                //         var my_2d_bar_countries = ".json_encode($php_data_array_bar_countries)."
+                                echo "<script>
+                                        var my_2d_bar_countries = ".json_encode($php_data_array_bar_countries)."
                                
-                                //         </script>";
+                                        </script>";
                                 ?>
 
        <script>
@@ -1286,6 +1296,35 @@
        
  $(document).ready(function(){
 
+//      var countrynamehor = [];
+//     var countshor = [];
+
+//     for(var i in my_2d_bar_countries) {
+        
+        
+       
+//         countrynamehor.push(my_2d_bar_countries[i].countryname);
+//         countshor.push(parseInt(my_2d_bar_countries[i].counts));
+    
+//     }
+
+//        //HORIZONTAL BAR CHART
+//        new Chartist.Bar('.ct-chart-horizontal2', {
+//         labels: countrynamehor,
+//         // series:countshor
+//         series: [
+//             countshor
+           
+//         ]
+//     }, {
+//         seriesBarDistance: 10,
+//         reverseData: true,
+//         horizontalBars: true,
+//         axisY: {
+//             offset: 70
+//         }
+//     });
+// //// End
     // var language = [];
     // var nos = [];
 

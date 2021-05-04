@@ -146,7 +146,7 @@
                                         <th>Total EV</th>
                                         <th>EV Open</th>
                                         <th>EV Accepted</th>
-                                        <th>EV Rejected)</th>
+                                        <th>EV Rejected</th>
                                     </tr>
                                 </thead>
                                 <tbody >

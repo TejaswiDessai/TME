@@ -3658,10 +3658,51 @@ public function get_campaign_fordataverification()
 		// return $query;
 		// }
 
-		public function get_all_record_leadmasterby_dc($dcd,$levelid,$ctype,$sector_id)
+		public function get_all_record_leadmasterby_dc($dcd=null,$levelid=null,$ctype,$sector_id=null,$region_id,$sub_region_id,$country_id,$subindustrycd,$desid,$revnlbound,$revnlbound_range,$revnubound,$revnubound_range,$emplbound,$empubound)
 		{
-		
-		
+			$this->db->select("count(*) as total,lmid");
+			if(isset($dcd) && $dcd[0] != 0)
+				$this->db->where_in('dname',$dcd);
+
+			// if(isset($levelid) && $levelid != '')
+			// 	$this->db->where_in('jlevel',$levelid);
+
+			if(isset($sector_id) && $sector_id[0] != 0)
+				$this->db->where_in('indtry',$sector_id);
+
+			// if(isset($region_id) && $region_id != '')
+			// 	$this->db->where_in('dname',$region_id);
+
+			// if(isset($sub_region_id) && $sub_region_id != '')
+			// 	$this->db->where_in('jlevel',$sub_region_id);
+
+			if(isset($country_id) && $country_id[0] != 0)
+				$this->db->where_in('country',$country_id);
+
+			if(isset($subindustrycd) && $subindustrycd[0] != 0)
+				$this->db->where_in('sindtry',$subindustrycd);
+
+			if(isset($levelid) && $levelid[0] != 0)
+				$this->db->where_in('jlevel',$levelid);
+
+			// if(isset($revnlbound) && $revnlbound != '')
+			// 	$this->db->where_in('arevenue',$revnlbound);
+
+			// if(isset($revnlbound_range) && $revnlbound_range != '')
+			// 	$this->db->where_in('arevenue',$revnlbound_range);
+
+			// if(isset($revnubound) && $revnubound != '')
+			// 	$this->db->where_in('arevenue',$revnubound);
+
+			// if(isset($revnubound_range) && $revnubound_range != '')
+			// 	$this->db->where_in('arevenue',$revnubound_range);
+
+			if(isset($emplbound) && $emplbound[0] != 0 && isset($empubound) && $empubound[0] != 0)
+			{
+				$this->db->where('empsize >=', $emplbound);
+				$this->db->where('empsize <=', $empubound);
+			}
+
 		$this->db->where('sbsvtag <', 6);
 		// $this->db->where('sbsvtag <', 3);
 		$this->db->where('sbsvtag !=', 0);
@@ -3686,16 +3727,60 @@ public function get_campaign_fordataverification()
 		$this->db->order_by('stdti','ASC');
 		$this->db->order_by('stdtii','ASC');
 		// $this->db->limit(1);
+		$this->db->group_by('lmid');
 		$query = $this->db->get('leadmaster');
 		// echo $this->db->last_query(); 
 		// echo $string;
 		// die;
-		return $query->num_rows(); 
+		return $query;
+		// return $query->num_rows(); 
 	}
 // Added by Amol
-	public function get_all_record_leadmasterby_dv($dcd,$levelid,$ctype,$sector_id)
+	public function get_all_record_leadmasterby_dv($dcd,$levelid,$ctype,$sector_id,$region_id,$sub_region_id,$country_id,$subindustrycd,$desid,$revnlbound,$revnlbound_range,$revnubound,$revnubound_range,$emplbound,$empubound)
 	{
 		
+		$this->db->select("count(*) as total,lmid");
+		if(isset($dcd) && $dcd[0] != 0)
+			$this->db->where_in('dname',$dcd);
+
+			// if(isset($levelid) && $levelid != '')
+			// 	$this->db->where_in('jlevel',$levelid);
+
+			if(isset($sector_id) && $sector_id[0] != 0)
+				$this->db->where_in('indtry',$sector_id);
+
+			// if(isset($region_id) && $region_id != '')
+			// 	$this->db->where_in('dname',$region_id);
+
+			// if(isset($sub_region_id) && $sub_region_id != '')
+			// 	$this->db->where_in('jlevel',$sub_region_id);
+
+			if(isset($country_id) && $country_id[0] != 0)
+				$this->db->where_in('country',$country_id);
+
+			if(isset($subindustrycd) && $subindustrycd[0] != 0)
+				$this->db->where_in('sindtry',$subindustrycd);
+
+			if(isset($levelid) && $levelid[0] != 0)
+				$this->db->where_in('jlevel',$levelid);
+
+			// if(isset($revnlbound) && $revnlbound != '')
+			// 	$this->db->where_in('arevenue',$revnlbound);
+
+			// if(isset($revnlbound_range) && $revnlbound_range != '')
+			// 	$this->db->where_in('arevenue',$revnlbound_range);
+
+			// if(isset($revnubound) && $revnubound != '')
+			// 	$this->db->where_in('arevenue',$revnubound);
+
+			// if(isset($revnubound_range) && $revnubound_range != '')
+			// 	$this->db->where_in('arevenue',$revnubound_range);
+
+			if(isset($emplbound) && $emplbound[0] != 0 && isset($empubound) && $empubound[0] != 0)
+			{
+				$this->db->where('empsize >=', $emplbound);
+				$this->db->where('empsize <=', $empubound);
+			}
 		// $this->db->where('leadmaster.rlc !=', 1);
 		// $this->db->where('leadmaster.evcomp', null);
 		$this->db->where('sbsvtag <', 6);
@@ -3712,18 +3797,60 @@ public function get_campaign_fordataverification()
 		// $this->db->order_by('stdti','ASC');
 		// $this->db->order_by('stdtii','ASC');
 		// $this->db->limit(1);
+		$this->db->group_by('lmid');
 		$query = $this->db->get('leadmaster');
 		// echo $this->db->last_query(); 
 		// echo $string;
 		// die;
-		return $query->num_rows();
+		return $query;
+		// return $query->num_rows();
 	}
 
 	// Added by Amol
-	public function get_all_record_leadmasterby_CDC($dcd,$levelid,$ctype,$sector_id)
+	public function get_all_record_leadmasterby_CDC($dcd=null,$levelid=null,$ctype,$sector_id=null,$region_id,$sub_region_id,$country_id,$subindustrycd,$desid,$revnlbound,$revnlbound_range,$revnubound,$revnubound_range,$emplbound,$empubound)
 	{
 	
-		
+		$this->db->select("count(*) as total,lmid");
+		if(isset($dcd) && $dcd[0] != 0)
+			$this->db->where_in('dname',$dcd);
+
+			// if(isset($levelid) && $levelid != '')
+			// 	$this->db->where_in('jlevel',$levelid);
+
+			if(isset($sector_id) && $sector_id[0] != 0)
+				$this->db->where_in('indtry',$sector_id);
+
+			// if(isset($region_id) && $region_id != '')
+			// 	$this->db->where_in('dname',$region_id);
+
+			// if(isset($sub_region_id) && $sub_region_id != '')
+			// 	$this->db->where_in('jlevel',$sub_region_id);
+
+			if(isset($country_id) && $country_id[0] != 0)
+				$this->db->where_in('country',$country_id);
+
+			if(isset($subindustrycd) && $subindustrycd[0] != 0)
+				$this->db->where_in('sindtry',$subindustrycd);
+
+			if(isset($levelid) && $levelid[0] != 0)
+				$this->db->where_in('jlevel',$levelid);
+			// if(isset($revnlbound) && $revnlbound != '')
+			// 	$this->db->where_in('arevenue',$revnlbound);
+
+			// if(isset($revnlbound_range) && $revnlbound_range != '')
+			// 	$this->db->where_in('arevenue',$revnlbound_range);
+
+			// if(isset($revnubound) && $revnubound != '')
+			// 	$this->db->where_in('arevenue',$revnubound);
+
+			// if(isset($revnubound_range) && $revnubound_range != '')
+			// 	$this->db->where_in('arevenue',$revnubound_range);
+
+			if(isset($emplbound) && $emplbound[0] != 0 && isset($empubound) && $empubound[0] != 0)
+			{
+				$this->db->where('empsize >=', $emplbound);
+				$this->db->where('empsize <=', $empubound);
+			}
 		// $this->db->where('cdcsb <', '4');
 		// $this->db->where('cdcrjt <', '4');
 		// $this->db->where('sbsvtag !=', 0);
@@ -3747,20 +3874,61 @@ public function get_campaign_fordataverification()
 		// }
 		// $this->db->order_by('evdti','ASC');
 		// $this->db->limit(1);
+		$this->db->group_by('lmid');
 		$query = $this->db->get('leadmaster');
 		// echo $this->db->last_query(); 
 		// echo $string;
 		// die;
-
-		return $query->num_rows();
+		return $query;
+		// return $query->num_rows();
 		// return $query->result_array();
 	}
 	
 	// Added by Amol 
-	public function get_all_record_leadmasterby_campaignQA($dcd,$levelid,$ctype,$sector_id)
+	public function get_all_record_leadmasterby_campaignQA($dcd,$levelid,$ctype,$sector_id,$region_id,$sub_region_id,$country_id,$subindustrycd,$desid,$revnlbound,$revnlbound_range,$revnubound,$revnubound_range,$emplbound,$empubound)
 	{
-		
-		
+		$this->db->select("count(*) as total,lmid");
+		if(isset($dcd) && $dcd[0] != 0)
+			$this->db->where_in('dname',$dcd);
+
+			// if(isset($levelid) && $levelid != '')
+			// 	$this->db->where_in('jlevel',$levelid);
+
+			if(isset($sector_id) && $sector_id[0] != 0)
+				$this->db->where_in('indtry',$sector_id);
+
+			// if(isset($region_id) && $region_id != '')
+			// 	$this->db->where_in('dname',$region_id);
+
+			// if(isset($sub_region_id) && $sub_region_id != '')
+			// 	$this->db->where_in('jlevel',$sub_region_id);
+
+			if(isset($country_id) && $country_id[0] != 0)
+				$this->db->where_in('country',$country_id);
+
+			if(isset($subindustrycd) && $subindustrycd[0] != 0)
+				$this->db->where_in('sindtry',$subindustrycd);
+
+			if(isset($levelid) && $levelid[0] != 0)
+				$this->db->where_in('jlevel',$levelid);
+
+			// if(isset($revnlbound) && $revnlbound != '')
+			// 	$this->db->where_in('arevenue',$revnlbound);
+
+			// if(isset($revnlbound_range) && $revnlbound_range != '')
+			// 	$this->db->where_in('arevenue',$revnlbound_range);
+
+			// if(isset($revnubound) && $revnubound != '')
+			// 	$this->db->where_in('arevenue',$revnubound);
+
+			// if(isset($revnubound_range) && $revnubound_range != '')
+			// 	$this->db->where_in('arevenue',$revnubound_range);
+
+			if(isset($emplbound) && $emplbound[0] != 0 && isset($empubound) && $empubound[0] != 0)
+			{
+				$this->db->where('empsize >=', $emplbound);
+				$this->db->where('empsize <=', $empubound);
+			}
 	// $this->db->where('cdcsb <', '4');
 	// $this->db->where('cdcrjt <', '4');
 	// $this->db->where('cdcsv !=', 0);
@@ -3770,6 +3938,7 @@ public function get_campaign_fordataverification()
 	// $this->db->where('evload',0); 
 	$this->db->where('cdcload',1);
 	$this->db->where('qaload',null);
+	$this->db->group_by('lmid');
 	// $this->db->where('qalsload',null);
 	// $this->db->where('rlc !=', 1);
 	// 	$this->db->group_start();
@@ -3783,13 +3952,55 @@ public function get_campaign_fordataverification()
 	// echo $this->db->last_query(); 
 	// echo $string;
 	// die;
-	return $query->num_rows();
+	return $query;
+	// return $query->num_rows();
 		// return $query->result_array();
 	}
 // Added by Amol 
-public function get_all_record_leadmasterby_QAdone($dcd,$levelid,$ctype,$sector_id)
+public function get_all_record_leadmasterby_QAdone($dcd,$levelid,$ctype,$sector_id,$region_id,$sub_region_id,$country_id,$subindustrycd,$desid,$revnlbound,$revnlbound_range,$revnubound,$revnubound_range,$emplbound,$empubound)
 {
-	
+	$this->db->select("count(*) as total,lmid");
+	if(isset($dcd) && $dcd[0] != 0)
+		$this->db->where_in('dname',$dcd);
+
+			// if(isset($levelid) && $levelid != '')
+			// 	$this->db->where_in('jlevel',$levelid);
+
+			if(isset($sector_id) && $sector_id[0] != 0)
+				$this->db->where_in('indtry',$sector_id);
+
+			// if(isset($region_id) && $region_id != '')
+			// 	$this->db->where_in('dname',$region_id);
+
+			// if(isset($sub_region_id) && $sub_region_id != '')
+			// 	$this->db->where_in('jlevel',$sub_region_id);
+
+			if(isset($country_id) && $country_id[0] != 0)
+				$this->db->where_in('country',$country_id);
+
+			if(isset($subindustrycd) && $subindustrycd[0] != 0)
+				$this->db->where_in('sindtry',$subindustrycd);
+
+			if(isset($levelid) && $levelid[0] != 0)
+				$this->db->where_in('jlevel',$levelid);
+
+			// if(isset($revnlbound) && $revnlbound != '')
+			// 	$this->db->where_in('arevenue',$revnlbound);
+
+			// if(isset($revnlbound_range) && $revnlbound_range != '')
+			// 	$this->db->where_in('arevenue',$revnlbound_range);
+
+			// if(isset($revnubound) && $revnubound != '')
+			// 	$this->db->where_in('arevenue',$revnubound);
+
+			// if(isset($revnubound_range) && $revnubound_range != '')
+			// 	$this->db->where_in('arevenue',$revnubound_range);
+
+			if(isset($emplbound) && $emplbound[0] != 0 && isset($empubound) && $empubound[0] != 0)
+			{
+				$this->db->where('empsize >=', $emplbound);
+				$this->db->where('empsize <=', $empubound);
+			}
 	
 // $this->db->where('cdcsb <', '4');
 // $this->db->where('cdcrjt <', '4');
@@ -3805,7 +4016,8 @@ $this->db->where('qaload',1);
 $this->db->group_start();
 $this->db->where('dytg', '0');
 $this->db->OR_where('dytg', NULL);
-$this->db->group_end(); 	
+$this->db->group_end(); 
+$this->db->group_by('lmid');	
 // $this->db->order_by('cdcsbdti','ASC');
 // $this->db->order_by('cdcsbdtii','ASC');
 // $this->db->limit(1);
@@ -3813,19 +4025,113 @@ $query = $this->db->get('leadmaster');
 // echo $this->db->last_query(); 
 // echo $string;
 // die;
-return $query->num_rows();
+return $query;
+// return $query->num_rows();
 	// return $query->result_array();
 }
 
-public function get_all_record_leadmasterby_Delivered($dcd,$levelid,$ctype,$sector_id)
+public function get_all_record_leadmasterby_Delivered($dcd,$levelid,$ctype,$sector_id,$region_id,$sub_region_id,$country_id,$subindustrycd,$desid,$revnlbound,$revnlbound_range,$revnubound,$revnubound_range,$emplbound,$empubound)
 {
+			$this->db->select("count(*) as total,lmid");
+			if(isset($dcd) && $dcd[0] != 0)
+				$this->db->where_in('dname',$dcd);
+
+			// if(isset($levelid) && $levelid != '')
+			// 	$this->db->where_in('jlevel',$levelid);
+
+			if(isset($sector_id) && $sector_id[0] != 0)
+				$this->db->where_in('indtry',$sector_id);
+
+			// if(isset($region_id) && $region_id != '')
+			// 	$this->db->where_in('dname',$region_id);
+
+			// if(isset($sub_region_id) && $sub_region_id != '')
+			// 	$this->db->where_in('jlevel',$sub_region_id);
+
+			if(isset($country_id) && $country_id[0] != 0)
+				$this->db->where_in('country',$country_id);
+
+			if(isset($subindustrycd) && $subindustrycd[0] != 0)
+				$this->db->where_in('sindtry',$subindustrycd);
+
+			if(isset($levelid) && $levelid[0] != 0)
+				$this->db->where_in('jlevel',$levelid);
+
+				
+			// if(isset($revnlbound) && $revnlbound != '')
+			// 	$this->db->where_in('arevenue',$revnlbound);
+
+			// if(isset($revnlbound_range) && $revnlbound_range != '')
+			// 	$this->db->where_in('arevenue',$revnlbound_range);
+
+			// if(isset($revnubound) && $revnubound != '')
+			// 	$this->db->where_in('arevenue',$revnubound);
+
+			// if(isset($revnubound_range) && $revnubound_range != '')
+			// 	$this->db->where_in('arevenue',$revnubound_range);
+
+			if(isset($emplbound) && $emplbound[0] != 0 && isset($empubound) && $empubound[0] != 0)
+			{
+				$this->db->where('empsize >=', $emplbound);
+				$this->db->where('empsize <=', $empubound);
+			}
 	$this->db->where('dytg', '1');
+	$this->db->group_by('lmid');
 	$query = $this->db->get('leadmaster');
-	return $query->num_rows();
+	// echo $this->db->last_query();  die;
+	// return $query->num_rows();
+	return $query;
 	}
 
-	public function get_all_record_leadmasterby_dcPending($dcd,$levelid,$ctype,$sector_id)
+	public function get_all_record_leadmasterby_dcPending($dcd,$levelid,$ctype,$sector_id,$region_id,$sub_region_id,$country_id,$subindustrycd,$desid,$revnlbound,$revnlbound_range,$revnubound,$revnubound_range,$emplbound,$empubound)
 	{
+		// $deptStr = '';
+		// if(isset($dcd) && $dcd != 0) {
+		// $deptStr = implode(',',$dcd);
+		// }
+		$this->db->select("count(*) as total,lmid");
+		if(isset($dcd) && $dcd[0] != 0)
+			$this->db->where_in('dname',$dcd);
+
+			// if(isset($levelid) && $levelid != '')
+			// 	$this->db->where_in('jlevel',$levelid);
+
+			if(isset($sector_id) && $sector_id[0] != 0)
+				$this->db->where_in('indtry',$sector_id);
+
+			// if(isset($region_id) && $region_id != '')
+			// 	$this->db->where_in('dname',$region_id);
+
+			// if(isset($sub_region_id) && $sub_region_id != '')
+			// 	$this->db->where_in('jlevel',$sub_region_id);
+
+			if(isset($country_id) && $country_id[0] != 0)
+				$this->db->where_in('country',$country_id);
+
+			if(isset($subindustrycd) && $subindustrycd[0] != 0)
+				$this->db->where_in('sindtry',$subindustrycd);
+
+			if(isset($desid) && $desid[0] != 0)
+				$this->db->where_in('jlevel',$desid);
+
+			// if(isset($revnlbound) && $revnlbound != '')
+			// 	$this->db->where_in('arevenue',$revnlbound);
+
+			// if(isset($revnlbound_range) && $revnlbound_range != '')
+			// 	$this->db->where_in('arevenue',$revnlbound_range);
+
+			// if(isset($revnubound) && $revnubound != '')
+			// 	$this->db->where_in('arevenue',$revnubound);
+
+			// if(isset($revnubound_range) && $revnubound_range != '')
+			// 	$this->db->where_in('arevenue',$revnubound_range);
+
+			if(isset($emplbound) && $emplbound[0] != 0 && isset($empubound) && $empubound[0] != 0)
+			{
+				$this->db->where('empsize >=', $emplbound);
+				$this->db->where('empsize <=', $empubound);
+			}
+
 		$this->db->where('sbsvtag <', 6);
 		// $this->db->where('sbsvtag <', 3);
 		$this->db->where('sbsvtag !=', 0);
@@ -3857,14 +4163,137 @@ public function get_all_record_leadmasterby_Delivered($dcd,$levelid,$ctype,$sect
 			// $this->db->order_by('dvrejtg','DESC');
 			$this->db->order_by('dvrdti','ASC');
 			$this->db->order_by('dvrdtii','ASC');
-		
+			$this->db->group_by('lmid');
 		
 		// $this->db->limit(1);
 		$query = $this->db->get('leadmaster');
 		// echo $this->db->last_query();  
 		// echo $string;
 		// die;
-		return $query->num_rows();
+		return $query;
+		// return $query->num_rows();
 	} 
+	public function get_all_unused_record($dcd,$levelid,$ctype,$sector_id,$region_id,$sub_region_id,$country_id,$subindustrycd,$desid,$revnlbound,$revnlbound_range,$revnubound,$revnubound_range,$emplbound,$empubound)
+	{
+		$this->db->select("count(*) as total,lmid");
+		if(isset($dcd) && $dcd[0] != 0)
+			$this->db->where_in('dname',$dcd);
+
+			// if(isset($levelid) && $levelid != '')
+			// 	$this->db->where_in('jlevel',$levelid);
+
+			if(isset($sector_id) && $sector_id[0] != 0)
+				$this->db->where_in('indtry',$sector_id);
+
+			// if(isset($region_id) && $region_id != '')
+			// 	$this->db->where_in('dname',$region_id);
+
+			// if(isset($sub_region_id) && $sub_region_id != '')
+			// 	$this->db->where_in('jlevel',$sub_region_id);
+
+			if(isset($country_id) && $country_id[0] != 0)
+				$this->db->where_in('country',$country_id);
+
+			if(isset($subindustrycd) && $subindustrycd[0] != 0)
+				$this->db->where_in('sindtry',$subindustrycd);
+
+			if(isset($levelid) && $levelid[0] != 0)
+				$this->db->where_in('jlevel',$levelid);
+
+				
+			// if(isset($revnlbound) && $revnlbound != '')
+			// 	$this->db->where_in('arevenue',$revnlbound);
+
+			// if(isset($revnlbound_range) && $revnlbound_range != '')
+			// 	$this->db->where_in('arevenue',$revnlbound_range);
+
+			// if(isset($revnubound) && $revnubound != '')
+			// 	$this->db->where_in('arevenue',$revnubound);
+
+			// if(isset($revnubound_range) && $revnubound_range != '')
+			// 	$this->db->where_in('arevenue',$revnubound_range);
+
+			if(isset($emplbound) && $emplbound[0] != 0 && isset($empubound) && $empubound[0] != 0)
+			{
+				$this->db->where('empsize >=', $emplbound);
+				$this->db->where('empsize <=', $empubound);
+			}
+			$this->db->where('cids', '9999');
+			$this->db->group_by('lmid');
+			$query = $this->db->get('leadmaster');
+			// echo $this->db->last_query();  die;
+			// return $query->num_rows();
+			return $query;
+		
+	}
+	public function get_all_used_record_with_cond($dcd,$levelid,$ctype,$sector_id,$region_id,$sub_region_id,$country_id,$subindustrycd,$desid,$revnlbound,$revnlbound_range,$revnubound,$revnubound_range,$emplbound,$empubound)
+	{
+		$this->db->select("count(*) as total,lmid");
+		if(isset($dcd) && $dcd[0] != 0)
+			$this->db->where_in('dname',$dcd);
+
+			// if(isset($levelid) && $levelid != '')
+			// 	$this->db->where_in('jlevel',$levelid);
+
+			if(isset($sector_id) && $sector_id[0] != 0)
+				$this->db->where_in('indtry',$sector_id);
+
+			// if(isset($region_id) && $region_id != '')
+			// 	$this->db->where_in('dname',$region_id);
+
+			// if(isset($sub_region_id) && $sub_region_id != '')
+			// 	$this->db->where_in('jlevel',$sub_region_id);
+
+			if(isset($country_id) && $country_id[0] != 0)
+				$this->db->where_in('country',$country_id);
+
+			if(isset($subindustrycd) && $subindustrycd[0] != 0)
+				$this->db->where_in('sindtry',$subindustrycd);
+
+			if(isset($levelid) && $levelid[0] != 0)
+				$this->db->where_in('jlevel',$levelid);
+
+				
+			// if(isset($revnlbound) && $revnlbound != '')
+			// 	$this->db->where_in('arevenue',$revnlbound);
+
+			// if(isset($revnlbound_range) && $revnlbound_range != '')
+			// 	$this->db->where_in('arevenue',$revnlbound_range);
+
+			// if(isset($revnubound) && $revnubound != '')
+			// 	$this->db->where_in('arevenue',$revnubound);
+
+			// if(isset($revnubound_range) && $revnubound_range != '')
+			// 	$this->db->where_in('arevenue',$revnubound_range);
+
+			if(isset($emplbound) && $emplbound[0] != 0 && isset($empubound) && $empubound[0] != 0)
+			{
+				$this->db->where('empsize >=', $emplbound);
+				$this->db->where('empsize <=', $empubound);
+			}
+			$dt = new DateTime();
+			$dt->modify('-1 month');
+			$date = $dt->format('Y-m-d');
+			// $this->db->where('dydti >= "2013-08-01"');
+			$this->db->where('dydti <= ',$date);
+			$this->db->where('dytg', '1');
+			// $this->db->where('dydti <', "strtotime('-2 month')");
+			// $this->db->where('dydti >=', $emplbound);
+			// $this->db->where("dydti < DATEADD(dydti, -6, date('Y-m-d H:i:s'))");
+			// $this->db->like('cids', '99');
+			$this->db->group_by('lmid');
+			$query = $this->db->get('leadmaster');
+			// echo $this->db->last_query();  die;
+			// return $query->num_rows();
+			return $query;
+		
+	}
+
+	public function assign_leads_to_campaign($datacampaign,$lmid)
+	{
+		$this->db->where('lmid', $lmid);
+		$this->db->update('leadmaster', $datacampaign);
+		return true;
+	}
 
 }

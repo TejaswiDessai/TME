@@ -2159,7 +2159,7 @@ public function getPrivillage(){
 			));
 		}
 	}
-	// added by Tejaswi
+	// added by Amol
 	public function send_email_status()
 	{
 		// $string_version = $_GET['leadid'];
@@ -3103,6 +3103,19 @@ public function getPrivillage(){
 
 		}
 
+		function selectCampaignforEvReport($page = 'select-campaign-ev-report'){
+			$data['title'] = 'Create Lead';
+			$data['campaigns'] = $this->Administrator_Model->get_campaign();
+                      
+			
+			
+			$this->load->view('administrator/header-script');
+			$this->load->view('administrator/header');
+			$this->load->view('administrator/header-bottom');
+			 $this->load->view('administrator/'.$page, $data);
+			$this->load->view('administrator/footer');
+		
+		}
 		public function user_report_ev($offset = 0){
 			$this->load->model('Administrator_Model');
 			// Pagination Config
@@ -3111,7 +3124,14 @@ public function getPrivillage(){
 			$config['per_page'] = '';
 			$config['uri_segment'] = 3;
 			$config['attributes'] = array('class' => 'paginate-link');
-			if($this->input->post('campid') != null)
+			$campaign_id = $this->input->post('campaign_id');
+			$campid = $this->input->post('campid');
+			
+			if($campaign_id != null)
+			{
+				$campid = $this->input->post('campaign_id');
+			}
+			elseif($campid != null)
 			{
 				$campid = $this->input->post('campid');
 			}
@@ -3199,23 +3219,38 @@ public function getPrivillage(){
 			$dcd = $this->input->post('dcd');
 			// print_r($dcd);
 			$levelid = $this->input->post('levelid');
+			$region_id = $this->input->post('region_id');
+			$sub_region_id = $this->input->post('sub_region_id');
+			$country_id = $this->input->post('country_id');
+			$subindustrycd = $this->input->post('subindustrycd');
+			$desid = $this->input->post('desid');
+			$revnlbound = $this->input->post('revnlbound');
+			$revnlbound_range = $this->input->post('revnlbound_range');
+			$revnubound = $this->input->post('revnubound');
+			$revnubound_range = $this->input->post('revnubound_range');
+			$emplbound = $this->input->post('emplbound');
+			$empubound = $this->input->post('empubound');
+			$campaign_id = $this->input->post('campaign_id');
 			// print_r($levelid);die;
 			$ctype = $this->input->post('ctype');
 			// echo $ctype;
 			$sector_id = $this->input->post('sector_id');
 			// $data['users'] = $this->Administrator_Model->get_available_leads(FALSE, $config['per_page'], $offset,$dcd,$ctype,$levelid,$sector_id);
-			$data['leadmaster_dcPending'] = $this->Administrator_Model->get_all_record_leadmasterby_dcPending($dcd,$levelid,$ctype,$sector_id);
-			$data['leadmaster_dcCleared'] = $this->Administrator_Model->get_all_record_leadmasterby_dc($dcd,$levelid,$ctype,$sector_id);
-			$data['leadmaster_dvCleared'] = $this->Administrator_Model->get_all_record_leadmasterby_dv($dcd,$levelid,$ctype,$sector_id);
-			$data['leadmaster_evCleared'] = $this->Administrator_Model->get_all_record_leadmasterby_CDC($dcd,$levelid,$ctype,$sector_id);
-			$data['leadmaster_cdcCleared'] = $this->Administrator_Model->get_all_record_leadmasterby_campaignQA($dcd,$levelid,$ctype,$sector_id);
-			$data['leadmaster_qaCleared'] = $this->Administrator_Model->get_all_record_leadmasterby_QAdone($dcd,$levelid,$ctype,$sector_id);
-			$data['leadmaster_delivered'] = $this->Administrator_Model->get_all_record_leadmasterby_Delivered($dcd,$levelid,$ctype,$sector_id);
+			$data['leadmaster_dcPending'] = $this->Administrator_Model->get_all_record_leadmasterby_dcPending($dcd,$levelid,$ctype,$sector_id,$region_id,$sub_region_id,$country_id,$subindustrycd,$desid,$revnlbound,$revnlbound_range,$revnubound,$revnubound_range,$emplbound,$empubound);
+			$data['leadmaster_dcCleared'] = $this->Administrator_Model->get_all_record_leadmasterby_dc($dcd,$levelid,$ctype,$sector_id,$region_id,$sub_region_id,$country_id,$subindustrycd,$desid,$revnlbound,$revnlbound_range,$revnubound,$revnubound_range,$emplbound,$empubound);
+			$data['leadmaster_dvCleared'] = $this->Administrator_Model->get_all_record_leadmasterby_dv($dcd,$levelid,$ctype,$sector_id,$region_id,$sub_region_id,$country_id,$subindustrycd,$desid,$revnlbound,$revnlbound_range,$revnubound,$revnubound_range,$emplbound,$empubound);
+			$data['leadmaster_evCleared'] = $this->Administrator_Model->get_all_record_leadmasterby_CDC($dcd,$levelid,$ctype,$sector_id,$region_id,$sub_region_id,$country_id,$subindustrycd,$desid,$revnlbound,$revnlbound_range,$revnubound,$revnubound_range,$emplbound,$empubound);
+			$data['leadmaster_cdcCleared'] = $this->Administrator_Model->get_all_record_leadmasterby_campaignQA($dcd,$levelid,$ctype,$sector_id,$region_id,$sub_region_id,$country_id,$subindustrycd,$desid,$revnlbound,$revnlbound_range,$revnubound,$revnubound_range,$emplbound,$empubound);
+			$data['leadmaster_qaCleared'] = $this->Administrator_Model->get_all_record_leadmasterby_QAdone($dcd,$levelid,$ctype,$sector_id,$region_id,$sub_region_id,$country_id,$subindustrycd,$desid,$revnlbound,$revnlbound_range,$revnubound,$revnubound_range,$emplbound,$empubound);
+			$data['leadmaster_delivered'] = $this->Administrator_Model->get_all_record_leadmasterby_Delivered($dcd,$levelid,$ctype,$sector_id,$region_id,$sub_region_id,$country_id,$subindustrycd,$desid,$revnlbound,$revnlbound_range,$revnubound,$revnubound_range,$emplbound,$empubound);
+			$data['leadmaster_unused'] = $this->Administrator_Model->get_all_unused_record($dcd,$levelid,$ctype,$sector_id,$region_id,$sub_region_id,$country_id,$subindustrycd,$desid,$revnlbound,$revnlbound_range,$revnubound,$revnubound_range,$emplbound,$empubound);
+			$data['leadmaster_used'] = $this->Administrator_Model->get_all_used_record_with_cond($dcd,$levelid,$ctype,$sector_id,$region_id,$sub_region_id,$country_id,$subindustrycd,$desid,$revnlbound,$revnlbound_range,$revnubound,$revnubound_range,$emplbound,$empubound);
 			$data['campaigns'] = $this->Administrator_Model->get_campaign();
 			$data['dcd'] = $dcd;
 			$data['levelid'] = $levelid;
 			$data['sector_id'] = $sector_id;
 			$data['ctype'] = $ctype;
+			$data['campaign_id'] = $campaign_id;
 			$this->load->view('administrator/header-script');
 			$this->load->view('administrator/header');
 			$this->load->view('administrator/header-bottom');
@@ -3225,7 +3260,8 @@ public function getPrivillage(){
 
 		public function reuse_campaign($id = '126')
 		{
-			$data['campaign_record'] = $this->Administrator_Model->get_campaign_by_id($id);
+			$campaign_id = $this->input->post('campaign_id');
+			$data['campaign_record'] = $this->Administrator_Model->get_campaign_by_id($campaign_id);
 			$data['clients'] = $this->Administrator_Model->get_clients();
 			$data['countries'] = $this->Administrator_Model->get_countries();
 			$data['regions'] = $this->Administrator_Model->get_regions();
@@ -3257,7 +3293,52 @@ public function getPrivillage(){
 				  $this->load->view('administrator/campaign_reuse_new', $data);
 				$this->load->view('administrator/footer');
 		}
+		function selectCampaignforReuse($page = 'select-campaign-reuse'){
+			$data['title'] = 'Create Lead';
+			$data['campaigns'] = $this->Administrator_Model->get_campaign();
+                      
+			
+			
+			$this->load->view('administrator/header-script');
+			$this->load->view('administrator/header');
+			$this->load->view('administrator/header-bottom');
+			 $this->load->view('administrator/'.$page, $data);
+			$this->load->view('administrator/footer');
+		
+		}
+		public function assign_leads_to_campaign()
+		{
+			// $check = $this->input->post('delivery_final_check');
+			$lmid = $_GET['lmids'];
+			$campaign_id = $_GET['campaign_id'];
+			// $string_version= implode(",", $check);
+			$comp_proSplit= explode(",", $lmid);
+			$cnt=count($comp_proSplit);
+			for($i=0;$i<$cnt;$i++)
+			{
+				$update_lead_status = array(
+					'cids' =>$campaign_id,
+
+					// 'dyagti' => $this->session -> userdata('empcode'),
+
+				);
+				$update_lead_status = $this->Administrator_Model->assign_leads_to_campaign($update_lead_status,$comp_proSplit[$i]);
+			}
+			if($update_lead_status == true){
+		
+				echo json_encode(array(
+					"statusCode"=>"Success",
+					"message"=>"record Updated Successfully.."
+				));
+			}else{
+				echo json_encode(array(
+					"statusCode"=>"Fail",
+					"message"=>"Update failed.."
+				));
+			}
+		}
 }
+
 
 
 

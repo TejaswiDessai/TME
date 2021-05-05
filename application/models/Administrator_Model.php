@@ -764,6 +764,7 @@
 		
 				$this->db->order_by('users.id', 'DESC');
 				$this->db->where('users.status',0);	
+				$this->db->where('users.role',5);	
 				$query = $this->db->get('users');
 				return $query->result_array(); 
 			

@@ -21,11 +21,8 @@ $(function () {
         numberOfMonths: 1,
         minDate: '-0m',
         onSelect: function (selected) {
-            
             var dt = new Date(selected);
             dt.setDate(dt.getDate() + 0);
-            // alert(dt);
-            
             $("#estclosedt").datepicker("option", "minDate", dt);
         }
     });
@@ -33,7 +30,6 @@ $(function () {
         numberOfMonths: 1,
         onSelect: function (selected) {
             var dt = new Date(selected);
-            // alert(dt);
             dt.setDate(dt.getDate() - 1);
             // $("#estclosedt").datepicker("option", "minDate", dt);
         }
@@ -43,17 +39,17 @@ $(function () {
 $(function(){
     $('#revnubound').prop('disabled', true);
     $('#revnubound_range').prop('disabled', true);
-    $('#revnlbound_range').change(function(){
-        
-        if($(this).attr('id') == 'revnlbound_range' && $(this).val() == 'hundred'){
-            // alert("hundred");
+    $('#revnlbound_range').change(function()
+    {
+        if($(this).attr('id') == 'revnlbound_range' && $(this).val() == 'hundred')
+        {
             $("#revnubound_range option").not(':first-child').each(function (index) {
                 $(this).prop('disabled', false);
             });
             // $('#revnubound_range').val($(this).val());
         }
-        else if($(this).attr('id') == 'revnlbound_range' && $(this).val() == 'million'){
-            // alert("million");
+        else if($(this).attr('id') == 'revnlbound_range' && $(this).val() == 'million')
+        {
             var check = "hundred";
             $('option[disabled]').prop('disabled', false);
             $('select').each(function() {
@@ -61,7 +57,8 @@ $(function(){
             });
             // $('#revnubound_range').val($(this).val());
         } 
-        else if($(this).attr('id') == 'revnlbound_range' && $(this).val() == 'billion'){
+        else if($(this).attr('id') == 'revnlbound_range' && $(this).val() == 'billion')
+        {
             var check = "hundred";
             var check2 = "million";
             $('option[disabled]').prop('disabled', false);
@@ -72,8 +69,8 @@ $(function(){
             });
             
         } 
-        else if($(this).attr('id') == 'revnlbound_range' && $(this).val() == 'trillion'){
-            // alert($(this).val());
+        else if($(this).attr('id') == 'revnlbound_range' && $(this).val() == 'trillion')
+        {
             // $('#revnubound_range').val($(this).val());
             $("#revnubound_range option").not(':last-child').each(function (index) {
                 $(this).prop('disabled', true);
@@ -100,7 +97,8 @@ $(function(){
         }
     });
 
-    $('#revnlbound').change(function(){
+    $('#revnlbound').change(function()
+    {
         
         if($(this).attr('id') == 'revnlbound' && $(this).val() != null){
             var revnlbound = $(this).val();
@@ -125,20 +123,18 @@ $(function(){
         }
     });
 
-    $('#revnubound').change(function(){
-        
-        if($(this).attr('id') == 'revnubound' && $(this).val() != null){
+    $('#revnubound').change(function()
+    {
+        if($(this).attr('id') == 'revnubound' && $(this).val() != null)
+        {
             var revnubound = $(this).val();
-           
             if(revnubound > 10){
                 if(revnubound % 10 == 0)
                 {
                     $("#revnubound_msg").html("");
-                    //alert("prime");
                 }
                 else
                 {
-                    // alert("Please enter revenue multiple of 10");
                     $("#revnubound_msg").html("<p><strong>Number should (* 10).</strong></p>");
                     return;
                 }
@@ -151,7 +147,6 @@ $(function(){
     {
         var emplbound = parseInt($('#emplbound').val());
         var empubound = parseInt($(this).val());
-        // alert(emplbound+empubound);
         $("#empubound_msg").html("");
             if( emplbound >= empubound)
             {
@@ -170,57 +165,9 @@ $(document).ready(function () {
     }, 'slow');
 });
 
-// $(document).ready(function() {
-//     var elements = $('.section').hide();
-//     $('#emplzid').bind('change', function() {
-//         // alert("test");
-//         var elements = $('.section').hide(); // hide all the elements
-//         var value = $(this).val();
-//         // alert(value);
-
-//         if (value == "emp_other") { // if somethings' selected
-//             var elements = $('.section').show();
-//             // $('#emplzid').children().hide();
-//             elements.filter('.' + value).show(); // show the ones we want
-//         }
-//     }).trigger('change');
-    
-    // $('.second-level-select').bind('change', function() {
-    //     var elements = $('div.second-level-container').children().hide(); // hide all the elements
-    //     var value = $(this).val();
-
-    //     if (value.length) { // if somethings' selected
-    //         elements.filter('.' + value).show(); // show the ones we want
-    //     }
-    // }).trigger('change');
-// });
-// $(document).ready(function() {
-    // var elements = $('.panel').hide();
-    // $('#revid').bind('change', function() {
-    //     // alert("test");
-    //     var elements = $('.panel').hide(); // hide all the elements
-    //     var value = $(this).val();
-    //     // alert(value);
-
-    //     if (value == "rev_other") { // if somethings' selected
-    //         var elements = $('.panel').show();
-    //         // $('#revid').children().hide();
-    //         elements.filter('.' + value).show(); // show the ones we want
-    //     }
-    // }).trigger('change');
-    
-    // $('.second-level-select').bind('change', function() {
-    //     var elements = $('div.second-level-container').children().hide(); // hide all the elements
-    //     var value = $(this).val();
-
-    //     if (value.length) { // if somethings' selected
-    //         elements.filter('.' + value).show(); // show the ones we want
-    //     }
-    // }).trigger('change');
-// });
-
 // campaign id numeric validation code
-function isNumber(evt) {
+function isNumber(evt) 
+{
     evt = (evt) ? evt : window.event;
     var charCode = (evt.which) ? evt.which : evt.keyCode;
     if (charCode > 31 && (charCode < 48 || charCode > 57)) {
@@ -250,10 +197,6 @@ $(function () {
 
     $(document).ready(function()
     {
-        // $('#sub_region_id').prop('disabled', true);
-        // $('#country_id').prop('disabled', true);
-        // $('#industrycd').prop('disabled', true);
-        // $('#desid').prop('disabled', true);
     // City change
     $('#region_id').change(function(){
     
@@ -267,7 +210,6 @@ $(function () {
     // {
     //     $('#region_id').prop('disabled', true);
     // }
-    // alert(region_id);
     // AJAX request
     $.ajax({
         url:'<?php echo base_url("campaigns/getSubRegion");?>',
@@ -289,14 +231,14 @@ $(function () {
 });
 
  // City change
- $('#sub_region_id').change(function(){
+ $('#sub_region_id').change(function()
+ {
     var sub_region_id = $(this).val();
     var region_id = $('#region_id').val();
     if (sub_region_id != '')
     {
         $('#country_id').prop('disabled', false);
     }
-    // alert(sub_region_id);
     // AJAX request
     $.ajax({
         url:'<?php echo base_url("campaigns/getCountry");?>',
@@ -324,9 +266,7 @@ $('#sub_region_id')
     allSelectedText: 'All',
     maxHeight: 200,
     enableCaseInsensitiveFiltering :true,
-
     includeSelectAllOption: true,
-    
     })
     .multiselect('selectAll', false)
     .multiselect('updateButtonText');
@@ -338,9 +278,7 @@ $('#country_id')
     allSelectedText: 'All',
     maxHeight: 200,
     enableCaseInsensitiveFiltering :true,
-
     includeSelectAllOption: true,
-    
     })
     .multiselect('selectAll', false)
     .multiselect('updateButtonText');
@@ -373,9 +311,7 @@ $('#dcd')
     allSelectedText: 'All',
     maxHeight: 200,
     enableCaseInsensitiveFiltering :true,
-
     includeSelectAllOption: true,
-    
     })
     .multiselect('selectAll', false)
     .multiselect('updateButtonText');
@@ -387,7 +323,6 @@ $('#dcd')
     {
         $('#industrycd').prop('disabled', false);
     }
-    // alert(sector_id);
     // AJAX request
     $.ajax({
         url:'<?php echo base_url("campaigns/getIndustry");?>',
@@ -415,7 +350,6 @@ $('#levelid').change(function(){
     {
         $('#desid').prop('disabled', false);
     }
-    // alert(levelid);
     var url = '<?php echo base_url("campaigns/getJobTitle")?>';
     console.log(url+'?levelid='+levelid);
     // AJAX request
@@ -438,51 +372,6 @@ $('#levelid').change(function(){
     });
 });
 });
-
-
-
-// $('#region_id').on("select2:select", function (e) { 
-//     alert("tesdt");
-//            var data = e.params.data.text;
-//            if(data=='all'){
-//             $("#region_id > option").prop("selected","selected");
-//             $("#region_id").trigger("change");
-//            }
-//       });
-// $(document).ready(function() {
-    // var elements = $('.panel').hide();
-    // $('#region_id').bind('change', function() {
-    //     // alert("test");
-    //     // var elements = $('.panel').hide(); // hide all the elements
-    //     var value = $(this).val();
-    //     // alert(value);
-
-    //     if (value == "all") { // if somethings' selected
-    //         $("#region_id > option").prop("selected","selected");
-    //         $("#region_id").trigger("change");
-    //     }
-    // }).trigger('change');
-    
-    // $('#country_id').bind('change', function() {
-    //     // alert("test");
-    //     // var elements = $('.panel').hide(); // hide all the elements
-    //     var value = $(this).val();
-    //     // alert(value);
-
-    //     if (value == "all") { // if somethings' selected
-    //         $("#country_id > option").prop("selected","selected");
-    //         $("#country_id").trigger("change");
-    //     }
-    // }).trigger('change');
-    // $('.second-level-select').bind('change', function() {
-    //     var elements = $('div.second-level-container').children().hide(); // hide all the elements
-    //     var value = $(this).val();
-
-    //     if (value.length) { // if somethings' selected
-    //         elements.filter('.' + value).show(); // show the ones we want
-    //     }
-    // }).trigger('change');
-// });
 </script>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/2.3.2/css/bootstrap.min.css" />
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-multiselect/0.9.13/css/bootstrap-multiselect.css" />
@@ -508,17 +397,6 @@ $('#levelid').change(function(){
         <h4>Campaigns</h4>
     </div>
     <div class="page-header-breadcrumb">
-        <!-- <ul class="breadcrumb-title">
-            <li class="breadcrumb-item">
-                <a href="index-2.html">
-                    <i class="icofont icofont-home"></i>
-                </a>
-            </li>
-            <li class="breadcrumb-item"><a href="#!">Campaigns</a>
-            </li>
-            <li class="breadcrumb-item"><a href="#!">Add Campaign</a>
-            </li>
-        </ul> -->
     </div>
 </div>
 <!-- Page header end -->
@@ -528,14 +406,7 @@ $('#levelid').change(function(){
         <div class="col-sm-12">
             <!-- Basic Form Inputs card start -->
             <div class="card" id="camp_form">
-                <!-- <div class="card-header">
-                    <h5>Add Campaign</h5>
-                    <div class="card-header-right">
-                        <i class="icofont icofont-rounded-down"></i>
-                        <i class="icofont icofont-refresh"></i>
-                        <i class="icofont icofont-close-circled"></i>
-                    </div>
-                </div> -->
+
                 <div class="card-block">
                     <div class="col-sm-8">
                         <div class="validation_errors_alert">
@@ -588,18 +459,6 @@ $('#levelid').change(function(){
                             </div>
                             
                         </div>
-                      
-                        <!-- <div class="form-group row">
-                            <div class="col-sm-3">
-                                <label class="col-lable"><b>Campaign Name</b></label>
-
-                                <?php // echo form_error('campaign_name'); ?>
-                                <input type="text"  name="campaign_name"  placeholder="Enter Campaign Name"  value="<?php echo set_value('campaign_name'); ?>" id="campaign_name" 
-                             <?php //echo (form_error('campaign_name')) ? 'class="form-control form-control-danger"' :'class="form-control"';?> >
-                            </div>
-                        </div> -->
-
-
                         <div class="form-group row">
                             <div class="col-sm-3">
                                 <label class="col-lable"><b>World Region</b></label>
@@ -627,8 +486,6 @@ $('#levelid').change(function(){
                                
                                 </select>
                             </div>
-                            
-                           
                             </div>
                             <div class="form-group row">
                             <div class="col-sm-3">
@@ -666,24 +523,6 @@ $('#levelid').change(function(){
                                 </select>
                             </div>
                         </div>
-                        <!-- <div class="form-group row">
-                            <div class="col-sm-6">
-                                <label class="col-lable"><b>Industry</b></label><?php //echo form_error('industrycd'); ?>
-                                <select class="js-example-basic-multiple col-sm-12" multiple="multiple" name="industrycd[]" id="industrycd">
-                                     <?php //foreach ($industries as $industry): ?>
-                                    <option value="<?php //echo $industry['industrycd']; ?>"><?php //echo $industry['industry']; ?></option>
-                                <?php //endforeach; ?>
-                                </select>
-                            </div>
-                            <div class="col-sm-6">
-                                <label class="col-lable"><b>Department</b></label><?php //echo form_error('dcd'); ?>
-                                <select class="js-example-basic-multiple col-sm-12" multiple="multiple" name="dcd[]" id="dcd">
-                                   <?php //foreach ($departments as $dept): ?>
-                                    <option value="<?php //echo $dept['dcd']; ?>"><?php //echo $dept['department']; ?></option>
-                                <?php //endforeach; ?>
-                                </select>
-                            </div>
-                        </div> -->
                         <hr>
                         <div class="form-group row">
                            
@@ -723,21 +562,13 @@ $('#levelid').change(function(){
                                     
                                 <label class="col-lable"><b>Employee Lower Bound</b></label>
                                 <input type="text"  style="height:30px;"  name="emplbound"  placeholder="Emp Lower Bound"  id="emplbound" class="form-control form-control-sm" onkeypress="return isNumber(event)" >
-                                <!-- <select class="second-level-select form-control form-control-sm"  name="emplbound" id="emplbound">
-                                    <?php //foreach ($ubound as $ubound): ?>
-                                    <option value="<?php //echo $ubound['emplbound']; ?>"><?php// echo $ubound['emplbound']; ?></option>
-                                    <?php //endforeach; ?>
-                                </select> -->
+                                
                             </div>
                             <div class="col-sm-2 ">
                                 <label class="col-lable"><b>Employee Upper Bound</b></label><?php echo form_error('empubound'); ?>
                                 <input type="text"  style="height:30px;"  name="empubound"  placeholder="Emp Upper Bound"  id="empubound" class="form-control form-control-sm" onkeypress="return isNumber(event)" >
                                 <span style='color:#FF0000' id="empubound_msg"></span>
-                                <!-- <select class="second-level-select form-control form-control-sm"  name="empubound" id="empubound">
-                                    <?php //foreach ($lbound as $lbound): ?>
-                                    <option value="<?php //echo $lbound['empubound']; ?>"><?php //echo $lbound['empubound']; ?></option>
-                                    <?php //endforeach; ?>
-                                </select> -->
+                               
                             </div>
                             <div class="col-sm-2">
                                 <label class="col-lable"><b>Frequency Type</b></label>
@@ -768,30 +599,14 @@ $('#levelid').change(function(){
                         </div>
                         <div class="form-group row">
                             
-                            <!-- <div class="col-sm-2">
-                                    <label class="col-lable"><b>Revenue Size</b></label><?php //echo form_error('revid'); ?>
-                                    <select class="form-control form-control-sm" name="revid[]" id="revid">
-                                        <?php// foreach ($revsize as $revsize): ?>
-                                            <option value="<?php //echo $revsize['comzid']; ?>"><?php //echo $revsize['rangelist']; ?></option>
-                                        <?php// endforeach; ?>
-                                        <option value="rev_other">Other</option>
-                                    </select>
-                            </div> -->
+                            
                             <!-- <div class="panel"> -->
                             <!-- <div class="col-sm-9"> -->
                             
                             <div class="col-sm-2 ">
-                                <!-- <div class="senior-airman"> -->
                                 <label class="col-lable"><b>Revenue Lower Bound</b></label>
                                 <input type="text"  style="height:30px;"  name="revnlbound" step="5"  placeholder="Rev Lower Bound"  id="revnlbound" class="form-control form-control-sm" onkeypress="return isNumber(event)" >
                                 <span style='color:#FF0000' id="revnlbound_msg"></span>
-                                <!-- <select class="second-level-select form-control form-control-sm"  name="revnlbound" id="revnlbound">
-                                <option value="">Select </option>
-                                    <?php //foreach ($revnubound as $revnubound): ?>
-                                    <option value="<?php //echo $revnubound['revnlbound']; ?>"><?php //echo $revnubound['revnlbound']; ?></option>
-                                    <?php //endforeach; ?>
-                                </select> -->
-                                <!-- </div> -->
                             </div>
                             <div class="col-sm-2 ">
                                 <label class="col-lable "><b>NM List Bound</b></label>
@@ -806,18 +621,10 @@ $('#levelid').change(function(){
                             </div>
                             <div class="col-sm-2 ">
                                 
-                                <!-- <div class="airman"> -->
                                     <label class="col-lable"><b>Revenue Upper Bound</b></label>
                                     <input type="text"  style="height:30px;"  name="revnubound"  placeholder="Rev Upper Bound"  id="revnubound" class="form-control form-control-sm" onkeypress="return isNumber(event)" >
                                     <span style='color:#FF0000' id="revnubound_msg"></span>
-                                    <!-- <select class="second-level-select form-control form-control-sm"  name="revnubound" id="revnubound">
-                                    <option value="">Select </option>
-                                        <?php //foreach ($revnlbound as $revnlbound): ?>
-                                          
-                                        <option value="<?php //echo $revnlbound['revnubound']; ?>"><?php //echo $revnlbound['revnubound']; ?></option>
-                                        <?php //endforeach; ?>
-                                    </select> -->
-                                <!-- </div> -->
+                                   
                             </div>
                             <div class="col-sm-2 ">
                                 <label class="col-lable "><b>NM List Bound</b></label>
@@ -837,25 +644,7 @@ $('#levelid').change(function(){
 
                         </div>
 
-                        <!-- <div class="form-group row">
-                        <div class="col-sm-3">
-                                <label class="col-lable"><b>Select Designation</b></label><?php echo form_error('desid'); ?>
-                              <select class="js-example-basic-multiple col-sm-12" multiple="multiple" name="desid[]" id="desid">
-                                <?php foreach ($designation as $designation): ?>
-                                    <option value="<?php echo $designation['tid']; ?>"><?php echo $designation['designation']; ?></option>
-                                <?php endforeach; ?>
-                                   
-                                </select>
-                            </div>
-                        </div> -->
-
                         
-                        
-                       
-                        <!-- <div class="form-group row">
-                            
-                            
-                        </div> -->
                         <hr>
                         <div class="form-group row">
                               <div class="col-sm-3">
@@ -881,32 +670,17 @@ $('#levelid').change(function(){
                             <div class="col-sm-3">
                                 <label class="col-lable"><b>Select Period</b></label>
                                 <select class="form-control form-control-default form-control-sm "  name="period" id="period">
-                                <option value="1">1 Month<option>
-                                <option value="2">2 Month<option>
-                                <option value="3">3 Month<option>
-                                <option value="4">4 Month<option>
-                                <option value="5">5 Month<option>
-                                <option value="6" selected>6 Month<option>
+                                <option value="1">1 Month</option>
+                                <option value="2">2 Month</option>
+                                <option value="3">3 Month</option>
+                                <option value="4">4 Month</option>
+                                <option value="5">5 Month</option>
+                                <option value="6" selected>6 Month</option>
                                 </select>
                             
                             </div>
 
                         </div>
-                        
-                        
-                        
-                        <!-- <div class="form-group row">
-                            <div class="col-sm-6">
-                                <label class="col-lable"><b>Est Completion Date</b></label> <?php echo form_error('estclosedt'); ?>
-                                <input type="date" id="estclosedt"  name="estclosedt" value="<?php echo set_value('estclosedt');?>" <?php echo (form_error('estclosedt')) ? 'class="form-control form-control-danger"' :'class="form-control"';?> >
-                            </div>
-                            <div class="col-sm-6">
-                                <label class="col-lable"><b>Start Date</b></label> <?php echo form_error('startdt'); ?>
-                                <input type="date" id="startdt"  name="startdt" value="<?php echo set_value('startdt');?>"  <?php echo (form_error('startdt')) ? 'class="form-control form-control-danger"' :'class="form-control"';?>>
-                            </div>
-                        </div> -->
-
-
                         <div class="form-group row">
 
                             <div class="col-sm-6">
@@ -936,16 +710,12 @@ $('#levelid').change(function(){
             var country_id = $('#country_id').val(); 
             var region_id = $('#region_id').val();
             var sub_region_id = $('#sub_region_id').val();
-            // alert(region_id);
             // var theRemovedElement = region_id.shift();  
             var industrycd = $('#industrycd').val();
             var sector_id = $('#sector_id').val(); 
-            // alert(industrycd);
             var levelid = $('#levelid').val(); 
-            
             var dcd = $('#dcd').val(); 
             // var emplzid = $('#emplzid').val(); 
-            
             var desid = $('#desid').val();
             var emplbound = $('#emplbound').val();
             var empubound = $('#empubound').val();
@@ -958,8 +728,6 @@ $('#levelid').change(function(){
             var frequency_type = $('#frequency_type').val();
             var frequency = $('#frequency').val();
             var period = $('#period').val(); 
-            // alert(period);
-            //alert(revnlbound+ "" + emplbound);
             $("#client_id_msg").html("");
             $("#campaign_id_msg").html("");
             $("#campaign_name_msg").html("");
@@ -1022,9 +790,8 @@ $('#levelid').change(function(){
             }
             var quantity = $('#quantity').val();
             var estclosedt = $('#estclosedt').val();
-           
             var url = "<?php echo base_url("campaigns/ajax_add_new_campaign1");?>";
-            console.log(url+"?campaign_id="+campaign_id+"&client_id="+client_id+"&campaign_name="+campaign_name+"&region_id="+region_id+"&industrycd="+industrycd+"&country_id="+country_id+"&dcd="+dcd+"&desid="+desid+"&checksupp="+checksupp+"&inclist="+inclist+"&cdqa="+cdqa+"&assetid="+assetid+"&quantity="+quantity+"&selectstatus="+selectstatus+"&estclosedt="+estclosedt+"&startdt="+startdt+"&emplbound="+emplbound+"&empubound="+empubound+"&revnlbound="+revnlbound+"&revnubound="+revnubound+"&revnlbound_range="+revnlbound_range+"&revnubound_range="+revnubound_range+"&frequency_type="+frequency_type+"&frequency="+frequency);
+            // console.log(url+"?campaign_id="+campaign_id+"&client_id="+client_id+"&campaign_name="+campaign_name+"&region_id="+region_id+"&industrycd="+industrycd+"&country_id="+country_id+"&dcd="+dcd+"&desid="+desid+"&checksupp="+checksupp+"&inclist="+inclist+"&cdqa="+cdqa+"&assetid="+assetid+"&quantity="+quantity+"&selectstatus="+selectstatus+"&estclosedt="+estclosedt+"&startdt="+startdt+"&emplbound="+emplbound+"&empubound="+empubound+"&revnlbound="+revnlbound+"&revnubound="+revnubound+"&revnlbound_range="+revnlbound_range+"&revnubound_range="+revnubound_range+"&frequency_type="+frequency_type+"&frequency="+frequency);
             $.ajax({
                 url :'<?php echo base_url("campaigns/ajax_add_new_campaign1");?>',
                 type: 'POST', 
@@ -1074,31 +841,14 @@ $('#levelid').change(function(){
                         $("#addcampbtn").html(response.message);
                         
 					}
-
-                   
-
                 }
-              
             });
         });
     });
-</script>
-                                    
-    <script>
-       
-  
+</script>                                
+<script>
   $( document ).ready(function() {
     
-    
-//      $('#mybtn').click(function(){
-//          alert($('#uho').prop('checked'));
-//             if($('#uho').prop('checked')){
-//                 alert($('#uho').val());
-//                 $("#Modal-overflow").modal('show');
-//             }else{
-//                 alert($('#uho').val());
-//             }
-//      });
       $('#cancelSuppbtn').click(function(){
             $( "#uho" ).prop( "checked", false );
 //            alert($('#uho').prop('checked'));
@@ -1109,8 +859,5 @@ $('#levelid').change(function(){
     
  
 });
- 
-     
- 
-    </script>
+</script>
   

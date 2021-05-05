@@ -4227,7 +4227,7 @@ public function get_all_record_leadmasterby_Delivered($dcd,$levelid,$ctype,$sect
 			return $query;
 		
 	}
-	public function get_all_used_record_with_cond($dcd,$levelid,$ctype,$sector_id,$region_id,$sub_region_id,$country_id,$subindustrycd,$desid,$revnlbound,$revnlbound_range,$revnubound,$revnubound_range,$emplbound,$empubound)
+	public function get_all_used_record_with_cond($dcd,$levelid,$ctype,$sector_id,$region_id,$sub_region_id,$country_id,$subindustrycd,$desid,$revnlbound,$revnlbound_range,$revnubound,$revnubound_range,$emplbound,$empubound,$period)
 	{
 		$this->db->select("count(*) as total,lmid");
 		if(isset($dcd) && $dcd[0] != 0)
@@ -4273,15 +4273,23 @@ public function get_all_record_leadmasterby_Delivered($dcd,$levelid,$ctype,$sect
 				$this->db->where('empsize <=', $empubound);
 			}
 			$dt = new DateTime();
-			$dt->modify('-1 month');
+			$dt->modify('-'.$period. 'month');
 			$date = $dt->format('Y-m-d');
 			// $this->db->where('dydti >= "2013-08-01"');
-			$this->db->where('dydti <= ',$date);
-			$this->db->where('dytg', '1');
-			// $this->db->where('dydti <', "strtotime('-2 month')");
-			// $this->db->where('dydti >=', $emplbound);
-			// $this->db->where("dydti < DATEADD(dydti, -6, date('Y-m-d H:i:s'))");
-			// $this->db->like('cids', '99');
+			$this->db->where('qaacptdti <= ',$date);
+			// $this->db->where('dytg', '1');
+			
+			$this->db->where('qaacpt', 1);
+			// $this->db->where('sbsvtag !=', 0);
+			$this->db->where('qastat','qualified'); 
+			// $this->db->where('cdcload',1);
+			$this->db->where('qaload',1);
+			// $this->db->where('qalsload',null);
+			// $this->db->where('rlc !=', 1);
+			$this->db->group_start();
+			$this->db->where('dytg', '0');
+			$this->db->OR_where('dytg', NULL);
+			$this->db->group_end(); 
 			$this->db->group_by('lmid');
 			$query = $this->db->get('leadmaster');
 			// echo $this->db->last_query();  die;

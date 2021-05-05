@@ -3233,6 +3233,7 @@ public function getPrivillage(){
 			$campaign_id = $this->input->post('campaign_id');
 			// print_r($levelid);die;
 			$ctype = $this->input->post('ctype');
+			$period = $this->input->post('period');
 			// echo $ctype;
 			$sector_id = $this->input->post('sector_id');
 			// $data['users'] = $this->Administrator_Model->get_available_leads(FALSE, $config['per_page'], $offset,$dcd,$ctype,$levelid,$sector_id);
@@ -3244,7 +3245,7 @@ public function getPrivillage(){
 			$data['leadmaster_qaCleared'] = $this->Administrator_Model->get_all_record_leadmasterby_QAdone($dcd,$levelid,$ctype,$sector_id,$region_id,$sub_region_id,$country_id,$subindustrycd,$desid,$revnlbound,$revnlbound_range,$revnubound,$revnubound_range,$emplbound,$empubound);
 			$data['leadmaster_delivered'] = $this->Administrator_Model->get_all_record_leadmasterby_Delivered($dcd,$levelid,$ctype,$sector_id,$region_id,$sub_region_id,$country_id,$subindustrycd,$desid,$revnlbound,$revnlbound_range,$revnubound,$revnubound_range,$emplbound,$empubound);
 			$data['leadmaster_unused'] = $this->Administrator_Model->get_all_unused_record($dcd,$levelid,$ctype,$sector_id,$region_id,$sub_region_id,$country_id,$subindustrycd,$desid,$revnlbound,$revnlbound_range,$revnubound,$revnubound_range,$emplbound,$empubound);
-			$data['leadmaster_used'] = $this->Administrator_Model->get_all_used_record_with_cond($dcd,$levelid,$ctype,$sector_id,$region_id,$sub_region_id,$country_id,$subindustrycd,$desid,$revnlbound,$revnlbound_range,$revnubound,$revnubound_range,$emplbound,$empubound);
+			$data['leadmaster_used'] = $this->Administrator_Model->get_all_used_record_with_cond($dcd,$levelid,$ctype,$sector_id,$region_id,$sub_region_id,$country_id,$subindustrycd,$desid,$revnlbound,$revnlbound_range,$revnubound,$revnubound_range,$emplbound,$empubound,$period);
 			$data['campaigns'] = $this->Administrator_Model->get_campaign();
 			$data['dcd'] = $dcd;
 			$data['levelid'] = $levelid;

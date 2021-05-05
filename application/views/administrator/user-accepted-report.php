@@ -69,7 +69,7 @@
 
             <div class="page-header">
                 <div class="page-header-title">
-                    <h4>Lead accepeted reports</h4>
+                    <h4>Lead accepted reports</h4>
                 </div>
                 <div class="page-header-breadcrumb">
                     <ul class="breadcrumb-title">
@@ -79,7 +79,7 @@
                             </a>
                         </li>
                       
-                        <li class="breadcrumb-item"><a href="#!">Lead accepeted reports </a>
+                        <li class="breadcrumb-item"><a href="#!">Lead accepted reports </a>
                         </li>
                     </ul>
                 </div>

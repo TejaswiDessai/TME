@@ -513,7 +513,7 @@
                                             and pload = 0
                                             and (stagtidi = '".$post['empcode']."')
                                             and dvagtidi is not null
-                                            and dvagtidi is null
+                                            and dvagtidii is null
                                             and (dvsbtg = 0 OR dvsbtg = 1 OR dvsbtg = 2)
                                             and dvload = 1 and leadmaster.stdti > current_date - 1 and leadmaster.stdti < current_date - $d0 ");
                                             $sun_1 = $sun_1->num_rows();
@@ -525,7 +525,7 @@
                                             and dvagtidii is not null
                                             and (dvsbtg = 0 OR dvsbtg = 1 OR dvsbtg = 2)
                                             and dvload = 1 and leadmaster.stdtii > current_date - 1 and leadmaster.stdtii < current_date - $d0 ");
-                                            $sun_2 = $sun_2->num_rows();
+                                            $sun_2 = $sun_2->num_rows();                                            
                                             echo $sun_total = $sun_1+$sun_2;
                                              ?>
                                             </td>
@@ -543,9 +543,9 @@
                                             and pload = 0
                                             and (stagtidi = '".$post['empcode']."')
                                             and dvagtidi is not null
-                                            and dvagtidi is null
+                                            and dvagtidii is null
                                             and (dvsbtg = 0 OR dvsbtg = 1 OR dvsbtg = 2)
-                                            and dvload = 1 and leadmaster.stdti = $today_date");
+                                            and dvload = 1 and leadmaster.stdti >= $today_date");
                                             $today_1 = $today_1->num_rows();
                                             $today_2 = $this->db->query("select * from leadmaster where ontag = 1
                                             and rlc = 0
@@ -554,8 +554,8 @@
                                             and dvagtidi is not null
                                             and dvagtidii is not null
                                             and (dvsbtg = 0 OR dvsbtg = 1 OR dvsbtg = 2)
-                                            and dvload = 1 and leadmaster.stdtii = $today_date");
-                                            
+                                            and dvload = 1 and leadmaster.stdtii >= $today_date");
+                                           
                                             $today_2 = $today_2->num_rows();
                                             echo $today_total = $today_1+$today_2;
                                              ?>

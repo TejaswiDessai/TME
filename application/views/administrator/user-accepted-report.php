@@ -563,11 +563,24 @@
                                             
                                             <td><?php
                                             $date_start = strtotime('-' . date('w') . ' days');
-                                             $submit1_total = $this->db->query("select * from leadmaster where  (leadmaster.stdti >= current_date - $d14 AND leadmaster.stdti <= current_date - $d0) AND leadmaster.stagtidi = '".$post['empcode']."' ");
-                                             $submit1 = $submit1_total->num_rows();
-                                             $submit2_total = $this->db->query("select * from leadmaster where  (leadmaster.stdtii >= current_date - $d14 AND leadmaster.stdtii <= current_date - $d0) AND stagtidii = '".$post['empcode']."' ");
-                                             echo $submit1 + $submit2_total->num_rows();
-                                            
+                                            if($intervaldiff != 14)
+                                            {
+                                                $submit1_total = $this->db->query("select * from leadmaster where  (leadmaster.stdti >= current_date - $d14 AND leadmaster.stdti <= current_date - $d0) AND leadmaster.stagtidi = '".$post['empcode']."' ");
+                                                $submit1 = $submit1_total->num_rows();
+                                               
+                                                $submit2_total = $this->db->query("select * from leadmaster where  (leadmaster.stdtii >= current_date - $d14 AND leadmaster.stdtii <= current_date - $d0) AND stagtidii = '".$post['empcode']."' ");
+                                                echo $submit1 + $submit2_total->num_rows();
+                                              
+                                            }
+                                            else{
+                                                $submit1_total = $this->db->query("select * from leadmaster where  leadmaster.stdti >= current_date - $d14  AND leadmaster.stagtidi = '".$post['empcode']."' ");
+                                                $submit1 = $submit1_total->num_rows();
+                                               
+                                                $submit2_total = $this->db->query("select * from leadmaster where  leadmaster.stdtii >= current_date - $d14  AND stagtidii = '".$post['empcode']."' ");
+                                                echo $submit1 + $submit2_total->num_rows();
+                                                
+                                            }
+                                             
                                             ?></td>
                                             <td><?php echo $day15+$day14+$day13+$day12+$day11+$day10+$day9+$monday_total +$tuesday_total+$wed_total+$thursday_total+$friday_total+$sat_total+$sun_total+$today_total;?></td>
 

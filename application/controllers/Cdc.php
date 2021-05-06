@@ -693,6 +693,22 @@
 			$data = $this->Administrator_Model->getJobTitle($levelid);
 			echo json_encode($data); 
 		}
+		public function getcampaignwithstatus(){ 
+		
+			$campaign_status_from = $_GET['campaign_status_from'];
+			// $desiStr = implode(',',$levelid);
+			// get data 
+			$data = $this->Administrator_Model->get_campaign_with_status($campaign_status_from);
+			echo json_encode($data); 
+		}
+		public function getcampaignwithstatusto(){ 
+		
+			$campaign_status_to = $_GET['campaign_status_to'];
+			// $desiStr = implode(',',$levelid);
+			// get data 
+			$data = $this->Administrator_Model->get_campaign_with_status($campaign_status_to);
+			echo json_encode($data); 
+		}
 		
 		public function getsearcresultofindustry(){ 
 		
@@ -776,6 +792,30 @@
 			// get data 
 			$data = $this->Administrator_Model->getIndustry($industrycd);
 			echo json_encode($data); 
+			}
+		public function getdccount(){ 
+			$empcode = $_SESSION['empcode'];
+			$campaign_cids = $_GET['campaign_cids'];
+			
+			// get data 
+			// $data = $this->Administrator_Model->getdccount_cleared_of_campaign_from($campaign_cids);
+			$data = $this->Administrator_Model->get_leadmasterby_campaigniddv($campaign_cids);
+			$cleareddatata = count($data);
+
+
+			$datapending = $this->Administrator_Model->get_leadmasterby_campaignidwithempcode($campaign_cids,$empcode);
+			$pendingdata = count($datapending);
+			
+			// echo json_encode($cleareddatata); 
+			
+		
+			echo json_encode(array(
+				"statusCode"=>"Success",
+				"cleareddata"=>$cleareddatata,
+				"pendingdata"=>$pendingdata,
+				"message"=>"Lead Added Successfully.."
+			));
+		
 			}
 	
 		public function ajax_add_new_leadandcdc()

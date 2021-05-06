@@ -1796,6 +1796,41 @@ public function get_campaign_by_id($id = FALSE)
 		// die;
 		return $query->result_array();
 	}
+public function get_campaign_with_status($id = FALSE)
+{
+	$response = array();
+	
+	// Select record
+	$this->db->select('cnid,campnm');
+	 $this->db->where('status', $id);
+	
+	$this->db->order_by("cnid", "desc");
+	$q = $this->db->get('campaign');
+	$response = $q->result_array();
+
+	return $response;
+
+		// $query = $this->db->get_where('campaign', array('status' => $id));
+		// // echo $this->db->last_query(); 
+		
+		// return $query->result_array();
+	}
+public function get_campaign_with_status_initialise($cnid,$status)
+{
+	$response = array();
+	
+	// Select record
+	$this->db->where('cnid', $cnid);
+	$this->db->where('status', $status);
+	
+	$this->db->order_by("cnid", "desc");
+	$q = $this->db->get('campaign');
+	$response = $q->result_array();
+	// echo $this->db->last_query(); 
+	return $response;
+		
+	
+	}
 public function get_leadmasterby_campaignid($id = FALSE)
 {
 		

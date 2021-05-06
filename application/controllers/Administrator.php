@@ -3307,6 +3307,66 @@ public function getPrivillage(){
 			$this->load->view('administrator/footer');
 		
 		}
+		function selectCampaignforReuseNew($page = 'select-campaign-reusedata'){
+			$data['title'] = 'Create Lead';
+			$data['campaigns'] = $this->Administrator_Model->get_campaign();
+                      
+			
+			
+			$this->load->view('administrator/header-script');
+			$this->load->view('administrator/header');
+			$this->load->view('administrator/header-bottom');
+			 $this->load->view('administrator/'.$page, $data);
+			$this->load->view('administrator/footer');
+		
+		}
+		function initialise_data($page = 'initialise_data_campaign'){
+			$data['title'] = 'Create Lead';
+			
+			$postData = $this->input->post();
+			$postData1 = $postData['campaign_status'];
+			// $data['campaigns'] = $this->Administrator_Model->get_campaign_with_status($postData1);
+                      
+			
+			
+			$this->load->view('administrator/header-script');
+			$this->load->view('administrator/header');
+			$this->load->view('administrator/header-bottom');
+			 $this->load->view('administrator/'.$page, $data);
+			$this->load->view('administrator/footer');
+		
+		}
+		function get_campaign_stage($page = 'initialise_data_campaign_with_stage'){
+			$data['title'] = 'Create Lead';
+			
+			$postData = $this->input->post();
+			// $postData1 = $postData['campaign_status'];
+
+			$campaign_id_from = $_POST['campaign_id_from'];
+			$campaign_id_to = $_POST['campaign_id_to'];
+
+			$campaign_status_from = $_POST['campaign_status_from'];
+			$campaign_status_to = $_POST['campaign_status_to'];
+	
+                      
+			$data['campaigns_from'] = $this->Administrator_Model->get_campaign_with_status_initialise($campaign_id_from,$campaign_status_from);
+			$data['campaigns_to'] = $this->Administrator_Model->get_campaign_with_status_initialise($campaign_id_to,$campaign_status_to);
+			// foreach ($data['campaigns_from'] as $campfrom) {
+			
+			// }
+
+			// // $campfrom_cnid = $campfrom['cnid'];
+			// $cidsfrom = $campfrom['cids'];
+
+
+			
+			$this->load->view('administrator/header-script');
+			$this->load->view('administrator/header');
+			$this->load->view('administrator/header-bottom');
+			 $this->load->view('administrator/'.$page, $data);
+			$this->load->view('administrator/footer');
+		
+		}
 		public function assign_leads_to_campaign()
 		{
 			// $check = $this->input->post('delivery_final_check');

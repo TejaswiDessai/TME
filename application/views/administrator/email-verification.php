@@ -474,7 +474,13 @@ document.getElementById("randomSelect").addEventListener("click", function() {
                             </tr>
                             </table>
                             </form>
-                       
+                            <?php
+                            if( $FromEmail != null)
+                            {
+                                echo "<p><b> Email sent from <i style='color:blue'>".$FromEmail ."</i> is : ".$from_email_details."</b></p>";
+                            }
+                            ?>
+                            <p><b>Total Email limit by 1 Gmail Account : 400</b></p>
                     </div>
                     <!-- <br> -->
                   
@@ -1058,6 +1064,15 @@ $(".emailstatus").click(function() {
                         ajaxindicatorstop();
                         });
                     }
+                    else if(response.statusCode == "From_Email_Limit")
+                    {
+                        alert(response.error);
+                        jQuery(document).ajaxStop(function () {
+                        //show ajax indicator
+                        ajaxindicatorstop();
+                        });
+                    }
+                   
                 },
                 error:function(xhr, status, error){
                     var errorMessage = xhr.status + ': ' + xhr.statusText
@@ -1256,6 +1271,14 @@ $(".emailstatus").click(function() {
                         });
                     }
                     else if(response.statusCode == "Email Fail")
+                    {
+                        alert(response.error);
+                        jQuery(document).ajaxStop(function () {
+                        //show ajax indicator
+                        ajaxindicatorstop();
+                        });
+                    }
+                    else if(response.statusCode == "From_Email_Limit")
                     {
                         alert(response.error);
                         jQuery(document).ajaxStop(function () {

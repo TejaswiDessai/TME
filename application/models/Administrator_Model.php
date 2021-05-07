@@ -2877,6 +2877,18 @@ public function get_campaign_fordataverification()
 			return $data=$query->result_array();
 
 		}	
+		public function get_from_email_count($from)
+		{
+			$this->db->select('*');
+			$this->db->from('ev');
+			// $this->db->join('leadmaster', 'ev.lmid = leadmaster.lmid','left');
+			$this->db->where('ev.fmail',$from);
+			$this->db->group_by('ev.fmail');
+			$this->db->group_by('ev.elmid');
+			$this->db->group_by('ev.lmid');
+			$query=$this->db->get();
+			return $data=$query->num_rows();
+		}
 		public function get_email_list($campid,$user_id,$from,$to,$leadstatus,$search_email,$search_email_status,$email_sent_time,$leadlimit)
 		{
 			

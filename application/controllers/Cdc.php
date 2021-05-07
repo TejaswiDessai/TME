@@ -785,6 +785,7 @@
 			$data = $this->Administrator_Model->getcurrencybycountry($country_id);
 			echo json_encode($data); 
 		}
+
 		public function getIndustry(){ 
 		
 			$industrycd = $_GET['industrycd'];
@@ -793,17 +794,18 @@
 			$data = $this->Administrator_Model->getIndustry($industrycd);
 			echo json_encode($data); 
 			}
+
 		public function getdccount(){ 
 			$empcode = $_SESSION['empcode'];
 			$campaign_cids = $_GET['campaign_cids'];
 			
 			// get data 
 			// $data = $this->Administrator_Model->getdccount_cleared_of_campaign_from($campaign_cids);
-			$data = $this->Administrator_Model->get_leadmasterby_campaigniddv($campaign_cids);
+			$data = $this->Administrator_Model->get_dc_cleared($campaign_cids);
 			$cleareddatata = count($data);
 
 
-			$datapending = $this->Administrator_Model->get_leadmasterby_campaignidwithempcode($campaign_cids,$empcode);
+			$datapending = $this->Administrator_Model->get_dc_pending($campaign_cids,$empcode);
 			$pendingdata = count($datapending);
 			
 			// echo json_encode($cleareddatata); 

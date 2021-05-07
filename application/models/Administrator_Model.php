@@ -1831,6 +1831,73 @@ public function get_campaign_with_status_initialise($cnid,$status)
 		
 	
 	}
+
+	public function get_dc_cleared($id = FALSE)
+{
+		
+		
+		$this->db->where('sbsvtag <', 6);
+		$this->db->where('sbsvtag !=', 0);
+		$this->db->where('qaacpt', NULL);
+		$this->db->where('qasv', NULL);
+
+			$this->db->group_start();
+			$this->db->where('dvrejtg < 3 AND dvsbtg < 3');
+			$this->db->OR_where('qarej', 1);
+			$this->db->OR_where('cdcrjt <', '4');
+			$this->db->group_end(); 
+		
+		$this->db->where('ontag', 0);
+		$this->db->where('pload', 1);
+		$this->db->where('dvload',0);
+		$this->db->where('evload',null);
+		$this->db->where('cdcload',null);
+		$this->db->where('qaload',null);
+		$this->db->where('rlc !=', 1);
+		$this->db->order_by('stdti','ASC');
+		$this->db->order_by('stdtii','ASC');
+	
+		$query = $this->db->get_where('leadmaster', array('cids' => $id));
+		// echo $this->db->last_query(); 
+	
+		return $query->result_array(); 
+	}
+
+	public function get_dc_pending($id = FALSE,$empcode)
+	{
+			
+			
+			$this->db->where('sbsvtag <', 6);
+			$this->db->where('sbsvtag !=', 0);
+			$this->db->where('qasv', NULL);
+			$this->db->where('qaacpt', NULL);
+	
+			$this->db->group_start();
+			$this->db->where('dvrejtg < 3 AND dvsbtg < 3');
+			$this->db->OR_where('dvrejtg is NULL AND dvsbtg is NULL');
+			$this->db->OR_where('qarej', 1);
+			$this->db->OR_where('cdcrjt <', '4');//if dvrej is 3, then check cdcrjt
+			$this->db->group_end(); 
+		
+			$this->db->where('ontag', 1);
+			$this->db->where('pload', 0);
+			$this->db->where('dvload',0);
+			$this->db->where('evload',null);
+			$this->db->where('cdcload',null);
+			$this->db->where('qaload',null);
+			$this->db->where('rlc !=', 1);
+		
+		
+				$this->db->order_by('dvrdti','ASC');
+				$this->db->order_by('dvrdtii','ASC');
+			
+		
+			$query = $this->db->get_where('leadmaster', array('cids' => $id));
+		
+			return $query->result_array();
+		} 
+		
+
 public function get_leadmasterby_campaignid($id = FALSE)
 {
 		

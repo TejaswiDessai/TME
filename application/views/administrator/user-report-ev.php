@@ -192,6 +192,7 @@
                                          left join leadmaster ON ev.lmid=leadmaster.lmid 
                                          where
                                          ev.closer_status = 'Open'
+                                         and ev.curr_active = 1
                                          and ev.evagnt = '".$post['empcode']."'
                                          and leadmaster.cids = '".$Campid."'
                                          and (statdt >= '".$From."' and statdt <= '".$To."')

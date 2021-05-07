@@ -29,12 +29,12 @@ $(document).ready(function () {
 
         <div class="col-sm-4" style="margin-top: -20px;">
         <?php foreach ($campaigns_from as $campaigns_from): ?>
-                    <label class="col-lable"><b>Campaign From: <?php echo $campaigns_from['campnm']; ?></b></label>
+                  
                     <?php endforeach; ?> 
         </div>
         <div class="col-sm-4" style="">
         <?php foreach ($campaigns_to as $campaigns_to): ?>
-                    <label class="col-lable"><b>Campaign To: <?php echo $campaigns_to['campnm']; ?></b></label>
+                  
                     <?php endforeach; ?>
          </div>
     </div>
@@ -62,9 +62,11 @@ $(document).ready(function () {
                      
 
                         <div class="form-group row">
-                            
-                           <div class="col-sm-3">
-                               <select name="camp_stage_from" id="camp_stage_from"  class="form-control form-control-sm" >
+                        <div class="col-sm-3">
+                                <label class="col-lable"><b>Campaign From: <?php echo $campaigns_from['campnm']; ?></b></label>
+
+                              
+                                <select name="camp_stage_from" id="camp_stage_from"  class="form-control form-control-sm" >
                                      <option value="">Select campaign stage From</option>
                                      <!-- <option value="">AS IS</option> -->
                                      <option value="1">DC</option>
@@ -74,11 +76,15 @@ $(document).ready(function () {
                               
                                </select>
                             </div>
-                           <div class="col-sm-3">
-                           <input type="text"  name="cleared" id="cleared"  placeholder="Cleared Count"  autocomplete = "off"  
-                           class="form-control form-control-sm" value ="" disabled>
+                            
+                           
+                           <div class="col-sm-3">   
+                             <label class="col-lable"><b>Cleared</b></label>
+                            <input type="text"  name="cleared" id="cleared"  placeholder="Cleared Count"  autocomplete = "off"  
+                            class="form-control form-control-sm" value ="" disabled>
                             </div>
-                            <div class="col-sm-3">
+
+                            <div class="col-sm-3"><label class="col-lable"><b>Pending</b></label>
                            <input type="text"  name="pending" id="pending"  placeholder="Pending Count"  autocomplete = "off"  
                            class="form-control form-control-sm" disabled>
                            </div>
@@ -88,6 +94,8 @@ $(document).ready(function () {
                         <div class="form-group row">
                             
                             <div class="col-sm-3">
+                            <label class="col-lable"><b>Campaign To: <?php echo $campaigns_to['campnm']; ?></b></label>
+
                                 <select name="camp_stage_to" id="camp_stage_to"  class="form-control form-control-sm" >
                                       <option value="">Select campaign stage To</option>
                                       <!-- <option value="">AS IS</option> -->

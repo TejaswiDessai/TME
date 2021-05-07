@@ -2067,11 +2067,23 @@ public function getPrivillage(){
 		
 			$data['title'] = 'Latest Campaigns';
 			$offset = 0;
+			
+			$FromEmail = $this->session->userdata('from');
+			if(isset($FromEmail))
+			{
+				$FromEmail = $this->session->userdata('from');
+			}
+			else
+			{
+				$FromEmail = null;
+			}
 			$data['leadmaster'] = $this->Administrator_Model->get_email_list($campid,$user_id,$from,$to,$leadstatus,$search_email,$search_email_status,$email_sent_time,$leadlimit);
+			$data['from_email_details'] = $this->Administrator_Model->get_from_email_count($FromEmail);
 			$data['users_name'] = $this->Administrator_Model->get_users(FALSE, $config['per_page'], $offset);
 			// $data['campaigns'] = $this->Administrator_Model->get_campaign();
 			// $data['from_email'] = $this->Administrator_Model->get_email_id($campid,103);
 			$data['user_id'] = $user_id;
+			$data['FromEmail'] = $FromEmail;
 			$data['camp_cnid'] = $camp_cnid;
 			$data['agent_email'] = $agent_email;
 			$data['agent_password'] = $agent_password;
@@ -2220,6 +2232,18 @@ public function getPrivillage(){
 			'pass' => $pass,
 			'from' => $from,
 		);
+		$from_email_details = $this->Administrator_Model->get_from_email_count($from);
+		if($from_email_details > 400)
+		{
+			echo json_encode(array(
+				"statusCode"=>"From_Email_Limit",
+				// "campaign_id"=>$addcampaigndata,
+				// "from"=>$from,
+				// "pass"=>$pass,
+				"error"=>"You have reached limit to send Email from $from. Please change your account!"
+			));
+			return;
+		}
 		$agent_id = $this->session -> userdata('empcode');
 		$this->session->set_userdata($email_data);
 		for($i=0;$i<$cnt;$i++)
@@ -2422,6 +2446,18 @@ public function getPrivillage(){
 			'pass' => $pass,
 			'from' => $from,
 		);
+		$from_email_details = $this->Administrator_Model->get_from_email_count($from);
+		if($from_email_details > 400)
+		{
+			echo json_encode(array(
+				"statusCode"=>"From_Email_Limit",
+				// "campaign_id"=>$addcampaigndata,
+				// "from"=>$from,
+				// "pass"=>$pass,
+				"error"=>"You have reached limit to send Email from $from. Please change your account!"
+			));
+			return;
+		}
 		$agent_id = $this->session -> userdata('empcode');
 		$this->session->set_userdata($email_data);
 		for($i=0;$i<$cnt;$i++)

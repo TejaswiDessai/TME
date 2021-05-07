@@ -3323,8 +3323,8 @@ public function getPrivillage(){
 		function initialise_data($page = 'initialise_data_campaign'){
 			$data['title'] = 'Create Lead';
 			
-			$postData = $this->input->post();
-			$postData1 = $postData['campaign_status'];
+			// $postData = $this->input->post();
+			// $postData1 = $postData['campaign_status'];
 			// $data['campaigns'] = $this->Administrator_Model->get_campaign_with_status($postData1);
                       
 			

@@ -209,7 +209,7 @@ $(function() {
                     {         
                          
                         $("#leadupdatecdc").html(response.message);                      
-                        top.location.href=base_url+"cdc/get_campaign_stage?camp_id="+<?php echo $campaign['cnid']; ?>;//redirection
+                      
                       
                       
                     }else if(response.statusCode=="Fail")
@@ -279,17 +279,17 @@ $(function() {
       //  Get count 
       $('#camp_stage_from').change(function(){
           var camp_stage_from = $(this).val();
-          var campaign_cids = $('#campaign_cids').val();
+          var campaign_cids_from = $('#campaign_cids_from').val();
           
           if(camp_stage_from == '1'){ //dc stage
 
                     var urlq = '<?php echo base_url("cdc/getdccount");?>';
-                  console.log(urlq+'?campaign_cids='+campaign_cids);
+                  console.log(urlq+'?campaign_cids_from='+campaign_cids_from);
                     // AJAX request
                     $.ajax({
                         url:'<?php echo base_url("cdc/getdccount");?>',
                         method: 'get',
-                        data: {campaign_cids: campaign_cids},
+                        data: {campaign_cids_from: campaign_cids_from},
                         dataType: 'json',
                         success: function(response){
                             // var dataResult = JSON.parse(response);

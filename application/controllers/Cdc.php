@@ -797,7 +797,7 @@
 
 		public function getdccount(){ 
 			$empcode = $_SESSION['empcode'];
-			$campaign_cids = $_GET['campaign_cids'];
+			$campaign_cids = $_GET['campaign_cids_from'];
 			
 			// get data 
 			// $data = $this->Administrator_Model->getdccount_cleared_of_campaign_from($campaign_cids);

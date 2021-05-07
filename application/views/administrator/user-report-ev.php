@@ -142,8 +142,8 @@
                                         <!-- <th>Date</th> -->
                                         <!-- <th>Image</th> -->
                                         <th>Username</th>
-                                        
-                                        <th>Total EV</th>
+                                        <th>Total EV(Original Email)</th>
+                                        <th>Total EV(with Trail Format)</th>
                                         <th>EV Open</th>
                                         <th>EV Accepted</th>
                                         <th>EV Rejected</th>
@@ -156,6 +156,22 @@
                                         
                                         <td><a href=""><?php echo $post['fname']; ?></a></td>
                                         
+                                        <td><?php 
+                                       $ev_done = $this->db->query("select * from ev
+                                       left join leadmaster ON ev.lmid=leadmaster.lmid
+                                       and  ev.email=leadmaster.email
+                                       where 
+                                       ev.evagnt = '".$post['empcode']."'
+                                       and leadmaster.cids = '".$Campid."'
+                                       and (statdt >= '".$From."' and statdt <= '".$To."')
+                                        ");
+                                       echo $ev_done->num_rows();
+                                        // echo "Total: ".$post['numbers'] + $post['savednumbers'];
+                                        // $query = $this->db->query("SELECT * FROM leadmaster where stagtidi = '".$post['emp_id']."'");
+                                        // echo $query->num_rows();
+
+                                        ?></td>
+
                                         <td><?php 
                                        $ev_done = $this->db->query("select * from ev
                                        left join leadmaster ON ev.lmid=leadmaster.lmid

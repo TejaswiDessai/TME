@@ -3874,6 +3874,7 @@
 					'cidsfrom' => $campaign_cids_from,
 					'no_of_leads' => $_GET['leadsno'],
 					'stages' => 'dc_to_dc', 
+					'empcode' => $_SESSION['empcode'], 
 					'ini_date' => $curr_date 
 					
 						
@@ -3940,7 +3941,8 @@
 					'cidsto' => $campaign_cids_to,
 					'cidsfrom' => $campaign_cids_from,
 					'no_of_leads' => $_GET['leadsno'],
-					'stages' => 'dc_to_dv', 
+					'stages' => 'dc_to_dv',
+					'empcode' => $_SESSION['empcode'],  
 					'ini_date' => $curr_date 
 					
 						
@@ -4006,6 +4008,7 @@
 					'cidsfrom' => $campaign_cids_from,
 					'no_of_leads' => $_GET['leadsno'],
 					'stages' => 'dc_to_ev', 
+					'empcode' => $_SESSION['empcode'], 
 					'ini_date' => $curr_date 
 					
 						
@@ -4066,7 +4069,8 @@
 					'cidsto' => $campaign_cids_to,
 					'cidsfrom' => $campaign_cids_from,
 					'no_of_leads' => $_GET['leadsno'],
-					'stages' => 'dc_to_cdc', 
+					'stages' => 'dc_to_cdc',
+					'empcode' => $_SESSION['empcode'], 
 					'ini_date' => $curr_date 
 					
 						

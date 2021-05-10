@@ -299,12 +299,10 @@
                                         </td>
                                         <td>
                                         <?php 
-                                         $ev_inproccess = $this->db->query("select * from ev
-                                         left join leadmaster ON ev.lmid=leadmaster.lmid 
+                                         $ev_inproccess = $this->db->query("select distinct(ev.lmid) from ev
+                                         left join leadmaster ON ev.lmid=leadmaster.lmid
                                          where
-                                         ev.closer_status = 'Open'
-                                         and ev.curr_active = 1
-                                
+                                         leadmaster.evcomp = 2
                                          and leadmaster.cids = '".$post['cids']."'
                                          
                                          ");

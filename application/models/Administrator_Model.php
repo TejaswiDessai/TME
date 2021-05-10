@@ -678,6 +678,15 @@
 			 return  $insert_id;
                         // echo $this->db->last_query(); 
 		}
+		public function add_ini_data($addinidataarray)
+		{
+                        
+			 $this->db->insert('ini_data', $addinidataarray);
+			 $insert_id = $this->db->insert_id();
+			 return true;
+			//  return  $insert_id;
+                        // echo $this->db->last_query(); 
+		}
 		public function add_leadandcdc($datacdcandlead)
 		{
                         
@@ -1832,7 +1841,7 @@ public function get_campaign_with_status_initialise($cnid,$status)
 	
 	}
 
-	public function get_dc_cleared($id = FALSE)
+	public function get_dc_cleared($id = FALSE,$leadlimit = false)
 {
 		
 		
@@ -1856,6 +1865,9 @@ public function get_campaign_with_status_initialise($cnid,$status)
 		$this->db->where('rlc !=', 1);
 		$this->db->order_by('stdti','ASC');
 		$this->db->order_by('stdtii','ASC');
+		if(isset($leadlimit) && $leadlimit != null){
+			$this->db->limit($leadlimit);	
+		}
 	
 		$query = $this->db->get_where('leadmaster', array('cids' => $id));
 		// echo $this->db->last_query(); 

@@ -133,6 +133,7 @@
                                         <th>Total EV</th>
                                         <th>EV Pending</th>
                                         <th>EV InProccess</th>
+                                        <th>EV Reject</th>
                                         <th>EV Done</th>
                                         <th>CDC Pending</th>
                                         <th>CDC Total Accept</th>
@@ -275,13 +276,13 @@
                                         <!-- </td> -->
                                         <td>
                                         <?php 
-                                       $total_accept1 = $this->db->query("select * from leadmaster
+                                       $total_ev = $this->db->query("select * from leadmaster
                                        where ontag = 1
                                        and rlc = 0
                                        and pload = 0
                                        and (dvsbtg = 0 OR dvsbtg = 1 OR dvsbtg = 2)
                                        and dvload = 1 and cids = '".$post['cids']."'");
-                                       echo $total_accept1->num_rows();
+                                       echo $total_ev->num_rows();
                                        ?>
                                        </td>
                                        <td>
@@ -309,6 +310,20 @@
                                          ");
                                         
                                          echo $ev_inproccess->num_rows();
+                                         ?>
+                                        </td>
+                                        <td>
+                                        <?php 
+                                         $ev_rej = $this->db->query("select * from leadmaster
+                                         where 
+                                         rlc != 1
+                                         and evload = 0
+                                         and evdisp = 5
+                                         and evcomp = 1
+                                         and cdcsb = 0
+                                         and cdcrjt = 0
+                                         and cids = '".$post['cids']."'");
+                                         echo $ev_rej->num_rows();
                                          ?>
                                         </td>
                                         <td>

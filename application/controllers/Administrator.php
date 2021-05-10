@@ -2389,6 +2389,9 @@ public function getPrivillage(){
 		$formated_mail_name = implode(",", $_GET['formated_mail']);
 		$formated_mail = explode(',', $formated_mail_name);
 		// $formated_mail= implode(",", $formated_mail);
+		$manual_email = implode(",", $_GET['manual_email']);
+		$email_format = explode(',', $manual_email);
+		// $email_format = $_GET['manual_email'];
 		
 		$cnt=count($comp_proSplit);
 		// $cnt = 5;
@@ -2490,11 +2493,9 @@ public function getPrivillage(){
 				$firstCharFname = substr($firstname, 0, 1);
 				
 			}
+			if(in_array("yes", $email_format)){
 			
-			if(($firstname == null || $lastname == "" ))
-			{
-				$FinalEmail = $firstCharFname."@".$domain;
-				$checkforEmail = $this->Administrator_Model->get_email_duplication_count($FinalEmail,$agent_id);
+				$checkforEmail = $this->Administrator_Model->get_email_duplication_count($original_email[$i],$agent_id);
 				if($checkforEmail == true)
 				{
 					echo json_encode(array(
@@ -2508,7 +2509,7 @@ public function getPrivillage(){
 				}
 				else
 				{
-					$TO = $FinalEmail;
+					$TO = $original_email[$i];
 				}
 			}
 			else

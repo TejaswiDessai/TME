@@ -496,6 +496,7 @@ document.getElementById("randomSelect").addEventListener("click", function() {
                                         <th>Last Email Format</th>
                                         <th <?php if($Stage == "New"){?>style="display:none;"<?php } ?>>Format used</th>
                                         <th>Original Email</th>
+                                        <th>Format Type</th>
                                         <th>Change Format</th>
                                         <th>Status</th>
                                         <th>Send To<br><input type="checkbox" class="emailsend_all  emailclass"  onclick="toggle(this);" <?php if ($Stage != "New") echo 'disabled'; ?>/></th>
@@ -552,6 +553,12 @@ document.getElementById("randomSelect").addEventListener("click", function() {
                                         <!-- <input type="checkbox" name="email" id="email"  value="email"> -->
                                         <input type="text" id="email_<?php echo $i;?>" value="<?php if(isset($search_email) && $search_email != null){ echo $search_email; }else{ echo $post['email'];}  ?>">
                                         <?php //echo $post['email']; ?>
+                                        </td>
+                                        <td>
+                                        <select class="form-control form-control-default " style="height:30px;" name="manual_email_<?php echo $i;?>" id="manual_email_<?php echo $i;?>">
+                                            <option value="yes">Manual</option>
+                                            <option value="no" selected>System</option>
+                                        </select>
                                         </td>
                                         <td>
                                             <!-- <input type="button" id="format" value="Change Format"> -->
@@ -891,6 +898,7 @@ $(".emailstatus").click(function() {
             var id = $('#idkl').val();
             // alert("test"+id);
             $("#email_"+id).val(email_123);
+            $("#manual_email_"+id).val("yes");
             $('#myModal').modal('hide');
         // alert("test"+email_123);
     });
@@ -1094,6 +1102,7 @@ $(".emailstatus").click(function() {
             someObj.lastEmail = [];
             someObj.formated_mail = [];
             someObj.leads = [];
+            someObj.manual_emails = [];
             $("input:checkbox").each(function() {
                 if ($(this).is(":checked")) {
                     var checked = ($(this).val());
@@ -1107,6 +1116,8 @@ $(".emailstatus").click(function() {
                         someObj.formated_mail.push(formated_mail);
                         var leadid = $('#leadid_'+checked).val();
                         someObj.leads.push(leadid);
+                        var manual_email = $('#manual_email_'+checked).val();
+                        someObj.manual_emails.push(manual_email);
                     }
                 } else {
                     // someObj.fruitsDenied.push(checked);
@@ -1116,9 +1127,9 @@ $(".emailstatus").click(function() {
             var leadid = someObj.leads;
             var original_email = someObj.fruitsGranted;
             var formated_mail = someObj.formated_mail;
+            var manual_email = someObj.manual_emails;
             // alert("change status: "+change_status_of+"original email"+original_email);
-            // alert(formated_mail);
-            // return;
+            
             var email_status = $('#email_status').val();
             var comment = $('#comment').val();
             if(comment == null || comment == '')
@@ -1221,7 +1232,8 @@ $(".emailstatus").click(function() {
                     email_close_status:email_close_status,
                     comment:comment,
                     original_email:original_email,
-                    formated_mail:formated_mail
+                    formated_mail:formated_mail,
+                    manual_email:manual_email
 
                     
 				},

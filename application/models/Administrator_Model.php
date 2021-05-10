@@ -3042,7 +3042,7 @@ public function get_campaign_fordataverification()
 			{
 				$this->db->where('ev.closer_status', 'Open');
 			}
-			if(isset($search_email) && $search_email != null)
+			if(isset($search_email) && $search_email != null && $leadstatus != "New")
 			{
 				$this->db->where('ev.email', $search_email);
 			}

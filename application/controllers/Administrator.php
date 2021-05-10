@@ -2092,7 +2092,11 @@ public function getPrivillage(){
 			$data['empcode'] = $this->session->userdata('empcode');
 			$data['Stage'] = $leadstatus;
 			$data['leadlimit'] = $leadlimit;
-			$data['search_email'] = $search_email;
+			if($leadstatus != "New")
+			{
+				$data['search_email'] = $search_email;
+			}
+			
 			$data['search_email_status'] = $search_email_status;
 			$data['email_sent_time'] = $email_sent_time;
 			$data['From'] =  $this->session->userdata('from');

@@ -120,8 +120,8 @@
                                         <!-- <th>Date</th> -->
                                         <!-- <th>Image</th> -->
                                         <!-- <th>Username</th> -->
-                                        <th>Campaign Name</th>
-                                        <th>Total Records</th>
+                                        <th style="background-color: hsl(120, 60%, 70%);">Campaign Name</th>
+                                        <th style="background-color: rgba(255, 0, 0, 0.3);">Total Records</th>
                                         <th style="background-color: rgba(255, 0, 0, 0.3);">DC Pending</th>
                                         <th style="background-color: rgba(255, 0, 0, 0.3);">DC Locked</th>
                                         <th style="background-color: hsl(120, 60%, 70%);">DV Pending</th>

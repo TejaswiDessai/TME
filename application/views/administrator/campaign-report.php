@@ -291,7 +291,7 @@
                                          where 
                                          rlc != 1
                                          and dvload = 1
-                                         and sbsvtag != 0
+                                         
                                          and evcomp is NULL
                                          and cids = '".$post['cids']."'");
                                          echo $ev_pending->num_rows();

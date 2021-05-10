@@ -2986,7 +2986,7 @@ public function get_campaign_fordataverification()
 			$this->db->from('ev');
 			// $this->db->join('leadmaster', 'ev.lmid = leadmaster.lmid','left');
 			$this->db->where('ev.fmail',$from);
-			$this->db->where("statdt >= now()::date + interval '1h'");
+			$this->db->where("loaddt >= now()::date + interval '1h'");
 			$this->db->group_by('ev.fmail');
 			$this->db->group_by('ev.elmid');
 			$this->db->group_by('ev.lmid');

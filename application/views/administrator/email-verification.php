@@ -289,15 +289,15 @@ $.ajax({
 
     if (count>0) {
     var option1 = sp_email[0]+"."+lastVal+"@"+sp[1];
-    var option2 = lastVal+"."+sp_email[0]+"@"+sp[1];
-    var option3 = sp_email[0]+"@"+sp[1];
-    var option4 = lastVal+"@"+sp[1];
-    var option5 = first_of_firstString+"@"+sp[1];
-    var option6 = first_of_secondString+"@"+sp[1];
-    var option7 = first_of_firstString+"."+first_of_secondString+"@"+sp[1];
-    var option8 = first_of_firstString+"."+lastVal+"@"+sp[1];
-    var option9 = first_of_firstString+lastVal+"@"+sp[1];
-    var values = [option1, option2, option3, option4,option5,option6,option7,option8,option9];
+    var option2 = sp_email[0]+"@"+sp[1];
+    var option3 = first_of_firstString+lastVal+"@"+sp[1];
+    var option4 = first_of_firstString+"."+lastVal+"@"+sp[1];
+    var option5 = sp_email[0]+lastVal+"@"+sp[1];
+    var option6 = lastVal+"@"+sp[1];
+    var option7 = lastVal+"."+sp_email[0]+"@"+sp[1];
+    var option8 = first_of_firstString+first_of_secondString+"@"+sp[1];
+    
+    var values = [option1.toLowerCase(), option2.toLowerCase(), option3.toLowerCase(), option4.toLowerCase(),option5.toLowerCase(),option6.toLowerCase(),option7.toLowerCase(),option8.toLowerCase()];
     }
     else
     {
@@ -305,15 +305,15 @@ $.ajax({
         var first_of_secondString1 = lname.substring(0, 1);
 
         var option1 = fname+"."+lname+"@"+sp[1];
-        var option2 = lname+"."+fname+"@"+sp[1];
-        var option3 = fname+"@"+sp[1];
-        var option4 = lname+"@"+sp[1];
-        var option5 = first_of_firstString1+"@"+sp[1];
-        var option6 = first_of_secondString1+"@"+sp[1];
-        var option7 = first_of_firstString1+"."+first_of_secondString+"@"+sp[1];
-        var option8 = first_of_firstString1+"."+lname+"@"+sp[1];
-        var option9 = first_of_firstString1+lname+"@"+sp[1];
-        var values = [option1, option2, option3, option4,option5,option6,option7,option8,option9];
+        var option2 = fname+"@"+sp[1];
+        var option3 = first_of_firstString1+lname+"@"+sp[1];
+        var option4 = first_of_firstString1+"."+lname+"@"+sp[1];
+        var option5 = fname+lname+"@"+sp[1];
+        var option6 = lname+"@"+sp[1];
+        var option7 = lname+"."+fname+"@"+sp[1];
+        var option8 = first_of_firstString1+"."+first_of_secondString1+"@"+sp[1];
+        
+        var values = [option1.toLowerCase(), option2.toLowerCase(), option3.toLowerCase(), option4.toLowerCase(),option5.toLowerCase(),option6.toLowerCase(),option7.toLowerCase(),option8.toLowerCase()];
         // var option1 = ids;
         // var option2 = first_of_firstString+"@"+sp[1];
         // var values = [option1,option2];

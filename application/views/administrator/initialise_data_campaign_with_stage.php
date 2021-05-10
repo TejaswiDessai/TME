@@ -47,7 +47,7 @@ $(document).ready(function () {
         <div class="col-sm-12">
             <!-- Basic Form Inputs card start -->
             <div class="card" id="camp_form">
-              <form id="basic-form" method="POST" enctype="multipart/form-data" action="get_campaign_stage">
+              <form id="basic-form" method="POST" enctype="multipart/form-data">
                 <div class="card-header">
                 
                 </div>
@@ -118,14 +118,19 @@ $(document).ready(function () {
                           
                            
                          </div>
-
-                         <div class="col-sm-2">
-                                <input type = hidden name="campaign_id" id="campaign_id" value="<?php echo $campaigns_from['cnid']; ?>">
+                         <div class="form-group row">
+                         <div class="col-sm-3">
+                         <label class="col-lable"><b>No. of leads to be pushed</b></label>
+                         <input type="text"  name="leadsno" id="leadsno"  placeholder="Number"   class="form-control form-control-sm" value= "" maxlength="6">   
+                         <span class="error" style="color: red; display: none">* Input Number</span>
+                         <br><br> 
+                                <!-- <input type = hidden name="campaign_id" id="campaign_id" value="<?php echo $campaigns_from['cnid']; ?>"> -->
                                 <input type = hidden name="campaign_cids_from" id="campaign_cids_from" value="<?php echo $campaigns_from['cids']; ?>">
                                 <input type = hidden name="campaign_cids_to" id="campaign_cids_to" value="<?php echo $campaigns_to['cids']; ?>">
                                
-                               <button type="submit" name="initialisecampaign" class="btn btn-primary" style=""  id="initialisecampaign">Initialise</button>
+                               <button type="button" name="initialisecampaign" class="btn btn-primary" id="initialisecampaign">Initialise</button>
                              </div>
+        </div>
                     </div>
                       
                 </div>
@@ -141,6 +146,8 @@ $(document).ready(function () {
      // Campaign Name no special character allowed validation code
   
 $(document).ready(function() {
+
+  
           $('#clearedchk').val("1");
           $('#pendingchk').val("0");
          
@@ -169,78 +176,71 @@ $(document).ready(function() {
 
           
 
-              var clrchk =   $('#clearedchk').val();
-              var penchk =   $('#pendingchk').val();
-              var campaign_id_to =   $('#campaign_id_to').val();
-              var campaign_id_from =   $('#campaign_id_from').val();
-
 
 $(function() {
         $("#initialisecampaign").on('click', function() 
         {
-         if(campaign_id_to != '' && campaign_id_from != '')
+              var clrchk =   $('#clearedchk').val();
+              var penchk =   $('#pendingchk').val();
+
+              var camp_stage_from = $('#camp_stage_from').val();
+              var camp_stage_to = $('#camp_stage_to').val();
+              var campaign_cids_from = $('#campaign_cids_from').val();
+              var campaign_cids_to = $('#campaign_cids_to').val();
+          
+         
+         if(camp_stage_to != '' && camp_stage_from != '')
            {
             if(clrchk == 1){
-                if(camp_stage_from == '1')
+              
+                if(camp_stage_from == '1' && camp_stage_to == '1')
                   { //dc stage
-                    var campaign_cids_from = $('#campaign_cids_from').val();
-
-                    var url = encodeURI("<?php echo base_url("cdc/ajax_update_ini_to_dc");?>");
-                     console.log(url+"?campaign_id="+campaign_id+"&campaign_cids_from="+campaign_cids_from);
-           
-            $.ajax({
-                url :'<?php echo base_url("cdc/ajax_update_ini_to_dc");?>',
-                type: 'GET', 
-                // contentType: "application/json",
-                dataType: 'json',              
-                data: {
+                    
                    
-                  campaign_id: campaign_id,
-                  campaign_cids_from: campaign_cids_from,
+                    var url = encodeURI("<?php echo base_url("cdc/ajax_update_ini_to_dc");?>");
+                     console.log(url+"?campaign_cids_to="+campaign_cids_to+"&campaign_cids_from="+campaign_cids_from);
+         
+            $.ajax({
+                  url :'<?php echo base_url("cdc/ajax_update_ini_to_dc");?>',
+                  type: 'GET', 
+                  // contentType: "application/json",
+                  dataType: 'json',              
+                  data: {
+                   
+                    campaign_cids_to: campaign_cids_to,
+                  campaign_cids_from: campaign_cids_from
                      
                     
-				},
-        async: true,
-                cache: false,
-                success: function(response){                 
-                    var text = response.statusCode;
-                    console.log("check");
-                    if(response.statusCode == "Success") 
-                    {         
-                         
-                        $("#leadupdatecdc").html(response.message);                      
-                      
-                      
-                      
-                    }else if(response.statusCode=="Fail")
-                    {
-                        $("#leadupdatecdc").html(response.message);
-                        
-                      } else if(response.statusCode =="Exist")
-                    {
-                      alert("Record already Exist");                  
-                        
-					          }
-                    else if(response.statusCode =="plink")
-                    {
-                      alert("Record already Exist");                     
-                        
-					          }
+                  },
+                  async: true,
+                          cache: false,
+                          success: function(response){                 
+                          var text = response.statusCode;
+                          console.log("check");
+                          if(response.statusCode == "Success") 
+                          {         
+                              
+                              $("#initialisecampaign").html("Initialized!");   
+                              $("#initialisecampaign").attr("disabled", true); 
+                            
+                          }
 
 
-                },
-                error: function (error) {
-                  alert("Error");
-                  }
-              
-            });
+                      },
+                      error: function (error) {
+                        alert("Error");
+                        }
+                    
+                  }); //Ajax End
 
 
 
-                  }
+                }else if(camp_stage_from == '1' && camp_stage_to == '2'){
+                  alert("Try DC only");
+                }
             }
            }else{
-             return;
+            alert("Please fill mandatory fields"); //Empty
            } 
 
 
@@ -257,12 +257,7 @@ $(function() {
              
   $("#basic-form").validate({
     rules: {
-        campaign_id_to : {
-        required: true
-      },
-        campaign_id_from : {
-        required: true
-      },
+     
       camp_stage_from : {
         required: true
       },
@@ -315,6 +310,29 @@ $(function() {
          
           
 
+
+});
+$(document).ready(function() {
+
+$("#leadsno").bind("keypress", function (e) {
+
+    var keyCode = e.which ? e.which : e.keyCode
+
+         
+
+    if (!(keyCode >= 48 && keyCode <= 57)) {
+
+      $(".error").css("display", "inline");
+
+      return false;
+
+    }else{
+
+      $(".error").css("display", "none");
+
+    }
+
+});
 
 });
 

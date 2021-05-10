@@ -3816,6 +3816,48 @@
 								
 			
 		}
+		public function ajax_update_ini_to_dc()
+		{
+			
+			$campaign_cids_from = $_GET['campaign_cids_from'];
+			$campaign_cids_to = $_GET['campaign_cids_to'];
+			
+		
+			if(!isset($_SESSION['empcode'])){
+				
+			
+				redirect('administrator/logout');
+				Exit();
+			}
+
+			$datacdcandlead = array(
+				'cids' => $campaign_cids_to
+				
+				
+								
+				);
+			$datadccleared = $this->Administrator_Model->get_dc_cleared($campaign_cids_from);
+
+			foreach ($datadccleared as $datadccleared) {
+				$addleadandcdcdata = $this->Administrator_Model->update_leaddata($datacdcandlead,$datadccleared['lmid']);			
+			}
+		
+			
+				if($addleadandcdcdata == true){
+			
+					echo json_encode(array(
+						"statusCode"=>"Success",
+						"message"=>"Lead Uptated Successfully.."
+					));
+				}else{
+					echo json_encode(array(
+						"statusCode"=>"Fail",
+						"message"=>"Add data Lead failed.."
+					));
+				}
+								
+			
+		}
 		public function ajax_save_updateleaddatacdc()
 		{
 			$campaign_id = $_GET['campaign_id'];

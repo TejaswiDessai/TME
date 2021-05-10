@@ -258,7 +258,7 @@
                                          where ontag = 1
                                          and rlc = 0
                                          and pload = 0
-                                         and dvsbtg = 1
+                                         and (dvsbtg = 0 OR dvsbtg = 1)
                                          and dvload = 1 and cids = '".$post['cids']."'");
                                          echo $first_accept->num_rows();
                                           ?></td>

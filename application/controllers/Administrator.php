@@ -2080,7 +2080,7 @@ public function getPrivillage(){
 				$FromEmail = null;
 			}
 			$data['leadmaster'] = $this->Administrator_Model->get_email_list($campid,$user_id,$from,$to,$leadstatus,$search_email,$search_email_status,$email_sent_time,$leadlimit);
-			$data['from_email_details'] = $this->Administrator_Model->get_from_email_count($FromEmail,$count_from,$count_to);
+			$data['from_email_details'] = $this->Administrator_Model->get_from_email_count($FromEmail);
 			$data['users_name'] = $this->Administrator_Model->get_users(FALSE, $config['per_page'], $offset);
 			// $data['campaigns'] = $this->Administrator_Model->get_campaign();
 			// $data['from_email'] = $this->Administrator_Model->get_email_id($campid,103);

@@ -2980,7 +2980,7 @@ public function get_campaign_fordataverification()
 			return $data=$query->result_array();
 
 		}	
-		public function get_from_email_count($from,$count_from,$count_to)
+		public function get_from_email_count($from)
 		{
 			$this->db->select('*');
 			$this->db->from('ev');

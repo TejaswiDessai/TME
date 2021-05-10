@@ -122,31 +122,31 @@
                                         <!-- <th>Username</th> -->
                                         <th>Campaign Name</th>
                                         <th>Total Records</th>
-                                        <th>DC Pending</th>
-                                        <th>DC Locked</th>
-                                        <th>DV Pending</th>
-                                        <th>DV Locked</th>
-                                        <th>Saved</th>
-                                        <th>Total Accepted</th>
-                                        <th>1st Accept</th>
-                                        <th>2nd Accept</th>
-                                        <th>Total EV</th>
-                                        <th>EV Pending</th>
-                                        <th>EV InProccess</th>
-                                        <th>EV Reject</th>
-                                        <th>EV Done</th>
-                                        <th>CDC Pending</th>
-                                        <th>CDC Total Accept</th>
-                                        <th>CDC Reject</th>
-                                        <th>QA Pending</th>
-                                        <th>QA Accept- Qualified</th>
-                                        <th>QA Accept- Dis-Qualified</th>
-                                        <th>QA Reject- Dis-Qualified</th>
+                                        <th style="background-color: rgba(255, 0, 0, 0.3);">DC Pending</th>
+                                        <th style="background-color: rgba(255, 0, 0, 0.3);">DC Locked</th>
+                                        <th style="background-color: hsl(120, 60%, 70%);">DV Pending</th>
+                                        <th style="background-color: hsl(120, 60%, 70%);">DV Locked</th>
+                                        <th style="background-color: hsl(120, 60%, 70%);">Saved</th>
+                                        <th style="background-color: hsl(120, 60%, 70%);">Total Accepted</th>
+                                        <th style="background-color: hsl(120, 60%, 70%);">1st Accept</th>
+                                        <th style="background-color: hsl(120, 60%, 70%);">2nd Accept</th>
+                                        <th style="background-color: rgba(255, 0, 0, 0.3);">Total EV</th>
+                                        <th style="background-color: rgba(255, 0, 0, 0.3);">EV Pending</th>
+                                        <th style="background-color: rgba(255, 0, 0, 0.3);">EV InProccess</th>
+                                        <th style="background-color: rgba(255, 0, 0, 0.3);">EV Reject</th>
+                                        <th style="background-color: rgba(255, 0, 0, 0.3);">EV Done</th>
+                                        <th style="background-color: hsl(120, 60%, 70%);">CDC Pending</th>
+                                        <th style="background-color: hsl(120, 60%, 70%);">CDC Total Accept</th>
+                                        <th style="background-color: hsl(120, 60%, 70%);">CDC Reject</th>
+                                        <th style="background-color: rgba(255, 0, 0, 0.3);">QA Pending</th>
+                                        <th style="background-color: rgba(255, 0, 0, 0.3);">QA Accept- Qualified</th>
+                                        <th style="background-color: rgba(255, 0, 0, 0.3);">QA Accept- Dis-Qualified</th>
+                                        <th style="background-color: rgba(255, 0, 0, 0.3);">QA Reject- Dis-Qualified</th>
                                         
-                                        <th>QA Sent to Lead</th>
-                                        <th>LS Pending</th>
-                                        <th>Ready To Deliver</th>
-                                        <th>Delivered</th>
+                                        <th style="background-color: rgba(255, 0, 0, 0.3);">QA Sent to Lead</th>
+                                        <th style="background-color: hsl(120, 60%, 70%);">LS Pending</th>
+                                        <th style="background-color: rgba(255, 0, 0, 0.3);">Ready To Deliver</th>
+                                        <th style="background-color: rgba(255, 0, 0, 0.3);">Delivered</th>
                                         <!-- <th>DC Pending with 1st Reject</th> -->
                                     </tr>
                                 </thead>

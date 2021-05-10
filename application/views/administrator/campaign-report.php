@@ -306,12 +306,7 @@
                                          and leadmaster.cids = '".$post['cids']."'
                                          
                                          ");
-                                         
-                                        //  query("select * from leadmaster
-                                        //  where
-                                        //  dvload = 1
-                                        //  and evcomp = 2
-                                        //  and cids = '".$post['cids']."'");
+                                        
                                          echo $ev_inproccess->num_rows();
                                          ?>
                                         </td>

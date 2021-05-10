@@ -2980,16 +2980,18 @@ public function get_campaign_fordataverification()
 			return $data=$query->result_array();
 
 		}	
-		public function get_from_email_count($from)
+		public function get_from_email_count($from,$count_from,$count_to)
 		{
 			$this->db->select('*');
 			$this->db->from('ev');
 			// $this->db->join('leadmaster', 'ev.lmid = leadmaster.lmid','left');
 			$this->db->where('ev.fmail',$from);
+			$this->db->where("statdt >= now()::date + interval '1h'");
 			$this->db->group_by('ev.fmail');
 			$this->db->group_by('ev.elmid');
 			$this->db->group_by('ev.lmid');
 			$query=$this->db->get();
+			// show_error($this->db->last_query(), 200, "SQL");
 			return $data=$query->num_rows();
 		}
 		public function get_email_list($campid,$user_id,$from,$to,$leadstatus,$search_email,$search_email_status,$email_sent_time,$leadlimit)

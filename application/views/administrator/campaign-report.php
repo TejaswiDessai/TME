@@ -284,6 +284,7 @@
                                        echo $total_accept1->num_rows();
                                        ?>
                                        </td>
+                                       <td>
                                         <?php 
                                          $ev_pending = $this->db->query("select * from leadmaster
                                          where 

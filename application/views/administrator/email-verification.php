@@ -289,15 +289,15 @@ $.ajax({
 
     if (count>0) {
     var option1 = sp_email[0]+"."+lastVal+"@"+sp[1];
-    var option2 = lastVal+"."+sp_email[0]+"@"+sp[1];
-    var option3 = sp_email[0]+"@"+sp[1];
-    var option4 = lastVal+"@"+sp[1];
-    var option5 = first_of_firstString+"@"+sp[1];
-    var option6 = first_of_secondString+"@"+sp[1];
-    var option7 = first_of_firstString+"."+first_of_secondString+"@"+sp[1];
-    var option8 = first_of_firstString+"."+lastVal+"@"+sp[1];
-    var option9 = first_of_firstString+lastVal+"@"+sp[1];
-    var values = [option1, option2, option3, option4,option5,option6,option7,option8,option9];
+    var option2 = sp_email[0]+"@"+sp[1];
+    var option3 = first_of_firstString+lastVal+"@"+sp[1];
+    var option4 = first_of_firstString+"."+lastVal+"@"+sp[1];
+    var option5 = sp_email[0]+lastVal+"@"+sp[1];
+    var option6 = lastVal+"@"+sp[1];
+    var option7 = lastVal+"."+sp_email[0]+"@"+sp[1];
+    var option8 = first_of_firstString+first_of_secondString+"@"+sp[1];
+    
+    var values = [option1.toLowerCase(), option2.toLowerCase(), option3.toLowerCase(), option4.toLowerCase(),option5.toLowerCase(),option6.toLowerCase(),option7.toLowerCase(),option8.toLowerCase()];
     }
     else
     {
@@ -305,15 +305,15 @@ $.ajax({
         var first_of_secondString1 = lname.substring(0, 1);
 
         var option1 = fname+"."+lname+"@"+sp[1];
-        var option2 = lname+"."+fname+"@"+sp[1];
-        var option3 = fname+"@"+sp[1];
-        var option4 = lname+"@"+sp[1];
-        var option5 = first_of_firstString1+"@"+sp[1];
-        var option6 = first_of_secondString1+"@"+sp[1];
-        var option7 = first_of_firstString1+"."+first_of_secondString+"@"+sp[1];
-        var option8 = first_of_firstString1+"."+lname+"@"+sp[1];
-        var option9 = first_of_firstString1+lname+"@"+sp[1];
-        var values = [option1, option2, option3, option4,option5,option6,option7,option8,option9];
+        var option2 = fname+"@"+sp[1];
+        var option3 = first_of_firstString1+lname+"@"+sp[1];
+        var option4 = first_of_firstString1+"."+lname+"@"+sp[1];
+        var option5 = fname+lname+"@"+sp[1];
+        var option6 = lname+"@"+sp[1];
+        var option7 = lname+"."+fname+"@"+sp[1];
+        var option8 = first_of_firstString1+"."+first_of_secondString1+"@"+sp[1];
+        
+        var values = [option1.toLowerCase(), option2.toLowerCase(), option3.toLowerCase(), option4.toLowerCase(),option5.toLowerCase(),option6.toLowerCase(),option7.toLowerCase(),option8.toLowerCase()];
         // var option1 = ids;
         // var option2 = first_of_firstString+"@"+sp[1];
         // var values = [option1,option2];
@@ -496,6 +496,7 @@ document.getElementById("randomSelect").addEventListener("click", function() {
                                         <th>Last Email Format</th>
                                         <th <?php if($Stage == "New"){?>style="display:none;"<?php } ?>>Format used</th>
                                         <th>Original Email</th>
+                                        <th>Format Type</th>
                                         <th>Change Format</th>
                                         <th>Status</th>
                                         <th>Send To<br><input type="checkbox" class="emailsend_all  emailclass"  onclick="toggle(this);" <?php if ($Stage != "New") echo 'disabled'; ?>/></th>
@@ -552,6 +553,12 @@ document.getElementById("randomSelect").addEventListener("click", function() {
                                         <!-- <input type="checkbox" name="email" id="email"  value="email"> -->
                                         <input type="text" id="email_<?php echo $i;?>" value="<?php if(isset($search_email) && $search_email != null){ echo $search_email; }else{ echo $post['email'];}  ?>">
                                         <?php //echo $post['email']; ?>
+                                        </td>
+                                        <td>
+                                        <select class="form-control form-control-default " style="height:30px;" name="manual_email_<?php echo $i;?>" id="manual_email_<?php echo $i;?>">
+                                            <option value="yes">Manual</option>
+                                            <option value="no" selected>System</option>
+                                        </select>
                                         </td>
                                         <td>
                                             <!-- <input type="button" id="format" value="Change Format"> -->
@@ -891,6 +898,7 @@ $(".emailstatus").click(function() {
             var id = $('#idkl').val();
             // alert("test"+id);
             $("#email_"+id).val(email_123);
+            $("#manual_email_"+id).val("yes");
             $('#myModal').modal('hide');
         // alert("test"+email_123);
     });
@@ -1094,6 +1102,7 @@ $(".emailstatus").click(function() {
             someObj.lastEmail = [];
             someObj.formated_mail = [];
             someObj.leads = [];
+            someObj.manual_emails = [];
             $("input:checkbox").each(function() {
                 if ($(this).is(":checked")) {
                     var checked = ($(this).val());
@@ -1107,6 +1116,8 @@ $(".emailstatus").click(function() {
                         someObj.formated_mail.push(formated_mail);
                         var leadid = $('#leadid_'+checked).val();
                         someObj.leads.push(leadid);
+                        var manual_email = $('#manual_email_'+checked).val();
+                        someObj.manual_emails.push(manual_email);
                     }
                 } else {
                     // someObj.fruitsDenied.push(checked);
@@ -1116,9 +1127,9 @@ $(".emailstatus").click(function() {
             var leadid = someObj.leads;
             var original_email = someObj.fruitsGranted;
             var formated_mail = someObj.formated_mail;
+            var manual_email = someObj.manual_emails;
             // alert("change status: "+change_status_of+"original email"+original_email);
-            // alert(formated_mail);
-            // return;
+            
             var email_status = $('#email_status').val();
             var comment = $('#comment').val();
             if(comment == null || comment == '')
@@ -1221,7 +1232,8 @@ $(".emailstatus").click(function() {
                     email_close_status:email_close_status,
                     comment:comment,
                     original_email:original_email,
-                    formated_mail:formated_mail
+                    formated_mail:formated_mail,
+                    manual_email:manual_email
 
                     
 				},

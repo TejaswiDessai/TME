@@ -120,31 +120,33 @@
                                         <!-- <th>Date</th> -->
                                         <!-- <th>Image</th> -->
                                         <!-- <th>Username</th> -->
-                                        <th>Campaign Name</th>
-                                        <th>Total Records</th>
-                                        <th>DC Pending</th>
-                                        <th>DC Locked</th>
-                                        <th>DV Pending</th>
-                                        <th>DV Locked</th>
-                                        <th>Saved</th>
-                                        <th>Total Accepted</th>
-                                        <th>1st Accept</th>
-                                        <th>2nd Accept</th>
-                                        <th>EV Pending</th>
-                                        <th>EV InProccess</th>
-                                        <th>EV Done</th>
-                                        <th>CDC Pending</th>
-                                        <th>CDC Total Accept</th>
-                                        <th>CDC Reject</th>
-                                        <th>QA Pending</th>
-                                        <th>QA Accept- Qualified</th>
-                                        <th>QA Accept- Dis-Qualified</th>
-                                        <th>QA Reject- Dis-Qualified</th>
+                                        <th style="background-color: hsl(120, 60%, 70%);">Campaign Name</th>
+                                        <th style="background-color: rgba(255, 0, 0, 0.3);">Total Records</th>
+                                        <th style="background-color: rgba(255, 0, 0, 0.3);">DC Pending</th>
+                                        <th style="background-color: rgba(255, 0, 0, 0.3);">DC Locked</th>
+                                        <th style="background-color: hsl(120, 60%, 70%);">DV Pending</th>
+                                        <th style="background-color: hsl(120, 60%, 70%);">DV Locked</th>
+                                        <th style="background-color: hsl(120, 60%, 70%);">Saved</th>
+                                        <th style="background-color: hsl(120, 60%, 70%);">Total Accepted</th>
+                                        <th style="background-color: hsl(120, 60%, 70%);">1st Accept</th>
+                                        <th style="background-color: hsl(120, 60%, 70%);">2nd Accept</th>
+                                        <th style="background-color: rgba(255, 0, 0, 0.3);">Total EV</th>
+                                        <th style="background-color: rgba(255, 0, 0, 0.3);">EV Pending</th>
+                                        <th style="background-color: rgba(255, 0, 0, 0.3);">EV InProccess</th>
+                                        <th style="background-color: rgba(255, 0, 0, 0.3);">EV Reject</th>
+                                        <th style="background-color: rgba(255, 0, 0, 0.3);">EV Done</th>
+                                        <th style="background-color: hsl(120, 60%, 70%);">CDC Pending</th>
+                                        <th style="background-color: hsl(120, 60%, 70%);">CDC Total Accept</th>
+                                        <th style="background-color: hsl(120, 60%, 70%);">CDC Reject</th>
+                                        <th style="background-color: rgba(255, 0, 0, 0.3);">QA Pending</th>
+                                        <th style="background-color: rgba(255, 0, 0, 0.3);">QA Accept- Qualified</th>
+                                        <th style="background-color: rgba(255, 0, 0, 0.3);">QA Accept- Dis-Qualified</th>
+                                        <th style="background-color: rgba(255, 0, 0, 0.3);">QA Reject- Dis-Qualified</th>
                                         
-                                        <th>QA Sent to Lead</th>
-                                        <th>LS Pending</th>
-                                        <th>Ready To Deliver</th>
-                                        <th>Delivered</th>
+                                        <th style="background-color: rgba(255, 0, 0, 0.3);">QA Sent to Lead</th>
+                                        <th style="background-color: hsl(120, 60%, 70%);">LS Pending</th>
+                                        <th style="background-color: rgba(255, 0, 0, 0.3);">Ready To Deliver</th>
+                                        <th style="background-color: rgba(255, 0, 0, 0.3);">Delivered</th>
                                         <!-- <th>DC Pending with 1st Reject</th> -->
                                     </tr>
                                 </thead>
@@ -256,7 +258,7 @@
                                          where ontag = 1
                                          and rlc = 0
                                          and pload = 0
-                                         and dvsbtg = 1
+                                         and (dvsbtg = 0 OR dvsbtg = 1)
                                          and dvload = 1 and cids = '".$post['cids']."'");
                                          echo $first_accept->num_rows();
                                           ?></td>
@@ -274,11 +276,22 @@
                                         <!-- </td> -->
                                         <td>
                                         <?php 
+                                       $total_ev = $this->db->query("select * from leadmaster
+                                       where ontag = 1
+                                       and rlc = 0
+                                       and pload = 0
+                                       and (dvsbtg = 0 OR dvsbtg = 1 OR dvsbtg = 2)
+                                       and dvload = 1 and cids = '".$post['cids']."'");
+                                       echo $total_ev->num_rows();
+                                       ?>
+                                       </td>
+                                       <td>
+                                        <?php 
                                          $ev_pending = $this->db->query("select * from leadmaster
                                          where 
                                          rlc != 1
                                          and dvload = 1
-                                         and sbsvtag != 0
+                                         
                                          and evcomp is NULL
                                          and cids = '".$post['cids']."'");
                                          echo $ev_pending->num_rows();
@@ -286,12 +299,41 @@
                                         </td>
                                         <td>
                                         <?php 
-                                         $ev_inproccess = $this->db->query("select * from leadmaster
+                                         $ev_inproccess = $this->db->query("select distinct(ev.lmid) from ev
+                                         left join leadmaster ON ev.lmid=leadmaster.lmid
                                          where
-                                         dvload = 1
-                                         and evcomp = 2
-                                         and cids = '".$post['cids']."'");
+                                         leadmaster.evcomp = 2
+                                         and leadmaster.cids = '".$post['cids']."'
+                                         
+                                         ");
+                                        
                                          echo $ev_inproccess->num_rows();
+                                         ?>
+                                        </td>
+                                        <td>
+                                        <?php 
+                                         $ev_rej = $this->db->query("select * from ev
+                                         left join leadmaster ON ev.lmid=leadmaster.lmid
+                                         and  ev.email=leadmaster.email
+                                         where 
+                                         leadmaster.evload = 0
+                                         and leadmaster.evcomp = 1
+                                         and leadmaster.cdcsb = 0
+                                         and leadmaster.cdcrjt = 0
+                                         and leadmaster.cids = '".$post['cids']."'
+                                          ");
+                                         echo $ev_rej->num_rows();
+
+                                        //  $ev_rej = $this->db->query("select * from leadmaster
+                                        //  where 
+                                        //  rlc != 1
+                                        //  and evload = 0
+                                        //  and evdisp = 5
+                                        //  and evcomp = 1
+                                        //  and cdcsb = 0
+                                        //  and cdcrjt = 0
+                                        //  and cids = '".$post['cids']."'");
+                                        //  echo $ev_rej->num_rows();
                                          ?>
                                         </td>
                                         <td>

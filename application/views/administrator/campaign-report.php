@@ -130,6 +130,7 @@
                                         <th>Total Accepted</th>
                                         <th>1st Accept</th>
                                         <th>2nd Accept</th>
+                                        <th>Total EV</th>
                                         <th>EV Pending</th>
                                         <th>EV InProccess</th>
                                         <th>EV Done</th>
@@ -274,6 +275,16 @@
                                         <!-- </td> -->
                                         <td>
                                         <?php 
+                                       $total_accept1 = $this->db->query("select * from leadmaster
+                                       where ontag = 1
+                                       and rlc = 0
+                                       and pload = 0
+                                       and (dvsbtg = 0 OR dvsbtg = 1 OR dvsbtg = 2)
+                                       and dvload = 1 and cids = '".$post['cids']."'");
+                                       echo $total_accept1->num_rows();
+                                       ?>
+                                       </td>
+                                        <?php 
                                          $ev_pending = $this->db->query("select * from leadmaster
                                          where 
                                          rlc != 1
@@ -286,11 +297,21 @@
                                         </td>
                                         <td>
                                         <?php 
-                                         $ev_inproccess = $this->db->query("select * from leadmaster
+                                         $ev_inproccess = $this->db->query("select * from ev
+                                         left join leadmaster ON ev.lmid=leadmaster.lmid 
                                          where
-                                         dvload = 1
-                                         and evcomp = 2
-                                         and cids = '".$post['cids']."'");
+                                         ev.closer_status = 'Open'
+                                         and ev.curr_active = 1
+                                
+                                         and leadmaster.cids = '".$post['cids']."'
+                                         
+                                         ");
+                                         
+                                        //  query("select * from leadmaster
+                                        //  where
+                                        //  dvload = 1
+                                        //  and evcomp = 2
+                                        //  and cids = '".$post['cids']."'");
                                          echo $ev_inproccess->num_rows();
                                          ?>
                                         </td>

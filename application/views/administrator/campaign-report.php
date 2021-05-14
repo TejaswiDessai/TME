@@ -194,6 +194,7 @@
                                          --  svagtidi is not null
                                          rlc = 1
                                            and ontag = 1
+                                           and dvload = 0
                                           and cids = '".$post['cids']."'
                                          --  group by svagtidi,lmid
                                          

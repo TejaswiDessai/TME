@@ -318,16 +318,23 @@
                                         </td>
                                         <td>
                                         <?php 
-                                         $ev_rej = $this->db->query("select * from ev
-                                         left join leadmaster ON ev.lmid=leadmaster.lmid
-                                         and  ev.email=leadmaster.email
-                                         where 
-                                         leadmaster.evload = 0
-                                         and leadmaster.evcomp = 1
-                                         and leadmaster.cdcsb = 0
-                                         and leadmaster.cdcrjt = 0
-                                         and leadmaster.cids = '".$post['cids']."'
-                                          ");
+                                        //  $ev_rej = $this->db->query("select * from ev
+                                        //  left join leadmaster ON ev.lmid=leadmaster.lmid
+                                        //  and  ev.email=leadmaster.email
+                                        //  where 
+                                        //  leadmaster.evload = 0
+                                        //  and leadmaster.evcomp = 1
+                                        //  and leadmaster.cdcsb = 0
+                                        //  and leadmaster.cdcrjt = 0
+                                        //  and leadmaster.cids = '".$post['cids']."'
+                                        //   ");
+                                        $ev_rej = $this->query("SELECT distinct(ev.lmid) FROM ev LEFT JOIN leadmaster ON ev.lmid = leadmaster.lmid LEFT JOIN users ON users.empcode = leadmaster.stagtidi LEFT JOIN campaign ON campaign.cids = leadmaster.cids 
+                                        WHERE leadmaster.cids = '".$post['cids']."' 
+                                        AND ev.closer_status = 'Closed' 
+                                        AND leadmaster.evload = 0
+                                        and leadmaster.evdisp = 5
+                                        
+                                        ");
                                          echo $ev_rej->num_rows();
 
                                         //  $ev_rej = $this->db->query("select * from leadmaster
@@ -344,15 +351,22 @@
                                         </td>
                                         <td>
                                         <?php 
-                                         $ev_done = $this->db->query("select * from leadmaster
-                                         where 
-                                         rlc != 1
-                                         and evload = 1
-                                         and evdisp = 4
-                                         and evcomp = 1
-                                         and cdcsb = 0
-                                         and cdcrjt = 0
-                                         and cids = '".$post['cids']."'");
+                                        //  $ev_done = $this->db->query("select * from leadmaster
+                                        //  where 
+                                        //  rlc != 1
+                                        //  and evload = 1
+                                        //  and evdisp = 4
+                                        //  and evcomp = 1
+                                        //  and cdcsb = 0
+                                        //  and cdcrjt = 0
+                                        //  and cids = '".$post['cids']."'");
+                                        $ev_done = $this->query("SELECT distinct(ev.lmid) FROM ev LEFT JOIN leadmaster ON ev.lmid = leadmaster.lmid LEFT JOIN users ON users.empcode = leadmaster.stagtidi LEFT JOIN campaign ON campaign.cids = leadmaster.cids 
+                                        WHERE leadmaster.cids = '".$post['cids']."' 
+                                        AND ev.closer_status = 'Closed' 
+                                        AND leadmaster.evload = 1
+                                        and leadmaster.evdisp = 4
+                                        
+                                        ");
                                          echo $ev_done->num_rows();
                                          ?>
                                         </td>

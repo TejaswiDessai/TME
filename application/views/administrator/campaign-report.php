@@ -249,7 +249,7 @@
                                         and rlc = 0
                                         and pload = 0
                                         and dvsbtg != 0
-                                        and (dvsbtg = 0 OR dvsbtg = 1 OR dvsbtg = 2)
+                                        
                                         and dvload = 1 and cids = '".$post['cids']."'");
                                         echo $total_accept->num_rows();
 
@@ -285,7 +285,7 @@
                                        and rlc = 0
                                        and pload = 0
                                        and dvsbtg != 0
-                                       and (dvsbtg = 0 OR dvsbtg = 1 OR dvsbtg = 2)
+                                       
                                        and dvload = 1 and cids = '".$post['cids']."'");
                                        echo $total_ev->num_rows();
                                        ?>

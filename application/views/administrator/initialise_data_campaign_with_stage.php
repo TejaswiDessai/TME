@@ -168,6 +168,7 @@ $(document).ready(function() {
             $("#pendingchk").click(function() {
             
                 $('#pendingchk').val("1");
+                $('#leadsno').val("");
                 $('#clearedchk').val("0");
             
                 $("#pendingchk").prop('checked', true);
@@ -180,6 +181,10 @@ $(document).ready(function() {
 $(function() {
         $("#initialisecampaign").on('click', function() 
         {
+              var cleared =   $('#cleared').val();
+              var pending =   $('#pending').val();
+
+              var clrchk =   $('#clearedchk').val();
               var clrchk =   $('#clearedchk').val();
               var penchk =   $('#pendingchk').val();
 
@@ -187,56 +192,168 @@ $(function() {
               var camp_stage_to = $('#camp_stage_to').val();
               var campaign_cids_from = $('#campaign_cids_from').val();
               var campaign_cids_to = $('#campaign_cids_to').val();
+              var leadsno = $('#leadsno').val();
           
-         
+        
          if(camp_stage_to != '' && camp_stage_from != '')
            {
             if(clrchk == 1){
+                  if(leadsno > cleared || leadsno <= '0')
+                  {
+                    alert("No. of leads should be greater than 0 and less than cleared leads");
+                    return;
+                  }
               
                 if(camp_stage_from == '1' && camp_stage_to == '1')
-                  { //dc stage
-                    
-                   
+                  { //dc to dc stage
                     var url = encodeURI("<?php echo base_url("cdc/ajax_update_ini_to_dc");?>");
                      console.log(url+"?campaign_cids_to="+campaign_cids_to+"&campaign_cids_from="+campaign_cids_from);
          
-            $.ajax({
-                  url :'<?php echo base_url("cdc/ajax_update_ini_to_dc");?>',
-                  type: 'GET', 
-                  // contentType: "application/json",
-                  dataType: 'json',              
-                  data: {
-                   
-                    campaign_cids_to: campaign_cids_to,
-                  campaign_cids_from: campaign_cids_from
-                     
-                    
-                  },
-                  async: true,
-                          cache: false,
-                          success: function(response){                 
-                          var text = response.statusCode;
-                          console.log("check");
-                          if(response.statusCode == "Success") 
-                          {         
-                              
-                              $("#initialisecampaign").html("Initialized!");   
-                              $("#initialisecampaign").attr("disabled", true); 
+                      $.ajax({
+                            url :'<?php echo base_url("cdc/ajax_update_ini_to_dc");?>',
+                            type: 'GET', 
+                            // contentType: "application/json",
+                            dataType: 'json',              
+                            data: {
                             
-                          }
+                              campaign_cids_to: campaign_cids_to,
+                              campaign_cids_from: campaign_cids_from,
+                              leadsno: leadsno
+                               },
+                              async: true,
+                                      cache: false,
+                                      success: function(response){                 
+                                      var text = response.statusCode;
+                                      console.log("check");
+                                      if(response.statusCode == "Success") 
+                                      {         
+                                          
+                                          $("#initialisecampaign").html("Initialized!");   
+                                          $("#initialisecampaign").attr("disabled", true); 
+                                        
+                                      }
 
 
-                      },
-                      error: function (error) {
-                        alert("Error");
-                        }
-                    
-                  }); //Ajax End
+                                  },
+                                  error: function (error) {
+                                    alert("Error");
+                                    }
+                                
+                              }); //Ajax End
 
 
 
-                }else if(camp_stage_from == '1' && camp_stage_to == '2'){
-                  alert("Try DC only");
+                }else if(camp_stage_from == '1' && camp_stage_to == '2'){ //dc to dv
+                     var url = encodeURI("<?php echo base_url("cdc/ajax_update_ini_dc_to_dv");?>");
+                     console.log(url+"?campaign_cids_to="+campaign_cids_to+"&campaign_cids_from="+campaign_cids_from);
+         
+                      $.ajax({
+                            url :'<?php echo base_url("cdc/ajax_update_ini_dc_to_dv");?>',
+                            type: 'GET', 
+                            // contentType: "application/json",
+                            dataType: 'json',              
+                            data: {
+                            
+                              campaign_cids_to: campaign_cids_to,
+                              campaign_cids_from: campaign_cids_from,
+                              leadsno: leadsno
+                               },
+                              async: true,
+                                      cache: false,
+                                      success: function(response){                 
+                                      var text = response.statusCode;
+                                      console.log("check");
+                                      if(response.statusCode == "Success") 
+                                      {         
+                                          
+                                          $("#initialisecampaign").html("Initialized!");   
+                                          $("#initialisecampaign").attr("disabled", true); 
+                                        
+                                      }
+
+
+                                  },
+                                  error: function (error) {
+                                    alert("Error");
+                                    }
+                                
+                              }); //Ajax End
+                 
+                }else if(camp_stage_from == '1' && camp_stage_to == '3'){ //dc to ev
+
+                     var url = encodeURI("<?php echo base_url("cdc/ajax_update_ini_dc_to_ev");?>");
+                     console.log(url+"?campaign_cids_to="+campaign_cids_to+"&campaign_cids_from="+campaign_cids_from);
+         
+                      $.ajax({
+                            url :'<?php echo base_url("cdc/ajax_update_ini_dc_to_ev");?>',
+                            type: 'GET', 
+                            // contentType: "application/json",
+                            dataType: 'json',              
+                            data: {
+                            
+                              campaign_cids_to: campaign_cids_to,
+                              campaign_cids_from: campaign_cids_from,
+                              leadsno:leadsno
+                               },
+                              async: true,
+                                      cache: false,
+                                      success: function(response){                 
+                                      var text = response.statusCode;
+                                      console.log("check");
+                                      if(response.statusCode == "Success") 
+                                      {         
+                                          
+                                          $("#initialisecampaign").html("Initialized!");   
+                                          $("#initialisecampaign").attr("disabled", true); 
+                                        
+                                      }
+
+
+                                  },
+                                  error: function (error) {
+                                    alert("Error");
+                                    }
+                                
+                              }); //Ajax End
+
+                }else if(camp_stage_from == '1' && camp_stage_to == '4'){ //dc to cdc
+                     var url = encodeURI("<?php echo base_url("cdc/ajax_update_ini_dc_to_cdc");?>");
+                     console.log(url+"?campaign_cids_to="+campaign_cids_to+"&campaign_cids_from="+campaign_cids_from);
+         
+                      $.ajax({
+                            url :'<?php echo base_url("cdc/ajax_update_ini_dc_to_cdc");?>',
+                            type: 'GET', 
+                            // contentType: "application/json",
+                            dataType: 'json',              
+                            data: {
+                            
+                              campaign_cids_to: campaign_cids_to,
+                              campaign_cids_from: campaign_cids_from,
+                              leadsno:leadsno
+                               },
+                              async: true,
+                                      cache: false,
+                                      success: function(response){                 
+                                      var text = response.statusCode;
+                                      console.log("check");
+                                      if(response.statusCode == "Success") 
+                                      {         
+                                          
+                                          $("#initialisecampaign").html("Initialized!");   
+                                          $("#initialisecampaign").attr("disabled", true); 
+                                        
+                                      }
+
+
+                                  },
+                                  error: function (error) {
+                                    alert("Error");
+                                    }
+                                
+                              }); //Ajax End
+
+                }else{
+                  
                 }
             }
            }else{
@@ -290,6 +407,7 @@ $(function() {
                             // var dataResult = JSON.parse(response);
                             // $('#cleared').val(dataResult);
                             $('#cleared').val(response.cleareddata);
+                            $('#leadsno').val(response.cleareddata);
                             $('#pending').val(response.pendingdata);
                             
 

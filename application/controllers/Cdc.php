@@ -805,7 +805,7 @@
 			$cleareddatata = count($data);
 
 
-			$datapending = $this->Administrator_Model->get_dc_pending($campaign_cids,$empcode);
+			$datapending = $this->Administrator_Model->get_dc_pending($campaign_cids);
 			$pendingdata = count($datapending);
 			
 			// echo json_encode($cleareddatata); 
@@ -817,6 +817,66 @@
 				"pendingdata"=>$pendingdata,
 				"message"=>"Lead Added Successfully.."
 			));
+		
+			}
+		public function getdvcount(){ 
+			$empcode = $_SESSION['empcode'];
+			$campaign_cids = $_GET['campaign_cids_from'];
+		
+			$data = $this->Administrator_Model->get_dv_cleared($campaign_cids);
+			$cleareddatata = count($data);
+
+
+			$datapending = $this->Administrator_Model->get_dc_cleared($campaign_cids); // dc cleared are dv pending
+			$pendingdata = count($datapending);
+			
+			
+				echo json_encode(array(
+					"statusCode"=>"Success",
+					"cleareddata"=>$cleareddatata,
+					"pendingdata"=>$pendingdata,
+					"message"=>"Lead Added Successfully.."
+				));
+		
+			}
+		public function getevcount(){ 
+			$empcode = $_SESSION['empcode'];
+			$campaign_cids = $_GET['campaign_cids_from'];
+		
+			$data = $this->Administrator_Model->get_ev_cleared($campaign_cids);
+			$cleareddatata = count($data);
+
+
+			$datapending = $this->Administrator_Model->get_dv_cleared($campaign_cids); // dv cleared are ev pending
+			$pendingdata = count($datapending);
+			
+			
+				echo json_encode(array(
+					"statusCode"=>"Success",
+					"cleareddata"=>$cleareddatata,
+					"pendingdata"=>$pendingdata,
+					"message"=>"Lead Added Successfully.."
+				));
+		
+			}
+		public function getcdccount(){ 
+			$empcode = $_SESSION['empcode'];
+			$campaign_cids = $_GET['campaign_cids_from'];
+		
+			$data = $this->Administrator_Model->get_cdc_cleared($campaign_cids);
+			$cleareddatata = count($data);
+
+
+			$datapending = $this->Administrator_Model->get_ev_cleared($campaign_cids); // ev cleared are cdc pending
+			$pendingdata = count($datapending);
+			
+			
+				echo json_encode(array(
+					"statusCode"=>"Success",
+					"cleareddata"=>$cleareddatata,
+					"pendingdata"=>$pendingdata,
+					"message"=>"Lead Added Successfully.."
+				));
 		
 			}
 	
@@ -3816,7 +3876,7 @@
 								
 			
 		}
-		public function ajax_update_ini_to_dc()
+		public function ajax_update_ini_to_dc() //dc to dc cleared
 		{
 			
 			$campaign_cids_from = $_GET['campaign_cids_from'];
@@ -3834,6 +3894,11 @@
 			$datacdcandlead = array(
 				'cids' => $campaign_cids_to,
 				'sbsvtag' => '1', // Submit 1st time
+				// 'ontag' => '0', // Submit 1st time
+				// 'pload' => '1', // Submit 1st time
+				'dvsbtg' => '0', // record is closed
+				'dvrejtg' => '0', // record is closed
+				
 				'rlc' => '0'
 					
 				);
@@ -3873,7 +3938,7 @@
 					'cidsto' => $campaign_cids_to,
 					'cidsfrom' => $campaign_cids_from,
 					'no_of_leads' => $_GET['leadsno'],
-					'stages' => 'dc_to_dc', 
+					'stages' => 'dc_to_dc_cleared', 
 					'empcode' => $_SESSION['empcode'], 
 					'ini_date' => $curr_date 
 					
@@ -3884,7 +3949,7 @@
 								
 			
 		}
-		public function ajax_update_ini_dc_to_dv()
+		public function ajax_update_ini_dc_to_dv() //dc  and dv cleared
 		{
 			
 			$campaign_cids_from = $_GET['campaign_cids_from'];
@@ -3900,12 +3965,18 @@
 			$datacdcandlead = array(
 				'cids' => $campaign_cids_to,
 				'sbsvtag' => '1', // Submit 1st time
-				'pload' => '1', // next level ready to load
 				'rlc' => '0', // record is closed
-				'dvload' => '0', // record is closed
-				'ontag' => '0', 
-				'dvsbtg' => '0', // record is closed
-				'dvrejtg' => '0' // record is closed
+				'dvload' => '1', // record is closed
+				
+				'evload' => NULL, 
+				'cdcload' => NULL, 
+				'qaload' => NULL,
+				'cdcsb' => '0', 
+				'cdcrjt' => '0',
+				'dvsbtg' => '0', 
+				'dvrejtg' => '0' 
+
+			
 				);
 			$datadccleared = $this->Administrator_Model->get_dc_cleared($campaign_cids_from,$leadsno);
 
@@ -3941,7 +4012,7 @@
 					'cidsto' => $campaign_cids_to,
 					'cidsfrom' => $campaign_cids_from,
 					'no_of_leads' => $_GET['leadsno'],
-					'stages' => 'dc_to_dv',
+					'stages' => 'dc_to_dv_cleared',
 					'empcode' => $_SESSION['empcode'],  
 					'ini_date' => $curr_date 
 					
@@ -3952,7 +4023,7 @@
 								
 			
 		}
-		public function ajax_update_ini_dc_to_ev()
+		public function ajax_update_ini_dc_to_ev() //ev cleared
 		{
 			
 			$campaign_cids_from = $_GET['campaign_cids_from'];
@@ -3967,12 +4038,14 @@
 			$datacdcandlead = array(
 				'cids' => $campaign_cids_to,
 				'sbsvtag' => '1', // Submit 1st time
-				'pload' => '0', // next level ready to load
 				'rlc' => '0', // record is closed
 				'dvrejtg' =>'0', 
-				'dvsbtg' => '0', 
-				'ontag' => '1', 
-				'dvload' => '1'
+				'dvsbtg' => '0', 				
+				'evload' => '1', 
+				'cdcload' => NULL, 
+				'qaload' => NULL
+				
+				
 				);
 			$datadccleared = $this->Administrator_Model->get_dc_cleared($campaign_cids_from,$leadsno);
 
@@ -4007,7 +4080,7 @@
 					'cidsto' => $campaign_cids_to,
 					'cidsfrom' => $campaign_cids_from,
 					'no_of_leads' => $_GET['leadsno'],
-					'stages' => 'dc_to_ev', 
+					'stages' => 'dc_to_ev_cleared', 
 					'empcode' => $_SESSION['empcode'], 
 					'ini_date' => $curr_date 
 					
@@ -4018,7 +4091,7 @@
 								
 			
 		}
-		public function ajax_update_ini_dc_to_cdc()
+		public function ajax_update_ini_dc_to_cdc() //cd cleared
 		{
 			
 			$campaign_cids_from = $_GET['campaign_cids_from'];
@@ -4035,7 +4108,12 @@
 				'sbsvtag' => '1', // Submit 1st time
 				'cdcsb' => '0', // Submit 1st time
 				'cdcrjt' => '0', // Submit 1st time
-				'evload' => '1'
+				
+				'cdcload' => '1', 
+				'qaload' => NULL,
+				'qasv' => NULL,
+				'cdcsv' => NULL
+				
 				);
 			$datadccleared = $this->Administrator_Model->get_dc_cleared($campaign_cids_from);
 
@@ -4069,8 +4147,2047 @@
 					'cidsto' => $campaign_cids_to,
 					'cidsfrom' => $campaign_cids_from,
 					'no_of_leads' => $_GET['leadsno'],
-					'stages' => 'dc_to_cdc',
+					'stages' => 'dc_to_cdc_cleared',
 					'empcode' => $_SESSION['empcode'], 
+					'ini_date' => $curr_date 
+					
+						
+					);
+
+				$addinidata = $this->Administrator_Model->add_ini_data($addinidataarray);
+								
+			
+		}
+
+		public function ajax_update_ini_dv_to_dc()
+		{
+			
+			$campaign_cids_from = $_GET['campaign_cids_from'];
+			$campaign_cids_to = $_GET['campaign_cids_to'];
+			$leadsno = $_GET['leadsno'];
+			
+		
+			if(!isset($_SESSION['empcode'])){
+				redirect('administrator/logout');
+				Exit();
+			}
+
+			$datacdcandlead = array(
+				'cids' => $campaign_cids_to,
+				'sbsvtag' => '1', // Submit 1st time
+				'ontag' => '0', 
+			    'pload' => '1', 
+			    'dvload' => '0', 
+				'dvsbtg' => '0', 
+				'dvrejtg' => '0',
+				'rlc' => '0'
+				
+				);
+			$datadccleared = $this->Administrator_Model->get_dv_cleared($campaign_cids_from,$leadsno);
+
+			foreach ($datadccleared as $datadccleared) {
+
+				$campgrp = $datadccleared['campgrp'];
+				$campgrp = $datadccleared['campgrp'].' #'.$campaign_cids_from;
+				
+				$new_array = array(
+					'campgrp' => $campgrp
+						
+					);
+				$final_array=array_merge($datacdcandlead, $new_array);
+
+				$addleadandcdcdata = $this->Administrator_Model->update_leaddata($final_array,$datadccleared['lmid']);			
+			}
+		
+			
+				if($addleadandcdcdata == true){
+			
+					echo json_encode(array(
+						"statusCode"=>"Success",
+						"message"=>"Lead Uptated Successfully.."
+					));
+				}else{
+					echo json_encode(array(
+						"statusCode"=>"Fail",
+						"message"=>"Add data Lead failed.."
+					));
+				}
+				$curr_date = date('Y-m-d H:i:s'); 
+				$addinidataarray = array(
+					'cidsto' => $campaign_cids_to,
+					'cidsfrom' => $campaign_cids_from,
+					'no_of_leads' => $_GET['leadsno'],
+					'stages' => 'dv_to_dc_cleared',
+					'empcode' => $_SESSION['empcode'],  
+					'ini_date' => $curr_date 
+					
+						
+					);
+
+				$addinidata = $this->Administrator_Model->add_ini_data($addinidataarray);
+								
+			
+		}
+		public function ajax_update_ini_dv_to_dv() //dv cleared
+		{
+			
+			$campaign_cids_from = $_GET['campaign_cids_from'];
+			$campaign_cids_to = $_GET['campaign_cids_to'];
+			$leadsno = $_GET['leadsno'];
+			
+		
+			if(!isset($_SESSION['empcode'])){
+				redirect('administrator/logout');
+				Exit();
+			}
+
+			$datacdcandlead = array(
+				'cids' => $campaign_cids_to,
+				'sbsvtag' => '1', // Submit 1st time
+				'rlc' => '0', 
+				'dvload' => '1', 
+				'dvsbtg' => '0', 
+				'dvrejtg' => '0',
+				'cdcsb' => '0', 
+				'cdcrjt' => '0', 
+				'evload' => NULL, 
+				'cdcload' => NULL, 
+				'qaload' => NULL,
+				'qasv' => NULL,
+				'cdcsv' => NULL
+				
+				);
+			$datadccleared = $this->Administrator_Model->get_dv_cleared($campaign_cids_from,$leadsno);
+
+			foreach ($datadccleared as $datadccleared) {
+
+				$campgrp = $datadccleared['campgrp'];
+				$campgrp = $datadccleared['campgrp'].' #'.$campaign_cids_from;
+				
+				$new_array = array(
+					'campgrp' => $campgrp
+						
+					);
+				$final_array=array_merge($datacdcandlead, $new_array);
+
+				$addleadandcdcdata = $this->Administrator_Model->update_leaddata($final_array,$datadccleared['lmid']);			
+			}
+		
+			
+				if($addleadandcdcdata == true){
+			
+					echo json_encode(array(
+						"statusCode"=>"Success",
+						"message"=>"Lead Uptated Successfully.."
+					));
+				}else{
+					echo json_encode(array(
+						"statusCode"=>"Fail",
+						"message"=>"Add data Lead failed.."
+					));
+				}
+				$curr_date = date('Y-m-d H:i:s'); 
+				$addinidataarray = array(
+					'cidsto' => $campaign_cids_to,
+					'cidsfrom' => $campaign_cids_from,
+					'no_of_leads' => $_GET['leadsno'],
+					'stages' => 'dv_to_dv_cleared',
+					'empcode' => $_SESSION['empcode'],  
+					'ini_date' => $curr_date 
+					
+						
+					);
+
+				$addinidata = $this->Administrator_Model->add_ini_data($addinidataarray);
+								
+			
+		}
+
+		public function ajax_update_ini_dv_to_ev()
+		{
+			
+			$campaign_cids_from = $_GET['campaign_cids_from'];
+			$campaign_cids_to = $_GET['campaign_cids_to'];
+			$leadsno = $_GET['leadsno'];
+			
+		
+			if(!isset($_SESSION['empcode'])){
+				redirect('administrator/logout');
+				Exit();
+			}
+
+			$datacdcandlead = array(
+				'cids' => $campaign_cids_to,
+				'sbsvtag' => '1', // Submit 1st time
+				'rlc' => '0', // record is closed
+				'evload' => '1', // record is closed
+				'cdcsb' => '0', // Submit 1st time
+				'cdcrjt' => '0', // Submit 1st time
+				'cdcload' => NULL, 
+				'qaload' => NULL,
+				'qasv' => NULL,
+				'cdcsv' => NULL
+			
+				
+				);
+			$datadccleared = $this->Administrator_Model->get_dv_cleared($campaign_cids_from,$leadsno);
+
+			foreach ($datadccleared as $datadccleared) {
+
+				$campgrp = $datadccleared['campgrp'];
+				$campgrp = $datadccleared['campgrp'].' #'.$campaign_cids_from;
+				
+				$new_array = array(
+					'campgrp' => $campgrp
+						
+					);
+				$final_array=array_merge($datacdcandlead, $new_array);
+
+				$addleadandcdcdata = $this->Administrator_Model->update_leaddata($final_array,$datadccleared['lmid']);			
+			}
+		
+			
+				if($addleadandcdcdata == true){
+			
+					echo json_encode(array(
+						"statusCode"=>"Success",
+						"message"=>"Lead Uptated Successfully.."
+					));
+				}else{
+					echo json_encode(array(
+						"statusCode"=>"Fail",
+						"message"=>"Add data Lead failed.."
+					));
+				}
+				$curr_date = date('Y-m-d H:i:s'); 
+				$addinidataarray = array(
+					'cidsto' => $campaign_cids_to,
+					'cidsfrom' => $campaign_cids_from,
+					'no_of_leads' => $_GET['leadsno'],
+					'stages' => 'dv_to_ev_cleared',
+					'empcode' => $_SESSION['empcode'],  
+					'ini_date' => $curr_date 
+					
+						
+					);
+
+				$addinidata = $this->Administrator_Model->add_ini_data($addinidataarray);
+								
+			
+		}
+
+		public function ajax_update_ini_dv_to_cdc() //cdc cleared
+		{
+			
+			$campaign_cids_from = $_GET['campaign_cids_from'];
+			$campaign_cids_to = $_GET['campaign_cids_to'];
+			$leadsno = $_GET['leadsno'];
+			
+		
+			if(!isset($_SESSION['empcode'])){
+				redirect('administrator/logout');
+				Exit();
+			}
+
+			$datacdcandlead = array(
+				'cids' => $campaign_cids_to,
+				'sbsvtag' => '1', // Submit 1st time
+				'rlc' => '0', // record is closed
+				'cdcload' => '1', // record is closed
+				'cdcsb' => '0', // Submit 1st time
+				'cdcrjt' => '0', // Submit 1st time
+				'qaload' => NULL,
+				'qasv' => NULL,
+				'cdcsv' => NULL
+			
+				
+				);
+			$datadccleared = $this->Administrator_Model->get_dv_cleared($campaign_cids_from,$leadsno);
+
+			foreach ($datadccleared as $datadccleared) {
+
+				$campgrp = $datadccleared['campgrp'];
+				$campgrp = $datadccleared['campgrp'].' #'.$campaign_cids_from;
+				
+				$new_array = array(
+					'campgrp' => $campgrp
+						
+					);
+				$final_array=array_merge($datacdcandlead, $new_array);
+
+				$addleadandcdcdata = $this->Administrator_Model->update_leaddata($final_array,$datadccleared['lmid']);			
+			}
+		
+			
+				if($addleadandcdcdata == true){
+			
+					echo json_encode(array(
+						"statusCode"=>"Success",
+						"message"=>"Lead Uptated Successfully.."
+					));
+				}else{
+					echo json_encode(array(
+						"statusCode"=>"Fail",
+						"message"=>"Add data Lead failed.."
+					));
+				}
+				$curr_date = date('Y-m-d H:i:s'); 
+				$addinidataarray = array(
+					'cidsto' => $campaign_cids_to,
+					'cidsfrom' => $campaign_cids_from,
+					'no_of_leads' => $_GET['leadsno'],
+					'stages' => 'dv_to_cdc_cleared',
+					'empcode' => $_SESSION['empcode'],  
+					'ini_date' => $curr_date 
+					
+						
+					);
+
+				$addinidata = $this->Administrator_Model->add_ini_data($addinidataarray);
+								
+			
+		}
+		public function ajax_update_ini_ev_to_dc() //dc cleared
+		{
+			
+			$campaign_cids_from = $_GET['campaign_cids_from'];
+			$campaign_cids_to = $_GET['campaign_cids_to'];
+			$leadsno = $_GET['leadsno'];
+			
+		
+			if(!isset($_SESSION['empcode'])){
+				redirect('administrator/logout');
+				Exit();
+			}
+
+			$datacdcandlead = array(
+				'cids' => $campaign_cids_to,
+				'sbsvtag' => '1', // Submit 1st time
+				'rlc' => '0',
+				'ontag' => '0', 
+				'dvload' => '0',
+				'pload' => '1', 
+				'cdcload' => NULL, 
+				'evload' => NULL, 
+				'qaload' => NULL, 
+				'dvrejtg' => '0', 
+				'dvsbtg' => '0'
+			
+				
+				);
+			$datadccleared = $this->Administrator_Model->get_ev_cleared($campaign_cids_from,$leadsno);
+
+			foreach ($datadccleared as $datadccleared) {
+
+				$campgrp = $datadccleared['campgrp'];
+				$campgrp = $datadccleared['campgrp'].' #'.$campaign_cids_from;
+				
+				$new_array = array(
+					'campgrp' => $campgrp
+						
+					);
+				$final_array=array_merge($datacdcandlead, $new_array);
+
+				$addleadandcdcdata = $this->Administrator_Model->update_leaddata($final_array,$datadccleared['lmid']);			
+			}
+		
+			
+				if($addleadandcdcdata == true){
+			
+					echo json_encode(array(
+						"statusCode"=>"Success",
+						"message"=>"Lead Uptated Successfully.."
+					));
+				}else{
+					echo json_encode(array(
+						"statusCode"=>"Fail",
+						"message"=>"Add data Lead failed.."
+					));
+				}
+				$curr_date = date('Y-m-d H:i:s'); 
+				$addinidataarray = array(
+					'cidsto' => $campaign_cids_to,
+					'cidsfrom' => $campaign_cids_from,
+					'no_of_leads' => $_GET['leadsno'],
+					'stages' => 'ev_to_dc_cleared',
+					'empcode' => $_SESSION['empcode'],  
+					'ini_date' => $curr_date 
+					
+						
+					);
+
+				$addinidata = $this->Administrator_Model->add_ini_data($addinidataarray);
+								
+			
+		}
+		public function ajax_update_ini_ev_to_dv() //ev and dv cleared
+		{
+			
+			$campaign_cids_from = $_GET['campaign_cids_from'];
+			$campaign_cids_to = $_GET['campaign_cids_to'];
+			$leadsno = $_GET['leadsno'];
+			
+		
+			if(!isset($_SESSION['empcode'])){
+				redirect('administrator/logout');
+				Exit();
+			}
+
+			$datacdcandlead = array(
+				'cids' => $campaign_cids_to,
+				'sbsvtag' => '1', // Submit 1st time
+				'rlc' => '0', 
+				'dvload' => '1', 
+				
+				'cdcload' => NULL, 
+				'evload' => NULL, 
+				'qaload' => NULL, 
+				'cdcsb' => '0', 
+				'cdcrjt' => '0', 
+				'dvrejtg' => '0', 
+				'dvsbtg' => '0',
+				'qasv' => NULL,
+				'cdcsv' => NULL
+			
+				
+				);
+			$datadccleared = $this->Administrator_Model->get_ev_cleared($campaign_cids_from,$leadsno);
+
+			foreach ($datadccleared as $datadccleared) {
+
+				$campgrp = $datadccleared['campgrp'];
+				$campgrp = $datadccleared['campgrp'].' #'.$campaign_cids_from;
+				
+				$new_array = array(
+					'campgrp' => $campgrp
+						
+					);
+				$final_array=array_merge($datacdcandlead, $new_array);
+
+				$addleadandcdcdata = $this->Administrator_Model->update_leaddata($final_array,$datadccleared['lmid']);			
+			}
+		
+			
+				if($addleadandcdcdata == true){
+			
+					echo json_encode(array(
+						"statusCode"=>"Success",
+						"message"=>"Lead Uptated Successfully.."
+					));
+				}else{
+					echo json_encode(array(
+						"statusCode"=>"Fail",
+						"message"=>"Add data Lead failed.."
+					));
+				}
+				$curr_date = date('Y-m-d H:i:s'); 
+				$addinidataarray = array(
+					'cidsto' => $campaign_cids_to,
+					'cidsfrom' => $campaign_cids_from,
+					'no_of_leads' => $_GET['leadsno'],
+					'stages' => 'ev_to_dv_cleared',
+					'empcode' => $_SESSION['empcode'],  
+					'ini_date' => $curr_date 
+					
+						
+					);
+
+				$addinidata = $this->Administrator_Model->add_ini_data($addinidataarray);
+								
+			
+		}
+		public function ajax_update_ini_ev_to_ev()
+		{
+			
+			$campaign_cids_from = $_GET['campaign_cids_from'];
+			$campaign_cids_to = $_GET['campaign_cids_to'];
+			$leadsno = $_GET['leadsno'];
+			
+		
+			if(!isset($_SESSION['empcode'])){
+				redirect('administrator/logout');
+				Exit();
+			}
+
+			$datacdcandlead = array(
+				'cids' => $campaign_cids_to,
+				'sbsvtag' => '1', // Submit 1st time
+				'rlc' => '0',
+				'cdcload' => NULL, 
+				'evload' => '1', 
+				'qaload' => NULL, 
+				'cdcsb' => '0', 
+				'cdcrjt' => '0', 
+				'dvrejtg' => '0', 
+				'dvsbtg' => '0',
+				'qasv' => NULL,
+				'cdcsv' => NULL
+			
+				
+				);
+			$datadccleared = $this->Administrator_Model->get_ev_cleared($campaign_cids_from,$leadsno);
+
+			foreach ($datadccleared as $datadccleared) {
+
+				$campgrp = $datadccleared['campgrp'];
+				$campgrp = $datadccleared['campgrp'].' #'.$campaign_cids_from;
+				
+				$new_array = array(
+					'campgrp' => $campgrp
+						
+					);
+				$final_array=array_merge($datacdcandlead, $new_array);
+
+				$addleadandcdcdata = $this->Administrator_Model->update_leaddata($final_array,$datadccleared['lmid']);			
+			}
+		
+			
+				if($addleadandcdcdata == true){
+			
+					echo json_encode(array(
+						"statusCode"=>"Success",
+						"message"=>"Lead Uptated Successfully.."
+					));
+				}else{
+					echo json_encode(array(
+						"statusCode"=>"Fail",
+						"message"=>"Add data Lead failed.."
+					));
+				}
+				$curr_date = date('Y-m-d H:i:s'); 
+				$addinidataarray = array(
+					'cidsto' => $campaign_cids_to,
+					'cidsfrom' => $campaign_cids_from,
+					'no_of_leads' => $_GET['leadsno'],
+					'stages' => 'ev_to_ev_cleared',
+					'empcode' => $_SESSION['empcode'],  
+					'ini_date' => $curr_date 
+					
+						
+					);
+
+				$addinidata = $this->Administrator_Model->add_ini_data($addinidataarray);
+								
+			
+		}
+		public function ajax_update_ini_ev_to_cdc()
+		{
+			
+			$campaign_cids_from = $_GET['campaign_cids_from'];
+			$campaign_cids_to = $_GET['campaign_cids_to'];
+			$leadsno = $_GET['leadsno'];
+			
+		
+			if(!isset($_SESSION['empcode'])){
+				redirect('administrator/logout');
+				Exit();
+			}
+
+			$datacdcandlead = array(
+				'cids' => $campaign_cids_to,
+				'sbsvtag' => '1', // Submit 1st time
+				'rlc' => '0',
+				'cdcload' => '1', 
+				'evload' => NULL, 
+				'qaload' => NULL, 
+				'cdcsb' => '0', 
+				'cdcrjt' => '0', 
+				'dvrejtg' => '0', 
+				'dvsbtg' => '0',
+				'qasv' => NULL,
+				'cdcsv' => NULL
+			
+				
+				);
+			$datadccleared = $this->Administrator_Model->get_ev_cleared($campaign_cids_from,$leadsno);
+
+			foreach ($datadccleared as $datadccleared) {
+
+				$campgrp = $datadccleared['campgrp'];
+				$campgrp = $datadccleared['campgrp'].' #'.$campaign_cids_from;
+				
+				$new_array = array(
+					'campgrp' => $campgrp
+						
+					);
+				$final_array=array_merge($datacdcandlead, $new_array);
+
+				$addleadandcdcdata = $this->Administrator_Model->update_leaddata($final_array,$datadccleared['lmid']);			
+			}
+		
+			
+				if($addleadandcdcdata == true){
+			
+					echo json_encode(array(
+						"statusCode"=>"Success",
+						"message"=>"Lead Uptated Successfully.."
+					));
+				}else{
+					echo json_encode(array(
+						"statusCode"=>"Fail",
+						"message"=>"Add data Lead failed.."
+					));
+				}
+				$curr_date = date('Y-m-d H:i:s'); 
+				$addinidataarray = array(
+					'cidsto' => $campaign_cids_to,
+					'cidsfrom' => $campaign_cids_from,
+					'no_of_leads' => $_GET['leadsno'],
+					'stages' => 'ev_to_cdc_cleared',
+					'empcode' => $_SESSION['empcode'],  
+					'ini_date' => $curr_date 
+					
+						
+					);
+
+				$addinidata = $this->Administrator_Model->add_ini_data($addinidataarray);
+								
+			
+		}
+		public function ajax_update_ini_cdc_to_dc()
+		{
+			
+			$campaign_cids_from = $_GET['campaign_cids_from'];
+			$campaign_cids_to = $_GET['campaign_cids_to'];
+			$leadsno = $_GET['leadsno'];
+			
+		
+			if(!isset($_SESSION['empcode'])){
+				redirect('administrator/logout');
+				Exit();
+			}
+
+			$datacdcandlead = array(
+				'cids' => $campaign_cids_to,
+				'sbsvtag' => '1', // Submit 1st time
+				'rlc' => '0', 
+				'ontag' => '0', 
+				'dvload' => '0',
+				'pload' => '1',
+				'cdcload' => NULL, 
+				'evload' => NULL, 
+				'qaload' => NULL,
+				'cdcsb' => '0', 
+				'cdcrjt' => '0', 
+				'dvrejtg' => '0', 
+				'dvsbtg' => '0'
+			
+				
+				);
+			$datadccleared = $this->Administrator_Model->get_cdc_cleared($campaign_cids_from,$leadsno);
+
+			foreach ($datadccleared as $datadccleared) {
+
+				$campgrp = $datadccleared['campgrp'];
+				$campgrp = $datadccleared['campgrp'].' #'.$campaign_cids_from;
+				
+				$new_array = array(
+					'campgrp' => $campgrp
+						
+					);
+				$final_array=array_merge($datacdcandlead, $new_array);
+
+				$addleadandcdcdata = $this->Administrator_Model->update_leaddata($final_array,$datadccleared['lmid']);			
+			}
+		
+			
+				if($addleadandcdcdata == true){
+			
+					echo json_encode(array(
+						"statusCode"=>"Success",
+						"message"=>"Lead Uptated Successfully.."
+					));
+				}else{
+					echo json_encode(array(
+						"statusCode"=>"Fail",
+						"message"=>"Add data Lead failed.."
+					));
+				}
+				$curr_date = date('Y-m-d H:i:s'); 
+				$addinidataarray = array(
+					'cidsto' => $campaign_cids_to,
+					'cidsfrom' => $campaign_cids_from,
+					'no_of_leads' => $_GET['leadsno'],
+					'stages' => 'cdc_to_dc_cleared',
+					'empcode' => $_SESSION['empcode'],  
+					'ini_date' => $curr_date 
+					
+						
+					);
+
+				$addinidata = $this->Administrator_Model->add_ini_data($addinidataarray);
+								
+			
+		}
+		public function ajax_update_ini_cdc_to_dv() //cdc and dv cleared
+		{
+			
+			$campaign_cids_from = $_GET['campaign_cids_from'];
+			$campaign_cids_to = $_GET['campaign_cids_to'];
+			$leadsno = $_GET['leadsno'];
+			
+		
+			if(!isset($_SESSION['empcode'])){
+				redirect('administrator/logout');
+				Exit();
+			}
+
+			$datacdcandlead = array(
+				'cids' => $campaign_cids_to,
+				'sbsvtag' => '1', // Submit 1st time
+				'rlc' => '0', 
+				'dvload' => '1', 
+				
+				'cdcload' => NULL, 
+				'evload' => NULL, 
+				'qaload' => NULL, 
+				'cdcsb' => '0', 
+				'cdcrjt' => '0', 
+				'dvrejtg' => '0', 
+				'dvsbtg' => '0',
+				'qasv' => NULL,
+				'cdcsv' => NULL
+			
+				
+				);
+			$datadccleared = $this->Administrator_Model->get_cdc_cleared($campaign_cids_from,$leadsno);
+
+			foreach ($datadccleared as $datadccleared) {
+
+				$campgrp = $datadccleared['campgrp'];
+				$campgrp = $datadccleared['campgrp'].' #'.$campaign_cids_from;
+				
+				$new_array = array(
+					'campgrp' => $campgrp
+						
+					);
+				$final_array=array_merge($datacdcandlead, $new_array);
+
+				$addleadandcdcdata = $this->Administrator_Model->update_leaddata($final_array,$datadccleared['lmid']);			
+			}
+		
+			
+				if($addleadandcdcdata == true){
+			
+					echo json_encode(array(
+						"statusCode"=>"Success",
+						"message"=>"Lead Uptated Successfully.."
+					));
+				}else{
+					echo json_encode(array(
+						"statusCode"=>"Fail",
+						"message"=>"Add data Lead failed.."
+					));
+				}
+				$curr_date = date('Y-m-d H:i:s'); 
+				$addinidataarray = array(
+					'cidsto' => $campaign_cids_to,
+					'cidsfrom' => $campaign_cids_from,
+					'no_of_leads' => $_GET['leadsno'],
+					'stages' => 'cdc_to_dv_cleared',
+					'empcode' => $_SESSION['empcode'],  
+					'ini_date' => $curr_date 
+					
+						
+					);
+
+				$addinidata = $this->Administrator_Model->add_ini_data($addinidataarray);
+								
+			
+		}
+		public function ajax_update_ini_cdc_to_ev() //ev cleared
+		{
+			
+			$campaign_cids_from = $_GET['campaign_cids_from'];
+			$campaign_cids_to = $_GET['campaign_cids_to'];
+			$leadsno = $_GET['leadsno'];
+			
+		
+			if(!isset($_SESSION['empcode'])){
+				redirect('administrator/logout');
+				Exit();
+			}
+
+			$datacdcandlead = array(
+				'cids' => $campaign_cids_to,
+				'sbsvtag' => '1', // Submit 1st time
+				'rlc' => '0',
+				'cdcload' => NULL, 
+				'evload' => '1', 
+				'qaload' => NULL, 
+				'cdcsb' => '0', 
+				'cdcrjt' => '0', 
+				'dvrejtg' => '0', 
+				'dvsbtg' => '0',
+				'qasv' => NULL,
+				'cdcsv' => NULL
+			
+				
+				);
+			$datadccleared = $this->Administrator_Model->get_cdc_cleared($campaign_cids_from,$leadsno);
+
+			foreach ($datadccleared as $datadccleared) {
+
+				$campgrp = $datadccleared['campgrp'];
+				$campgrp = $datadccleared['campgrp'].' #'.$campaign_cids_from;
+				
+				$new_array = array(
+					'campgrp' => $campgrp
+						
+					);
+				$final_array=array_merge($datacdcandlead, $new_array);
+
+				$addleadandcdcdata = $this->Administrator_Model->update_leaddata($final_array,$datadccleared['lmid']);			
+			}
+		
+			
+				if($addleadandcdcdata == true){
+			
+					echo json_encode(array(
+						"statusCode"=>"Success",
+						"message"=>"Lead Uptated Successfully.."
+					));
+				}else{
+					echo json_encode(array(
+						"statusCode"=>"Fail",
+						"message"=>"Add data Lead failed.."
+					));
+				}
+				$curr_date = date('Y-m-d H:i:s'); 
+				$addinidataarray = array(
+					'cidsto' => $campaign_cids_to,
+					'cidsfrom' => $campaign_cids_from,
+					'no_of_leads' => $_GET['leadsno'],
+					'stages' => 'cdc_to_ev_cleared',
+					'empcode' => $_SESSION['empcode'],  
+					'ini_date' => $curr_date 
+					
+						
+					);
+
+				$addinidata = $this->Administrator_Model->add_ini_data($addinidataarray);
+								
+			
+		}
+		public function ajax_update_ini_cdc_to_cdc() //cdc cleared
+		{
+			
+			$campaign_cids_from = $_GET['campaign_cids_from'];
+			$campaign_cids_to = $_GET['campaign_cids_to'];
+			$leadsno = $_GET['leadsno'];
+			
+		
+			if(!isset($_SESSION['empcode'])){
+				redirect('administrator/logout');
+				Exit();
+			}
+
+			$datacdcandlead = array(
+				'cids' => $campaign_cids_to,
+				'sbsvtag' => '1', // Submit 1st time
+				'rlc' => '0',
+				'cdcload' => '1', 
+				'evload' => NULL, 
+				'qaload' => NULL, 
+				'cdcsb' => '0', 
+				'cdcrjt' => '0', 
+				'dvrejtg' => '0', 
+				'dvsbtg' => '0',
+				'qasv' => NULL,
+				'cdcsv' => NULL
+			
+				
+				);
+			$datadccleared = $this->Administrator_Model->get_cdc_cleared($campaign_cids_from,$leadsno);
+
+			foreach ($datadccleared as $datadccleared) {
+
+				$campgrp = $datadccleared['campgrp'];
+				$campgrp = $datadccleared['campgrp'].' #'.$campaign_cids_from;
+				
+				$new_array = array(
+					'campgrp' => $campgrp
+						
+					);
+				$final_array=array_merge($datacdcandlead, $new_array);
+
+				$addleadandcdcdata = $this->Administrator_Model->update_leaddata($final_array,$datadccleared['lmid']);			
+			}
+		
+			
+				if($addleadandcdcdata == true){
+			
+					echo json_encode(array(
+						"statusCode"=>"Success",
+						"message"=>"Lead Uptated Successfully.."
+					));
+				}else{
+					echo json_encode(array(
+						"statusCode"=>"Fail",
+						"message"=>"Add data Lead failed.."
+					));
+				}
+				$curr_date = date('Y-m-d H:i:s'); 
+				$addinidataarray = array(
+					'cidsto' => $campaign_cids_to,
+					'cidsfrom' => $campaign_cids_from,
+					'no_of_leads' => $_GET['leadsno'],
+					'stages' => 'cdc_to_cdc _cleared',
+					'empcode' => $_SESSION['empcode'],  
+					'ini_date' => $curr_date 
+					
+						
+					);
+
+				$addinidata = $this->Administrator_Model->add_ini_data($addinidataarray);
+								
+			
+		}
+		public function ajax_update_ini_to_dc_pending()
+		{
+			
+			$campaign_cids_from = $_GET['campaign_cids_from'];
+			$campaign_cids_to = $_GET['campaign_cids_to'];
+			$leadsno = $_GET['leadsno'];
+			
+		
+			if(!isset($_SESSION['empcode'])){
+				redirect('administrator/logout');
+				Exit();
+			}
+
+			$datacdcandlead = array(
+				'cids' => $campaign_cids_to,
+				'sbsvtag' => '1', // Submit 1st time
+				'rlc' => '0', 
+				'ontag' => '1', 
+				'dvload' => '0', 
+				'pload' => '0', 
+				'cdcload' => NULL, 
+				'evload' => NULL, 
+				'qaload' => NULL, 
+				'dvrejtg' => '0', 
+				'dvsbtg' => '0'
+				
+				
+				
+				);
+			$datadccleared = $this->Administrator_Model->get_dc_pending($campaign_cids_from,$leadsno);
+			
+			foreach ($datadccleared as $datadccleared) {
+
+				$campgrp = $datadccleared['campgrp'];
+				$campgrp = $datadccleared['campgrp'].' #'.$campaign_cids_from;
+				
+				$new_array = array(
+					'campgrp' => $campgrp
+						
+					);
+				$final_array=array_merge($datacdcandlead, $new_array);
+
+				$addleadandcdcdata = $this->Administrator_Model->update_leaddata($final_array,$datadccleared['lmid']);			
+			}
+		
+			
+				if($addleadandcdcdata == true){
+			
+					echo json_encode(array(
+						"statusCode"=>"Success",
+						"message"=>"Lead Uptated Successfully.."
+					));
+				}else{
+					echo json_encode(array(
+						"statusCode"=>"Fail",
+						"message"=>"Add data Lead failed.."
+					));
+				}
+				$curr_date = date('Y-m-d H:i:s'); 
+				$addinidataarray = array(
+					'cidsto' => $campaign_cids_to,
+					'cidsfrom' => $campaign_cids_from,
+					'no_of_leads' => $_GET['leadsno'],
+					'stages' => 'dc_to_dc_pending',
+					'empcode' => $_SESSION['empcode'],  
+					'ini_date' => $curr_date 
+					
+						
+					);
+
+				$addinidata = $this->Administrator_Model->add_ini_data($addinidataarray);
+								
+			
+		}
+		public function ajax_update_ini_dc_to_dv_pending()
+		{
+			
+			$campaign_cids_from = $_GET['campaign_cids_from'];
+			$campaign_cids_to = $_GET['campaign_cids_to'];
+			$leadsno = $_GET['leadsno'];
+			
+		
+			if(!isset($_SESSION['empcode'])){
+				redirect('administrator/logout');
+				Exit();
+			}
+
+			$datacdcandlead = array(
+				'cids' => $campaign_cids_to,
+				'sbsvtag' => '1', // Submit 1st time
+				'rlc' => '0', 
+				'ontag' => '0', 
+				'dvload' => '0', 
+				'pload' => '1', 
+				'cdcload' => NULL, 
+				'evload' => NULL, 
+				'qaload' => NULL, 
+				'dvrejtg' => '0', 
+				'dvsbtg' => '0'
+				
+				
+				
+				);
+			$datadccleared = $this->Administrator_Model->get_dc_pending($campaign_cids_from,$leadsno);
+			
+			foreach ($datadccleared as $datadccleared) {
+
+				$campgrp = $datadccleared['campgrp'];
+				$campgrp = $datadccleared['campgrp'].' #'.$campaign_cids_from;
+				
+				$new_array = array(
+					'campgrp' => $campgrp
+						
+					);
+				$final_array=array_merge($datacdcandlead, $new_array);
+
+				$addleadandcdcdata = $this->Administrator_Model->update_leaddata($final_array,$datadccleared['lmid']);			
+			}
+		
+			
+				if($addleadandcdcdata == true){
+			
+					echo json_encode(array(
+						"statusCode"=>"Success",
+						"message"=>"Lead Uptated Successfully.."
+					));
+				}else{
+					echo json_encode(array(
+						"statusCode"=>"Fail",
+						"message"=>"Add data Lead failed.."
+					));
+				}
+				$curr_date = date('Y-m-d H:i:s'); 
+				$addinidataarray = array(
+					'cidsto' => $campaign_cids_to,
+					'cidsfrom' => $campaign_cids_from,
+					'no_of_leads' => $_GET['leadsno'],
+					'stages' => 'dc_to_dv_pending',
+					'empcode' => $_SESSION['empcode'],  
+					'ini_date' => $curr_date 
+					
+						
+					);
+
+				$addinidata = $this->Administrator_Model->add_ini_data($addinidataarray);
+								
+			
+		}
+		public function ajax_update_ini_dc_to_ev_pending()
+		{
+			
+			$campaign_cids_from = $_GET['campaign_cids_from'];
+			$campaign_cids_to = $_GET['campaign_cids_to'];
+			$leadsno = $_GET['leadsno'];
+			
+		
+			if(!isset($_SESSION['empcode'])){
+				redirect('administrator/logout');
+				Exit();
+			}
+
+			$datacdcandlead = array(
+				'cids' => $campaign_cids_to,
+				'sbsvtag' => '1', // Submit 1st time
+				'rlc' => '0',
+				'dvload' => '1',
+				'cdcload' => NULL, 
+				'evload' => NULL, 
+				'qaload' => NULL, 
+				'dvrejtg' => '0', 
+				'dvsbtg' => '0'
+				
+				
+				
+				);
+			$datadccleared = $this->Administrator_Model->get_dc_pending($campaign_cids_from,$leadsno);
+			
+			foreach ($datadccleared as $datadccleared) {
+
+				$campgrp = $datadccleared['campgrp'];
+				$campgrp = $datadccleared['campgrp'].' #'.$campaign_cids_from;
+				
+				$new_array = array(
+					'campgrp' => $campgrp
+						
+					);
+				$final_array=array_merge($datacdcandlead, $new_array);
+
+				$addleadandcdcdata = $this->Administrator_Model->update_leaddata($final_array,$datadccleared['lmid']);			
+			}
+		
+			
+				if($addleadandcdcdata == true){
+			
+					echo json_encode(array(
+						"statusCode"=>"Success",
+						"message"=>"Lead Uptated Successfully.."
+					));
+				}else{
+					echo json_encode(array(
+						"statusCode"=>"Fail",
+						"message"=>"Add data Lead failed.."
+					));
+				}
+				$curr_date = date('Y-m-d H:i:s'); 
+				$addinidataarray = array(
+					'cidsto' => $campaign_cids_to,
+					'cidsfrom' => $campaign_cids_from,
+					'no_of_leads' => $_GET['leadsno'],
+					'stages' => 'dc_to_ev_pending',
+					'empcode' => $_SESSION['empcode'],  
+					'ini_date' => $curr_date 
+					
+						
+					);
+
+				$addinidata = $this->Administrator_Model->add_ini_data($addinidataarray);
+								
+			
+		}
+		public function ajax_update_ini_dc_to_cdc_pending()
+		{
+			
+			$campaign_cids_from = $_GET['campaign_cids_from'];
+			$campaign_cids_to = $_GET['campaign_cids_to'];
+			$leadsno = $_GET['leadsno'];
+			
+		
+			if(!isset($_SESSION['empcode'])){
+				redirect('administrator/logout');
+				Exit();
+			}
+
+			$datacdcandlead = array(
+				'cids' => $campaign_cids_to,
+				'sbsvtag' => '1', // Submit 1st time
+				'rlc' => '0',
+				'evload' => '1',
+				'cdcload' => NULL,
+				'qaload' => NULL, 
+				'dvrejtg' => '0', 
+				'dvsbtg' => '0'
+				
+				
+				
+				);
+			$datadccleared = $this->Administrator_Model->get_dc_pending($campaign_cids_from,$leadsno);
+			
+			foreach ($datadccleared as $datadccleared) {
+
+				$campgrp = $datadccleared['campgrp'];
+				$campgrp = $datadccleared['campgrp'].' #'.$campaign_cids_from;
+				
+				$new_array = array(
+					'campgrp' => $campgrp
+						
+					);
+				$final_array=array_merge($datacdcandlead, $new_array);
+
+				$addleadandcdcdata = $this->Administrator_Model->update_leaddata($final_array,$datadccleared['lmid']);			
+			}
+		
+			
+				if($addleadandcdcdata == true){
+			
+					echo json_encode(array(
+						"statusCode"=>"Success",
+						"message"=>"Lead Uptated Successfully.."
+					));
+				}else{
+					echo json_encode(array(
+						"statusCode"=>"Fail",
+						"message"=>"Add data Lead failed.."
+					));
+				}
+				$curr_date = date('Y-m-d H:i:s'); 
+				$addinidataarray = array(
+					'cidsto' => $campaign_cids_to,
+					'cidsfrom' => $campaign_cids_from,
+					'no_of_leads' => $_GET['leadsno'],
+					'stages' => 'dc_to_cdc_pending',
+					'empcode' => $_SESSION['empcode'],  
+					'ini_date' => $curr_date 
+					
+						
+					);
+
+				$addinidata = $this->Administrator_Model->add_ini_data($addinidataarray);
+								
+			
+		}
+		public function ajax_update_ini_dv_to_dc_pending()
+		{
+			
+			$campaign_cids_from = $_GET['campaign_cids_from'];
+			$campaign_cids_to = $_GET['campaign_cids_to'];
+			$leadsno = $_GET['leadsno'];
+			
+		
+			if(!isset($_SESSION['empcode'])){
+				redirect('administrator/logout');
+				Exit();
+			}
+
+			$datacdcandlead = array(
+				'cids' => $campaign_cids_to,
+				'sbsvtag' => '1', // Submit 1st time
+				'rlc' => '0',
+				'ontag' => '1',
+				'pload' => '0',
+				'dvload' => '0',
+				'evload' => NULL,
+				'cdcload' => NULL,
+				'qaload' => NULL, 
+				'dvrejtg' => '0', 
+				'dvsbtg' => '0'
+				
+				
+				
+				);
+			$datadccleared = $this->Administrator_Model->get_dc_cleared($campaign_cids_from,$leadsno); //dc cleared means dv pending
+			
+			foreach ($datadccleared as $datadccleared) {
+
+				$campgrp = $datadccleared['campgrp'];
+				$campgrp = $datadccleared['campgrp'].' #'.$campaign_cids_from;
+				
+				$new_array = array(
+					'campgrp' => $campgrp
+						
+					);
+				$final_array=array_merge($datacdcandlead, $new_array);
+
+				$addleadandcdcdata = $this->Administrator_Model->update_leaddata($final_array,$datadccleared['lmid']);			
+			}
+		
+			
+				if($addleadandcdcdata == true){
+			
+					echo json_encode(array(
+						"statusCode"=>"Success",
+						"message"=>"Lead Uptated Successfully.."
+					));
+				}else{
+					echo json_encode(array(
+						"statusCode"=>"Fail",
+						"message"=>"Add data Lead failed.."
+					));
+				}
+				$curr_date = date('Y-m-d H:i:s'); 
+				$addinidataarray = array(
+					'cidsto' => $campaign_cids_to,
+					'cidsfrom' => $campaign_cids_from,
+					'no_of_leads' => $_GET['leadsno'],
+					'stages' => 'dv_to_dc_pending',
+					'empcode' => $_SESSION['empcode'],  
+					'ini_date' => $curr_date 
+					
+						
+					);
+
+				$addinidata = $this->Administrator_Model->add_ini_data($addinidataarray);
+								
+			
+		}
+		public function ajax_update_ini_dv_to_dv_pending()
+		{
+			
+			$campaign_cids_from = $_GET['campaign_cids_from'];
+			$campaign_cids_to = $_GET['campaign_cids_to'];
+			$leadsno = $_GET['leadsno'];
+			
+		
+			if(!isset($_SESSION['empcode'])){
+				redirect('administrator/logout');
+				Exit();
+			}
+
+			$datacdcandlead = array(
+				'cids' => $campaign_cids_to,
+				'sbsvtag' => '1', // Submit 1st time
+				'rlc' => '0',
+				'ontag' => '0',
+				'pload' => '1',
+				'dvload' => '0',
+				'evload' => NULL,
+				'cdcload' => NULL,
+				'qaload' => NULL, 
+				'dvrejtg' => '0', 
+				'dvsbtg' => '0'
+				
+				
+				
+				);
+			$datadccleared = $this->Administrator_Model->get_dc_cleared($campaign_cids_from,$leadsno); //dc cleared means dv pending
+			
+			foreach ($datadccleared as $datadccleared) {
+
+				$campgrp = $datadccleared['campgrp'];
+				$campgrp = $datadccleared['campgrp'].' #'.$campaign_cids_from;
+				
+				$new_array = array(
+					'campgrp' => $campgrp
+						
+					);
+				$final_array=array_merge($datacdcandlead, $new_array);
+
+				$addleadandcdcdata = $this->Administrator_Model->update_leaddata($final_array,$datadccleared['lmid']);			
+			}
+		
+			
+				if($addleadandcdcdata == true){
+			
+					echo json_encode(array(
+						"statusCode"=>"Success",
+						"message"=>"Lead Uptated Successfully.."
+					));
+				}else{
+					echo json_encode(array(
+						"statusCode"=>"Fail",
+						"message"=>"Add data Lead failed.."
+					));
+				}
+				$curr_date = date('Y-m-d H:i:s'); 
+				$addinidataarray = array(
+					'cidsto' => $campaign_cids_to,
+					'cidsfrom' => $campaign_cids_from,
+					'no_of_leads' => $_GET['leadsno'],
+					'stages' => 'dv_to_dv_pending',
+					'empcode' => $_SESSION['empcode'],  
+					'ini_date' => $curr_date 
+					
+						
+					);
+
+				$addinidata = $this->Administrator_Model->add_ini_data($addinidataarray);
+								
+			
+		}
+		public function ajax_update_ini_dv_to_ev_pending()
+		{
+			
+			$campaign_cids_from = $_GET['campaign_cids_from'];
+			$campaign_cids_to = $_GET['campaign_cids_to'];
+			$leadsno = $_GET['leadsno'];
+			
+		
+			if(!isset($_SESSION['empcode'])){
+				redirect('administrator/logout');
+				Exit();
+			}
+
+			$datacdcandlead = array(
+				'cids' => $campaign_cids_to,
+				'sbsvtag' => '1', // Submit 1st time
+				'rlc' => '0',
+				'dvload' => '1',
+				'evload' => NULL,
+				'cdcload' => NULL,
+				'qaload' => NULL, 
+				'dvrejtg' => '0', 
+				'dvsbtg' => '0'
+				
+				
+				
+				);
+			$datadccleared = $this->Administrator_Model->get_dc_cleared($campaign_cids_from,$leadsno); //dc cleared means dv pending
+			
+			foreach ($datadccleared as $datadccleared) {
+
+				$campgrp = $datadccleared['campgrp'];
+				$campgrp = $datadccleared['campgrp'].' #'.$campaign_cids_from;
+				
+				$new_array = array(
+					'campgrp' => $campgrp
+						
+					);
+				$final_array=array_merge($datacdcandlead, $new_array);
+
+				$addleadandcdcdata = $this->Administrator_Model->update_leaddata($final_array,$datadccleared['lmid']);			
+			}
+		
+			
+				if($addleadandcdcdata == true){
+			
+					echo json_encode(array(
+						"statusCode"=>"Success",
+						"message"=>"Lead Uptated Successfully.."
+					));
+				}else{
+					echo json_encode(array(
+						"statusCode"=>"Fail",
+						"message"=>"Add data Lead failed.."
+					));
+				}
+				$curr_date = date('Y-m-d H:i:s'); 
+				$addinidataarray = array(
+					'cidsto' => $campaign_cids_to,
+					'cidsfrom' => $campaign_cids_from,
+					'no_of_leads' => $_GET['leadsno'],
+					'stages' => 'dv_to_ev_pending',
+					'empcode' => $_SESSION['empcode'],  
+					'ini_date' => $curr_date 
+					
+						
+					);
+
+				$addinidata = $this->Administrator_Model->add_ini_data($addinidataarray);
+								
+			
+		}
+		public function ajax_update_ini_dv_to_cdc_pending()
+		{
+			
+			$campaign_cids_from = $_GET['campaign_cids_from'];
+			$campaign_cids_to = $_GET['campaign_cids_to'];
+			$leadsno = $_GET['leadsno'];
+			
+		
+			if(!isset($_SESSION['empcode'])){
+				redirect('administrator/logout');
+				Exit();
+			}
+
+			$datacdcandlead = array(
+				'cids' => $campaign_cids_to,
+				'sbsvtag' => '1', // Submit 1st time
+				'rlc' => '0',
+				'evload' => '1',
+				'cdcload' => NULL,
+				'qaload' => NULL, 
+				'dvrejtg' => '0', 
+				'dvsbtg' => '0',
+				'cdcsb' => '0',
+				'cdcrjt' => '0'
+				
+				
+				);
+			$datadccleared = $this->Administrator_Model->get_dc_cleared($campaign_cids_from,$leadsno); //dc cleared means dv pending
+			
+			foreach ($datadccleared as $datadccleared) {
+
+				$campgrp = $datadccleared['campgrp'];
+				$campgrp = $datadccleared['campgrp'].' #'.$campaign_cids_from;
+				
+				$new_array = array(
+					'campgrp' => $campgrp
+						
+					);
+				$final_array=array_merge($datacdcandlead, $new_array);
+
+				$addleadandcdcdata = $this->Administrator_Model->update_leaddata($final_array,$datadccleared['lmid']);			
+			}
+		
+			
+				if($addleadandcdcdata == true){
+			
+					echo json_encode(array(
+						"statusCode"=>"Success",
+						"message"=>"Lead Uptated Successfully.."
+					));
+				}else{
+					echo json_encode(array(
+						"statusCode"=>"Fail",
+						"message"=>"Add data Lead failed.."
+					));
+				}
+				$curr_date = date('Y-m-d H:i:s'); 
+				$addinidataarray = array(
+					'cidsto' => $campaign_cids_to,
+					'cidsfrom' => $campaign_cids_from,
+					'no_of_leads' => $_GET['leadsno'],
+					'stages' => 'dv_to_cdc_pending',
+					'empcode' => $_SESSION['empcode'],  
+					'ini_date' => $curr_date 
+					
+						
+					);
+
+				$addinidata = $this->Administrator_Model->add_ini_data($addinidataarray);
+								
+			
+		}
+		public function ajax_update_ini_ev_to_dc_pending()
+		{
+			
+			$campaign_cids_from = $_GET['campaign_cids_from'];
+			$campaign_cids_to = $_GET['campaign_cids_to'];
+			$leadsno = $_GET['leadsno'];
+			
+		
+			if(!isset($_SESSION['empcode'])){
+				redirect('administrator/logout');
+				Exit();
+			}
+
+			$datacdcandlead = array(
+				'cids' => $campaign_cids_to,
+				'sbsvtag' => '1', // Submit 1st time
+				'rlc' => '0',
+				'ontag' => '1',
+				'pload' => '0',
+				'dvload' => '0',
+				'evload' => NULL,
+				'cdcload' => NULL,
+				'qaload' => NULL, 
+				'dvrejtg' => '0', 
+				'dvsbtg' => '0'
+				
+				);
+			$datadccleared = $this->Administrator_Model->get_dv_cleared($campaign_cids_from,$leadsno); //dv cleared means ev pending
+			
+			foreach ($datadccleared as $datadccleared) {
+
+				$campgrp = $datadccleared['campgrp'];
+				$campgrp = $datadccleared['campgrp'].' #'.$campaign_cids_from;
+				
+				$new_array = array(
+					'campgrp' => $campgrp
+						
+					);
+				$final_array=array_merge($datacdcandlead, $new_array);
+
+				$addleadandcdcdata = $this->Administrator_Model->update_leaddata($final_array,$datadccleared['lmid']);			
+			}
+		
+			
+				if($addleadandcdcdata == true){
+			
+					echo json_encode(array(
+						"statusCode"=>"Success",
+						"message"=>"Lead Uptated Successfully.."
+					));
+				}else{
+					echo json_encode(array(
+						"statusCode"=>"Fail",
+						"message"=>"Add data Lead failed.."
+					));
+				}
+				$curr_date = date('Y-m-d H:i:s'); 
+				$addinidataarray = array(
+					'cidsto' => $campaign_cids_to,
+					'cidsfrom' => $campaign_cids_from,
+					'no_of_leads' => $_GET['leadsno'],
+					'stages' => 'ev_to_dc_pending',
+					'empcode' => $_SESSION['empcode'],  
+					'ini_date' => $curr_date 
+					
+						
+					);
+
+				$addinidata = $this->Administrator_Model->add_ini_data($addinidataarray);
+								
+			
+		}
+		public function ajax_update_ini_ev_to_dv_pending()
+		{
+			
+			$campaign_cids_from = $_GET['campaign_cids_from'];
+			$campaign_cids_to = $_GET['campaign_cids_to'];
+			$leadsno = $_GET['leadsno'];
+			
+		
+			if(!isset($_SESSION['empcode'])){
+				redirect('administrator/logout');
+				Exit();
+			}
+
+			$datacdcandlead = array(
+				'cids' => $campaign_cids_to,
+				'sbsvtag' => '1', // Submit 1st time
+				'rlc' => '0',
+				'ontag' => '0',
+				'pload' => '1',
+				'dvload' => '0',
+				'evload' => NULL,
+				'cdcload' => NULL,
+				'qaload' => NULL, 
+				'dvrejtg' => '0', 
+				'dvsbtg' => '0'
+				
+				);
+			$datadccleared = $this->Administrator_Model->get_dv_cleared($campaign_cids_from,$leadsno); //dv cleared means ev pending
+			
+			foreach ($datadccleared as $datadccleared) {
+
+				$campgrp = $datadccleared['campgrp'];
+				$campgrp = $datadccleared['campgrp'].' #'.$campaign_cids_from;
+				
+				$new_array = array(
+					'campgrp' => $campgrp
+						
+					);
+				$final_array=array_merge($datacdcandlead, $new_array);
+
+				$addleadandcdcdata = $this->Administrator_Model->update_leaddata($final_array,$datadccleared['lmid']);			
+			}
+		
+			
+				if($addleadandcdcdata == true){
+			
+					echo json_encode(array(
+						"statusCode"=>"Success",
+						"message"=>"Lead Uptated Successfully.."
+					));
+				}else{
+					echo json_encode(array(
+						"statusCode"=>"Fail",
+						"message"=>"Add data Lead failed.."
+					));
+				}
+				$curr_date = date('Y-m-d H:i:s'); 
+				$addinidataarray = array(
+					'cidsto' => $campaign_cids_to,
+					'cidsfrom' => $campaign_cids_from,
+					'no_of_leads' => $_GET['leadsno'],
+					'stages' => 'ev_to_dv_pending',
+					'empcode' => $_SESSION['empcode'],  
+					'ini_date' => $curr_date 
+					
+						
+					);
+
+				$addinidata = $this->Administrator_Model->add_ini_data($addinidataarray);
+								
+			
+		}
+		public function ajax_update_ini_ev_to_ev_pending()
+		{
+			
+			$campaign_cids_from = $_GET['campaign_cids_from'];
+			$campaign_cids_to = $_GET['campaign_cids_to'];
+			$leadsno = $_GET['leadsno'];
+			
+		
+			if(!isset($_SESSION['empcode'])){
+				redirect('administrator/logout');
+				Exit();
+			}
+
+			$datacdcandlead = array(
+				'cids' => $campaign_cids_to,
+				'sbsvtag' => '1', // Submit 1st time
+				'rlc' => '0',
+				'dvload' => '1',
+				'cdcload' => NULL, 
+				'evload' => NULL, 
+				'qaload' => NULL, 
+				'dvrejtg' => '0', 
+				'dvsbtg' => '0'
+				
+				);
+			$datadccleared = $this->Administrator_Model->get_dv_cleared($campaign_cids_from,$leadsno); //dv cleared means ev pending
+			
+			foreach ($datadccleared as $datadccleared) {
+
+				$campgrp = $datadccleared['campgrp'];
+				$campgrp = $datadccleared['campgrp'].' #'.$campaign_cids_from;
+				
+				$new_array = array(
+					'campgrp' => $campgrp
+						
+					);
+				$final_array=array_merge($datacdcandlead, $new_array);
+
+				$addleadandcdcdata = $this->Administrator_Model->update_leaddata($final_array,$datadccleared['lmid']);			
+			}
+		
+			
+				if($addleadandcdcdata == true){
+			
+					echo json_encode(array(
+						"statusCode"=>"Success",
+						"message"=>"Lead Uptated Successfully.."
+					));
+				}else{
+					echo json_encode(array(
+						"statusCode"=>"Fail",
+						"message"=>"Add data Lead failed.."
+					));
+				}
+				$curr_date = date('Y-m-d H:i:s'); 
+				$addinidataarray = array(
+					'cidsto' => $campaign_cids_to,
+					'cidsfrom' => $campaign_cids_from,
+					'no_of_leads' => $_GET['leadsno'],
+					'stages' => 'ev_to_ev_pending',
+					'empcode' => $_SESSION['empcode'],  
+					'ini_date' => $curr_date 
+					
+						
+					);
+
+				$addinidata = $this->Administrator_Model->add_ini_data($addinidataarray);
+								
+			
+		}
+		public function ajax_update_ini_ev_to_cdc_pending()
+		{
+			
+			$campaign_cids_from = $_GET['campaign_cids_from'];
+			$campaign_cids_to = $_GET['campaign_cids_to'];
+			$leadsno = $_GET['leadsno'];
+			
+		
+			if(!isset($_SESSION['empcode'])){
+				redirect('administrator/logout');
+				Exit();
+			}
+
+			$datacdcandlead = array(
+				'cids' => $campaign_cids_to,
+				'sbsvtag' => '1', // Submit 1st time
+				'rlc' => '0',
+				'evload' => '1',
+				'cdcload' => NULL,
+				'qaload' => NULL, 
+				'dvrejtg' => '0', 
+				'dvsbtg' => '0',
+				'cdcsb' => '0',
+				'cdcrjt' => '0'
+				);
+				
+			$datadccleared = $this->Administrator_Model->get_dv_cleared($campaign_cids_from,$leadsno); //dv cleared means ev pending
+			
+			foreach ($datadccleared as $datadccleared) {
+
+				$campgrp = $datadccleared['campgrp'];
+				$campgrp = $datadccleared['campgrp'].' #'.$campaign_cids_from;
+				
+				$new_array = array(
+					'campgrp' => $campgrp
+						
+					);
+				$final_array=array_merge($datacdcandlead, $new_array);
+
+				$addleadandcdcdata = $this->Administrator_Model->update_leaddata($final_array,$datadccleared['lmid']);			
+			}
+		
+			
+				if($addleadandcdcdata == true){
+			
+					echo json_encode(array(
+						"statusCode"=>"Success",
+						"message"=>"Lead Uptated Successfully.."
+					));
+				}else{
+					echo json_encode(array(
+						"statusCode"=>"Fail",
+						"message"=>"Add data Lead failed.."
+					));
+				}
+				$curr_date = date('Y-m-d H:i:s'); 
+				$addinidataarray = array(
+					'cidsto' => $campaign_cids_to,
+					'cidsfrom' => $campaign_cids_from,
+					'no_of_leads' => $_GET['leadsno'],
+					'stages' => 'ev_to_cdc_pending',
+					'empcode' => $_SESSION['empcode'],  
+					'ini_date' => $curr_date 
+					
+						
+					);
+
+				$addinidata = $this->Administrator_Model->add_ini_data($addinidataarray);
+								
+			
+		}
+		public function ajax_update_ini_cdc_to_dc_pending()
+		{
+			
+			$campaign_cids_from = $_GET['campaign_cids_from'];
+			$campaign_cids_to = $_GET['campaign_cids_to'];
+			$leadsno = $_GET['leadsno'];
+			
+		
+			if(!isset($_SESSION['empcode'])){
+				redirect('administrator/logout');
+				Exit();
+			}
+
+			$datacdcandlead = array(
+				'cids' => $campaign_cids_to,
+				'sbsvtag' => '1', // Submit 1st time
+				'rlc' => '0',
+				'ontag' => '1',
+				'pload' => '0',
+				'dvload' => '0',
+				'evload' => NULL,
+				'cdcload' => NULL,
+				'qaload' => NULL, 
+				'dvrejtg' => '0', 
+				'dvsbtg' => '0'
+				
+				);
+
+			$datadccleared = $this->Administrator_Model->get_ev_cleared($campaign_cids_from,$leadsno); //ev cleared means cdc pending
+			
+			foreach ($datadccleared as $datadccleared) {
+
+				$campgrp = $datadccleared['campgrp'];
+				$campgrp = $datadccleared['campgrp'].' #'.$campaign_cids_from;
+				
+				$new_array = array(
+					'campgrp' => $campgrp
+						
+					);
+				$final_array=array_merge($datacdcandlead, $new_array);
+
+				$addleadandcdcdata = $this->Administrator_Model->update_leaddata($final_array,$datadccleared['lmid']);			
+			}
+		
+			
+				if($addleadandcdcdata == true){
+			
+					echo json_encode(array(
+						"statusCode"=>"Success",
+						"message"=>"Lead Uptated Successfully.."
+					));
+				}else{
+					echo json_encode(array(
+						"statusCode"=>"Fail",
+						"message"=>"Add data Lead failed.."
+					));
+				}
+				$curr_date = date('Y-m-d H:i:s'); 
+				$addinidataarray = array(
+					'cidsto' => $campaign_cids_to,
+					'cidsfrom' => $campaign_cids_from,
+					'no_of_leads' => $_GET['leadsno'],
+					'stages' => 'cdc_to_dc_pending',
+					'empcode' => $_SESSION['empcode'],  
+					'ini_date' => $curr_date 
+					
+						
+					);
+
+				$addinidata = $this->Administrator_Model->add_ini_data($addinidataarray);
+								
+			
+		}
+		public function ajax_update_ini_cdc_to_dv_pending()
+		{
+			
+			$campaign_cids_from = $_GET['campaign_cids_from'];
+			$campaign_cids_to = $_GET['campaign_cids_to'];
+			$leadsno = $_GET['leadsno'];
+			
+		
+			if(!isset($_SESSION['empcode'])){
+				redirect('administrator/logout');
+				Exit();
+			}
+
+			$datacdcandlead = array(
+				'cids' => $campaign_cids_to,
+				'sbsvtag' => '1', // Submit 1st time
+				'rlc' => '0',
+				'ontag' => '0',
+				'pload' => '1',
+				'dvload' => '0',
+				'evload' => NULL,
+				'cdcload' => NULL,
+				'qaload' => NULL, 
+				'dvrejtg' => '0', 
+				'dvsbtg' => '0'
+				
+				);
+
+			$datadccleared = $this->Administrator_Model->get_ev_cleared($campaign_cids_from,$leadsno); //ev cleared means cdc pending
+			
+			foreach ($datadccleared as $datadccleared) {
+
+				$campgrp = $datadccleared['campgrp'];
+				$campgrp = $datadccleared['campgrp'].' #'.$campaign_cids_from;
+				
+				$new_array = array(
+					'campgrp' => $campgrp
+						
+					);
+				$final_array=array_merge($datacdcandlead, $new_array);
+
+				$addleadandcdcdata = $this->Administrator_Model->update_leaddata($final_array,$datadccleared['lmid']);			
+			}
+		
+			
+				if($addleadandcdcdata == true){
+			
+					echo json_encode(array(
+						"statusCode"=>"Success",
+						"message"=>"Lead Uptated Successfully.."
+					));
+				}else{
+					echo json_encode(array(
+						"statusCode"=>"Fail",
+						"message"=>"Add data Lead failed.."
+					));
+				}
+				$curr_date = date('Y-m-d H:i:s'); 
+				$addinidataarray = array(
+					'cidsto' => $campaign_cids_to,
+					'cidsfrom' => $campaign_cids_from,
+					'no_of_leads' => $_GET['leadsno'],
+					'stages' => 'cdc_to_dv_pending',
+					'empcode' => $_SESSION['empcode'],  
+					'ini_date' => $curr_date 
+					
+						
+					);
+
+				$addinidata = $this->Administrator_Model->add_ini_data($addinidataarray);
+								
+			
+		}
+		public function ajax_update_ini_cdc_to_ev_pending()
+		{
+			
+			$campaign_cids_from = $_GET['campaign_cids_from'];
+			$campaign_cids_to = $_GET['campaign_cids_to'];
+			$leadsno = $_GET['leadsno'];
+			
+		
+			if(!isset($_SESSION['empcode'])){
+				redirect('administrator/logout');
+				Exit();
+			}
+
+			$datacdcandlead = array(
+				'cids' => $campaign_cids_to,
+				'sbsvtag' => '1', // Submit 1st time
+				'rlc' => '0',
+				'dvload' => '1',
+				'cdcload' => NULL, 
+				'evload' => NULL, 
+				'qaload' => NULL, 
+				'dvrejtg' => '0', 
+				'dvsbtg' => '0'
+				);
+
+			$datadccleared = $this->Administrator_Model->get_ev_cleared($campaign_cids_from,$leadsno); //ev cleared means cdc pending
+			
+			foreach ($datadccleared as $datadccleared) {
+
+				$campgrp = $datadccleared['campgrp'];
+				$campgrp = $datadccleared['campgrp'].' #'.$campaign_cids_from;
+				
+				$new_array = array(
+					'campgrp' => $campgrp
+						
+					);
+				$final_array=array_merge($datacdcandlead, $new_array);
+
+				$addleadandcdcdata = $this->Administrator_Model->update_leaddata($final_array,$datadccleared['lmid']);			
+			}
+		
+			
+				if($addleadandcdcdata == true){
+			
+					echo json_encode(array(
+						"statusCode"=>"Success",
+						"message"=>"Lead Uptated Successfully.."
+					));
+				}else{
+					echo json_encode(array(
+						"statusCode"=>"Fail",
+						"message"=>"Add data Lead failed.."
+					));
+				}
+				$curr_date = date('Y-m-d H:i:s'); 
+				$addinidataarray = array(
+					'cidsto' => $campaign_cids_to,
+					'cidsfrom' => $campaign_cids_from,
+					'no_of_leads' => $_GET['leadsno'],
+					'stages' => 'cdc_to_ev_pending',
+					'empcode' => $_SESSION['empcode'],  
+					'ini_date' => $curr_date 
+					
+						
+					);
+
+				$addinidata = $this->Administrator_Model->add_ini_data($addinidataarray);
+								
+			
+		}
+		public function ajax_update_ini_cdc_to_cdc_pending()
+		{
+			
+			$campaign_cids_from = $_GET['campaign_cids_from'];
+			$campaign_cids_to = $_GET['campaign_cids_to'];
+			$leadsno = $_GET['leadsno'];
+			
+		
+			if(!isset($_SESSION['empcode'])){
+				redirect('administrator/logout');
+				Exit();
+			}
+
+			$datacdcandlead = array(
+				'cids' => $campaign_cids_to,
+				'sbsvtag' => '1', // Submit 1st time
+				'rlc' => '0',
+				'evload' => '1',
+				'cdcload' => NULL,
+				'qaload' => NULL, 
+				'dvrejtg' => '0', 
+				'dvsbtg' => '0',
+				'cdcsb' => '0',
+				'cdcrjt' => '0'
+				);
+			$datadccleared = $this->Administrator_Model->get_ev_cleared($campaign_cids_from,$leadsno); //ev cleared means cdc pending
+			
+			foreach ($datadccleared as $datadccleared) {
+
+				$campgrp = $datadccleared['campgrp'];
+				$campgrp = $datadccleared['campgrp'].' #'.$campaign_cids_from;
+				
+				$new_array = array(
+					'campgrp' => $campgrp
+						
+					);
+				$final_array=array_merge($datacdcandlead, $new_array);
+
+				$addleadandcdcdata = $this->Administrator_Model->update_leaddata($final_array,$datadccleared['lmid']);			
+			}
+		
+			
+				if($addleadandcdcdata == true){
+			
+					echo json_encode(array(
+						"statusCode"=>"Success",
+						"message"=>"Lead Uptated Successfully.."
+					));
+				}else{
+					echo json_encode(array(
+						"statusCode"=>"Fail",
+						"message"=>"Add data Lead failed.."
+					));
+				}
+				$curr_date = date('Y-m-d H:i:s'); 
+				$addinidataarray = array(
+					'cidsto' => $campaign_cids_to,
+					'cidsfrom' => $campaign_cids_from,
+					'no_of_leads' => $_GET['leadsno'],
+					'stages' => 'cdc_to_cdc_pending',
+					'empcode' => $_SESSION['empcode'],  
 					'ini_date' => $curr_date 
 					
 						

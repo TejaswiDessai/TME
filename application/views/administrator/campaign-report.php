@@ -324,16 +324,17 @@
                                         </td>
                                         <td>
                                         <?php 
-                                         $ev_rej = $this->db->query("select * from ev
-                                         left join leadmaster ON ev.lmid=leadmaster.lmid
-                                         and  ev.email=leadmaster.email
-                                         where 
-                                         leadmaster.evload = 0
-                                         and leadmaster.evcomp = 1
-                                         and leadmaster.cdcsb = 0
-                                         and leadmaster.cdcrjt = 0
-                                         and leadmaster.cids = '".$post['cids']."'
-                                          ");
+                                        //  $ev_rej = $this->db->query("select * from ev
+                                        //  left join leadmaster ON ev.lmid=leadmaster.lmid
+                                        //  and  ev.email=leadmaster.email
+                                        //  where 
+                                        //  leadmaster.evload = 0
+                                        //  and leadmaster.evcomp = 1
+                                        //  and leadmaster.cdcsb = 0
+                                        //  and leadmaster.cdcrjt = 0
+                                        //  and leadmaster.cids = '".$post['cids']."'
+                                        //   ");
+                                        $ev_rej = $this->db->query("select * from leadmaster where evdisp = 5  and cids = '".$post['cids']."'");
                                          echo $ev_rej->num_rows();
 
                                         //  $ev_rej = $this->db->query("select * from leadmaster

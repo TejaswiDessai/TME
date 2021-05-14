@@ -245,9 +245,10 @@
                                         </td>
                                          <td><?php 
                                         $total_accept = $this->db->query("select * from leadmaster
-                                        where ontag = 1
-                                        and rlc = 0
+                                        where 
                                         
+                                        rlc = 0
+                                        and (pload = 0 OR pload = 1)
                                         and sbsvtag != 0
                                         
                                         and dvload = 1 and cids = '".$post['cids']."'");
@@ -257,8 +258,10 @@
                                         <!-- <td> -->
                                         <td><?php 
                                          $first_accept = $this->db->query("select * from leadmaster
-                                         where ontag = 1
-                                         and rlc = 0
+                                         where 
+                                         
+                                         rlc = 0
+                                         and (pload = 0 OR pload = 1)
                                          and sbsvtag != 0
                                         
                                          and (dvsbtg = 0 OR dvsbtg = 1)
@@ -269,9 +272,10 @@
                                         
                                           <td><?php 
                                          $second_accept = $this->db->query("select * from leadmaster
-                                         where ontag = 1
-                                         and rlc = 0
+                                         where 
                                          
+                                         rlc = 0
+                                         and (pload = 0 OR pload = 1)
                                          and sbsvtag != 0
                                          and dvsbtg = 2
                                          and dvload = 1 and cids = '".$post['cids']."'");
@@ -281,8 +285,10 @@
                                         <td>
                                         <?php 
                                        $total_ev = $this->db->query("select * from leadmaster
-                                       where ontag = 1
-                                       and rlc = 0
+                                       where 
+                                       
+                                       rlc = 0
+                                       and (pload = 0 OR pload = 1)
                                        
                                        and sbsvtag != 0
                                        

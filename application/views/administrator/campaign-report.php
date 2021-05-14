@@ -304,8 +304,8 @@
                                         </td>
                                         <td>
                                         <?php 
-                                        $ev_inproccess = $this->db->query("SELECT count(*) FROM 'ev' LEFT JOIN 'leadmaster' ON 'ev'.'lmid' = 'leadmaster'.'lmid' LEFT JOIN 'users' ON 'users'.'empcode' = 'leadmaster'.'stagtidi' 
-                                        LEFT JOIN 'campaign' ON 'campaign'.'cids' = 'leadmaster'.'cids' WHERE  leadmaster.cids = '".$post['cids']."' AND 'ev'.'curr_active' = 1 AND 'ev'.'closer_status' = 'Open' 
+                                        $ev_inproccess = $this->db->query("SELECT count(*) FROM ev LEFT JOIN leadmaster ON ev.lmid = leadmaster.lmid LEFT JOIN users ON users.empcode = leadmaster.stagtidi 
+                                        LEFT JOIN campaign ON campaign.cids = leadmaster.cids WHERE  leadmaster.cids = '".$post['cids']."' AND ev.curr_active = 1 AND ev.closer_status = 'Open' 
                                         ");
                                         //  $ev_inproccess = $this->db->query("select distinct(ev.lmid) from ev
                                         //  left join leadmaster ON ev.lmid=leadmaster.lmid

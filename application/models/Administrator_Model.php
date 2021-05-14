@@ -1841,6 +1841,69 @@ public function get_campaign_with_status_initialise($cnid,$status)
 	
 	}
 
+	public function get_ev_cleared($id = FALSE,$leadlimit = false)
+{
+		
+	
+		$this->db->where('sbsvtag !=', 0);
+		$this->db->where('qasv', NULL);
+		$this->db->where('cdcsv', NULL);
+		$this->db->where('evload',1);
+		$this->db->where('cdcload',null);
+		$this->db->where('qaload',null);
+		$this->db->where('rlc !=', 1);
+		
+		if(isset($leadlimit) && $leadlimit != null){
+			$this->db->limit($leadlimit);	
+		}
+	
+		$query = $this->db->get_where('leadmaster', array('cids' => $id));
+		// echo $this->db->last_query(); 
+	
+		return $query->result_array(); 
+	}
+	public function get_dv_cleared($id = FALSE,$leadlimit = false)
+{
+		
+	
+		$this->db->where('sbsvtag !=', 0);
+		$this->db->where('qasv', NULL);
+		$this->db->where('cdcsv', NULL);
+		$this->db->where('dvload',1);
+		$this->db->where('evload',null);
+		$this->db->where('cdcload',null);
+		$this->db->where('qaload',null);
+		$this->db->where('rlc !=', 1);
+		
+		if(isset($leadlimit) && $leadlimit != null){
+			$this->db->limit($leadlimit);	
+		}
+	
+		$query = $this->db->get_where('leadmaster', array('cids' => $id));
+		// echo $this->db->last_query(); 
+	
+		return $query->result_array(); 
+	}
+	public function get_cdc_cleared($id = FALSE,$leadlimit = false)
+{
+		
+	
+		$this->db->where('sbsvtag !=', 0);
+		$this->db->where('cdcsv', NULL);
+		$this->db->where('qasv', NULL);
+		$this->db->where('cdcload',1);
+		$this->db->where('qaload',null);
+		$this->db->where('rlc !=', 1);
+		
+		if(isset($leadlimit) && $leadlimit != null){
+			$this->db->limit($leadlimit);	
+		}
+	
+		$query = $this->db->get_where('leadmaster', array('cids' => $id));
+		// echo $this->db->last_query(); 
+	
+		return $query->result_array(); 
+	}
 	public function get_dc_cleared($id = FALSE,$leadlimit = false)
 {
 		
@@ -1849,6 +1912,7 @@ public function get_campaign_with_status_initialise($cnid,$status)
 		$this->db->where('sbsvtag !=', 0);
 		$this->db->where('qaacpt', NULL);
 		$this->db->where('qasv', NULL);
+		$this->db->where('cdcsv', NULL);
 
 			$this->db->group_start();
 			$this->db->where('dvrejtg < 3 AND dvsbtg < 3');
@@ -1875,13 +1939,14 @@ public function get_campaign_with_status_initialise($cnid,$status)
 		return $query->result_array(); 
 	}
 
-	public function get_dc_pending($id = FALSE,$empcode)
+	public function get_dc_pending($id = FALSE,$leadlimit = false)
 	{
 			
 			
 			$this->db->where('sbsvtag <', 6);
 			$this->db->where('sbsvtag !=', 0);
 			$this->db->where('qasv', NULL);
+			$this->db->where('cdcsv', NULL);
 			$this->db->where('qaacpt', NULL);
 	
 			$this->db->group_start();
@@ -1902,6 +1967,9 @@ public function get_campaign_with_status_initialise($cnid,$status)
 		
 				$this->db->order_by('dvrdti','ASC');
 				$this->db->order_by('dvrdtii','ASC');
+				if(isset($leadlimit) && $leadlimit != null){
+					$this->db->limit($leadlimit);	
+				}
 			
 		
 			$query = $this->db->get_where('leadmaster', array('cids' => $id));

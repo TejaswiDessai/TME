@@ -247,7 +247,7 @@
                                         $total_accept = $this->db->query("select * from leadmaster
                                         where ontag = 1
                                         and rlc = 0
-                                        and pload = 0
+                                        
                                         and sbsvtag != 0
                                         
                                         and dvload = 1 and cids = '".$post['cids']."'");
@@ -260,7 +260,7 @@
                                          where ontag = 1
                                          and rlc = 0
                                          and sbsvtag != 0
-                                         and pload = 0
+                                        
                                          and (dvsbtg = 0 OR dvsbtg = 1)
                                          and dvload = 1 and cids = '".$post['cids']."'");
                                          echo $first_accept->num_rows();
@@ -271,7 +271,7 @@
                                          $second_accept = $this->db->query("select * from leadmaster
                                          where ontag = 1
                                          and rlc = 0
-                                         and pload = 0
+                                         
                                          and sbsvtag != 0
                                          and dvsbtg = 2
                                          and dvload = 1 and cids = '".$post['cids']."'");
@@ -283,7 +283,7 @@
                                        $total_ev = $this->db->query("select * from leadmaster
                                        where ontag = 1
                                        and rlc = 0
-                                       and pload = 0
+                                       
                                        and sbsvtag != 0
                                        
                                        and dvload = 1 and cids = '".$post['cids']."'");

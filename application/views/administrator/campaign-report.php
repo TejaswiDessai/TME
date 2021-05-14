@@ -234,8 +234,8 @@
                                          $saved = $this->db->query("SELECT * FROM public.leadmaster
                                          where 
                                         --  svagtidi is not null
-                                        dvload = 0
-                                          and sbsvtag = 0 
+                                        
+                                           sbsvtag = 0 
                                          and cids = '".$post['cids']."'
                                         --  group by svagtidi,lmid
                                         
@@ -258,6 +258,7 @@
                                          $first_accept = $this->db->query("select * from leadmaster
                                          where ontag = 1
                                          and rlc = 0
+                                         and dvsbtg != 0
                                          and pload = 0
                                          and (dvsbtg = 0 OR dvsbtg = 1)
                                          and dvload = 1 and cids = '".$post['cids']."'");
@@ -270,6 +271,7 @@
                                          where ontag = 1
                                          and rlc = 0
                                          and pload = 0
+                                         and dvsbtg != 0
                                          and dvsbtg = 2
                                          and dvload = 1 and cids = '".$post['cids']."'");
                                          echo $second_accept->num_rows();
@@ -281,6 +283,7 @@
                                        where ontag = 1
                                        and rlc = 0
                                        and pload = 0
+                                       and dvsbtg != 0
                                        and (dvsbtg = 0 OR dvsbtg = 1 OR dvsbtg = 2)
                                        and dvload = 1 and cids = '".$post['cids']."'");
                                        echo $total_ev->num_rows();
@@ -292,7 +295,7 @@
                                          where 
                                          rlc != 1
                                          and dvload = 1
-                                         
+                                         and dvsbtg != 0
                                          and evcomp is NULL
                                          and cids = '".$post['cids']."'");
                                          echo $ev_pending->num_rows();

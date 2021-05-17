@@ -246,12 +246,12 @@
                                          <td><?php 
                                         $total_accept = $this->db->query("select * from leadmaster
                                         where 
-                                        
+                                        dvload = 1
                                        
                                         and (pload = 0 OR pload = 1)
                                         and sbsvtag != 0
                                         
-                                        and dvload = 1 and cids = '".$post['cids']."'");
+                                         and cids = '".$post['cids']."'");
                                         echo $total_accept->num_rows();
 
                                          //echo $post['numberveri']; ?></td>
@@ -259,13 +259,13 @@
                                         <td><?php 
                                          $first_accept = $this->db->query("select * from leadmaster
                                          where 
-                                         
+                                         dvload = 1
                                          
                                          and (pload = 0 OR pload = 1)
                                          and sbsvtag != 0
                                         
                                          and (dvsbtg = 0 OR dvsbtg = 1)
-                                         and dvload = 1 and cids = '".$post['cids']."'");
+                                        and cids = '".$post['cids']."'");
                                          echo $first_accept->num_rows();
                                           ?></td>
                                         <!-- </td> -->
@@ -273,12 +273,12 @@
                                           <td><?php 
                                          $second_accept = $this->db->query("select * from leadmaster
                                          where 
-                                         
+                                         dvload = 1
                                          
                                          and (pload = 0 OR pload = 1)
                                          and sbsvtag != 0
                                          and dvsbtg = 2
-                                         and dvload = 1 and cids = '".$post['cids']."'");
+                                           and cids = '".$post['cids']."'");
                                          echo $second_accept->num_rows();
                                           ?></td>
                                         <!-- </td> -->

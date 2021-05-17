@@ -247,7 +247,7 @@
                                         $total_accept = $this->db->query("select * from leadmaster
                                         where 
                                         
-                                        rlc = 0
+                                       
                                         and (pload = 0 OR pload = 1)
                                         and sbsvtag != 0
                                         
@@ -260,7 +260,7 @@
                                          $first_accept = $this->db->query("select * from leadmaster
                                          where 
                                          
-                                         rlc = 0
+                                         
                                          and (pload = 0 OR pload = 1)
                                          and sbsvtag != 0
                                         
@@ -274,7 +274,7 @@
                                          $second_accept = $this->db->query("select * from leadmaster
                                          where 
                                          
-                                         rlc = 0
+                                         
                                          and (pload = 0 OR pload = 1)
                                          and sbsvtag != 0
                                          and dvsbtg = 2
@@ -286,13 +286,12 @@
                                         <?php 
                                        $total_ev = $this->db->query("select * from leadmaster
                                        where 
-                                       
-                                       rlc = 0
-                                       and (pload = 0 OR pload = 1)
+                                       dvload = 1
+                                        and (pload = 0 OR pload = 1)
                                        
                                        and sbsvtag != 0
                                        
-                                       and dvload = 1 and cids = '".$post['cids']."'");
+                                        and cids = '".$post['cids']."'");
                                        echo $total_ev->num_rows();
                                        ?>
                                        </td>

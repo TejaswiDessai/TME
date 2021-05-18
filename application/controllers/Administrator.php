@@ -2918,14 +2918,18 @@ public function getPrivillage(){
 	
 		$data['title'] = 'Latest Campaigns';
 		
-		
-		
+		$campaign_id =$this->input->post('campaign_id');
+		if($campaign_id == null || $campaign_id == "")
+		{
+			echo "<script>alert('Please select Campaign..');location.href = 'http://mehp-dbs/administrator/selectCampaignforCampaignReport';</script>";
+			// redirect("/administrator/selectCampaignforCampaignReport");
+		}
 		
 
 		// print_r($data['users']);
 		//  print_r($user_id);
 		$data['users_name'] = $this->Administrator_Model->get_users(FALSE, $config['per_page'], $offset);
-		$data['users'] = $this->Administrator_Model->get_campaign_report(FALSE, $config['per_page'], $offset,$camp_status);
+		$data['users'] = $this->Administrator_Model->get_campaign_report(FALSE, $config['per_page'], $offset,$camp_status,$campaign_id);
 		$data['user_id'] = $user_id;
 		$data['Campid'] = $campid;
 		$data['Stage'] = $stage;
@@ -2938,7 +2942,19 @@ public function getPrivillage(){
 		$this->load->view('administrator/campaign-report', $data);
 		$this->load->view('administrator/footer');
 	}
-
+	function selectCampaignforCampaignReport($page = 'select-campaign-report'){
+		$data['title'] = 'Create Lead';
+		$data['campaigns'] = $this->Administrator_Model->get_campaign();
+				  
+		
+		
+		$this->load->view('administrator/header-script');
+		$this->load->view('administrator/header');
+		$this->load->view('administrator/header-bottom');
+		 $this->load->view('administrator/'.$page, $data);
+		$this->load->view('administrator/footer');
+	
+	}
 	public function delivery($offset = 0)
 		{
 			// Pagination Config

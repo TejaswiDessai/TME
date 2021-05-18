@@ -3640,7 +3640,7 @@ public function get_campaign_fordataverification()
 		// return $query;
 		}
 		// get_campaign_report function Added by Amol 
-		public function get_campaign_report($campaigns = FALSE, $limit = FALSE, $offset = FALSE, $camp_status)
+		public function get_campaign_report($campaigns = FALSE, $limit = FALSE, $offset = FALSE, $camp_status,$campaign_id)
 		{
 			if ($limit) {
 				$this->db->limit($limit, $offset);
@@ -3653,6 +3653,7 @@ public function get_campaign_fordataverification()
 			{
 				$query = $this->db->where('campaign.status', 2);
 			}
+			$this->db->where_in('cids',$campaign_id);
 			if($campaigns === FALSE){
 				$this->db->order_by('campaign.cids', 'DESC');
 				$this->db->join('clientscd', 'clientscd.clientid = campaign.clientids');

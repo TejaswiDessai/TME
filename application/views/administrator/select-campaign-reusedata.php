@@ -55,7 +55,8 @@ $(document).ready(function () {
                         </div>
                            
                          <div class="col-sm-3">
-                              <button type="submit" name="retrievedata" class="btn btn-primary" style=""  id="retrievedata">Add record to campaign</button>
+                              <!-- <button type="submit" name="retrievedata" class="btn btn-primary" style=""  id="retrievedata">Add record to campaign</button> -->
+                              <a href="<?php echo base_url(); ?>administrator/selectCampaignforReuse"  class="btn btn-primary">Add record to campaigns</a>
                             </div>
 
                             <div class="col-sm-3">

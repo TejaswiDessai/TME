@@ -59,6 +59,16 @@ $(document).ready(function () {
                         <div class="col-sm-3">
                         
                     </div>
+                    <div class="col-sm-3">
+                                   
+                                    <select name="campaign_status_from" id="campaign_status_from"  class="form-control form-control-sm" >
+                                            <option value="">Select Campaign Status</option>
+                                            <option value="Fresh">Fresh</option>
+                                            <option value="Used">Used</option>
+                                            <!-- <option value="3">Hold</option> -->
+
+                                    </select>
+                                    </div>
                            <div class="col-sm-3">
                                <select name="campaign_id" id="campaign_id"  class="form-control form-control-sm" >
                                      <option value="">Select Campaign</option>
@@ -67,12 +77,13 @@ $(document).ready(function () {
                                <?php endforeach; ?>
                                </select>
                             </div>
-                         <div class="col-sm-3">
-                              <button type="submit" name="retrievedata" class="btn btn-primary" style=""  id="retrievedata">Retrieve Campaign Data</button>
-                            </div>
+                         
                             <!-- setting hidden value of campaign id and sending to addlead form -->
                          <input type="hidden" name="hiddencnid" id="hiddencnid" value="">
                         </div>
+                        <center><div class="col-sm-3">
+                              <button type="submit" name="retrievedata" class="btn btn-primary" style=""  id="retrievedata">Retrieve Campaign Data</button>
+                            </div></center>
                     </div>
                       
                 </div>

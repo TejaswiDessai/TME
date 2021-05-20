@@ -3856,9 +3856,21 @@ public function get_campaign_fordataverification()
 		// return $query;
 		// }
 
-		public function get_all_record_leadmasterby_dc($dcd=null,$levelid=null,$ctype,$sector_id=null,$region_id,$sub_region_id,$country_id,$subindustrycd,$desid,$revnlbound,$revnlbound_range,$revnubound,$revnubound_range,$emplbound,$empubound)
+		public function get_all_record_leadmasterby_dc($rec_stage,$dcd=null,$levelid=null,$ctype,$sector_id=null,$region_id,$sub_region_id,$country_id,$subindustrycd,$desid,$revnlbound,$revnlbound_range,$revnubound,$revnubound_range,$emplbound,$empubound)
 		{
 			$this->db->select("count(*) as total,lmid");
+
+			if($rec_stage == "Fresh")
+			{
+				$this->db->like('CAST(leadmaster.cids AS VARCHAR(100))', '999', 'after');
+				// $this->db->where('CAST(cids AS VARCHAR(100)) LIKE "'999%'"');
+				// $this->db->where('leadmaster.cids', '9999');
+				
+			}
+			else{
+				$this->db->join('campaign', 'leadmaster.cids = campaign.cids');
+				$this->db->where('campaign.status !=', '2');
+			}
 			if(isset($dcd) && $dcd[0] != 0)
 				$this->db->where_in('dname',$dcd);
 
@@ -3880,8 +3892,11 @@ public function get_campaign_fordataverification()
 			if(isset($subindustrycd) && $subindustrycd[0] != 0)
 				$this->db->where_in('sindtry',$subindustrycd);
 
-			if(isset($levelid) && $levelid[0] != 0)
-				$this->db->where_in('jlevel',$levelid);
+			if(isset($desid) && $desid[0] != 0)
+				$this->db->where_in('jlevel',$desid);
+
+			// if(isset($levelid) && $levelid[0] != 0)
+			// 	$this->db->where_in('jlevel',$levelid);
 
 			// if(isset($revnlbound) && $revnlbound != '')
 			// 	$this->db->where_in('arevenue',$revnlbound);
@@ -3934,10 +3949,21 @@ public function get_campaign_fordataverification()
 		// return $query->num_rows(); 
 	}
 // Added by Amol
-	public function get_all_record_leadmasterby_dv($dcd,$levelid,$ctype,$sector_id,$region_id,$sub_region_id,$country_id,$subindustrycd,$desid,$revnlbound,$revnlbound_range,$revnubound,$revnubound_range,$emplbound,$empubound)
+	public function get_all_record_leadmasterby_dv($rec_stage,$dcd,$levelid,$ctype,$sector_id,$region_id,$sub_region_id,$country_id,$subindustrycd,$desid,$revnlbound,$revnlbound_range,$revnubound,$revnubound_range,$emplbound,$empubound)
 	{
 		
 		$this->db->select("count(*) as total,lmid");
+
+		if($rec_stage == "Fresh")
+		{
+			// $this->db->where('leadmaster.cids', '9999');
+			$this->db->like('CAST(leadmaster.cids AS VARCHAR(100))', '999', 'after');
+		}
+		else{
+			$this->db->join('campaign', 'leadmaster.cids = campaign.cids');
+			$this->db->where('campaign.status !=', '2');
+		}
+
 		if(isset($dcd) && $dcd[0] != 0)
 			$this->db->where_in('dname',$dcd);
 
@@ -3958,9 +3984,12 @@ public function get_campaign_fordataverification()
 
 			if(isset($subindustrycd) && $subindustrycd[0] != 0)
 				$this->db->where_in('sindtry',$subindustrycd);
+			
+			if(isset($desid) && $desid[0] != 0)
+				$this->db->where_in('jlevel',$desid);
 
-			if(isset($levelid) && $levelid[0] != 0)
-				$this->db->where_in('jlevel',$levelid);
+			// if(isset($levelid) && $levelid[0] != 0)
+			// 	$this->db->where_in('jlevel',$levelid);
 
 			// if(isset($revnlbound) && $revnlbound != '')
 			// 	$this->db->where_in('arevenue',$revnlbound);
@@ -4005,10 +4034,19 @@ public function get_campaign_fordataverification()
 	}
 
 	// Added by Amol
-	public function get_all_record_leadmasterby_CDC($dcd=null,$levelid=null,$ctype,$sector_id=null,$region_id,$sub_region_id,$country_id,$subindustrycd,$desid,$revnlbound,$revnlbound_range,$revnubound,$revnubound_range,$emplbound,$empubound)
+	public function get_all_record_leadmasterby_CDC($rec_stage,$dcd=null,$levelid=null,$ctype,$sector_id=null,$region_id,$sub_region_id,$country_id,$subindustrycd,$desid,$revnlbound,$revnlbound_range,$revnubound,$revnubound_range,$emplbound,$empubound)
 	{
 	
 		$this->db->select("count(*) as total,lmid");
+		if($rec_stage == "Fresh")
+		{
+			// $this->db->where('leadmaster.cids', '9999');
+			$this->db->like('CAST(leadmaster.cids AS VARCHAR(100))', '999', 'after');
+		}
+		else{
+			$this->db->join('campaign', 'leadmaster.cids = campaign.cids');
+			$this->db->where('campaign.status !=', '2');
+		}
 		if(isset($dcd) && $dcd[0] != 0)
 			$this->db->where_in('dname',$dcd);
 
@@ -4030,8 +4068,11 @@ public function get_campaign_fordataverification()
 			if(isset($subindustrycd) && $subindustrycd[0] != 0)
 				$this->db->where_in('sindtry',$subindustrycd);
 
-			if(isset($levelid) && $levelid[0] != 0)
-				$this->db->where_in('jlevel',$levelid);
+			if(isset($desid) && $desid[0] != 0)
+				$this->db->where_in('jlevel',$desid);
+
+			// if(isset($levelid) && $levelid[0] != 0)
+			// 	$this->db->where_in('jlevel',$levelid);
 			// if(isset($revnlbound) && $revnlbound != '')
 			// 	$this->db->where_in('arevenue',$revnlbound);
 
@@ -4083,9 +4124,18 @@ public function get_campaign_fordataverification()
 	}
 	
 	// Added by Amol 
-	public function get_all_record_leadmasterby_campaignQA($dcd,$levelid,$ctype,$sector_id,$region_id,$sub_region_id,$country_id,$subindustrycd,$desid,$revnlbound,$revnlbound_range,$revnubound,$revnubound_range,$emplbound,$empubound)
+	public function get_all_record_leadmasterby_campaignQA($rec_stage,$dcd,$levelid,$ctype,$sector_id,$region_id,$sub_region_id,$country_id,$subindustrycd,$desid,$revnlbound,$revnlbound_range,$revnubound,$revnubound_range,$emplbound,$empubound)
 	{
 		$this->db->select("count(*) as total,lmid");
+		if($rec_stage == "Fresh")
+		{
+			// $this->db->where('leadmaster.cids', '9999');
+			$this->db->like('CAST(leadmaster.cids AS VARCHAR(100))', '999', 'after');
+		}
+		else{
+			$this->db->join('campaign', 'leadmaster.cids = campaign.cids');
+			$this->db->where('campaign.status !=', '2');
+		}
 		if(isset($dcd) && $dcd[0] != 0)
 			$this->db->where_in('dname',$dcd);
 
@@ -4107,8 +4157,10 @@ public function get_campaign_fordataverification()
 			if(isset($subindustrycd) && $subindustrycd[0] != 0)
 				$this->db->where_in('sindtry',$subindustrycd);
 
-			if(isset($levelid) && $levelid[0] != 0)
-				$this->db->where_in('jlevel',$levelid);
+			if(isset($desid) && $desid[0] != 0)
+				$this->db->where_in('jlevel',$desid);
+			// if(isset($levelid) && $levelid[0] != 0)
+			// 	$this->db->where_in('jlevel',$levelid);
 
 			// if(isset($revnlbound) && $revnlbound != '')
 			// 	$this->db->where_in('arevenue',$revnlbound);
@@ -4155,9 +4207,18 @@ public function get_campaign_fordataverification()
 		// return $query->result_array();
 	}
 // Added by Amol 
-public function get_all_record_leadmasterby_QAdone($dcd,$levelid,$ctype,$sector_id,$region_id,$sub_region_id,$country_id,$subindustrycd,$desid,$revnlbound,$revnlbound_range,$revnubound,$revnubound_range,$emplbound,$empubound)
+public function get_all_record_leadmasterby_QAdone($rec_stage,$dcd,$levelid,$ctype,$sector_id,$region_id,$sub_region_id,$country_id,$subindustrycd,$desid,$revnlbound,$revnlbound_range,$revnubound,$revnubound_range,$emplbound,$empubound)
 {
 	$this->db->select("count(*) as total,lmid");
+	if($rec_stage == "Fresh")
+		{
+			// $this->db->where('leadmaster.cids', '9999');
+			$this->db->like('CAST(leadmaster.cids AS VARCHAR(100))', '999', 'after');
+		}
+		else{
+			$this->db->join('campaign', 'leadmaster.cids = campaign.cids');
+			$this->db->where('campaign.status !=', '2');
+		}
 	if(isset($dcd) && $dcd[0] != 0)
 		$this->db->where_in('dname',$dcd);
 
@@ -4179,8 +4240,10 @@ public function get_all_record_leadmasterby_QAdone($dcd,$levelid,$ctype,$sector_
 			if(isset($subindustrycd) && $subindustrycd[0] != 0)
 				$this->db->where_in('sindtry',$subindustrycd);
 
-			if(isset($levelid) && $levelid[0] != 0)
-				$this->db->where_in('jlevel',$levelid);
+			if(isset($desid) && $desid[0] != 0)
+				$this->db->where_in('jlevel',$desid);
+			// if(isset($levelid) && $levelid[0] != 0)
+			// 	$this->db->where_in('jlevel',$levelid);
 
 			// if(isset($revnlbound) && $revnlbound != '')
 			// 	$this->db->where_in('arevenue',$revnlbound);
@@ -4200,37 +4263,46 @@ public function get_all_record_leadmasterby_QAdone($dcd,$levelid,$ctype,$sector_
 				$this->db->where('empsize <=', $empubound);
 			}
 	
-// $this->db->where('cdcsb <', '4');
-// $this->db->where('cdcrjt <', '4');
-// $this->db->where('cdcsv !=', 0);
-// $this->db->where('cdcsv', NULL);
-$this->db->where('qaacpt', 1);
-// $this->db->where('sbsvtag !=', 0);
-$this->db->where('qastat','qualified'); 
-// $this->db->where('cdcload',1);
-$this->db->where('qaload',1);
-// $this->db->where('qalsload',null);
-// $this->db->where('rlc !=', 1);
-$this->db->group_start();
-$this->db->where('dytg', '0');
-$this->db->OR_where('dytg', NULL);
-$this->db->group_end(); 
-$this->db->group_by('lmid');	
-// $this->db->order_by('cdcsbdti','ASC');
-// $this->db->order_by('cdcsbdtii','ASC');
-// $this->db->limit(1);
-$query = $this->db->get('leadmaster');
-// echo $this->db->last_query(); 
-// echo $string;
-// die;
-return $query;
-// return $query->num_rows();
-	// return $query->result_array();
+			// $this->db->where('cdcsb <', '4');
+			// $this->db->where('cdcrjt <', '4');
+			// $this->db->where('cdcsv !=', 0);
+			// $this->db->where('cdcsv', NULL);
+			$this->db->where('qaacpt', 1);
+			// $this->db->where('sbsvtag !=', 0);
+			$this->db->where('qastat','qualified'); 
+			// $this->db->where('cdcload',1);
+			$this->db->where('qaload',1);
+			// $this->db->where('qalsload',null);
+			// $this->db->where('rlc !=', 1);
+			$this->db->group_start();
+			$this->db->where('dytg', '0');
+			$this->db->OR_where('dytg', NULL);
+			$this->db->group_end(); 
+			$this->db->group_by('lmid');	
+			// $this->db->order_by('cdcsbdti','ASC');
+			// $this->db->order_by('cdcsbdtii','ASC');
+			// $this->db->limit(1);
+			$query = $this->db->get('leadmaster');
+			// echo $this->db->last_query(); 
+			// echo $string;
+			// die;
+			return $query;
+			// return $query->num_rows();
+				// return $query->result_array();
 }
 
-public function get_all_record_leadmasterby_Delivered($dcd,$levelid,$ctype,$sector_id,$region_id,$sub_region_id,$country_id,$subindustrycd,$desid,$revnlbound,$revnlbound_range,$revnubound,$revnubound_range,$emplbound,$empubound)
+public function get_all_record_leadmasterby_Delivered($rec_stage,$dcd,$levelid,$ctype,$sector_id,$region_id,$sub_region_id,$country_id,$subindustrycd,$desid,$revnlbound,$revnlbound_range,$revnubound,$revnubound_range,$emplbound,$empubound)
 {
 			$this->db->select("count(*) as total,lmid");
+			if($rec_stage == "Fresh")
+			{
+				// $this->db->where('leadmaster.cids', '9999');
+				$this->db->like('CAST(leadmaster.cids AS VARCHAR(100))', '999', 'after');
+			}
+			else{
+				$this->db->join('campaign', 'leadmaster.cids = campaign.cids');
+				$this->db->where('campaign.status !=', '2');
+			}
 			if(isset($dcd) && $dcd[0] != 0)
 				$this->db->where_in('dname',$dcd);
 
@@ -4251,9 +4323,12 @@ public function get_all_record_leadmasterby_Delivered($dcd,$levelid,$ctype,$sect
 
 			if(isset($subindustrycd) && $subindustrycd[0] != 0)
 				$this->db->where_in('sindtry',$subindustrycd);
+			
+			if(isset($desid) && $desid[0] != 0)
+				$this->db->where_in('jlevel',$desid);
 
-			if(isset($levelid) && $levelid[0] != 0)
-				$this->db->where_in('jlevel',$levelid);
+			// if(isset($levelid) && $levelid[0] != 0)
+			// 	$this->db->where_in('jlevel',$levelid);
 
 				
 			// if(isset($revnlbound) && $revnlbound != '')
@@ -4281,13 +4356,23 @@ public function get_all_record_leadmasterby_Delivered($dcd,$levelid,$ctype,$sect
 	return $query;
 	}
 
-	public function get_all_record_leadmasterby_dcPending($dcd,$levelid,$ctype,$sector_id,$region_id,$sub_region_id,$country_id,$subindustrycd,$desid,$revnlbound,$revnlbound_range,$revnubound,$revnubound_range,$emplbound,$empubound)
+	public function get_all_record_leadmasterby_dcPending($rec_stage,$dcd,$levelid,$ctype,$sector_id,$region_id,$sub_region_id,$country_id,$subindustrycd,$desid,$revnlbound,$revnlbound_range,$revnubound,$revnubound_range,$emplbound,$empubound)
 	{
 		// $deptStr = '';
 		// if(isset($dcd) && $dcd != 0) {
 		// $deptStr = implode(',',$dcd);
 		// }
 		$this->db->select("count(*) as total,lmid");
+		
+		if($rec_stage == "Fresh")
+		{
+			// $this->db->where('leadmaster.cids', '9999');
+			$this->db->like('CAST(leadmaster.cids AS VARCHAR(100))', '999', 'after');
+		}
+		else{
+			$this->db->join('campaign', 'leadmaster.cids = campaign.cids');
+			$this->db->where('campaign.status !=', '2');
+		}
 		if(isset($dcd) && $dcd[0] != 0)
 			$this->db->where_in('dname',$dcd);
 
@@ -4352,6 +4437,7 @@ public function get_all_record_leadmasterby_Delivered($dcd,$levelid,$ctype,$sect
 		$this->db->where('cdcload',null);
 		$this->db->where('qaload',null);
 		$this->db->where('rlc !=', 1);
+		
 		// $this->db->group_start();
 		// 		$this->db->where('stagtidi',$empcode);
 				// $this->db->OR_where('stagtidii',$empcode);
@@ -4470,10 +4556,10 @@ public function get_all_record_leadmasterby_Delivered($dcd,$levelid,$ctype,$sect
 				$this->db->where('empsize <=', $empubound);
 			}
 			$dt = new DateTime();
-			$dt->modify('-'.$period. 'month');
-			$date = $dt->format('Y-m-d');
+			// $dt->modify('-'.$period. 'month');
+			// $date = $dt->format('Y-m-d');
 			// $this->db->where('dydti >= "2013-08-01"');
-			$this->db->where('qaacptdti <= ',$date);
+			// $this->db->where('qaacptdti <= ',$date);
 			// $this->db->where('dytg', '1');
 			
 			$this->db->where('qaacpt', 1);
@@ -4500,6 +4586,12 @@ public function get_all_record_leadmasterby_Delivered($dcd,$levelid,$ctype,$sect
 		$this->db->where('lmid', $lmid);
 		$this->db->update('leadmaster', $datacampaign);
 		return true;
+	}
+	public function get_campgroup($lmid){
+		$this->db->where('lmid', $lmid);
+		$query = $this->db->get('leadmaster');
+		// echo $this->db->last_query();  
+		return $query->result_array();
 	}
 
 }

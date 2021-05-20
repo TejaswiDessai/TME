@@ -3291,16 +3291,19 @@ public function getPrivillage(){
 			$period = $this->input->post('period');
 			// echo $ctype;
 			$sector_id = $this->input->post('sector_id');
+
+			$rec_stage = $this->input->post('rec_stage');
+			// print_r($rec_stage);die;
 			// $data['users'] = $this->Administrator_Model->get_available_leads(FALSE, $config['per_page'], $offset,$dcd,$ctype,$levelid,$sector_id);
-			$data['leadmaster_dcPending'] = $this->Administrator_Model->get_all_record_leadmasterby_dcPending($dcd,$levelid,$ctype,$sector_id,$region_id,$sub_region_id,$country_id,$subindustrycd,$desid,$revnlbound,$revnlbound_range,$revnubound,$revnubound_range,$emplbound,$empubound);
-			$data['leadmaster_dcCleared'] = $this->Administrator_Model->get_all_record_leadmasterby_dc($dcd,$levelid,$ctype,$sector_id,$region_id,$sub_region_id,$country_id,$subindustrycd,$desid,$revnlbound,$revnlbound_range,$revnubound,$revnubound_range,$emplbound,$empubound);
-			$data['leadmaster_dvCleared'] = $this->Administrator_Model->get_all_record_leadmasterby_dv($dcd,$levelid,$ctype,$sector_id,$region_id,$sub_region_id,$country_id,$subindustrycd,$desid,$revnlbound,$revnlbound_range,$revnubound,$revnubound_range,$emplbound,$empubound);
-			$data['leadmaster_evCleared'] = $this->Administrator_Model->get_all_record_leadmasterby_CDC($dcd,$levelid,$ctype,$sector_id,$region_id,$sub_region_id,$country_id,$subindustrycd,$desid,$revnlbound,$revnlbound_range,$revnubound,$revnubound_range,$emplbound,$empubound);
-			$data['leadmaster_cdcCleared'] = $this->Administrator_Model->get_all_record_leadmasterby_campaignQA($dcd,$levelid,$ctype,$sector_id,$region_id,$sub_region_id,$country_id,$subindustrycd,$desid,$revnlbound,$revnlbound_range,$revnubound,$revnubound_range,$emplbound,$empubound);
-			$data['leadmaster_qaCleared'] = $this->Administrator_Model->get_all_record_leadmasterby_QAdone($dcd,$levelid,$ctype,$sector_id,$region_id,$sub_region_id,$country_id,$subindustrycd,$desid,$revnlbound,$revnlbound_range,$revnubound,$revnubound_range,$emplbound,$empubound);
-			$data['leadmaster_delivered'] = $this->Administrator_Model->get_all_record_leadmasterby_Delivered($dcd,$levelid,$ctype,$sector_id,$region_id,$sub_region_id,$country_id,$subindustrycd,$desid,$revnlbound,$revnlbound_range,$revnubound,$revnubound_range,$emplbound,$empubound);
-			$data['leadmaster_unused'] = $this->Administrator_Model->get_all_unused_record($dcd,$levelid,$ctype,$sector_id,$region_id,$sub_region_id,$country_id,$subindustrycd,$desid,$revnlbound,$revnlbound_range,$revnubound,$revnubound_range,$emplbound,$empubound);
-			$data['leadmaster_used'] = $this->Administrator_Model->get_all_used_record_with_cond($dcd,$levelid,$ctype,$sector_id,$region_id,$sub_region_id,$country_id,$subindustrycd,$desid,$revnlbound,$revnlbound_range,$revnubound,$revnubound_range,$emplbound,$empubound,$period);
+			$data['leadmaster_dcPending'] = $this->Administrator_Model->get_all_record_leadmasterby_dcPending($rec_stage,$dcd,$levelid,$ctype,$sector_id,$region_id,$sub_region_id,$country_id,$subindustrycd,$desid,$revnlbound,$revnlbound_range,$revnubound,$revnubound_range,$emplbound,$empubound);
+			$data['leadmaster_dcCleared'] = $this->Administrator_Model->get_all_record_leadmasterby_dc($rec_stage,$dcd,$levelid,$ctype,$sector_id,$region_id,$sub_region_id,$country_id,$subindustrycd,$desid,$revnlbound,$revnlbound_range,$revnubound,$revnubound_range,$emplbound,$empubound);
+			$data['leadmaster_dvCleared'] = $this->Administrator_Model->get_all_record_leadmasterby_dv($rec_stage,$dcd,$levelid,$ctype,$sector_id,$region_id,$sub_region_id,$country_id,$subindustrycd,$desid,$revnlbound,$revnlbound_range,$revnubound,$revnubound_range,$emplbound,$empubound);
+			$data['leadmaster_evCleared'] = $this->Administrator_Model->get_all_record_leadmasterby_CDC($rec_stage,$dcd,$levelid,$ctype,$sector_id,$region_id,$sub_region_id,$country_id,$subindustrycd,$desid,$revnlbound,$revnlbound_range,$revnubound,$revnubound_range,$emplbound,$empubound);
+			$data['leadmaster_cdcCleared'] = $this->Administrator_Model->get_all_record_leadmasterby_campaignQA($rec_stage,$dcd,$levelid,$ctype,$sector_id,$region_id,$sub_region_id,$country_id,$subindustrycd,$desid,$revnlbound,$revnlbound_range,$revnubound,$revnubound_range,$emplbound,$empubound);
+			$data['leadmaster_qaCleared'] = $this->Administrator_Model->get_all_record_leadmasterby_QAdone($rec_stage,$dcd,$levelid,$ctype,$sector_id,$region_id,$sub_region_id,$country_id,$subindustrycd,$desid,$revnlbound,$revnlbound_range,$revnubound,$revnubound_range,$emplbound,$empubound);
+			$data['leadmaster_delivered'] = $this->Administrator_Model->get_all_record_leadmasterby_Delivered($rec_stage,$dcd,$levelid,$ctype,$sector_id,$region_id,$sub_region_id,$country_id,$subindustrycd,$desid,$revnlbound,$revnlbound_range,$revnubound,$revnubound_range,$emplbound,$empubound);
+			// $data['leadmaster_unused'] = $this->Administrator_Model->get_all_unused_record($rec_stage,$dcd,$levelid,$ctype,$sector_id,$region_id,$sub_region_id,$country_id,$subindustrycd,$desid,$revnlbound,$revnlbound_range,$revnubound,$revnubound_range,$emplbound,$empubound);
+			// $data['leadmaster_used'] = $this->Administrator_Model->get_all_used_record_with_cond($rec_stage,$dcd,$levelid,$ctype,$sector_id,$region_id,$sub_region_id,$country_id,$subindustrycd,$desid,$revnlbound,$revnlbound_range,$revnubound,$revnubound_range,$emplbound,$empubound,$period);
 			$data['campaigns'] = $this->Administrator_Model->get_campaign();
 			$data['dcd'] = $dcd;
 			$data['levelid'] = $levelid;
@@ -3335,8 +3338,9 @@ public function getPrivillage(){
 			$data['revnubound'] = $this->Administrator_Model->get_revenuesize();
 			$data['frequency_type'] = $this->Administrator_Model->get_frequency_type();
 			$data['frequency'] = $this->Administrator_Model->get_frequency();
-
+			$data['rec_stage']  = $this->input->post('rec_stage');
 			
+		
 			  
 			  if (empty($data['campaign_record'])) {
 				  show_404();
@@ -3429,16 +3433,39 @@ public function getPrivillage(){
 			$campaign_id = $_GET['campaign_id'];
 			// $string_version= implode(",", $check);
 			$comp_proSplit= explode(",", $lmid);
-			$cnt=count($comp_proSplit);
+
+
+			// $datadccleared =  $this->Administrator_Model->get_campgroup($comp_proSplit[$i]);
+				
+			// foreach ($datadccleared as $datadccleared) {
+			// 	// $campgrp = $datadccleared['campgrp'];
+			// 	$campgrp = $datadccleared['campgrp'].' #'.$datadccleared['cids'];
+			// }
+
+
+			
+			// $cnt=count($comp_proSplit);
+			$cnt= $_GET['count_of_leads'];
 			for($i=0;$i<$cnt;$i++)
 			{
-				$update_lead_status = array(
-					'cids' =>$campaign_id,
 
-					// 'dyagti' => $this->session -> userdata('empcode'),
+				$datadccleared =  $this->Administrator_Model->get_campgroup($comp_proSplit[$i]);
+			
+					foreach ($datadccleared as $datadccleared) {
+						$campgrp = $datadccleared['campgrp'];
+						$campgrp = $datadccleared['campgrp'].' #'.$datadccleared['cids'];
+						
+						$update_lead_status = array(
+							'cids' =>$campaign_id,
+							'campgrp' =>$campgrp,
 
-				);
-				$update_lead_status = $this->Administrator_Model->assign_leads_to_campaign($update_lead_status,$comp_proSplit[$i]);
+							// 'dyagti' => $this->session -> userdata('empcode'),
+
+						);
+						$update_lead_status = $this->Administrator_Model->assign_leads_to_campaign($update_lead_status,$comp_proSplit[$i]);
+					}
+
+
 			}
 			if($update_lead_status == true){
 		

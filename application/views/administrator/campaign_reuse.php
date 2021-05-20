@@ -15,7 +15,20 @@
     }
     .form-control .multiselect-search input[type="text"]{
     height:40px;
+    
 }
+.dataTables_length{
+        display:none;
+    }
+.dataTables_filter{
+        display:none;
+    }
+#dom-jqry_paginate{
+        display:none;
+    }
+#dom-jqry_info{
+        display:none;
+    }
 </style>
 <script type="text/javascript">
 
@@ -213,8 +226,8 @@ $(document).ready(function(){
                                 <thead>
                                     <tr>
                                         <!-- <th><input type="checkbox" class="emailsend_all  emailclass"  onclick="toggle(this);"/>&nbsp;&nbsp;Select</th> -->
-                                        <th>Unused</th>
-                                        <th>Used > 6 Month</th>
+                                        <!-- <th>Unused</th>
+                                        <th>Used > 6 Month</th> -->
                                         <th>DC Pending</th>
                                         <th>DC Cleared</th>
                                         <th>DV Cleared</th>
@@ -238,41 +251,44 @@ $(document).ready(function(){
                                 ?>
                                  <tr>
                 
-                                        <td><?php //echo $leadmaster_unused;
-                                         $leadmaster_unused = $leadmaster_unused->result();
-                                         $unused =0;
-                                         $delivered_lmid = array();
-                                         foreach($leadmaster_unused as $post) {
-                                           $delivered_lmid[] = $post->lmid;
-                                           //   echo $post->lmid;
-                                             $unused++;
-                                         }
-                                       //   print_r($delivered_lmid);
-                                         echo $unused;
-                                         $delivered_lmid = implode(",", $delivered_lmid);
+                                        <!-- <td><?php //echo $leadmaster_unused; -->
+                                      //    $leadmaster_unused = $leadmaster_unused->result();
+                                      //    $unused =0;
+                                      //    $delivered_lmid = array();
+                                      //    foreach($leadmaster_unused as $post) {
+                                      //      $delivered_lmid[] = $post->lmid;
+                                      //      //   echo $post->lmid;
+                                      //        $unused++;
+                                      //    }
+                                      //  //   print_r($delivered_lmid);
+                                      //    echo $unused;
+                                      //    $delivered_lmid = implode(",", $delivered_lmid);
                                         ?>
-                                        <button type="button" style="margin-left: 2px;height: 34px;" data-toggle="tooltip" title="Update"  class="col-sm-3 btn btn-primary btn-sm gotoupdateleadlsfinal" data-id="<?php echo $delivered_lmid;?>" data-campaign_id = "<?php echo $campaign_id;?>" id="gotoupdateleadlsfinal"
-                                           data-row="<?php echo $delivered_lmid;?>"><i class="icofont icofont-edit"></i></button></td>
-                                        <td><?php
+                                         <button type="button" style="margin-left: 2px;height: 34px;" data-toggle="tooltip" title="Update"  class="col-sm-3 btn btn-primary btn-sm gotoupdateleadlsfinal" data-id="<?php echo $delivered_lmid;?>" data-campaign_id = "<?php echo $campaign_id;?>" id="gotoupdateleadlsfinal"
+                                           data-row="<?php// echo  $delivered_lmid;?>"><i class="icofont icofont-edit"></i></button></td> -->
+                                        <!-- <td><?php 
                                         // echo $leadmaster_used; 
-                                        $leadmaster_used = $leadmaster_used->result();
-                                        $used =0;
-                                        $delivered_lmid = array();
-                                        foreach($leadmaster_used as $post) {
-                                          $delivered_lmid[] = $post->lmid;
-                                          //   echo $post->lmid;
-                                            $used++;
-                                        }
-                                      //   print_r($delivered_lmid);
-                                        echo $used;
-                                        $delivered_lmid = implode(",", $delivered_lmid);
+                                      //   $leadmaster_used = $leadmaster_used->result();
+                                      //   $used =0;
+                                      //   $delivered_lmid = array();
+                                      //   foreach($leadmaster_used as $post) {
+                                      //     $delivered_lmid[] = $post->lmid;
+                                      //     //   echo $post->lmid;
+                                      //       $used++;
+                                      //   }
+                                      // //   print_r($delivered_lmid);
+                                      //   echo $used;
+                                      //   $delivered_lmid = implode(",", $delivered_lmid);
                                        ?>
                                        <button type="button" style="margin-left: 2px;height: 34px;" data-toggle="tooltip" title="Update"  class="col-sm-3 btn btn-primary btn-sm gotoupdateleadlsfinal" data-id="<?php echo $delivered_lmid;?>" data-campaign_id = "<?php echo $campaign_id;?>" id="gotoupdateleadlsfinal"
-                                          data-row="<?php echo $delivered_lmid;?>"><i class="icofont icofont-edit"></i></button></td>
-                                        <td><?php //echo $leadmaster_dcPending; 
+                                          data-row="<?php //echo  $delivered_lmid;?>"><i class="icofont icofont-edit"></i></button></td> -->
+                                        <td> 
+                                        <div class="form-group row">
+                                                <div class="col-sm-3">
+                                        <?php //echo $leadmaster_dcPending; 
 
                                         $leadmaster_dcPending = $leadmaster_dcPending->result();
-                                        $dcpending =0;
+                                        $dcpending = 0;
                                         $delivered_lmid = array();
                                         foreach($leadmaster_dcPending as $post) {
                                           $delivered_lmid[] = $post->lmid;
@@ -282,25 +298,51 @@ $(document).ready(function(){
                                       //   print_r($delivered_lmid);
                                         echo $dcpending;
                                         $delivered_lmid = implode(",", $delivered_lmid);
-                                       ?>
-                                       <button type="button" style="margin-left: 2px;height: 34px;" data-toggle="tooltip" title="Update"  class="col-sm-3 btn btn-primary btn-sm gotoupdateleadlsfinal" data-id="<?php echo $delivered_lmid;?>" data-campaign_id = "<?php echo $campaign_id;?>" id="gotoupdateleadlsfinal"
-                                          data-row="<?php echo $delivered_lmid;?>"><i class="icofont icofont-edit"></i></button></td>
-                                        <td><?php //echo $leadmaster_dcCleared; 
-                                        $leadmaster_dcCleared = $leadmaster_dcCleared->result();
-                                        $dcCleared =0;
-                                        $delivered_lmid = array();
-                                        foreach($leadmaster_dcCleared as $post) {
-                                          $delivered_lmid[] = $post->lmid;
-                                          //   echo $post->lmid;
-                                            $dcCleared++;
-                                        }
-                                      //   print_r($delivered_lmid);
-                                        echo $dcCleared;
-                                        $delivered_lmid = implode(",", $delivered_lmid);
-                                       ?>
-                                       <button type="button" style="margin-left: 2px;height: 34px;" data-toggle="tooltip" title="Update"  class="col-sm-3 btn btn-primary btn-sm gotoupdateleadlsfinal" data-id="<?php echo $delivered_lmid;?>" data-campaign_id = "<?php echo $campaign_id;?>" id="gotoupdateleadlsfinal"
-                                          data-row="<?php echo $delivered_lmid;?>"><i class="icofont icofont-edit"></i></button></td>
-                                        <td><?php //echo $leadmaster_dvCleared; 
+                                       ?><br><br>
+                                       </div> 
+                                       <div class="col-sm-8">
+                                       <input type="hidden" placeholder="clearedcnt" style="height: 24px;" class="form-control form-control-sm"  name="clearedcnt" value="<?php echo $dcpending; ?>" id="clearedcnt">
+                                       <input type="text"  style="height: 24px;" placeholder="No.Of leads" class="form-control form-control-sm count_of_leads"  name="count_of_leads" value="" id="count_of_leads">
+                                       </div>
+                                       </div>
+                                      
+                                       <button type="button" data-toggle="tooltip" title="Update"  class="col-sm-3 btn btn-primary btn-sm gotoupdateleadlsfinal" data-id="<?php echo $delivered_lmid;?>" data-campaign_id = "<?php echo $campaign_id;?>" id="gotoupdateleadlsfinal"
+                                          data-row="<?php echo $delivered_lmid;?>"><i class="icofont icofont-edit"></i></button>
+                                     
+                                      
+                                      </td>
+                                        <td>
+                                        
+                                        <div class="form-group row">
+                                                <div class="col-sm-3">
+                                                <?php //echo $leadmaster_dcCleared; 
+                                                $leadmaster_dcCleared = $leadmaster_dcCleared->result();
+                                                $dcCleared =0;
+                                                $delivered_lmid = array();
+                                                foreach($leadmaster_dcCleared as $post) {
+                                                $delivered_lmid[] = $post->lmid;
+                                                //   echo $post->lmid;
+                                                    $dcCleared++;
+                                                }
+                                            //   print_r($delivered_lmid);
+                                                echo $dcCleared;
+                                                $delivered_lmid = implode(",", $delivered_lmid);
+                                            ?><br><br>
+                                        </div>
+                                            <div class="col-sm-8">
+                                            <input type="hidden" placeholder="clearedcnt" style="height: 24px;" class="form-control form-control-sm"  name="clearedcnt" value="<?php echo $dcCleared; ?>" id="clearedcnt">
+                                                 <input type="text"  style="height: 24px;" class="form-control form-control-sm count_of_leads" placeholder="No.Of leads" name="count_of_leads" value="" id="count_of_leads">
+                                            </div>
+                                            </div>
+                                           
+                                                <button type="button"data-toggle="tooltip" title="Update"  class="col-sm-3 btn btn-primary btn-sm gotoupdateleadlsfinal" data-id="<?php echo $delivered_lmid;?>" data-campaign_id = "<?php echo $campaign_id;?>" id="gotoupdateleadlsfinal"
+                                                 data-row="<?php echo $delivered_lmid;?>"><i class="icofont icofont-edit"></i></button>
+                                            
+                                         </td>
+                                        <td>
+                                        <div class="form-group row">
+                                                <div class="col-sm-3">
+                                                <?php //echo $leadmaster_dvCleared; 
                                         $leadmaster_dvCleared = $leadmaster_dvCleared->result();
                                         $dvCleared =0;
                                         $delivered_lmid = array();
@@ -312,10 +354,21 @@ $(document).ready(function(){
                                       //   print_r($delivered_lmid);
                                         echo $dvCleared;
                                         $delivered_lmid = implode(",", $delivered_lmid);
-                                       ?>
-                                       <button type="button" style="margin-left: 2px;height: 34px;" data-toggle="tooltip" title="Update"  class="col-sm-3 btn btn-primary btn-sm gotoupdateleadlsfinal" data-id="<?php echo $delivered_lmid;?>" data-campaign_id = "<?php echo $campaign_id;?>" id="gotoupdateleadlsfinal"
-                                          data-row="<?php echo $delivered_lmid;?>"><i class="icofont icofont-edit"></i></button></td>
-                                        <td><?php  //echo $leadmaster_evCleared;  
+                                       ?> <br><br>
+                                       </div>
+                                       <div class="col-sm-8">
+                                       <input type="hidden" placeholder="clearedcnt" style="height: 24px;" class="form-control form-control-sm"  name="clearedcnt" value="<?php echo $dvCleared; ?>" id="clearedcnt">
+                                       <input type="text" placeholder="No.Of leads" style="height: 24px;" class="form-control form-control-sm count_of_leads"  name="count_of_leads" value="" id="count_of_leads">
+                                       </div>
+                                       </div>
+                                         
+                                       <button type="button" data-toggle="tooltip" title="Update"  class="col-sm-3 btn btn-primary btn-sm gotoupdateleadlsfinal" data-id="<?php echo $delivered_lmid;?>" data-campaign_id = "<?php echo $campaign_id;?>" id="gotoupdateleadlsfinal"
+                                          data-row="<?php echo $delivered_lmid;?>"><i class="icofont icofont-edit"></i></button>
+                                        
+                                          </td>  
+                                          <td>
+                                          <div class="form-group row">
+                                                <div class="col-sm-2"><?php  //echo $leadmaster_evCleared;  
                                         $leadmaster_evCleared = $leadmaster_evCleared->result();
                                         $evCleared =0;
                                         $delivered_lmid = array();
@@ -328,10 +381,23 @@ $(document).ready(function(){
                                         echo $evCleared;
                                         $delivered_lmid = implode(",", $delivered_lmid);
                                        ?>
-                                       <button type="button" style="margin-left: 2px;height: 34px;" data-toggle="tooltip" title="Update"  class="col-sm-3 btn btn-primary btn-sm gotoupdateleadlsfinal" data-id="<?php echo $delivered_lmid;?>" data-campaign_id = "<?php echo $campaign_id;?>" id="gotoupdateleadlsfinal"
-                                          data-row="<?php echo $delivered_lmid;?>"><i class="icofont icofont-edit"></i></button></td>
+                                          <br><br>
+                                       </div>
+                                       <div class="col-sm-8">
+                                       <input type="hidden" placeholder="clearedcnt" style="height: 24px;" class="form-control form-control-sm"  name="clearedcnt" value="<?php echo $evCleared; ?>" id="clearedcnt">
+                                       <input type="text" placeholder="No.Of leads" style="height: 24px;" class="form-control form-control-sm count_of_leads"  name="count_of_leads" value="" id="count_of_leads">
+                                       </div>
+                                       </div>
+                                      
+                                       <button type="button" data-toggle="tooltip" title="Update"  class="col-sm-3 btn btn-primary btn-sm gotoupdateleadlsfinal" data-id="<?php echo $delivered_lmid;?>" data-campaign_id = "<?php echo $campaign_id;?>" id="gotoupdateleadlsfinal"
+                                          data-row="<?php echo $delivered_lmid;?>"><i class="icofont icofont-edit"></i></button>
+                                          
+                                          </td>
                                        
-                                         <td><?php //echo $leadmaster_cdcCleared; 
+                                         <td>
+                                         <div class="form-group row">
+                                                <div class="col-sm-2">
+                                         <?php //echo $leadmaster_cdcCleared; 
                                          $leadmaster_cdcCleared = $leadmaster_cdcCleared->result();
                                          $cdcCleared =0;
                                          $delivered_lmid = array();
@@ -343,10 +409,19 @@ $(document).ready(function(){
                                        //   print_r($delivered_lmid);
                                          echo $cdcCleared;
                                          $delivered_lmid = implode(",", $delivered_lmid);
-                                        ?>
-                                        <button type="button" style="margin-left: 2px;height: 34px;" data-toggle="tooltip" title="Update"  class="col-sm-3 btn btn-primary btn-sm gotoupdateleadlsfinal" data-id="<?php echo $delivered_lmid;?>" data-campaign_id = "<?php echo $campaign_id;?>" id="gotoupdateleadlsfinal"
+                                        ?> <br><br>
+                                        </div>
+                                        <div class="col-sm-8">
+                                        <input type="hidden" placeholder="clearedcnt" style="height: 24px;" class="form-control form-control-sm"  name="clearedcnt" value="<?php echo $cdcCleared; ?>" id="clearedcnt">
+                                        <input type="text" placeholder="No.Of leads" style="height: 24px;" class="form-control form-control-sm count_of_leads"  name="count_of_leads" value="" id="count_of_leads">
+                                        </div>
+                                        </div>
+                                        <button type="button" data-toggle="tooltip" title="Update"  class="col-sm-3 btn btn-primary btn-sm gotoupdateleadlsfinal" data-id="<?php echo $delivered_lmid;?>" data-campaign_id = "<?php echo $campaign_id;?>" id="gotoupdateleadlsfinal"
                                            data-row="<?php echo $delivered_lmid;?>"><i class="icofont icofont-edit"></i></button></td>
-                                        <td><?php //echo $leadmaster_qaCleared;
+                                        <td>
+                                        <div class="form-group row">
+                                                <div class="col-sm-2">
+                                        <?php //echo $leadmaster_qaCleared;
                                          $leadmaster_qaCleared = $leadmaster_qaCleared->result();
                                           $qaCleared =0;
                                           $delivered_lmid = array();
@@ -358,11 +433,20 @@ $(document).ready(function(){
                                         //   print_r($delivered_lmid);
                                           echo $qaCleared;
                                           $delivered_lmid = implode(",", $delivered_lmid);
-                                         ?>
-                                         <button type="button" style="margin-left: 2px;height: 34px;" data-toggle="tooltip" title="Update"  class="col-sm-3 btn btn-primary btn-sm gotoupdateleadlsfinal" data-id="<?php echo $delivered_lmid;?>" data-campaign_id = "<?php echo $campaign_id;?>" id="gotoupdateleadlsfinal"
+                                         ?> <br><br>
+                                         </div>
+                                         <div class="col-sm-8">
+                                         <input type="hidden" placeholder="clearedcnt" style="height: 24px;" class="form-control form-control-sm"  name="clearedcnt" value="<?php echo $qaCleared; ?>" id="clearedcnt">
+                                         <input type="text" placeholder="No.Of leads" style="height: 24px;" class="form-control form-control-sm count_of_leads"  name="count_of_leads" value="" id="count_of_leads">
+                                         </div>
+                                         </div>
+                                         <button type="button" data-toggle="tooltip" title="Update"  class="col-sm-3 btn btn-primary btn-sm gotoupdateleadlsfinal" data-id="<?php echo $delivered_lmid;?>" data-campaign_id = "<?php echo $campaign_id;?>" id="gotoupdateleadlsfinal"
                                             data-row="<?php echo $delivered_lmid;?>"><i class="icofont icofont-edit"></i></button></td>
                                          <!-- <td><?php //echo $leadmaster_qaCleared;?></td> -->
-                                         <td><?php 
+                                         <td>
+                                         <div class="form-group row">
+                                                <div class="col-sm-2">
+                                         <?php 
                                           $leadmaster_delivered = $leadmaster_delivered->result();
                                           $delivered =0;
                                           $delivered_lmid = array();
@@ -377,7 +461,14 @@ $(document).ready(function(){
                                         //   $check2 = join(',', $delivered_lmid);
                                         // echo $post->lmid;
                                          //echo $leadmaster_delivered;?>
-                                         <button type="button" style="margin-left: 2px;height: 34px;" data-toggle="tooltip" title="Update"  class="col-sm-3 btn btn-primary btn-sm gotoupdateleadlsfinal" data-id="<?php echo $delivered_lmid;?>" data-campaign_id = "<?php echo $campaign_id;?>" id="gotoupdateleadlsfinal"
+                                         <br><br>
+                                         </div>
+                                         <div class="col-sm-8">
+                                         <input type="hidden" placeholder="clearedcnt" style="height: 24px;" class="form-control form-control-sm"  name="clearedcnt" value="<?php echo $delivered; ?>" id="clearedcnt">
+                                         <input type="text" placeholder="No.Of leads" style="height: 24px;" class="form-control form-control-sm count_of_leads"  name="count_of_leads" value="" id="count_of_leads">
+                                         </div>
+                                         </div>
+                                         <button type="button" data-toggle="tooltip" title="Update"  class="col-sm-3 btn btn-primary btn-sm gotoupdateleadlsfinal" data-id="<?php echo $delivered_lmid;?>" data-campaign_id = "<?php echo $campaign_id;?>" id="gotoupdateleadlsfinal"
                                             data-row="<?php echo $delivered_lmid;?>"><i class="icofont icofont-edit"></i></button>
                                          <!-- <input id="delivered_lmid" type="hidden" value="<?php //echo $delivered_lmid;?>"> -->
                                          </td>
@@ -403,24 +494,56 @@ $(document).ready(function(){
             </div>
 
   <script>
-    $('#Export').prop("disabled", true);
-    $('input:checkbox').click(function() {
-    if ($(this).is(':checked')) {
-    $('#Export').prop("disabled", false);
-    } else {
-    if ($('.checks').filter(':checked').length < 1){
-    $('#Export').attr('disabled',true);}
+
+$(document).ready(function() {
+
+$(".count_of_leads").bind("keypress", function (e) {
+
+    var keyCode = e.which ? e.which : e.keyCode
+
+         
+
+    if (!(keyCode >= 48 && keyCode <= 57)) {
+
+      $(".error").css("display", "inline");
+
+      return false;
+
+    }else{
+
+      $(".error").css("display", "none");
+
     }
-    });
+
+});
+
+});
+    $('#Export').prop("disabled", true);
+    // $('input:checkbox').click(function() {
+    // if ($(this).is(':checked')) {
+    // $('#Export').prop("disabled", false);
+    // } else {
+    // if ($('.checks').filter(':checked').length < 1){
+    // $('#Export').attr('disabled',true);}
+    // }
+    // });
     $(document).ready(function() {
     $(document).on("click", ".gotoupdateleadlsfinal", function () {
     var lmids = $(this).attr('data-id');
-    var campaign_id = $(this).attr('data-campaign_id');
-//    alert(campaign_id);
-    // var lsfinal =   $(this).closest('tr').find('.lsfinalclass').val();
-    // var row = $(this).attr('data-row');
-    // $this  = $(this);
     
+    var campaign_id = $(this).attr('data-campaign_id');
+
+    var count_of_leads =   $(this).closest('td').find('#count_of_leads').val();
+    var clearedcnt =   $(this).closest('td').find('#clearedcnt').val();
+    // alert(campaign_id);ddfd
+    // var row = $(this).attr('data-row');
+    $this  = $(this);
+    
+    if(count_of_leads > clearedcnt || clearedcnt <= '0' || count_of_leads == '')
+                  {
+                    alert("No. of leads should be greater than 0 and less than cleared count");
+                    return;
+                  }
   
    
     
@@ -429,7 +552,7 @@ $(document).ready(function(){
      
         var urlq = '<?php echo base_url("administrator/assign_leads_to_campaign");?>';
         // alert(urlq+"?lmids="+lmids+"&campaign_id="+campaign_id);
-        console.log(urlq+"?lmids="+lmids+"&campaign_id="+campaign_id);
+        console.log(urlq+"?lmids="+lmids+"&campaign_id="+campaign_id+"&count_of_leads="+count_of_leads);
       
         $.ajax({
                url :'<?php echo base_url("administrator/assign_leads_to_campaign");?>',
@@ -439,6 +562,7 @@ $(document).ready(function(){
                 data: {
                    
                     lmids:lmids,
+                    count_of_leads:count_of_leads,
                     campaign_id:campaign_id             
                    
 				},
@@ -452,10 +576,10 @@ $(document).ready(function(){
                     if(response.statusCode == "Success") 
                     {         
                         //  alert("Call displosition updated successfully");
-                         $("#gotoupdateleadlsfinal").html("<i class='icofont icofont-edit'></i> <i class='icofont icofont-check'></i>");
+                        //  $("#gotoupdateleadlsfinal").html("<i class='icofont icofont-edit'></i> <i class='icofont icofont-check'></i>");
                         // $("#gotoupdateleadlsfinal").attr("disabled", true); 
                         // $("#gotoupdateleadlsfinal").html("Updated <i class='icofont icofont-check'></i>");
-                         
+                        $this.closest("td").find("#gotoupdateleadlsfinal").html("<i class='icofont icofont-edit'></i> <i class='icofont icofont-check'></i>"); 
                         // top.location.href=base_url+"administrator/dashboard";//redirection
                         // top.location.href=base_url+"cdc/dataverfication?camp_id="+<?php //echo $campaign['cnid']; ?>;//redirection
                       

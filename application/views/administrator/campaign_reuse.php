@@ -520,7 +520,9 @@ $(document).ready(function(){
                                <input type="hidden"   name="freshleadscnt" value="<?php echo $freshleads; ?>" id="freshleadscnt">
                                <input type="hidden"   name="lmidss" value="<?php echo $delivered_lmid; ?>" id="lmidss">
                                <input type="hidden" class="form-control form-control-sm"  name="campaign_ids" value="<?php echo $campaign_id;?>" id="campaign_ids">
-                               <input type="text" placeholder="NO. of leads" style="height: 24px;" class="form-control form-control-sm col-sm-3"  name="count_of_leads" value="<?php echo $freshleads; ?>" id="count_of_leads">
+                               
+                               <label class="col-lable"><b>Enter no.of leads you want to initialise</b></label>
+                               <input type="text" placeholder="No. of leads" style="height: 24px;" class="form-control form-control-sm col-sm-3"  name="count_of_leads" value="<?php echo $freshleads; ?>" id="count_of_leads">
                                <br><br>  <!-- <select name="camp_stage_from" id="camp_stage_from"  class="form-control form-control-sm col-sm-3" >
                                         <option value="">Select campaign stage</option>
                                        

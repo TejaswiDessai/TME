@@ -317,7 +317,7 @@ $(function(){
                         <div class="form-group row">
                             <div class="col-sm-3">
                                 <label  class="col-lable"><b>Client Id</b></label>
-                                 <select name="client_id" id="client_id"  <?php echo (form_error('client_id')) ? 'class="form-control form-control-danger"' : 'class="form-control"';?>>
+                                 <select name="client_id" id="client_id" disabled <?php echo (form_error('client_id')) ? 'class="form-control form-control-danger"' : 'class="form-control"';?>>
                                     <option value="<?php echo set_select('client_id'); ?>">Select One Client ID</option>
                                     
                                     <?php foreach ($clients as $client) : ?>
@@ -332,7 +332,7 @@ $(function(){
                                 <label class="col-lable"><b>Campaign Id</b></label>
                                  <?php // echo form_error('campaign_id'); ?>
                                  
-                                <input type="text" name="campaign_id" id="campaign_id"  value="<?php echo $post['cids']; ?>" 
+                                <input type="text" name="campaign_id" id="campaign_id" disabled value="<?php echo $post['cids']; ?>" 
                                 <?php echo (form_error('campaign_id')) ? 'class="form-control form-control-danger"' : 'class="form-control"';?>  onkeypress="return isNumber(event)">
                                 <span style='color:#FF0000' id="campaign_id_msg"></span>
                             </div>
@@ -340,7 +340,9 @@ $(function(){
                                 <label class="col-lable"><b>Campaign Name</b></label>
 
                                 <?php // echo form_error('campaign_name'); ?>
-                                <input type="text" pattern="^[a-zA-Z0-9]+$"  name="campaign_name"  placeholder="Enter Campaign Name"  value="<?php echo $post['campnm']; ?>" id="campaign_name" 
+                                <!-- <input type="text" disabled pattern="^[a-zA-Z0-9]+$"  name="campaign_name"  placeholder="Enter Campaign Name"  value="<?php echo $post['campnm']; ?>" id="campaign_name" 
+                                <?php echo (form_error('campaign_name')) ? 'class="form-control form-control-danger"' :'class="form-control"';?> > -->
+                                <input type="text" disabled  name="campaign_name"  placeholder="Enter Campaign Name"  value="<?php echo $post['campnm']; ?>" id="campaign_name" 
                                 <?php echo (form_error('campaign_name')) ? 'class="form-control form-control-danger"' :'class="form-control"';?> >
                                 <span style='color:#FF0000' id="campaign_name_msg"></span>
                             </div>
@@ -352,15 +354,16 @@ $(function(){
                                     <option value="<?php echo $dept['dcd']; ?>"  <?php if( in_array($dept['dcd'], $dcd)) { echo "selected" ; } ?>><?php echo $dept['department']; ?></option>
                                 <?php endforeach; ?>
                                 </select>
+                             </div>
                             </div>
                             
-                        </div>
+                        
                       
 
                                 <?php
                                 $HiddenProducts = explode(',',$post['regioncode']);
                                 ?>
-                        <!-- <div class="form-group row">
+                         <!-- <div class="form-group row">
                             <div class="col-sm-3">
                                 <label class="col-lable"><b>World Region</b></label>
                                 <select class="js-example-basic-multiple col-sm-12" multiple="multiple" name="region_id" id="region_id">
@@ -401,7 +404,8 @@ $(function(){
                                 
                                 </select>
                             </div> -->
-                            
+                            <div class="form-group row">
+                           
                             <div class="col-sm-3">
                                 <label class="col-lable"><b>Select Country</b></label>  <?php echo form_error('country_id'); ?>
                                 <select class="js-example-basic multiselect col-sm-12" multiple="multiple" name="country_id[]" id="country_id">
@@ -411,11 +415,7 @@ $(function(){
                                 <?php endforeach; ?>
                                 </select>
                             </div>
-                        
-                            
-                        </div>
-                        <div class="form-group row">
-                        <div class="col-sm-3">
+                            <div class="col-sm-3">
                                 <label class="col-lable"><b>Industry(Sector)</b></label>
                                 <select class="js-example-basic-multiple col-sm-12" multiple="multiple" name="sector_id[]" id="sector_id">
                                 <?php
@@ -475,7 +475,12 @@ $(function(){
                                    
                                 </select>
                             </div>
-                            <div class="col-sm-3">
+                            
+                        
+                            
+                        </div>
+                        <div class="form-group row">
+                        <div class="col-sm-6">
                                 <label class="col-lable"><b>Designation</b></label><?php echo form_error('desid'); ?>
                               <select class="js-example-basic multiselect col-sm-12" multiple="multiple" name="desid[]" id="desid">
                               <?php $tid = explode(',',$post['tid']);?>
@@ -485,10 +490,7 @@ $(function(){
                                    
                                 </select>
                             </div>
-
-                        </div>
-                        
-                        <div class="col-sm-3">
+                            <div class="col-sm-3">
                                 <label class="col-lable"><b>Select Period</b></label>
                                 <select class="form-control form-control-default form-control-sm "  name="period" id="period">
                                 <option value="1">1 Month</option>
@@ -500,6 +502,9 @@ $(function(){
                                 </select>
                             
                             </div>
+                        </div>
+                        
+                       
 
                         
 

@@ -95,7 +95,8 @@ echo $date;
 				 	);
 
 					 $this->session->set_userdata($user_data);
-					
+					 $id = session_id();
+					 $this->db->insert('userlog', array('empid' => $emp_id,'login'=> date('Y-m-d H:i:s'),'session_id' => $id)); 
 					$empcode = $this->session -> userdata('empcode');
 					// $this->Administrator_Model->update_recordlockonlogin($empcode);
 					
@@ -124,6 +125,7 @@ echo $date;
 			$this->Administrator_Model->update_recordlockonlogin($this->session -> userdata('empcode'));
 
 			$this->db->where('empid',  $this->session -> userdata('emp_id'));
+			$this->db->where('session_id', session_id());
 			$this->db->update('userlog', array('empid' => $this->session -> userdata('emp_id'),'logout'=> date('Y-m-d H:i:s'))); 
 
 			$this->session->unset_userdata('login');

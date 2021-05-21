@@ -332,7 +332,7 @@ $(function(){
                                 <label class="col-lable"><b>Campaign Id</b></label>
                                  <?php // echo form_error('campaign_id'); ?>
                                  
-                                <input type="text" name="campaign_id" id="campaign_id" disabled value="<?php echo $post['cids']; ?>" 
+                                <input type="text" name="campaign_id" id="campaign_id" value="<?php echo $post['cids']; ?>" 
                                 <?php echo (form_error('campaign_id')) ? 'class="form-control form-control-danger"' : 'class="form-control"';?>  onkeypress="return isNumber(event)">
                                 <span style='color:#FF0000' id="campaign_id_msg"></span>
                             </div>

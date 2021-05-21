@@ -3286,14 +3286,14 @@ public function getPrivillage(){
 			$emplbound = $this->input->post('emplbound');
 			$empubound = $this->input->post('empubound');
 			$campaign_id = $this->input->post('campaign_id');
-			// print_r($levelid);die;
+			// print_r($campaign_id);die;
 			$ctype = $this->input->post('ctype');
 			$period = $this->input->post('period');
 			// echo $ctype;
 			$sector_id = $this->input->post('sector_id');
 
 			$rec_stage = $this->input->post('rec_stage');
-			// print_r($rec_stage);die;
+			// print_r($period);die;
 			// $data['users'] = $this->Administrator_Model->get_available_leads(FALSE, $config['per_page'], $offset,$dcd,$ctype,$levelid,$sector_id);
 			if($rec_stage =="Fresh"){
 

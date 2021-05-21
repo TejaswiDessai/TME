@@ -308,7 +308,7 @@ $(document).ready(function(){
                                        </div> 
                                        <div class="col-sm-8">
                                        <input type="hidden" placeholder="clearedcnt" style="height: 24px;" class="form-control form-control-sm"  name="clearedcnt" value="<?php echo $dcpending; ?>" id="clearedcnt">
-                                       <input type="text"  style="height: 24px;" placeholder="No.Of leads" class="form-control form-control-sm count_of_leads"  name="count_of_leads" value="" id="count_of_leads">
+                                       <input type="text"  style="height: 24px;" placeholder="No.of leads" class="form-control form-control-sm count_of_leads"  name="count_of_leads" value="" id="count_of_leads">
                                        </div>
                                        </div>
                                       
@@ -337,7 +337,7 @@ $(document).ready(function(){
                                         </div>
                                             <div class="col-sm-8">
                                             <input type="hidden" placeholder="clearedcnt" style="height: 24px;" class="form-control form-control-sm"  name="clearedcnt" value="<?php echo $dcCleared; ?>" id="clearedcnt">
-                                                 <input type="text"  style="height: 24px;" class="form-control form-control-sm count_of_leads" placeholder="No.Of leads" name="count_of_leads" value="" id="count_of_leads">
+                                                 <input type="text"  style="height: 24px;" class="form-control form-control-sm count_of_leads" placeholder="No.of leads" name="count_of_leads" value="" id="count_of_leads">
                                             </div>
                                             </div>
                                            
@@ -364,7 +364,7 @@ $(document).ready(function(){
                                        </div>
                                        <div class="col-sm-8">
                                        <input type="hidden" placeholder="clearedcnt" style="height: 24px;" class="form-control form-control-sm"  name="clearedcnt" value="<?php echo $dvCleared; ?>" id="clearedcnt">
-                                       <input type="text" placeholder="No.Of leads" style="height: 24px;" class="form-control form-control-sm count_of_leads"  name="count_of_leads" value="" id="count_of_leads">
+                                       <input type="text" placeholder="No.of leads" style="height: 24px;" class="form-control form-control-sm count_of_leads"  name="count_of_leads" value="" id="count_of_leads">
                                        </div>
                                        </div>
                                          
@@ -391,7 +391,7 @@ $(document).ready(function(){
                                        </div>
                                        <div class="col-sm-8">
                                        <input type="hidden" placeholder="clearedcnt" style="height: 24px;" class="form-control form-control-sm"  name="clearedcnt" value="<?php echo $evCleared; ?>" id="clearedcnt">
-                                       <input type="text" placeholder="No.Of leads" style="height: 24px;" class="form-control form-control-sm count_of_leads"  name="count_of_leads" value="" id="count_of_leads">
+                                       <input type="text" placeholder="No.of leads" style="height: 24px;" class="form-control form-control-sm count_of_leads"  name="count_of_leads" value="" id="count_of_leads">
                                        </div>
                                        </div>
                                       
@@ -419,7 +419,7 @@ $(document).ready(function(){
                                         </div>
                                         <div class="col-sm-8">
                                         <input type="hidden" placeholder="clearedcnt" style="height: 24px;" class="form-control form-control-sm"  name="clearedcnt" value="<?php echo $cdcCleared; ?>" id="clearedcnt">
-                                        <input type="text" placeholder="No.Of leads" style="height: 24px;" class="form-control form-control-sm count_of_leads"  name="count_of_leads" value="" id="count_of_leads">
+                                        <input type="text" placeholder="No.of leads" style="height: 24px;" class="form-control form-control-sm count_of_leads"  name="count_of_leads" value="" id="count_of_leads">
                                         </div>
                                         </div>
                                         <button type="button" data-toggle="tooltip" title="Update"  class="col-sm-3 btn btn-primary btn-sm gotoupdateleadlsfinal" data-id="<?php echo $delivered_lmid;?>" data-campaign_id = "<?php echo $campaign_id;?>" id="gotoupdateleadlsfinal"
@@ -443,7 +443,7 @@ $(document).ready(function(){
                                          </div>
                                          <div class="col-sm-8">
                                          <input type="hidden" placeholder="clearedcnt" style="height: 24px;" class="form-control form-control-sm"  name="clearedcnt" value="<?php echo $qaCleared; ?>" id="clearedcnt">
-                                         <input type="text" placeholder="No.Of leads" style="height: 24px;" class="form-control form-control-sm count_of_leads"  name="count_of_leads" value="" id="count_of_leads">
+                                         <input type="text" placeholder="No.of leads" style="height: 24px;" class="form-control form-control-sm count_of_leads"  name="count_of_leads" value="" id="count_of_leads">
                                          </div>
                                          </div>
                                          <button type="button" data-toggle="tooltip" title="Update"  class="col-sm-3 btn btn-primary btn-sm gotoupdateleadlsfinal" data-id="<?php echo $delivered_lmid;?>" data-campaign_id = "<?php echo $campaign_id;?>" id="gotoupdateleadlsfinal"
@@ -471,7 +471,7 @@ $(document).ready(function(){
                                          </div>
                                          <div class="col-sm-8">
                                          <input type="hidden" placeholder="clearedcnt" style="height: 24px;" class="form-control form-control-sm"  name="clearedcnt" value="<?php echo $delivered; ?>" id="clearedcnt">
-                                         <input type="text" placeholder="No.Of leads" style="height: 24px;" class="form-control form-control-sm count_of_leads"  name="count_of_leads" value="" id="count_of_leads">
+                                         <input type="text" placeholder="No.of leads" style="height: 24px;" class="form-control form-control-sm count_of_leads"  name="count_of_leads" value="" id="count_of_leads">
                                          </div>
                                          </div>
                                          <button type="button" data-toggle="tooltip" title="Update"  class="col-sm-3 btn btn-primary btn-sm gotoupdateleadlsfinal" data-id="<?php echo $delivered_lmid;?>" data-campaign_id = "<?php echo $campaign_id;?>" id="gotoupdateleadlsfinal"

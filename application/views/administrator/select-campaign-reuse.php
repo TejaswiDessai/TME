@@ -61,7 +61,7 @@ $(document).ready(function () {
                     </div>
                     <div class="col-sm-3">
                                    
-                                    <select name="campaign_status_from" id="campaign_status_from"  class="form-control form-control-sm" >
+                                    <select name="rec_stage" id="rec_stage"  class="form-control form-control-sm" >
                                             <option value="">Select Campaign Status</option>
                                             <option value="Fresh">Fresh</option>
                                             <option value="Used">Used</option>
@@ -71,7 +71,7 @@ $(document).ready(function () {
                                     </div>
                            <div class="col-sm-3">
                                <select name="campaign_id" id="campaign_id"  class="form-control form-control-sm" >
-                                     <option value="">Select Campaign</option>
+                                     <option value="">Select Campaign To Get Leads</option>
                                <?php foreach ($campaigns as $campaign): ?>
                                    <option value="<?php echo $campaign['cnid']; ?>"><?php echo $campaign['campnm']; ?></option>
                                <?php endforeach; ?>
@@ -102,6 +102,9 @@ $(document).ready(function() {
   $("#basic-form").validate({
     rules: {
         campaign_id : {
+        required: true
+      },
+        rec_stage : {
         required: true
       }
      

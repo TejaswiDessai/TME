@@ -317,7 +317,7 @@ $(function(){
                         <div class="form-group row">
                             <div class="col-sm-3">
                                 <label  class="col-lable"><b>Client Id</b></label>
-                                 <select name="client_id" id="client_id"  <?php echo (form_error('client_id')) ? 'class="form-control form-control-danger"' : 'class="form-control"';?>>
+                                 <select name="client_id" id="client_id" disabled <?php echo (form_error('client_id')) ? 'class="form-control form-control-danger"' : 'class="form-control"';?>>
                                     <option value="<?php echo set_select('client_id'); ?>">Select One Client ID</option>
                                     
                                     <?php foreach ($clients as $client) : ?>
@@ -332,7 +332,7 @@ $(function(){
                                 <label class="col-lable"><b>Campaign Id</b></label>
                                  <?php // echo form_error('campaign_id'); ?>
                                  
-                                <input type="text" name="campaign_id" id="campaign_id"  value="<?php echo $post['cids']; ?>" 
+                                <input type="text" name="campaign_id" id="campaign_id" value="<?php echo $post['cids']; ?>" 
                                 <?php echo (form_error('campaign_id')) ? 'class="form-control form-control-danger"' : 'class="form-control"';?>  onkeypress="return isNumber(event)">
                                 <span style='color:#FF0000' id="campaign_id_msg"></span>
                             </div>
@@ -340,7 +340,9 @@ $(function(){
                                 <label class="col-lable"><b>Campaign Name</b></label>
 
                                 <?php // echo form_error('campaign_name'); ?>
-                                <input type="text" pattern="^[a-zA-Z0-9]+$"  name="campaign_name"  placeholder="Enter Campaign Name"  value="<?php echo $post['campnm']; ?>" id="campaign_name" 
+                                <!-- <input type="text" disabled pattern="^[a-zA-Z0-9]+$"  name="campaign_name"  placeholder="Enter Campaign Name"  value="<?php echo $post['campnm']; ?>" id="campaign_name" 
+                                <?php echo (form_error('campaign_name')) ? 'class="form-control form-control-danger"' :'class="form-control"';?> > -->
+                                <input type="text" disabled  name="campaign_name"  placeholder="Enter Campaign Name"  value="<?php echo $post['campnm']; ?>" id="campaign_name" 
                                 <?php echo (form_error('campaign_name')) ? 'class="form-control form-control-danger"' :'class="form-control"';?> >
                                 <span style='color:#FF0000' id="campaign_name_msg"></span>
                             </div>
@@ -352,24 +354,16 @@ $(function(){
                                     <option value="<?php echo $dept['dcd']; ?>"  <?php if( in_array($dept['dcd'], $dcd)) { echo "selected" ; } ?>><?php echo $dept['department']; ?></option>
                                 <?php endforeach; ?>
                                 </select>
+                             </div>
                             </div>
                             
-                        </div>
+                        
                       
-                        <!-- <div class="form-group row">
-                            <div class="col-sm-3">
-                                <label class="col-lable"><b>Campaign Name</b></label>
-
-                                <?php // echo form_error('campaign_name'); ?>
-                                <input type="text"  name="campaign_name"  placeholder="Enter Campaign Name"  value="<?php echo set_value('campaign_name'); ?>" id="campaign_name" 
-                             <?php //echo (form_error('campaign_name')) ? 'class="form-control form-control-danger"' :'class="form-control"';?> >
-                            </div>
-                        </div> -->
 
                                 <?php
                                 $HiddenProducts = explode(',',$post['regioncode']);
                                 ?>
-                        <div class="form-group row">
+                         <!-- <div class="form-group row">
                             <div class="col-sm-3">
                                 <label class="col-lable"><b>World Region</b></label>
                                 <select class="js-example-basic-multiple col-sm-12" multiple="multiple" name="region_id" id="region_id">
@@ -399,8 +393,8 @@ $(function(){
                                 <?php endforeach; ?>
                                 
                                 </select>
-                            </div>
-                            <div class="col-sm-3">
+                            </div> -->
+                            <!-- <div class="col-sm-3">
                                 <label class="col-lable"><b>Sub Region</b></label>
                                 <select class="js-example-basic multiselect col-sm-12" multiple="multiple" name="sub_region_id" id="sub_region_id">
                                 <?php $subregioncode = $post['subregioncode'];$subregioncode1 = explode(',',$subregioncode);?>
@@ -409,8 +403,9 @@ $(function(){
                                 <?php endforeach; ?>
                                 
                                 </select>
-                            </div>
-                            
+                            </div> -->
+                            <div class="form-group row">
+                           
                             <div class="col-sm-3">
                                 <label class="col-lable"><b>Select Country</b></label>  <?php echo form_error('country_id'); ?>
                                 <select class="js-example-basic multiselect col-sm-12" multiple="multiple" name="country_id[]" id="country_id">
@@ -420,20 +415,7 @@ $(function(){
                                 <?php endforeach; ?>
                                 </select>
                             </div>
-                            <!-- <div class="col-sm-3"> -->
-                                <!-- <label class="col-lable"><b>Sector</b></label>
-                                <select class="js-example-basic-multiple col-sm-12 form-control-sm" multiple="multiple" name="sector_id[]" id="sector_id">
-                                <option value="0">All</option> -->
-                                     <?php //foreach ($industries as $industry): ?>
-                                    <!-- <option value="<?php //echo $industry['industrycd']; ?>"><?php //echo $industry['industry']; ?></option> -->
-                                <?php// endforeach; ?>
-                                <!-- </select> -->
-                            <!-- </div> -->
-                            
-                            
-                        </div>
-                        <div class="form-group row">
-                        <div class="col-sm-3">
+                            <div class="col-sm-3">
                                 <label class="col-lable"><b>Industry(Sector)</b></label>
                                 <select class="js-example-basic-multiple col-sm-12" multiple="multiple" name="sector_id[]" id="sector_id">
                                 <?php
@@ -469,7 +451,7 @@ $(function(){
                             <div class="col-sm-3">
                                 <label class="col-lable"><b>Job Level</b></label>
                               <select class="js-example-basic-multiple col-sm-12 form-control-sm" multiple="multiple" name="levelid[]" id="levelid">
-                              <!-- <option value="0">All</option>  -->
+                             
                               <?php 
                               if($post['joblevelids'] == 0)
                               {
@@ -493,7 +475,12 @@ $(function(){
                                    
                                 </select>
                             </div>
-                            <div class="col-sm-3">
+                            
+                        
+                            
+                        </div>
+                        <div class="form-group row">
+                        <div class="col-sm-6">
                                 <label class="col-lable"><b>Designation</b></label><?php echo form_error('desid'); ?>
                               <select class="js-example-basic multiselect col-sm-12" multiple="multiple" name="desid[]" id="desid">
                               <?php $tid = explode(',',$post['tid']);?>
@@ -503,10 +490,21 @@ $(function(){
                                    
                                 </select>
                             </div>
-
+                            <div class="col-sm-3">
+                                <label class="col-lable"><b>Select Period</b></label>
+                                <select class="form-control form-control-default form-control-sm "  name="period" id="period">
+                                <option value="1">1 Month</option>
+                                <option value="2">2 Month</option>
+                                <option value="3">3 Month</option>
+                                <option value="4">4 Month</option>
+                                <option value="5">5 Month</option>
+                                <option value="6" selected>6 Month</option>
+                                </select>
+                            
+                            </div>
                         </div>
                         
-                        
+                       
 
                         
 
@@ -529,6 +527,8 @@ $(function(){
                         <div class="form-group row">
 
                             <div class="col-sm-6">
+                            <span>* Please note that it will not update campaign's data</span><br><br>
+                            <input type="hidden"  name="rec_stage" value="<?php echo $rec_stage; ?>" id="rec_stage">
                             <input type="submit" value="Get Leads" class="btn btn-primary">
                                 <!-- <button type="submit" name="submit" class="btn btn-primary" >Get Leads</button> -->
                             </div>
@@ -545,264 +545,185 @@ $(function(){
         <!-- Basic Form Inputs card end -->
         <?php endforeach; ?>
 
-        
- <!--<button type="button" class="btn btn-danger waves-effect" data-toggle="modal" data-target="#Modal-overflow" id="showmodal">Overflow</button>-->
-                                        <!-- Modal -->
-                                        <div class="modal fade modal-flex" id="Modal-overflow" tabindex="-1" role="dialog">
-                                            <div class="modal-dialog" role="document">
-                                                    <div class="modal-content">
-                                                        <div class="modal-header">
-                                                            <h5 class="modal-title">Add Suppression</h5>
-<!--                                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                                <span aria-hidden="true">&times;</span>
-                                                            </button>-->
-                                                        </div>
-                                                        <div class="modal-body p-b-0">
-                                                            <form>
-                                                               
-                                                                <div class="form-group row">
-                                                                    <div class="col-sm-6">
-                                                                        <label class="col-lable"><b>Exclusion Type</b></label>
 
-                                                                        <select class="js-example-basic-multiple col-sm-12" multiple="multiple" style="z-index: 999999999">
-                                                                            <option value="AL">Manager</option>
-                                                                            <option value="WY">Delivery Head</option>
-                                                                            <option value="WY">CEO</option>
-                                                                            <option value="WY">Marketing Head</option>
-                                                                            <option value="WY">Supervisor</option>
-                                                                        </select>
-                                                                    </div>
-                                                              
-                                                                    <div class="col-sm-6">
-                                                                        <label class="col-lable"><b>Campaign Name</b></label>
-                                                                        <input type="text"  name="campaign_name" class="form-control" placeholder="Enter Campaign Name">
-                                                                    </div>
-                                                                    <div class="col-sm-12">
-<!--                                                                        <label class="col-lable"><b>Campaign Name</b></label>
-                                                                        <input type="text"  name="campaign_name" class="form-control" placeholder="Enter Campaign Name">-->
-                                                                    </div><div class="col-sm-12">
-<!--                                                                        <label class="col-lable"><b>Campaign Name</b></label>
-                                                                        <input type="text"  name="campaign_name" class="form-control" placeholder="Enter Campaign Name">-->
-                                                                    </div><div class="col-sm-12">
-                                                                        <label class="col-lable"><b>Campaign Name</b></label>
-                                                                        <input type="text"  name="campaign_name" class="form-control" placeholder="Enter Campaign Name">
-                                                                    </div><div class="col-sm-12">
-                                                                        <label class="col-lable"><b>Campaign Name</b></label>
-                                                                        <input type="text"  name="campaign_name" class="form-control" placeholder="Enter Campaign Name">
-                                                                    </div>
-                                                                </div>
-                                                               
-                                                            </form>
-                                                        </div>
-                                                        <div class="modal-footer">
-                                                            <button type="button" class="btn btn-primary">Add To Suppression List</button>
-                                                            <button type="button" class="btn btn-default" data-dismiss="modal" id="cancelSuppbtn">Cancel</button>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                        </div>
-                                        
     
 <script>
-    $(function() {
-        $("#addcampbtn").on('click', function() 
-        {
+    // $(function() {
+    //     $("#addcampbtn").on('click', function() 
+    //     {
             
-            var campaign_id = $('#campaign_id').val();
-            var client_id = $('#client_id').val();
-            var campaign_name = $('#campaign_name').val();
-            var country_id = $('#country_id').val(); 
-            var region_id = $('#region_id').val();
-            var sub_region_id = $('#sub_region_id').val();
-            // var theRemovedElement = region_id.shift();  
-            var sector_id = $('#sector_id').val(); 
-            var subindustrycd = $('#subindustrycd').val(); 
-            // alert(sector_id);
-            var dcd = $('#dcd').val(); 
-            // var emplzid = $('#emplzid').val(); 
-            var levelid = $('#levelid').val(); 
-            var desid = $('#desid').val();
-            var emplbound = $('#emplbound').val();
-            var empubound = $('#empubound').val();
-            var revnlbound = $('#revnlbound').val();
-            var revnubound = $('#revnubound').val();
-            var revnlbound_range = $('#revnlbound_range').val();
-            var revnubound_range = $('#revnubound_range').val();
-            var startdt = $('#startdt').val();
-            var selectstatus = $('#selectstatus').val();
-            var frequency_type = $('#frequency_type').val();
-            var frequency = $('#frequency').val();
+    //         var campaign_id = $('#campaign_id').val();
+    //         var client_id = $('#client_id').val();
+    //         var campaign_name = $('#campaign_name').val();
+    //         var country_id = $('#country_id').val(); 
+    //         var region_id = $('#region_id').val();
+    //         var sub_region_id = $('#sub_region_id').val();
+    //         // var theRemovedElement = region_id.shift();  
+    //         var sector_id = $('#sector_id').val(); 
+    //         var subindustrycd = $('#subindustrycd').val(); 
+    //         // alert(sector_id);
+    //         var dcd = $('#dcd').val(); 
+    //         // var emplzid = $('#emplzid').val(); 
+    //         var levelid = $('#levelid').val(); 
+    //         var desid = $('#desid').val();
+    //         var emplbound = $('#emplbound').val();
+    //         var empubound = $('#empubound').val();
+    //         var revnlbound = $('#revnlbound').val();
+    //         var revnubound = $('#revnubound').val();
+    //         var revnlbound_range = $('#revnlbound_range').val();
+    //         var revnubound_range = $('#revnubound_range').val();
+    //         var startdt = $('#startdt').val();
+    //         var selectstatus = $('#selectstatus').val();
+    //         var frequency_type = $('#frequency_type').val();
+    //         var frequency = $('#frequency').val();
             
-            //alert(revnlbound+ "" + emplbound);
-            $("#client_id_msg").html("");
-            $("#campaign_id_msg").html("");
-            $("#campaign_name_msg").html("");
-            if(client_id == null || client_id == '')
-            {
-                $("#client_id_msg").html("<p><strong>Please fill this.</strong></p>");
-                return;
-            }
-            if(campaign_id == null || campaign_id == '')
-            {
-                $("#campaign_id_msg").html("<p><strong>Please fill this.</strong></p>");
-                return;
-            }
-            if(campaign_name == null || campaign_name == '')
-            {
-                $("#campaign_name_msg").html("<p><strong>Please fill this.</strong></p>");
-                return;
-            }
-            if(startdt == null || startdt == '')
-            {
-                $("#startdt_msg").html("<p><strong>Please fill this.</strong></p>");
-                return;
-            }
-            if(selectstatus == null || selectstatus == '')
-            {
-                $("#selectstatus_msg").html("<p><strong>Please fill this.</strong></p>");
-                return;
-            }
+    //         //alert(revnlbound+ "" + emplbound);
+    //         $("#client_id_msg").html("");
+    //         $("#campaign_id_msg").html("");
+    //         $("#campaign_name_msg").html("");
+    //         if(client_id == null || client_id == '')
+    //         {
+    //             $("#client_id_msg").html("<p><strong>Please fill this.</strong></p>");
+    //             return;
+    //         }
+    //         if(campaign_id == null || campaign_id == '')
+    //         {
+    //             $("#campaign_id_msg").html("<p><strong>Please fill this.</strong></p>");
+    //             return;
+    //         }
+    //         if(campaign_name == null || campaign_name == '')
+    //         {
+    //             $("#campaign_name_msg").html("<p><strong>Please fill this.</strong></p>");
+    //             return;
+    //         }
+    //         if(startdt == null || startdt == '')
+    //         {
+    //             $("#startdt_msg").html("<p><strong>Please fill this.</strong></p>");
+    //             return;
+    //         }
+    //         if(selectstatus == null || selectstatus == '')
+    //         {
+    //             $("#selectstatus_msg").html("<p><strong>Please fill this.</strong></p>");
+    //             return;
+    //         }
             
             
 
-            // var myCheckboxes = new Array();
-            // $("input:checked").each(function() {
-            // myCheckboxes.push($('#uho').prop('checked'));
-            // });
-            // alert(myCheckboxes);
-            // if(myCheckboxes == true)
-            // {
-            //     var checksupp = true;
-            // }else{
-            //     var checksupp = false;
-            // }
-            var checksupp = $('#uho').prop('checked');
-            if(checksupp == true)
-            {
-                checksupp = 1;
-            }
-            else
-            {
-                checksupp = 0;
-            }
-            var inclist =$('#inclist').prop('checked');
-            if(inclist == true)
-            {
-                inclist = 1;
-            }
-            else
-            {
-                inclist = 0;
-            }
-            var cdqa = $('#cdqa').prop('checked');
-            if(cdqa == true)
-            {
-                cdqa = 1;
-            }
-            else
-            {
-                cdqa = 0;
-            }
-            var assetid = $('#assetid').prop('checked');
-            if(assetid == true)
-            {
-                assetid = 1;
-            }
-            else
-            {
-                assetid = 0;
-            }
-            var quantity = $('#quantity').val();
-            var estclosedt = $('#estclosedt').val();
-            var period =  $('#period').val();
-            var url = "<?php echo base_url("campaigns/ajax_update_campaign");?>";
-            // console.log(url+"?campaign_id="+campaign_id+"&client_id="+client_id+"&campaign_name="+campaign_name+"&region_id="+region_id+"&subindustrycd="+subindustrycd+"&country_id="+country_id+"&dcd="+dcd+"&desid="+desid+"&checksupp="+checksupp+"&inclist="+inclist+"&cdqa="+cdqa+"&assetid="+assetid+"&quantity="+quantity+"&selectstatus="+selectstatus+"&estclosedt="+estclosedt+"&startdt="+startdt+"&emplbound="+emplbound+"&empubound="+empubound+"&revnlbound="+revnlbound+"&revnubound="+revnubound+"&revnlbound_range="+revnlbound_range+"&revnubound_range="+revnubound_range+"&frequency_type="+frequency_type+"&frequency="+frequency);
+    //         // var myCheckboxes = new Array();
+    //         // $("input:checked").each(function() {
+    //         // myCheckboxes.push($('#uho').prop('checked'));
+    //         // });
+    //         // alert(myCheckboxes);
+    //         // if(myCheckboxes == true)
+    //         // {
+    //         //     var checksupp = true;
+    //         // }else{
+    //         //     var checksupp = false;
+    //         // }
+    //         var checksupp = $('#uho').prop('checked');
+    //         if(checksupp == true)
+    //         {
+    //             checksupp = 1;
+    //         }
+    //         else
+    //         {
+    //             checksupp = 0;
+    //         }
+    //         var inclist =$('#inclist').prop('checked');
+    //         if(inclist == true)
+    //         {
+    //             inclist = 1;
+    //         }
+    //         else
+    //         {
+    //             inclist = 0;
+    //         }
+    //         var cdqa = $('#cdqa').prop('checked');
+    //         if(cdqa == true)
+    //         {
+    //             cdqa = 1;
+    //         }
+    //         else
+    //         {
+    //             cdqa = 0;
+    //         }
+    //         var assetid = $('#assetid').prop('checked');
+    //         if(assetid == true)
+    //         {
+    //             assetid = 1;
+    //         }
+    //         else
+    //         {
+    //             assetid = 0;
+    //         }
+    //         var quantity = $('#quantity').val();
+    //         var estclosedt = $('#estclosedt').val();
+    //         var period =  $('#period').val();
+    //         var url = "<?php echo base_url("campaigns/ajax_update_campaign");?>";
+    //         // console.log(url+"?campaign_id="+campaign_id+"&client_id="+client_id+"&campaign_name="+campaign_name+"&region_id="+region_id+"&subindustrycd="+subindustrycd+"&country_id="+country_id+"&dcd="+dcd+"&desid="+desid+"&checksupp="+checksupp+"&inclist="+inclist+"&cdqa="+cdqa+"&assetid="+assetid+"&quantity="+quantity+"&selectstatus="+selectstatus+"&estclosedt="+estclosedt+"&startdt="+startdt+"&emplbound="+emplbound+"&empubound="+empubound+"&revnlbound="+revnlbound+"&revnubound="+revnubound+"&revnlbound_range="+revnlbound_range+"&revnubound_range="+revnubound_range+"&frequency_type="+frequency_type+"&frequency="+frequency);
            
-            $.ajax({
-                url :'<?php echo base_url("campaigns/ajax_update_campaign");?>',
-                type: 'POST', 
-                dataType: 'json',              
-                data: {
-					campaign_id: campaign_id,
-                    client_id:client_id,
-					campaign_name: campaign_name,
-                    country_id:country_id,
-                    region_id:region_id,
-                    sub_region_id:sub_region_id,
-                    industrycd:sector_id,
-                    subindustrycd:subindustrycd,
-                    dcd:dcd,
-                    levelid:levelid,
-                    desid:desid,
-                    checksupp:checksupp,
-                    inclist:inclist,
-                    cdqa:cdqa,
-                    assetid:assetid,
-                    quantity:quantity,
-                    selectstatus:selectstatus,
-                    estclosedt:estclosedt,
-                    startdt:startdt,
-                    emplbound:emplbound,
-                    empubound:empubound,
-                    revnlbound:revnlbound,
-                    revnubound:revnubound,
-                    revnlbound_range:revnlbound_range,
-                    revnubound_range:revnubound_range,
-                    frequency_type:frequency_type,
-                    frequency:frequency,
-                    period:period
-				},
-                cache: false,
-                success: function(response){
-                    var text = response.statusCode;
-                    console.log("check");
-                    if(response.statusCode == "Success") 
-                    {                    
-                        $("#addcampbtn").html(response.message);
-                        $("#addcampbtn").prop('disabled', true);
-                        // top.location.href=base_url+"campaigns/campaign";//redirection
-                    }else if(response.statusCode=="Fail")
-                    {
-                        alert("fail");
-                        $("#addcampbtn").html(response.message);
+    //         $.ajax({
+    //             url :'<?php echo base_url("campaigns/ajax_update_campaign");?>',
+    //             type: 'POST', 
+    //             dataType: 'json',              
+    //             data: {
+	// 				campaign_id: campaign_id,
+    //                 client_id:client_id,
+	// 				campaign_name: campaign_name,
+    //                 country_id:country_id,
+    //                 region_id:region_id,
+    //                 sub_region_id:sub_region_id,
+    //                 industrycd:sector_id,
+    //                 subindustrycd:subindustrycd,
+    //                 dcd:dcd,
+    //                 levelid:levelid,
+    //                 desid:desid,
+    //                 checksupp:checksupp,
+    //                 inclist:inclist,
+    //                 cdqa:cdqa,
+    //                 assetid:assetid,
+    //                 quantity:quantity,
+    //                 selectstatus:selectstatus,
+    //                 estclosedt:estclosedt,
+    //                 startdt:startdt,
+    //                 emplbound:emplbound,
+    //                 empubound:empubound,
+    //                 revnlbound:revnlbound,
+    //                 revnubound:revnubound,
+    //                 revnlbound_range:revnlbound_range,
+    //                 revnubound_range:revnubound_range,
+    //                 frequency_type:frequency_type,
+    //                 frequency:frequency,
+    //                 period:period
+	// 			},
+    //             cache: false,
+    //             success: function(response){
+    //                 var text = response.statusCode;
+    //                 console.log("check");
+    //                 if(response.statusCode == "Success") 
+    //                 {                    
+    //                     $("#addcampbtn").html(response.message);
+    //                     $("#addcampbtn").prop('disabled', true);
+    //                     // top.location.href=base_url+"campaigns/campaign";//redirection
+    //                 }else if(response.statusCode=="Fail")
+    //                 {
+    //                     alert("fail");
+    //                     $("#addcampbtn").html(response.message);
                         
-					}
+	// 				}
 
                    
 
-                }
+    //             }
               
-            });
-        });
-    });
+    //         });
+    //     });
+    // });
 </script>
                                     
     <script>
        
-  
-  $( document ).ready(function() {
-    
-    
-//      $('#mybtn').click(function(){
-//          alert($('#uho').prop('checked'));
-//             if($('#uho').prop('checked')){
-//                 alert($('#uho').val());
-//                 $("#Modal-overflow").modal('show');
-//             }else{
-//                 alert($('#uho').val());
-//             }
-//      });
-      $('#cancelSuppbtn').click(function(){
-            $( "#uho" ).prop( "checked", false );
-//            alert($('#uho').prop('checked'));
-//                $('#mybtn').empty();
-             $('#mybtn').append('<input type="checkbox"  class="js-small f-right suppclass form-control" name="suppchk" id="uho"/> ');
-               
-      });
-    
- 
-});
- 
+
      
 $(function() {
 $('#country_id')

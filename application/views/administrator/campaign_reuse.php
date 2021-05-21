@@ -220,15 +220,20 @@ $(document).ready(function(){
                     </div>
                     <!-- <br> -->
                     <div class="card-block">
+                    <?php if ($rec_stage == "Used") { ?>
                         <div class="table-responsive dt-responsive">
-                        <form id="check" action="<?php echo base_url();?>administrator/export_csv" method="post" >
+                        <!-- <form id="check" action="<?php echo base_url();?>administrator/export_csv" method="post" > -->
+                        <form id="check" method="post" >
+                       
                             <table id="dom-jqry" class="table table-striped table-bordered nowrap">
                                 <thead>
                                     <tr>
                                         <!-- <th><input type="checkbox" class="emailsend_all  emailclass"  onclick="toggle(this);"/>&nbsp;&nbsp;Select</th> -->
                                         <!-- <th>Unused</th>
                                         <th>Used > 6 Month</th> -->
-                                        <th>DC Pending</th>
+                                       
+                                          
+                                        <th>DC Pending </th>
                                         <th>DC Cleared</th>
                                         <th>DV Cleared</th>
                                         <th>EV Cleared</th>
@@ -237,7 +242,7 @@ $(document).ready(function(){
                                         <th>QA Cleared<br>Ready To Delivered</th>
                                         <!-- <th>Ready To Delivered</th> -->
                                         <th>Delivered</th>
-                                    
+                                       <?php } ?>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -282,6 +287,7 @@ $(document).ready(function(){
                                        ?>
                                        <button type="button" style="margin-left: 2px;height: 34px;" data-toggle="tooltip" title="Update"  class="col-sm-3 btn btn-primary btn-sm gotoupdateleadlsfinal" data-id="<?php echo $delivered_lmid;?>" data-campaign_id = "<?php echo $campaign_id;?>" id="gotoupdateleadlsfinal"
                                           data-row="<?php //echo  $delivered_lmid;?>"><i class="icofont icofont-edit"></i></button></td> -->
+                                          <?php if ($rec_stage == "Used") { ?>
                                         <td> 
                                         <div class="form-group row">
                                                 <div class="col-sm-3">
@@ -472,7 +478,7 @@ $(document).ready(function(){
                                             data-row="<?php echo $delivered_lmid;?>"><i class="icofont icofont-edit"></i></button>
                                          <!-- <input id="delivered_lmid" type="hidden" value="<?php //echo $delivered_lmid;?>"> -->
                                          </td>
-                                         
+                                        
                                          
                                        
                                         
@@ -485,9 +491,51 @@ $(document).ready(function(){
 
                                  </tbody>
                             </table>
+                           
                             <!-- <input  class="btn btn-primary" id="Import" type="submit" value="Import to Campaign" name="submit"> -->
                                 </form>
                         </div>
+                        <?php } else{ ?>
+
+                        <div class="form-group row">
+                                 <div class="col-sm-12">
+                                
+
+                              <?php 
+                               $leadmaster_freshleads = $leadmaster_freshleads->result();
+                               $freshleads =0;
+                               $delivered_lmid = array();
+                               foreach($leadmaster_freshleads as $post) {
+                                 $delivered_lmid[] = $post->lmid;
+                                 //   echo $post->lmid;
+                                   $freshleads++;
+                               }
+                             
+                            //    echo $freshleads;
+                            $delivered_lmid = implode(",", $delivered_lmid);
+
+
+                               ?>
+                               <label class="col-lable"><b>Fresh leads: <?php echo $freshleads; ?></b></label>
+                               <input type="hidden"   name="freshleadscnt" value="<?php echo $freshleads; ?>" id="freshleadscnt">
+                               <input type="hidden"   name="lmidss" value="<?php echo $delivered_lmid; ?>" id="lmidss">
+                               <input type="hidden" class="form-control form-control-sm"  name="campaign_ids" value="<?php echo $campaign_id;?>" id="campaign_ids">
+                               <input type="text" placeholder="NO. of leads" style="height: 24px;" class="form-control form-control-sm col-sm-3"  name="count_of_leads" value="<?php echo $freshleads; ?>" id="count_of_leads">
+                               <br><br>  <!-- <select name="camp_stage_from" id="camp_stage_from"  class="form-control form-control-sm col-sm-3" >
+                                        <option value="">Select campaign stage</option>
+                                       
+                                        <option value="1">DC</option>
+                                        <option value="2">DV</option>
+                                        <option value="3">EV</option>
+                                        <option value="4">CDC</option>
+                                
+                                </select><br><br> -->
+                            </div> 
+                            <div class="col-sm-12">
+                            <button type="button" name="initialisecampaign_with_stage" class="btn btn-primary" id="initialisecampaign_with_stage">Initialise to DC</button> 
+                             </div>  
+                        </div>  
+                    <?php } ?>
                     </div>
                 </div>
                 <!-- DOM/Jquery table end -->
@@ -599,5 +647,85 @@ $(".count_of_leads").bind("keypress", function (e) {
             });
 
 
-});});
+});
+
+$(function() {
+        $("#initialisecampaign_with_stage").on('click', function() 
+        {
+
+            var lmids =$('#lmidss').val();
+    
+            var campaign_ids = $('#campaign_ids').val();
+
+            var count_of_leads =  $('#count_of_leads').val();
+            var freshleadscnt =  $('#freshleadscnt').val();
+
+    if(count_of_leads > freshleadscnt || count_of_leads <= '0' || count_of_leads == '')
+                  {
+                    alert("No. of leads should be greater than 0 and less than leads count");
+                    return;
+                  }
+
+            $.ajax({
+                            url :'<?php echo base_url("administrator/assign_leads_to_campaign_fresh");?>',
+                            type: 'GET', 
+                            // contentType: "application/json",
+                            dataType: 'json',              
+                            data: {
+                            
+                                lmids:lmids,
+                                count_of_leads:count_of_leads,
+                                campaign_id:campaign_ids  
+                               },
+                              async: true,
+                                      cache: false,
+                                      success: function(response){                 
+                                      var text = response.statusCode;
+                                      console.log("check");
+                                      if(response.statusCode == "Success") 
+                                      {         
+                                          
+                                          $("#initialisecampaign_with_stage").html("Initialized!");   
+                                          $("#initialisecampaign_with_stage").attr("disabled", true); 
+                                        
+                                      }
+
+
+                                  },
+                                  error: function (error) {
+                                    alert("Error");
+                                    }
+                                
+                              }); //Ajax End
+
+
+        });
+        });
+
+
+
+});
+$(document).ready(function() {
+
+$("#count_of_leads").bind("keypress", function (e) {
+
+    var keyCode = e.which ? e.which : e.keyCode
+
+         
+
+    if (!(keyCode >= 48 && keyCode <= 57)) {
+
+      $(".error").css("display", "inline");
+
+      return false;
+
+    }else{
+
+      $(".error").css("display", "none");
+
+    }
+
+});
+
+});
   </script>

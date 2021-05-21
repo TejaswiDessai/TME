@@ -360,7 +360,7 @@ $(function(){
                                 <?php
                                 $HiddenProducts = explode(',',$post['regioncode']);
                                 ?>
-                        <div class="form-group row">
+                        <!-- <div class="form-group row">
                             <div class="col-sm-3">
                                 <label class="col-lable"><b>World Region</b></label>
                                 <select class="js-example-basic-multiple col-sm-12" multiple="multiple" name="region_id" id="region_id">
@@ -390,8 +390,8 @@ $(function(){
                                 <?php endforeach; ?>
                                 
                                 </select>
-                            </div>
-                            <div class="col-sm-3">
+                            </div> -->
+                            <!-- <div class="col-sm-3">
                                 <label class="col-lable"><b>Sub Region</b></label>
                                 <select class="js-example-basic multiselect col-sm-12" multiple="multiple" name="sub_region_id" id="sub_region_id">
                                 <?php $subregioncode = $post['subregioncode'];$subregioncode1 = explode(',',$subregioncode);?>
@@ -400,7 +400,7 @@ $(function(){
                                 <?php endforeach; ?>
                                 
                                 </select>
-                            </div>
+                            </div> -->
                             
                             <div class="col-sm-3">
                                 <label class="col-lable"><b>Select Country</b></label>  <?php echo form_error('country_id'); ?>
@@ -488,7 +488,18 @@ $(function(){
 
                         </div>
                         
-                        
+                        <div class="col-sm-3">
+                                <label class="col-lable"><b>Select Period</b></label>
+                                <select class="form-control form-control-default form-control-sm "  name="period" id="period">
+                                <option value="1">1 Month</option>
+                                <option value="2">2 Month</option>
+                                <option value="3">3 Month</option>
+                                <option value="4">4 Month</option>
+                                <option value="5">5 Month</option>
+                                <option value="6" selected>6 Month</option>
+                                </select>
+                            
+                            </div>
 
                         
 
@@ -511,6 +522,7 @@ $(function(){
                         <div class="form-group row">
 
                             <div class="col-sm-6">
+                            <span>* Please note that it will not update campaign's data</span><br><br>
                             <input type="hidden"  name="rec_stage" value="<?php echo $rec_stage; ?>" id="rec_stage">
                             <input type="submit" value="Get Leads" class="btn btn-primary">
                                 <!-- <button type="submit" name="submit" class="btn btn-primary" >Get Leads</button> -->

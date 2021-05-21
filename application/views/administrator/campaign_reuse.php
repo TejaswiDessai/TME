@@ -140,49 +140,10 @@ $('#sector_id').change(function(){
         }
     });
 });
- $(document).ready(function(){
-        $(".delete").click(function(e){ alert('as');
-            $this  = $(this);
-            e.preventDefault();
-            var url = $(this).attr("href");
-            $.get(url, function(r){
-                if(r.success){
-                    $this.closest("tr").remove();
-                }
-            })
-        });
-    });
-$(document).ready(function(){
-        $(".enable").click(function(e){
-            $this  = $(this);
-            e.preventDefault();
-            var url = $(this).attr("href");
-            $.get(url, function(r){
-                if(r){
-                    $this.closest("td").html("<button class='label label-inverse-warning desable'>Deactive</button>");
-                }
-            })
-        });
-    });
-$(document).ready(function(){
-        $(".desable").click(function(e){ 
-            $this  = $(this);
-            e.preventDefault();
-            var url = $(this).attr("href");
-            $.get(url, function(r){
-                if(r){
-                    $this.closest("td").html("<button class='label label-inverse-primary enable'>Active</button>");
-                }
-            })
-        });
-    });
-    $(document).ready(function(){
-    $(".emailsend_all").on('change', function () {
-                // alert("test");
-                $(this).closest('table').find('.checkbox_emailclass').prop('checked', this.checked ); 
-                // $("#send_email").attr("disabled", false);
-            });
-        }); 
+
+
+
+   
 </script>
 
 
@@ -228,9 +189,6 @@ $(document).ready(function(){
                             <table id="dom-jqry" class="table table-striped table-bordered nowrap">
                                 <thead>
                                     <tr>
-                                        <!-- <th><input type="checkbox" class="emailsend_all  emailclass"  onclick="toggle(this);"/>&nbsp;&nbsp;Select</th> -->
-                                        <!-- <th>Unused</th>
-                                        <th>Used > 6 Month</th> -->
                                        
                                           
                                         <th>DC Pending </th>
@@ -247,46 +205,11 @@ $(document).ready(function(){
                                 </thead>
                                 <tbody>
                                 <?php 
-                                // $result = $users->result();
-                                // $i =0;
-                                // foreach($result as $post) {
-                                
-                                // $i++;
-                                // echo $j;
+                               
                                 ?>
                                  <tr>
                 
-                                        <!-- <td><?php //echo $leadmaster_unused; -->
-                                      //    $leadmaster_unused = $leadmaster_unused->result();
-                                      //    $unused =0;
-                                      //    $delivered_lmid = array();
-                                      //    foreach($leadmaster_unused as $post) {
-                                      //      $delivered_lmid[] = $post->lmid;
-                                      //      //   echo $post->lmid;
-                                      //        $unused++;
-                                      //    }
-                                      //  //   print_r($delivered_lmid);
-                                      //    echo $unused;
-                                      //    $delivered_lmid = implode(",", $delivered_lmid);
-                                        ?>
-                                         <button type="button" style="margin-left: 2px;height: 34px;" data-toggle="tooltip" title="Update"  class="col-sm-3 btn btn-primary btn-sm gotoupdateleadlsfinal" data-id="<?php echo $delivered_lmid;?>" data-campaign_id = "<?php echo $campaign_id;?>" id="gotoupdateleadlsfinal"
-                                           data-row="<?php// echo  $delivered_lmid;?>"><i class="icofont icofont-edit"></i></button></td> -->
-                                        <!-- <td><?php 
-                                        // echo $leadmaster_used; 
-                                      //   $leadmaster_used = $leadmaster_used->result();
-                                      //   $used =0;
-                                      //   $delivered_lmid = array();
-                                      //   foreach($leadmaster_used as $post) {
-                                      //     $delivered_lmid[] = $post->lmid;
-                                      //     //   echo $post->lmid;
-                                      //       $used++;
-                                      //   }
-                                      // //   print_r($delivered_lmid);
-                                      //   echo $used;
-                                      //   $delivered_lmid = implode(",", $delivered_lmid);
-                                       ?>
-                                       <button type="button" style="margin-left: 2px;height: 34px;" data-toggle="tooltip" title="Update"  class="col-sm-3 btn btn-primary btn-sm gotoupdateleadlsfinal" data-id="<?php echo $delivered_lmid;?>" data-campaign_id = "<?php echo $campaign_id;?>" id="gotoupdateleadlsfinal"
-                                          data-row="<?php //echo  $delivered_lmid;?>"><i class="icofont icofont-edit"></i></button></td> -->
+                       
                                           <?php if ($rec_stage == "Used") { ?>
                                         <td> 
                                         <div class="form-group row">
@@ -301,7 +224,7 @@ $(document).ready(function(){
                                           //   echo $post->lmid;
                                             $dcpending++;
                                         }
-                                      //   print_r($delivered_lmid);
+                                   
                                         echo $dcpending;
                                         $delivered_lmid = implode(",", $delivered_lmid);
                                        ?><br><br>
@@ -330,7 +253,7 @@ $(document).ready(function(){
                                                 //   echo $post->lmid;
                                                     $dcCleared++;
                                                 }
-                                            //   print_r($delivered_lmid);
+                                           
                                                 echo $dcCleared;
                                                 $delivered_lmid = implode(",", $delivered_lmid);
                                             ?><br><br>
@@ -357,7 +280,7 @@ $(document).ready(function(){
                                           //   echo $post->lmid;
                                             $dvCleared++;
                                         }
-                                      //   print_r($delivered_lmid);
+                                     
                                         echo $dvCleared;
                                         $delivered_lmid = implode(",", $delivered_lmid);
                                        ?> <br><br>
@@ -383,7 +306,7 @@ $(document).ready(function(){
                                           //   echo $post->lmid;
                                             $evCleared++;
                                         }
-                                      //   print_r($delivered_lmid);
+                                     
                                         echo $evCleared;
                                         $delivered_lmid = implode(",", $delivered_lmid);
                                        ?>
@@ -412,7 +335,7 @@ $(document).ready(function(){
                                            //   echo $post->lmid;
                                              $cdcCleared++;
                                          }
-                                       //   print_r($delivered_lmid);
+                                    
                                          echo $cdcCleared;
                                          $delivered_lmid = implode(",", $delivered_lmid);
                                         ?> <br><br>
@@ -436,7 +359,7 @@ $(document).ready(function(){
                                             //   echo $post->lmid;
                                               $qaCleared++;
                                           }
-                                        //   print_r($delivered_lmid);
+                                       
                                           echo $qaCleared;
                                           $delivered_lmid = implode(",", $delivered_lmid);
                                          ?> <br><br>
@@ -461,12 +384,10 @@ $(document).ready(function(){
                                             //   echo $post->lmid;
                                               $delivered++;
                                           }
-                                        //   print_r($delivered_lmid);
+                                     
                                           echo $delivered;
                                           $delivered_lmid = implode(",", $delivered_lmid);
-                                        //   $check2 = join(',', $delivered_lmid);
-                                        // echo $post->lmid;
-                                         //echo $leadmaster_delivered;?>
+                                       ?>
                                          <br><br>
                                          </div>
                                          <div class="col-sm-8">
@@ -485,9 +406,7 @@ $(document).ready(function(){
                                     </tr>
                                 <?php //}//endforeach; ?>
 
-                                <!-- <div class="paginate-link">
-                                    <?php //echo $this->pagination->create_links(); ?>
-                                </div>  -->
+                             
 
                                  </tbody>
                             </table>
@@ -568,15 +487,7 @@ $(".count_of_leads").bind("keypress", function (e) {
 });
 
 });
-    $('#Export').prop("disabled", true);
-    // $('input:checkbox').click(function() {
-    // if ($(this).is(':checked')) {
-    // $('#Export').prop("disabled", false);
-    // } else {
-    // if ($('.checks').filter(':checked').length < 1){
-    // $('#Export').attr('disabled',true);}
-    // }
-    // });
+   
     $(document).ready(function() {
     $(document).on("click", ".gotoupdateleadlsfinal", function () {
     var lmids = $(this).attr('data-id');
@@ -619,19 +530,15 @@ $(".count_of_leads").bind("keypress", function (e) {
         async: true,
                 cache: false,
                 success: function(response){
-                    // $("#leadupdateqa").hide();
+                   
                     var text = response.statusCode;
                     // alert("Lead Added Succefully to your Campaign!");
                     console.log("check");
                     if(response.statusCode == "Success") 
                     {         
-                        //  alert("Call displosition updated successfully");
-                        //  $("#gotoupdateleadlsfinal").html("<i class='icofont icofont-edit'></i> <i class='icofont icofont-check'></i>");
-                        // $("#gotoupdateleadlsfinal").attr("disabled", true); 
-                        // $("#gotoupdateleadlsfinal").html("Updated <i class='icofont icofont-check'></i>");
+                       
                         $this.closest("td").find("#gotoupdateleadlsfinal").html("<i class='icofont icofont-edit'></i> <i class='icofont icofont-check'></i>"); 
-                        // top.location.href=base_url+"administrator/dashboard";//redirection
-                        // top.location.href=base_url+"cdc/dataverfication?camp_id="+<?php //echo $campaign['cnid']; ?>;//redirection
+                      
                       
                     }else if(response.data=="Fail")
                     {

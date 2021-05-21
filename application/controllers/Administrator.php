@@ -2394,7 +2394,7 @@ public function getPrivillage(){
 		$manual_email = implode(",", $_GET['manual_email']);
 		$email_format = explode(',', $manual_email);
 		// $email_format = $_GET['manual_email'];
-		
+	 
 		$cnt=count($comp_proSplit);
 		// $cnt = 5;
 		if(isset($_GET['email_status']) && $_GET['email_status'] != null)
@@ -3113,7 +3113,7 @@ public function getPrivillage(){
 				else
 				{
 					//echo "OTP expired"; 
-					echo "<script>alert('OTP expired..');location.href = 'http://localhost/TME/send-email-php/email_otp.php?cid=$cid&empcode=$empcode';</script>";
+					echo "<script>alert('OTP expired..');location.href = 'http://mehp-dbs/send-email-php/email_otp.php?cid=$cid&empcode=$empcode';</script>";
 					// die;
 				}
 			}

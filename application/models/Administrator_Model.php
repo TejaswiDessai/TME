@@ -24,7 +24,7 @@
 						//    die;
 						   
 						
-				$this->db->insert('userlog', array('empid' => $emp_id,'login'=> date('Y-m-d H:i:s'))); 
+				// $this->db->insert('userlog', array('empid' => $emp_id,'login'=> date('Y-m-d H:i:s'))); 
 				return $result->row(0);
 
 			             

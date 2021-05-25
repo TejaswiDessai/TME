@@ -520,7 +520,8 @@
                                     JOIN leadmaster on leadmaster.jlevel= joblevels.jid
                                 GROUP BY joblist
                                 ORDER BY COUNT DESC LIMIT 10;");
-                                $php_data_array_ind_bar = Array(); // create PHP array
+                                // $php_data_array_ind_bar = Array(); // create PHP array
+                                $php_data_array_desi1_bar = Array(); // create PHP array
                                 ?>
                                
                                 <?php 
@@ -1258,6 +1259,7 @@
                                             and dvagtidii is not null
                                             and (dvsbtg = 0 OR dvsbtg = 1 OR dvsbtg = 2)
                                             and dvload = 1 and leadmaster.stdtii >= current_date");
+                                            // echo $this->db->last_query();
                                             $today_2 = $today_2->num_rows();
                                             echo $today_total = $today_1+$today_2;
                                              ?>

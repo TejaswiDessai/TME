@@ -569,7 +569,7 @@ $(function() {
             var count_of_leads =  $('#count_of_leads1').val();
             var freshleadscnt =  $('#freshleadscnt').val();
 
-    if(count_of_leads > freshleadscnt || count_of_leads <= '0' || count_of_leads == '')
+    if(count_of_leads > parseInt(freshleadscnt) || count_of_leads <= '0' || count_of_leads == '')
                   {
                     alert("No. of leads should be greater than 0 and less than leads count");
                     return;

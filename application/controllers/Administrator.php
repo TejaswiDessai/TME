@@ -3493,15 +3493,15 @@ public function getPrivillage(){
 		public function assign_leads_to_campaign_fresh()
 		{
 			// $check = $this->input->post('delivery_final_check');
-			$lmid = $_GET['lmids'];
-			$campaign_id = $_GET['campaign_id'];
+			$lmid = $_POST['lmids'];
+			$campaign_id = $_POST['campaign_id'];
 			// $string_version= implode(",", $check);
 			$comp_proSplit= explode(",", $lmid);
 
 
 			
 			// $cnt=count($comp_proSplit);
-			$cnt= $_GET['count_of_leads'];
+			$cnt= $_POST['count_of_leads'];
 			for($i=0;$i<$cnt;$i++)
 			{
 

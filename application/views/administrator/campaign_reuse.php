@@ -577,7 +577,7 @@ $(function() {
 
             $.ajax({
                             url :'<?php echo base_url("administrator/assign_leads_to_campaign_fresh");?>',
-                            type: 'GET', 
+                            type: 'POST', 
                             // contentType: "application/json",
                             dataType: 'json',              
                             data: {

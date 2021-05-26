@@ -451,11 +451,13 @@ document.getElementById("randomSelect").addEventListener("click", function() {
                                 <option value="Confirmed" <?php if( isset($search_email_status) && $search_email_status == "Confirmed") { echo "selected" ; } ?> >Confirmed</option>
                                 <option value="Blocked" <?php if( isset($search_email_status) && $search_email_status == "Blocked") { echo "selected" ; } ?> >Blocked</option>
                                 <option value="Not Available" <?php if( isset($search_email_status) && $search_email_status == "Not Available") { echo "selected" ; } ?>>Not Available</option>
+                                <option value="Account Not Available" <?php if( isset($search_email_status) && $search_email_status == "Account Not Availble") { echo "selected" ; } ?>>Account Not Availble</option>
                                 <option value="Out of Office" <?php if( isset($search_email_status) && $search_email_status == "Out of Office") { echo "selected" ; } ?>>Out of Office</option>
                                 <option value="Generic email" <?php if( isset($search_email_status) && $search_email_status == "Generic email") { echo "selected" ; } ?>>Generic email</option>
                                 <option value="Dead contact" <?php if( isset($search_email_status) && $search_email_status == "Dead contact") { echo "selected" ; } ?>>Dead contact</option>
                                 <option value="Incorrect Info" <?php if( isset($search_email_status) && $search_email_status == "Incorrect Info") { echo "selected" ; } ?>>Incorrect Info</option>
                                 <option value="Refused" <?php if( isset($search_email_status) && $search_email_status == "Refused") { echo "selected" ; } ?>>Refused</option>
+                                <option value="Refused" <?php if( isset($search_email_status) && $search_email_status == "To be Decided") { echo "selected" ; } ?>>To be Decided</option>
 
                             </select>
                             </td>
@@ -683,11 +685,13 @@ document.getElementById("randomSelect").addEventListener("click", function() {
                         <option value="Confirmed" >Confirmed</option>
                         <option value="Blocked" >Blocked</option>
                         <option value="Not Available" >Not Available</option>
+                        <option value="Account Not Available" >Account Not Available</option>
                         <option value="Out of Office" >Out of Office</option>
                         <option value="Generic email" >Generic email</option>
                         <option value="Dead contact" >Dead contact</option>
                         <option value="Incorrect Info" >Incorrect Info</option>
                         <option value="Refused" >Refused</option>
+                        <option value="To be Decided" >To be Decided</option>
                         </select>
                     </div>
                     <!-- <div class="col-sm-1">
@@ -707,8 +711,8 @@ document.getElementById("randomSelect").addEventListener("click", function() {
                         <select style="height:34px;" class="form-control form-control-default "  name="email_close_status" id="email_close_status">
                             <option value="">Email Closer Status</option>
                             <!-- <option value="New" >New</option> -->
-                            <!-- <option value="Open">Open</option> -->
-                            <option value="Closed" selected>Closed</option>
+                            <option value="Open">Open</option>
+                            <option value="Closed">Closed</option>
                             
                         </select>
                     </div>
@@ -1211,7 +1215,7 @@ $(".emailstatus").click(function() {
             ajaxindicatorstart('Sending email.. please wait..');
             });
             var url = "<?php echo base_url("administrator/update_email_status_and_send");?>";
-            console.log(url+"?change_status_of="+change_status_of+"&email_status="+email_status+"&campid="+campid+"&leadid="+leadid+"&from="+from+"&sub="+sub+"&body="+body+"&pass="+pass);
+            // console.log(url+"?change_status_of="+change_status_of+"&original_email"+original_email+"&email_status="+email_status+"&campid="+campid+"&leadid="+leadid+"&from="+from+"&sub="+sub+"&body="+body+"&pass="+pass+"&manual_email="+manual_email);
             $.ajax({
                 url :'<?php echo base_url("administrator/update_email_status_and_send");?>',
                 type: 'GET', 

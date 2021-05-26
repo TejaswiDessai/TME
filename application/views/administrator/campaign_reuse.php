@@ -497,7 +497,7 @@ $(".count_of_leads").bind("keypress", function (e) {
     var count_of_leads =   $(this).closest('td').find('#count_of_leads').val();
     var clearedcnt =   $(this).closest('td').find('#clearedcnt').val();
    
-    alert(clearedcnt);
+    // alert(clearedcnt);
     // var row = $(this).attr('data-row');
     $this  = $(this);
     

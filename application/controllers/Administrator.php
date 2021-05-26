@@ -2680,20 +2680,20 @@ public function getPrivillage(){
 						// 	);
 						// $update_lead_status = $this->Administrator_Model->update_email_lead__status($update_lead_status,$leadid[$i]);
 						
-						if($closer_status == "Closed")
-							{
-							$update_lead_status = array(
-								'evload' => 1,
-								'evcomp' => 1,
-								'email'=> $comp_proSplit[$i],
-								'evdisp' =>4,
-								'cdcsb' => 0,
-								'cdcrjt' => 0,
-								'rlc' => 0,
+						// if($closer_status == "Closed")
+						// 	{
+						// 	$update_lead_status = array(
+						// 		'evload' => 1,
+						// 		'evcomp' => 1,
+						// 		'email'=> $comp_proSplit[$i],
+						// 		'evdisp' =>4,
+						// 		'cdcsb' => 0,
+						// 		'cdcrjt' => 0,
+						// 		'rlc' => 0,
 			
-								);
-							$update_lead_status = $this->Administrator_Model->update_email_lead__status($update_lead_status,$leadid[$i]);
-							}
+						// 		);
+						// 	$update_lead_status = $this->Administrator_Model->update_email_lead__status($update_lead_status,$leadid[$i]);
+						// 	}
 							if($closer_status != "Closed")
 							{
 								$datacampaign = array(
@@ -2794,15 +2794,45 @@ public function getPrivillage(){
 			if($closer_status == "Closed")
 			{
 				$evdisp = null;
-				if($email_status == "Accepted" || $email_status == "Confirmed" || $email_status == "Out of Office")
+				if($email_status == "Out of Office")
+				{
+					$evdisp = 1;
+				}
+				
+				elseif($email_status == "Account Not Available")
+				{
+					$evdisp = 2;
+				}
+				elseif($email_status == "To be Decided")
+				{
+					$evdisp = 3;
+				}
+				elseif($email_status == "Accepted" || $email_status == "Confirmed")
 				{
 					$evdisp = 4;
+				}
+				elseif($email_status == "Not Available")
+				{
+					$evdisp = 5;
+				}
+				elseif($email_status == "Refused")
+				{
+					$evdisp = 6;
+				}
+				else
+				{
+					$evdisp = 5;
+				}
+				
+				if($email_status == "Accepted" || $email_status == "Confirmed")
+				{
+					// $evdisp = 4;
 					$evload = 1;
 					$final_email = $comp_proSplit[$i];
 				}
 				else
 				{
-					$evdisp = 5;
+					// $evdisp = 5;
 					$evload = 0;
 					$final_email = $original_email[$i];
 				}

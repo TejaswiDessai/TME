@@ -708,7 +708,7 @@ document.getElementById("randomSelect").addEventListener("click", function() {
                             <option value="">Email Closer Status</option>
                             <!-- <option value="New" >New</option> -->
                             <!-- <option value="Open">Open</option> -->
-                            <option value="Closed" selected>Closed</option>
+                            <option value="Closed">Closed</option>
                             
                         </select>
                     </div>

@@ -1215,7 +1215,7 @@ $(".emailstatus").click(function() {
             ajaxindicatorstart('Sending email.. please wait..');
             });
             var url = "<?php echo base_url("administrator/update_email_status_and_send");?>";
-            console.log(url+"?change_status_of="+change_status_of+"&email_status="+email_status+"&campid="+campid+"&leadid="+leadid+"&from="+from+"&sub="+sub+"&body="+body+"&pass="+pass);
+            // console.log(url+"?change_status_of="+change_status_of+"&original_email"+original_email+"&email_status="+email_status+"&campid="+campid+"&leadid="+leadid+"&from="+from+"&sub="+sub+"&body="+body+"&pass="+pass+"&manual_email="+manual_email);
             $.ajax({
                 url :'<?php echo base_url("administrator/update_email_status_and_send");?>',
                 type: 'GET', 

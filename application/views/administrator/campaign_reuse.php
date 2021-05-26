@@ -441,7 +441,7 @@ $('#sector_id').change(function(){
                                <input type="hidden" class="form-control form-control-sm"  name="campaign_ids" value="<?php echo $campaign_id;?>" id="campaign_ids">
                                
                                <label class="col-lable"><b>Enter no.of leads you want to initialise</b></label>
-                               <input type="text" placeholder="No. of leads" style="height: 24px;" class="form-control form-control-sm col-sm-3"  name="count_of_leads" value="<?php echo $freshleads; ?>" id="count_of_leads">
+                               <input type="text" placeholder="No. of leads" style="height: 24px;" class="form-control form-control-sm col-sm-3"  name="count_of_leads1" value="<?php echo $freshleads; ?>" id="count_of_leads1">
                                <br><br>  <!-- <select name="camp_stage_from" id="camp_stage_from"  class="form-control form-control-sm col-sm-3" >
                                         <option value="">Select campaign stage</option>
                                        
@@ -500,7 +500,7 @@ $(".count_of_leads").bind("keypress", function (e) {
     // var row = $(this).attr('data-row');
     $this  = $(this);
     
-    if(count_of_leads > clearedcnt || clearedcnt <= '0' || count_of_leads == '')
+    if(count_of_leads > clearedcnt || count_of_leads <= '0' || count_of_leads == '')
                   {
                     alert("No. of leads should be greater than 0 and less than cleared count");
                     return;
@@ -517,7 +517,7 @@ $(".count_of_leads").bind("keypress", function (e) {
       
         $.ajax({
                url :'<?php echo base_url("administrator/assign_leads_to_campaign");?>',
-                type: 'GET', 
+                type: 'POST', 
                 // contentType: "application/json",
                 dataType: 'json',              
                 data: {
@@ -566,7 +566,7 @@ $(function() {
     
             var campaign_ids = $('#campaign_ids').val();
 
-            var count_of_leads =  $('#count_of_leads').val();
+            var count_of_leads =  $('#count_of_leads1').val();
             var freshleadscnt =  $('#freshleadscnt').val();
 
     if(count_of_leads > freshleadscnt || count_of_leads <= '0' || count_of_leads == '')
@@ -577,7 +577,7 @@ $(function() {
 
             $.ajax({
                             url :'<?php echo base_url("administrator/assign_leads_to_campaign_fresh");?>',
-                            type: 'GET', 
+                            type: 'POST', 
                             // contentType: "application/json",
                             dataType: 'json',              
                             data: {

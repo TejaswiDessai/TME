@@ -2818,7 +2818,8 @@ public function getPrivillage(){
 						'evdisp' =>$evdisp,
 						'cdcsb' => 0,
 						'cdcrjt' => 0,
-						'rlc' => 0,   
+						'rlc' => 0, 
+						'evstat' => 1  
 						);
 				}
 				else
@@ -2829,7 +2830,7 @@ public function getPrivillage(){
 					'email'=> $final_email,
 					'evdisp' =>$evdisp,
 					'rlc' => 0,
-
+					'evstat' => 1 
 					);
 
 				}

@@ -500,7 +500,7 @@ $(".count_of_leads").bind("keypress", function (e) {
     // var row = $(this).attr('data-row');
     $this  = $(this);
     
-    if(count_of_leads > clearedcnt || clearedcnt <= '0' || count_of_leads == '')
+    if(count_of_leads > clearedcnt || count_of_leads <= '0' || count_of_leads == '')
                   {
                     alert("No. of leads should be greater than 0 and less than cleared count");
                     return;
@@ -517,7 +517,7 @@ $(".count_of_leads").bind("keypress", function (e) {
       
         $.ajax({
                url :'<?php echo base_url("administrator/assign_leads_to_campaign");?>',
-                type: 'GET', 
+                type: 'POST', 
                 // contentType: "application/json",
                 dataType: 'json',              
                 data: {

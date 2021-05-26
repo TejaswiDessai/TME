@@ -441,7 +441,7 @@ $('#sector_id').change(function(){
                                <input type="hidden" class="form-control form-control-sm"  name="campaign_ids" value="<?php echo $campaign_id;?>" id="campaign_ids">
                                
                                <label class="col-lable"><b>Enter no.of leads you want to initialise</b></label>
-                               <input type="text" placeholder="No. of leads" style="height: 24px;" class="form-control form-control-sm col-sm-3"  name="count_of_leads" value="<?php echo $freshleads; ?>" id="count_of_leads">
+                               <input type="text" placeholder="No. of leads" style="height: 24px;" class="form-control form-control-sm col-sm-3"  name="count_of_leads1" value="<?php echo $freshleads; ?>" id="count_of_leads1">
                                <br><br>  <!-- <select name="camp_stage_from" id="camp_stage_from"  class="form-control form-control-sm col-sm-3" >
                                         <option value="">Select campaign stage</option>
                                        
@@ -566,7 +566,7 @@ $(function() {
     
             var campaign_ids = $('#campaign_ids').val();
 
-            var count_of_leads =  $('#count_of_leads').val();
+            var count_of_leads =  $('#count_of_leads1').val();
             var freshleadscnt =  $('#freshleadscnt').val();
 
     if(count_of_leads > freshleadscnt || count_of_leads <= '0' || count_of_leads == '')

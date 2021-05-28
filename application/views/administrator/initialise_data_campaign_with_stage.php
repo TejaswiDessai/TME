@@ -198,7 +198,7 @@ $(function() {
          if(camp_stage_to != '' && camp_stage_from != '')
            {
             if(clrchk == 1){
-                  if(leadsno > cleared || leadsno <= '0')
+                  if(leadsno > parseInt(cleared) || leadsno <= '0')
                   {
                     alert("No. of leads should be greater than 0 and less than cleared leads");
                     return;
@@ -781,7 +781,7 @@ $(function() {
             
             if(penchk == '1'){ //pending checked
             
-              if(leadsno > pending || leadsno <= '0')
+              if(leadsno > parseInt(pending) || leadsno <= '0')
                   {
                     alert("No. of leads should be greater than 0 and less than pending leads");
                     return;

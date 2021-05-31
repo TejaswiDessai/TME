@@ -2354,7 +2354,7 @@
 
 				if($mychecked2 == "0"){  // Accept
 					$cdcload = "1"; // go to next level-- Accept
-					
+					$mychecked2 = $_POST['dvrejectreason']; //Data Verification|Submission Tag
 					 $ontag = "1"; //null = new, 0 = needs to be reworked
 					 $cdcrjt = $_POST['cdcrjt'];
 					 $cdcsb = $_POST['cdcsb']; //Data Verification|Submission Tag
@@ -6524,13 +6524,14 @@
 				 $cdcrjt = $_POST['cdcrjt'];
 			
 				$cdcsb = $_POST['cdcsb']; //Data Verification|Submission Tag		
-			
+				$mychecked2 = $_POST['dvrejectreason']; //Data Verification|Submission Tag
 				
 			}else{
 			
 				$dvstat ="2";
 				$cdcrjt = $_POST['cdcrjt'];
 				$cdcsb = $_POST['cdcsb'];
+				$mychecked2 = $_POST['dvrejectreason']; //Data Verification|Submission Tag
 			
 			}
 

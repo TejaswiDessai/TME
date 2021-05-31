@@ -2024,6 +2024,7 @@
 			
 			$lmid = $_POST['lmid'];
 			$checked = $_POST['checked'];
+			$dvrejectreason = $_POST['dvrejectreason'];
 			$sbsvtag = $_POST['sbsvtag'];
 			$dvrejtg = $_POST['dvrejtg'];
 			$dvsbtg = $_POST['dvsbtg'];
@@ -2040,6 +2041,12 @@
 				redirect('administrator/logout');
 				Exit();
 			}
+			if(!empty($_POST['dvrejectreason']))
+				{
+					$dvrejectreason =  $_POST['dvrejectreason'];
+				} else{
+				$dvrejectreason = NULL;
+				}
 			if(!empty($_POST['dvragtidi']))
 				{
 					$postagent1 =  $_POST['dvragtidi'];
@@ -2102,6 +2109,7 @@
 					 $ontag = "1"; //null = new, 0 = needs to be reworked
 					 $dvrejtg = $_POST['dvrejtg'];
 					 $dvsbtg = $_POST['dvsbtg']; //Data Verification|Submission Tag
+					 $mychecked2 = $_POST['dvrejectreason']; //Data Verification|Submission Tag
 					
 					
 					if(empty($_POST['dvdti'])){

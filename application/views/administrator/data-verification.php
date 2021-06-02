@@ -205,9 +205,9 @@ $(document).ready(function() {
                       <?php foreach ($leadmaster as $ldmster2){
                         if(empty($ldmster2['stagtidii'])){
                           // print_r($ldmster2['stagtidi']);
-                         echo "Submitted by ".$ldmster2['stagtidi'];
+                        //  echo "Submitted by ".$ldmster2['stagtidi'];
                         }else{
-                          echo "Submitted by ".$ldmster2['stagtidii'];
+                          // echo "Submitted by ".$ldmster2['stagtidii'];
                      
                         }
                       } 

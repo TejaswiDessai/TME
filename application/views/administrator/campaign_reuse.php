@@ -496,12 +496,14 @@ $(".count_of_leads").bind("keypress", function (e) {
 
     var count_of_leads =   $(this).closest('td').find('#count_of_leads').val();
     var clearedcnt =   $(this).closest('td').find('#clearedcnt').val();
-    // alert(campaign_id);ddfd
+   
+    // alert(clearedcnt);
     // var row = $(this).attr('data-row');
     $this  = $(this);
     
-    if(count_of_leads > clearedcnt || count_of_leads <= '0' || count_of_leads == '')
+    if(count_of_leads > parseInt(clearedcnt) || count_of_leads <= '0' || count_of_leads == '')
                   {
+                    
                     alert("No. of leads should be greater than 0 and less than cleared count");
                     return;
                   }
@@ -569,7 +571,7 @@ $(function() {
             var count_of_leads =  $('#count_of_leads1').val();
             var freshleadscnt =  $('#freshleadscnt').val();
 
-    if(count_of_leads > freshleadscnt || count_of_leads <= '0' || count_of_leads == '')
+    if(count_of_leads > parseInt(freshleadscnt) || count_of_leads <= '0' || count_of_leads == '')
                   {
                     alert("No. of leads should be greater than 0 and less than leads count");
                     return;

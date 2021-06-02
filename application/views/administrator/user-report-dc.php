@@ -185,7 +185,7 @@
                                         <td><?php 
                                         $submit1_total = $this->db->query("SELECT * FROM leadmaster where cids = '".$Campid."' and stagtidi = '".$post['empcode']."' and (stdti >= '".$From."' and stdti <= '".$To."')");
                                         $submit1 = $submit1_total->num_rows();
-                                        $submit2_total = $this->db->query("SELECT * FROM leadmaster where cids = '".$Campid."' and stagtidii = '".$post['empcode']."' and (stdti >= '".$From."' and stdti <= '".$To."')");
+                                        $submit2_total = $this->db->query("SELECT * FROM leadmaster where cids = '".$Campid."' and stagtidii = '".$post['empcode']."' and (stdtii >= '".$From."' and stdtii <= '".$To."')");
                                         echo $submit1 + $submit2_total->num_rows();
 
                                     //    if(isset($Stage) && $Stage == "verified"){
@@ -259,7 +259,7 @@
                                         </td>
                                         <td>
                                             <?php
-                                        $submit2_total = $this->db->query("SELECT * FROM leadmaster where cids = '".$Campid."' and stagtidii = '".$post['empcode']."' and (stdti >= '".$From."' and stdti <= '".$To."')");
+                                        $submit2_total = $this->db->query("SELECT * FROM leadmaster where cids = '".$Campid."' and stagtidii = '".$post['empcode']."' and (stdtii >= '".$From."' and stdtii <= '".$To."')");
                                         // echo "<center><b>Total: </b>".$submit2_total->num_rows();
                                         $total_accept2 = $this->db->query("select * from leadmaster
                                         where ontag = 1
@@ -267,7 +267,7 @@
                                         and pload = 0
                                         and (dvsbtg = 0 OR dvsbtg = 1 OR dvsbtg = 2)
                                         and dvload = 1 and cids = '".$Campid."' and stagtidii = '".$post['empcode']."' 
-                                        and (stdti >= '".$From."' and stdti <= '".$To."')");
+                                        and (stdtii >= '".$From."' and stdtii <= '".$To."')");
                                         //echo "Accepted: ".$total_accept->num_rows()."<br>";
                                         $dc_pending_frej2 = $this->db->query("select * from leadmaster
                                           where 
@@ -276,7 +276,7 @@
                                           and dvrejtg = 2
                                           and sbsvtag != 0 
                                           and dvload = 0 and cids = '".$Campid."' and stagtidii = '".$post['empcode']."'
-                                          and (stdti >= '".$From."' and stdti <= '".$To."')");
+                                          and (stdtii >= '".$From."' and stdtii <= '".$To."')");
                                         
                                         // $saved = $this->db->query("SELECT * FROM public.leadmaster
                                         //  where 

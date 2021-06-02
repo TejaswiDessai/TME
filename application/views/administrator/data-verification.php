@@ -927,6 +927,8 @@ $(document).ready(function() {
                           <input type = hidden name="dvrejtg" id="dvrejtg" value="<?php echo $ldmster['dvrejtg']; ?>">
                           <input type = hidden name="dvsbtg" id="dvsbtg" value="<?php echo $ldmster['dvsbtg']; ?>">
                           <input type = hidden name="rlc" id="rlc" value="<?php echo $ldmster['rlc']; ?>">
+                          
+                          <input type = hidden name="dvrejectreason" id="dvrejectreason" value="<?php echo $ldmster['dvrejectreason']; ?>">
 
                           <input type = hidden name="dvagtidi" id="dvagtidi" value="<?php echo $ldmster['dvagtidi']; ?>">
                           <input type = hidden name="dvagtidii" id="dvagtidii" value="<?php echo $ldmster['dvagtidii']; ?>">
@@ -1950,6 +1952,7 @@ $("input:checkbox").change(function() {
             // var sbsvtag = parseInt(sbsvtag1)+1; // incremataion
 
             var lmid = $('#lmid').val();
+            var dvrejectreason = $('#dvrejectreason').val();
 
             var pcomt = $('#pcomt').val();
 
@@ -1971,6 +1974,7 @@ $("input:checkbox").change(function() {
                   dvrejtg :dvrejtg,
                   dvsbtg :dvsbtg,
                   pcomt :pcomt,
+                  dvrejectreason :dvrejectreason,
                   checked:checked,
                   dvrdti:dvrdti,
                   dvragtidi:dvragtidi,
@@ -2036,7 +2040,7 @@ $("input:checkbox").change(function() {
             var dvsbtg = '0';
            
             var lmid = $('#lmid').val();
-
+            var dvrejectreason = $('#dvrejectreason').val();
             var pcomt = $('#pcomt').val();
 
             var url = encodeURI("<?php echo base_url("cdc/ajax_update_dataverification");?>");
@@ -2052,6 +2056,7 @@ $("input:checkbox").change(function() {
                    
                   campaign_id: campaign_id,
                   campaign_idcids: campaign_idcids,
+                  dvrejectreason :dvrejectreason,
                   lmid: lmid,
                   sbsvtag :sbsvtag,
                   dvrejtg :dvrejtg,

@@ -3913,7 +3913,8 @@ public function get_campaign_fordataverification()
 		$this->db->where('sbsvtag !=', 0);
 		
 		$this->db->where('qaacpt', NULL);
-		$this->db->where('qasv', NULL);
+		$this->db->where('cdcsv', NULL);
+		$this->db->where('qasv',NULL);
 
 			$this->db->group_start();
 			$this->db->where('dvrejtg < 3 AND dvsbtg < 3');
@@ -3996,7 +3997,8 @@ public function get_campaign_fordataverification()
 		$this->db->where('sbsvtag <', 6);
 		$this->db->where('sbsvtag !=', 0);
 		$this->db->where('qaacpt', NULL);
-		$this->db->where('qasv', NULL);
+		$this->db->where('cdcsv', NULL);
+		$this->db->where('qasv',NULL);
 	
 		$this->db->where('dvload',1);
 		$this->db->where('evload',null);
@@ -4065,6 +4067,10 @@ public function get_campaign_fordataverification()
 				$this->db->where('empsize <=', $empubound);
 			}
 	
+		$this->db->where('sbsvtag <', 6);
+		$this->db->where('sbsvtag !=', 0);	
+	    $this->db->where('cdcsv', NULL);
+		$this->db->where('qasv',NULL);
 		$this->db->where('evload',1);
 		// $this->db->where('cdcload',0);
 		$this->db->where('cdcload',NULL);
@@ -4131,7 +4137,11 @@ public function get_campaign_fordataverification()
 				$this->db->where('empsize >=', $emplbound);
 				$this->db->where('empsize <=', $empubound);
 			}
-	
+	$this->db->where('sbsvtag <', 6);
+	$this->db->where('sbsvtag !=', 0);
+	$this->db->where('cdcsv', NULL);
+	$this->db->where('qasv',NULL);
+
 	$this->db->where('cdcload',1);
 	$this->db->where('qaload',null);
 	$this->db->group_by('lmid');
@@ -4195,7 +4205,11 @@ public function get_all_record_leadmasterby_QAdone($rec_stage,$period,$dcd,$leve
 				$this->db->where('empsize <=', $empubound);
 			}
 	
-			
+			$this->db->where('sbsvtag <', 6);
+		    $this->db->where('sbsvtag !=', 0);
+			$this->db->where('cdcsv', NULL);
+			$this->db->where('qasv',NULL);
+
 			$this->db->where('qaacpt', 1);
 			// $this->db->where('sbsvtag !=', 0);
 			$this->db->where('qastat','qualified'); 
@@ -4331,7 +4345,8 @@ public function get_all_record_leadmasterby_Delivered($rec_stage,$period,$dcd,$l
 		$this->db->where('sbsvtag <', 6);
 	
 		$this->db->where('sbsvtag !=', 0);
-		$this->db->where('qasv', NULL);
+		$this->db->where('cdcsv', NULL);
+		$this->db->where('qasv',NULL);
 	
 		$this->db->where('qaacpt', NULL);
 

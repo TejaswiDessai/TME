@@ -1076,6 +1076,7 @@ $.ajax({
                           <input type = "hidden" name="cdcrjt" id="cdcrjt" value="<?php echo $ldmster['cdcrjt']; ?>">
                           <input type = "hidden" name="cdcsb" id="cdcsb" value="<?php echo $ldmster['cdcsb']; ?>">
                          
+                          <input type = hidden name="dvrejectreason" id="dvrejectreason" value="<?php echo $ldmster['dvrejectreason']; ?>">
                           <input type = "hidden" name="rlc" id="rlc" value="<?php echo $ldmster['rlc']; ?>">
                           
                           <input type = "hidden" name="cdcsbagti" id="cdcsbagti" value="<?php echo $ldmster['cdcsbagti']; ?>">
@@ -1799,7 +1800,7 @@ $("input:checkbox").change(function() {
              }
 
             var lmid = $('#lmid').val();
-
+            var dvrejectreason = $('#dvrejectreason').val();
             var pcomt = $('#pcomt').val();
 
             var lcalldisp = $('#lcalldisp').val();
@@ -1826,6 +1827,7 @@ $("input:checkbox").change(function() {
                   campaign_id: campaign_id,
                   campaign_idcids: campaign_idcids,
                   lmid: lmid,
+                  dvrejectreason: dvrejectreason,
                   cdcsv :cdcsv,
                   cdcrjt :cdcrjt,
                   cdcsb :cdcsb,
@@ -1928,7 +1930,7 @@ $(function() {
                 this.checked ? checked.push(this.id) : notChecked.push(this.id);
             });
 
-            
+            var dvrejectreason = $('#dvrejectreason').val();
             var optin = $('#optin').val();
             var optpst = $('#optpst').val();
             var opteml = $('#opteml').val();
@@ -2082,6 +2084,7 @@ $(function() {
                   campaign_id: campaign_id,
                   campaign_idcids: campaign_idcids,
                   lmid: lmid,
+                  dvrejectreason: dvrejectreason,
                   cdcsv :cdcsv,
                   cdcrjt :cdcrjt,
                   cdcsb :cdcsb,

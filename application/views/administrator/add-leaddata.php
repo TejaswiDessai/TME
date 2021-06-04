@@ -280,6 +280,11 @@ $(document).ready(function() {
                                  ?>">
                             </div>
                             <div class="col-sm-2">
+                            <?php if($ldmster['plink'] != ""){ ?>
+                              <a href="<?php echo $ldmster['plink'] ?>" target="_blank" style="float:right"><i class="icofont icofont-link"></i></a>
+                            <?php } else{ ?>
+                              <a style="float:right"><i class="icofont icofont-unlink"></i></a>     
+                            <?php } ?>
                                 <input type="text"  name="plink" id="plink" autocomplete = "off"  placeholder="Prospect Link"  class="form-control form-control-sm 
                                 <?php
                                  if(isset($ldmster) && in_array('plink',$dvrejectreason)) { echo "form-bg-inverse" ; } 
@@ -497,6 +502,11 @@ $(document).ready(function() {
                             <div class="col-sm-2 <?php
                                  if(isset($ldmster) && in_array('domain',$dvrejectreason) && (!empty($domain))) { echo "form-bg-inverse" ; } 
                                  ?>">
+                                 <?php if($ldmster['domain'] != ""){ ?>
+                                  <a href="http://<?php echo $ldmster['domain'] ?>" target="_blank" style="float:right"><i class="icofont icofont-link"></i></a>
+                                  <?php } else{ ?>
+                                    <a style="float:right"><i class="icofont icofont-unlink"></i></a>     
+                                  <?php } ?>
                                 <div class="domaincheck ">
 
                                 <?php if(!empty($domain)) { ?>
@@ -517,6 +527,11 @@ $(document).ready(function() {
                               </div>
                             
                             <div class="col-sm-2">
+                            <?php if($ldmster['empszlink'] != ""){ ?>
+                              <a href="<?php if($ldmster['empszlink'] != ""){ echo $ldmster['empszlink']; } else{  echo "#"; } ?>" target="_blank" style="float:right"><i class="icofont icofont-link"></i></a>
+                                <?php } else{ ?>
+                                <a style="float:right"><i class="icofont icofont-unlink"></i></a>       
+                                <?php } ?>
                                 <input type="text" autocomplete = "off"  value ="<?php if(isset($ldmster)){  echo $ldmster['empszlink']; }?>"  name="empszlink" id="empszlink" value=""   placeholder="Employee Size Link" 
                                  class="form-control form-control-sm  <?php
                                  if(isset($ldmster) && in_array('empszlink',$dvrejectreason)) { echo "form-bg-inverse" ; } 
@@ -529,18 +544,34 @@ $(document).ready(function() {
                         <div class="form-group row">
                            
                         <div class="col-sm-2 ">
+                              <?php if($ldmster['indlink'] != ""){ ?>
+                                <a href="<?php echo $ldmster['indlink'];?>" target="_blank" style="float:right"><i class="icofont icofont-link"></i></a>
+                                  <?php } else { ?>
+                                    <a style="float:right"><i class="icofont icofont-unlink"></i></a>       
+                                <?php  } ?>
                                 <input type="text" autocomplete = "off"  value ="<?php if(isset($ldmster)){  echo $ldmster['indlink']; }?>"  name="indlink" 
                                 id="indlink"  placeholder="Industry Link" value="" class="form-control form-control-sm <?php
                                  if(isset($ldmster) && in_array('indlink',$dvrejectreason)) { echo "form-bg-inverse" ; } 
                                  ?>">
                             </div>
                             <div class="col-sm-2">
+                            <?php if(isset($ldmster['revszlink']) && $ldmster['revszlink'] != "NA"){ ?>
+                                <a href=" <?php echo $ldmster['revszlink']; ?>" target="_blank" style="float:right"><i class="icofont icofont-link"></i></a>
+                                  <?php } else{ ?>
+                                      <a style="float:right"><i class="icofont icofont-unlink"></i></a>
+                                <?php  } ?>
                                 <input type="text" autocomplete = "off"   name="revszlink" id="revszlink" value ="<?php if(isset($ldmster)){  echo $ldmster['revszlink']; }?>"     placeholder="Revenue Size Link"  
                                 class="form-control form-control-sm revsizehide <?php
                                  if(isset($ldmster) && in_array('revszlink',$dvrejectreason)) { echo "form-bg-inverse" ; } 
                                  ?>">
                             </div>
                             <div class="col-sm-2">
+                            <?php if($ldmster['othrlink'] != ""){ ?>
+                                <!-- <a href="<?php //if($ldmster['othrlink'] != ""){ echo $ldmster['othrlink']; } else{  echo "#"; } ?>" target="_blank" style="float:right"><i class="icofont icofont-link"></i></a> -->
+                                <a href="<?php echo $ldmster['othrlink']; ?>" target="_blank" style="float:right"><i class="icofont icofont-link"></i></a> 
+                                  <?php } else{ ?>
+                                    <a style="float:right"><i class="icofont icofont-unlink"></i></a>
+                                  <?php } ?>
                                 <input type="text" autocomplete = "off"  name="othrlink" id="othrlink" value ="<?php if(isset($ldmster)){  echo $ldmster['othrlink']; }?>" placeholder="Other Link"  
                                 class="form-control form-control-sm <?php
                                  if(isset($ldmster) && in_array('othrlink',$dvrejectreason)) { echo "form-bg-inverse" ; } 

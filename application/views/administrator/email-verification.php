@@ -436,7 +436,7 @@ document.getElementById("randomSelect").addEventListener("click", function() {
                                 </select>
                             </td>
                             <td>
-                            <input type="text" name="search_email" class="form-control form-control-default " value="<?php if(isset($search_email)){ echo $search_email;}?>" id="search_email" placeholder="Search by Email">
+                            <input type="text" name="search_email" class="form-control form-control-default "  id="search_email" placeholder="Search by Email">
                             <!-- <input type="text" value="<?php //echo $agent_email?>" class="form-control form-control-default " name="from" id="from">
                             <input type="hidden" value="<?php //echo $agent_password?>" class="form-control form-control-default " name="pass" id="pass"> -->
                             </td>

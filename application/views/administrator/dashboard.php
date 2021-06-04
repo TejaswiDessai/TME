@@ -869,7 +869,7 @@
                                             <td>
                                             <?php 
                                             $day15_1 = $this->db->query("select * from leadmaster where ontag = 1
-                                            and rlc = 0
+                                           
                                             and pload = 0
                                             and sbsvtag != 0
                                             and (stagtidi = '".$empcode."')
@@ -882,7 +882,7 @@
                                             // echo $this->db->last_query();
                                             $day15_1 = $day15_1->num_rows();
                                             $day15_2 = $this->db->query("select * from leadmaster where ontag = 1
-                                            and rlc = 0
+                                           
                                             and pload = 0
                                             and sbsvtag != 0
                                             and (stagtidii = '".$empcode."')
@@ -899,7 +899,7 @@
                                             <td>
                                             <?php 
                                             $day14_1 = $this->db->query("select * from leadmaster where ontag = 1
-                                            and rlc = 0
+                                           
                                             and pload = 0
                                             and sbsvtag != 0
                                             and (stagtidi = '".$empcode."')
@@ -912,7 +912,7 @@
                                             // echo $this->db->last_query();
                                             $day14_1 = $day14_1->num_rows();
                                             $day14_2 = $this->db->query("select * from leadmaster where ontag = 1
-                                            and rlc = 0
+                                            
                                             and pload = 0
                                             and sbsvtag != 0
                                             and (stagtidii = '".$empcode."')
@@ -928,7 +928,7 @@
                                             <td>
                                             <?php 
                                             $day13_1 = $this->db->query("select * from leadmaster where ontag = 1
-                                            and rlc = 0
+                                            
                                             and pload = 0
                                             and sbsvtag != 0
                                             and (stagtidi = '".$empcode."')
@@ -939,7 +939,7 @@
                                             and dvload = 1 and leadmaster.stdti > current_date - 12 and leadmaster.stdti < current_date - 11 ");
                                             $day13_1 = $day13_1->num_rows();
                                             $day13_2 = $this->db->query("select * from leadmaster where ontag = 1
-                                            and rlc = 0
+                                            
                                             and pload = 0
                                             and sbsvtag != 0
                                             and (stagtidii = '".$empcode."')                                           
@@ -955,7 +955,7 @@
                                             <td>
                                             <?php 
                                             $day12_1 = $this->db->query("select * from leadmaster where ontag = 1
-                                            and rlc = 0
+                                            
                                             and pload = 0
                                             and sbsvtag != 0
                                             and (stagtidi = '".$empcode."')
@@ -967,7 +967,7 @@
                                             and dvload = 1 and leadmaster.stdti > current_date - 11 and leadmaster.stdti < current_date - 10 ");
                                             $day12_1 = $day12_1->num_rows();
                                             $day12_2 = $this->db->query("select * from leadmaster where ontag = 1
-                                            and rlc = 0
+                                            
                                             and pload = 0
                                             and sbsvtag != 0
                                             and (stagtidii = '".$empcode."')
@@ -982,7 +982,7 @@
                                             <td>
                                             <?php 
                                             $day11_1 = $this->db->query("select * from leadmaster where ontag = 1
-                                            and rlc = 0
+                                            
                                             and pload = 0
                                             and sbsvtag != 0
                                             and (stagtidi = '".$empcode."')
@@ -994,7 +994,7 @@
                                             and dvload = 1 and leadmaster.stdti > current_date - 10 and leadmaster.stdti < current_date - 9 ");
                                             $day11_1 = $day11_1->num_rows();
                                             $day11_2 = $this->db->query("select * from leadmaster where ontag = 1
-                                            and rlc = 0
+                                           
                                             and pload = 0
                                             and sbsvtag != 0
                                             and (stagtidii = '".$empcode."')
@@ -1008,7 +1008,7 @@
                                             <td>
                                             <?php 
                                             $day10_1 = $this->db->query("select * from leadmaster where ontag = 1
-                                            and rlc = 0
+                                            
                                             and pload = 0
                                             and sbsvtag != 0
                                             and (stagtidi = '".$empcode."')
@@ -1020,7 +1020,7 @@
                                             and dvload = 1 and leadmaster.stdti > current_date - 9 and leadmaster.stdti < current_date - 8 ");
                                             $day10_1 = $day10_1->num_rows();
                                             $day10_2 = $this->db->query("select * from leadmaster where ontag = 1
-                                            and rlc = 0
+                                            
                                             and pload = 0
                                             and sbsvtag != 0
                                             and (stagtidii = '".$empcode."')
@@ -1034,7 +1034,7 @@
                                             <td>
                                             <?php 
                                             $day9_1 = $this->db->query("select * from leadmaster where ontag = 1
-                                            and rlc = 0
+                                            
                                             and pload = 0
                                             and sbsvtag != 0
                                             and (stagtidi = '".$empcode."')
@@ -1046,7 +1046,7 @@
                                             and dvload = 1 and leadmaster.stdti > current_date - 8 and leadmaster.stdti < current_date - 7 ");
                                             $day9_1 = $day9_1->num_rows();
                                             $day9_2 = $this->db->query("select * from leadmaster where ontag = 1
-                                            and rlc = 0
+                                            
                                             and pload = 0
                                             and sbsvtag != 0
                                             and (stagtidii = '".$empcode."')
@@ -1060,7 +1060,7 @@
                                             <td>
                                             <?php 
                                             $monday_1 = $this->db->query("select * from leadmaster where ontag = 1
-                                            and rlc = 0
+                                            
                                             and pload = 0
                                             and sbsvtag != 0
                                             and (stagtidi = '".$empcode."')
@@ -1072,7 +1072,7 @@
                                             and dvload = 1 and leadmaster.stdti > current_date - 7 and leadmaster.stdti < current_date - 6 ");
                                             $monday_1 = $monday_1->num_rows();
                                             $monday_2 = $this->db->query("select * from leadmaster where ontag = 1
-                                            and rlc = 0
+                                            
                                             and pload = 0
                                             and sbsvtag != 0
                                             and (stagtidii = '".$empcode."')
@@ -1086,7 +1086,7 @@
                                             <td>
                                             <?php
                                             $tuesday_1 = $this->db->query("select * from leadmaster where ontag = 1
-                                            and rlc = 0
+                                           
                                             and pload = 0
                                             and sbsvtag != 0
                                             and (stagtidi = '".$empcode."')
@@ -1098,7 +1098,7 @@
                                             and dvload = 1 and leadmaster.stdti > current_date - 6 and leadmaster.stdti < current_date - 5 ");
                                             $tuesday_1 = $tuesday_1->num_rows();
                                             $tuesday_2 = $this->db->query("select * from leadmaster where ontag = 1
-                                            and rlc = 0
+                                            
                                             and pload = 0
                                             and sbsvtag != 0
                                             and (stagtidii = '".$empcode."')
@@ -1112,7 +1112,7 @@
                                             <td>
                                             <?php 
                                             $wed_1 = $this->db->query("select * from leadmaster where ontag = 1
-                                            and rlc = 0
+                                            
                                             and pload = 0
                                             and sbsvtag != 0
                                             and (stagtidi = '".$empcode."')
@@ -1122,7 +1122,7 @@
                                             and dvload = 1 and leadmaster.stdti > current_date - 5 and leadmaster.stdti < current_date - 4 ");
                                             $wed_1 = $wed_1->num_rows();
                                             $wed_2 = $this->db->query("select * from leadmaster where ontag = 1
-                                            and rlc = 0
+                                            
                                             and pload = 0
                                             and sbsvtag != 0
                                             and (stagtidii = '".$empcode."')
@@ -1136,7 +1136,7 @@
                                             <td>
                                             <?php 
                                             $thursday_1 = $this->db->query("select * from leadmaster where ontag = 1
-                                            and rlc = 0
+                                            
                                             and pload = 0
                                             and sbsvtag != 0
                                             and dvagtidi is not null
@@ -1147,7 +1147,7 @@
                                             and dvload = 1 and leadmaster.stdti > current_date - 4 and leadmaster.stdti < current_date - 3 ");
                                             $thursday_1 = $thursday_1->num_rows();
                                             $thursday_2 = $this->db->query("select * from leadmaster where ontag = 1
-                                            and rlc = 0
+                                            
                                             and pload = 0
                                             and sbsvtag != 0
                                             and dvagtidi is not null
@@ -1162,7 +1162,7 @@
                                             <td>
                                             <?php 
                                             $friday_1 = $this->db->query("select * from leadmaster where ontag = 1
-                                            and rlc = 0
+                                            
                                             and pload = 0
                                             and sbsvtag != 0
                                             and (stagtidi = '".$empcode."')
@@ -1173,7 +1173,7 @@
                                             and dvload = 1 and leadmaster.stdti > current_date - 3 and leadmaster.stdti < current_date - 2 ");
                                             $friday_1 = $friday_1->num_rows();
                                             $friday_2 = $this->db->query("select * from leadmaster where ontag = 1
-                                            and rlc = 0
+                                            
                                             and pload = 0
                                             and sbsvtag != 0
                                             and (stagtidii = '".$empcode."')
@@ -1187,7 +1187,7 @@
                                             <td>
                                             <?php 
                                             $sat_1 = $this->db->query("select * from leadmaster where ontag = 1
-                                            and rlc = 0
+                                            
                                             and pload = 0
                                             and sbsvtag != 0
                                             and (stagtidi = '".$empcode."')
@@ -1198,7 +1198,7 @@
                                             and dvload = 1 and leadmaster.stdti > current_date - 2 and leadmaster.stdti < current_date - 1 ");
                                             $sat_1 = $sat_1->num_rows();
                                             $sat_2 = $this->db->query("select * from leadmaster where ontag = 1
-                                            and rlc = 0
+                                            
                                             and pload = 0
                                             and sbsvtag != 0
                                             and (stagtidii = '".$empcode."')
@@ -1212,7 +1212,7 @@
                                             <td>
                                             <?php 
                                             $sun_1 = $this->db->query("select * from leadmaster where ontag = 1
-                                            and rlc = 0
+                                            
                                             and pload = 0
                                             and sbsvtag != 0
                                             and (stagtidi = '".$empcode."')
@@ -1223,7 +1223,7 @@
                                             and dvload = 1 and leadmaster.stdti > current_date - 1 and leadmaster.stdti < current_date - 0 ");
                                             $sun_1 = $sun_1->num_rows();
                                             $sun_2 = $this->db->query("select * from leadmaster where ontag = 1
-                                            and rlc = 0
+                                            
                                             and pload = 0
                                             and sbsvtag != 0
                                             and (stagtidii = '".$empcode."')
@@ -1237,7 +1237,7 @@
                                             <td>
                                             <?php 
                                             $today_1 = $this->db->query("select * from leadmaster where ontag = 1
-                                            and rlc = 0
+                                            
                                             and pload = 0
                                             and sbsvtag != 0
                                             and (stagtidi = '".$empcode."')
@@ -1248,7 +1248,7 @@
                                             and dvload = 1 and leadmaster.stdti >= current_date");
                                             $today_1 = $today_1->num_rows();
                                             $today_2 = $this->db->query("select * from leadmaster where ontag = 1
-                                            and rlc = 0
+                                            
                                             and pload = 0
                                             and sbsvtag != 0
                                             and (stagtidii = '".$empcode."')

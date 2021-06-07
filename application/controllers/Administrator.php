@@ -42,6 +42,7 @@
 		   }
 		   $data['title'] = ucfirst($page);
 		   $data['empcode'] = $this->session->userdata('empcode');
+		   $data['from_email_details'] = $this->Administrator_Model->get_total_email_count($this->session->userdata('empcode'));
 		   $this->load->view('administrator/header-script');
 		   $this->load->view('administrator/header');
 		   $this->load->view('administrator/header-bottom');

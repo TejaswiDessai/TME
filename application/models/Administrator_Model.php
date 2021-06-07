@@ -4546,5 +4546,18 @@ public function get_all_record_leadmasterby_Delivered($rec_stage,$period,$dcd,$l
 		// echo $this->db->last_query();  
 		return $query->result_array();
 	}
-
+	public function get_total_email_count($empcode)
+	{
+		$this->db->select('*');
+		$this->db->from('ev');
+		// $this->db->join('leadmaster', 'ev.lmid = leadmaster.lmid','left');
+		$this->db->where('ev.evagnt',$empcode);
+		$this->db->where("loaddt >= now()::date + interval '1h'");
+		$this->db->group_by('ev.fmail');
+		$this->db->group_by('ev.elmid');
+		$this->db->group_by('ev.lmid');
+		$query=$this->db->get();
+		// show_error($this->db->last_query(), 200, "SQL");
+		return $data=$query->num_rows();
+	}
 }

@@ -132,9 +132,9 @@
                                         <th style="background-color: hsl(120, 60%, 70%);">2nd Accept</th>
                                         <th style="background-color: rgba(255, 0, 0, 0.3);">Total EV</th>
                                         <th style="background-color: rgba(255, 0, 0, 0.3);">EV Pending</th>
-                                        <th style="background-color: rgba(255, 0, 0, 0.3);">EV InProccess</th>
+                                        <th style="background-color: rgba(255, 0, 0, 0.3);">EV Open</th>
                                         <th style="background-color: rgba(255, 0, 0, 0.3);">EV Reject</th>
-                                        <th style="background-color: rgba(255, 0, 0, 0.3);">EV Done</th>
+                                        <th style="background-color: rgba(255, 0, 0, 0.3);">EV Accept</th>
                                         <th style="background-color: hsl(120, 60%, 70%);">CDC Pending</th>
                                         <th style="background-color: hsl(120, 60%, 70%);">CDC Total Accept</th>
                                         <th style="background-color: hsl(120, 60%, 70%);">CDC Reject</th>

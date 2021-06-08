@@ -68,7 +68,7 @@ $(document).ready(function () {
                               
                                 <select name="camp_stage_from" id="camp_stage_from"  class="form-control form-control-sm" >
                                      <option value="">Select campaign stage From</option>
-                                     <option value="asis">AS IS</option>
+                                     <option value="asis">As it is</option>
                                      <option value="1">DC</option>
                                      <option value="2">DV</option>
                                      <option value="3">EV</option>
@@ -78,7 +78,7 @@ $(document).ready(function () {
                             </div>
                             
                             <div class="col-sm-2 asisdiv">   
-                             <label class="col-lable"><b>As is leads</b></label>
+                             <label class="col-lable"><b>As it is leads</b></label>
                             <input type="text"  name="asiscount" id="asiscount"  placeholder=""  autocomplete = "off"  
                             class="form-control form-control-sm" value ="" disabled>
                             </div>
@@ -110,7 +110,7 @@ $(document).ready(function () {
 
                                 <select name="camp_stage_to" id="camp_stage_to"  class="form-control form-control-sm" >
                                       <option value="">Select campaign stage To</option>
-                                      <option value="asis">AS IS</option>
+                                      <option value="asis">As it is</option>
                                       <option value="1">DC</option>
                                       <option value="2">DV</option>
                                       <option value="3">EV</option>
@@ -148,7 +148,15 @@ $(document).ready(function () {
                                
                                <button type="button" name="initialisecampaign" class="btn btn-primary" id="initialisecampaign">Initialise</button>
                              </div>
-        </div>
+                             <label class="col-lable"><b> <br> Please Note:</b><br>
+
+1) Initialization will happen only for the checked data stages (eg. Cleared / Pending etc..) <br>
+2) When data is initialised from any process like DC / DV / EV, the stage s (eg. Cleared / Pending etc..) 
+which is selected will be initialized for selected DC / DV / EV etc processing and will be open for operators to work on.<br>
+3) If "As it is" is selected the data will be moved to the selected respective campaign as it is. 
+Term "As It Is" means no change in any process or stages, but only movement from one campaign to another.<br>
+      </label>  
+      </div>
                     </div>
                       
                 </div>

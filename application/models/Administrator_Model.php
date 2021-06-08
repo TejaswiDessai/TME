@@ -2106,20 +2106,20 @@ public function get_campaign_with_status_initialise($cnid,$status)
 			$this->db->where('cdcsv', NULL);
 			$this->db->where('qaacpt', NULL);
 	
-			// $this->db->group_start();
-			// $this->db->where('cdcrjtdti  is NOT NULL');
-			// $this->db->OR_where('cdcrjtdtii is NOT NULL');
-			// $this->db->OR_where('qarej', 1);
+			$this->db->group_start();
+			$this->db->where('evdisp','5');
+			$this->db->OR_where('evdisp','6');
+			$this->db->OR_where('evdisp','2');
+			$this->db->OR_where('evdisp','3');
 			
-			
-			// $this->db->group_end(); 
+			$this->db->group_end(); 
 		
 			// $this->db->where('ontag', 1);
 			// $this->db->where('pload', 0);
 			// $this->db->where('dvload',0);
 			// $this->db->where('cdcrjt <', '4');
 			// $this->db->where('cdcsbdti',null);
-			$this->db->where('evdisp','5');
+			
 			$this->db->where('cdcload',null);
 			$this->db->where('qaload',null);
 			$this->db->where('rlc !=', 1);

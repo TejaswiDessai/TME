@@ -61,7 +61,7 @@ $(document).ready(function () {
                                    
                                     <select name="campaign_status_from" id="campaign_status_from"  class="form-control form-control-sm" >
                                             <option value="">Select Campaign Status</option>
-                                            <option value="2">Live</option>
+                                            <option value="2">Open</option>
                                             <option value="1">Closed</option>
                                             <option value="3">Hold</option>
 
@@ -89,7 +89,7 @@ $(document).ready(function () {
                            
                                <select name="campaign_status_to" id="campaign_status_to"  class="form-control form-control-sm" >
                                      <option value="">Select Campaign Status</option>
-                                     <option value="2">Live</option>
+                                     <option value="2">Open</option>
                                     <option value="1">Closed</option>
                                     <option value="3">Hold</option>
                                

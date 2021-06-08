@@ -902,6 +902,34 @@
 				));
 		
 			}
+		public function getasiscount(){ 
+			$empcode = $_SESSION['empcode'];
+			$campaign_cids = $_GET['campaign_cids_from'];
+		
+			$data = $this->Administrator_Model->get_asis_count($campaign_cids);
+			$asisdata = count($data);
+
+
+			// $datapending = $this->Administrator_Model->get_ev_cleared($campaign_cids); // ev cleared are cdc pending
+			// $pendingdata = count($datapending);
+
+			// $datasaved = $this->Administrator_Model->get_cdc_saved($campaign_cids);
+			// $saveddata = count($datasaved);
+
+			// $datarejected = $this->Administrator_Model->get_cdc_rejected($campaign_cids);
+			// $rejecteddata = count($datarejected);
+			
+			
+				echo json_encode(array(
+					"statusCode"=>"Success",
+					"asisdata"=>$asisdata,
+					// "pendingdata"=>$pendingdata,
+					// "saveddata"=>$saveddata,
+					// "rejecteddata"=>$rejecteddata,
+					"message"=>"Lead Added Successfully.."
+				));
+		
+			}
 	
 		public function ajax_add_new_leadandcdc()
 		{
@@ -3904,6 +3932,76 @@
 						"message"=>"Add data Lead failed.."
 					));
 				}
+								
+			
+		}
+		public function ajax_update_ini_to_asis() //dc to dc cleared
+		{
+			
+			$campaign_cids_from = $_GET['campaign_cids_from'];
+			$campaign_cids_to = $_GET['campaign_cids_to'];
+			$leadsno = $_GET['leadsno'];
+			
+		
+			if(!isset($_SESSION['empcode'])){
+				
+			
+				redirect('administrator/logout');
+				Exit();
+			}
+
+			$datacdcandlead = array(
+				
+
+				'cids' => $campaign_cids_to
+				
+				
+					
+				);
+			$datadccleared = $this->Administrator_Model->get_asis_count($campaign_cids_from,$leadsno);
+
+			foreach ($datadccleared as $datadccleared) {
+				$campgrp = $datadccleared['campgrp'];
+				$campgrp = $datadccleared['campgrp'].' #'.$campaign_cids_from;
+				
+				$new_array = array(
+					'campgrp' => $campgrp
+						
+					);
+				$final_array=array_merge($datacdcandlead, $new_array);
+			
+				
+
+				$addleadandcdcdata = $this->Administrator_Model->update_leaddata($final_array,$datadccleared['lmid']);			
+			}
+		
+			
+				if($addleadandcdcdata == true){
+			
+					echo json_encode(array(
+						"statusCode"=>"Success",
+						"message"=>"Lead Uptated Successfully.."
+					));
+				}else{
+					echo json_encode(array(
+						"statusCode"=>"Fail",
+						"message"=>"Add data Lead failed.."
+					));
+				}
+
+				$curr_date = date('Y-m-d H:i:s'); 
+				$addinidataarray = array(
+					'cidsto' => $campaign_cids_to,
+					'cidsfrom' => $campaign_cids_from,
+					'no_of_leads' => $_GET['leadsno'],
+					'stages' => 'as_is', 
+					'empcode' => $_SESSION['empcode'], 
+					'ini_date' => $curr_date 
+					
+						
+					);
+
+				$addinidata = $this->Administrator_Model->add_ini_data($addinidataarray);
 								
 			
 		}

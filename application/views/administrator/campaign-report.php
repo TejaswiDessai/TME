@@ -333,7 +333,7 @@
                                         //  and leadmaster.cdcrjt = 0
                                         //  and leadmaster.cids = '".$post['cids']."'
                                         //   ");
-                                        $ev_rej = $this->db->query("select * from leadmaster where evdisp = 5  and cids = '".$post['cids']."'");
+                                        $ev_rej = $this->db->query("select * from leadmaster where (evdisp = 5 OR evdisp = 6 OR evdisp = 2 OR evdisp = 3)  and cids = '".$post['cids']."'");
                                          echo $ev_rej->num_rows();
 
                                         //  $ev_rej = $this->db->query("select * from leadmaster

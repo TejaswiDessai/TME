@@ -2119,7 +2119,7 @@ public function get_campaign_with_status_initialise($cnid,$status)
 			// $this->db->where('dvload',0);
 			// $this->db->where('cdcrjt <', '4');
 			// $this->db->where('cdcsbdti',null);
-			$this->db->where('evdisp','6');
+			$this->db->where('evdisp','5');
 			$this->db->where('cdcload',null);
 			$this->db->where('qaload',null);
 			$this->db->where('rlc !=', 1);

@@ -829,6 +829,51 @@
                                                     
                                                 </tbody>
                                             </table>
+                                            <hr>
+                                            <h5 style="padding:10px;"><b>Email Verification</b></h5>
+                                            <table class="table">
+                                            <tr>
+                                                <td></td>
+                                                <td><b>Total Email Sent</b></td>
+                                                <td><b>EV Open</b></td>
+                                                <td><b>EV Closed</b></td>
+                                                
+                                            </tr>
+                                            <tr>
+                                                <td></td>
+                                                <td><?php 
+                                                    echo $from_email_details;
+                                                ?></td>
+                                                <td><?php 
+                                                $ev_inproccess = $this->db->query("select distinct(ev.lmid) from ev
+                                                left join leadmaster ON ev.lmid=leadmaster.lmid
+                                                where
+                                                leadmaster.evcomp = 2
+                                                and ev.curr_active = 1
+                                                and ev.evagnt = $empcode
+                                                
+                                                ");
+                                                
+                                                echo $ev_inproccess->num_rows();
+                                                ?></td>
+                                                <td><?php 
+                                                $ev_done = $this->db->query("select * from leadmaster
+                                                left join ev ON 
+                                                ev.lmid=leadmaster.lmid
+                                                where 
+                                                leadmaster.rlc != 1
+                                                
+                                                and ev.closer_status = 'Closed'
+                                                and leadmaster.evcomp = 1
+                                                and leadmaster.cdcsb = 0
+                                                and leadmaster.cdcrjt = 0
+                                                and statdt <= current_date + current_time AND statdt >= current_date + 00-00-00
+                                                and ev.evagnt = $empcode");
+                                                echo $ev_done->num_rows();
+                                                ?></td>
+                                            </tr>
+                                            </table>
+                                            <hr>
                                             <style>
                                             #accept_report td {
                                                 border-top: 1px solid #000;

@@ -68,7 +68,7 @@ $(document).ready(function () {
                               
                                 <select name="camp_stage_from" id="camp_stage_from"  class="form-control form-control-sm" >
                                      <option value="">Select campaign stage From</option>
-                                     <!-- <option value="">AS IS</option> -->
+                                     <!-- <option value="asis">As it is</option> -->
                                      <option value="1">DC</option>
                                      <option value="2">DV</option>
                                      <option value="3">EV</option>
@@ -77,26 +77,30 @@ $(document).ready(function () {
                                </select>
                             </div>
                             
-                           
-                           <div class="col-sm-2">   
+                            <!-- <div class="col-sm-2 asisdiv">   
+                             <label class="col-lable"><b>As it is leads</b></label>
+                            <input type="text"  name="asiscount" id="asiscount"  placeholder=""  autocomplete = "off"  
+                            class="form-control form-control-sm" value ="" disabled>
+                            </div> -->
+                           <div class="col-sm-2 noasis">   
                              <label class="col-lable"><b>Cleared</b></label>
                             <input type="text"  name="cleared" id="cleared"  placeholder="Cleared Count"  autocomplete = "off"  
                             class="form-control form-control-sm" value ="" disabled>
                             </div>
 
-                            <div class="col-sm-2"><label class="col-lable"><b>Pending</b></label>
+                            <div class="col-sm-2 noasis"><label class="col-lable"><b>Pending</b></label>
                            <input type="text"  name="pending" id="pending"  placeholder="Pending Count"  autocomplete = "off"  
                            class="form-control form-control-sm" disabled>
                            </div>
-                            <div class="col-sm-2"><label class="col-lable"><b>Rejected</b></label>
+                            <div class="col-sm-2 noasis"><label class="col-lable"><b>Rejected</b></label>
                            <input type="text"  name="rejected" id="rejected"  placeholder="Rejected Count"  autocomplete = "off"  
                            class="form-control form-control-sm" disabled>
                            </div>
-                            <div class="col-sm-2"><label class="col-lable"><b>Saved</b></label>
+                            <div class="col-sm-2 noasis"><label class="col-lable"><b>Saved</b></label>
                            <input type="text"  name="saved" id="saved"  placeholder="Saved Count"  autocomplete = "off"  
                            class="form-control form-control-sm" disabled>
                            </div>
-                          
+                         
                         </div>
 
                         <div class="form-group row">
@@ -106,7 +110,7 @@ $(document).ready(function () {
 
                                 <select name="camp_stage_to" id="camp_stage_to"  class="form-control form-control-sm" >
                                       <option value="">Select campaign stage To</option>
-                                      <!-- <option value="">AS IS</option> -->
+                                      <option value="asis">As it is</option>
                                       <option value="1">DC</option>
                                       <option value="2">DV</option>
                                       <option value="3">EV</option>
@@ -114,18 +118,18 @@ $(document).ready(function () {
                                
                                 </select>
                              </div>
-                            <div class="col-sm-2">
+                            <div class="col-sm-2 noasis">
                            
                                       Push Cleared Data <input type="checkbox" value=""  id="clearedchk" name="clearedchk" class="js-single clearedchkclass"  />
                                       
                              </div>
-                             <div class="col-sm-2">
+                             <div class="col-sm-2 noasis">
                              Push Pending Data  <input type="checkbox" value=""  id="pendingchk" name="pendingchk" class="js-single clearedchkclass"  />
                             </div>
-                             <div class="col-sm-2">
+                             <div class="col-sm-2 noasis">
                              Push Rejected Data  <input type="checkbox" value=""  id="rejectchk" name="rejectchk" class="js-single clearedchkclass"  />
                             </div>
-                             <div class="col-sm-2">
+                             <div class="col-sm-2 noasis">
                              Push Saved Data  <input type="checkbox" value=""  id="savechk" name="savechk" class="js-single clearedchkclass"  />
                             </div>
                             
@@ -144,7 +148,15 @@ $(document).ready(function () {
                                
                                <button type="button" name="initialisecampaign" class="btn btn-primary" id="initialisecampaign">Initialise</button>
                              </div>
-        </div>
+                             <label class="col-lable"><b><br> <br> Please Note:</b><br><br>
+<p>
+1) Initialization will happen only for the checked data stages (eg. Cleared / Pending etc..) <br>
+2) When data is initialised from any process like DC / DV / EV, the stage s (eg. Cleared / Pending etc..) 
+which is selected will be initialized for selected DC / DV / EV etc processing and will be open for operators to work on.<br>
+3) If "As it is" is selected the data will be moved to the selected respective campaign as it is. 
+Term "As It Is" means no change in any process or stages, but only movement from one campaign to another.<br></p>
+      </label>  
+      </div>
                     </div>
                       
                 </div>
@@ -166,6 +178,9 @@ $(document).ready(function() {
           $('#pendingchk').val("0");
           $('#rejectchk').val("0");
           $('#savechk').val("0");
+
+          //  $('.noasis').show();
+          //   $('.asisdiv').hide();
          
 
             $("#clearedchk").prop('checked', true);
@@ -248,6 +263,8 @@ $(function() {
               var saved =   $('#saved').val();
               var rejected =   $('#rejected').val();
 
+              var asiscount =   $('#asiscount').val();
+
               var camp_stage_from = $('#camp_stage_from').val();
               var camp_stage_to = $('#camp_stage_to').val();
               var campaign_cids_from = $('#campaign_cids_from').val();
@@ -257,16 +274,124 @@ $(function() {
         
          if(camp_stage_to != '' && camp_stage_from != '')
            {
+            
+              // if(camp_stage_from == 'asis' && camp_stage_to == 'asis')
+              //     { //dc to dc stage
+              //       // clrchk = 0;
+              //       // alert(clrchk);
+
+              //       if(leadsno > parseInt(asiscount) || leadsno <= '0')
+              //     {
+              //       alert("No. of leads should be greater than 0 and less than As is leads");
+              //       return;
+              //     }
+              //     if(confirm("Data will be initialised as is")){
+              //         // alert('Thanks for confirming');
+              //       }else{
+              //         return;
+              //       }
+              //       var url = encodeURI("<?php echo base_url("cdc/ajax_update_ini_to_asis");?>");
+              //        console.log(url+"?campaign_cids_to="+campaign_cids_to+"&campaign_cids_from="+campaign_cids_from);
+         
+              //         $.ajax({
+              //               url :'<?php echo base_url("cdc/ajax_update_ini_to_asis");?>',
+              //               type: 'GET', 
+              //               // contentType: "application/json",
+              //               dataType: 'json',              
+              //               data: {
+                            
+              //                 campaign_cids_to: campaign_cids_to,
+              //                 campaign_cids_from: campaign_cids_from,
+              //                 leadsno: leadsno
+              //                  },
+              //                 async: true,
+              //                         cache: false,
+              //                         success: function(response){                 
+              //                         var text = response.statusCode;
+              //                         console.log("check");
+              //                         if(response.statusCode == "Success") 
+              //                         {         
+                                          
+              //                             $("#initialisecampaign").html("Initialized!");   
+              //                             $("#initialisecampaign").attr("disabled", true); 
+                                        
+              //                         }
+
+
+              //                     },
+              //                     error: function (error) {
+              //                       alert("Error");
+              //                       }
+                                
+              //                 }); //Ajax End
+
+
+
+
+              //     }
+          
+
             if(clrchk == 1){
                   if(leadsno > parseInt(cleared) || leadsno <= '0')
                   {
                     alert("No. of leads should be greater than 0 and less than cleared leads");
                     return;
                   }
-              
-                if(camp_stage_from == '1' && camp_stage_to == '1')
+
+                if(camp_stage_from == '1' && camp_stage_to == 'asis')
+                       {
+
+                                   
+                                  if(confirm("Data will be initialised as it is")){
+                                      // alert('Thanks for confirming');
+                                    }else{
+                                      return;
+                                    }
+                                    var url = encodeURI("<?php echo base_url("cdc/ajax_update_ini_to_asis");?>");
+                                    console.log(url+"?campaign_cids_to="+campaign_cids_to+"&campaign_cids_from="+campaign_cids_from);
+                        
+                                      $.ajax({
+                                            url :'<?php echo base_url("cdc/ajax_update_ini_to_asis");?>',
+                                            type: 'GET', 
+                                            // contentType: "application/json",
+                                            dataType: 'json',              
+                                            data: {
+                                            
+                                              campaign_cids_to: campaign_cids_to,
+                                              campaign_cids_from: campaign_cids_from,
+                                              leadsno: leadsno
+                                              },
+                                              async: true,
+                                                      cache: false,
+                                                      success: function(response){                 
+                                                      var text = response.statusCode;
+                                                      console.log("check");
+                                                      if(response.statusCode == "Success") 
+                                                      {         
+                                                          
+                                                          $("#initialisecampaign").html("Initialized!");   
+                                                          $("#initialisecampaign").attr("disabled", true); 
+                                                        
+                                                      }
+
+
+                                                  },
+                                                  error: function (error) {
+                                                    alert("Error");
+                                                    }
+                                                
+                                              }); //Ajax End
+
+
+
+
+                 } else if(camp_stage_from == '1' && camp_stage_to == '1')
                   { //dc to dc stage
-                    alert("Data will be initialised for DC pending");
+                    if(confirm("Data will be initialised for DC pending")){
+                      // alert('Thanks for confirming');
+                    }else{
+                      return;
+                    }
                     var url = encodeURI("<?php echo base_url("cdc/ajax_update_ini_to_dc");?>");
                      console.log(url+"?campaign_cids_to="+campaign_cids_to+"&campaign_cids_from="+campaign_cids_from);
          
@@ -305,7 +430,12 @@ $(function() {
 
 
                 }else if(camp_stage_from == '1' && camp_stage_to == '2'){ //dc to dv
-                  alert("Data will be initialised for DV pending");
+                      if(confirm("Data will be initialised for DV pending")){
+
+                      
+                    }else{
+                          return;
+                        }
                      var url = encodeURI("<?php echo base_url("cdc/ajax_update_ini_dc_to_dv");?>");
                      console.log(url+"?campaign_cids_to="+campaign_cids_to+"&campaign_cids_from="+campaign_cids_from);
          
@@ -342,7 +472,12 @@ $(function() {
                               }); //Ajax End
                  
                 }else if(camp_stage_from == '1' && camp_stage_to == '3'){ //dc to ev
-                  alert("Data will be initialised for EV pending");
+                  if(confirm("Data will be initialised for EV pending")){
+
+                  
+                  }else{
+                          return;
+                        }
                      var url = encodeURI("<?php echo base_url("cdc/ajax_update_ini_dc_to_ev");?>");
                      console.log(url+"?campaign_cids_to="+campaign_cids_to+"&campaign_cids_from="+campaign_cids_from);
          
@@ -379,7 +514,12 @@ $(function() {
                               }); //Ajax End
 
                 }else if(camp_stage_from == '1' && camp_stage_to == '4'){ //dc to cdc
-                  alert("Data will be initialised for CDC pending");
+                          if(confirm("Data will be initialised for CDC pending")){
+
+                          
+                          }else{
+                                    return;
+                                  }
                      var url = encodeURI("<?php echo base_url("cdc/ajax_update_ini_dc_to_cdc");?>");
                      console.log(url+"?campaign_cids_to="+campaign_cids_to+"&campaign_cids_from="+campaign_cids_from);
          
@@ -415,8 +555,62 @@ $(function() {
                                 
                               }); //Ajax End
 
-                }else if(camp_stage_from == '2' && camp_stage_to == '1'){ //dv to dc
-                  alert("Data will be initialised for DC pending");
+                }else  if(camp_stage_from == '2' && camp_stage_to == 'asis')
+                       {
+
+                                   
+                                  if(confirm("Data will be initialised as it is")){
+                                      // alert('Thanks for confirming');
+                                    }else{
+                                      return;
+                                    }
+                                    var url = encodeURI("<?php echo base_url("cdc/ajax_update_ini_to_asis_dv_cleared");?>");
+                                    console.log(url+"?campaign_cids_to="+campaign_cids_to+"&campaign_cids_from="+campaign_cids_from);
+                        
+                                      $.ajax({
+                                            url :'<?php echo base_url("cdc/ajax_update_ini_to_asis_dv_cleared");?>',
+                                            type: 'GET', 
+                                            // contentType: "application/json",
+                                            dataType: 'json',              
+                                            data: {
+                                            
+                                              campaign_cids_to: campaign_cids_to,
+                                              campaign_cids_from: campaign_cids_from,
+                                              leadsno: leadsno
+                                              },
+                                              async: true,
+                                                      cache: false,
+                                                      success: function(response){                 
+                                                      var text = response.statusCode;
+                                                      console.log("check");
+                                                      if(response.statusCode == "Success") 
+                                                      {         
+                                                          
+                                                          $("#initialisecampaign").html("Initialized!");   
+                                                          $("#initialisecampaign").attr("disabled", true); 
+                                                        
+                                                      }
+
+
+                                                  },
+                                                  error: function (error) {
+                                                    alert("Error");
+                                                    }
+                                                
+                                              }); //Ajax End
+
+
+
+
+                 } else 
+                
+                if(camp_stage_from == '2' && camp_stage_to == '1'){ //dv to dc
+                  if(confirm("Data will be initialised for DC pending")){
+
+                          
+                    }else{
+                              return;
+                            }
                   var url = encodeURI("<?php echo base_url("cdc/ajax_update_ini_dv_to_dc");?>");
                      console.log(url+"?campaign_cids_to="+campaign_cids_to+"&campaign_cids_from="+campaign_cids_from);
          
@@ -453,7 +647,12 @@ $(function() {
                               }); //Ajax End
                 
                 }else if(camp_stage_from == '2' && camp_stage_to == '2'){ //dv to dv
-                  alert("Data will be initialised for DV pending");
+                  if(confirm("Data will be initialised for Dv pending")){
+
+                          
+                    }else{
+                              return;
+                            }
                     var url = encodeURI("<?php echo base_url("cdc/ajax_update_ini_dv_to_dv");?>");
                      console.log(url+"?campaign_cids_to="+campaign_cids_to+"&campaign_cids_from="+campaign_cids_from);
          
@@ -489,7 +688,12 @@ $(function() {
                                 
                               }); //Ajax End
                 }else if(camp_stage_from == '2' && camp_stage_to == '3'){ //dv to ev
-                  alert("Data will be initialised for EV pending");
+                  if(confirm("Data will be initialised for EV pending")){
+
+                          
+                  }else{
+                            return;
+                          }
                     var url = encodeURI("<?php echo base_url("cdc/ajax_update_ini_dv_to_ev");?>");
                      console.log(url+"?campaign_cids_to="+campaign_cids_to+"&campaign_cids_from="+campaign_cids_from);
          
@@ -525,7 +729,12 @@ $(function() {
                                 
                               }); //Ajax End
                 }else if(camp_stage_from == '2' && camp_stage_to == '4'){ //dv to cdc
-                  alert("Data will be initialised for CDC pending");
+                  if(confirm("Data will be initialised for CDC pending")){
+
+                          
+}else{
+          return;
+        }
                     var url = encodeURI("<?php echo base_url("cdc/ajax_update_ini_dv_to_cdc");?>");
                      console.log(url+"?campaign_cids_to="+campaign_cids_to+"&campaign_cids_from="+campaign_cids_from);
          
@@ -560,8 +769,63 @@ $(function() {
                                     }
                                 
                               }); //Ajax End
+
+                            }else  if(camp_stage_from == '3' && camp_stage_to == 'asis')
+                       {
+
+                                   
+                                  if(confirm("Data will be initialised as it is")){
+                                      // alert('Thanks for confirming');
+                                    }else{
+                                      return;
+                                    }
+                                    var url = encodeURI("<?php echo base_url("cdc/ajax_update_ini_to_asis_ev_cleared");?>");
+                                    console.log(url+"?campaign_cids_to="+campaign_cids_to+"&campaign_cids_from="+campaign_cids_from);
+                        
+                                      $.ajax({
+                                            url :'<?php echo base_url("cdc/ajax_update_ini_to_asis_ev_cleared");?>',
+                                            type: 'GET', 
+                                            // contentType: "application/json",
+                                            dataType: 'json',              
+                                            data: {
+                                            
+                                              campaign_cids_to: campaign_cids_to,
+                                              campaign_cids_from: campaign_cids_from,
+                                              leadsno: leadsno
+                                              },
+                                              async: true,
+                                                      cache: false,
+                                                      success: function(response){                 
+                                                      var text = response.statusCode;
+                                                      console.log("check");
+                                                      if(response.statusCode == "Success") 
+                                                      {         
+                                                          
+                                                          $("#initialisecampaign").html("Initialized!");   
+                                                          $("#initialisecampaign").attr("disabled", true); 
+                                                        
+                                                      }
+
+
+                                                  },
+                                                  error: function (error) {
+                                                    alert("Error");
+                                                    }
+                                                
+                                              }); //Ajax End
+
+
+
+
+                 
+
                 }else if(camp_stage_from == '3' && camp_stage_to == '1'){ //ev to dc
-                  alert("Data will be initialised for DC pending");
+                  if(confirm("Data will be initialised for DC pending")){
+
+                          
+                      }else{
+                                return;
+                              }
                     var url = encodeURI("<?php echo base_url("cdc/ajax_update_ini_ev_to_dc");?>");
                      console.log(url+"?campaign_cids_to="+campaign_cids_to+"&campaign_cids_from="+campaign_cids_from);
          
@@ -597,7 +861,12 @@ $(function() {
                                 
                               }); //Ajax End
                 }else if(camp_stage_from == '3' && camp_stage_to == '2'){ //ev to dv
-                  alert("Data will be initialised for DV pending");
+                  if(confirm("Data will be initialised for DV pending")){
+
+                          
+}else{
+          return;
+        }
                     var url = encodeURI("<?php echo base_url("cdc/ajax_update_ini_ev_to_dv");?>");
                      console.log(url+"?campaign_cids_to="+campaign_cids_to+"&campaign_cids_from="+campaign_cids_from);
          
@@ -633,7 +902,12 @@ $(function() {
                                 
                               }); //Ajax End
                 }else if(camp_stage_from == '3' && camp_stage_to == '3'){ //ev to ev
-                  alert("Data will be initialised for EV pending");
+                  if(confirm("Data will be initialised for EV pending")){
+
+                          
+}else{
+          return;
+        }
                     var url = encodeURI("<?php echo base_url("cdc/ajax_update_ini_ev_to_ev");?>");
                      console.log(url+"?campaign_cids_to="+campaign_cids_to+"&campaign_cids_from="+campaign_cids_from);
          
@@ -669,7 +943,10 @@ $(function() {
                                 
                               }); //Ajax End
                 }else if(camp_stage_from == '3' && camp_stage_to == '4'){ //ev to cdc
-                  alert("Data will be initialised for CDC pending");
+                  if(confirm("Data will be initialised for CDC pending")){ 
+                    }else{
+                              return;
+                            }
                     var url = encodeURI("<?php echo base_url("cdc/ajax_update_ini_ev_to_cdc");?>");
                      console.log(url+"?campaign_cids_to="+campaign_cids_to+"&campaign_cids_from="+campaign_cids_from);
          
@@ -704,8 +981,55 @@ $(function() {
                                     }
                                 
                               }); //Ajax End
+                 } else  if(camp_stage_from == '4' && camp_stage_to == 'asis')
+                       {
+
+                                   
+                                  if(confirm("Data will be initialised as it is")){
+                                      // alert('Thanks for confirming');
+                                    }else{
+                                      return;
+                                    }
+                                    var url = encodeURI("<?php echo base_url("cdc/ajax_update_ini_to_asis_cdc_cleared");?>");
+                                    console.log(url+"?campaign_cids_to="+campaign_cids_to+"&campaign_cids_from="+campaign_cids_from);
+                        
+                                      $.ajax({
+                                            url :'<?php echo base_url("cdc/ajax_update_ini_to_asis_cdc_cleared");?>',
+                                            type: 'GET', 
+                                            // contentType: "application/json",
+                                            dataType: 'json',              
+                                            data: {
+                                            
+                                              campaign_cids_to: campaign_cids_to,
+                                              campaign_cids_from: campaign_cids_from,
+                                              leadsno: leadsno
+                                              },
+                                              async: true,
+                                                      cache: false,
+                                                      success: function(response){                 
+                                                      var text = response.statusCode;
+                                                      console.log("check");
+                                                      if(response.statusCode == "Success") 
+                                                      {         
+                                                          
+                                                          $("#initialisecampaign").html("Initialized!");   
+                                                          $("#initialisecampaign").attr("disabled", true); 
+                                                        
+                                                      }
+
+
+                                                  },
+                                                  error: function (error) {
+                                                    alert("Error");
+                                                    }
+                                                
+                                              }); //Ajax End
+
                 }else if(camp_stage_from == '4' && camp_stage_to == '1'){ //cdc to dc
-                  alert("Data will be initialised for DC pending");
+                  if(confirm("Data will be initialised for DC pending")){ 
+                    }else{
+                              return;
+                            }
                     var url = encodeURI("<?php echo base_url("cdc/ajax_update_ini_cdc_to_dc");?>");
                      console.log(url+"?campaign_cids_to="+campaign_cids_to+"&campaign_cids_from="+campaign_cids_from);
          
@@ -741,7 +1065,10 @@ $(function() {
                                 
                               }); //Ajax End
                 }else if(camp_stage_from == '4' && camp_stage_to == '2'){ //cdc to dv
-                  alert("Data will be initialised for DV pending");
+                  if(confirm("Data will be initialised for DV pending")){ 
+                    }else{
+                              return;
+                            }
                     var url = encodeURI("<?php echo base_url("cdc/ajax_update_ini_cdc_to_dv");?>");
                      console.log(url+"?campaign_cids_to="+campaign_cids_to+"&campaign_cids_from="+campaign_cids_from);
          
@@ -777,7 +1104,10 @@ $(function() {
                                 
                               }); //Ajax End
                 }else if(camp_stage_from == '4' && camp_stage_to == '3'){ //cdc to ev
-                  alert("Data will be initialised for EV pending");
+                  if(confirm("Data will be initialised for EV pending")){ 
+                    }else{
+                              return;
+                            }
                     var url = encodeURI("<?php echo base_url("cdc/ajax_update_ini_cdc_to_ev");?>");
                      console.log(url+"?campaign_cids_to="+campaign_cids_to+"&campaign_cids_from="+campaign_cids_from);
          
@@ -813,7 +1143,10 @@ $(function() {
                                 
                               }); //Ajax End
                 }else if(camp_stage_from == '4' && camp_stage_to == '4'){ //cdc to cdc
-                  alert("Data will be initialised for CDC pending");
+                  if(confirm("Data will be initialised for CDC pending")){ 
+                    }else{
+                              return;
+                            }
                     var url = encodeURI("<?php echo base_url("cdc/ajax_update_ini_cdc_to_cdc");?>");
                      console.log(url+"?campaign_cids_to="+campaign_cids_to+"&campaign_cids_from="+campaign_cids_from);
          
@@ -861,10 +1194,56 @@ $(function() {
                     alert("No. of leads should be greater than 0 and less than pending leads");
                     return;
                   }
-              
-                if(camp_stage_from == '1' && camp_stage_to == '1') ///dc to dc pending
-                  { //dc to dc stage
-                    alert("Data will be initialised for DC pending");
+
+                 if(camp_stage_from == '1' && camp_stage_to == 'asis')
+                       {
+
+                                   
+                                  if(confirm("Data will be initialised as it is")){
+                                      // alert('Thanks for confirming');
+                                    }else{
+                                      return;
+                                    }
+                                    var url = encodeURI("<?php echo base_url("cdc/ajax_update_ini_to_asis_dc_pending");?>");
+                                    console.log(url+"?campaign_cids_to="+campaign_cids_to+"&campaign_cids_from="+campaign_cids_from);
+                        
+                                      $.ajax({
+                                            url :'<?php echo base_url("cdc/ajax_update_ini_to_asis_dc_pending");?>',
+                                            type: 'GET', 
+                                            // contentType: "application/json",
+                                            dataType: 'json',              
+                                            data: {
+                                            
+                                              campaign_cids_to: campaign_cids_to,
+                                              campaign_cids_from: campaign_cids_from,
+                                              leadsno: leadsno
+                                              },
+                                              async: true,
+                                                      cache: false,
+                                                      success: function(response){                 
+                                                      var text = response.statusCode;
+                                                      console.log("check");
+                                                      if(response.statusCode == "Success") 
+                                                      {         
+                                                          
+                                                          $("#initialisecampaign").html("Initialized!");   
+                                                          $("#initialisecampaign").attr("disabled", true); 
+                                                        
+                                                      }
+
+
+                                                  },
+                                                  error: function (error) {
+                                                    alert("Error");
+                                                    }
+                                                
+                                              }); //Ajax End
+                       }else if(camp_stage_from == '1' && camp_stage_to == '1') ///dc to dc pending
+                          { //dc to dc stage
+                            if(confirm("Data will be initialised for DC pending")){ 
+                            }else{
+                                      return;
+                                    }
                     var url = encodeURI("<?php echo base_url("cdc/ajax_update_ini_to_dc_pending");?>");
                      console.log(url+"?campaign_cids_to="+campaign_cids_to+"&campaign_cids_from="+campaign_cids_from);
          
@@ -903,7 +1282,10 @@ $(function() {
 
 
                 }else if(camp_stage_from == '1' && camp_stage_to == '2'){ //dc to dv pending
-                  alert("Data will be initialised for DV pending");
+                  if(confirm("Data will be initialised for DV pending")){ 
+                    }else{
+                              return;
+                            }
                      var url = encodeURI("<?php echo base_url("cdc/ajax_update_ini_dc_to_dv_pending");?>");
                      console.log(url+"?campaign_cids_to="+campaign_cids_to+"&campaign_cids_from="+campaign_cids_from);
          
@@ -940,7 +1322,10 @@ $(function() {
                               }); //Ajax End
                  
                 }else if(camp_stage_from == '1' && camp_stage_to == '3'){ //dc to ev pending
-                  alert("Data will be initialised for EV pending");
+                  if(confirm("Data will be initialised for EV pending")){ 
+                    }else{
+                              return;
+                            }
                      var url = encodeURI("<?php echo base_url("cdc/ajax_update_ini_dc_to_ev_pending");?>");
                      console.log(url+"?campaign_cids_to="+campaign_cids_to+"&campaign_cids_from="+campaign_cids_from);
          
@@ -977,7 +1362,10 @@ $(function() {
                               }); //Ajax End
 
                 }else if(camp_stage_from == '1' && camp_stage_to == '4'){ //dc to cdc pending
-                  alert("Data will be initialised for CDC pending");
+                  if(confirm("Data will be initialised for CDC pending")){ 
+                    }else{
+                              return;
+                            }
                      var url = encodeURI("<?php echo base_url("cdc/ajax_update_ini_dc_to_cdc_pending");?>");
                      console.log(url+"?campaign_cids_to="+campaign_cids_to+"&campaign_cids_from="+campaign_cids_from);
          
@@ -1013,8 +1401,56 @@ $(function() {
                                 
                               }); //Ajax End
 
+                     }else  if(camp_stage_from == '2' && camp_stage_to == 'asis')
+                       {
+
+                                   
+                                  if(confirm("Data will be initialised as it is")){
+                                      // alert('Thanks for confirming');
+                                    }else{
+                                      return;
+                                    }
+                                    var url = encodeURI("<?php echo base_url("cdc/ajax_update_ini_to_asis_dv_pending");?>");
+                                    console.log(url+"?campaign_cids_to="+campaign_cids_to+"&campaign_cids_from="+campaign_cids_from);
+                        
+                                      $.ajax({
+                                            url :'<?php echo base_url("cdc/ajax_update_ini_to_asis_dv_pending");?>',
+                                            type: 'GET', 
+                                            // contentType: "application/json",
+                                            dataType: 'json',              
+                                            data: {
+                                            
+                                              campaign_cids_to: campaign_cids_to,
+                                              campaign_cids_from: campaign_cids_from,
+                                              leadsno: leadsno
+                                              },
+                                              async: true,
+                                                      cache: false,
+                                                      success: function(response){                 
+                                                      var text = response.statusCode;
+                                                      console.log("check");
+                                                      if(response.statusCode == "Success") 
+                                                      {         
+                                                          
+                                                          $("#initialisecampaign").html("Initialized!");   
+                                                          $("#initialisecampaign").attr("disabled", true); 
+                                                        
+                                                      }
+
+
+                                                  },
+                                                  error: function (error) {
+                                                    alert("Error");
+                                                    }
+                                                
+                                              }); //Ajax End
+                
+                
                 }else if(camp_stage_from == '2' && camp_stage_to == '1'){ //dv to dc pending
-                  alert("Data will be initialised for DC pending");
+                  if(confirm("Data will be initialised for DC pending")){ 
+                    }else{
+                              return;
+                            }
                   var url = encodeURI("<?php echo base_url("cdc/ajax_update_ini_dv_to_dc_pending");?>");
                      console.log(url+"?campaign_cids_to="+campaign_cids_to+"&campaign_cids_from="+campaign_cids_from);
          
@@ -1051,7 +1487,10 @@ $(function() {
                               }); //Ajax End
                 
                 }else if(camp_stage_from == '2' && camp_stage_to == '2'){ //dv to dv pending
-                  alert("Data will be initialised for DV pending");
+                  if(confirm("Data will be initialised for DV pending")){ 
+                    }else{
+                              return;
+                            }
                     var url = encodeURI("<?php echo base_url("cdc/ajax_update_ini_dv_to_dv_pending");?>");
                      console.log(url+"?campaign_cids_to="+campaign_cids_to+"&campaign_cids_from="+campaign_cids_from);
          
@@ -1087,7 +1526,10 @@ $(function() {
                                 
                               }); //Ajax End
                 }else if(camp_stage_from == '2' && camp_stage_to == '3'){ //dv to ev pending
-                  alert("Data will be initialised for EV pending");
+                  if(confirm("Data will be initialised for EV pending")){ 
+                    }else{
+                              return;
+                            }
                     var url = encodeURI("<?php echo base_url("cdc/ajax_update_ini_dv_to_ev_pending");?>");
                      console.log(url+"?campaign_cids_to="+campaign_cids_to+"&campaign_cids_from="+campaign_cids_from);
          
@@ -1123,7 +1565,10 @@ $(function() {
                                 
                               }); //Ajax End
                 }else if(camp_stage_from == '2' && camp_stage_to == '4'){ //dv to cdc
-                  alert("Data will be initialised for CDC pending");
+                  if(confirm("Data will be initialised for CDC pending")){ 
+                    }else{
+                              return;
+                            }
                     var url = encodeURI("<?php echo base_url("cdc/ajax_update_ini_dv_to_cdc_pending");?>");
                      console.log(url+"?campaign_cids_to="+campaign_cids_to+"&campaign_cids_from="+campaign_cids_from);
          
@@ -1158,8 +1603,58 @@ $(function() {
                                     }
                                 
                               }); //Ajax End
+                            }else  if(camp_stage_from == '3' && camp_stage_to == 'asis')
+                       {
+
+                                   
+                                  if(confirm("Data will be initialised as it is")){
+                                      // alert('Thanks for confirming');
+                                    }else{
+                                      return;
+                                    }
+                                    var url = encodeURI("<?php echo base_url("cdc/ajax_update_ini_to_asis_ev_pending");?>");
+                                    console.log(url+"?campaign_cids_to="+campaign_cids_to+"&campaign_cids_from="+campaign_cids_from);
+                        
+                                      $.ajax({
+                                            url :'<?php echo base_url("cdc/ajax_update_ini_to_asis_ev_pending");?>',
+                                            type: 'GET', 
+                                            // contentType: "application/json",
+                                            dataType: 'json',              
+                                            data: {
+                                            
+                                              campaign_cids_to: campaign_cids_to,
+                                              campaign_cids_from: campaign_cids_from,
+                                              leadsno: leadsno
+                                              },
+                                              async: true,
+                                                      cache: false,
+                                                      success: function(response){                 
+                                                      var text = response.statusCode;
+                                                      console.log("check");
+                                                      if(response.statusCode == "Success") 
+                                                      {         
+                                                          
+                                                          $("#initialisecampaign").html("Initialized!");   
+                                                          $("#initialisecampaign").attr("disabled", true); 
+                                                        
+                                                      }
+
+
+                                                  },
+                                                  error: function (error) {
+                                                    alert("Error");
+                                                    }
+                                                
+                                              }); //Ajax End
+                
+                
+
+
                 }else if(camp_stage_from == '3' && camp_stage_to == '1'){ //ev to dc pending
-                  alert("Data will be initialised for DC pending");
+                  if(confirm("Data will be initialised for DC pending")){ 
+                    }else{
+                              return;
+                            }
                     var url = encodeURI("<?php echo base_url("cdc/ajax_update_ini_ev_to_dc_pending");?>");
                      console.log(url+"?campaign_cids_to="+campaign_cids_to+"&campaign_cids_from="+campaign_cids_from);
          
@@ -1195,7 +1690,10 @@ $(function() {
                                 
                               }); //Ajax End
                 }else if(camp_stage_from == '3' && camp_stage_to == '2'){ //ev to dv
-                  alert("Data will be initialised for DV pending");
+                  if(confirm("Data will be initialised for DV pending")){ 
+                    }else{
+                              return;
+                            }
                     var url = encodeURI("<?php echo base_url("cdc/ajax_update_ini_ev_to_dv_pending");?>");
                      console.log(url+"?campaign_cids_to="+campaign_cids_to+"&campaign_cids_from="+campaign_cids_from);
          
@@ -1231,7 +1729,10 @@ $(function() {
                                 
                               }); //Ajax End
                 }else if(camp_stage_from == '3' && camp_stage_to == '3'){ //ev to ev pending
-                  alert("Data will be initialised for EV pending");
+                  if(confirm("Data will be initialised for EV pending")){ 
+                    }else{
+                              return;
+                            }
                     var url = encodeURI("<?php echo base_url("cdc/ajax_update_ini_ev_to_ev_pending");?>");
                      console.log(url+"?campaign_cids_to="+campaign_cids_to+"&campaign_cids_from="+campaign_cids_from);
          
@@ -1267,7 +1768,10 @@ $(function() {
                                 
                               }); //Ajax End
                 }else if(camp_stage_from == '3' && camp_stage_to == '4'){ //ev to cdc pending
-                  alert("Data will be initialised for CDC pending");
+                  if(confirm("Data will be initialised for CDC pending")){ 
+                    }else{
+                              return;
+                            }
                     var url = encodeURI("<?php echo base_url("cdc/ajax_update_ini_ev_to_cdc_pending");?>");
                      console.log(url+"?campaign_cids_to="+campaign_cids_to+"&campaign_cids_from="+campaign_cids_from);
          
@@ -1302,8 +1806,54 @@ $(function() {
                                     }
                                 
                               }); //Ajax End
+                     }else  if(camp_stage_from == '4' && camp_stage_to == 'asis')
+                       {
+
+                                   
+                                  if(confirm("Data will be initialised as it is")){
+                                      // alert('Thanks for confirming');
+                                    }else{
+                                      return;
+                                    }
+                                    var url = encodeURI("<?php echo base_url("cdc/ajax_update_ini_to_asis_cdc_pending");?>");
+                                    console.log(url+"?campaign_cids_to="+campaign_cids_to+"&campaign_cids_from="+campaign_cids_from);
+                        
+                                      $.ajax({
+                                            url :'<?php echo base_url("cdc/ajax_update_ini_to_asis_cdc_pending");?>',
+                                            type: 'GET', 
+                                            // contentType: "application/json",
+                                            dataType: 'json',              
+                                            data: {
+                                            
+                                              campaign_cids_to: campaign_cids_to,
+                                              campaign_cids_from: campaign_cids_from,
+                                              leadsno: leadsno
+                                              },
+                                              async: true,
+                                                      cache: false,
+                                                      success: function(response){                 
+                                                      var text = response.statusCode;
+                                                      console.log("check");
+                                                      if(response.statusCode == "Success") 
+                                                      {         
+                                                          
+                                                          $("#initialisecampaign").html("Initialized!");   
+                                                          $("#initialisecampaign").attr("disabled", true); 
+                                                        
+                                                      }
+
+
+                                                  },
+                                                  error: function (error) {
+                                                    alert("Error");
+                                                    }
+                                                
+                                              }); //Ajax End             
                 }else if(camp_stage_from == '4' && camp_stage_to == '1'){ //cdc to dc pending
-                  alert("Data will be initialised for DC pending");
+                  if(confirm("Data will be initialised for DC pending")){ 
+                    }else{
+                              return;
+                            }
                     var url = encodeURI("<?php echo base_url("cdc/ajax_update_ini_cdc_to_dc_pending");?>");
                      console.log(url+"?campaign_cids_to="+campaign_cids_to+"&campaign_cids_from="+campaign_cids_from);
          
@@ -1339,7 +1889,10 @@ $(function() {
                                 
                               }); //Ajax End
                 }else if(camp_stage_from == '4' && camp_stage_to == '2'){ //cdc to dv pending
-                  alert("Data will be initialised for DV pending");
+                  if(confirm("Data will be initialised for DV pending")){ 
+                    }else{
+                              return;
+                            }
                     var url = encodeURI("<?php echo base_url("cdc/ajax_update_ini_cdc_to_dv_pending");?>");
                      console.log(url+"?campaign_cids_to="+campaign_cids_to+"&campaign_cids_from="+campaign_cids_from);
          
@@ -1375,7 +1928,10 @@ $(function() {
                                 
                               }); //Ajax End
                 }else if(camp_stage_from == '4' && camp_stage_to == '3'){ //cdc to ev pending
-                  alert("Data will be initialised for EV pending");
+                  if(confirm("Data will be initialised for EV pending")){ 
+                    }else{
+                              return;
+                            }
                     var url = encodeURI("<?php echo base_url("cdc/ajax_update_ini_cdc_to_ev_pending");?>");
                      console.log(url+"?campaign_cids_to="+campaign_cids_to+"&campaign_cids_from="+campaign_cids_from);
          
@@ -1411,7 +1967,10 @@ $(function() {
                                 
                               }); //Ajax End
                 }else if(camp_stage_from == '4' && camp_stage_to == '4'){ //cdc to cdc pending
-                  alert("Data will be initialised for CDC pending");
+                  if(confirm("Data will be initialised for CDC pending")){ 
+                    }else{
+                              return;
+                            }
                     var url = encodeURI("<?php echo base_url("cdc/ajax_update_ini_cdc_to_cdc_pending");?>");
                      console.log(url+"?campaign_cids_to="+campaign_cids_to+"&campaign_cids_from="+campaign_cids_from);
          
@@ -1610,8 +2169,54 @@ $(function() {
                 //               }); //Ajax End
 
                 // }else 
-                if(camp_stage_from == '2' && camp_stage_to == '1'){ //dv to dc saved
-                  alert("Data will be initialised for DC pending");
+               if(camp_stage_from == '2' && camp_stage_to == 'asis')
+                       {
+
+                                   
+                                  if(confirm("Data will be initialised as it is")){
+                                      // alert('Thanks for confirming');
+                                    }else{
+                                      return;
+                                    }
+                                    var url = encodeURI("<?php echo base_url("cdc/ajax_update_ini_to_asis_dv_saved");?>");
+                                    console.log(url+"?campaign_cids_to="+campaign_cids_to+"&campaign_cids_from="+campaign_cids_from);
+                        
+                                      $.ajax({
+                                            url :'<?php echo base_url("cdc/ajax_update_ini_to_asis_dv_saved");?>',
+                                            type: 'GET', 
+                                            // contentType: "application/json",
+                                            dataType: 'json',              
+                                            data: {
+                                            
+                                              campaign_cids_to: campaign_cids_to,
+                                              campaign_cids_from: campaign_cids_from,
+                                              leadsno: leadsno
+                                              },
+                                              async: true,
+                                                      cache: false,
+                                                      success: function(response){                 
+                                                      var text = response.statusCode;
+                                                      console.log("check");
+                                                      if(response.statusCode == "Success") 
+                                                      {         
+                                                          
+                                                          $("#initialisecampaign").html("Initialized!");   
+                                                          $("#initialisecampaign").attr("disabled", true); 
+                                                        
+                                                      }
+
+
+                                                  },
+                                                  error: function (error) {
+                                                    alert("Error");
+                                                    }
+                                                
+                                              }); //Ajax End    
+                }else if(camp_stage_from == '2' && camp_stage_to == '1'){ //dv to dc saved
+                  if(confirm("Data will be initialised for DC pending")){ 
+                    }else{
+                              return;
+                            }
                   var url = encodeURI("<?php echo base_url("cdc/ajax_update_ini_dv_to_dc_saved");?>");
                      console.log(url+"?campaign_cids_to="+campaign_cids_to+"&campaign_cids_from="+campaign_cids_from);
          
@@ -1648,7 +2253,10 @@ $(function() {
                               }); //Ajax End
                 
                 }else if(camp_stage_from == '2' && camp_stage_to == '2'){ //dv to dv saved
-                  alert("Data will be initialised for DV pending");
+                  if(confirm("Data will be initialised for DV pending")){ 
+                    }else{
+                              return;
+                            }
                     var url = encodeURI("<?php echo base_url("cdc/ajax_update_ini_dv_to_dv_saved");?>");
                      console.log(url+"?campaign_cids_to="+campaign_cids_to+"&campaign_cids_from="+campaign_cids_from);
          
@@ -1684,7 +2292,10 @@ $(function() {
                                 
                               }); //Ajax End
                 }else if(camp_stage_from == '2' && camp_stage_to == '3'){ //dv to ev saved
-                  alert("Data will be initialised for EV pending");
+                  if(confirm("Data will be initialised for EV pending")){ 
+                    }else{
+                              return;
+                            }
                     var url = encodeURI("<?php echo base_url("cdc/ajax_update_ini_dv_to_ev_pending");?>");
                      console.log(url+"?campaign_cids_to="+campaign_cids_to+"&campaign_cids_from="+campaign_cids_from);
          
@@ -1720,7 +2331,10 @@ $(function() {
                                 
                               }); //Ajax End
                 }else if(camp_stage_from == '2' && camp_stage_to == '4'){ //dv to cdc saved
-                  alert("Data will be initialised for CDC pending");
+                  if(confirm("Data will be initialised for CDC pending")){ 
+                    }else{
+                              return;
+                            }
                     var url = encodeURI("<?php echo base_url("cdc/ajax_update_ini_dv_to_cdc_saved");?>");
                      console.log(url+"?campaign_cids_to="+campaign_cids_to+"&campaign_cids_from="+campaign_cids_from);
          
@@ -1895,8 +2509,54 @@ $(function() {
                 //                     }
                                 
                 //               }); //Ajax End
+                 }else if(camp_stage_from == '4' && camp_stage_to == 'asis')
+                       {
+
+                                   
+                                  if(confirm("Data will be initialised as it is")){
+                                      // alert('Thanks for confirming');
+                                    }else{
+                                      return;
+                                    }
+                                    var url = encodeURI("<?php echo base_url("cdc/ajax_update_ini_to_asis_cdc_saved");?>");
+                                    console.log(url+"?campaign_cids_to="+campaign_cids_to+"&campaign_cids_from="+campaign_cids_from);
+                        
+                                      $.ajax({
+                                            url :'<?php echo base_url("cdc/ajax_update_ini_to_asis_cdc_saved");?>',
+                                            type: 'GET', 
+                                            // contentType: "application/json",
+                                            dataType: 'json',              
+                                            data: {
+                                            
+                                              campaign_cids_to: campaign_cids_to,
+                                              campaign_cids_from: campaign_cids_from,
+                                              leadsno: leadsno
+                                              },
+                                              async: true,
+                                                      cache: false,
+                                                      success: function(response){                 
+                                                      var text = response.statusCode;
+                                                      console.log("check");
+                                                      if(response.statusCode == "Success") 
+                                                      {         
+                                                          
+                                                          $("#initialisecampaign").html("Initialized!");   
+                                                          $("#initialisecampaign").attr("disabled", true); 
+                                                        
+                                                      }
+
+
+                                                  },
+                                                  error: function (error) {
+                                                    alert("Error");
+                                                    }
+                                                
+                                              }); //Ajax End    
                 }else if(camp_stage_from == '4' && camp_stage_to == '1'){ //cdc to dc saved
-                  alert("Data will be initialised for DC pending");
+                  if(confirm("Data will be initialised for DC pending")){ 
+                    }else{
+                              return;
+                            }
                     var url = encodeURI("<?php echo base_url("cdc/ajax_update_ini_cdc_to_dc_saved");?>");
                      console.log(url+"?campaign_cids_to="+campaign_cids_to+"&campaign_cids_from="+campaign_cids_from);
          
@@ -1932,7 +2592,10 @@ $(function() {
                                 
                               }); //Ajax End
                 }else if(camp_stage_from == '4' && camp_stage_to == '2'){ //cdc to dv saved
-                  alert("Data will be initialised for DV pending");
+                  if(confirm("Data will be initialised for DV pending")){ 
+                    }else{
+                              return;
+                            }
                     var url = encodeURI("<?php echo base_url("cdc/ajax_update_ini_cdc_to_dv_saved");?>");
                      console.log(url+"?campaign_cids_to="+campaign_cids_to+"&campaign_cids_from="+campaign_cids_from);
          
@@ -1968,7 +2631,10 @@ $(function() {
                                 
                               }); //Ajax End
                 }else if(camp_stage_from == '4' && camp_stage_to == '3'){ //cdc to ev saved
-                  alert("Data will be initialised for EV pending");
+                  if(confirm("Data will be initialised for EV pending")){ 
+                    }else{
+                              return;
+                            }
                     var url = encodeURI("<?php echo base_url("cdc/ajax_update_ini_cdc_to_ev_saved");?>");
                      console.log(url+"?campaign_cids_to="+campaign_cids_to+"&campaign_cids_from="+campaign_cids_from);
          
@@ -2004,7 +2670,10 @@ $(function() {
                                 
                               }); //Ajax End
                 }else if(camp_stage_from == '4' && camp_stage_to == '4'){ //cdc to cdc saved
-                  alert("Data will be initialised for CDC pending");
+                  if(confirm("Data will be initialised for CDC pending")){ 
+                    }else{
+                              return;
+                            }
                     var url = encodeURI("<?php echo base_url("cdc/ajax_update_ini_cdc_to_cdc_saved");?>");
                      console.log(url+"?campaign_cids_to="+campaign_cids_to+"&campaign_cids_from="+campaign_cids_from);
          
@@ -2046,7 +2715,7 @@ $(function() {
 
 
             }
-            if(rejectchk == '1'){ //saved checked
+            if(rejectchk == '1'){ //reject checked
             
             if(leadsno > parseInt(rejected) || leadsno <= '0')
                 {
@@ -2203,8 +2872,54 @@ $(function() {
               //               }); //Ajax End
 
               // }else 
-              if(camp_stage_from == '2' && camp_stage_to == '1'){ //dv to dc rejected
-                alert("Data will be initialised for DC pending");
+              if(camp_stage_from == '2' && camp_stage_to == 'asis')
+                       {
+
+                                   
+                                  if(confirm("Data will be initialised as it is")){
+                                      // alert('Thanks for confirming');
+                                    }else{
+                                      return;
+                                    }
+                                    var url = encodeURI("<?php echo base_url("cdc/ajax_update_ini_to_asis_dv_rejected");?>");
+                                    console.log(url+"?campaign_cids_to="+campaign_cids_to+"&campaign_cids_from="+campaign_cids_from);
+                        
+                                      $.ajax({
+                                            url :'<?php echo base_url("cdc/ajax_update_ini_to_asis_dv_rejected");?>',
+                                            type: 'GET', 
+                                            // contentType: "application/json",
+                                            dataType: 'json',              
+                                            data: {
+                                            
+                                              campaign_cids_to: campaign_cids_to,
+                                              campaign_cids_from: campaign_cids_from,
+                                              leadsno: leadsno
+                                              },
+                                              async: true,
+                                                      cache: false,
+                                                      success: function(response){                 
+                                                      var text = response.statusCode;
+                                                      console.log("check");
+                                                      if(response.statusCode == "Success") 
+                                                      {         
+                                                          
+                                                          $("#initialisecampaign").html("Initialized!");   
+                                                          $("#initialisecampaign").attr("disabled", true); 
+                                                        
+                                                      }
+
+
+                                                  },
+                                                  error: function (error) {
+                                                    alert("Error");
+                                                    }
+                                                
+                                              }); //Ajax End  
+             } else if(camp_stage_from == '2' && camp_stage_to == '1'){ //dv to dc rejected
+                if(confirm("Data will be initialised for DC pending")){ 
+                    }else{
+                              return;
+                            }
                 var url = encodeURI("<?php echo base_url("cdc/ajax_update_ini_dv_to_dc_rejected");?>");
                    console.log(url+"?campaign_cids_to="+campaign_cids_to+"&campaign_cids_from="+campaign_cids_from);
        
@@ -2241,7 +2956,10 @@ $(function() {
                             }); //Ajax End
               
               }else if(camp_stage_from == '2' && camp_stage_to == '2'){ //dv to dv rejected
-                alert("Data will be initialised for DV pending");
+                if(confirm("Data will be initialised for DV pending")){ 
+                    }else{
+                              return;
+                            }
                   var url = encodeURI("<?php echo base_url("cdc/ajax_update_ini_dv_to_dv_rejected");?>");
                    console.log(url+"?campaign_cids_to="+campaign_cids_to+"&campaign_cids_from="+campaign_cids_from);
        
@@ -2277,7 +2995,10 @@ $(function() {
                               
                             }); //Ajax End
               }else if(camp_stage_from == '2' && camp_stage_to == '3'){ //dv to ev saved
-                alert("Data will be initialised for EV pending");
+                if(confirm("Data will be initialised for EV pending")){ 
+                    }else{
+                              return;
+                            }
                   var url = encodeURI("<?php echo base_url("cdc/ajax_update_ini_dv_to_ev_rejected");?>");
                    console.log(url+"?campaign_cids_to="+campaign_cids_to+"&campaign_cids_from="+campaign_cids_from);
        
@@ -2313,7 +3034,10 @@ $(function() {
                               
                             }); //Ajax End
               }else if(camp_stage_from == '2' && camp_stage_to == '4'){ //dv to cdc saved
-                alert("Data will be initialised for CDC pending");
+                if(confirm("Data will be initialised for CDC pending")){ 
+                    }else{
+                              return;
+                            }
                   var url = encodeURI("<?php echo base_url("cdc/ajax_update_ini_dv_to_cdc_rejected");?>");
                    console.log(url+"?campaign_cids_to="+campaign_cids_to+"&campaign_cids_from="+campaign_cids_from);
        
@@ -2348,8 +3072,54 @@ $(function() {
                                   }
                               
                             }); //Ajax End
+               }else if(camp_stage_from == '3' && camp_stage_to == 'asis')
+                       {
+
+                                   
+                                  if(confirm("Data will be initialised as it is")){
+                                      // alert('Thanks for confirming');
+                                    }else{
+                                      return;
+                                    }
+                                    var url = encodeURI("<?php echo base_url("cdc/ajax_update_ini_to_asis_ev_rejected");?>");
+                                    console.log(url+"?campaign_cids_to="+campaign_cids_to+"&campaign_cids_from="+campaign_cids_from);
+                        
+                                      $.ajax({
+                                            url :'<?php echo base_url("cdc/ajax_update_ini_to_asis_ev_rejected");?>',
+                                            type: 'GET', 
+                                            // contentType: "application/json",
+                                            dataType: 'json',              
+                                            data: {
+                                            
+                                              campaign_cids_to: campaign_cids_to,
+                                              campaign_cids_from: campaign_cids_from,
+                                              leadsno: leadsno
+                                              },
+                                              async: true,
+                                                      cache: false,
+                                                      success: function(response){                 
+                                                      var text = response.statusCode;
+                                                      console.log("check");
+                                                      if(response.statusCode == "Success") 
+                                                      {         
+                                                          
+                                                          $("#initialisecampaign").html("Initialized!");   
+                                                          $("#initialisecampaign").attr("disabled", true); 
+                                                        
+                                                      }
+
+
+                                                  },
+                                                  error: function (error) {
+                                                    alert("Error");
+                                                    }
+                                                
+                                              }); //Ajax End               
               }else  if(camp_stage_from == '3' && camp_stage_to == '1'){ //ev rejected to dc 
-                alert("Data will be initialised for DC pending");
+                if(confirm("Data will be initialised for DC pending")){ 
+                    }else{
+                              return;
+                            }
                   var url = encodeURI("<?php echo base_url("cdc/ajax_update_ini_ev_to_dc_rejected");?>");
                    console.log(url+"?campaign_cids_to="+campaign_cids_to+"&campaign_cids_from="+campaign_cids_from);
        
@@ -2385,7 +3155,10 @@ $(function() {
                               
                             }); //Ajax End
               }else if(camp_stage_from == '3' && camp_stage_to == '2'){ //ev rejected to dv
-                alert("Data will be initialised for DV pending");
+                if(confirm("Data will be initialised for DV pending")){ 
+                    }else{
+                              return;
+                            }
                   var url = encodeURI("<?php echo base_url("cdc/ajax_update_ini_ev_to_dv_rejected");?>");
                    console.log(url+"?campaign_cids_to="+campaign_cids_to+"&campaign_cids_from="+campaign_cids_from);
        
@@ -2421,7 +3194,10 @@ $(function() {
                               
                             }); //Ajax End
               }else if(camp_stage_from == '3' && camp_stage_to == '3'){ //ev rejected to ev pending
-                alert("Data will be initialised for EV pending");
+                if(confirm("Data will be initialised for EV pending")){ 
+                    }else{
+                              return;
+                            }
                   var url = encodeURI("<?php echo base_url("cdc/ajax_update_ini_ev_to_ev_rejected");?>");
                    console.log(url+"?campaign_cids_to="+campaign_cids_to+"&campaign_cids_from="+campaign_cids_from);
        
@@ -2457,7 +3233,10 @@ $(function() {
                               
                             }); //Ajax End
               }else if(camp_stage_from == '3' && camp_stage_to == '4'){ //ev to cdc rejected
-                alert("Data will be initialised for CDC pending");
+                if(confirm("Data will be initialised for CDC pending")){ 
+                    }else{
+                              return;
+                            }
                   var url = encodeURI("<?php echo base_url("cdc/ajax_update_ini_ev_to_cdc_rejected");?>");
                    console.log(url+"?campaign_cids_to="+campaign_cids_to+"&campaign_cids_from="+campaign_cids_from);
        
@@ -2492,8 +3271,54 @@ $(function() {
                                   }
                               
                             }); //Ajax End
+                      }else if(camp_stage_from == '4' && camp_stage_to == 'asis')
+                       {
+
+                                   
+                                  if(confirm("Data will be initialised as it is")){
+                                      // alert('Thanks for confirming');
+                                    }else{
+                                      return;
+                                    }
+                                    var url = encodeURI("<?php echo base_url("cdc/ajax_update_ini_to_asis_cdc_rejected");?>");
+                                    console.log(url+"?campaign_cids_to="+campaign_cids_to+"&campaign_cids_from="+campaign_cids_from);
+                        
+                                      $.ajax({
+                                            url :'<?php echo base_url("cdc/ajax_update_ini_to_asis_cdc_rejected");?>',
+                                            type: 'GET', 
+                                            // contentType: "application/json",
+                                            dataType: 'json',              
+                                            data: {
+                                            
+                                              campaign_cids_to: campaign_cids_to,
+                                              campaign_cids_from: campaign_cids_from,
+                                              leadsno: leadsno
+                                              },
+                                              async: true,
+                                                      cache: false,
+                                                      success: function(response){                 
+                                                      var text = response.statusCode;
+                                                      console.log("check");
+                                                      if(response.statusCode == "Success") 
+                                                      {         
+                                                          
+                                                          $("#initialisecampaign").html("Initialized!");   
+                                                          $("#initialisecampaign").attr("disabled", true); 
+                                                        
+                                                      }
+
+
+                                                  },
+                                                  error: function (error) {
+                                                    alert("Error");
+                                                    }
+                                                
+                                              }); //Ajax End                   
               }else if(camp_stage_from == '4' && camp_stage_to == '1'){ //cdc to dc rejected
-                alert("Data will be initialised for DC pending");
+                if(confirm("Data will be initialised for DC pending")){ 
+                    }else{
+                              return;
+                            }
                   var url = encodeURI("<?php echo base_url("cdc/ajax_update_ini_cdc_to_dc_rejected");?>");
                    console.log(url+"?campaign_cids_to="+campaign_cids_to+"&campaign_cids_from="+campaign_cids_from);
        
@@ -2529,7 +3354,10 @@ $(function() {
                               
                             }); //Ajax End
               }else if(camp_stage_from == '4' && camp_stage_to == '2'){ //cdc to dv rejected
-                alert("Data will be initialised for DV pending");
+                if(confirm("Data will be initialised for DV pending")){ 
+                    }else{
+                              return;
+                            }
                   var url = encodeURI("<?php echo base_url("cdc/ajax_update_ini_cdc_to_dv_rejected");?>");
                    console.log(url+"?campaign_cids_to="+campaign_cids_to+"&campaign_cids_from="+campaign_cids_from);
        
@@ -2565,7 +3393,10 @@ $(function() {
                               
                             }); //Ajax End
               }else if(camp_stage_from == '4' && camp_stage_to == '3'){ //cdc to ev rejected
-                alert("Data will be initialised for EV pending");
+                if(confirm("Data will be initialised for EV pending")){ 
+                    }else{
+                              return;
+                            }
                   var url = encodeURI("<?php echo base_url("cdc/ajax_update_ini_cdc_to_ev_rejected");?>");
                    console.log(url+"?campaign_cids_to="+campaign_cids_to+"&campaign_cids_from="+campaign_cids_from);
        
@@ -2601,7 +3432,10 @@ $(function() {
                               
                             }); //Ajax End
               }else if(camp_stage_from == '4' && camp_stage_to == '4'){ //cdc to cdc rejected
-                alert("Data will be initialised for CDC pending");
+                if(confirm("Data will be initialised for CDC pending")){ 
+                    }else{
+                              return;
+                            }
                   var url = encodeURI("<?php echo base_url("cdc/ajax_update_ini_cdc_to_cdc_rejected");?>");
                    console.log(url+"?campaign_cids_to="+campaign_cids_to+"&campaign_cids_from="+campaign_cids_from);
        
@@ -2674,6 +3508,20 @@ $(function() {
           var campaign_cids_from = $('#campaign_cids_from').val();
           
           if(camp_stage_from == '1'){ //dc stage
+                // $('#savechk').prop('disabled', false);
+                // $('#clearedchk').prop('disabled', false);
+                // $('#pendingchk').prop('disabled', false);
+                // $('#rejectchk').prop('disabled', false);
+                // $('#camp_stage_to').children('option[value="asis"]').css('display','none');
+                // // $('#camp_stage_to').find('option').(':second').remove();
+                // $('#camp_stage_to').val("");
+                //   document.getElementById("camp_stage_to").options[2].disabled = false;
+                //   document.getElementById("camp_stage_to").options[3].disabled = false;
+                //   document.getElementById("camp_stage_to").options[4].disabled = false;
+                //   document.getElementById("camp_stage_to").options[5].disabled = false;
+
+                //   $('.noasis').show();
+                //  $('.asisdiv').hide();
 
                     var urlq = '<?php echo base_url("cdc/getdccount");?>';
                   console.log(urlq+'?campaign_cids_from='+campaign_cids_from);
@@ -2698,6 +3546,19 @@ $(function() {
                     });
                 // AJAX request end
                 } else if(camp_stage_from == '2'){
+                // $('#savechk').prop('disabled', false);
+                // $('#clearedchk').prop('disabled', false);
+                // $('#pendingchk').prop('disabled', false);
+                // $('#rejectchk').prop('disabled', false);
+                // $('#camp_stage_to').children('option[value="asis"]').css('display','none')
+                //   document.getElementById("camp_stage_to").options[2].disabled = false;
+                //   document.getElementById("camp_stage_to").options[3].disabled = false;
+                //   document.getElementById("camp_stage_to").options[4].disabled = false;
+                //   document.getElementById("camp_stage_to").options[5].disabled = false;
+                //   $('#camp_stage_to').val("");
+                //   $('.noasis').show();
+                //  $('.asisdiv').hide();
+
                   var urlq = '<?php echo base_url("cdc/getdvcount");?>';
                   console.log(urlq+'?campaign_cids_from='+campaign_cids_from);
                     // AJAX request
@@ -2719,6 +3580,19 @@ $(function() {
                         }
                     });
                 } else if(camp_stage_from == '3'){
+                //   $('#savechk').prop('disabled', false);
+                //   $('#clearedchk').prop('disabled', false);
+                //   $('#pendingchk').prop('disabled', false);
+                //   $('#rejectchk').prop('disabled', false);
+                //   $('#camp_stage_to').children('option[value="asis"]').css('display','none')
+                //   document.getElementById("camp_stage_to").options[2].disabled = false;
+                //   document.getElementById("camp_stage_to").options[3].disabled = false;
+                //   document.getElementById("camp_stage_to").options[4].disabled = false;
+                //   document.getElementById("camp_stage_to").options[5].disabled = false;
+                //   $('#camp_stage_to').val("");
+                //   $('.noasis').show();
+                //  $('.asisdiv').hide();
+
                   var urlq = '<?php echo base_url("cdc/getevcount");?>';
                   console.log(urlq+'?campaign_cids_from='+campaign_cids_from);
                     // AJAX request
@@ -2740,6 +3614,18 @@ $(function() {
                         }
                     });
                 } else if(camp_stage_from == '4'){
+                //   $('#savechk').prop('disabled', false);
+                // $('#clearedchk').prop('disabled', false);
+                // $('#pendingchk').prop('disabled', false);
+                // $('#rejectchk').prop('disabled', false);
+                // $('#camp_stage_to').children('option[value="asis"]').css('display','none')
+                // document.getElementById("camp_stage_to").options[2].disabled = false;
+                //   document.getElementById("camp_stage_to").options[3].disabled = false;
+                //   document.getElementById("camp_stage_to").options[4].disabled = false;
+                //   document.getElementById("camp_stage_to").options[5].disabled = false;
+                //   $('#camp_stage_to').val("");
+                //   $('.noasis').show();
+                //  $('.asisdiv').hide();
                   var urlq = '<?php echo base_url("cdc/getcdccount");?>';
                   console.log(urlq+'?campaign_cids_from='+campaign_cids_from);
                     // AJAX request
@@ -2760,8 +3646,61 @@ $(function() {
 
                         }
                     });
-                } else{// End Dv
-              alert("Select DC");
+                // } else if(camp_stage_from == 'asis')
+                // {
+                //   $('#camp_stage_to').val("asis");
+                //   $('#camp_stage_to').children('option[value="asis"]').css('display','block')
+                //   document.getElementById("camp_stage_to").options[2].disabled = true;
+                //   document.getElementById("camp_stage_to").options[3].disabled = true;
+                //   document.getElementById("camp_stage_to").options[4].disabled = true;
+                //   document.getElementById("camp_stage_to").options[5].disabled = true;
+                //   $('#savechk').val("0");
+                // $('#leadsno').val("");
+                // $('#clearedchk').val("0");
+                // $('#pendingchk').val("0");
+                // $('#rejectchk').val("0");
+            
+                // $("#savechk").prop('checked', false);
+                // $("#clearedchk").prop('checked', false);
+                // $("#pendingchk").prop('checked', false);
+                // $("#rejectchk").prop('checked', false);
+
+                // $('#savechk').prop('disabled', true);
+                // $('#clearedchk').prop('disabled', true);
+                // $('#pendingchk').prop('disabled', true);
+                // $('#rejectchk').prop('disabled', true);
+
+                // $('#cleared').val("");
+                // $('#leadsno').val("");
+                // $('#pending').val("");
+                // $('#saved').val("");
+                // $('#rejected').val("");
+
+                // $('.noasis').hide();
+                // $('.asisdiv').show();
+                // var urlq = '<?php echo base_url("cdc/getasiscount");?>';
+                //   console.log(urlq+'?campaign_cids_from='+campaign_cids_from);
+                //     // AJAX request
+                //     $.ajax({
+                //         url:'<?php echo base_url("cdc/getasiscount");?>',
+                //         method: 'get',
+                //         data: {campaign_cids_from: campaign_cids_from},
+                //         dataType: 'json',
+                //         success: function(response){
+                           
+                //             $('#asiscount').val(response.asisdata);
+                //             $('#leadsno').val(response.asisdata);
+                           
+                            
+
+
+                //         }
+                //     });
+
+
+                }else{// End Dv
+                
+              // alert("Select DC");
                 }
 
       });

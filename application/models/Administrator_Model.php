@@ -2106,20 +2106,20 @@ public function get_campaign_with_status_initialise($cnid,$status)
 			$this->db->where('cdcsv', NULL);
 			$this->db->where('qaacpt', NULL);
 	
-			// $this->db->group_start();
-			// $this->db->where('cdcrjtdti  is NOT NULL');
-			// $this->db->OR_where('cdcrjtdtii is NOT NULL');
-			// $this->db->OR_where('qarej', 1);
+			$this->db->group_start();
+			$this->db->where('evdisp','5');
+			$this->db->OR_where('evdisp','6');
+			$this->db->OR_where('evdisp','2');
+			$this->db->OR_where('evdisp','3');
 			
-			
-			// $this->db->group_end(); 
+			$this->db->group_end(); 
 		
 			// $this->db->where('ontag', 1);
 			// $this->db->where('pload', 0);
 			// $this->db->where('dvload',0);
 			// $this->db->where('cdcrjt <', '4');
 			// $this->db->where('cdcsbdti',null);
-			$this->db->where('evdisp','5');
+			
 			$this->db->where('cdcload',null);
 			$this->db->where('qaload',null);
 			$this->db->where('rlc !=', 1);
@@ -2164,6 +2164,44 @@ public function get_campaign_with_status_initialise($cnid,$status)
 		
 				$this->db->order_by('cdcrjtdti','ASC');
 				$this->db->order_by('cdcrjtdtii','ASC');
+				if(isset($leadlimit) && $leadlimit != null){
+					$this->db->limit($leadlimit);	
+				}
+			
+		
+			$query = $this->db->get_where('leadmaster', array('cids' => $id));
+		// echo $this->db->last_query(); 
+			return $query->result_array();
+		} 
+		
+	public function get_asis_count($id = FALSE,$leadlimit = false)
+	{
+			
+			
+			// $this->db->where('sbsvtag <', 6);	
+			// $this->db->where('sbsvtag', 0);
+			// $this->db->where('qasv', NULL);
+			// $this->db->where('cdcsv', 0);
+			// $this->db->where('qaacpt', NULL);
+	
+			// $this->db->group_start();
+			// $this->db->where('dvrejtg < 3 AND dvsbtg < 3');
+			// $this->db->OR_where('dvrejtg is NULL AND dvsbtg is NULL');
+			// $this->db->OR_where('qarej', 1);
+			// $this->db->OR_where('cdcrjt <', '4');//if dvrej is 3, then check cdcrjt
+			// $this->db->group_end(); 
+		
+			// $this->db->where('ontag', 1);
+			// $this->db->where('pload', 0);
+			// $this->db->where('dvload',0);
+			// $this->db->where('evload',null);
+			// $this->db->where('cdcload',null);
+			// $this->db->where('qaload',null);
+			// $this->db->where('rlc !=', 1);
+		
+		
+				// $this->db->order_by('cdcrjtdti','ASC');
+				// $this->db->order_by('cdcrjtdtii','ASC');
 				if(isset($leadlimit) && $leadlimit != null){
 					$this->db->limit($leadlimit);	
 				}

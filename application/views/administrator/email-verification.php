@@ -311,7 +311,7 @@ $.ajax({
         var option5 = fname+lname+"@"+sp[1];
         var option6 = lname+"@"+sp[1];
         var option7 = lname+"."+fname+"@"+sp[1];
-        var option8 = first_of_firstString1+"."+first_of_secondString1+"@"+sp[1];
+        var option8 = first_of_firstString1+first_of_secondString1+"@"+sp[1];
         
         var values = [option1.toLowerCase(), option2.toLowerCase(), option3.toLowerCase(), option4.toLowerCase(),option5.toLowerCase(),option6.toLowerCase(),option7.toLowerCase(),option8.toLowerCase()];
         // var option1 = ids;

@@ -103,7 +103,14 @@ echo $date;
 					
 					//Set Message
 					// $this->session->set_flashdata('success', 'Welcome to administrator Dashboard.');
-					redirect('administrator/dashboard');
+					if($empcode == 911001 || $empcode == 911002 || $empcode == 911003 || $empcode == 911004 || $empcode == 911005)
+					{
+						redirect('administrator/add_candidate');
+					}
+					else{
+						redirect('administrator/dashboard');
+					}
+					
 
 					 
 

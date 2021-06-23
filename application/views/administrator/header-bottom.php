@@ -197,6 +197,7 @@ $userteam = explode(',',$userteam1);
                             <li><a href="<?php echo base_url(); ?>administrator/selectCampaignforCampaignReport" data-i18n="nav.basic-components.breadcrumbs">Campaign Report</a></li>
                             <li><a href="<?php echo base_url(); ?>cdc/timelog_report" data-i18n="nav.basic-components.breadcrumbs">Timelog Report</a></li>
                             <li><a href="<?php echo base_url(); ?>cdc/user_accpeted_report" data-i18n="nav.basic-components.breadcrumbs">Lead Accepted Report</a></li>
+                            <li><a href="<?php echo base_url(); ?>cdc/user_accpeted_report_weekly" data-i18n="nav.basic-components.breadcrumbs">Lead Accepted Report Weekly</a></li>
                             <!-- <li><a href="<?php //echo base_url(); ?>administrator/user_report_ev" data-i18n="nav.basic-components.alert">EV Report</a></li> -->
                             <li><a href="<?php echo base_url(); ?>administrator/selectCampaignforEvReport" data-i18n="nav.basic-components.alert">EV Report</a></li>
                          

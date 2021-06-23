@@ -3579,6 +3579,77 @@ public function getPrivillage(){
 				));
 			}
 		}
+
+		public function add_candidate($page = 'candidate_form')
+		{
+			if (!file_exists(APPPATH.'views/administrator/'.$page.'.php')) {
+		    show_404();
+		   }
+			// Check login
+			if(!$this->session->userdata('login')) {
+				redirect('administrator/index');
+			}
+
+			$data['title'] = 'Create Candidate';
+
+			$data['emp_id'] = $this->Administrator_Model->get_empid();
+			// $data['roles'] = $this->Administrator_Model->get_roles();
+			$this->form_validation->set_rules('name', 'Name', 'required');
+			// $this->form_validation->set_rules('username', 'Username', 'required|callback_check_username_exists');
+			$this->form_validation->set_rules('email', 'Email', 'required|callback_check_email_exists');
+
+			if($this->form_validation->run() === FALSE){
+				 $this->load->view('administrator/header-script');
+		 	 	 $this->load->view('administrator/header');
+		  		//  $this->load->view('administrator/header-bottom');
+		   		 $this->load->view('administrator/'.$page, $data);
+		  		 $this->load->view('administrator/footer');
+			}else{
+				//Upload Image
+				// $config['upload_path'] = './assets/images/users';
+				// $config['allowed_types'] = 'gif|jpg|png|jpeg';
+				// $config['max_size'] = '2048';
+				// $config['max_width'] = '2000';
+				// $config['max_height'] = '2000';
+
+				// $this->load->library('upload', $config);
+
+				// if(!$this->upload->do_upload()){
+				// 	$errors =  array('error' => $this->upload->display_errors());
+				// 	$post_image = 'noimage.jpg';
+				// }else{
+				// 	$data =  array('upload_data' => $this->upload->data());
+				// 	$post_image = $_FILES['userfile']['name'];
+				// }
+				$post_image = 'noimage.jpg';
+				$password = md5('Test@123');
+
+				$this->Administrator_Model->add_candidate($post_image,$password);
+
+				echo json_encode(array(
+					"statusCode"=>200
+				));
+				//Set Message
+				// $this->session->set_flashdata('success', 'User has been created Successfull.');
+				// redirect('administrator/users');
+			}
+			
+		}
+
+		function save_candidate()
+		{
+			$Fname=$_GET['Fname'];
+			$email=$_GET['email'];
+			$phone = $_GET['phone'];
+			$address = $_GET['address'];
+			$education = $_GET['education'];
+			$gender = $_GET['gender'];
+			$register_date = date("Y-m-d H:i:s");
+			$this->Administrator_Model->save_candidate($Fname,$email,$phone,$address,$education,$gender,$register_date);	
+			echo json_encode(array(
+				"statusCode"=>200
+			));
+		}
 }
 
 

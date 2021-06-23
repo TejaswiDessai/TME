@@ -4795,4 +4795,10 @@ public function get_all_record_leadmasterby_Delivered($rec_stage,$period,$dcd,$l
 		// show_error($this->db->last_query(), 200, "SQL");
 		return $data=$query->num_rows();
 	}
+	function save_candidate($Fname,$email,$phone,$address,$education,$gender,$register_date)
+	{
+		$query="INSERT INTO candidate( fullname, email, phone,address,education,curr_date,gender) 
+			VALUES ('$Fname','$email','$phone','$address','$education','$register_date','$gender')";
+			$this->db->query($query);
+	}
 }

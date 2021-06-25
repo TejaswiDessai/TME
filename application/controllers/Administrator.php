@@ -3656,6 +3656,7 @@ public function getPrivillage(){
 			echo json_encode(array(
 				"statusCode"=>200
 			));
+			$_SESSION["login_time_stamp"]='1200'; // timer timing 20 mints // line added by tejaswi
 		}
 }
 

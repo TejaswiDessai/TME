@@ -216,7 +216,7 @@ rel="Stylesheet"type="text/css"/>
                                                 $("#Manager").html("");
                                                 $("#Password").html("");
                                                 $('#butsave').html('Candidate added successfully !'); 
-                                                top.location.href=base_url+"administrator/add_candidate";						
+                                                top.location.href=base_url+"cdc/add_candidate_lead";						
                                             }
                                             else if(dataResult.statusCode==201){
                                             alert("Error occured !");

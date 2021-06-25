@@ -1792,6 +1792,19 @@ function getJobTitle($levelid)
 	return $response;
 }
 
+public function get_campaign_cids_by_leadmaster_for_candidate($id = FALSE)
+{
+		// if($id === FALSE){
+		// 	$query = $this->db->get('campaign');
+		// 	return $query->result_array(); 
+		// }
+
+		$query = $this->db->get_where('campaign', array('cids' => $id));
+		// echo $this->db->last_query(); 
+		// echo $string;
+		// die;
+		return $query->result_array();
+	}
 public function get_campaign_by_id($id = FALSE)
 {
 		// if($id === FALSE){
@@ -4800,5 +4813,32 @@ public function get_all_record_leadmasterby_Delivered($rec_stage,$period,$dcd,$l
 		$query="INSERT INTO candidate( fullname, email, phone,address,education,curr_date,gender) 
 			VALUES ('$Fname','$email','$phone','$address','$education','$register_date','$gender')";
 			$this->db->query($query);
+	}
+
+	public function get_dv_cleared_for_candidate_test($id = FALSE)
+	{
+		
+		$this->db->where('sbsvtag !=', 0);
+		
+	
+		// $this->db->where('ontag', 1);
+		// $this->db->where('pload', 0);
+		$this->db->where('dvload',1);
+		// $this->db->where('evload',null);
+		// $this->db->where('cdcload',null);
+		// $this->db->where('qaload',null);
+		$this->db->where('rlc !=', 1);
+	
+		
+			$this->db->order_by('random()');
+			
+		
+		$this->db->limit(1);
+		// $query = $this->db->get_where('leadmaster', array('cids' => $id));
+		$query = $this->db->get('leadmaster');
+		// echo $this->db->last_query();  
+		// echo $string;
+		// die;
+		return $query->result_array();
 	}
 }

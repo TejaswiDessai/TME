@@ -201,7 +201,7 @@ $(document).ready(function() {
                                 <?php
                                  if(isset($ldmster) && in_array('fname',$dvrejectreason)) { echo "" ; } 
                                  ?>"                             
-                                 value ="<?php if(isset($ldmster)){  echo $ldmster['fname']; }?>" >
+                                 value ="" >
                                 <input type="hidden" name="inclistnew" id="inclistnew" value="<?php echo $campaign['inclistnew']; ?>">
                                 <span style='color:#FF0000' id="fname_msg"></span>
                             </div>
@@ -289,22 +289,25 @@ $(document).ready(function() {
                                  ?>">
                             </div>
                             <div class="col-sm-2">
+                            <div class="tooltips">
                             <?php if($ldmster['plink'] != ""){ ?>
                               <a href="<?php echo $ldmster['plink'] ?>" target="_blank" style="float:right"><i class="icofont icofont-link"></i></a>
                             <?php } else{ ?>
                               <a style="float:right"><i class="icofont icofont-unlink"></i></a>     
                             <?php } ?>
-                                <input type="text"  name="plink" id="plink" autocomplete = "off"  placeholder="Prospect Link"  class="form-control form-control-sm 
+                                <input type="text" disabled="disabled" name="plink" id="plink" autocomplete = "off"  placeholder="Prospect Link"  class="form-control form-control-sm 
                                 <?php
                                  if(isset($ldmster) && in_array('plink',$dvrejectreason)) { echo "" ; } 
-                                 ?>" value ="" >
+                                 ?>" value ="<?php if(isset($ldmster)){  echo $ldmster['plink']; }?>" >
                                
                                 <span style='color:#FF0000' id="url_msg"></span>
+                                <span class="tooltiptext"> Prospect Link<span>
+                            </div>
                             </div>
                       </div>
          <hr>
                         <div class="form-group row">
-                              <div class="col-sm-2">
+                              <!-- <div class="col-sm-2">
                                <select name="linetype" id="linetype"  class="form-control  form-control-sm cdqadisable <?php
                                  if(isset($ldmster) && in_array('linetype',$dvrejectreason)) { echo "" ; } 
                                  ?>">
@@ -314,7 +317,7 @@ $(document).ready(function() {
                                      <option value="2">Board</option>  
                                </select>
                               
-                           </div>
+                           </div> -->
                               <div class="col-sm-2 <?php
                                  if(isset($ldmster) && in_array('company_name',$dvrejectreason) && (!empty($comp_list))) { echo "" ; } 
                                  ?>">
@@ -366,11 +369,7 @@ $(document).ready(function() {
                                  if(isset($ldmster) && in_array('zip_code',$dvrejectreason)) { echo "" ; } 
                                  ?>">
                            </div>
-                        </div>
-                       <hr>
-
-                        <div class="form-group row">
-                            <div class="col-sm-2 <?php
+                           <div class="col-sm-2 <?php
                                   if(isset($ldmster) && in_array('country_id',$dvrejectreason)) { echo "" ; } 
                                   ?>">
                                       <select class="js-example-basic-single <?php
@@ -384,6 +383,11 @@ $(document).ready(function() {
                                   </select>
                                   <span style='color:#FF0000' id="country_id_msg"></span>
                               </div>
+                        </div>
+                       <hr>
+
+                        <div class="form-group row">
+                            
                             
                             <div class="col-sm-2 <?php
                                  if(isset($ldmster) && in_array('timezone',$dvrejectreason)) { echo "" ; } 
@@ -463,21 +467,23 @@ $(document).ready(function() {
                                     <option value="4">Non-Profit </option>
                                </select>
                             </div>
+
+                            <div class="col-sm-2">
+                              <div class="tooltips">
+                                <input  type="text" autocomplete = "off"  name="empsize" id="empsize" maxlength="6" 
+                                value ="" placeholder="Actual Employee Size"  
+                                      class="form-control form-control-sm cdqadisable <?php
+                                      if(isset($ldmster) && in_array('empsize',$dvrejectreason)) { echo "" ; } 
+                                      ?>">
+                                      <span class="tooltiptext"> Select range  between <?php echo $campaign['emplbnd']; ?> & <?php echo $campaign['empubnd']; ?></span>
+                              </div>
+                                <span style='color:#FF0000' id="empsize_msg"></span>
+                                    
+                            </div>
                         </div>
                 <hr>
                     <div class="form-group row">
-                        <div class="col-sm-2">
-                        <div class="tooltips">
-                          <input  type="text" autocomplete = "off"  name="empsize" id="empsize" maxlength="6" 
-                          value ="" placeholder="Actual Employee Size"  
-                                class="form-control form-control-sm cdqadisable <?php
-                                 if(isset($ldmster) && in_array('empsize',$dvrejectreason)) { echo "" ; } 
-                                 ?>">
-                                <span class="tooltiptext"> Select range  between <?php echo $campaign['emplbnd']; ?> & <?php echo $campaign['empubnd']; ?></span>
-                        </div>
-                          <span style='color:#FF0000' id="empsize_msg"></span>
-                               
-                            </div>
+                        
                             <div class="col-sm-2">
                               <div class="tooltips">
                                 <input type="text" autocomplete = "off"  name="arevenue" id="arevenue" value =""  maxlength="15" placeholder="Actual Revenue Size" 
@@ -519,6 +525,7 @@ $(document).ready(function() {
                             <div class="col-sm-2 <?php
                                  if(isset($ldmster) && in_array('domain',$dvrejectreason) && (!empty($domain))) { echo "" ; } 
                                  ?>">
+                                 <div class="tooltips">
                                  <?php if($ldmster['domain'] != ""){ ?>
                                   <a href="http://<?php echo $ldmster['domain'] ?>" target="_blank" style="float:right"><i class="icofont icofont-link"></i></a>
                                   <?php } else{ ?>
@@ -534,44 +541,56 @@ $(document).ready(function() {
                                 <?php endforeach; ?> 
                                </select>
                                <?php } else{ ?>
-                                <input type="text" autocomplete = "off"  value ="<?php if(isset($ldmster)){  echo $ldmster['domain']; }?>"   name="domain" id="domain"  placeholder="Domain" value="" 
+                                <input type="text" disabled="disabled" autocomplete = "off"  value ="<?php if(isset($ldmster)){  echo $ldmster['domain']; }?>"   name="domain" id="domain"  placeholder="Domain" value="" 
                                  class="form-control form-control-sm cdqadisable  <?php
                                  if(isset($ldmster) && in_array('domain',$dvrejectreason)) { echo "" ; } 
                                  ?>">
+                                  <span class="tooltiptext"> Domain<span>
                              <?php  } ?>
+                                </div>
                                 </div>
                                 <span style='color:#FF0000' id="domain_msg"></span>
                               </div>
                             
                             <div class="col-sm-2">
+                            <div class="tooltips">
                             <?php if($ldmster['empszlink'] != ""){ ?>
                               <a href="<?php if($ldmster['empszlink'] != ""){ echo $ldmster['empszlink']; } else{  echo "#"; } ?>" target="_blank" style="float:right"><i class="icofont icofont-link"></i></a>
                                 <?php } else{ ?>
                                 <a style="float:right"><i class="icofont icofont-unlink"></i></a>       
                                 <?php } ?>
-                                <input type="text" autocomplete = "off"  value ="<?php if(isset($ldmster)){  echo $ldmster['empszlink']; }?>"  name="empszlink" id="empszlink" value=""   placeholder="Employee Size Link" 
+                                <input type="text" disabled="disabled" autocomplete = "off"  value ="<?php if(isset($ldmster)){  echo $ldmster['empszlink']; }?>"  name="empszlink" id="empszlink" value=""   placeholder="Employee Size Link" 
                                  class="form-control form-control-sm  <?php
                                  if(isset($ldmster) && in_array('empszlink',$dvrejectreason)) { echo "" ; } 
                                  ?>">
+                                 <span class="tooltiptext"> Emp Size Link<span>
                             </div>
+                            </div>
+                            <div class="col-sm-2 ">
+                            <div class="tooltips">
+                                  <?php if($ldmster['indlink'] != ""){ ?>
+                                    <a href="<?php echo $ldmster['indlink'];?>" target="_blank" style="float:right"><i class="icofont icofont-link"></i></a>
+                                      <?php } else { ?>
+                                        <a style="float:right"><i class="icofont icofont-unlink"></i></a>       
+                                    <?php  } ?>
+                                    <input type="text" disabled="disabled" autocomplete = "off"  value ="<?php if(isset($ldmster)){  echo $ldmster['indlink']; }?>"  name="indlink" 
+                                    id="indlink"  placeholder="Industry Link" value="" class="form-control form-control-sm <?php
+                                    if(isset($ldmster) && in_array('indlink',$dvrejectreason)) { echo "" ; } 
+                                    ?>">
+                                      <span class="tooltiptext"> Industry Link<span>
+                                </div>
+                            </div>
+
+
                            
                         </div>
                         
                         <hr>
                         <div class="form-group row">
                            
-                        <div class="col-sm-2 ">
-                              <?php if($ldmster['indlink'] != ""){ ?>
-                                <a href="<?php echo $ldmster['indlink'];?>" target="_blank" style="float:right"><i class="icofont icofont-link"></i></a>
-                                  <?php } else { ?>
-                                    <a style="float:right"><i class="icofont icofont-unlink"></i></a>       
-                                <?php  } ?>
-                                <input type="text" autocomplete = "off"  value ="<?php if(isset($ldmster)){  echo $ldmster['indlink']; }?>"  name="indlink" 
-                                id="indlink"  placeholder="Industry Link" value="" class="form-control form-control-sm <?php
-                                 if(isset($ldmster) && in_array('indlink',$dvrejectreason)) { echo "" ; } 
-                                 ?>">
-                            </div>
+                        
                             <div class="col-sm-2">
+                            <div class="tooltips">
                             <?php if(isset($ldmster['revszlink']) && $ldmster['revszlink'] != "NA"){ ?>
                                 <a href=" <?php echo $ldmster['revszlink']; ?>" target="_blank" style="float:right"><i class="icofont icofont-link"></i></a>
                                   <?php } else{ ?>
@@ -581,18 +600,23 @@ $(document).ready(function() {
                                 class="form-control form-control-sm revsizehide <?php
                                  if(isset($ldmster) && in_array('revszlink',$dvrejectreason)) { echo "" ; } 
                                  ?>">
+                                  <span class="tooltiptext"> Revenue Size Link<span>
+                            </div>
                             </div>
                             <div class="col-sm-2">
+                            <div class="tooltips">
                             <?php if($ldmster['othrlink'] != ""){ ?>
                                 <!-- <a href="<?php //if($ldmster['othrlink'] != ""){ echo $ldmster['othrlink']; } else{  echo "#"; } ?>" target="_blank" style="float:right"><i class="icofont icofont-link"></i></a> -->
                                 <a href="<?php echo $ldmster['othrlink']; ?>" target="_blank" style="float:right"><i class="icofont icofont-link"></i></a> 
                                   <?php } else{ ?>
                                     <a style="float:right"><i class="icofont icofont-unlink"></i></a>
                                   <?php } ?>
-                                <input type="text" autocomplete = "off"  name="othrlink" id="othrlink" value ="<?php if(isset($ldmster)){  echo $ldmster['othrlink']; }?>" placeholder="Other Link"  
+                                <input disabled="disabled" type="text" autocomplete = "off"  name="othrlink" id="othrlink" value ="<?php if(isset($ldmster)){  echo $ldmster['othrlink']; }?>" placeholder="Other Link"  
                                 class="form-control form-control-sm <?php
                                  if(isset($ldmster) && in_array('othrlink',$dvrejectreason)) { echo "" ; } 
                                  ?>">
+                                   <span class="tooltiptext"> Other Link<span>
+                            </div>
                             </div>
                             <!-- <div class="col-sm-2">
                                 <select class="form-control form-control-sm"  name="emailver" id="emailver">
@@ -629,13 +653,13 @@ $(document).ready(function() {
                         
                        
                         <?php if(isset($ldmster) && $ldmster != 1 ){ ?> 
-                          <div class="form-group row" >
+                          <!-- <div class="form-group row" >
                              <div class="col-sm-12  comt">
                                 <label class="col-lable"><b>Comment</b></label>
                                 <input type="text" autocomplete = "off"  name="pcomt" id="pcomt"  placeholder="Comment"  class="form-control form-control-sm" 
                                 value="">
                             </div> 
-                         </div>
+                         </div> -->
                         
                           <input type = hidden name="lmid" id="lmid" value="<?php echo $ldmster['lmid']; ?>">
                           <input type = hidden name="emp_id" id="emp_id" value="<?php echo  $_SESSION['empcode']; ?>">
@@ -650,7 +674,7 @@ $(document).ready(function() {
                           <input type = hidden name="rlc" id="rlc" value="<?php echo $ldmster['rlc']; ?>">
                           <div class="col-sm-12">
                              <center>
-                              <button type="submit" name="leadupdate" class="btn btn-primary leaddisplay" style=""  id="leadupdate">Submit</button> 
+                              <button type="submit" name="leadupdatecandidate" class="btn btn-primary leaddisplay" style=""  id="leadupdatecandidate">Submit</button> 
                               <!-- <button type="submit" name="leadsave" class="btn btn-primary leaddisplay" style="margin-left:50px"  id="leadsave">Skip </button>  -->
                             </center>
                             </div>
@@ -659,7 +683,7 @@ $(document).ready(function() {
                         <input type = hidden name="emp_id" id="emp_id" value="<?php echo  $_SESSION['empcode']; ?>">
                         <div class="col-sm-12">
                              <center>
-                              <button type="submit" name="leadsubmit" class="btn btn-primary leaddisplay" style=""  id="leadsubmit">Submit </button> 
+                              <button type="submit" name="leadsubmitcandidate" class="btn btn-primary leaddisplay" style=""  id="leadsubmitcandidate">Submit </button> 
                               <!-- <button type="submit" name="leadsave" class="btn btn-primary leaddisplay" style="margin-left:50px"  id="leadsave">Skip </button>  -->
                              </center>
                             </div>
@@ -1348,38 +1372,38 @@ if(emp_id == ''){
   exit;
 }
 
-if(rlc == "1"){
-var urlq = '<?php echo base_url("cdc/updaterecordlock");?>';
-console.log(urlq+'?lmid='+lmid+"&rlc="+rlc+"&emp_id="+emp_id);
-$.ajax({
-      url:'<?php echo base_url("cdc/updaterecordlock");?>',
-      method: 'get',
-      data: {
-        lmid: lmid,
-        rlc:rlc,
-        emp_id:emp_id
-      },
-      dataType: 'json',
-      success: function(response){
+// if(rlc == "1"){
+// var urlq = '<?php echo base_url("cdc/updaterecordlock");?>';
+// console.log(urlq+'?lmid='+lmid+"&rlc="+rlc+"&emp_id="+emp_id);
+// $.ajax({
+//       url:'<?php echo base_url("cdc/updaterecordlock");?>',
+//       method: 'get',
+//       data: {
+//         lmid: lmid,
+//         rlc:rlc,
+//         emp_id:emp_id
+//       },
+//       dataType: 'json',
+//       success: function(response){
 
-        console.log("check");
-                    // var dataResult = JSON.parse(response);
-                    if(response.statusCode == "Success") 
-                    {         
+//         console.log("check");
+//                     // var dataResult = JSON.parse(response);
+//                     if(response.statusCode == "Success") 
+//                     {         
                      
-                      console.log("Record is opened/locked now");     
+//                       console.log("Record is opened/locked now");     
                       
-                    }else if(response.data=="Fail")
-                    {
-                      alert("fail/check if record is already opened");  
+//                     }else if(response.data=="Fail")
+//                     {
+//                       alert("fail/check if record is already opened");  
                         
-					          }
-      }
-  });
-}else{
-  alert("record already opened");
+// 					          }
+//       }
+//   });
+// }else{
+//   alert("record already opened");
  
-}
+// }
 
 
 // alert(lmid);
@@ -1544,7 +1568,7 @@ if(lmid == undefined){
 <script>
 /* add lead submit initial*/
     $(function() {
-        $("#leadsubmit").on('click', function() 
+        $("#leadsubmitcandidate").on('click', function() 
         {
           var empid = $('#emp_id').val();
           if(empid  === undefined){
@@ -1622,11 +1646,11 @@ if(lmid == undefined){
            
             if(fname != "" && lname != "" && company_name != "" && jlevel != "" && jtitle != "" && desid != "" && dcd !="" && email != "" && phone !="" && plink !="" && address != "" && city != "" && state != ""  && country_id != "" && industrycd != "" && subindustrycd != "" && empsize != "" && domain !=""  && empszlink != "" && revszlink != ""  && zip_code !="" ){
            
-            var url = encodeURI("<?php echo base_url("cdc/ajax_add_new_leaddata");?>");
+            var url = encodeURI("<?php echo base_url("cdc/ajax_add_new_leaddata_candidate");?>");
             console.log(url+"?campaign_id="+campaign_id+"&sal="+sal+"&fname="+fname+"&lname="+lname+"&jtitle="+jtitle+"&desid="+desid+"&jlevel="+jlevel+"&dcd="+dcd+"&email="+email+"&phone="+phone+"&altphn="+altphn+"&phext="+phext+"&plink="+plink+"&company_name="+company_name+"&address="+address+"&city="+city+"&state="+state+"&zip_code="+zip_code+"&country_id="+country_id+"&timezone="+timezone+"&ctype="+ctype+"&linetype="+linetype+"&industrycd="+industrycd+"&subindustrycd="+subindustrycd+"&sectyp="+sectyp+"&empsize="+empsize+"&mlbl="+mlbl+"&curr="+curr+"&arevenue="+arevenue+"&empszlink="+empszlink+"&indlink="+indlink+"&domain="+domain+"&othrlink="+othrlink+"&revszlink="+revszlink+"&emailver="+emailver+"&aum="+aum+"&assetid="+assetid+"&pcomt="+pcomt);
            
             $.ajax({
-                url :'<?php echo base_url("cdc/ajax_add_new_leaddata");?>',
+                url :'<?php echo base_url("cdc/ajax_add_new_leaddata_candidate");?>',
                 type: 'GET', 
                 // contentType: "application/json",
                 dataType: 'json',              
@@ -1684,13 +1708,13 @@ if(lmid == undefined){
                     if(response.statusCode == "Success") 
                     {         
                          
-                        $("#leadsubmit").html(response.message);
+                        $("#leadsubmitcandidate").html(response.message);
                         top.location.href=base_url+"cdc/add_candidate_lead?camp_id="+<?php echo $campaign['cnid']; ?>;//redirection
                       
                     }
                     else if(response.statusCode =="Fail")
                     {
-                        $("#leadsubmit").html(response.message);
+                        $("#leadsubmitcandidate").html(response.message);
                         
 					          }
                     else if(response.statusCode =="Exist")
@@ -1722,7 +1746,7 @@ if(lmid == undefined){
 /* update lead submit*/
 
     $(function() {
-        $("#leadupdate").on('click', function() 
+        $("#leadupdatecandidate").on('click', function() 
         {
           var empid = $('#emp_id').val();
           if(empid  === undefined){
@@ -1816,11 +1840,11 @@ if(lmid == undefined){
             
            
             if(fname != "" && lname != "" && company_name != ""  && jtitle != "" && desid != "" && dcd !="" && email != "" && phone !="" && plink !="" && address != "" && city != "" && state != ""  && country_id != "" && industrycd != "" && subindustrycd != "" && empsize != "" && domain !=""  && empszlink != "" && revszlink != ""  && zip_code !="" ){
-            var url = encodeURI("<?php echo base_url("cdc/ajax_update_leaddata");?>");
+            var url = encodeURI("<?php echo base_url("cdc/ajax_update_leaddata_candiate");?>");
             console.log(url+"?campaign_id="+campaign_id+"&lmid="+lmid+"&campaign_idcids="+campaign_idcids+"&sbsvtag="+sbsvtag+"&sal="+sal+"&fname="+fname+"&lname="+lname+"&jtitle="+jtitle+"&desid="+desid+"&jlevel="+jlevel+"&dcd="+dcd+"&email="+email+"&phone="+phone+"&altphn="+altphn+"&phext="+phext+"&plink="+plink+"&company_name="+company_name+"&address="+address+"&city="+city+"&state="+state+"&zip_code="+zip_code+"&country_id="+country_id+"&timezone="+timezone+"&ctype="+ctype+"&linetype="+linetype+"&industrycd="+industrycd+"&subindustrycd="+subindustrycd+"&sectyp="+sectyp+"&empsize="+empsize+"&mlbl="+mlbl+"&curr="+curr+"&arevenue="+arevenue+"&empszlink="+empszlink+"&indlink="+indlink+"&domain="+domain+"&othrlink="+othrlink+"&revszlink="+revszlink+"&emailver="+emailver+"&aum="+aum+"&assetid="+assetid+"&pcomt="+pcomt);
            
             $.ajax({
-                url :'<?php echo base_url("cdc/ajax_update_leaddata");?>',
+                url :'<?php echo base_url("cdc/ajax_update_leaddata_candiate");?>',
                 type: 'GET', 
                 // contentType: "application/json",
                 dataType: 'json',              
@@ -1889,12 +1913,12 @@ if(lmid == undefined){
                     if(response.statusCode == "Success") 
                     {         
                          
-                        $("#leadupdate").html(response.message);
+                        $("#leadupdatecandidate").html(response.message);
                         top.location.href=base_url+"cdc/add_candidate_lead?camp_id="+<?php echo $campaign['cnid']; ?>;//redirection
                       
                     }else if(response.data=="Fail")
                     {
-                        $("#leadupdate").html(response.message);
+                        $("#leadupdatecandidate").html(response.message);
                         
 					          }
                     else if(response.statusCode =="Exist")

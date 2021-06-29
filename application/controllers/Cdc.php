@@ -3780,6 +3780,250 @@
 								
 			
 		}
+		public function ajax_update_leaddata_candiate()
+		{
+			$campaign_id = $_GET['campaign_id'];
+			$cids = $_GET['campaign_idcids'];
+			$sbsvtag = $_GET['sbsvtag'];
+			$lmid = $_GET['lmid'];
+
+			if(!isset($_SESSION['empcode'])){
+				
+			
+				redirect('administrator/logout');
+				Exit();
+			}
+			$candidate_id= $_SESSION["newcandidate_id"];
+			
+			// die;
+				// Concatenation Of String 
+				$trimfname=$_GET['fname'];
+				$trimlname=$_GET['lname'];
+
+				$first =substr($trimfname, 0, 4);  // abcd
+				$last = substr($trimlname, 0, 4);
+				$conname = $first.$last; 
+
+
+				$old_date = date('Y-m-d H:i:s');         // works
+				$middle = strtotime($old_date);             // returns bool(false)
+				$new_date = date('Y-m-d H:i:s', $middle);
+
+				if(!empty($_GET['dvsbtg']))
+				{
+					$dvsbtg = $_GET['dvsbtg'];
+				} else{
+				$dvsbtg = 0 ;
+				}
+				if(!empty($_GET['dvrejtg']))
+				{
+					$dvrejtg = $_GET['dvrejtg'];
+				} else{
+				$dvrejtg = 0 ;
+				}
+
+
+				// if(empty($_GET['stagtidi']))
+				// {
+				// 	$stagtidi = $_SESSION['empcode'];
+				// }else{
+				// 	$stagtidi = $_GET['stagtidi'];
+				// }
+				// if(!empty($_GET['stagtidi']) AND empty($_GET['stagtidii']))
+				// {
+				// 	$stagtidii = $_SESSION['empcode'];
+				// }else{
+				// 	$stagtidii = NULL;
+				// }
+				// if(!empty($_GET['stagtidi']) AND !empty($_GET['stagtidii']))
+				// {
+				// 	$stagtidii = $_SESSION['empcode'];
+				// }
+				
+
+				// if(empty($_GET['stdti']))
+				// {
+				// 	$stdti = $old_date;
+				// }else{
+				// 	$stdti = $_GET['stdti'];
+				// }
+				// if(!empty($_GET['stdti']) AND (empty($_GET['stdtii'])))
+				// {
+				// 	$stdtii = $old_date;
+				// }else{
+				// 	$stdtii = NULL;
+				// }
+				// if(!empty($_GET['stdti']) AND !(empty($_GET['stdtii'])))
+				// {
+				// 	$stdtii = $old_date;
+				// }
+				
+
+				if(!empty($_GET['aum']))
+				{
+					$aum = $_GET['aum'];
+				} else{
+				$aum = 0 ;
+				}
+				if(!empty($_GET['arevenue']))
+				{
+					$arrevenue = $_GET['arevenue'];
+				} else{
+				$arrevenue = 0 ;
+				}
+				if(!empty($_GET['phext']))
+				{
+					$phext = $_GET['phext'];
+				} else{
+				$phext = 0 ;
+				}
+			   if(!empty($_GET['sectyp']))
+				{
+					$sectype = $_GET['sectyp'];
+				} else{
+				$sectype = 0 ; 
+				}  
+
+
+				if(!empty($_GET['optin']))
+				{
+					$optin = 1;
+				} else{
+				    $optin = 0 ;
+				}
+				if(!empty($_GET['optpst']))
+				{
+					$optpost = 1;
+				} else{
+				    $optpost = 0 ;
+				}
+				if(!empty($_GET['optph']))
+				{
+					$optph = 1;
+				} else{
+				    $optph = 0 ;
+				}
+				if(!empty($_GET['opteml']))
+				{
+					$opteml = 1;
+				} else{
+				    $opteml = 0 ;
+				}
+				if(!empty($_GET['timezone']))
+				{
+					$timezones = $_GET['timezone'];
+				} else{
+				    $timezones = 0 ;
+				}
+
+				
+				// $pcomt= "DC_candidate:".$candidate_id.":".$old_date."#".$_GET['pcomt'];
+
+				$datacdcandlead = array(
+				'cids' => $_GET['campaign_idcids'],
+				'lmid' => $lmid,
+				
+				'sal' => $_GET['sal'],
+				'fname' => $_GET['fname'],
+				'lname' => $_GET['lname'],
+				'conname' => $conname, //concate strings
+				'jtitle' => $_GET['jtitle'],
+				'jlevel' => $_GET['desid'],
+				'dname' => $_GET['dcd'], //department
+				'email' => $_GET['email'],
+				'phone' => $_GET['phone'],
+				'altphn' => $_GET['altphn'],
+
+				'phext' => $phext,
+				'plink' => $_GET['plink'],
+				'cname' => $_GET['company_name'],
+				'address' => $_GET['address'],
+
+				'city' => $_GET['city'],
+				'state' => $_GET['state'],
+				'zipcode' => $_GET['zip_code'],
+				'country' => $_GET['country_id'],
+				'timez' => $timezones,
+				'ctyp' => $_GET['ctype'],
+			
+				
+				'indtry' => $_GET['industrycd'],
+				'sindtry' => $_GET['subindustrycd'],
+
+				'sectyp' => $sectype,
+				'empsize' => $_GET['empsize'],
+				'arevenue' =>$arrevenue,
+				'mlbl' => $_GET['mlbl'],
+				'curr' => $_GET['curr'],
+
+				'domain' => $_GET['domain'],
+				'indlink' => $_GET['indlink'],
+				'revszlink' => $_GET['revszlink'],
+				'empszlink' => $_GET['empszlink'],
+				// 'pcomt' => $pcomt,
+
+				'othrlink' => $_GET['othrlink'],
+
+				// 'emailver' => $_GET['emailver'],
+				// 'aum' => $aum,
+				// 'dvsbtg' => $dvsbtg,
+				// 'dvrejtg' => $dvrejtg,
+				
+				// tag
+			
+				'sbsvtag' => '1', //  Submit till 5 times
+				'pload' => '1', // next level ready to load
+				
+				'ontag' => '0', // record is closed
+
+				'stagtidi' => $candidate_id,
+				
+
+				'stdti' => $old_date
+				
+				
+				);
+			
+		
+			// $checkforEmail = $this->Administrator_Model->get_email_duplication_count_leadmaster_update($_GET['email'],$lmid);
+			// if($checkforEmail == true)
+			// {
+			// 	echo json_encode(array(
+			// 		"statusCode"=>"Exist",					
+			// 		"message"=>"Email is already Exist"
+			// 	));
+			// 	return;
+			// }
+			// $checkforplink = $this->Administrator_Model->get_plink_duplication_count_leadmaster_update($_GET['plink'],$lmid);
+			
+			// if($checkforplink == true)
+			// {
+			// 	echo json_encode(array(
+			// 		"statusCode"=>"plink",					
+			// 		"message"=>"Prospect link is already Exist"
+			// 	));
+			// 	return;
+			// }
+
+				$addleadandcdcdata = $this->Administrator_Model->add_leaddata_candidate($datacdcandlead);
+			
+
+				if($addleadandcdcdata == true){
+			
+					echo json_encode(array(
+						"statusCode"=>"Success",
+						"lead_id"=>$addleadandcdcdata,
+						"message"=>"Lead Uptated Successfully.."
+					));
+				}else{
+					echo json_encode(array(
+						"statusCode"=>"Fail",
+						"message"=>"Add data Lead failed.."
+					));
+				}
+								
+			
+		}
 		public function ajax_update_leaddatacdc()
 		{
 			$campaign_id = $_GET['campaign_id'];

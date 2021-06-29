@@ -4860,4 +4860,82 @@ public function get_all_record_leadmasterby_Delivered($rec_stage,$period,$dcd,$l
 			// echo $this->db->last_query(); 
 			return $query->result_array();
 		}
+
+		public function get_lead_record($candidate_id)
+		{
+			
+			// echo $cond;
+			$sql = " SELECT testleadmaster.lmid,
+			testleadmaster.cids,
+			testleadmaster.sal,
+			testleadmaster.fname,
+			testleadmaster.dname,
+			testleadmaster.lname,
+			testleadmaster.jtitle,
+			joblevels.joblevel,
+			joblevels.joblist,
+			dept.department,
+			testleadmaster.cname,
+			testleadmaster.indtry,
+			testleadmaster.sindtry,
+			comptype.ctypname,
+			industry.industry,
+			industry.subindustry,
+			testleadmaster.sectyp,
+				CASE
+					WHEN (testleadmaster.sectyp = 0) THEN 'Unknown'::text
+					WHEN (testleadmaster.sectyp = 1) THEN 'Public'::text
+					WHEN (testleadmaster.sectyp = 2) THEN 'Private'::text
+					WHEN (testleadmaster.sectyp = 3) THEN 'Government'::text
+					WHEN (testleadmaster.sectyp = 4) THEN 'Non - Profit'::text
+					ELSE NULL::text
+				END AS sector,
+			testleadmaster.empsize,
+			testleadmaster.arevenue,
+			testleadmaster.mlbl,
+				CASE
+					WHEN (testleadmaster.mlbl = 0) THEN 'Thousands'::text
+					WHEN (testleadmaster.mlbl = 1) THEN 'Millions'::text
+					WHEN (testleadmaster.mlbl = 2) THEN 'Billions'::text
+					WHEN (testleadmaster.mlbl = 3) THEN 'Trillions'::text
+					ELSE NULL::text
+				END AS denomination,
+			testleadmaster.email,
+			testleadmaster.phone,
+			
+			testleadmaster.phext,
+			testleadmaster.altphn,
+			testleadmaster.address,
+			testleadmaster.city,
+			testleadmaster.country,
+			testleadmaster.state,
+			testleadmaster.zipcode,
+			country.countryname,
+			country.currnme,
+			timezone.abbrev,
+			testleadmaster.domain,
+			testleadmaster.plink,
+			testleadmaster.empszlink,
+			testleadmaster.indlink,
+			testleadmaster.revszlink,
+			testleadmaster.othrlink,
+			testleadmaster.ctyp
+			-- leadmaster.aum
+		   FROM ((((((testleadmaster 
+			 LEFT JOIN country ON ((testleadmaster.country = country.countrycd)))
+			 LEFT JOIN timezone ON ((testleadmaster.timez = timezone.zids)))
+			 LEFT JOIN industry ON ((testleadmaster.sindtry = industry.subindustrycd)))
+			 LEFT JOIN joblevels ON ((testleadmaster.jlevel = joblevels.jid)))
+			 LEFT JOIN dept ON ((testleadmaster.dname = dept.dcd)))
+			 LEFT JOIN comptype ON ((testleadmaster.ctyp = comptype.ctypid)))
+			
+			where 
+			 tlmid = $candidate_id
+		  ORDER BY testleadmaster.lmid limit 20;";
+		  $query = $this->db->query($sql);
+		//   return $query->result_array();
+		return $query;
+
+		}	
+
 }

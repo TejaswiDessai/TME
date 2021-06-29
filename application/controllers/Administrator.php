@@ -3733,7 +3733,14 @@ public function getPrivillage(){
 
 		public function result($candidate_id = NULL)
 		{
-			echo "Result page";
+			
+			// $data['leadmaster'] = $this->Administrator_Model->get_lead_record($candidate_id);
+			$data['users'] = $this->Administrator_Model->get_lead_record($candidate_id);
+			$this->load->view('administrator/header-script');
+			$this->load->view('administrator/header');
+			$this->load->view('administrator/header-bottom');
+			$this->load->view('administrator/test-result', $data);
+			$this->load->view('administrator/footer');
 		}
 }
 

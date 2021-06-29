@@ -104,7 +104,7 @@ rel="Stylesheet"type="text/css"/>
                                     <div class="form-group row">
                                         <label class="col-sm-2 col-form-label">Phone</label>
                                         <div class="col-sm-10">
-                                            <input type="text" id="phone" name="phone" class="form-control" placeholder="Phone no" autocomplete="off" required>
+                                            <input type="number" id="phone" name="phone" class="form-control" placeholder="Phone no" autocomplete="off" required>
                                         </div>
                                     </div>                        
                                     <div class="form-group row">

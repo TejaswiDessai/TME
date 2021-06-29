@@ -3658,6 +3658,43 @@ public function getPrivillage(){
 			));
 			$_SESSION["login_time_stamp"]='1200'; // timer timing 20 mints // line added by tejaswi
 		}
+
+		public function candidate_list($offset = 0)
+		{
+			// Pagination Config
+			$config['base_url'] = base_url(). 'administrator/users/';
+			$config['total_rows'] = $this->db->count_all('users');
+			$config['per_page'] = 3;
+			$config['uri_segment'] = 3;
+			$config['attributes'] = array('class' => 'paginate-link');
+
+			// Init Pagination
+			$this->pagination->initialize($config);
+
+			$data['title'] = 'Latest Users';
+
+			$userstatus = $this->input->post('userstatus');
+			$data['userstatus'] = $userstatus;
+			$cid_type = $this->input->post('cid_type');
+			$data['cid_type'] = $cid_type;
+			$roles = $this->input->post('roles');
+			$data['roles'] = $roles;
+// print_r($userstatus);
+			$data['users'] = $this->Administrator_Model->get_candidatelist($userstatus,$cid_type,$roles);
+		
+			
+
+			 	$this->load->view('administrator/header-script');
+		 	 	 $this->load->view('administrator/header');
+		  		 $this->load->view('administrator/header-bottom');
+		   		 $this->load->view('administrator/candidate-list', $data);
+		  		$this->load->view('administrator/footer');
+		}
+
+		public function result($candidate_id = NULL)
+		{
+			echo "Result page";
+		}
 }
 
 

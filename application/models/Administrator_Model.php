@@ -4858,4 +4858,23 @@ public function get_all_record_leadmasterby_Delivered($rec_stage,$period,$dcd,$l
 		// die;
 		return $query->result_array();
 	}
+
+	public function get_candidatelist($userstatus,$cid_type,$roles)
+		{
+			
+			// $emp_id = $this->session->userdata('emp_id');
+			// $manager = $this->get_manager_by_emp($emp_id);
+			// $this->db->join('roles', 'roles.rid = users.role');
+
+			// if(isset($userstatus) && $userstatus == "deactivated")
+			// {
+			// 	$this->db->where('users.status',1);
+			// }
+			
+			$this->db->order_by('candidate.candidate_id', 'DESC');
+			$query = $this->db->get('candidate');
+			
+			// echo $this->db->last_query(); 
+			return $query->result_array();
+		}
 }

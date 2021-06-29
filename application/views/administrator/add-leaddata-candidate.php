@@ -1745,6 +1745,26 @@ if(lmid == undefined){
 <script>
 /* update lead submit*/
 
+$(document).ready(function() { //below code is to disable back button
+
+window.history.pushState(null, "", window.location.href);        
+
+window.onpopstate = function() {
+
+    window.history.pushState(null, "", window.location.href);
+
+};
+
+});
+
+
+$(document).ready(function () {
+    function disableBack() {window.history.forward()}
+
+    window.onload = disableBack();
+    window.onpageshow = function (evt) {if (evt.persisted) disableBack()}
+});
+
     $(function() {
         $("#leadupdatecandidate").on('click', function() 
         {

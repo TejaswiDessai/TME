@@ -149,7 +149,7 @@ $(document).ready(function() {
                 <div class="col-sm-4" style="margin-top: -25px;">
 
 <progress value="<?php  print_r($_SESSION['login_time_stamp']) ?>" max="<?php  print_r($_SESSION['login_time_stamp']) ?>" id="pageBeginCountdown"></progress>
-    <p> test duration:20 Minutes</p><p>Time left <span id="pageBeginCountdownText"> </span> seconds </p>
+    <p> test duration:20 Minutes</p><p> <span style="color:#ee5656" id="pageBeginCountdownText"> </span> seconds left</p>
                 </div>
             </div>          
     </div>
@@ -190,10 +190,10 @@ $(document).ready(function() {
                             <div class="col-sm-1">
                                  <select name="sal" id="sal"  class="form-control  form-control-sm cdqadisable">
                                  <option value="Mr">Mr.</option>
-                                      <option value="Ms" <?php if(isset($ldmster) && $ldmster['sal'] == "Ms"){ echo "selected" ; } ?>>Ms.</option>
-                                      <option value="Mrs" <?php if(isset($ldmster) && $ldmster['sal'] == "Mrs"){ echo "selected" ; } ?>>Mrs.</option>
-                                      <option value="Dr" <?php if(isset($ldmster) && $ldmster['sal'] == "Dr"){ echo "selected" ; } ?>>Dr.</option>
-                                      <option value="Other"<?php if(isset($ldmster) && $ldmster['sal'] == "Other"){ echo "selected" ; } ?>>Other</option>
+                                      <option value="Ms">Ms.</option>
+                                      <option value="Mrs">Mrs.</option>
+                                      <option value="Dr">Dr.</option>
+                                      <option value="Other">Other</option>
                                 </select>
                             </div>
                             <div class="col-sm-2">
@@ -207,14 +207,16 @@ $(document).ready(function() {
                             </div>
                             
                             <div class="col-sm-2">
-                                <input type="text"  name="lname" id="lname" autocomplete = "off" placeholder="Last Name" value ="<?php if(isset($ldmster)){  echo $ldmster['lname']; }?>"   class="form-control form-control-sm cdqadisable
+                                <input type="text"  name="lname" id="lname" autocomplete = "off" placeholder="Last Name"
+                                 value =""   class="form-control form-control-sm cdqadisable
                                 <?php
                                  if(isset($ldmster) && in_array('lname',$dvrejectreason)) { echo "" ; } 
                                  ?>">
                                 <span style='color:#FF0000' id="lname_msg"></span>
                             </div>
                             <div class="col-sm-3">
-                                <input type="text"  name="jtitle" id="jtitle" autocomplete = "off"  placeholder="Job Title" value ="<?php if(isset($ldmster)){  echo $ldmster['jtitle']; }?>"  class="form-control form-control-sm cdqadisable
+                                <input type="text"  name="jtitle" id="jtitle" autocomplete = "off"  placeholder="Job Title"
+                                 value =""  class="form-control form-control-sm cdqadisable
                                 <?php
                                  if(isset($ldmster) && in_array('jtitle',$dvrejectreason)) { echo "" ; } 
                                  ?>">
@@ -223,7 +225,7 @@ $(document).ready(function() {
                                 <select class="form-control form-control-sm cdqadisable" name="jlevel" id="jlevel">
                                   <option value="">Job Level</option>
                                   <?php foreach ($joblevel as $joblevel): ?>
-                                      <option value="<?php echo $joblevel['joblids']; ?>"  <?php if(isset($ldmster) && $ldmster['jlevel'] == $joblevel['joblids']){ echo "selected" ; } ?> ><?php echo $joblevel['joblevel']; ?></option>
+                                      <option value="<?php echo $joblevel['joblids']; ?>" ><?php echo $joblevel['joblevel']; ?></option>
                                   <?php endforeach; ?>
                                 </select>
                             </div>
@@ -236,7 +238,7 @@ $(document).ready(function() {
                                  ?>" name="desid" id="desid">
                                 <option value="">Designation</option>
                                 <?php foreach ($designation as $designation): ?>
-                                    <option value="<?php echo $designation['jid']; ?>" <?php if(isset($ldmster) && $ldmster['jlevel'] == $designation['jid']){ echo "selected" ; } ?>><?php echo $designation['joblist']; ?></option>
+                                    <option value="<?php echo $designation['jid']; ?>" ><?php echo $designation['joblist']; ?></option>
                                 <?php endforeach; ?>  
                                 </select>
                             </div>
@@ -252,13 +254,13 @@ $(document).ready(function() {
                                   ?>" name="dcd" id="dcd">
                                       <option value=""> Department</option>
                                   <?php foreach ($departments as $dept): ?>
-                                      <option value="<?php echo $dept['dcd']; ?>"  <?php if(isset($ldmster) && $ldmster['dname'] == $dept['dcd']){ echo "selected" ; } ?> ><?php echo $dept['department']; ?></option>
+                                      <option value="<?php echo $dept['dcd']; ?>" ><?php echo $dept['department']; ?></option>
                                   <?php endforeach; ?>
                                   </select>
                             </div> 
                             <div class="col-sm-2">
                                 <div class="newsletter-signup">
-                                <input type="text"  name="email" id="email" autocomplete = "off" value ="<?php if(isset($ldmster)){  echo $ldmster['email']; }?>"  placeholder="Email"  class="form-control form-control-sm cdqadisable
+                                <input type="text"  name="email" id="email" autocomplete = "off" value =""  placeholder="Email"  class="form-control form-control-sm cdqadisable
                                 <?php
                                  if(isset($ldmster) && in_array('email',$dvrejectreason)) { echo "" ; } 
                                  ?>">
@@ -266,21 +268,22 @@ $(document).ready(function() {
                                 <span style='color:#FF0000' id="email_msg"></span>
                             </div>
                             <div class="col-sm-2">
-                                <input type="text"  name="phone" id="phone" autocomplete = "off" value ="<?php if(isset($ldmster)){  echo $ldmster['phone']; }?>" placeholder="Phone" maxlength="15"  class="form-control form-control-sm cdqadisable
+                                <input type="text"  name="phone" id="phone" autocomplete = "off" value ="" placeholder="Phone" maxlength="15"  class="form-control form-control-sm cdqadisable
                                 <?php
                                  if(isset($ldmster) && in_array('phone',$dvrejectreason)) { echo "" ; } 
                                  ?>">
                                 <span style='color:#FF0000' id="phone_msg"></span>
                             </div>
                             <div class="col-sm-2">
-                                <input type="text"  name="altphn" id="altphn" autocomplete = "off"  value ="<?php if(isset($ldmster)){  echo $ldmster['altphn']; }?>" placeholder="Alternate Phone Number" maxlength="10"  class="form-control form-control-sm cdqadisable
+                                <input type="text"  name="altphn" id="altphn" autocomplete = "off"  value ="" placeholder="Alternate Phone Number" maxlength="10"  class="form-control form-control-sm cdqadisable
                                 <?php
                                  if(isset($ldmster) && in_array('altphn',$dvrejectreason)) { echo "" ; } 
                                  ?>">
                             </div>
                             
                             <div class="col-sm-2">
-                                <input type="text"  name="phext" id="phext" autocomplete = "off"  value ="<?php if(isset($ldmster)){  echo $ldmster['phext']; }?>" placeholder="Extension" maxlength="5"  class="form-control form-control-sm cdqadisable
+                                <input type="text"  name="phext" id="phext" autocomplete = "off" 
+                                 value ="" placeholder="Extension" maxlength="5"  class="form-control form-control-sm cdqadisable
                                 <?php
                                  if(isset($ldmster) && in_array('phext',$dvrejectreason)) { echo "" ; } 
                                  ?>">
@@ -294,7 +297,7 @@ $(document).ready(function() {
                                 <input type="text"  name="plink" id="plink" autocomplete = "off"  placeholder="Prospect Link"  class="form-control form-control-sm 
                                 <?php
                                  if(isset($ldmster) && in_array('plink',$dvrejectreason)) { echo "" ; } 
-                                 ?>" value ="<?php if(isset($ldmster)){  echo $ldmster['plink']; }?>" >
+                                 ?>" value ="" >
                                
                                 <span style='color:#FF0000' id="url_msg"></span>
                             </div>
@@ -306,9 +309,9 @@ $(document).ready(function() {
                                  if(isset($ldmster) && in_array('linetype',$dvrejectreason)) { echo "" ; } 
                                  ?>">
                                      <option value="0">Line Type</option>
-                                     <option value="0" <?php if(isset($ldmster) && $ldmster['linetype'] == 0){ echo "selected" ; } ?> >unknown</option>
-                                     <option value="1" <?php if(isset($ldmster) && $ldmster['linetype'] == 1){ echo "selected" ; } ?>>Direct</option>
-                                     <option value="2" <?php if(isset($ldmster) && $ldmster['linetype'] == 2){ echo "selected" ; } ?>>Board</option>  
+                                     <option value="0">unknown</option>
+                                     <option value="1">Direct</option>
+                                     <option value="2">Board</option>  
                                </select>
                               
                            </div>
@@ -321,13 +324,13 @@ $(document).ready(function() {
                                  <select name="company_name" id="company_name"   class="js-example-basic-single"> 
                                      <option value="">Company Name</option>
                                      <?php foreach ($comp_list as $comp_list): ?>
-                                    <option value="<?php echo $comp_list['companynms']; ?>" <?php if(isset($ldmster) && $ldmster['cname'] == $comp_list['companynms']){ echo "selected" ; } ?>><?php echo $comp_list['companynms']; ?></option>
+                                    <option value="<?php echo $comp_list['companynms']; ?>" ><?php echo $comp_list['companynms']; ?></option>
                                 <?php endforeach; ?> 
                                </select>
                                <?php } else{ ?>
                                 <input type="text" autocomplete = "off"   name="company_name" id="company_name"  placeholder="Company Name"  class="form-control form-control-sm cdqadisable <?php
                                  if(isset($ldmster) && in_array('company_name',$dvrejectreason)) { echo "" ; } 
-                                 ?>"  value ="<?php if(isset($ldmster)){  echo $ldmster['cname']; }?>">
+                                 ?>"  value ="">
                              <?php  } ?>
 
                                 </div>
@@ -335,26 +338,30 @@ $(document).ready(function() {
                               </div> 
 
                             <div class="col-sm-2">
-                                <input type="text"  name="address" autocomplete = "off" id="address"  placeholder="Address"  value ="<?php if(isset($ldmster)){  echo $ldmster['address']; }?>"
+                                <input type="text"  name="address" autocomplete = "off" id="address"  placeholder="Address" 
+                                 value =""
                                  class="form-control form-control-sm cdqadisable <?php
                                  if(isset($ldmster) && in_array('address',$dvrejectreason)) { echo "" ; } 
                                  ?>">
                            </div>
                            <div class="col-sm-2">
-                                <input type="text"  name="city" id="city" autocomplete = "off"  placeholder="City" value ="<?php if(isset($ldmster)){  echo $ldmster['city']; }?>"   class="form-control form-control-sm cdqadisable
+                                <input type="text"  name="city" id="city" autocomplete = "off"  placeholder="City" 
+                                value =""   class="form-control form-control-sm cdqadisable
                                 <?php
                                  if(isset($ldmster) && in_array('city',$dvrejectreason)) { echo "" ; } 
                                  ?>">
                            </div>
                            <div class="col-sm-2">
-                                <input type="text"  name="state" id="state" autocomplete = "off"   placeholder="State" value ="<?php if(isset($ldmster)){  echo $ldmster['state']; }?>" class="form-control form-control-sm cdqadisable
+                                <input type="text"  name="state" id="state" autocomplete = "off"   placeholder="State"
+                                 value ="" class="form-control form-control-sm cdqadisable
                                 <?php
                                  if(isset($ldmster) && in_array('state',$dvrejectreason)) { echo "" ; } 
                                  ?>">
                                 </select>
                             </div>
                             <div class="col-sm-2">
-                                <input type="text"  name="zip_code" id="zip_code" autocomplete = "off"  placeholder="Zip Code" value ="<?php if(isset($ldmster)){  echo $ldmster['zipcode']; }?>" class="form-control form-control-sm cdqadisable
+                                <input type="text"  name="zip_code" id="zip_code" autocomplete = "off"  placeholder="Zip Code" 
+                                value ="" class="form-control form-control-sm cdqadisable
                                 <?php
                                  if(isset($ldmster) && in_array('zip_code',$dvrejectreason)) { echo "" ; } 
                                  ?>">
@@ -371,7 +378,8 @@ $(document).ready(function() {
                                   ?>" name="country_id" id="country_id">
                                       <option value="">Countries</option>
                                   <?php foreach ($countriesofcampaign as $countriesofcampaign): ?>
-                                      <option value="<?php echo $countriesofcampaign['countrycd']; ?>" <?php if(isset($ldmster) && $ldmster['country'] == $countriesofcampaign['countrycd']){ echo "selected" ; } ?>  ><?php echo $countriesofcampaign['countryname']; ?></option>
+                                      <option value="<?php echo $countriesofcampaign['countrycd']; ?>">
+                                      <?php echo $countriesofcampaign['countryname']; ?></option>
                                   <?php endforeach; ?>
                                   </select>
                                   <span style='color:#FF0000' id="country_id_msg"></span>
@@ -389,7 +397,7 @@ $(document).ready(function() {
                              <option value="">Timezone</option>
                               <?php foreach ($timezones as $tz):
                                  ?>
-                                    <option value="<?php echo $tz['zids']; ?>"  <?php if(isset($ldmster) && $ldmster['timez'] == $tz['zids']){ echo "selected" ; } ?>><?php echo $tz['abbrev']; ?></option>
+                                    <option value="<?php echo $tz['zids']; ?>" ><?php echo $tz['abbrev']; ?></option>
                                 <?php endforeach;  }?>
                                 </select>
                                 <span style='color:#FF0000' id="timezone_msg"></span>
@@ -401,7 +409,8 @@ $(document).ready(function() {
                                  ?>"> 
                                      <option value="0">Company Type</option>
                                      <?php foreach ($comptype as $comptype): ?>
-                                    <option value="<?php echo $comptype['ctypid']; ?>" <?php if(isset($ldmster) && $ldmster['ctyp'] == $comptype['ctypid']){ echo "selected" ; } ?>><?php echo $comptype['ctypname']; ?></option>
+                                    <option value="<?php echo $comptype['ctypid']; ?>" >
+                                    <?php echo $comptype['ctypname']; ?></option>
                                 <?php endforeach; ?> 
                                </select>
                            </div>
@@ -419,7 +428,7 @@ $(document).ready(function() {
                                  ?>"  name="industrycd" id="industrycd">
                               <option value="">Industry</option>
                               <?php foreach ($industries as $industry): ?>
-                                    <option value="<?php echo $industry['industrycd']; ?>" <?php if(isset($ldmster) && $ldmster['indtry'] == $industry['industrycd']){ echo "selected" ; } ?>><?php echo $industry['industry']; ?></option>
+                                    <option value="<?php echo $industry['industrycd']; ?>"><?php echo $industry['industry']; ?></option>
                                 <?php endforeach; ?>
                                 </select>
                                 <span style='color:#FF0000' id="industry_id_msg"></span>
@@ -435,7 +444,8 @@ $(document).ready(function() {
                                  ?>" name="subindustrycd" id="subindustrycd">
                                 <option value="">Sub Industry</option>
                                 <?php foreach ($industriessub as $sub): ?>
-                                    <option value="<?php echo $sub['subindustrycd']; ?>" <?php if(isset($ldmster) && $ldmster['sindtry'] == $sub['subindustrycd']){ echo "selected" ; } ?>><?php echo $sub['subindustry']; ?></option>
+                                    <option value="<?php echo $sub['subindustrycd']; ?>" >
+                                    <?php echo $sub['subindustry']; ?></option>
                                 <?php endforeach; ?>
                                 </select>
                                 <span style='color:#FF0000' id="subindustry_id_msg"></span>
@@ -446,11 +456,11 @@ $(document).ready(function() {
                                  if(isset($ldmster) && in_array('sectyp',$dvrejectreason)) { echo "" ; } 
                                  ?>" name="sectyp" id="sectyp">                                  
                                     <option value="0">Sector Type</option>
-                                    <option value="0"  <?php if(isset($ldmster) && $ldmster['sectyp'] == 0){ echo "selected" ; } ?>>Unknown</option>
-                                    <option value="1"  <?php if(isset($ldmster) && $ldmster['sectyp'] == 1){ echo "selected" ; } ?>>Public</option>
-                                    <option value="2" <?php if(isset($ldmster) && $ldmster['sectyp'] == 2){ echo "selected" ; } ?>>Private</option>
-                                    <option value="3" <?php if(isset($ldmster) && $ldmster['sectyp'] == 3){ echo "selected" ; } ?>>Government</option>
-                                    <option value="4" <?php if(isset($ldmster) && $ldmster['sectyp'] == 4){ echo "selected" ; } ?>>Non-Profit </option>
+                                    <option value="0" >Unknown</option>
+                                    <option value="1" >Public</option>
+                                    <option value="2">Private</option>
+                                    <option value="3">Government</option>
+                                    <option value="4">Non-Profit </option>
                                </select>
                             </div>
                         </div>
@@ -458,7 +468,8 @@ $(document).ready(function() {
                     <div class="form-group row">
                         <div class="col-sm-2">
                         <div class="tooltips">
-                          <input  type="text" autocomplete = "off"  name="empsize" id="empsize" maxlength="6" value ="<?php if(isset($ldmster)){  echo $ldmster['empsize']; }?>" placeholder="Actual Employee Size"  
+                          <input  type="text" autocomplete = "off"  name="empsize" id="empsize" maxlength="6" 
+                          value ="" placeholder="Actual Employee Size"  
                                 class="form-control form-control-sm cdqadisable <?php
                                  if(isset($ldmster) && in_array('empsize',$dvrejectreason)) { echo "" ; } 
                                  ?>">
@@ -469,7 +480,7 @@ $(document).ready(function() {
                             </div>
                             <div class="col-sm-2">
                               <div class="tooltips">
-                                <input type="text" autocomplete = "off"  name="arevenue" id="arevenue" value ="<?php if(isset($ldmster)){  echo $ldmster['arevenue']; }?>"  maxlength="15" placeholder="Actual Revenue Size" 
+                                <input type="text" autocomplete = "off"  name="arevenue" id="arevenue" value =""  maxlength="15" placeholder="Actual Revenue Size" 
                                  class="form-control form-control-sm cdqadisable <?php
                                  if(isset($ldmster) && in_array('arevenue',$dvrejectreason)) { echo "" ; } 
                                  ?>">
@@ -487,10 +498,10 @@ $(document).ready(function() {
                                  ?>" name="mlbl" id="mlbl">
                                 
                                
-                                    <option value="0" <?php if(isset($ldmster) && $ldmster['mlbl'] == 0){ echo "selected" ; } ?> >K</option>
-                                   <option value="1" <?php if(isset($ldmster) && $ldmster['mlbl'] == 1){ echo "selected" ; } ?>>M</option>
-                                    <option value="2"<?php if(isset($ldmster) && $ldmster['mlbl'] == 2){ echo "selected" ; } ?>>B</option>
-                                    <option value="3"<?php if(isset($ldmster) && $ldmster['mlbl'] == 3){ echo "selected" ; } ?>>T</option>
+                                    <option value="0">K</option>
+                                   <option value="1">M</option>
+                                    <option value="2">B</option>
+                                    <option value="3">T</option>
                                     </select>
                             </div>          
                             <div class="col-sm-2">
@@ -499,7 +510,7 @@ $(document).ready(function() {
                                  ?>" name="curr" id="curr">
                                     <option value="1">USD</option>                                  
                                 <?php foreach ($currency as $currency): ?>
-                                    <option value="<?php echo $currency['currid']; ?>"  <?php if(isset($ldmster) && $ldmster['curr'] == $currency['currid']){ echo "selected" ; } ?>><?php echo $currency['currab']; ?></option>
+                                    <option value="<?php echo $currency['currid']; ?>"  ><?php echo $currency['currab']; ?></option>
                                 <?php endforeach; ?>
                                    </select>
                                 
@@ -583,19 +594,20 @@ $(document).ready(function() {
                                  if(isset($ldmster) && in_array('othrlink',$dvrejectreason)) { echo "" ; } 
                                  ?>">
                             </div>
-                            <div class="col-sm-2">
+                            <!-- <div class="col-sm-2">
                                 <select class="form-control form-control-sm"  name="emailver" id="emailver">
                                     <option value="0">Email Verification</option>
-                                    <option value="1"<?php if(isset($ldmster) && $ldmster['emailver'] == 1){ echo "selected" ; } ?>>Yes</option>
-                                    <option value="0"<?php if(isset($ldmster) && $ldmster['emailver'] == 0){ echo "selected" ; } ?>>No</option>
+                                    <option value="1">Yes</option>
+                                    <option value="0">No</option>
                                 </select>
                             </div>
                             <div class="col-sm-2">
-                                <input type="text" autocomplete = "off"  name="aum" id="aum" value ="<?php if(isset($ldmster)){  echo $ldmster['aum']; }?>" placeholder="Asset Under Management" 
+                                <input type="text" autocomplete = "off"  name="aum" id="aum" 
+                                value ="<?php //if(isset($ldmster)){  echo $ldmster['aum']; }?>" placeholder="Asset Under Management" 
                                  class="form-control form-control-sm aumdis <?php
-                                 if(isset($ldmster) && in_array('aum',$dvrejectreason)) { echo "" ; } 
+                                 //if(isset($ldmster) && in_array('aum',$dvrejectreason)) { echo "" ; } 
                                  ?>">
-                            </div>
+                            </div> -->
                             <!-- <div class="col-sm-2">
                                 <select class="form-control form-control-sm commentvisible <?php
                                 //  if(isset($ldmster) && in_array('assetid',$dvrejectreason)) { echo "" ; } 
@@ -639,7 +651,7 @@ $(document).ready(function() {
                           <div class="col-sm-12">
                              <center>
                               <button type="submit" name="leadupdate" class="btn btn-primary leaddisplay" style=""  id="leadupdate">Submit</button> 
-                              <button type="submit" name="leadsave" class="btn btn-primary leaddisplay" style="margin-left:50px"  id="leadsave">Skip </button> 
+                              <!-- <button type="submit" name="leadsave" class="btn btn-primary leaddisplay" style="margin-left:50px"  id="leadsave">Skip </button>  -->
                             </center>
                             </div>
                         <?php } ?>
@@ -648,7 +660,7 @@ $(document).ready(function() {
                         <div class="col-sm-12">
                              <center>
                               <button type="submit" name="leadsubmit" class="btn btn-primary leaddisplay" style=""  id="leadsubmit">Submit </button> 
-                              <button type="submit" name="leadsave" class="btn btn-primary leaddisplay" style="margin-left:50px"  id="leadsave">Skip </button> 
+                              <!-- <button type="submit" name="leadsave" class="btn btn-primary leaddisplay" style="margin-left:50px"  id="leadsave">Skip </button>  -->
                              </center>
                             </div>
                         <?php } ?>
@@ -1673,7 +1685,7 @@ if(lmid == undefined){
                     {         
                          
                         $("#leadsubmit").html(response.message);
-                        top.location.href=base_url+"cdc/addleaddata?camp_id="+<?php echo $campaign['cnid']; ?>;//redirection
+                        top.location.href=base_url+"cdc/add_candidate_lead?camp_id="+<?php echo $campaign['cnid']; ?>;//redirection
                       
                     }
                     else if(response.statusCode =="Fail")
@@ -1878,7 +1890,7 @@ if(lmid == undefined){
                     {         
                          
                         $("#leadupdate").html(response.message);
-                        top.location.href=base_url+"cdc/addleaddata?camp_id="+<?php echo $campaign['cnid']; ?>;//redirection
+                        top.location.href=base_url+"cdc/add_candidate_lead?camp_id="+<?php echo $campaign['cnid']; ?>;//redirection
                       
                     }else if(response.data=="Fail")
                     {
@@ -2065,7 +2077,7 @@ if(lmid == undefined){
                     {     
                       // alert("Success");                   
                         $("#leadsave").html(response.message);
-                        top.location.href=base_url+"cdc/addleaddata?camp_id="+<?php echo $campaign['cnid']; ?>;//redirection
+                        top.location.href=base_url+"cdc/add_candidate_lead?camp_id="+<?php echo $campaign['cnid']; ?>;//redirection
                         
                     }else if(response.statusCode=="Fail")
                     {
@@ -2100,10 +2112,17 @@ if(lmid == undefined){
 
 
 // added by tejaswi for timer   
+var base_url = "<?php echo base_url() ?>";
 var countdownnumber = <?php  echo $_SESSION["login_time_stamp"]; ?> 
-ProgressCountdown(20, 'pageBeginCountdown', 'pageBeginCountdownText').then(value => alert(`Test is finished: ${value}.`));
+ProgressCountdown(countdownnumber, 'pageBeginCountdown', 'pageBeginCountdownText').then(
+    // value => alert(`Test is finished: ${value}.`),
+   
+  );
+ 
+
 
 function ProgressCountdown(timeleft, bar, text) {
+
   return new Promise((resolve, reject) => {
     var countdownTimer = setInterval(() => {
       timeleft--;
@@ -2127,6 +2146,7 @@ function ProgressCountdown(timeleft, bar, text) {
       if (timeleft <= 0) {
         clearInterval(countdownTimer);
         resolve(true);
+        window.location = base_url+"administrator/logout_candiate";
       }
     }, 1000);
   });

@@ -24,6 +24,22 @@
 			$this->load->view('administrator/footer');
 		}
 
+		public function thankyou($page = 'thankyou'){
+			if($this->session->userdata('login')) {
+    			redirect('administrator/dashboard');
+   			}
+
+			if (!file_exists(APPPATH.'views/administrator/'.$page.'.php')) {
+				show_404();
+			}
+			$data['title'] = ucfirst($page);
+			$this->load->view('administrator/header-script');
+			//$this->load->view('administrator/header');
+			//$this->load->view('administrator/index');
+			$this->load->view('administrator/'.$page, $data);
+			$this->load->view('administrator/footer');
+		}
+
 		public function home($page = 'home'){
 			if (!file_exists(APPPATH.'views/administrator/'.$page.'.php')) {
 				show_404();
@@ -150,6 +166,30 @@ echo $date;
 			
 			// redirect(base_url().'administrator/index');
 			redirect(base_url());
+		}
+		public function logout_candiate(){
+			// unset user data
+			$data['title'] = 'Admin Login';
+			$this->Administrator_Model->update_recordlockonlogin($this->session -> userdata('empcode'));
+
+			$this->db->where('empid',  $this->session -> userdata('emp_id'));
+			$this->db->where('session_id', session_id());
+			$this->db->update('userlog', array('empid' => $this->session -> userdata('emp_id'),'logout'=> date('Y-m-d H:i:s'))); 
+
+			$this->session->unset_userdata('login');
+			$this->session->unset_userdata('user_id');
+			$this->session->unset_userdata('username');
+			$this->session->unset_userdata('role_id');
+			$this->session->unset_userdata('emp_id');
+			$this->session->unset_userdata('empcode');
+			$this->session->unset_userdata('image');
+			$this->session->unset_userdata('site_logo');
+			$this->session->unset_userdata('token');
+			//Set Message
+			$this->session->set_flashdata('success', 'You are logged out.');
+			redirect(base_url().'administrator/thankyou');
+			// $this->load->view('administrator/thankyou', $data);
+			// redirect(base_url());
 		}
 
 		public function forget_password($page = 'forget-password'){

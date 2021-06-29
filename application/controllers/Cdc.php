@@ -278,7 +278,10 @@
 						
 						// $data['leadmaster'] = $this->Administrator_Model->get_leadmasterby_campaignidwithempcode($cids,$empcode);
 						$data['leadmaster'] = $this->Administrator_Model->get_dv_cleared_for_candidate_test();
-						
+						if($data['leadmaster'] == Null){
+							// redirect('administrator/logout'); // do it later
+						}
+
 					   foreach ($data['leadmaster'] as $ldmster) {
 						$camp_id_ld = $ldmster['cids'];
 						}
@@ -292,9 +295,9 @@
 						}
 						$camp_id = $camp['cnid'];
 						
-						if($data['leadmaster'] == Null){
-							$data['leadmaster'] = [1];
-						}
+						// if($data['leadmaster'] == Null){
+						// 	$data['leadmaster'] = [1];
+						// }
 						$data['countries'] = $this->Administrator_Model->get_countriesbyCampaign($camp_id);
 				
 							foreach($data['countries'] as $co){
@@ -358,7 +361,7 @@
 
 			$this->load->view('administrator/header-script');
 			$this->load->view('administrator/header');
-			$this->load->view('administrator/header-bottom');
+			// $this->load->view('administrator/header-bottom');
 			 $this->load->view('administrator/'.$page, $data);
 			$this->load->view('administrator/footer');
 		

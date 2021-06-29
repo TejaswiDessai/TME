@@ -3685,6 +3685,7 @@ public function getPrivillage(){
 
 		function save_candidate()
 		{
+			$testtime=$_GET['testtime'];
 			$Fname=$_GET['Fname'];
 			$email=$_GET['email'];
 			$phone = $_GET['phone'];
@@ -3692,11 +3693,18 @@ public function getPrivillage(){
 			$education = $_GET['education'];
 			$gender = $_GET['gender'];
 			$register_date = date("Y-m-d H:i:s");
-			$this->Administrator_Model->save_candidate($Fname,$email,$phone,$address,$education,$gender,$register_date);	
+			$datasavedid =$this->Administrator_Model->save_candidate($Fname,$email,$phone,$address,$education,$gender,$register_date);	
 			echo json_encode(array(
-				"statusCode"=>200
+				"statusCode"=>200,
+				"datasavedid"=>$datasavedid
 			));
-			$_SESSION["login_time_stamp"]='1200'; // timer timing 20 mints // line added by tejaswi
+			if($testtime == '20'){
+				$_SESSION["login_time_stamp"]='1200'; // timer timing 20 mints // line added by tejaswi
+			}else{
+				$_SESSION["login_time_stamp"]='1800'; // timer timing 30 mints // line added by tejaswi
+			}
+		
+			$_SESSION["newcandidate_id"] = $datasavedid; // timer timing 20 mints // line added by tejaswi
 		}
 
 		public function candidate_list($offset = 0)

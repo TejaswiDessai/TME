@@ -2720,6 +2720,17 @@ public function get_campaign_fordataverification()
 			return true;
 			
 		}
+		public function add_leaddata_candidate($datacdcandlead)
+		{
+                        
+			$this->db->insert('testleadmaster', $datacdcandlead);
+			//  $insert_id = $this->db->insert_id();
+			// echo $this->db->last_query(); 
+			return true;
+			
+			//  return  $insert_id;
+                       
+		}
 		public function update_recordlock($lmid,$datarecord)
 		{
 			$this->db->where('lmid', $lmid);
@@ -4813,6 +4824,12 @@ public function get_all_record_leadmasterby_Delivered($rec_stage,$period,$dcd,$l
 		$query="INSERT INTO candidate( fullname, email, phone,address,education,curr_date,gender) 
 			VALUES ('$Fname','$email','$phone','$address','$education','$register_date','$gender')";
 			$this->db->query($query);
+
+			$insert_id = $this->db->insert_id();
+			//  return true;
+			// echo $this->db->last_query(); 
+			// echo  $insert_id; 
+			 return  $insert_id;
 	}
 
 	public function get_dv_cleared_for_candidate_test($id = FALSE)

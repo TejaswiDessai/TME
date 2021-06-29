@@ -76,7 +76,14 @@ rel="Stylesheet"type="text/css"/>
                         <!-- Basic Form Inputs card start -->
                         <div class="card" style="padding:70px;">
                             <div class="card-header">
-                                <h5>Candidate Information</h5>
+                                <h5>Candidate Information  
+                                <select style="margin-top: -29px;margin-left: 250px;" name="testtime" id="testtime"  
+                                class="form-control">
+                                 <option value="20">Test Time - 20 Mints</option>
+                                 <option value="30">Test Time - 30 Mints</option>
+                                
+                                 </select></h5><br><br><br>
+                               
                                 <div class="card-header-right">
                                     <i class="icofont icofont-rounded-down"></i>
                                     <i class="icofont icofont-refresh"></i>
@@ -159,11 +166,43 @@ rel="Stylesheet"type="text/css"/>
                             </div>
                         </div>
                         <!-- Basic Form Inputs card end -->
+                        <!-- <script type="text/javascript">
+                        alert();
+                        window.onbeforeunload = function() { return "Your work will be lost."; };
+    </script> -->
                         <script>
+                                $(document).ready(function() { //below code is to disable back button
+
+                                    window.history.pushState(null, "", window.location.href);        
+
+                                    window.onpopstate = function() {
+
+                                        window.history.pushState(null, "", window.location.href);
+
+                                    };
+
+                                });
+
                           
                         $(document).ready(function() {
+
+        $(document).ready(function() {
+
+            window.history.pushState(null, "", window.location.href);        
+
+            window.onpopstate = function() {
+
+                window.history.pushState(null, "", window.location.href);
+
+            };
+
+        });
+
+
+                            
                             $('#butsave').on('click', function() {
                                 var Fname = $('#Fname').val();
+                                var testtime = $('#testtime').val();
                                 if(Fname == '')
                                 {
                                     alert("Please enter full name");
@@ -195,6 +234,7 @@ rel="Stylesheet"type="text/css"/>
                                         url: "<?php echo base_url("Administrator/save_candidate");?>",
                                         type: "GET",
                                         data: {
+                                            testtime: testtime,
                                             Fname: Fname,
                                             email: email,
                                             phone: phone,
@@ -231,6 +271,14 @@ rel="Stylesheet"type="text/css"/>
                             });
                         });
                         </script>
+
+
+<script type="text/javascript">
+        window.history.forward();
+        function noBack() {
+            window.history.forward();
+        }
+    </script>
 
      <script type="text/javascript" src="<?php echo base_url(); ?>admintemplate/bower_components/switchery/dist/switchery.min.js"></script>
     <!-- Custom js -->

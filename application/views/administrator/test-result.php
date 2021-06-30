@@ -311,7 +311,7 @@ $(document).ready(function(){
                                 <p style="color:black;font-weight:bold;">Total Score</p>
                                 </td>
                                 <td>
-                                <p style="color:black;font-weight:bold;"><?php echo array_sum($total);?></p>
+                                <p style="color:black;font-weight:bold;"><?php if(isset($total)) { echo array_sum($total);}?></p>
                                 </td>
                                 </tr>
                                 <!-- <div class="paginate-link">

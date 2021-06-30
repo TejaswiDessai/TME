@@ -156,6 +156,7 @@ $(document).ready(function(){
                                 $count = 0;
                                 $total_count = 0;
                                 // echo $j;
+                                $total[] = 0;
                                 ?>
                                  <tr>
                                         <td><input type="checkbox" class ="emailclass checkbox_emailclass" value="<?php echo $post->lmid;?>" name="delivery_final_check[]" id="delivery_final_check_<?php echo $i;?>" ><?php //echo $i;?>
@@ -281,7 +282,7 @@ $(document).ready(function(){
                                          ?>
                                          </td>
                                          <td>
-                                         <?php echo $count;?>
+                                         <?php echo $total[$i] = $count;?>
                                          </td>
                                         <!-- <td> -->
                                                 <?php //if($post['status'] == 0){ ?>
@@ -296,9 +297,15 @@ $(document).ready(function(){
                                         
                                     </tr>
                                 <?php  }//endforeach;
-                                // echo $total_count + $count;
                                 ?>
-
+                                <tr>
+                                <td>
+                                Total Score
+                                </td>
+                                <td>
+                                <?php echo array_sum($total);?>
+                                </td>
+                                </tr>
                                 <!-- <div class="paginate-link">
                                     <?php //echo $this->pagination->create_links(); ?>
                                 </div>  -->

@@ -4947,7 +4947,7 @@ public function get_all_record_leadmasterby_Delivered($rec_stage,$period,$dcd,$l
 			 LEFT JOIN comptype ON ((testleadmaster.ctyp = comptype.ctypid)))
 			
 			where 
-			 tlmid = $candidate_id
+			 stagtidi = $candidate_id
 		  ORDER BY testleadmaster.lmid limit 20;";
 		  $query = $this->db->query($sql);
 		//   return $query->result_array();

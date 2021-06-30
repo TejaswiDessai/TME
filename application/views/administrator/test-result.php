@@ -121,8 +121,8 @@ $(document).ready(function(){
                             <table id="dom-jqry" class="table table-striped table-bordered nowrap">
                                 <thead>
                                 <tr>
-                                        <th><input type="checkbox" class="emailsend_all  emailclass"  onclick="toggle(this);"/>&nbsp;&nbsp;Select</th>
-                                        <th>Camp Id</th>
+                                        <!-- <th><input type="checkbox" class="emailsend_all  emailclass"  onclick="toggle(this);"/>&nbsp;&nbsp;Select</th> -->
+                                        <th>Sr.No.</th>
                                         <th>Sal</th>
                                         <th>FName</th>
                                         <th>LName</th>
@@ -160,10 +160,11 @@ $(document).ready(function(){
                                 $total[] = 0;
                                 ?>
                                  <tr>
-                                        <td><input type="checkbox" class ="emailclass checkbox_emailclass" value="<?php echo $post->lmid;?>" name="delivery_final_check[]" id="delivery_final_check_<?php echo $i;?>" ><?php //echo $i;?>
+                                        <!-- <td><input type="checkbox" class ="emailclass checkbox_emailclass" value="<?php echo $post->lmid;?>" name="delivery_final_check[]" id="delivery_final_check_<?php echo $i;?>" ><?php //echo $i;?>
                                         <input type="hidden" name="leadid" id="leadid_<?php echo $i;?>" value="<?php echo $post->lmid;?>">
-                                        </td>
-                                        <td><?php echo $post->cids; ?></td>
+                                        </td> -->
+                                        <!-- <td><?php //echo $post->cids; ?></td> -->
+                                        <td><?php echo $i;?></td>
                                         <td><?php 
                                         $query = $this->db->query("SELECT sal FROM leadmaster where sal = '".$post->sal."' and lmid = '".$post->lmid."'  ");
                                         $sal_count = $query->num_rows();
@@ -290,7 +291,7 @@ $(document).ready(function(){
                                          ?>
                                          </td>
                                          <td>
-                                         <?php echo $total[$i] = $count;?>
+                                         <?php echo $total[$i] = 21-$count;?>
                                          </td>
                                         <!-- <td> -->
                                                 <?php //if($post['status'] == 0){ ?>

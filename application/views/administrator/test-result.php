@@ -240,7 +240,7 @@ $(document).ready(function(){
                                          else { echo $post->sector;}
                                          ?></td>
                                          <td><?php 
-                                          $query = $this->db->query("SELECT empsize FROM leadmaster where empsize = '".$post->sectyp."' and lmid = '".$post->lmid."'");
+                                          $query = $this->db->query("SELECT empsize FROM leadmaster where empsize = '".$post->empsize."' and lmid = '".$post->lmid."'");
                                           $subindustry_count = $query->num_rows();
                                           if($subindustry_count == 0){ $count++; echo "<p style='color:red'>".$post->empsize."</p>";} 
                                           else { echo $post->empsize;}

@@ -138,7 +138,7 @@ $(document).ready(function(){
                                         <!-- <td>
                                             <img width="20px;" src="<?php echo site_url();?>assets/images/users/<?php echo $post['image']; ?> ">                                           
                                         </td> -->
-                                        <td><a href="edit-blog.php?id=14"><?php echo $post['fullname']; ?></a></td>
+                                        <td><?php echo $post['fullname']; ?></td>
                                         <td><?php echo $post['email']; ?></td>
                                         <td><?php echo $post['phone']; ?></td>
                                          <td><?php echo date("M d,Y", strtotime($post['curr_date'])); ?></td>

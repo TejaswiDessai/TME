@@ -308,10 +308,10 @@ $(document).ready(function(){
                                 ?>
                                 <tr>
                                 <td>
-                                Total Score
+                                <p style="color:black;font-weight:bold;">Total Score</p>
                                 </td>
                                 <td>
-                                <?php echo array_sum($total);?>
+                                <p style="color:black;font-weight:bold;"><?php echo array_sum($total);?></p>
                                 </td>
                                 </tr>
                                 <!-- <div class="paginate-link">

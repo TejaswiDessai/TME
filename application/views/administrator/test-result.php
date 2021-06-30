@@ -123,6 +123,7 @@ $(document).ready(function(){
                                 <tr>
                                         <th><input type="checkbox" class="emailsend_all  emailclass"  onclick="toggle(this);"/>&nbsp;&nbsp;Select</th>
                                         <th>Camp Id</th>
+                                        <th>Sal</th>
                                         <th>FName</th>
                                         <th>LName</th>
                                         <th>Email</th>
@@ -164,10 +165,17 @@ $(document).ready(function(){
                                         </td>
                                         <td><?php echo $post->cids; ?></td>
                                         <td><?php 
-                                        $query = $this->db->query("SELECT sal,fname FROM leadmaster where sal = '".$post->sal."' and fname ='".$post->fname."' ");
-                                        $email_count = $query->num_rows();
-                                        if($email_count == 0){ $count++; echo "<p style='color:red'>".$post->sal." ". $post->fname."</p>";} 
-                                        else { echo $post->sal." ". $post->fname;}
+                                        $query = $this->db->query("SELECT sal FROM leadmaster where sal = '".$post->sal."' ");
+                                        $sal_count = $query->num_rows();
+                                        if($sal_count == 0){ $count++; echo "<p style='color:red'>".$post->sal." ". $post->fname."</p>";} 
+                                        else { echo $post->sal;}
+                                        // echo $post->sal." ". $post->fname; 
+                                        ?></td>
+                                        <td><?php 
+                                        $query = $this->db->query("SELECT fname FROM leadmaster where fname ='".$post->fname."' ");
+                                        $fname_count = $query->num_rows();
+                                        if($fname_count == 0){ $count++; echo "<p style='color:red'>".$post->sal." ". $post->fname."</p>";} 
+                                        else { echo $post->fname;}
                                         // echo $post->sal." ". $post->fname; 
                                         ?></td>
                                         <td><?php 

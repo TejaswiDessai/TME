@@ -596,7 +596,7 @@ $(document).ready(function() {
                                   <?php } else{ ?>
                                       <a style="float:right"><i class="icofont icofont-unlink"></i></a>
                                 <?php  } ?>
-                                <input type="text" autocomplete = "off"   name="revszlink" id="revszlink" value ="<?php if(isset($ldmster)){  echo $ldmster['revszlink']; }?>"     placeholder="Revenue Size Link"  
+                                <input type="text"  disabled="disabled" autocomplete = "off"   name="revszlink" id="revszlink" value ="<?php if(isset($ldmster)){  echo $ldmster['revszlink']; }?>"     placeholder="Revenue Size Link"  
                                 class="form-control form-control-sm revsizehide <?php
                                  if(isset($ldmster) && in_array('revszlink',$dvrejectreason)) { echo "" ; } 
                                  ?>">
@@ -875,12 +875,12 @@ $('#country_id').change(function(){
 
 
 // check revenue range for campaign
-$('#arevenue').change(function(){
+// $('#arevenue').change(function(){
 
-  $("#revszlink").prop('disabled', false);
-  $('#revszlink').val("");
+//   $("#revszlink").prop('disabled', false);
+//   $('#revszlink').val("");
   
-});
+// });
 
 $('#mlbl').blur(function(){   // revenue range change
 // $('#arevenue').blur(function(){   // revenue range change
@@ -1627,11 +1627,11 @@ if(lmid == undefined){
             var revszlink = $('#revszlink').val();
             if(arevenue ==""){
               
-              $("#revszlink").prop('disabled', true);
+              // $("#revszlink").prop('disabled', true);
               $('#revszlink').val("NA");
             }else if(arevenue != ""){
               
-              $("#revszlink").prop('disabled', false);
+              // $("#revszlink").prop('disabled', false);
               var revszlink = $('#revszlink').val();
             }
         
@@ -2038,15 +2038,15 @@ $(document).ready(function () {
 
             var arevenue = $('#arevenue').val();
             var revszlink = $('#revszlink').val();
-            if(arevenue ==""){
+            // if(arevenue ==""){
               
-              $("#revszlink").prop('disabled', true);
-              $('#revszlink').val("NA");
-            }else if(arevenue != ""){
+            //   $("#revszlink").prop('disabled', true);
+            //   $('#revszlink').val("NA");
+            // }else if(arevenue != ""){
               
-              $("#revszlink").prop('disabled', false);
-              var revszlink = $('#revszlink').val();
-            }
+            //   $("#revszlink").prop('disabled', false);
+            //   var revszlink = $('#revszlink').val();
+            // }
         
             var othrlink = $('#othrlink').val();
             var emailver = $('#emailver').val();

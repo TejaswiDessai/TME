@@ -84,19 +84,19 @@ $(document).ready(function(){
                                     <option value="deactivated" <?php if( isset($userstatus) && $userstatus == "deactivated") { echo "selected" ; } ?>>Deactivated</option>
                                     </select>
                              </td> -->
-                            <td>
+                            <!-- <td>
                                 <select style="height:34px;" class="form-control form-control-sm "  name="cid_type" id="cid_type">
                                     <option value="">Select Company</option>
                                     <option value="ME" <?php if( isset($cid_type) && $cid_type == "ME") { echo "selected" ; } ?>>ME</option>
                                     <option value="HP" <?php if( isset($cid_type) && $cid_type == "HP") { echo "selected" ; } ?>>HP</option>
                                     <option value="TMB" <?php if( isset($cid_type) && $cid_type == "TMB") { echo "selected" ; } ?>>TMB</option>
                                     </select>
-                             </td>
+                             </td> -->
                             
                             
-                             <td>
+                             <!-- <td>
                                 <input  class="btn btn-primary" type="submit" name="submit" value="Fetch Record">
-                            </td>
+                            </td> -->
                             <td>
                                
                                 <a class="btn btn-primary refreshbtn" style="color:white;" href=''>Refresh <i class="icofont icofont-refresh"></i></a>

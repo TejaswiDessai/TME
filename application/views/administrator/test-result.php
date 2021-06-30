@@ -143,7 +143,7 @@ $(document).ready(function(){
                                         <th>ZipCode</th>
                                         <th>Domain</th>
                                         <th>Prospect Link</th>
-                                        <!-- <th>Action</th> -->
+                                        <th>Score</th>
                                         <!-- <th>Update</th> -->
                                     </tr>
                                 </thead>
@@ -153,6 +153,8 @@ $(document).ready(function(){
                                 foreach($result as $post) {
                                 
                                 $i++;
+                                $count = 0;
+                                $total_count = 0;
                                 // echo $j;
                                 ?>
                                  <tr>
@@ -163,120 +165,123 @@ $(document).ready(function(){
                                         <td><?php 
                                         $query = $this->db->query("SELECT sal,fname FROM leadmaster where sal = '".$post->sal."' and fname ='".$post->fname."' ");
                                         $email_count = $query->num_rows();
-                                        if($email_count == 0){ echo "<p style='color:red'>".$post->sal." ". $post->fname."</p>";} 
+                                        if($email_count == 0){ $count++; echo "<p style='color:red'>".$post->sal." ". $post->fname."</p>";} 
                                         else { echo $post->sal." ". $post->fname;}
                                         // echo $post->sal." ". $post->fname; 
                                         ?></td>
                                         <td><?php 
                                         $query = $this->db->query("SELECT lname FROM leadmaster where lname = '".$post->lname."'");
                                         $lname_count = $query->num_rows();
-                                        if($lname_count == 0){ echo "<p style='color:red'>".$post->lname."</p>";} 
+                                        if($lname_count == 0){ $count++; echo "<p style='color:red'>".$post->lname."</p>";} 
                                         else { echo $post->lname;}
                                          ?></td>
                                         <td><?php 
                                         $query = $this->db->query("SELECT email FROM leadmaster where email = '".$post->email."'");
                                         $email_count = $query->num_rows();
-                                        if($email_count == 0){ echo "<p style='color:red'>".$post->email."</p>";} 
+                                        if($email_count == 0){ $count++; echo "<p style='color:red'>".$post->email."</p>";} 
                                         else { echo $post->email;}
                                         ?></td>
                                         <td><?php 
                                         $query = $this->db->query("SELECT phone FROM leadmaster where phone = '".$post->phone."'");
                                         $phone_count = $query->num_rows();
-                                        if($phone_count == 0){ echo "<p style='color:red'>".$post->phone."</p>";} 
+                                        if($phone_count == 0){ $count++; echo "<p style='color:red'>".$post->phone."</p>";} 
                                         else { echo $post->phone;}
                                          ?></td>
                                        
                                          <td><?php 
                                          $query = $this->db->query("SELECT jtitle FROM leadmaster where jtitle = '".$post->jtitle."'");
                                          $jtitle_count = $query->num_rows();
-                                         if($jtitle_count == 0){ echo "<p style='color:red'>".$post->jtitle."</p>";} 
+                                         if($jtitle_count == 0){ $count++; echo "<p style='color:red'>".$post->jtitle."</p>";} 
                                          else { echo $post->jtitle;}
                                          ?></td>
                                          <td><?php 
                                          $query = $this->db->query("SELECT dname FROM leadmaster where dname = '".$post->dname."'");
                                          $department_count = $query->num_rows();
-                                         if($department_count == 0){ echo "<p style='color:red'>".$post->department."</p>";} 
+                                         if($department_count == 0){ $count++; echo "<p style='color:red'>".$post->department."</p>";} 
                                          else { echo $post->department;}
                                          ?></td>
                                          <td><?php 
                                           $query = $this->db->query("SELECT ctyp FROM leadmaster where ctyp = '".$post->ctyp."'");
                                           $cname_count = $query->num_rows();
-                                          if($cname_count == 0){ echo "<p style='color:red'>".$post->cname."</p>";} 
+                                          if($cname_count == 0){ $count++; echo "<p style='color:red'>".$post->cname."</p>";} 
                                           else { echo $post->cname;}
                                          ?></td>
                                          <td><?php 
                                          $query = $this->db->query("SELECT cname FROM leadmaster where cname = '".$post->cname."'");
                                          $ctypname_count = $query->num_rows();
-                                         if($ctypname_count == 0){ echo "<p style='color:red'>".$post->ctypname."</p>";} 
+                                         if($ctypname_count == 0){ $count++; echo "<p style='color:red'>".$post->ctypname."</p>";} 
                                          else { echo $post->ctypname;}
                                          ?></td>
                                          <td><?php 
                                          $query = $this->db->query("SELECT indtry FROM leadmaster where indtry = '".$post->indtry."'");
                                          $industry_count = $query->num_rows();
-                                         if($industry_count == 0){ echo "<p style='color:red'>".$post->industry."</p>";} 
+                                         if($industry_count == 0){ $count++; echo "<p style='color:red'>".$post->industry."</p>";} 
                                          else { echo $post->industry;}
                                          ?></td>
                                          <td><?php 
                                          $query = $this->db->query("SELECT sindtry FROM leadmaster where sindtry = '".$post->sindtry."'");
                                          $subindustry_count = $query->num_rows();
-                                         if($subindustry_count == 0){ echo "<p style='color:red'>".$post->subindustry."</p>";} 
+                                         if($subindustry_count == 0){ $count++; echo "<p style='color:red'>".$post->subindustry."</p>";} 
                                          else { echo $post->subindustry;}
                                          ?></td>
                                          <td><?php 
                                          $query = $this->db->query("SELECT sectyp FROM leadmaster where sectyp = '".$post->sectyp."'");
                                          $subindustry_count = $query->num_rows();
-                                         if($subindustry_count == 0){ echo "<p style='color:red'>".$post->sector."</p>";} 
+                                         if($subindustry_count == 0){ $count++; echo "<p style='color:red'>".$post->sector."</p>";} 
                                          else { echo $post->sector;}
                                          ?></td>
                                          <td><?php 
                                           $query = $this->db->query("SELECT empsize FROM leadmaster where empsize = '".$post->sectyp."'");
                                           $subindustry_count = $query->num_rows();
-                                          if($subindustry_count == 0){ echo "<p style='color:red'>".$post->empsize."</p>";} 
+                                          if($subindustry_count == 0){ $count++; echo "<p style='color:red'>".$post->empsize."</p>";} 
                                           else { echo $post->empsize;}
                                          ?></td>
                                          <td><?php 
                                          $query = $this->db->query("SELECT country FROM leadmaster where country = '".$post->country."'");
                                          $subindustry_count = $query->num_rows();
-                                         if($subindustry_count == 0){ echo "<p style='color:red'>".$post->countryname."</p>";} 
+                                         if($subindustry_count == 0){ $count++; echo "<p style='color:red'>".$post->countryname."</p>";} 
                                          else { echo $post->countryname;}
                                          ?></td>
                                          <td><?php 
                                          $query = $this->db->query("SELECT state FROM leadmaster where state = '".$post->state."'");
                                          $state_count = $query->num_rows();
-                                         if($state_count == 0){ echo "<p style='color:red'>".$post->state."</p>";} 
+                                         if($state_count == 0){ $count++; echo "<p style='color:red'>".$post->state."</p>";} 
                                          else { echo $post->state;}
                                          ?></td>
                                          <td><?php 
                                          $query = $this->db->query("SELECT city FROM leadmaster where city = '".$post->city."'");
                                          $city_count = $query->num_rows();
-                                         if($city_count == 0){ echo "<p style='color:red'>".$post->city."</p>";} 
+                                         if($city_count == 0){ $count++; echo "<p style='color:red'>".$post->city."</p>";} 
                                          else { echo $post->city;}
                                          ?></td>
                                          <td><?php 
                                          $query = $this->db->query("SELECT address FROM leadmaster where address = '".$post->address."'");
                                          $address_count = $query->num_rows();
-                                         if($address_count == 0){ echo "<p style='color:red'>".$post->address."</p>";} 
+                                         if($address_count == 0){ $count++; echo "<p style='color:red'>".$post->address."</p>";} 
                                          else { echo $post->address;}
                                          ?></td>
                                          <td><?php 
                                          $query = $this->db->query("SELECT zipcode FROM leadmaster where zipcode = '".$post->zipcode."'");
                                          $zipcode_count = $query->num_rows();
-                                         if($zipcode_count == 0){ echo "<p style='color:red'>".$post->zipcode."</p>";} 
+                                         if($zipcode_count == 0){ $count++; echo "<p style='color:red'>".$post->zipcode."</p>";} 
                                          else { echo $post->zipcode;}
                                          ?></td>
                                          <td><?php 
                                          $query = $this->db->query("SELECT domain FROM leadmaster where domain = '".$post->domain."'");
                                          $domain_count = $query->num_rows();
-                                         if($domain_count == 0){ echo "<p style='color:red'>".$post->domain."</p>";} 
+                                         if($domain_count == 0){ $count++; echo "<p style='color:red'>".$post->domain."</p>";} 
                                          else { echo $post->domain;}
                                          ?></td>
                                          <td>
                                          <?php 
                                          $query = $this->db->query("SELECT plink FROM leadmaster where plink = '".$post->plink."'");
                                          $plink_count = $query->num_rows();
-                                         if($plink_count == 0){ echo "<p style='color:red'>".$post->plink."</p>";} 
+                                         if($plink_count == 0){ $count++; echo "<p style='color:red'>".$post->plink."</p>";} 
                                          else { echo $post->plink;}
                                          ?>
+                                         </td>
+                                         <td>
+                                         <?php echo $count;?>
                                          </td>
                                         <!-- <td> -->
                                                 <?php //if($post['status'] == 0){ ?>
@@ -290,12 +295,14 @@ $(document).ready(function(){
                                         <!-- </td> -->
                                         
                                     </tr>
-                                <?php }//endforeach; ?>
+                                <?php  }//endforeach;
+                                // echo $total_count + $count;
+                                ?>
 
                                 <!-- <div class="paginate-link">
                                     <?php //echo $this->pagination->create_links(); ?>
                                 </div>  -->
-
+                                
                                  </tbody>
 
                             </table>

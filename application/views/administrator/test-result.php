@@ -286,8 +286,8 @@ $(document).ready(function(){
                                           <td><?php 
                                          $query = $this->db->query("SELECT timez FROM leadmaster where timez = '".$post->timez."' and lmid = '".$post->lmid."'");
                                          $timez_count = $query->num_rows();
-                                         if($timez_count == 0){ $count++; echo "<p style='color:red'>".$post->zonename."</p>";} 
-                                         else { echo $post->zonename;}
+                                         if($timez_count == 0){ $count++; echo "<p style='color:red'>".$post->abbrev."</p>";} 
+                                         else { echo $post->abbrev;}
                                          ?></td>
                                          <td><?php 
                                          $query = $this->db->query("SELECT indtry FROM leadmaster where indtry = '".$post->indtry."' and lmid = '".$post->lmid."'");

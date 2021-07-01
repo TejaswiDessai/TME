@@ -182,7 +182,7 @@ $(document).ready(function(){
                                              $sal = $result_sals['sal'];
                                             echo "<p style='color:green'>".$sal."</p>";
                                         }
-                                        echo $count_column++;
+                                         $count_column++;
                                         ?></td>
                                         <td><?php 
                                          $lmfname = trim($post->fname);
@@ -314,9 +314,9 @@ $(document).ready(function(){
                                               $cname = $result_cname['cname'];
                                              echo "<p style='color:green'>".$cname."</p>";
                                          } 
-                                         echo  $count_column++;
+                                           $count_column++;
                                          ?></td>
-                                         <td><?php  echo $count_column;
+                                         <td><?php  
                                          $query = $this->db->query("SELECT ctyp FROM leadmaster where ctyp = '".$post->ctyp."' and lmid = '".$post->lmid."'");
                                          $ctypname_count = $query->num_rows();
                                          if($ctypname_count == 0){ $count++; echo "<p style='color:red'>".$post->ctypname."</p>";} 
@@ -341,7 +341,7 @@ $(document).ready(function(){
                                          } 
                                       
                                          ?></td>
-                                          <td><?php  echo $count_column;
+                                          <td><?php  
                                          $query = $this->db->query("SELECT timez FROM leadmaster where timez = '".$post->timez."' and lmid = '".$post->lmid."'");
                                          $timez_count = $query->num_rows();
                                          if($timez_count == 0){ $count++; echo "<p style='color:red'>".$post->abbrev."</p>";} 
@@ -366,7 +366,7 @@ $(document).ready(function(){
 
 
                                          ?></td>
-                                         <td><?php echo $count_column;
+                                         <td><?php
                                          $query = $this->db->query("SELECT indtry FROM leadmaster where indtry = '".$post->indtry."' and lmid = '".$post->lmid."'");
                                          $industry_count = $query->num_rows();
                                          if($industry_count == 0){ $count++; echo "<p style='color:red'>".$post->industry."</p>";} 

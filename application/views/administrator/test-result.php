@@ -140,6 +140,7 @@ $(document).ready(function(){
                                         <th>Emp Size</th>
                                         <th>Revenue</th>
                                         <th>Denomination</th>
+                                        <th>Currency</th>
                                         <th>Country</th>
                                         <th>State</th>
                                         <th>City</th>
@@ -285,8 +286,8 @@ $(document).ready(function(){
                                           <td><?php 
                                          $query = $this->db->query("SELECT timez FROM leadmaster where timez = '".$post->timez."' and lmid = '".$post->lmid."'");
                                          $timez_count = $query->num_rows();
-                                         if($timez_count == 0){ $count++; echo "<p style='color:red'>".$post->timez."</p>";} 
-                                         else { echo $post->timez;}
+                                         if($timez_count == 0){ $count++; echo "<p style='color:red'>".$post->zonename."</p>";} 
+                                         else { echo $post->zonename;}
                                          ?></td>
                                          <td><?php 
                                          $query = $this->db->query("SELECT indtry FROM leadmaster where indtry = '".$post->indtry."' and lmid = '".$post->lmid."'");
@@ -370,6 +371,12 @@ $(document).ready(function(){
                                                     echo "<p style='color:green'> Trillions </p>";  
                                                 }
                                             }
+                                         ?></td>
+                                         <td><?php 
+                                          $query = $this->db->query("SELECT curr FROM leadmaster where curr = '".$post->curr."' and lmid = '".$post->lmid."'");
+                                          $curr_count = $query->num_rows();
+                                          if($curr_count == 0){ $count++; echo "<p style='color:red'>".$post->currab."</p>";} 
+                                          else { echo $post->currab;}
                                          ?></td>
                                          <td><?php 
                                          $query = $this->db->query("SELECT country FROM leadmaster where country = '".$post->country."' and lmid = '".$post->lmid."'");
@@ -463,7 +470,7 @@ $(document).ready(function(){
                                          ?>
                                          </td>
                                          <td>
-                                         <?php echo $total[$i] = 24-$count;?>
+                                         <?php echo $total[$i] = 23-$count;?>
                                          </td>
                                         <!-- <td> -->
                                                 <?php //if($post['status'] == 0){ ?>

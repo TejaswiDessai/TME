@@ -4929,14 +4929,17 @@ public function get_all_record_leadmasterby_Delivered($rec_stage,$period,$dcd,$l
 			testleadmaster.zipcode,
 			country.countryname,
 			country.currnme,
+			country.currab,
 			timezone.abbrev,
+			testleadmaster.curr,
 			testleadmaster.domain,
 			testleadmaster.plink,
 			testleadmaster.empszlink,
 			testleadmaster.indlink,
 			testleadmaster.revszlink,
 			testleadmaster.othrlink,
-			testleadmaster.ctyp
+			testleadmaster.ctyp,
+			timezone.zonename
 			-- leadmaster.aum
 		   FROM ((((((testleadmaster 
 			 LEFT JOIN country ON ((testleadmaster.country = country.countrycd)))

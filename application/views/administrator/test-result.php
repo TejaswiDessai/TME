@@ -159,9 +159,11 @@ $(document).ready(function(){
                                 
                                 $i++;
                                 $count = 0;
+                                $count_column = 1;
                                 $total_count = 0;
                                 // echo $j;
                                 $total[] = 0;
+                                $total_final[] = 0;
                                 ?>
                                  <tr>
                                         <!-- <td><input type="checkbox" class ="emailclass checkbox_emailclass" value="<?php echo $post->lmid;?>" name="delivery_final_check[]" id="delivery_final_check_<?php echo $i;?>" ><?php //echo $i;?>
@@ -180,59 +182,78 @@ $(document).ready(function(){
                                              $sal = $result_sals['sal'];
                                             echo "<p style='color:green'>".$sal."</p>";
                                         }
-                                        
+                                        echo $count_column++;
                                         ?></td>
                                         <td><?php 
-                                        $query = $this->db->query("SELECT fname FROM leadmaster where fname ='".$post->fname."' and lmid = '".$post->lmid."'  ");
+                                         $lmfname = trim($post->fname);
+                                        $query = $this->db->query("SELECT fname FROM leadmaster where fname ='".$lmfname."' and lmid = '".$post->lmid."'  ");
                                         $fname_count = $query->num_rows();
-                                        if($fname_count == 0){ $count++; echo "<p style='color:red'>". $post->fname."</p>";} 
-                                        else { echo $post->fname;}
+                                        if($fname_count == 0){ $count++; echo "<p style='color:red'>". $lmfname."</p>";} 
+                                        else { echo $lmfname;}
+
                                         $query1 = $this->db->query("SELECT fname FROM leadmaster where lmid = '".$post->lmid."'  ");
                                         $result_fname = $query1->result_array();
                                         foreach($result_fname as $result_fnames) {
                                              $fname = $result_fnames['fname'];
                                             echo "<p style='color:green'>".$fname."</p>";
+                                            if($fname != ''){
+                                                $count_column++; 
+                                            }
+                                            
                                         } 
                                         ?></td>
                                         <td><?php 
-                                        $query = $this->db->query("SELECT lname FROM leadmaster where lname = '".$post->lname."' and lmid = '".$post->lmid."'");
+                                        $lmlname = trim($post->lname);
+                                        $query = $this->db->query("SELECT lname FROM leadmaster where lname = '".$lmlname."' and lmid = '".$post->lmid."'");
                                         $lname_count = $query->num_rows();
-                                        if($lname_count == 0){ $count++; echo "<p style='color:red'>".$post->lname."</p>";} 
-                                        else { echo $post->lname;}
+                                        if($lname_count == 0){ $count++; echo "<p style='color:red'>".$lmlname."</p>";} 
+                                        else { echo $lmlname;}
 
                                         $query1 = $this->db->query("SELECT lname FROM leadmaster where lmid = '".$post->lmid."'  ");
                                         $result_lname = $query1->result_array();
                                         foreach($result_lname as $result_lnames) {
                                              $lname = $result_lnames['lname'];
                                             echo "<p style='color:green'>".$lname."</p>";
+                                            if($lname != ''){
+                                                 $count_column++; 
+                                            }
                                         } 
                                          ?></td>
                                         <td><?php 
-                                        $query = $this->db->query("SELECT email FROM leadmaster where email = '".$post->email."' and lmid = '".$post->lmid."'");
+                                        $lmemail = trim($post->email);
+                                        $query = $this->db->query("SELECT email FROM leadmaster where email = '".$lmemail."' and lmid = '".$post->lmid."'");
                                         $email_count = $query->num_rows();
-                                        if($email_count == 0){ $count++; echo "<p style='color:red'>".$post->email."</p>";} 
-                                        else { echo $post->email;}
+                                        if($email_count == 0){ $count++; echo "<p style='color:red'>".$lmemail."</p>";} 
+                                        else { echo $lmemail;}
 
                                         $query1 = $this->db->query("SELECT email FROM leadmaster where lmid = '".$post->lmid."'  ");
                                         $result_email = $query1->result_array();
                                         foreach($result_email as $result_emails) {
                                              $email = $result_emails['email'];
                                             echo "<p style='color:green'>".$email."</p>";
+                                            if($email != ''){
+                                                $count_column++; 
+                                            }
                                         } 
 
                                         ?></td>
                                         <td><?php 
-                                        $query = $this->db->query("SELECT phone FROM leadmaster where phone = '".$post->phone."' and lmid = '".$post->lmid."'");
+                                        $lmphone = trim($post->phone);
+                                        $query = $this->db->query("SELECT phone FROM leadmaster where phone = '".$lmphone."' and lmid = '".$post->lmid."'");
                                         $phone_count = $query->num_rows();
-                                        if($phone_count == 0){ $count++; echo "<p style='color:red'>".$post->phone."</p>";} 
-                                        else { echo $post->phone;}
+                                        if($phone_count == 0){ $count++; echo "<p style='color:red'>".$lmphone."</p>";} 
+                                        else { echo $lmphone;}
 
                                         $query1 = $this->db->query("SELECT phone FROM leadmaster where lmid = '".$post->lmid."'  ");
                                         $result_phone = $query1->result_array();
                                         foreach($result_phone as $result_phones) {
                                              $phone = $result_phones['phone'];
                                             echo "<p style='color:green'>".$phone."</p>";
+                                            if($phone != ''){
+                                                $count_column++; 
+                                            }
                                         } 
+                                        
                                          ?></td>
                                        <!-- <td> -->
                                        <?php 
@@ -243,10 +264,22 @@ $(document).ready(function(){
                                          ?>
                                          <!-- </td> -->
                                          <td><?php 
-                                         $query = $this->db->query("SELECT jtitle FROM leadmaster where jtitle = '".$post->jtitle."' and lmid = '".$post->lmid."'");
+                                        $jtile = trim($post->jtitle);
+                                        
+                                         $query = $this->db->query("SELECT jtitle FROM leadmaster where jtitle = '".$jtile."' and lmid = '".$post->lmid."'");
                                          $jtitle_count = $query->num_rows();
-                                         if($jtitle_count == 0){ $count++; echo "<p style='color:red'>".$post->jtitle."</p>";} 
-                                         else { echo $post->jtitle;}
+                                         if($jtitle_count == 0){ $count++; echo "<p style='color:red'>".$jtile."</p>";} 
+                                         else { echo $jtile;}
+
+                                         $query1 = $this->db->query("SELECT jtitle FROM leadmaster where lmid = '".$post->lmid."'  ");
+                                         $result_jtitle = $query1->result_array();
+                                         foreach($result_jtitle as $result_jtitle) {
+                                              $jtitle = $result_jtitle['jtitle'];
+                                             echo "<p style='color:green'>".$jtitle."</p>";
+                                             if($jtitle != ''){
+                                                $count_column++; 
+                                            }
+                                         } 
 
                                          ?></td>
                                          <td><?php 
@@ -254,12 +287,26 @@ $(document).ready(function(){
                                          $department_count = $query->num_rows();
                                          if($department_count == 0){ $count++; echo "<p style='color:red'>".$post->department."</p>";} 
                                          else { echo $post->department;}
+
+                                         $query1 = $this->db->query("SELECT dept.department FROM dept join leadmaster on 
+                                         dept.dcd = leadmaster.dname
+                                          where  leadmaster.lmid = '".$post->lmid."' group by dept.department");
+                                         $result_department = $query1->result_array();
+                                         foreach($result_department as $result_department) {
+                                              $department = $result_department['department'];
+                                             echo "<p style='color:green'>".$department."</p>";
+                                         } 
+                                        
+                                            $count_column++; 
+                                        
+
                                          ?></td>
                                          <td><?php 
-                                         $query = $this->db->query("SELECT cname FROM leadmaster where cname = '".$post->cname."' and lmid = '".$post->lmid."'");
+                                          $lmcname = trim($post->cname);
+                                         $query = $this->db->query("SELECT cname FROM leadmaster where cname = '".$lmcname."' and lmid = '".$post->lmid."'");
                                           $cname_count = $query->num_rows();
-                                          if($cname_count == 0){ $count++; echo "<p style='color:red'>".$post->cname."</p>";} 
-                                          else { echo $post->cname;}
+                                          if($cname_count == 0){ $count++; echo "<p style='color:red'>".$lmcname."</p>";} 
+                                          else { echo $lmcname;}
 
                                           $query1 = $this->db->query("SELECT cname FROM leadmaster where lmid = '".$post->lmid."'  ");
                                          $result_cname = $query1->result_array();
@@ -267,39 +314,91 @@ $(document).ready(function(){
                                               $cname = $result_cname['cname'];
                                              echo "<p style='color:green'>".$cname."</p>";
                                          } 
+                                         echo  $count_column++;
                                          ?></td>
-                                         <td><?php 
+                                         <td><?php  echo $count_column;
                                          $query = $this->db->query("SELECT ctyp FROM leadmaster where ctyp = '".$post->ctyp."' and lmid = '".$post->lmid."'");
                                          $ctypname_count = $query->num_rows();
                                          if($ctypname_count == 0){ $count++; echo "<p style='color:red'>".$post->ctypname."</p>";} 
                                          else { echo $post->ctypname;}
 
-                                         $query1 = $this->db->query("SELECT ctyp FROM leadmaster where lmid = '".$post->lmid."'  ");
+                                         $query1 = $this->db->query("SELECT comptype.ctypname FROM comptype join leadmaster on 
+                                         comptype.ctypid = leadmaster.ctyp
+                                          where  leadmaster.lmid = '".$post->lmid."' group by comptype.ctypname");
                                          $result_ctyp = $query1->result_array();
+                                         
+                                        //  print_r($result_ctyp);
+                                       
+                                         if(empty($result_ctyp)){
+                                          $count_column--; 
+                                         }else{
+                                           $count_column++;
+                                         }
                                          foreach($result_ctyp as $result_ctyp) {
-                                              $ctyp = $result_ctyp['ctyp'];
+                                              $ctyp = $result_ctyp['ctypname'];
                                              echo "<p style='color:green'>".$ctyp."</p>";
+                                            
                                          } 
-                                         
-                                         
+                                      
                                          ?></td>
-                                          <td><?php 
+                                          <td><?php  echo $count_column;
                                          $query = $this->db->query("SELECT timez FROM leadmaster where timez = '".$post->timez."' and lmid = '".$post->lmid."'");
                                          $timez_count = $query->num_rows();
                                          if($timez_count == 0){ $count++; echo "<p style='color:red'>".$post->abbrev."</p>";} 
                                          else { echo $post->abbrev;}
+
+                                         $query1 = $this->db->query("SELECT timezone.abbrev FROM timezone join leadmaster on 
+                                         timezone.zids = leadmaster.timez
+                                          where  leadmaster.lmid = '".$post->lmid."'");
+                                        
+                                         $result_abbrev = $query1->result_array();
+
+                                         
+                                         if(empty($result_abbrev)){
+                                             $count_column--; 
+                                         }else{
+                                             $count_column++;
+                                         }
+                                         foreach($result_abbrev as $result_abbrev) {
+                                              $abbrev = $result_abbrev['abbrev'];
+                                             echo "<p style='color:green'>".$abbrev."</p>";
+                                         } 
+
+
                                          ?></td>
-                                         <td><?php 
+                                         <td><?php echo $count_column;
                                          $query = $this->db->query("SELECT indtry FROM leadmaster where indtry = '".$post->indtry."' and lmid = '".$post->lmid."'");
                                          $industry_count = $query->num_rows();
                                          if($industry_count == 0){ $count++; echo "<p style='color:red'>".$post->industry."</p>";} 
                                          else { echo $post->industry;}
+
+                                         $query1 = $this->db->query("SELECT industry.industry FROM industry join leadmaster on 
+                                         industry.industrycd = leadmaster.indtry
+                                          where  leadmaster.lmid = '".$post->lmid."' group by industry.industry");
+                                         $result_industry = $query1->result_array();
+
+                                      
+                                         foreach($result_industry as $result_industry) {
+                                              $industry = $result_industry['industry'];
+                                             echo "<p style='color:green'>".$industry."</p>";
+                                         } 
+                                         $count_column++;
                                          ?></td>
                                          <td><?php 
                                          $query = $this->db->query("SELECT sindtry FROM leadmaster where sindtry = '".$post->sindtry."' and lmid = '".$post->lmid."'");
                                          $subindustry_count = $query->num_rows();
                                          if($subindustry_count == 0){ $count++; echo "<p style='color:red'>".$post->subindustry."</p>";} 
                                          else { echo $post->subindustry;}
+
+                                         $query1 = $this->db->query("SELECT industry.subindustry FROM industry join leadmaster on 
+                                        industry.subindustrycd = leadmaster.sindtry
+                                          where  leadmaster.lmid = '".$post->lmid."' group by industry.subindustry");
+                                         $result_subindustry = $query1->result_array();
+                                         foreach($result_subindustry as $result_subindustry) {
+                                              $subindustry = $result_subindustry['subindustry'];
+                                             echo "<p style='color:green'>".$subindustry."</p>";
+                                         } 
+                                         $count_column++;
                                          ?></td>
                                          <td><?php 
                                          $query = $this->db->query("SELECT sectyp FROM leadmaster where sectyp = '".$post->sectyp."' and lmid = '".$post->lmid."'");
@@ -325,31 +424,39 @@ $(document).ready(function(){
                                             }
                                          ?></td>
                                          <td><?php 
-                                          $query = $this->db->query("SELECT empsize FROM leadmaster where empsize = '".$post->empsize."' and lmid = '".$post->lmid."'");
+                                          $lmempsize = trim($post->empsize);
+                                          $query = $this->db->query("SELECT empsize FROM leadmaster where empsize = '".$lmempsize."' and lmid = '".$post->lmid."'");
                                           $subindustry_count = $query->num_rows();
-                                          if($subindustry_count == 0){ $count++; echo "<p style='color:red'>".$post->empsize."</p>";} 
-                                          else { echo $post->empsize;}
+                                          if($subindustry_count == 0){ $count++; echo "<p style='color:red'>".$lmempsize."</p>";} 
+                                          else { echo $lmempsize;}
 
                                          $query1 = $this->db->query("SELECT empsize FROM leadmaster where lmid = '".$post->lmid."'  ");
                                          $result_empsize = $query1->result_array();
+
+                                         
                                          foreach($result_empsize as $result_empsize) {
                                               $empsize = $result_empsize['empsize'];
                                              echo "<p style='color:green'>".$empsize."</p>";
                                          } 
+                                         $count_column++;
                                          ?></td>
                                           <td><?php 
-                                          $query = $this->db->query("SELECT arevenue FROM leadmaster where arevenue = '".$post->arevenue."' and lmid = '".$post->lmid."'");
+                                          $lmarevenue = trim($post->arevenue);
+                                          $query = $this->db->query("SELECT arevenue FROM leadmaster where arevenue = '".$lmarevenue."' and lmid = '".$post->lmid."'");
                                           $arevenue_count = $query->num_rows();
-                                          if($arevenue_count == 0){ $count++; echo "<p style='color:red'>".$post->arevenue."</p>";} 
-                                          else { echo $post->arevenue;}
+                                          if($arevenue_count == 0){ $count++; echo "<p style='color:red'>".$lmarevenue."</p>";} 
+                                          else { echo $lmarevenue;}
 
                                           $query1 = $this->db->query("SELECT arevenue FROM leadmaster where lmid = '".$post->lmid."'  ");
                                           $result_arevenue = $query1->result_array();
+                                         
                                           foreach($result_arevenue as $result_arevenue) {
                                                $arevenue = $result_arevenue['arevenue'];
                                               echo "<p style='color:green'>".$arevenue."</p>";
                                           } 
-
+                                        
+                                            $count_column++;
+                                       
                                          ?></td>
                                          <td><?php 
                                           $query = $this->db->query("SELECT mlbl FROM leadmaster where mlbl = '".$post->mlbl."' and lmid = '".$post->lmid."'");
@@ -371,12 +478,29 @@ $(document).ready(function(){
                                                     echo "<p style='color:green'> Trillions </p>";  
                                                 }
                                             }
+                                           
+                                              $count_column++;
+                                         
                                          ?></td>
                                          <td><?php 
                                           $query = $this->db->query("SELECT curr FROM leadmaster where curr = '".$post->curr."' and lmid = '".$post->lmid."'");
+                                        //   echo $this->db->last_query(); 
                                           $curr_count = $query->num_rows();
                                           if($curr_count == 0){ $count++; echo "<p style='color:red'>".$post->currab."</p>";} 
                                           else { echo $post->currab;}
+
+                                          $query1 = $this->db->query("SELECT country.currab FROM country join leadmaster on 
+                                          country.currid = leadmaster.curr 
+                                           where  leadmaster.lmid = '".$post->lmid."' group by country.currab");
+                                          $result_currab = $query1->result_array();
+                                          foreach($result_currab as $result_currab) {
+                                               $currab = $result_currab['currab'];
+                                              echo "<p style='color:green'>".$currab."</p>";
+                                          } 
+                                         
+                                            $count_column++;
+                                       
+
                                          ?></td>
                                          <td><?php 
                                          $query = $this->db->query("SELECT country FROM leadmaster where country = '".$post->country."' and lmid = '".$post->lmid."'");
@@ -393,13 +517,16 @@ $(document).ready(function(){
                                              echo "<p style='color:green'>".$countryname."</p>";
                                          } 
 
-
+                                        
+                                           $count_column++;
+                                      
                                          ?></td>
                                          <td><?php 
-                                         $query = $this->db->query("SELECT state FROM leadmaster where state = '".$post->state."' and lmid = '".$post->lmid."'");
+                                          $lmstate = trim($post->state);
+                                         $query = $this->db->query("SELECT state FROM leadmaster where state = '".$lmstate."' and lmid = '".$post->lmid."'");
                                          $state_count = $query->num_rows();
-                                         if($state_count == 0){ $count++; echo "<p style='color:red'>".$post->state."</p>";} 
-                                         else { echo $post->state;}
+                                         if($state_count == 0){ $count++; echo "<p style='color:red'>".$lmstate."</p>";} 
+                                         else { echo $lmstate;}
                                          
                                          $query1 = $this->db->query("SELECT state FROM leadmaster where lmid = '".$post->lmid."'  ");
                                          $result_state = $query1->result_array();
@@ -407,12 +534,16 @@ $(document).ready(function(){
                                               $state = $result_state['state'];
                                              echo "<p style='color:green'>".$state."</p>";
                                          } 
+                                         
+                                           $count_column++;
+                                       
                                          ?></td>
                                          <td><?php 
-                                         $query = $this->db->query("SELECT city FROM leadmaster where city = '".$post->city."' and lmid = '".$post->lmid."'");
+                                           $lmcity = trim($post->city);
+                                         $query = $this->db->query("SELECT city FROM leadmaster where city = '".$lmcity."' and lmid = '".$post->lmid."'");
                                          $city_count = $query->num_rows();
-                                         if($city_count == 0){ $count++; echo "<p style='color:red'>".$post->city."</p>";} 
-                                         else { echo $post->city;}
+                                         if($city_count == 0){ $count++; echo "<p style='color:red'>".$lmcity."</p>";} 
+                                         else { echo $lmcity;}
 
                                          $query1 = $this->db->query("SELECT city FROM leadmaster where lmid = '".$post->lmid."'  ");
                                          $result_city = $query1->result_array();
@@ -420,12 +551,16 @@ $(document).ready(function(){
                                               $city = $result_city['city'];
                                              echo "<p style='color:green'>".$city."</p>";
                                          } 
+                                        
+                                           $count_column++;
+                                       
                                          ?></td>
                                          <td><?php 
-                                         $query = $this->db->query("SELECT address FROM leadmaster where address = '".$post->address."' and lmid = '".$post->lmid."'");
+                                           $lmaddress = trim($post->address);
+                                         $query = $this->db->query("SELECT address FROM leadmaster where address = '".$lmaddress."' and lmid = '".$post->lmid."'");
                                          $address_count = $query->num_rows();
-                                         if($address_count == 0){ $count++; echo "<p style='color:red'>".$post->address."</p>";} 
-                                         else { echo $post->address;}
+                                         if($address_count == 0){ $count++; echo "<p style='color:red'>".$lmaddress."</p>";} 
+                                         else { echo $lmaddress;}
 
                                          $query1 = $this->db->query("SELECT address FROM leadmaster where lmid = '".$post->lmid."'  ");
                                          $result_address = $query1->result_array();
@@ -433,12 +568,16 @@ $(document).ready(function(){
                                               $address = $result_address['address'];
                                              echo "<p style='color:green'>".$address."</p>";
                                          } 
+                                        
+                                           $count_column++;
+                                      
                                          ?></td>
                                          <td><?php 
-                                         $query = $this->db->query("SELECT zipcode FROM leadmaster where zipcode = '".$post->zipcode."' and lmid = '".$post->lmid."'");
+                                           $lmzipcode = trim($post->zipcode);
+                                         $query = $this->db->query("SELECT zipcode FROM leadmaster where zipcode = '".$lmzipcode."' and lmid = '".$post->lmid."'");
                                          $zipcode_count = $query->num_rows();
-                                         if($zipcode_count == 0){ $count++; echo "<p style='color:red'>".$post->zipcode."</p>";} 
-                                         else { echo $post->zipcode;}
+                                         if($zipcode_count == 0){ $count++; echo "<p style='color:red'>".$lmzipcode."</p>";} 
+                                         else { echo $lmzipcode;}
 
                                          
                                          $query1 = $this->db->query("SELECT zipcode FROM leadmaster where lmid = '".$post->lmid."'  ");
@@ -447,6 +586,9 @@ $(document).ready(function(){
                                               $zipcode = $result_zipcode['zipcode'];
                                              echo "<p style='color:green'>".$zipcode."</p>";
                                          } 
+                                        
+                                           $count_column++;
+                                      
                                          ?></td>
                                          <td><?php 
                                          $query = $this->db->query("SELECT domain FROM leadmaster where domain = '".$post->domain."' and lmid = '".$post->lmid."'");
@@ -460,6 +602,9 @@ $(document).ready(function(){
                                               $domain = $result_domain['domain'];
                                              echo "<p style='color:green'>".$domain."</p>";
                                          } 
+                                        
+                                           $count_column++;
+                                      
                                          ?></td>
                                          <td>
                                          <?php 
@@ -467,10 +612,13 @@ $(document).ready(function(){
                                          $plink_count = $query->num_rows();
                                          if($plink_count == 0){ $count++; echo "<p style='color:red'>".$post->plink."</p>";} 
                                          else { echo $post->plink;}
+
+                                         $count_column++;
                                          ?>
                                          </td>
                                          <td>
-                                         <?php echo $total[$i] = 23-$count;?>
+                                         <?php echo $total[$i] = 23-$count; ?>
+                                         <?php echo $total_final[$i] = $count_column; ?>
                                          </td>
                                         <!-- <td> -->
                                                 <?php //if($post['status'] == 0){ ?>
@@ -491,7 +639,15 @@ $(document).ready(function(){
                                 <p style="color:black;font-weight:bold;">Total Score</p>
                                 </td>
                                 <td>
-                                <p style="color:black;font-weight:bold;"><?php if(isset($total)) { echo array_sum($total);}?></p>
+                                <p style="color:black;font-weight:bold;"><?php if(isset($total)) {  $total_score = array_sum($total);}?></p>
+                                <p style="color:black;font-weight:bold;"><?php if(isset($total_final)) {  $total_col_var = array_sum($total_final);}
+                                echo $total_score."/".$total_col_var ;?>
+                                </p>
+                                <p style="color:black;font-weight:bold;"><?php 
+                               $division = $total_score/$total_col_var;
+                                $perc=$division*100;
+                                echo "Percentage is = ".round($perc,2);
+                                ?></p>
                                 </td>
                                 </tr>
                                 <!-- <div class="paginate-link">

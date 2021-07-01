@@ -3823,40 +3823,6 @@
 				}
 
 
-				// if(empty($_GET['stagtidi']))
-				// {
-				// 	$stagtidi = $_SESSION['empcode'];
-				// }else{
-				// 	$stagtidi = $_GET['stagtidi'];
-				// }
-				// if(!empty($_GET['stagtidi']) AND empty($_GET['stagtidii']))
-				// {
-				// 	$stagtidii = $_SESSION['empcode'];
-				// }else{
-				// 	$stagtidii = NULL;
-				// }
-				// if(!empty($_GET['stagtidi']) AND !empty($_GET['stagtidii']))
-				// {
-				// 	$stagtidii = $_SESSION['empcode'];
-				// }
-				
-
-				// if(empty($_GET['stdti']))
-				// {
-				// 	$stdti = $old_date;
-				// }else{
-				// 	$stdti = $_GET['stdti'];
-				// }
-				// if(!empty($_GET['stdti']) AND (empty($_GET['stdtii'])))
-				// {
-				// 	$stdtii = $old_date;
-				// }else{
-				// 	$stdtii = NULL;
-				// }
-				// if(!empty($_GET['stdti']) AND !(empty($_GET['stdtii'])))
-				// {
-				// 	$stdtii = $old_date;
-				// }
 				
 
 				if(!empty($_GET['aum']))
@@ -3924,24 +3890,24 @@
 				'lmid' => $lmid,
 				
 				'sal' => $_GET['sal'],
-				'fname' => $_GET['fname'],
-				'lname' => $_GET['lname'],
+				'fname' => trim($_GET['fname']),
+				'lname' => trim($_GET['lname']),
 				'conname' => $conname, //concate strings
-				'jtitle' => $_GET['jtitle'],
+				'jtitle' => trim($_GET['jtitle']),
 				'jlevel' => $_GET['desid'],
 				'dname' => $_GET['dcd'], //department
-				'email' => $_GET['email'],
-				'phone' => $_GET['phone'],
-				'altphn' => $_GET['altphn'],
+				'email' => trim($_GET['email']),
+				'phone' => trim($_GET['phone']),
+				'altphn' => trim($_GET['altphn']),
 
-				'phext' => $phext,
+				'phext' => trim($phext),
 				'plink' => $_GET['plink'],
-				'cname' => $_GET['company_name'],
-				'address' => $_GET['address'],
+				'cname' => trim($_GET['company_name']),
+				'address' => trim($_GET['address']),
 
-				'city' => $_GET['city'],
-				'state' => $_GET['state'],
-				'zipcode' => $_GET['zip_code'],
+				'city' => trim($_GET['city']),
+				'state' => trim($_GET['state']),
+				'zipcode' =>trim($_GET['zip_code']),
 				'country' => $_GET['country_id'],
 				'timez' => $timezones,
 				'ctyp' => $_GET['ctype'],
@@ -3951,23 +3917,19 @@
 				'sindtry' => $_GET['subindustrycd'],
 
 				'sectyp' => $sectype,
-				'empsize' => $_GET['empsize'],
-				'arevenue' =>$arrevenue,
+				'empsize' => trim($_GET['empsize']),
+				'arevenue' =>trim($arrevenue),
 				'mlbl' => $_GET['mlbl'],
 				'curr' => $_GET['curr'],
 
-				'domain' => $_GET['domain'],
+				'domain' => trim($_GET['domain']),
 				'indlink' => $_GET['indlink'],
 				'revszlink' => $_GET['revszlink'],
 				'empszlink' => $_GET['empszlink'],
-				// 'pcomt' => $pcomt,
+			
 
 				'othrlink' => $_GET['othrlink'],
 
-				// 'emailver' => $_GET['emailver'],
-				// 'aum' => $aum,
-				// 'dvsbtg' => $dvsbtg,
-				// 'dvrejtg' => $dvrejtg,
 				
 				// tag
 			
@@ -3985,25 +3947,6 @@
 				);
 			
 		
-			// $checkforEmail = $this->Administrator_Model->get_email_duplication_count_leadmaster_update($_GET['email'],$lmid);
-			// if($checkforEmail == true)
-			// {
-			// 	echo json_encode(array(
-			// 		"statusCode"=>"Exist",					
-			// 		"message"=>"Email is already Exist"
-			// 	));
-			// 	return;
-			// }
-			// $checkforplink = $this->Administrator_Model->get_plink_duplication_count_leadmaster_update($_GET['plink'],$lmid);
-			
-			// if($checkforplink == true)
-			// {
-			// 	echo json_encode(array(
-			// 		"statusCode"=>"plink",					
-			// 		"message"=>"Prospect link is already Exist"
-			// 	));
-			// 	return;
-			// }
 
 				$addleadandcdcdata = $this->Administrator_Model->add_leaddata_candidate($datacdcandlead);
 			

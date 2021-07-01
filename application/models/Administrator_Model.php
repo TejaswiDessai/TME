@@ -4919,7 +4919,7 @@ public function get_all_record_leadmasterby_Delivered($rec_stage,$period,$dcd,$l
 				END AS denomination,
 			testleadmaster.email,
 			testleadmaster.phone,
-			
+			testleadmaster.timez,
 			testleadmaster.phext,
 			testleadmaster.altphn,
 			testleadmaster.address,

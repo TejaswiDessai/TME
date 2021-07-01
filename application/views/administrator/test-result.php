@@ -646,7 +646,7 @@ $(document).ready(function(){
                                 <p style="color:black;font-weight:bold;"><?php 
                                $division = $total_score/$total_col_var;
                                 $perc=$division*100;
-                                echo "Percentage is = ".round($perc,2);
+                                echo "Percentage is = ".round($perc,2)."%";
                                 ?></p>
                                 </td>
                                 </tr>

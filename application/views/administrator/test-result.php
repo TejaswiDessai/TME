@@ -340,6 +340,13 @@ $(document).ready(function(){
                                           $denomination_count = $query->num_rows();
                                           if($denomination_count == 0){ $count++; echo "<p style='color:red'>".$post->denomination."</p>";} 
                                           else { echo $post->denomination;}
+
+                                        //   $query1 = $this->db->query("SELECT domain FROM leadmaster where lmid = '".$post->lmid."'  ");
+                                        //   $result_domain = $query1->result_array();
+                                        //   foreach($result_domain as $result_domain) {
+                                        //        $domain = $result_domain['domain'];
+                                        //       echo "<p style='color:green'>".$domain."</p>";
+                                        //   } 
                                          ?></td>
                                          <td><?php 
                                          $query = $this->db->query("SELECT country FROM leadmaster where country = '".$post->country."' and lmid = '".$post->lmid."'");
@@ -407,9 +414,9 @@ $(document).ready(function(){
                                          else { echo $post->domain;}
 
                                          $query1 = $this->db->query("SELECT domain FROM leadmaster where lmid = '".$post->lmid."'  ");
-                                         $result_zipcode = $query1->result_array();
-                                         foreach($result_zipcode as $result_zipcode) {
-                                              $domain = $result_zipcode['domain'];
+                                         $result_domain = $query1->result_array();
+                                         foreach($result_domain as $result_domain) {
+                                              $domain = $result_domain['domain'];
                                              echo "<p style='color:green'>".$domain."</p>";
                                          } 
                                          ?></td>

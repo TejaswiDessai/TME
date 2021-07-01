@@ -618,7 +618,7 @@ $(document).ready(function(){
                                          </td>
                                          <td>
                                          <?php echo $total[$i] = 23-$count; ?>
-                                         <?php echo $total_final[$i] = $count_column; ?>
+                                         <?php echo "/".$total_final[$i] = $count_column; ?>
                                          </td>
                                         <!-- <td> -->
                                                 <?php //if($post['status'] == 0){ ?>

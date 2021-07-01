@@ -128,7 +128,7 @@ $(document).ready(function(){
                                         <th>LName</th>
                                         <th>Email</th>
                                         <th>Phone</th>
-                                        <!-- <th>Delivery Status</th> -->
+                                        <!-- <th>Alternate Phone</th> -->
                                         <th>Job Title</th>
                                         <th>Department</th>
                                         <th>Company Name</th>
@@ -200,7 +200,12 @@ $(document).ready(function(){
                                         if($phone_count == 0){ $count++; echo "<p style='color:red'>".$post->phone."</p>";} 
                                         else { echo $post->phone;}
                                          ?></td>
-                                       
+                                       <td><?php 
+                                        // $query = $this->db->query("SELECT altphn FROM leadmaster where altphn = '".$post->altphn."' and lmid = '".$post->lmid."'");
+                                        // $altphone_count = $query->num_rows();
+                                        // if($altphone_count == 0){ $count++; echo "<p style='color:red'>".$post->altphn."</p>";} 
+                                        // else { echo $post->altphn;}
+                                         ?></td>
                                          <td><?php 
                                          $query = $this->db->query("SELECT jtitle FROM leadmaster where jtitle = '".$post->jtitle."' and lmid = '".$post->lmid."'");
                                          $jtitle_count = $query->num_rows();

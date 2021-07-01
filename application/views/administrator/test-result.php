@@ -233,12 +233,14 @@ $(document).ready(function(){
                                             echo "<p style='color:green'>".$phone."</p>";
                                         } 
                                          ?></td>
-                                       <td><?php 
+                                       <!-- <td> -->
+                                       <?php 
                                         // $query = $this->db->query("SELECT altphn FROM leadmaster where altphn = '".$post->altphn."' and lmid = '".$post->lmid."'");
                                         // $altphone_count = $query->num_rows();
                                         // if($altphone_count == 0){ $count++; echo "<p style='color:red'>".$post->altphn."</p>";} 
                                         // else { echo $post->altphn;}
-                                         ?></td>
+                                         ?>
+                                         <!-- </td> -->
                                          <td><?php 
                                          $query = $this->db->query("SELECT jtitle FROM leadmaster where jtitle = '".$post->jtitle."' and lmid = '".$post->lmid."'");
                                          $jtitle_count = $query->num_rows();

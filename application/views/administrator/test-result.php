@@ -133,10 +133,13 @@ $(document).ready(function(){
                                         <th>Department</th>
                                         <th>Company Name</th>
                                         <th>Company Type</th>
+                                        <th>Time Zone</th>
                                         <th>Industry</th>
                                         <th>SubIndustry</th>
                                         <th>Sector</th>
                                         <th>Emp Size</th>
+                                        <th>Revenue</th>
+                                        <th>Denomination</th>
                                         <th>Country</th>
                                         <th>State</th>
                                         <th>City</th>
@@ -222,6 +225,12 @@ $(document).ready(function(){
                                          if($ctypname_count == 0){ $count++; echo "<p style='color:red'>".$post->ctypname."</p>";} 
                                          else { echo $post->ctypname;}
                                          ?></td>
+                                          <td><?php 
+                                         $query = $this->db->query("SELECT timez FROM leadmaster where timez = '".$post->timez."' and lmid = '".$post->lmid."'");
+                                         $timez_count = $query->num_rows();
+                                         if($timez_count == 0){ $count++; echo "<p style='color:red'>".$post->timez."</p>";} 
+                                         else { echo $post->timez;}
+                                         ?></td>
                                          <td><?php 
                                          $query = $this->db->query("SELECT indtry FROM leadmaster where indtry = '".$post->indtry."' and lmid = '".$post->lmid."'");
                                          $industry_count = $query->num_rows();
@@ -245,6 +254,18 @@ $(document).ready(function(){
                                           $subindustry_count = $query->num_rows();
                                           if($subindustry_count == 0){ $count++; echo "<p style='color:red'>".$post->empsize."</p>";} 
                                           else { echo $post->empsize;}
+                                         ?></td>
+                                          <td><?php 
+                                          $query = $this->db->query("SELECT arevenue FROM leadmaster where arevenue = '".$post->arevenue."' and lmid = '".$post->lmid."'");
+                                          $arevenue_count = $query->num_rows();
+                                          if($arevenue_count == 0){ $count++; echo "<p style='color:red'>".$post->arevenue."</p>";} 
+                                          else { echo $post->arevenue;}
+                                         ?></td>
+                                         <td><?php 
+                                          $query = $this->db->query("SELECT mlbl FROM leadmaster where mlbl = '".$post->mlbl."' and lmid = '".$post->lmid."'");
+                                          $denomination_count = $query->num_rows();
+                                          if($denomination_count == 0){ $count++; echo "<p style='color:red'>".$post->denomination."</p>";} 
+                                          else { echo $post->denomination;}
                                          ?></td>
                                          <td><?php 
                                          $query = $this->db->query("SELECT country FROM leadmaster where country = '".$post->country."' and lmid = '".$post->lmid."'");
@@ -291,7 +312,7 @@ $(document).ready(function(){
                                          ?>
                                          </td>
                                          <td>
-                                         <?php echo $total[$i] = 21-$count;?>
+                                         <?php echo $total[$i] = 24-$count;?>
                                          </td>
                                         <!-- <td> -->
                                                 <?php //if($post['status'] == 0){ ?>

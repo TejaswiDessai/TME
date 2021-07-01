@@ -273,12 +273,12 @@ $(document).ready(function(){
                                          if($ctypname_count == 0){ $count++; echo "<p style='color:red'>".$post->ctypname."</p>";} 
                                          else { echo $post->ctypname;}
 
-                                        //  $query1 = $this->db->query("SELECT ctyp FROM leadmaster where lmid = '".$post->lmid."'  ");
-                                        //  $result_ctyp = $query1->result_array();
-                                        //  foreach($result_ctyp as $result_ctyp) {
-                                        //       $ctyp = $result_ctyp['ctyp'];
-                                        //      echo "<p style='color:green'>".$ctyp."</p>";
-                                        //  } 
+                                         $query1 = $this->db->query("SELECT ctyp FROM leadmaster where lmid = '".$post->lmid."'  ");
+                                         $result_ctyp = $query1->result_array();
+                                         foreach($result_ctyp as $result_ctyp) {
+                                              $ctyp = $result_ctyp['ctyp'];
+                                             echo "<p style='color:green'>".$ctyp."</p>";
+                                         } 
                                          
                                          
                                          ?></td>
@@ -341,6 +341,14 @@ $(document).ready(function(){
                                           $arevenue_count = $query->num_rows();
                                           if($arevenue_count == 0){ $count++; echo "<p style='color:red'>".$post->arevenue."</p>";} 
                                           else { echo $post->arevenue;}
+
+                                          $query1 = $this->db->query("SELECT arevenue FROM leadmaster where lmid = '".$post->lmid."'  ");
+                                          $result_arevenue = $query1->result_array();
+                                          foreach($result_arevenue as $result_arevenue) {
+                                               $arevenue = $result_arevenue['arevenue'];
+                                              echo "<p style='color:green'>".$arevenue."</p>";
+                                          } 
+
                                          ?></td>
                                          <td><?php 
                                           $query = $this->db->query("SELECT mlbl FROM leadmaster where mlbl = '".$post->mlbl."' and lmid = '".$post->lmid."'");
@@ -348,18 +356,37 @@ $(document).ready(function(){
                                           if($denomination_count == 0){ $count++; echo "<p style='color:red'>".$post->denomination."</p>";} 
                                           else { echo $post->denomination;}
 
-                                        //   $query1 = $this->db->query("SELECT domain FROM leadmaster where lmid = '".$post->lmid."'  ");
-                                        //   $result_domain = $query1->result_array();
-                                        //   foreach($result_domain as $result_domain) {
-                                        //        $domain = $result_domain['domain'];
-                                        //       echo "<p style='color:green'>".$domain."</p>";
-                                        //   } 
+                                          $query1 = $this->db->query("SELECT mlbl FROM leadmaster where lmid = '".$post->lmid."'  ");
+                                          $result_mlbl = $query1->result_array();
+                                          foreach($result_mlbl as $result_mlbl) {
+                                               $mlbl = $result_mlbl['mlbl'];
+                                                if($mlbl == 0){
+                                                    echo "<p style='color:green'> Thousands </p>";
+                                                } else if ($mlbl == '1'){
+                                                    echo "<p style='color:green'> Millions </p>";
+                                                }else if($mlbl == '2'){
+                                                    echo "<p style='color:green'> Billions </p>";  
+                                                }else if($mlbl == '3'){
+                                                    echo "<p style='color:green'> Trillions </p>";  
+                                                }
+                                            }
                                          ?></td>
                                          <td><?php 
                                          $query = $this->db->query("SELECT country FROM leadmaster where country = '".$post->country."' and lmid = '".$post->lmid."'");
                                          $subindustry_count = $query->num_rows();
                                          if($subindustry_count == 0){ $count++; echo "<p style='color:red'>".$post->countryname."</p>";} 
                                          else { echo $post->countryname;}
+
+                                         $query1 = $this->db->query("SELECT countryname FROM country join leadmaster on 
+                                         country.countrycd = leadmaster.country
+                                          where  leadmaster.lmid = '".$post->lmid."'");
+                                         $result_countryname = $query1->result_array();
+                                         foreach($result_countryname as $result_countryname) {
+                                              $countryname = $result_countryname['countryname'];
+                                             echo "<p style='color:green'>".$countryname."</p>";
+                                         } 
+
+
                                          ?></td>
                                          <td><?php 
                                          $query = $this->db->query("SELECT state FROM leadmaster where state = '".$post->state."' and lmid = '".$post->lmid."'");

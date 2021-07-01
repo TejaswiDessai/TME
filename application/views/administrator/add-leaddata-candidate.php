@@ -526,11 +526,11 @@ $(document).ready(function() {
                                  if(isset($ldmster) && in_array('domain',$dvrejectreason) && (!empty($domain))) { echo "" ; } 
                                  ?>">
                                  <div class="tooltips">
-                                 <?php if($ldmster['domain'] != ""){ ?>
-                                  <a href="http://<?php echo $ldmster['domain'] ?>" target="_blank" style="float:right"><i class="icofont icofont-link"></i></a>
-                                  <?php } else{ ?>
+                                 <!-- <?php //if($ldmster['domain'] != ""){ ?>
+                                  <a href="" target="_blank" style="float:right"><i class="icofont icofont-link"></i></a>
+                                  <?php //} else{ ?>
                                     <a style="float:right"><i class="icofont icofont-unlink"></i></a>     
-                                  <?php } ?>
+                                  <?php// } ?> -->
                                 <div class="domaincheck ">
 
                                 <?php if(!empty($domain)) { ?>
@@ -541,7 +541,7 @@ $(document).ready(function() {
                                 <?php endforeach; ?> 
                                </select>
                                <?php } else{ ?>
-                                <input type="text" disabled="disabled" autocomplete = "off"  value ="<?php if(isset($ldmster)){  echo $ldmster['domain']; }?>"   name="domain" id="domain"  placeholder="Domain" value="" 
+                                <input type="text" autocomplete = "off"  value =""   name="domain" id="domain"  placeholder="Domain" value="" 
                                  class="form-control form-control-sm cdqadisable  <?php
                                  if(isset($ldmster) && in_array('domain',$dvrejectreason)) { echo "" ; } 
                                  ?>">
@@ -1838,11 +1838,11 @@ $(document).ready(function () {
             var revszlink = $('#revszlink').val();
             if(arevenue ==""){
               
-              $("#revszlink").prop('disabled', true);
+              // $("#revszlink").prop('disabled', true);
               $('#revszlink').val("NA");
             }else if(arevenue != ""){
               
-              $("#revszlink").prop('disabled', false);
+              // $("#revszlink").prop('disabled', false);
               var revszlink = $('#revszlink').val();
             }
         

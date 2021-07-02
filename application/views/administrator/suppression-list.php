@@ -124,6 +124,17 @@ $(document).ready(function () {
                                 <option value="0">Internal</option>
                             </select>
                             </div>
+                            <!-- below code added by Tejaswi -->
+                                <div class="col-sm-3" style="border:1px solid #f1c40f; padding: 3px;">
+                                <label class="col-lable"><b>Disclaimer:</b></label>
+                                <p>1. File should be saved as <b>".csv"</b> extension.
+                                <br>2. File should not have column headings.
+                                <br>3. File should have only one column filled with data.
+                                <br>4. Click and see below sample image for uploading csv file</p>
+                                <a href="#myModalsample" data-target="#myModalsample" data-toggle="modal">
+                                <img class="col-sm-12" src="<?php echo base_url(); ?>/assets/images/sample_upload.png"></a>
+                                </div>
+                                <!-- End -->
                             <!-- <div class="col-sm-3">
                                 <label class="col-lable"><b>Select Period</b></label>
                                 <select class="js-example-basic-multiple col-sm-12 "  name="period" id="period">
@@ -265,7 +276,39 @@ $(document).ready(function () {
         </div>
         <!-- Basic Form Inputs card end -->
 
- 
+  <!-- Modal -->
+  <div class="modal fade" id="myModalsample" role="dialog">
+    <div class="modal-dialog">
+    
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <!-- <h4 class="modal-title">Modal Header</h4> -->
+        </div>
+        <div class="modal-body">
+            <div class="mail-body-content">
+                                        <form>
+                                            <div class="form-group row">
+                                                <div class="col-sm-12">
+                                                <img class ="col-sm-12" src="<?php echo base_url(); ?>/assets/images/sample_upload.png"></a>
+                                                </div>
+                                            </div>
+                                           
+                                        </form>
+                                       
+                                        <div style="clear:both"></div>
+		                                    <br />
+              </div>
+        </div>
+        <div class="modal-footer">
+       
+          <button type="button" class="btn btn-danger " data-dismiss="modal">Close</button>
+        </div>
+      </div>
+      
+    </div>
+  </div>
     
 <script>
     $(function() {

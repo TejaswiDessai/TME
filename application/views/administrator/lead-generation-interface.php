@@ -327,6 +327,8 @@ $(document).ready(function() {
                                     
                                         <th>First Name</th>
                                         <th>Last Name</th>
+                                        <th>Phone</th>
+                                        <th>Alt Ph</th>
                                         <th>Domain</th>
                                         <th>State & Country </th>
                                       
@@ -357,6 +359,8 @@ $(document).ready(function() {
                                       
                                         <?php echo $post['fname']; ?></td>
                                         <td><?php echo $post['lname']; ?></td>
+                                        <td><?php echo $post['phone']; ?></td>
+                                        <td><?php echo $post['altphn']; ?></td>
                                         <td><?php 
                                         echo $post['domain'];  ?>
                                         </td>

@@ -143,17 +143,17 @@ $(document).ready(function () {
                                 <div class="col-sm-12">
                                     <label class="col-lable" style="color:#FF5722;"><b>Exclusion Type</b></label><br>
                                 </div>
-                            <div class="col-sm-3 form-check form-switch hidden">
+                            <div class="col-sm-3 form-check form-switch ">
                                 <!-- <input type="checkbox" class="js-small f-right suppclass" name="suppchk" id="noneAboveCheck" value="" > -->
                                 <!-- <div id="noneAbove"> -->
                                 <label class="col-lable"><b>Mail List</b></label>
                                 <input type="file" name="suplistnew_email" class="form-control">
                             </div>
-                            <div class="col-sm-3 form-check form-switch hidden">
+                            <div class="col-sm-3 form-check form-switch ">
                                 <label class="col-lable"><b>Company List</b></label>
                                 <input type="file" name="suplistnew_company" class="form-control">
                             </div>
-                            <div class="col-sm-3 form-check form-switch hidden">
+                            <div class="col-sm-3 form-check form-switch ">
                                 <label class="col-lable"><b>Domain List </b></label>
                                 <input type="file" name="suplistnew_domain" class="form-control">
                             </div>

@@ -66,16 +66,16 @@ if(isset($_POST["emp_id"], $_POST["user_type"],$_POST['email']))
             $mail->Port = 587;
 
             // your gmail address
-            $mail->Username = 'amol.waghmare@mehp.com';
+            $mail->Username = 'support@mehp.com';
 
             // your password must be enclosed in single quotes
-            $mail->Password = '@mmy7387853214';
+            $mail->Password = 'Hello@123';
 
             // add a subject line
             $mail->Subject = ' Change Password link ';
 
             // Sender email address and name
-            $mail->SetFrom('amol.waghmare@mehp.com', 'Amol');
+            $mail->SetFrom('support@mehp.com', 'Support');
 
             // reciever address, person you want to send
             $mail->AddAddress($email);

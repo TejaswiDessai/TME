@@ -184,6 +184,8 @@ $userteam = explode(',',$userteam1);
                         <ul class="tree-1">
                             <li><a href="<?php echo base_url(); ?>administrator/users/add-user">Add User</a></li>
                             <li><a href="<?php echo base_url(); ?>administrator/users/users">Users</a></li>
+                            <li><a href="<?php echo base_url(); ?>administrator/add_candidate">Setup Test</a></li>
+                            <li><a href="<?php echo base_url(); ?>administrator/candidate_list">Test Results</a></li>
                         </ul>
                     </li>
                    

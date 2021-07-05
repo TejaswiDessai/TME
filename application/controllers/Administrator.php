@@ -185,6 +185,9 @@ echo $date;
 			$this->session->unset_userdata('image');
 			$this->session->unset_userdata('site_logo');
 			$this->session->unset_userdata('token');
+			$this->session->unset_userdata('phone');
+			$this->session->unset_userdata('email');
+			$this->session->unset_userdata('login_time_stamp');
 			//Set Message
 			$this->session->set_flashdata('success', 'You are logged out.');
 			redirect(base_url().'administrator/thankyou');
@@ -3648,7 +3651,7 @@ public function getPrivillage(){
 			if($this->form_validation->run() === FALSE){
 				 $this->load->view('administrator/header-script');
 		 	 	 $this->load->view('administrator/header');
-		  		//  $this->load->view('administrator/header-bottom');
+		  		 $this->load->view('administrator/header-bottom');
 		   		 $this->load->view('administrator/'.$page, $data);
 		  		 $this->load->view('administrator/footer');
 			}else{
@@ -3693,7 +3696,7 @@ public function getPrivillage(){
 			$education = $_GET['education'];
 			$gender = $_GET['gender'];
 			$register_date = date("Y-m-d H:i:s");
-			$datasavedid =$this->Administrator_Model->save_candidate($Fname,$email,$phone,$address,$education,$gender,$register_date);	
+			$datasavedid =$this->Administrator_Model->save_candidate($Fname,$email,$phone,$address,$education,$gender,$register_date,$testtime);	
 			echo json_encode(array(
 				"statusCode"=>200,
 				"datasavedid"=>$datasavedid
@@ -3750,6 +3753,106 @@ public function getPrivillage(){
 			$this->load->view('administrator/test-result', $data);
 			$this->load->view('administrator/footer');
 		}
+
+		function start_test()
+		{
+			$email=$_POST['email'];
+			$phone = $_POST['phone'];
+			$register_date = date("Y-m-d H:i:s");
+			$candidate_id =$this->Administrator_Model->candidateLogin($email,$phone);	
+			
+			if ($candidate_id) {
+				$tt=date_default_timezone_get();
+				$date = new DateTime('now');
+				if($candidate_id->testtime == '20')
+				{
+					$login_time_stamp = '1200';
+				}
+				elseif($candidate_id->testtime == '30')
+				{
+					$login_time_stamp = '1800';
+				}
+					//Create Session
+					$user_data = array(
+								'phone' => $candidate_id->phone,
+								'email' => $candidate_id->email,
+								'empcode' => $candidate_id->candidate_id,
+				 				'login' => true,
+								 'login_time_stamp' => $login_time_stamp,
+								 'timeout' => time(),
+								 'newcandidate_id' => $candidate_id->candidate_id,
+				 	);
+
+					 $this->session->set_userdata($user_data);
+					 $id = session_id();
+					
+					redirect('cdc/add_candidate_lead');
+					
+				}
+				else
+				{
+					$this->session->set_flashdata('danger', 'Login Credential in invalid!');
+					redirect('administrator/test_login');
+				}
+	
+		}
+
+		public function test_login($page = 'start_test')
+		{
+		// 	if (!file_exists(APPPATH.'views/administrator/'.$page.'.php')) {
+		//     show_404();
+		//    }
+		// 	// Check login
+			if($this->session->userdata('login')) {
+				redirect('cdc/add_candidate_lead');
+			}
+
+			$data['title'] = 'Create Candidate';
+
+			$data['emp_id'] = $this->Administrator_Model->get_empid();
+			// $data['roles'] = $this->Administrator_Model->get_roles();
+			$this->form_validation->set_rules('name', 'Name', 'required');
+			// $this->form_validation->set_rules('username', 'Username', 'required|callback_check_username_exists');
+			$this->form_validation->set_rules('email', 'Email', 'required|callback_check_email_exists');
+
+			if($this->form_validation->run() === FALSE){
+				 $this->load->view('administrator/header-script');
+		 	 	 $this->load->view('administrator/header');
+		  		//  $this->load->view('administrator/header-bottom');
+		   		 $this->load->view('administrator/'.$page, $data);
+		  		 $this->load->view('administrator/footer');
+			}else{
+				//Upload Image
+				// $config['upload_path'] = './assets/images/users';
+				// $config['allowed_types'] = 'gif|jpg|png|jpeg';
+				// $config['max_size'] = '2048';
+				// $config['max_width'] = '2000';
+				// $config['max_height'] = '2000';
+
+				// $this->load->library('upload', $config);
+
+				// if(!$this->upload->do_upload()){
+				// 	$errors =  array('error' => $this->upload->display_errors());
+				// 	$post_image = 'noimage.jpg';
+				// }else{
+				// 	$data =  array('upload_data' => $this->upload->data());
+				// 	$post_image = $_FILES['userfile']['name'];
+				// }
+				$post_image = 'noimage.jpg';
+				$password = md5('Test@123');
+
+				$this->Administrator_Model->add_candidate($post_image,$password);
+
+				echo json_encode(array(
+					"statusCode"=>200
+				));
+				//Set Message
+				// $this->session->set_flashdata('success', 'User has been created Successfull.');
+				// redirect('administrator/users');
+			}
+			
+		}
+
 }
 
 

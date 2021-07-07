@@ -3525,6 +3525,7 @@ public function get_campaign_fordataverification()
 			$email = strtolower($FinalEmail);
 			$this->db->select('lmid');
 			$this->db->where('email', $email);
+			$this->db->where('evagnt', $agent_id);
 			$result = $this->db->get('ev');
 			// echo $this->db->last_query(); 
 			if ($result->num_rows() >= 1) {

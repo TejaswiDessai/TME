@@ -154,7 +154,7 @@ rel="Stylesheet"type="text/css"/>
                                     <div class="form-group row">
                                         <label class="col-sm-2 col-form-label"></label>
                                         <div class="col-sm-10">
-                                            <button type="submit" name="submit" id="butsave" class="btn btn-primary">Start Test</button>
+                                            <button type="submit" name="submit" id="butsave" class="btn btn-primary">Add Candidate</button>
                                         </div>
                                     </div>
                                     <textarea id="description" style="visibility: hidden;"></textarea>
@@ -256,7 +256,7 @@ rel="Stylesheet"type="text/css"/>
                                                 $("#Manager").html("");
                                                 $("#Password").html("");
                                                 $('#butsave').html('Candidate added successfully !'); 
-                                                top.location.href=base_url+"cdc/add_candidate_lead";						
+                                                top.location.href=base_url+"administrator/add_candidate";						
                                             }
                                             else if(dataResult.statusCode==201){
                                             alert("Error occured !");

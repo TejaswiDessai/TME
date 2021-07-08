@@ -3578,6 +3578,7 @@ public function get_campaign_fordataverification()
 			$email = strtolower($FinalEmail);
 			$this->db->select('lmid');
 			$this->db->where('email', $email);
+			$this->db->where('evagnt', $agent_id);
 			$result = $this->db->get('ev');
 			// echo $this->db->last_query(); 
 			if ($result->num_rows() >= 1) {
@@ -4872,10 +4873,10 @@ public function get_all_record_leadmasterby_Delivered($rec_stage,$period,$dcd,$l
 		// show_error($this->db->last_query(), 200, "SQL");
 		return $data=$query->num_rows();
 	}
-	function save_candidate($Fname,$email,$phone,$address,$education,$gender,$register_date)
+	function save_candidate($Fname,$email,$phone,$address,$education,$gender,$register_date,$testtime)
 	{
-		$query="INSERT INTO candidate( fullname, email, phone,address,education,curr_date,gender) 
-			VALUES ('$Fname','$email','$phone','$address','$education','$register_date','$gender')";
+		$query="INSERT INTO candidate( fullname, email, phone,address,education,curr_date,gender,testtime) 
+			VALUES ('$Fname','$email','$phone','$address','$education','$register_date','$gender','$testtime')";
 			$this->db->query($query);
 
 			$insert_id = $this->db->insert_id();
@@ -5011,4 +5012,21 @@ public function get_all_record_leadmasterby_Delivered($rec_stage,$period,$dcd,$l
 
 		}	
 
+		public function candidateLogin($email,$phone)
+		{
+			//Validate
+			$this->db->where('phone', $phone);
+			$this->db->where('email', $email);
+			$this->db->limit(1);
+			$result = $this->db->get('candidate');
+			// show_error($this->db->last_query(), 200, "SQL");
+			if ($result->num_rows() == 1) 
+			{
+				return $result->row(0);
+
+			             
+			}else{
+				return false;
+			}
+		}
 }

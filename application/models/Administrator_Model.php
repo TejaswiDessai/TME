@@ -273,6 +273,12 @@
 			$this->db->select('domainnms');
 			$this->db->where('cid', $cnid);
 			$this->db->where('inclexcl', 1 ); // check inclusion
+					$this->db->group_start();
+					$this->db->where('is_dispo', NULL ); // check disposition
+					$this->db->OR_where('is_dispo', 0);
+				
+					$this->db->group_end(); 
+		    $this->db->order_by("is_dispo", "desc");
 			$query = $this->db->get('domainlist');
 			// echo $this->db->last_query(); 
 			return $query->result_array(); 
@@ -282,7 +288,36 @@
 			$this->db->select('companynms');
 			$this->db->where('cid', $cnid);
 			$this->db->where('exlincl', 1 ); // check inclusion
+			$this->db->group_start();
+					$this->db->where('is_disp', NULL ); // check disposition
+					$this->db->OR_where('is_disp', 0);
+				
+					$this->db->group_end(); 
+			$this->db->order_by("is_disp", "desc");
 			$query = $this->db->get('complist');
+			
+			// echo $this->db->last_query(); 
+			return $query->result_array(); 
+
+		}
+		public function get_comp_dispo_status_byCampaign($cnid){
+			$this->db->select('dispo_comp');
+			$this->db->where('cnid', $cnid);
+			$this->db->where('dispo_comp', 1);
+		
+			$query = $this->db->get('campaign');
+			
+			// echo $this->db->last_query(); 
+			return $query->result_array(); 
+
+		}
+		public function get_domain_dispo_status_byCampaign($cnid){
+			$this->db->select('dispo_domain');
+			$this->db->where('cnid', $cnid);
+			$this->db->where('dispo_domain', 1);
+		
+			$query = $this->db->get('campaign');
+			
 			// echo $this->db->last_query(); 
 			return $query->result_array(); 
 
@@ -2717,6 +2752,24 @@ public function get_campaign_fordataverification()
 			$this->db->where('lmid', $lmid);
 			$this->db->update('leadmaster', $updateleadandcdcdata);
 			// echo $this->db->last_query(); 
+			return true;
+			
+		}
+		public function update_complist($new_array,$campaign_id,$cname)
+		{
+			$this->db->where('companynms', $cname);
+			$this->db->where('cid', $campaign_id);
+			$this->db->update('complist', $new_array);
+			// echo $this->db->last_query();  exit;
+			return true;
+			
+		}
+		public function update_domainlist($new_array1,$campaign_id,$cname)
+		{
+			$this->db->where('domainnms', $cname);
+			$this->db->where('cid', $campaign_id);
+			$this->db->update('domainlist', $new_array1);
+			// echo $this->db->last_query();  exit;
 			return true;
 			
 		}

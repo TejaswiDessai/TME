@@ -602,6 +602,29 @@ $(document).ready(function() {
                             </div>  -->
                         </div>
                         <hr>
+                        <div class="form-group row">
+                        <?php if(!empty($comp_dispostatus)) { ?>
+                          <div class="col-sm-2">
+                                <select class="form-control form-control-sm"  name="dispositiontagforcomplist" id="dispositiontagforcomplist">
+                                    <option value="">Disposition Reason for company </option>
+                                    <option value="Name Not Found">Name not found</option>
+                                    <option value="Comp is banned">Comp is banned</option>
+                                </select>
+                          </div> 
+                          <?php } ?>
+
+                          <?php if(!empty($domain_dispostatus)) { ?>
+                          <div class="col-sm-2">
+                                <select class="form-control form-control-sm"  name="dispositiontagfordomain" id="dispositiontagfordomain">
+                                    <option value="">Disposition Reason for Domain </option>
+                                    <option value="Name Not Found">Name not found</option>
+                                    <option value="Domain is banned">Domain not found</option>
+                                </select>
+                          </div> 
+                          <hr>
+                          <?php } ?>
+                        </div>
+                        
                      
                         <br>
 
@@ -851,6 +874,32 @@ $('#arevenue').change(function(){
 
   $("#revszlink").prop('disabled', false);
   $('#revszlink').val("");
+  
+});
+// check savbe button complist disposition change
+$('#dispositiontagforcomplist').change(function(){
+  var dispositiontagforcomplist = $('#dispositiontagforcomplist').val();
+  
+  if(dispositiontagforcomplist != ""){
+    $("#leadupdate").prop('disabled', true);
+    $("#leadsubmit").prop('disabled', true);
+  }else{
+    $("#leadupdate").prop('disabled', false);
+    $("#leadsubmit").prop('disabled', false);
+  }
+  
+});
+// check savbe button domain disposition change
+$('#dispositiontagfordomain').change(function(){
+  var dispositiontagfordomain = $('#dispositiontagfordomain').val();
+  
+  if(dispositiontagfordomain != ""){
+    $("#leadupdate").prop('disabled', true);
+    $("#leadsubmit").prop('disabled', true);
+  }else{
+    $("#leadupdate").prop('disabled', false);
+    $("#leadsubmit").prop('disabled', false);
+  }
   
 });
 
@@ -1552,7 +1601,30 @@ if(lmid == undefined){
             window.location = base_url+"administrator/logout";
             exit;
           }
-        
+          var dispositiontagfordomain = $('#dispositiontagfordomain').val();
+          var dispositiontagforcomplist = $('#dispositiontagforcomplist').val();
+  
+
+
+
+          if(dispositiontagfordomain == undefined){
+            var dispositiontagfordomain = '';
+
+            // alert(dispositiontagfordomain);
+          }
+          if(dispositiontagforcomplist == undefined){
+            var dispositiontagforcomplist = '';
+
+            // alert(dispositiontagforcomplist);
+          }
+          if(dispositiontagforcomplist != ""){
+            alert("Please remove disposition reason or Click on Skip");
+             return; 
+          }
+            if(dispositiontagfordomain != ""){
+              alert("Please remove disposition reason or Click on Skip");
+             return; 
+            }
             var campaign_id = $('#campaign_id').val();
             var campaign_idcids = $('#campaign_idcids').val();
         
@@ -1730,6 +1802,31 @@ if(lmid == undefined){
             window.location = base_url+"administrator/logout";
             exit;
           }
+
+          var dispositiontagfordomain = $('#dispositiontagfordomain').val();
+          var dispositiontagforcomplist = $('#dispositiontagforcomplist').val();
+
+          if(dispositiontagfordomain == undefined){
+            var dispositiontagfordomain = '';
+
+            // alert(dispositiontagfordomain);
+          }
+          if(dispositiontagforcomplist == undefined){
+            var dispositiontagforcomplist = '';
+
+            // alert(dispositiontagforcomplist);
+          }
+  // alert(dispositiontagfordomain);
+  // alert(dispositiontagforcomplist);
+          if(dispositiontagforcomplist != ""){
+            alert("Please remove disposition reason or Click on Skip");
+             return; 
+          }
+            if(dispositiontagfordomain != ""){
+              alert("Please remove disposition reason or Click on Skip");
+             return; 
+            }
+            // fdgf
             var campaign_id = $('#campaign_id').val();
 
             var stagtidi = $('#stagtidi').val();
@@ -1928,6 +2025,24 @@ if(lmid == undefined){
         $("#leadsave").on('click', function() 
         {
          
+          var dispositiontagforcomplist = $('#dispositiontagforcomplist').val();
+          var dispositiontagfordomain = $('#dispositiontagfordomain').val();
+          
+          if(dispositiontagfordomain == undefined){
+            var dispositiontagfordomain = '';
+
+            // alert(dispositiontagfordomain);
+          }
+          if(dispositiontagforcomplist == undefined){
+            var dispositiontagforcomplist = '';
+
+            // alert(dispositiontagforcomplist);
+          }
+
+
+
+
+// alert(dispositiontagfordomain);
           var campaign_id = $('#campaign_id').val();
             var campaign_idcids = $('#campaign_idcids').val();
             var lmid = $('#lmid').val();
@@ -2004,12 +2119,74 @@ if(lmid == undefined){
             var emailver = $('#emailver').val();
             var aum = $('#aum').val();
             var assetid = $('#assetid').val();
+
+
+//below added to change disposition tag and complist tag
+
+if(dispositiontagforcomplist != ""|| dispositiontagfordomain != ""){
+
+if(company_name == "" && dispositiontagforcomplist != ""){
+  alert("Select Company Name");
+  return;
+}
+if(domain == "" && dispositiontagfordomain != ""){
+  alert("Select Domain");
+  return;
+}
+
+           if(confirm(" Disposition reason is selected.Data will not save, are you sure?")){ 
+             $.ajax({
+           url :'<?php echo base_url("cdc/ajax_update_leadandcdcbyCDQA_domain_disposition");?>', //domain and complist both
+           type: 'GET', 
+           dataType: 'json',              
+           data: {
+              
+            campaign_id: campaign_id,
+             dispositiontagfordomain:dispositiontagfordomain,
+             domain:domain,
+             dispositiontagforcomplist:dispositiontagforcomplist,
+             company_name:company_name
+
+            
+           },
+   async: true,
+           cache: false,
+           success: function(response){
+             console.log("Success");
+               if(response.statusCode == "Success") 
+               {   
+                   $("#leadsave").html(response.message);
+                   top.location.href=base_url+"cdc/addleaddata?camp_id="+<?php echo $campaign['cnid']; ?>;//redirection
+                 
+                 } else if(response.statusCode =="Exist")
+                 {
+                   alert("Record already Exist");
+                 }
+             },
+            error: function (error) {
+                   alert("Error domain and complist");
+                 
+                   }
+               
+             }); // ajax end
+
+             
+                 }else{
+                           return;
+                         }
+}// domain end
+
+
+
+
+
+
            
             if(fname != "" && lname != "" && company_name != ""  && jtitle != "" && desid != "" && dcd !="" && email != "" && phone !="" && plink !="" && address != "" && city != "" && state != ""  && country_id != "" && industrycd != "" && subindustrycd != "" && empsize != "" && domain !=""  && empszlink != "" && revszlink != ""  && zip_code !="" ){
            
 
             var url = encodeURI("<?php echo base_url("cdc/ajax_save_leaddata");?>");
-            console.log(url+"?campaign_idcids="+campaign_idcids+"&lmid="+lmid+"&campaign_id="+campaign_id+"&sal="+sal+"&fname="+fname+"&lname="+lname+"&jtitle="+jtitle+"&desid="+desid+"&jlevel="+jlevel+"&dcd="+dcd+"&email="+email+"&phone="+phone+"&altphn="+altphn+"&phext="+phext+"&plink="+plink+"&company_name="+company_name+"&address="+address+"&city="+city+"&state="+state+"&zip_code="+zip_code+"&country_id="+country_id+"&timezone="+timezone+"&ctype="+ctype+"&linetype="+linetype+"&industrycd="+industrycd+"&subindustrycd="+subindustrycd+"&sectyp="+sectyp+"&empsize="+empsize+"&mlbl="+mlbl+"&curr="+curr+"&arevenue="+arevenue+"&empszlink="+empszlink+"&indlink="+indlink+"&domain="+domain+"&othrlink="+othrlink+"&revszlink="+revszlink+"&emailver="+emailver+"&aum="+aum+"&assetid="+assetid+"&pcomt="+pcomt);
+            console.log(url+"?campaign_idcids="+campaign_idcids+"&dispositiontagforcomplist="+dispositiontagforcomplist+"&lmid="+lmid+"&campaign_id="+campaign_id+"&sal="+sal+"&fname="+fname+"&lname="+lname+"&jtitle="+jtitle+"&desid="+desid+"&jlevel="+jlevel+"&dcd="+dcd+"&email="+email+"&phone="+phone+"&altphn="+altphn+"&phext="+phext+"&plink="+plink+"&company_name="+company_name+"&address="+address+"&city="+city+"&state="+state+"&zip_code="+zip_code+"&country_id="+country_id+"&timezone="+timezone+"&ctype="+ctype+"&linetype="+linetype+"&industrycd="+industrycd+"&subindustrycd="+subindustrycd+"&sectyp="+sectyp+"&empsize="+empsize+"&mlbl="+mlbl+"&curr="+curr+"&arevenue="+arevenue+"&empszlink="+empszlink+"&indlink="+indlink+"&domain="+domain+"&othrlink="+othrlink+"&revszlink="+revszlink+"&emailver="+emailver+"&aum="+aum+"&assetid="+assetid+"&pcomt="+pcomt);
            
             $.ajax({
                 url :'<?php echo base_url("cdc/ajax_save_leaddata");?>',
@@ -2021,6 +2198,8 @@ if(lmid == undefined){
                   campaign_idcids: campaign_idcids,
                   lmid: lmid,
                
+                  dispositiontagfordomain:dispositiontagfordomain,
+                  dispositiontagforcomplist:dispositiontagforcomplist,
                     sal:sal,
                     fname:fname,
                     lname: lname,

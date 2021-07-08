@@ -313,7 +313,16 @@ $.ajax({
                            </div>
                               <div class="col-sm-2">
                                 <div class="compcheck">
+                                <?php if(!empty($comp_list)) { ?>
+                                 <select name="company_name" id="company_name"   class="js-example-basic-single"> 
+                                     <option value="">Company Name</option>
+                                     <?php foreach ($comp_list as $comp_list): ?>
+                                    <option value="<?php echo $comp_list['companynms']; ?>" <?php if(isset($ldmster) && $ldmster['cname'] == $comp_list['companynms']){ echo "selected" ; } ?>><?php echo $comp_list['companynms']; ?></option>
+                                <?php endforeach; ?> 
+                               </select>
+                               <?php } else{ ?>
                                 <input type="text" autocomplete = "off"  name="company_name" id="company_name"  placeholder="Company Name"  class="form-control form-control-sm cdqadisable">
+                                <?php  } ?>
                                 </div>
                                 <span style='color:#FF0000' id="comp_msg"></span>
                               </div> 
@@ -445,7 +454,16 @@ $.ajax({
                             </div>          
                             <div class="col-sm-2">
                                 <div class="domaincheck">
+                                <?php if(!empty($domain)) { ?>
+                                 <select name="domain" id="domain"   class="js-example-basic-single"> 
+                                     <option value="">Domain</option>
+                                     <?php foreach ($domain as $domain): ?>
+                                    <option value="<?php echo $domain['domainnms']; ?>" <?php if(isset($ldmster) && $ldmster['domain'] == $domain['domainnms']){ echo "selected" ; } ?>><?php echo $domain['domainnms']; ?></option>
+                                <?php endforeach; ?> 
+                               </select>
+                               <?php } else{ ?>
                                 <input type="text"  autocomplete = "off"  name="domain" id="domain"  placeholder="Domain" value=""  class="form-control form-control-sm cdqadisable">
+                                <?php  } ?>
                                 </div>
                                 <span style='color:#FF0000' id="domain_msg"></span>
                               </div>
@@ -488,6 +506,31 @@ $.ajax({
                             </div> 
                         </div>
                         <hr>
+                        <div class="form-group row">
+                        <?php if(!empty($comp_dispostatus)) { ?>
+                          <div class="col-sm-2">
+                                <select class="form-control form-control-sm"  name="dispositiontagforcomplist" id="dispositiontagforcomplist">
+                                    <option value="">Disposition Reason for company </option>
+                                    <option value="Name Not Found">Name not found</option>
+                                    <option value="Comp is banned">Comp is banned</option>
+                                </select>
+                          </div> 
+                          <?php } ?>
+
+                          <?php if(!empty($domain_dispostatus)) { ?>
+                          <div class="col-sm-2">
+                                <select class="form-control form-control-sm"  name="dispositiontagfordomain" id="dispositiontagfordomain">
+                                    <option value="">Disposition Reason for Domain </option>
+                                    <option value="Name Not Found">Name not found</option>
+                                    <option value="Domain is banned">Domain not found</option>
+                                </select>
+                          </div> 
+                          <hr>
+                          <?php } ?>
+                        </div>
+
+
+
                         <div class="form-group row">
                         <div class="col-sm-2">
                                 <select class="form-control form-control-sm commentvisible"  name="cvr" id="cvr">
@@ -1845,6 +1888,39 @@ $(document).ready(function() {
     $(function() {
         $("#cdqasubmit").on('click', function() 
         {
+
+          var dispositiontagfordomain = $('#dispositiontagfordomain').val();
+          var dispositiontagforcomplist = $('#dispositiontagforcomplist').val();
+          // alert(dispositiontagfordomain);
+          if(dispositiontagfordomain == undefined){
+            var dispositiontagfordomain = '';
+
+            // alert(dispositiontagfordomain);
+          }
+          if(dispositiontagforcomplist == undefined){
+            var dispositiontagforcomplist = '';
+
+            // alert(dispositiontagforcomplist);
+          }
+
+//           if (($("#dispositiontagfordomain").length > 0)){
+//    alert('yes');
+//    alert(dispositiontagfordomain);
+// }else{
+//   alert(dispositiontagfordomain);
+// }
+//           // alert(dispositiontagfordomain);
+//           alert(dispositiontagforcomplist);
+ 
+          // if(dispositiontagforcomplist != ""){
+          //   alert("Please remove disposition reason or Click on Skip");
+          //    return; 
+          // }
+          //   if(dispositiontagfordomain != ""){
+          //     alert("Please remove disposition reason or Click on Skip");
+          //    return; 
+          //   }
+
           var campaign_id = $('#campaign_id').val();
           var campaign_idcids = $('#campaign_idcids').val();
            
@@ -1956,9 +2032,110 @@ $(document).ready(function() {
             var callrec = $('#callrec').val();
             var cvr = $('#cvr').val();
 
+            if(dispositiontagforcomplist != ""|| dispositiontagfordomain != ""){
+
+              if(company_name == "" && dispositiontagforcomplist != ""){
+                alert("Select Company Name");
+                return;
+              }
+              if(domain == "" && dispositiontagfordomain != ""){
+                alert("Select Domain");
+                return;
+              }
+             
+                         if(confirm(" Disposition reason is selected.Data will not save, are you sure?")){ 
+                           $.ajax({
+                         url :'<?php echo base_url("cdc/ajax_update_leadandcdcbyCDQA_domain_disposition");?>', //domain and complist both
+                         type: 'GET', 
+                         dataType: 'json',              
+                         data: {
+                            
+                          campaign_id: campaign_id,
+                           dispositiontagfordomain:dispositiontagfordomain,
+                           domain:domain,
+                           dispositiontagforcomplist:dispositiontagforcomplist,
+                           company_name:company_name
+
+                          
+                         },
+                 async: true,
+                         cache: false,
+                         success: function(response){
+                           console.log("Success");
+                             if(response.statusCode == "Success") 
+                             {   
+                                 $("#cdqasubmit").html(response.message);
+                                 top.location.href=base_url+"cdc/addlead?camp_id="+<?php echo $campaign['cnid']; ?>;//redirection
+                               
+                               } else if(response.statusCode =="Exist")
+                               {
+                                 alert("Record already Exist");
+                               }
+                           },
+                          error: function (error) {
+                                 alert("Error domain and complist");
+                               
+                                 }
+                             
+                           }); // ajax end
+         
+                           
+                               }else{
+                                         return;
+                                       }
+            }// domain end
+
+
+            // if(company_name != "" && dispositiontagforcomplist != ""){
+             
+            //           if(confirm("Company Disposition reason is selected.Data will not save, are you sure?")){ 
+            //             $.ajax({
+            //           url :'<?php echo base_url("cdc/ajax_update_leadandcdcbyCDQA_complist_disposition");?>',
+            //           type: 'GET', 
+            //           dataType: 'json',              
+            //           data: {
+                         
+                        
+            //            dispositiontagforcomplist:dispositiontagforcomplist,
+            //            company_name:company_name
+                       
+            //           },
+            //   async: true,
+            //           cache: false,
+            //           success: function(response){
+            //             console.log("Success");
+            //               if(response.statusCode == "Success") 
+            //               {   
+            //                   $("#cdqasubmit").html(response.message);
+            //                   top.location.href=base_url+"cdc/addlead?camp_id="+<?php echo $campaign['cnid']; ?>;//redirection
+                            
+            //                 } else if(response.statusCode =="Exist")
+            //                 {
+            //                   alert("Record already Exist");
+            //                 }
+            //             },
+            //            error: function (error) {
+            //                   alert("Error complist");
+                            
+            //                   }
+                          
+            //             }); // ajax end
+         
+                        
+            //                 }else{
+            //                           return;
+            //                         }
+            
+            //      }// complist end
 
           
            if(cvr != "" && callrec != "" && cdclst !="" && fname != "" && lname != "" && company_name != "" && jlevel != "" && jtitle != "" && desid != "" && dcd !="" && email != "" && phone !="" && plink !="" && address != "" && city != "" && state != ""  && country_id != "" && industrycd != "" && subindustrycd != "" && empsize != "" && domain !=""  && empszlink != "" && revszlink != ""  && zip_code !="" ){
+              if(dispositiontagforcomplist != "" || dispositiontagfordomain != ""){
+                if(confirm("Disposition reason is selected.Data will not save, are you sure?")){ 
+                      }else{
+                                return;
+                              }
+              }
            var url = encodeURI("<?php echo base_url("cdc/ajax_submit_leadandcdcbyCDQA");?>");
            console.log(url+"?campaign_id="+campaign_id+"&sal="+sal+"&fname="+fname+"&lname="+lname+"&jtitle="+jtitle+"&desid="+desid+"&jlevel="+jlevel+"&dcd="+dcd+"&email="+email+"&phone="+phone+"&altphn="+altphn+"&phext="+phext+"&plink="+plink+"&company_name="+company_name+"&address="+address+"&city="+city+"&state="+state+"&zip_code="+zip_code+"&country_id="+country_id+"&timezone="+timezone+"&ctype="+ctype+"&linetype="+linetype+"&industrycd="+industrycd+"&subindustrycd="+subindustrycd+"&sectyp="+sectyp+"&empsize="+empsize+"&mlbl="+mlbl+"&curr="+curr+"&arevenue="+arevenue+"&empszlink="+empszlink+"&indlink="+indlink+"&domain="+domain+"&othrlink="+othrlink+"&revszlink="+revszlink+"&emailver="+emailver+"&aum="+aum+"&assetid="+assetid+"&optin="+optin+"&optpst="+optpst+"&optph="+optph+"&opteml="+opteml+"&optoption="+optoption+"&aa1="+aa1+"&aa2="+aa2+"&aa3="+aa3+"&aa4="+aa4+"&aa5="+aa5+"&aa6="+aa6+"&aa7="+aa7+"&aa8="+aa8+"&aa9="+aa9+"&aa10="+aa10+"&aa11="+aa11+"&aa12="+aa12+"&pcomt="+pcomt);
           
@@ -1970,6 +2147,8 @@ $(document).ready(function() {
                    
                   campaign_id: campaign_id,
                   campaign_idcids:campaign_idcids,
+                  dispositiontagfordomain:dispositiontagfordomain,
+                  dispositiontagforcomplist:dispositiontagforcomplist,
                     sal:sal,
                     fname:fname,
                     lname: lname,
@@ -2075,6 +2254,88 @@ $(document).ready(function() {
                   }
               
             });
+
+    //        }else  if(domain != "" && dispositiontagfordomain != ""){
+             
+    //             if(confirm("Domain Disposition reason is selected.Data will not save, are you sure?")){ 
+    //               $.ajax({
+    //             url :'<?php echo base_url("cdc/ajax_update_leadandcdcbyCDQA_domain_disposition");?>',
+    //             type: 'GET', 
+    //             dataType: 'json',              
+    //             data: {
+                   
+                  
+    //               dispositiontagfordomain:dispositiontagfordomain,
+    //               domain:domain
+                 
+    //             },
+    //     async: true,
+    //             cache: false,
+    //             success: function(response){
+    //               console.log("Success");
+    //                 if(response.statusCode == "Success") 
+    //                 {   
+    //                     $("#cdqasubmit").html(response.message);
+    //                     top.location.href=base_url+"cdc/addlead?camp_id="+<?php echo $campaign['cnid']; ?>;//redirection
+                      
+    //                   } else if(response.statusCode =="Exist")
+    //                   {
+    //                     alert("Record already Exist");
+    //                   }
+    //               },
+    //              error: function (error) {
+    //                     alert("Error domain");
+                      
+    //                     }
+                    
+    //               }); // ajax end
+
+                  
+    //                   }else{
+    //                             return;
+    //                           }
+    //           // }
+
+    //          } else  if(company_name != "" && dispositiontagforcomplist != ""){
+             
+    //          if(confirm("Company Disposition reason is selected.Data will not save, are you sure?")){ 
+    //            $.ajax({
+    //          url :'<?php echo base_url("cdc/ajax_update_leadandcdcbyCDQA_complist_disposition");?>',
+    //          type: 'GET', 
+    //          dataType: 'json',              
+    //          data: {
+                
+               
+    //           dispositiontagforcomplist:dispositiontagforcomplist,
+    //           company_name:company_name
+              
+    //          },
+    //  async: true,
+    //          cache: false,
+    //          success: function(response){
+    //            console.log("Success");
+    //              if(response.statusCode == "Success") 
+    //              {   
+    //                  $("#cdqasubmit").html(response.message);
+    //                  top.location.href=base_url+"cdc/addlead?camp_id="+<?php echo $campaign['cnid']; ?>;//redirection
+                   
+    //                } else if(response.statusCode =="Exist")
+    //                {
+    //                  alert("Record already Exist");
+    //                }
+    //            },
+    //           error: function (error) {
+    //                  alert("Error complist");
+                   
+    //                  }
+                 
+    //            }); // ajax end
+
+               
+                  //  }else{
+                  //            return;
+                  //          }
+   
         }else{
           alert("Please fill Mandatory Fields");
         }

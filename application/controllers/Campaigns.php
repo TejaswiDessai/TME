@@ -529,6 +529,19 @@
 		{
 			$camp_id = $_POST['camp_id'];
 			$suptyp = $_POST['suptyp'];
+			
+			if(isset($_POST['dispo_comp'])){
+				$dispo_comp = '1';	
+			}else{
+				$dispo_comp = 0;	
+			}
+			if(isset($_POST['dispo_domain'])){
+				$dispo_domain = '1';	
+			}else{
+				$dispo_domain = 0;	
+			}
+
+			// print_r($dispo_comp); exit;
 			// $period = $_POST['period'];
 			$connect = pg_connect("host=localhost dbname=Forerunner user=postgres password=password@123");
 
@@ -692,6 +705,14 @@
 							}
 							else{
 							//echo "<script>alert('Import done');</script>";
+										if($dispo_comp == '1')
+										{
+											$updatequery = "update campaign set dispo_comp='1' where cnid='$camp_id'";
+										// show_error($this->db->last_query(), 200, "SQL");
+										$resultupdate = pg_query($connect, $updatequery);
+										}else{
+
+										}
 							}
 								
 							}
@@ -725,6 +746,14 @@
 						}
 						else{
 						//echo "<script>alert('Import done');</script>";
+							if($dispo_domain == '1')
+							{
+								$updatequery = "update campaign set dispo_domain='1' where cnid='$camp_id'";
+							// show_error($this->db->last_query(), 200, "SQL");
+							$resultupdate = pg_query($connect, $updatequery);
+							}else{
+
+							}
 						}
 							
 						}

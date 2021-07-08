@@ -175,8 +175,9 @@ $(document).ready(function () {
                             <?php } ?>
                         </div>
                         <hr>
+                        <?php if($campaign_record['inclistnew'] == 1){?>
                            <div class="form-group row">
-                           <?php if($campaign_record['inclistnew'] == 1){?>
+                          
                             <div class="col-sm-12">
                                 <label class="col-lable" style="color:#FF5722;"><b>Inclusion Type </b></label>
                             </div>
@@ -190,6 +191,7 @@ $(document).ready(function () {
                                 <label class="col-lable"><b>Company List</b></label>
                                 <input type="file" name="inclistnew_company" class="form-control">
                             </div>
+                            
                             <div class="col-sm-3 form-check form-switch " >
                                 <label class="col-lable"><b>Domain List</b></label>
                                 <input type="file" name="inclistnew_domain" class="form-control">
@@ -198,8 +200,24 @@ $(document).ready(function () {
                             <input type="file" name="userfileincl" class="form-control">
                             </div> -->
                             <!-- </div> -->
-                            <?php } ?>
+                            
                             </div>
+                                <div class="form-group row">
+                                <div class="col-sm-3 form-check form-switch " >
+                                <!-- <label class="col-lable"><b>Company Disposition Neeeded?</b></label>
+                                <input type="checkbox" name="dispo_comp" class="form-control"> -->
+                                </div>
+                                <div class="col-sm-3 form-check form-switch " >
+                                <label class="col-lable"><b>Company Disposition Neeeded?</b></label>
+                                <input type="checkbox" name="dispo_comp" id="dispo_comp" value="" class="form-control">
+                                </div>
+                                <div class="col-sm-3 form-check form-switch " >
+                                <label class="col-lable"><b>Domain Disposition Neeeded?</b></label>
+                                <input type="checkbox" name="dispo_domain" id="dispo_domain" value="" class="form-control">
+                                </div>
+                                </div>
+                            <?php } ?>
+                            
                             <hr>
                             <div class="form-group row">
                             <?php if($campaign_record['questnos'] != 0){?>
@@ -314,6 +332,7 @@ $(document).ready(function () {
     $(function() {
         $("#addSuppressionbtn").on('click', function() 
         {
+            var dispo_comp = $('#dispo_comp').val(); 
             
             var userfile = $('file#userfile').val();
             var files = $('#userfile')[0].files;
@@ -323,6 +342,8 @@ $(document).ready(function () {
             var suptyp = $('#suptyp').val(); 
             var region_id = $('#region_id').val(); 
             
+            var dispo_domain = $('#dispo_domain').val(); 
+            // alert(dispo_comp);
             // if(client_id == null || client_id == '')
             // {
             //     $("#client_id_msg").html("<p><strong>Please fill this.</strong></p>");
@@ -348,7 +369,8 @@ $(document).ready(function () {
 					campaign_id: campaign_id,
                     // client_id:client_id,
 					userfile: userfile,
-                    // country_id:country_id,
+                    dispo_comp:dispo_comp,
+                    dispo_domain:dispo_domain,
                     // region_id:region_id,
                    
                     

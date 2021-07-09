@@ -157,8 +157,10 @@ rel="Stylesheet"type="text/css"/>
                                             <button type="submit" name="submit" id="butsave" class="btn btn-primary">Add Candidate</button>
                                         </div>
                                     </div>
-                                    <textarea id="description" style="visibility: hidden;"></textarea>
+                                    <!-- <textarea id="description" style="visibility: hidden;"></textarea> -->
                                     
+                                    Test URL: <input type="text" style="width:50%;" id="myInput" value="http://mehp-dbs/administrator/test_login"> <button onclick="myFunction()">Copy text</button>
+                                    <p style="color:red;"><b><i>Note: Please, note down or remember "Phone Number" & "Email" which is required to Candidate while they login for test!</b></i></p>
                                 <!-- </form> -->
                                </div>
                                    
@@ -278,6 +280,20 @@ rel="Stylesheet"type="text/css"/>
         function noBack() {
             window.history.forward();
         }
+function myFunction() {
+  /* Get the text field */
+  var copyText = document.getElementById("myInput");
+
+  /* Select the text field */
+  copyText.select();
+  copyText.setSelectionRange(0, 99999); /* For mobile devices */
+
+  /* Copy the text inside the text field */
+  document.execCommand("copy");
+
+  /* Alert the copied text */
+  alert("Copied the text: " + copyText.value);
+}
     </script>
 
      <script type="text/javascript" src="<?php echo base_url(); ?>admintemplate/bower_components/switchery/dist/switchery.min.js"></script>

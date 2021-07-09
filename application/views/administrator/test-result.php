@@ -52,11 +52,11 @@ $(document).ready(function(){
                 <div class="page-header-breadcrumb">
                     <ul class="breadcrumb-title">
                         <li class="breadcrumb-item">
-                            <a href="index-2.html">
+                            <a href="<?php echo base_url();?>administrator/dashboard">
                                 <i class="icofont icofont-home"></i>
                             </a>
                         </li>
-                        <li class="breadcrumb-item"><a href="#!">Result</a>
+                        <li class="breadcrumb-item"><a href="<?php echo base_url();?>administrator/candidate_list">Candidate List</a>
                         </li>
                         <li class="breadcrumb-item"><a href="#!">Result</a>
                         </li>
@@ -129,7 +129,7 @@ $(document).ready(function(){
                                         <th>Email</th>
                                         <th>Phone</th>
                                         <!-- <th>Alternate Phone</th> -->
-                                        <th>Job Title</th>
+                                        <th>Job Title [Designation]</th>
                                         <th>Department</th>
                                         <th>Company Name</th>
                                         <th>Company Type</th>

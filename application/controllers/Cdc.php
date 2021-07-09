@@ -298,7 +298,7 @@
 						// $data['leadmaster'] = $this->Administrator_Model->get_leadmasterby_campaignidwithempcode($cids,$empcode);
 						$data['leadmaster'] = $this->Administrator_Model->get_dv_cleared_for_candidate_test();
 						if($data['leadmaster'] == Null){
-							// redirect('administrator/logout'); // do it later
+							redirect('administrator/logout'); // do it later
 						}
 
 					   foreach ($data['leadmaster'] as $ldmster) {

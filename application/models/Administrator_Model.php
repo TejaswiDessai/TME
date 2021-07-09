@@ -4899,7 +4899,7 @@ public function get_all_record_leadmasterby_Delivered($rec_stage,$period,$dcd,$l
 		// $this->db->where('cdcload',null);
 		// $this->db->where('qaload',null);
 		$this->db->where('rlc !=', 1);
-	
+		$this->db->where("stdti >= now()::date + interval '-12 MONTH'"); //latest -last 1 year
 		
 			$this->db->order_by('random()');
 			

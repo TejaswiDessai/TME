@@ -511,8 +511,8 @@ $.ajax({
                           <div class="col-sm-2">
                                 <select class="form-control form-control-sm"  name="dispositiontagforcomplist" id="dispositiontagforcomplist">
                                     <option value="">Disposition Reason for company </option>
-                                    <option value="Name Not Found">Name not found</option>
-                                    <option value="Comp is banned">Comp is banned</option>
+                                    <option value="Prospect not interested">Prospect not interested</option>
+                                   
                                 </select>
                           </div> 
                           <?php } ?>
@@ -521,8 +521,8 @@ $.ajax({
                           <div class="col-sm-2">
                                 <select class="form-control form-control-sm"  name="dispositiontagfordomain" id="dispositiontagfordomain">
                                     <option value="">Disposition Reason for Domain </option>
-                                    <option value="Name Not Found">Name not found</option>
-                                    <option value="Domain is banned">Domain not found</option>
+                                    <option value="Prospect not interested">Prospect not interested</option>
+                                  
                                 </select>
                           </div> 
                           <hr>

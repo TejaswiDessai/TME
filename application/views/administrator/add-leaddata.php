@@ -607,8 +607,14 @@ $(document).ready(function() {
                           <div class="col-sm-2">
                                 <select class="form-control form-control-sm"  name="dispositiontagforcomplist" id="dispositiontagforcomplist">
                                     <option value="">Disposition Reason for company </option>
-                                    <option value="Name Not Found">Name not found</option>
-                                    <option value="Comp is banned">Comp is banned</option>
+                                    <option value="No relevant job title found">No relevant job title found</option>
+                                    <option value="No contact info found (Website)">No contact info found (Website)</option>
+                                    <option value="No contact info found (LinkedIn)">No contact info found (LinkedIn)</option>
+                                    <option value="Company details not found on LinkedIn">Company details not found on LinkedIn</option>
+                                    <option value="Company website is blocked">Company website is blocked</option>
+                                    <option value="Out of Specs (Location - GEO)">Out of Specs (Location - GEO)</option>
+                                    <option value="Out of Specs (Invalid Industry)">Out of Specs (Invalid Industry)</option>
+                                    <option value="Out of Specs (Invalid Company size)">Out of Specs (Invalid Company size)</option>
                                 </select>
                           </div> 
                           <?php } ?>
@@ -617,8 +623,14 @@ $(document).ready(function() {
                           <div class="col-sm-2">
                                 <select class="form-control form-control-sm"  name="dispositiontagfordomain" id="dispositiontagfordomain">
                                     <option value="">Disposition Reason for Domain </option>
-                                    <option value="Name Not Found">Name not found</option>
-                                    <option value="Domain is banned">Domain not found</option>
+                                    <option value="No relevant job title found">No relevant job title found</option>
+                                    <option value="No contact info found (Website)">No contact info found (Website)</option>
+                                    <option value="No contact info found (LinkedIn)">No contact info found (LinkedIn)</option>
+                                    <option value="Company details not found on LinkedIn">Company details not found on LinkedIn</option>
+                                    <option value="Company website is blocked">Company website is blocked</option>
+                                    <option value="Out of Specs (Location - GEO)">Out of Specs (Location - GEO)</option>
+                                    <option value="Out of Specs (Invalid Industry)">Out of Specs (Invalid Industry)</option>
+                                    <option value="Out of Specs (Invalid Company size)">Out of Specs (Invalid Company size)</option>
                                 </select>
                           </div> 
                           <hr>

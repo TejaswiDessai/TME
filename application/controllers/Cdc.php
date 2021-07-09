@@ -1739,7 +1739,7 @@
 					
 				}
 
-				$getcompanylist = $this->Administrator_Model->get_domain_byCampaign($campaign_id);
+				$getcompanylist = $this->Administrator_Model->get_complist_byCampaign($campaign_id);
 				if(!empty($getcompanylist)){
 					$new_arraydisp = array(
 						'is_disp' => '0'
@@ -2170,7 +2170,7 @@
 				
 			}
 
-			$getcompanylist = $this->Administrator_Model->get_domain_byCampaign($campaign_id);
+			$getcompanylist = $this->Administrator_Model->get_complist_byCampaign($campaign_id);
 			if(!empty($getcompanylist)){
 				$new_arraydisp = array(
 					'is_disp' => '0'
@@ -2388,7 +2388,7 @@
 					
 				}
 	
-				$getcompanylist = $this->Administrator_Model->get_domain_byCampaign($campaign_id);
+				$getcompanylist = $this->Administrator_Model->get_complist_byCampaign($campaign_id);
 				if(!empty($getcompanylist)){
 					$new_arraydisp = array(
 						'is_disp' => '0'
@@ -2452,7 +2452,7 @@
 					
 				}
 	
-				$getcompanylist = $this->Administrator_Model->get_domain_byCampaign($campaign_id);
+				$getcompanylist = $this->Administrator_Model->get_complist_byCampaign($campaign_id);
 				if(!empty($getcompanylist)){
 					$new_arraydisp = array(
 						'is_disp' => '0'
@@ -4084,7 +4084,7 @@
 				
 			}
 
-			$getcompanylist = $this->Administrator_Model->get_domain_byCampaign($campaign_id);
+			$getcompanylist = $this->Administrator_Model->get_complist_byCampaign($campaign_id);
 			if(!empty($getcompanylist)){
 				$new_arraydisp = array(
 					'is_disp' => '0'

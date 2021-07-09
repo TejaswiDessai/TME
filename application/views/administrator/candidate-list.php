@@ -5,18 +5,18 @@
     <link rel="stylesheet" type="text/css" href="<?php echo base_url(); ?>admintemplate/bower_components/lightbox2/dist/css/lightbox.css">
 
 <script type="text/javascript">
- $(document).ready(function(){
-        $(".delete").click(function(e){ alert('as');
-            $this  = $(this);
-            e.preventDefault();
-            var url = $(this).attr("href");
-            $.get(url, function(r){
-                if(r.success){
-                    $this.closest("tr").remove();
-                }
-            })
-        });
-    });
+//  $(document).ready(function(){
+//         $(".delete").click(function(e){ alert('as');
+//             $this  = $(this);
+//             e.preventDefault();
+//             var url = $(this).attr("href");
+//             $.get(url, function(r){
+//                 if(r.success){
+//                     $this.closest("tr").remove();
+//                 }
+//             })
+//         });
+//     });
 $(document).ready(function(){
         $(".enable").click(function(e){
             $this  = $(this);
@@ -52,13 +52,13 @@ $(document).ready(function(){
                 <div class="page-header-breadcrumb">
                     <ul class="breadcrumb-title">
                         <li class="breadcrumb-item">
-                            <a href="index-2.html">
+                            <a href="<?php echo base_url();?>administrator/dashboard">
                                 <i class="icofont icofont-home"></i>
                             </a>
                         </li>
-                        <li class="breadcrumb-item"><a href="#!">Candidate</a>
-                        </li>
-                        <li class="breadcrumb-item"><a href="#!">List Candidate</a>
+                        <!-- <li class="breadcrumb-item"><a href="#!">Candidate</a>
+                        </li> -->
+                        <li class="breadcrumb-item"><a href="#!">Candidate List</a>
                         </li>
                     </ul>
                 </div>
@@ -127,7 +127,7 @@ $(document).ready(function(){
                                         <th>Email</th>
                                         <th>Phone</th>
                                         <th>Test-Date</th>
-                                        <!-- <th>Action</th> -->
+                                        <th>Action</th>
                                         <th>Result</th>
                                     </tr>
                                 </thead>
@@ -143,7 +143,9 @@ $(document).ready(function(){
                                         <td><?php echo $post['phone']; ?></td>
                                          <td><?php echo date("M d,Y", strtotime($post['curr_date'])); ?></td>
                                          <!-- <td><?php //if($post['status'] == 0){ echo "Active";}else{ echo "Inactive";} ?></td> -->
-                                       
+                                        <td>
+                                        <a class="label label-inverse-danger delete" href='<?php echo base_url(); ?>administrator/delete/<?php echo $post['candidate_id']; ?>?table=<?php echo base64_encode('candidate'); ?>'>Delete</a>
+                                        </td>      
                                         <td>
                                         <a class="label label-inverse-info" href='<?php echo base_url(); ?>administrator/result/<?php echo $post['candidate_id']; ?>'>Get Result</a>
                                         </td>

@@ -161,6 +161,9 @@ echo $date;
 			$this->session->unset_userdata('image');
 			$this->session->unset_userdata('site_logo');
 			$this->session->unset_userdata('token');
+			$this->session->unset_userdata('phone');
+			$this->session->unset_userdata('email');
+			$this->session->unset_userdata('login_time_stamp');
 			//Set Message
 			$this->session->set_flashdata('success', 'You are logged out.');
 			
@@ -3817,7 +3820,7 @@ public function getPrivillage(){
 
 			if($this->form_validation->run() === FALSE){
 				 $this->load->view('administrator/header-script');
-		 	 	 $this->load->view('administrator/header');
+		 	 	//  $this->load->view('administrator/header');
 		  		//  $this->load->view('administrator/header-bottom');
 		   		 $this->load->view('administrator/'.$page, $data);
 		  		 $this->load->view('administrator/footer');

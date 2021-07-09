@@ -54,7 +54,11 @@
                                 <i class="ti-angle-down"></i>
                             </a>
                             <ul class="show-notification profile-notification">
-                                
+                                <?php
+                                $phone = $this->session->userdata('phone');
+                                if(!isset($phone) && $phone == null)
+                                {
+                                ?>
                                 <li>
                                     <a href="<?php echo base_url(); ?>administrator/update-profile">
                                         <i class="ti-user"></i> Profile
@@ -66,7 +70,7 @@
                                         <i class="ti-lock"></i> Change Password
                                     </a>
                                 </li>
-                               
+                               <?php } ?>
                                 <li>
                                     <a href="<?php echo base_url(); ?>administrator/logout">
                                         <i class="ti-layout-sidebar-left"></i> Logout

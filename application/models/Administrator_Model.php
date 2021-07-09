@@ -65,7 +65,7 @@
 
 		public function delete($id,$table)
 		{
-			$this->db->where('id', $id);
+			$this->db->where('candidate_id', $id);
 			$this->db->delete($table);
 			return true;
 		}

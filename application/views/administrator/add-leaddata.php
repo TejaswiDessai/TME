@@ -214,7 +214,7 @@ $(document).ready(function() {
                                <!-- toolbar options -->
                                <!-- <div id="toolbar-options" class="hidden"> -->
                                  <?php if(!empty($supp_jt)){ ?>
-                                <a href="#myModalemail1" data-target="#myModalemail1" data-toggle="modal"><i class="icofont icofont-info-circle"></i></a>
+                                <a href="#myModalemail1" data-target="#myModalemail1" data-toggle="modal"><i class="icofont icofont-ui-delete">Suppressed list</i></a>
                                 <?php } ?>
                               <!-- </div> -->
                                 <div class="jtitilelist">

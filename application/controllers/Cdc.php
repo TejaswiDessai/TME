@@ -604,6 +604,8 @@
 				$postData = $this->input->post();
 				$postData1 = $postData['campaign_id'];
 			}
+
+			
 		
 						$data['campaigns'] = $this->Administrator_Model->get_campaign_by_id($postData1);
 
@@ -615,8 +617,12 @@
 						
 						$cids = $camp['cids'];
 					
-						
-						$data['leadmaster'] = $this->Administrator_Model->get_leadmasterby_campaignQA($cids);
+						if(isset($_GET['lmid'])){
+							$data['leadmaster'] = $this->Administrator_Model->get_leadmasterby_campaignQA_with_lmid($cids,$_GET['lmid']);
+						}else{
+							$data['leadmaster'] = $this->Administrator_Model->get_leadmasterby_campaignQA($cids);
+						}
+						// $data['leadmaster'] = $this->Administrator_Model->get_leadmasterby_campaignQA($cids);
 						$data['leadmastercount'] = $this->Administrator_Model->get_leadmasterby_campaignQA_count($cids); // get pending w
 						$data['leadmastercounts']= count($data['leadmastercount']);
 						// echo $pendinngcountqa;
@@ -818,7 +824,7 @@
 						foreach ($data['leadmaster'] as $ldmster) {
 							if (isset($data['leadmaster'])){
 								$data['countriesdv'] = $this->Administrator_Model->get_countriesbyCampaigndv($ldmster['lmid']);
-								// print_r($data['countriesdv']);
+								
 								$data['industriesdv'] = $this->Administrator_Model->get_industries_ofleadmaster($ldmster['lmid']);
 								$data['subindustriesdv'] = $this->Administrator_Model->get_subindustries_ofleadmaster($ldmster['lmid']);
 								$data['currencydv'] = $this->Administrator_Model->get_currency_ofleadmaster($ldmster['lmid']);

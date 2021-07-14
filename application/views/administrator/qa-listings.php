@@ -125,6 +125,7 @@ padding-bottom:0px;
 
 $(document).on("click", ".gotoupdatelead", function () {
     var ids = $(this).attr('data-id');
+    // alert(ids);jhh
     var row = $(this).attr('data-row');
    
     window.location = base_url+"cdc/qualityform?camp_id=<?php echo $_SESSION['campaign_id']; ?>&lmid="+ids+"&empcode=<?php echo $_SESSION['empcode']; ?>";
@@ -371,11 +372,13 @@ $(document).ready(function() {
                                         <td><?php 
                                         echo $post['domain'];  ?>
                                         </td>
-                                        <?php foreach ($countriesdv as $countriesdv){
-                                            // Print_r($countriesdv);
-                                        }
+                                        <?php
+                                        $query = $this->db->query("SELECT countryname FROM leadmaster
+                                         JOIN country ON country.countrycd = leadmaster.country WHERE lmid = '".$post['lmid']."'");
+                                        $ret = $query->row();
+                                     
                                        ?>
-                                         <td><?php echo $post['state']." / ".$post['country']; ?></td>
+                                         <td><?php echo $post['state']." / ".$ret->countryname ; ?></td>
                                        
                                         <td>
                                         <?php echo $post['jtitle']; ?>

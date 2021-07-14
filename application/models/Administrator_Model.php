@@ -456,8 +456,9 @@
 			
 		
 			$response = $query->result_array();
-			return $response;
 			// echo $this->db->last_query(); 
+			return $response;
+			
 
 			
 		}
@@ -2428,6 +2429,37 @@ public function get_leadmasterby_campaignQA($id = FALSE,$leadlimit = FALSE)
 	$this->db->limit(1);	
 	}
 	// $this->db->limit(1);
+	$query = $this->db->get_where('leadmaster', array('cids' => $id));
+	// echo $this->db->last_query(); 
+	// echo $string;
+	// die;
+
+		return $query->result_array();
+	}
+public function get_leadmasterby_campaignQA_with_lmid($id = FALSE,$lmid)
+{
+		
+		
+	$this->db->where('lmid', $lmid);
+	$this->db->where('cdcsb <', '4');
+	$this->db->where('cdcrjt <', '4');
+	// $this->db->where('cdcsv !=', 0);
+	$this->db->where('cdcsv', NULL);
+	$this->db->where('qasv', NULL);
+	$this->db->where('sbsvtag !=', 0);
+	// $this->db->where('evload',0); 
+	$this->db->where('cdcload',1);
+	$this->db->where('qaload',null);
+	$this->db->where('qalsload',null);
+	$this->db->where('rlc !=', 1);
+		$this->db->group_start();
+		$this->db->where('ddispositionclass', '0');
+		$this->db->OR_where('ddispositionclass', NULL);
+		$this->db->group_end(); 
+	$this->db->order_by('cdcsbdti','ASC');
+	$this->db->order_by('cdcsbdtii','ASC');
+	
+	
 	$query = $this->db->get_where('leadmaster', array('cids' => $id));
 	// echo $this->db->last_query(); 
 	// echo $string;

@@ -50,7 +50,7 @@
 						if(!empty($data['domain'])) {
 							$data['domain_dispostatus'] = $this->Administrator_Model->get_domain_dispo_status_byCampaign($camp_id);
 						}
-
+						$data['supp_jt'] = $this->Administrator_Model->get_suppjt_byCampaign($camp_id);
 						$data['countries'] = $this->Administrator_Model->get_countriesbyCampaign($camp_id);
 				
 							foreach($data['countries'] as $co){
@@ -185,6 +185,7 @@
 
 
 						$data['incemail'] = $this->Administrator_Model->get_incemail_byCampaign($camp_id);
+						$data['supp_jt'] = $this->Administrator_Model->get_suppjt_byCampaign($camp_id);
 						// print_r($data['incemail']); 
 						// exit();
 
@@ -616,7 +617,10 @@
 					
 						
 						$data['leadmaster'] = $this->Administrator_Model->get_leadmasterby_campaignQA($cids);
-					
+						$data['leadmastercount'] = $this->Administrator_Model->get_leadmasterby_campaignQA_count($cids); // get pending w
+						$data['leadmastercounts']= count($data['leadmastercount']);
+						// echo $pendinngcountqa;
+						
 						if(empty($data['leadmaster'])){
 							$this->session->set_flashdata('success', 'Quality verification is finished for this campaign.');
 							redirect('cdc/selectCampaignForQA');
@@ -749,6 +753,72 @@
 						foreach ($data['leadmaster'] as $ldmster) {
 							if (isset($data['leadmaster'])){
 								$data['countriesdv'] = $this->Administrator_Model->get_countriesbyCampaigndv($ldmster['lmid']);
+								$data['industriesdv'] = $this->Administrator_Model->get_industries_ofleadmaster($ldmster['lmid']);
+								$data['subindustriesdv'] = $this->Administrator_Model->get_subindustries_ofleadmaster($ldmster['lmid']);
+								$data['currencydv'] = $this->Administrator_Model->get_currency_ofleadmaster($ldmster['lmid']);
+								$data['timezonedv'] = $this->Administrator_Model->get_timezone_ofleadmaster($ldmster['lmid']);
+								$data['designationdv'] = $this->Administrator_Model->get_designation_ofleadmaster($ldmster['lmid']);
+								$data['departmentsdv'] = $this->Administrator_Model->get_depts_byleadmaster($ldmster['lmid']);
+								$data['assetitledv'] = $this->Administrator_Model->get_assetitle_byleadmaster($ldmster['lmid']);
+								$data['comptypedv'] = $this->Administrator_Model->get_comptype_byleadmaster($ldmster['lmid']);
+							}else if(empty($data['leadmaster'])){
+							
+								redirect('administrator/dashboard');
+							}
+	
+						}
+					
+					
+			$this->load->view('administrator/header-script');
+			$this->load->view('administrator/header');
+			$this->load->view('administrator/header-bottom');
+			 $this->load->view('administrator/'.$page, $data);
+			$this->load->view('administrator/footer');
+		
+		}
+		function qalistings($page = 'qa-listings'){
+			
+			$data['title'] = 'Create Lead';
+			
+			if(isset($_GET['camp_id'])){
+				$postData1 = $_GET['camp_id']; 
+			}else{
+				$postData = $this->input->post();
+				$postData1 = $postData['campaign_id'];
+			}
+						$data['campaigns'] = $this->Administrator_Model->get_campaign_by_id($postData1);
+
+						foreach ($data['campaigns'] as $camp) {
+						
+						}
+						
+						$camp_id = $camp['cnid'];
+						
+						$cids = $camp['cids'];
+						
+						$_SESSION['campaign_id'] = $camp_id;
+
+						$data['empcode'] = $this->session->userdata('empcode');
+						$data['Campid'] = $camp_id;
+						$leadlimit = 10;
+						// $leadrectype = $this->input->post('leadrectype');
+						// $refreshbtn = $this->input->post('refreshbtn');
+						// $data['leadlimit'] = $leadlimit;
+						// $data['leadrectype'] = $leadrectype;
+						// $data['refreshbtn'] = $refreshbtn;
+					
+						// $data['leadmaster'] = $this->Administrator_Model->get_leadmasterby_campaign_lead_generation($cids,$leadlimit,$leadrectype,$data['empcode']);
+						$data['leadmaster'] = $this->Administrator_Model->get_leadmasterby_campaignQA($cids,$leadlimit);
+
+						if(empty($data['leadmaster'])){
+							
+						}
+						
+
+						foreach ($data['leadmaster'] as $ldmster) {
+							if (isset($data['leadmaster'])){
+								$data['countriesdv'] = $this->Administrator_Model->get_countriesbyCampaigndv($ldmster['lmid']);
+								// print_r($data['countriesdv']);
 								$data['industriesdv'] = $this->Administrator_Model->get_industries_ofleadmaster($ldmster['lmid']);
 								$data['subindustriesdv'] = $this->Administrator_Model->get_subindustries_ofleadmaster($ldmster['lmid']);
 								$data['currencydv'] = $this->Administrator_Model->get_currency_ofleadmaster($ldmster['lmid']);
@@ -905,6 +975,51 @@
 				 <td>'.$row->industry.'</td>
 				 <td>'.$row->subindustry.'</td>
 				 <td>'.$row->description.'</td>
+				
+				</tr>
+			  ';
+			 }
+			}
+			else
+			{
+			 $output .= '<tr>
+				 <td colspan="5">No Data Found</td>
+				</tr>';
+			}
+			$output .= '</table>';
+			echo $output;
+		
+
+		}
+		public function getsearcresultofjt(){ 
+		
+
+			$output = '';
+			$query = '';
+			$campaign_id = $_POST['campaign_id'];
+		
+			if($this->input->post('query'))
+			{
+			 $query = $this->input->post('query');
+			}
+			$data = $this->Administrator_Model->fetch_data_jt($query,$campaign_id);
+			$output .= '
+			<div class="table-responsive">
+			   <table class="table table-bordered table-striped">
+				<tr>
+				 <th>Suppressed Jobtitles</th>
+				
+				 
+				</tr>
+			';
+			if($data->num_rows() > 0)
+			{
+			 foreach($data->result() as $row)
+			 {
+			  $output .= '
+				<tr>
+				 <td>'.$row->jobtitlelist.'</td>
+				
 				
 				</tr>
 			  ';
@@ -10087,6 +10202,29 @@
 			
 			echo json_encode($data); 
 		  }
+		public function checkjtitle(){ 
+			
+			$campaign_id = $_GET['campaign_id'];
+			$jtitle = trim($_GET['jtitle']);
+			$jobtitleexl = $_GET['jobtitleexl'];
+
+			
+			// get data 
+		
+			
+			$data['jtitlesupp'] = $this->Administrator_Model->check_jtitle_suppression($jtitle,$campaign_id);
+			// $incdomain = $this->Administrator_Model->get_incdomain_byCampaign($campaign_id);
+			
+			// if($inclistnew == 1 && !empty($incdomain))
+			// if($jobtitleexl == 1)
+			// {
+			// 	$data['domaincheckincl'] = $this->Administrator_Model->check_domain_incl($jtitle,$campaign_id);
+			// }
+			
+			
+			echo json_encode($data); 
+		  }
+
 		public function checkdomain(){ 
 			
 			$campaign_id = $_GET['campaign_id'];

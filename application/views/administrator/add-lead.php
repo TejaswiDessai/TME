@@ -36,7 +36,8 @@ Below form is  developed by Tejaswi
 } */
 .tooltips {
   position: relative;
-  display: inline-block;
+  /* display: inline-block; */
+  display: inline;
   border-bottom: 1px dotted black;
 }
 .tooltips .tooltiptext {
@@ -49,13 +50,14 @@ Below form is  developed by Tejaswi
   padding: 5px 0;
   position: absolute;
   z-index: 1;
-  bottom: 125%;
-  left: 50%;
-  margin-left: -60px;
+  /* bottom: 125%; */
+  bottom: 55%;
+  margin-bottom: 5px;
+  /* left: 50%; */
+  /* margin-left: -60px; */
   opacity: 0;
   transition: opacity 0.3s;
 }
-
 .tooltips .tooltiptext::after {
   content: "";
   position: absolute;
@@ -245,7 +247,14 @@ $.ajax({
                                 <span style='color:#FF0000' id="lname_msg"></span>
                             </div>
                             <div class="col-sm-3">
-                                <input type="text"  name="jtitle" id="jtitle"  placeholder="Job Title"  autocomplete = "off" class="form-control form-control-sm cdqadisable">
+                            <?php if(!empty($supp_jt)){ ?>
+                                <a href="#myModalemail1" data-target="#myModalemail1" data-toggle="modal"><i class="icofont icofont-info-circle"></i></a>
+                                <?php } ?>
+                              <div class="jtitilelist">
+                                  <input type="text"  name="jtitle" id="jtitle"  placeholder="Job Title"  autocomplete = "off" class="form-control form-control-sm cdqadisable">
+                                  <input type="hidden" name="jobtitleexl" id="jobtitleexl" value="<?php echo $campaign['jobtitleexl']; ?>">
+                                </div>
+                                <span style='color:#FF0000' id="jtitle_msg"></span>
                             </div>
                             <div class="col-sm-2">
                                 <select class="form-control form-control-sm cdqadisable" name="jlevel" id="jlevel" >
@@ -312,6 +321,7 @@ $.ajax({
                                </select>
                            </div>
                               <div class="col-sm-2">
+                              <div class="tooltips">
                                 <div class="compcheck">
                                 <?php if(!empty($comp_list)) { ?>
                                  <select name="company_name" id="company_name"   class="js-example-basic-single"> 
@@ -324,6 +334,13 @@ $.ajax({
                                 <input type="text" autocomplete = "off"  name="company_name" id="company_name"  placeholder="Company Name"  class="form-control form-control-sm cdqadisable">
                                 <?php  } ?>
                                 </div>
+
+                                <span class="tooltiptext" id="copypaste" style="height: 40px; font-size:15x"> 
+                                 <!-- <i class="icofont icofont-rounded-down"></i> --> Company Name
+                                   <!-- <button onclick="copyToClipboard('#company_name')">Copy TEXT 1</button> -->
+                                   </span>
+                               </div>
+
                                 <span style='color:#FF0000' id="comp_msg"></span>
                               </div> 
 
@@ -692,6 +709,41 @@ $.ajax({
 
 
 
+  <!-- Modal -->
+ <div class="modal fade" id="myModalemail1" role="dialog">
+    <div class="modal-dialog">
+    
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <!-- <h4 class="modal-title">Modal Header</h4> -->
+        </div>
+        <div class="modal-body">
+        <div class="mail-body-content">
+            <form>
+                <div class="form-group row">                  
+                    <div class="col-sm-12">
+                      <input type ="text"  id="search_textjt" name="search_textjt" class="form-control form-control-sm" placeholder="Search suppressed jobtitles here...">
+                    </div>
+                </div>
+                
+            </form>
+         <div id="resultdivjt"></div>
+                <div style="clear:both"></div>
+                <br />
+               </div>
+        </div>
+        <div class="modal-footer">
+        <button type="button" id="searchbtnjt" name ="searchbtnjt" class="btn btn-primary">Search</button>
+          <button type="button" class="btn btn-danger " data-dismiss="modal">Close</button>
+        </div>
+      </div>
+      
+    </div>
+  </div>
+
+
      <script>
 
 
@@ -727,7 +779,40 @@ $(document).ready(function(){
 // end of search result
 
 
-
+//job titles search start
+$(document).ready(function(){
+	// load_data();
+  var campaign_id = <?php  echo $campaign['cnid']; ?>;
+	function load_datajt(query)
+	{
+		$.ajax({
+			// url:"fetch.php",
+      url:'<?php echo base_url("cdc/getsearcresultofjt");?>',
+			method:"post",
+			data:{
+        query:query,
+        campaign_id:campaign_id
+      },
+			success:function(data)
+			{
+				$('#resultdivjt').html(data);
+			}
+		});
+	}
+	
+	$('#search_textjt').keyup(function(){
+		var searchjt = $(this).val();
+		if(searchjt != '')
+		{
+			load_datajt(searchjt);
+		}
+		else
+		{
+			// load_data();			
+		}
+	});
+});
+// end of search result
 
 
 
@@ -807,6 +892,13 @@ $('#arevenue').change(function(){
 
   $("#revszlink").prop('disabled', false);
   $('#revszlink').val("");
+  
+});
+
+$('#company_name').change(function(){
+  var company_name = $(this).val();
+  $("#copypaste").html(company_name);
+ 
   
 });
 
@@ -1209,6 +1301,61 @@ $('#mlbl').blur(function(){   // revenue range change
     
    
 });
+
+ // Check unique jobtitle
+ $('.jtitilelist input:first').blur(function(){
+      var jtitle = $('#jtitle').val();
+      var jobtitleexl = $('#jobtitleexl').val();
+      var campaign_id = <?php  echo $campaign['cnid']; ?>;
+      var url = '<?php echo base_url("cdc/checkjtitle");?>';
+      console.log(url+'?jtitle='+jtitle+"&campaign_id="+campaign_id);
+    // AJAX request
+    $.ajax({
+
+        url:'<?php echo base_url("cdc/checkjtitle");?>',
+        method: 'get',
+        data: {
+          jtitle: jtitle,
+          campaign_id: campaign_id,
+          jobtitleexl:jobtitleexl
+          
+          },
+        dataType: 'json',
+        success: function(response){
+          $( '#jtitle_msg' ).html(response);
+          if(response.domaincheckincl == "true")
+          {
+            $("#jtitle_msg").html("");
+            console.log("true");
+            return true;	
+          }
+          if(response.domaincheckincl == "false")
+          {
+            $("#jtitle_msg").html("Not in Inclusion jobtitle List");
+            console.log("true");
+            // return true;	
+          }
+          else if(response.jtitlesupp == "true")
+          {
+            $("#jtitle_msg").html("Suppressed jobtitle");
+            console.log("true");
+            $('#jtitle').val("");
+            return true;	
+          } else 
+          {
+            $("#jtitle_msg").html("");
+            console.log("true");
+            return false;	
+          }
+          
+        }
+    });
+    
+   
+});
+
+
+
 
  // Check unique Company
  $('.compcheck input:first').blur(function(){

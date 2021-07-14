@@ -248,6 +248,34 @@
 
 
 		}
+		function addclient($page = 'add-client'){
+			$data['title'] = 'Create Campaigns';
+                        // $data['clients'] = $this->Administrator_Model->get_clients();
+                        // $data['countries'] = $this->Administrator_Model->get_countries();
+                        // $data['regions'] = $this->Administrator_Model->get_regions();
+                        // $data['industries'] = $this->Administrator_Model->get_industries();
+                        // $data['departments'] = $this->Administrator_Model->get_depts();
+                        // $data['empsize'] = $this->Administrator_Model->get_empsize();
+                        // $data['revsize'] = $this->Administrator_Model->get_revenuesize();
+						// $data['designation'] = $this->Administrator_Model->get_designation();
+						// $data['lbound'] = $this->Administrator_Model->get_empsize();
+						// $data['ubound'] = $this->Administrator_Model->get_empsize();
+
+						// $data['revnlbound'] = $this->Administrator_Model->get_revenuesize();
+						// $data['revnubound'] = $this->Administrator_Model->get_revenuesize();
+						// $data['frequency_type'] = $this->Administrator_Model->get_frequency_type();
+						// $data['frequency'] = $this->Administrator_Model->get_frequency();
+					
+			
+			$this->load->view('administrator/header-script');
+			$this->load->view('administrator/header');
+			$this->load->view('administrator/header-bottom');
+			 $this->load->view('administrator/'.$page, $data);
+			$this->load->view('administrator/footer');
+		
+
+
+		}
 
 		function addsuppressionList($page = 'suppression-list')
 		{
@@ -761,7 +789,38 @@
 				
 					}
 				}
-						
+
+				if(isset($_FILES['inclistnew_jtitile']['name'])) // job title inclusion added by Tejaswi
+				{
+				$filename = explode(".", $_FILES['inclistnew_jtitile']['name']);
+				$in_joblist_file = $filename[0].".".$filename[1];
+				if($filename[1] == 'csv')
+				{
+					$handle = fopen($_FILES['inclistnew_jtitile']['tmp_name'], "r");
+					while($data = fgetcsv($handle))
+					{
+						$item1 = pg_escape_string ($connect, $data[0]);  
+						// $item2 = pg_escape_string ($connect, $data[1]);
+						// $item3 = pg_escape_string ($connect, $data[2]);
+					
+						//$item36= mysqli_real_escape_string($connect, $data[35]);
+
+						//$item5 = mysqli_real_escape_string($connect, $data[4]);
+						$query = "INSERT into jobtitlelist(cid,filename,jobtitlelist,datatype)values('$camp_id','$in_joblist_file','$item1','$suptyp')";
+						// show_error($this->db->last_query(), 200, "SQL");
+						$result = pg_query($connect, $query);
+						if (!$result) {
+							die('Invalid query: ' . pg_result_error($connect));
+						}
+						else{
+						// echo "<script>alert('Import done');</script>";
+						}
+							
+						}
+						fclose($handle);
+				
+					}
+				}		
 				if(isset($_FILES['userfilequestion']['name']))
 				{
 					$filename = explode(".", $_FILES['userfilequestion']['name']);
@@ -1151,6 +1210,7 @@
 				'tid' => $desiStr,
 				'suplistnew' =>$_POST['checksupp'],
 				'inclistnew' =>$_POST['inclist'],
+				'jobtitleexl' =>$_POST['jobtitleexl'],
 				'cdcneed' =>$_POST['cdqa'],
 				'assetid' => $_POST['assetid'],
 				'questnos' =>$question,

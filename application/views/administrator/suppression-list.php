@@ -98,7 +98,7 @@ $(document).ready(function () {
                                 <?php foreach ($campaign_record as $campaign_record): ?>
                                     <?php 
                                     
-                                    if($campaign_record['suplistnew'] == 0 && $campaign_record['inclistnew'] == 0 && $campaign_record['questnos'] == 0 && $campaign_record['assetid'] == 0 )
+                                    if($campaign_record['suplistnew'] == 0 && $campaign_record['inclistnew'] == 0 && $campaign_record['questnos'] == 0 && $campaign_record['assetid'] == 0 && $campaign_record['jobtitleexl'] == 0 )
                                     {
                                         ?>
                                         <script>
@@ -168,11 +168,25 @@ $(document).ready(function () {
                                 <label class="col-lable"><b>Domain List </b></label>
                                 <input type="file" name="suplistnew_domain" class="form-control">
                             </div>
+
+                            
                                 <!-- <label class="f-left col-lable"><b>Exclusion(*.csv) </b> </label>
                                 <input type="file" name="userfile" class="form-control"> -->
                                 <!-- </div> -->
                             <!-- </div> -->
                             <?php } ?>
+
+                            <?php if($campaign_record['jobtitleexl'] == 1){?>
+
+                            <div class="col-sm-3 form-check form-switch " >
+                            <!-- <input type="checkbox" class="js-small f-right suppclass" name="suppchk" id="noneAboveCheckInclusion" value="" > -->
+                            <!-- <div id="noneAboveInclusion"> -->
+                            <label class="col-lable"><b>Job title exclusion list</b></label>
+                            <input type="file" name="inclistnew_jtitile" class="form-control">
+                            </div>
+
+                            <?php } ?>
+
                         </div>
                         <hr>
                         <?php if($campaign_record['inclistnew'] == 1){?>
@@ -220,6 +234,7 @@ $(document).ready(function () {
                             
                             <hr>
                             <div class="form-group row">
+                           
                             <?php if($campaign_record['questnos'] != 0){?>
                             <div class="col-sm-3 form-check form-switch " >
                              <label class="col-lable"><b>Questions(*.csv)</b></label>

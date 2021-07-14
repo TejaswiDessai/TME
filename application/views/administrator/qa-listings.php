@@ -37,8 +37,15 @@ padding-bottom:0px;
     </style>
             <div class="page-header">
                 <div class="page-header-title">
-                    <h4>Quality Analysis</h4>
+                    <h4>Quality Analysis</h4><br><br>
+                    <?php foreach ($campaigns as $campaign): ?>
+                                <label class="col-lable"><b>Campaign Name: <?php echo $campaign['campnm']; ?></b></label>
+                                <!-- <input type="hidden" value="<?php //echo $campaign['cids']; ?>" id="campnm"> -->
+                            <?php endforeach; ?>
                 </div>
+
+              
+
                 <div class="page-header-breadcrumb">
                     <ul class="breadcrumb-title">
                         <li class="breadcrumb-item">

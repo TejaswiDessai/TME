@@ -248,7 +248,7 @@ $.ajax({
                             </div>
                             <div class="col-sm-3">
                             <?php if(!empty($supp_jt)){ ?>
-                                <a href="#myModalemail1" data-target="#myModalemail1" data-toggle="modal"><i class="icofont icofont-info-circle"></i></a>
+                                <a href="#myModalemail1" data-target="#myModalemail1" data-toggle="modal"><i class="icofont icofont-ui-delete">Suppressed list</i></a>
                                 <?php } ?>
                               <div class="jtitilelist">
                                   <input type="text"  name="jtitle" id="jtitle"  placeholder="Job Title"  autocomplete = "off" class="form-control form-control-sm cdqadisable">

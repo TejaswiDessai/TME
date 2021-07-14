@@ -106,9 +106,9 @@ $(document).ready(function() {
 //below code for retreive button on change on rect type
 $(document).ready(function() { 
   var sbsvtag1 = $('#sbsvtag').val();
-  if (sbsvtag1 > 0) {
-    $('.comt').show();
-  }
+  // if (sbsvtag1 > 0) {
+  //   $('.comt').show();
+  // }
   $(".aumdis").attr("disabled", true);   // aum disable
   $('.commentvisible').hide();
   
@@ -668,7 +668,7 @@ $(document).ready(function() {
                         <input type = hidden name="campaign_idcids" id="campaign_idcids" value="<?php echo $campaign['cids']; ?>">
                         
                        
-                        <?php if(isset($ldmster) && $ldmster != 1 ){ ?> 
+                        <?php //if(isset($ldmster) && $ldmster != 1 ){ ?> 
                           <div class="form-group row" >
                              <div class="col-sm-12  comt">
                                 <label class="col-lable"><b>Comment</b></label>
@@ -690,7 +690,7 @@ $(document).ready(function() {
                                  } ?>">
                             </div> 
                          </div>
-                        
+                         <?php if(isset($ldmster) && $ldmster != 1 ){ ?> 
                           <input type = hidden name="lmid" id="lmid" value="<?php echo $ldmster['lmid']; ?>">
                           <input type = hidden name="emp_id" id="emp_id" value="<?php echo  $_SESSION['empcode']; ?>">
                           <input type = hidden name="sbsvtag" id="sbsvtag" value="<?php echo $ldmster['sbsvtag']; ?>">
@@ -1904,6 +1904,7 @@ if(lmid == undefined){
                     domain:domain,
                     othrlink:othrlink,
                     emailver:emailver,
+                    pcomt:pcomt,
                     aum:aum                 
                       
                     

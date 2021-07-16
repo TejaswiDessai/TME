@@ -217,7 +217,7 @@ $(document).ready(function() {
                                 <a href="#myModalemail1" data-target="#myModalemail1" data-toggle="modal"><i class="icofont icofont-ui-delete">Suppressed list</i></a>
                                 <?php } ?>
                               <!-- </div> -->
-                                <div class="jtitilelist">
+                                <div class="<?php if(!empty($supp_jt)){ echo 'jtitilelist';}?>">
                                 <!-- <div data-toolbar="user-options"  id="flip-toolbar"> -->
                                   <input type="text"  name="jtitle" id="jtitle" autocomplete = "off"  placeholder="Job Title" value ="<?php if(isset($ldmster)){  echo $ldmster['jtitle']; }?>"  class="form-control form-control-sm cdqadisable
                                   <?php

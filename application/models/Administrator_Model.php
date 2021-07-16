@@ -340,7 +340,8 @@
 		}
 		public function get_suppjt_byCampaign($cnid){
 			$this->db->select('jobtitlelist');
-			$this->db->where('cid', $cnid);
+			
+			// $this->db->where('cid', $cnid);
 			
 			$query = $this->db->get('jobtitlelist');
 			// echo $this->db->last_query(); 
@@ -1782,7 +1783,7 @@ function check_jtitle_suppression($jtitle,$campaign_id)
 	// Select record
 	$this->db->select('jobtitlelist');
 	$this->db->where('jobtitlelist', $jtitle);
-	$this->db->where('cid', $campaign_id);
+	// $this->db->where('cid', $campaign_id);
 	// $this->db->where('inclexcl', 0 ); // check Exclusion
 	$result = $this->db->get('jobtitlelist');
 	// echo $this->db->last_query(); 

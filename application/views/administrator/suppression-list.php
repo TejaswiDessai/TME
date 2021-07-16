@@ -98,7 +98,7 @@ $(document).ready(function () {
                                 <?php foreach ($campaign_record as $campaign_record): ?>
                                     <?php 
                                     
-                                    if($campaign_record['suplistnew'] == 0 && $campaign_record['inclistnew'] == 0 && $campaign_record['questnos'] == 0 && $campaign_record['assetid'] == 0 && $campaign_record['jobtitleexl'] == 0 )
+                                    if($campaign_record['suplistnew'] == 0 && $campaign_record['inclistnew'] == 0 && $campaign_record['questnos'] == 0 && $campaign_record['assetid'] == 0)
                                     {
                                         ?>
                                         <script>
@@ -176,16 +176,15 @@ $(document).ready(function () {
                             <!-- </div> -->
                             <?php } ?>
 
-                            <?php if($campaign_record['jobtitleexl'] == 1){?>
+                            <?php //if($campaign_record['jobtitleexl'] == 1){?>
 
-                            <div class="col-sm-3 form-check form-switch " >
-                            <!-- <input type="checkbox" class="js-small f-right suppclass" name="suppchk" id="noneAboveCheckInclusion" value="" > -->
-                            <!-- <div id="noneAboveInclusion"> -->
+                            <!-- <div class="col-sm-3 form-check form-switch " >
+                           
                             <label class="col-lable"><b>Job title exclusion list</b></label>
                             <input type="file" name="inclistnew_jtitile" class="form-control">
-                            </div>
+                            </div> -->
 
-                            <?php } ?>
+                            <?php// } ?>
 
                         </div>
                         <hr>

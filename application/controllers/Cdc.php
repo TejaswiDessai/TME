@@ -50,7 +50,14 @@
 						if(!empty($data['domain'])) {
 							$data['domain_dispostatus'] = $this->Administrator_Model->get_domain_dispo_status_byCampaign($camp_id);
 						}
-						$data['supp_jt'] = $this->Administrator_Model->get_suppjt_byCampaign($camp_id);
+
+
+						if($camp['jobtitleexl'] =='1'){
+							$data['supp_jt'] = $this->Administrator_Model->get_suppjt_byCampaign($camp_id);
+						}else{
+							$data['supp_jt'] ='';
+						}
+
 						$data['countries'] = $this->Administrator_Model->get_countriesbyCampaign($camp_id);
 				
 							foreach($data['countries'] as $co){
@@ -185,7 +192,13 @@
 
 
 						$data['incemail'] = $this->Administrator_Model->get_incemail_byCampaign($camp_id);
-						$data['supp_jt'] = $this->Administrator_Model->get_suppjt_byCampaign($camp_id);
+
+						if($camp['jobtitleexl'] =='1'){
+							$data['supp_jt'] = $this->Administrator_Model->get_suppjt_byCampaign($camp_id);
+						}else{
+							$data['supp_jt'] ='';
+						}
+						
 						// print_r($data['incemail']); 
 						// exit();
 

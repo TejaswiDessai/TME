@@ -561,7 +561,7 @@ $('#levelid').change(function(){
                        
                         <div class="form-group row">
                         <div class="col-sm-2">
-                               <label class="f-left col-lable"><b>Job List Suppression</b> </label>
+                               <label class="f-left col-lable"><b>Use Existing Job List Suppression</b> </label>
                            </div>
                            <div class="col-sm-1">
                             <input type="checkbox" class="js-small f-right" name="jobtitleexl[]" value="0" id="jobtitleexl">

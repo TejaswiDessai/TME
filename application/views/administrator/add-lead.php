@@ -250,7 +250,7 @@ $.ajax({
                             <?php if(!empty($supp_jt)){ ?>
                                 <a href="#myModalemail1" data-target="#myModalemail1" data-toggle="modal"><i class="icofont icofont-ui-delete">Suppressed list</i></a>
                                 <?php } ?>
-                              <div class="jtitilelist">
+                              <div class="<?php if(!empty($supp_jt)){ echo 'jtitilelist';}?>">
                                   <input type="text"  name="jtitle" id="jtitle"  placeholder="Job Title"  autocomplete = "off" class="form-control form-control-sm cdqadisable">
                                   <input type="hidden" name="jobtitleexl" id="jobtitleexl" value="<?php echo $campaign['jobtitleexl']; ?>">
                                 </div>

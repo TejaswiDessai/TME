@@ -551,11 +551,22 @@ $('#levelid').change(function(){
                            <div class="col-sm-1">
                             <input type="checkbox" class="js-small f-right" name="assetid[]" value="0" id="assetid">
                               </div>
+                              
                            <!-- <div class="col-sm-4">   
                                <input type="file" name="files[]" class="form-control">
                            </div> -->
                                 
                        </div>
+
+                       
+                        <div class="form-group row">
+                        <div class="col-sm-2">
+                               <label class="f-left col-lable"><b>Use Existing Job List Suppression</b> </label>
+                           </div>
+                           <div class="col-sm-1">
+                            <input type="checkbox" class="js-small f-right" name="jobtitleexl[]" value="0" id="jobtitleexl">
+                              </div>
+                        </div>   
                        <hr>
                         <div class="form-group row">
                             <div class="col-sm-2 ">
@@ -770,6 +781,15 @@ $('#levelid').change(function(){
             {
                 inclist = 0;
             }
+            var jobtitleexl =$('#jobtitleexl').prop('checked');
+            if(jobtitleexl == true)
+            {
+                jobtitleexl = 1;
+            }
+            else
+            {
+                jobtitleexl = 0;
+            }
             var cdqa = $('#cdqa').prop('checked');
             if(cdqa == true)
             {
@@ -810,6 +830,7 @@ $('#levelid').change(function(){
                     desid:desid,
                     checksupp:checksupp,
                     inclist:inclist,
+                    jobtitleexl:jobtitleexl,
                     cdqa:cdqa,
                     assetid:assetid,
                     quantity:quantity,

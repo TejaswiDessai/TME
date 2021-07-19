@@ -270,10 +270,21 @@ $.ajax({
 <div class="page-header">
     <div class="page-header-title col-sm-12">
         <h4>Quality Assurance</h4> 
-        
+        <div class="page-header-breadcrumb">
+                    <ul class="breadcrumb-title">
+                        <li class="breadcrumb-item">
+                            <a href="#">
+                                <i class="icofont icofont-home"></i>
+                            </a>
+                            <?php foreach ($campaigns as $campaign): ?>
+                        <li class="breadcrumb-item"><a href="qalistings?camp_id=<?php echo $campaign['cnid']; ?>">Quality Analysis Listings</a>
+                        <?php endforeach; ?>
+                        </li>
+                    </ul>
+                </div> 
       
             <div class="form-group row"> 
-               <div class="col-sm-2" style="margin-left: 200px;margin-top: -25px;">
+               <div class="col-sm-2" style="margin-left: 200px;">
 
                   </div> 
                 <div class="col-sm-4" style="margin-top: -20px;">
@@ -281,19 +292,22 @@ $.ajax({
                   <label class="col-lable"><b>Campaign Name: <?php echo $campaign['campnm']; ?></b></label>
                   <?php endforeach; ?>
                 </div> 
-                <div class="col-sm-3" style="margin-top: -20px;">
+                <div class="col-sm-3" style="">
                   <?php //foreach ($campaigns as $campaign): ?>
                   <label class="col-lable"><b>CDC Date: <?php if (empty($ldmster['cdcsbdtii'])) {
                     echo $ldmster['cdcsbdti'];}else{
                       echo $ldmster['cdcsbdtii'];
                     } ?></b></label>
                   <label class="col-lable"><b>Lead Date: <?php  echo $ldmster['lsdti']; ?></b></label>
+                  <label class="col-lable"><b>QA Pending for this campaign: <?php  echo $leadmastercounts; ?></b></label>
                   <?php //endforeach; ?>
                 </div>
                 
-            </div>   
+            </div>  
+          
                            
     </div>
+  
      <?php foreach ($campaigns as $campaign): ?>
      
       <?php endforeach; ?>

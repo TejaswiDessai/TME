@@ -36,7 +36,8 @@ This is also known as DC form
 
 .tooltips {
   position: relative;
-  display: inline-block;
+  /* display: inline-block; */
+  display: inline;
   border-bottom: 1px dotted black;
 }
 .tooltips .tooltiptext {
@@ -49,9 +50,11 @@ This is also known as DC form
   padding: 5px 0;
   position: absolute;
   z-index: 1;
-  bottom: 125%;
-  left: 50%;
-  margin-left: -60px;
+  /* bottom: 125%; */
+  bottom: 55%;
+  margin-bottom: 5px;
+  /* left: 50%; */
+  /* margin-left: -60px; */
   opacity: 0;
   transition: opacity 0.3s;
 }
@@ -103,9 +106,9 @@ $(document).ready(function() {
 //below code for retreive button on change on rect type
 $(document).ready(function() { 
   var sbsvtag1 = $('#sbsvtag').val();
-  if (sbsvtag1 > 0) {
-    $('.comt').show();
-  }
+  // if (sbsvtag1 > 0) {
+  //   $('.comt').show();
+  // }
   $(".aumdis").attr("disabled", true);   // aum disable
   $('.commentvisible').hide();
   
@@ -208,10 +211,22 @@ $(document).ready(function() {
                                 <span style='color:#FF0000' id="lname_msg"></span>
                             </div>
                             <div class="col-sm-3">
-                                <input type="text"  name="jtitle" id="jtitle" autocomplete = "off"  placeholder="Job Title" value ="<?php if(isset($ldmster)){  echo $ldmster['jtitle']; }?>"  class="form-control form-control-sm cdqadisable
-                                <?php
-                                 if(isset($ldmster) && in_array('jtitle',$dvrejectreason)) { echo "form-bg-inverse" ; } 
-                                 ?>">
+                               <!-- toolbar options -->
+                               <!-- <div id="toolbar-options" class="hidden"> -->
+                                 <?php if(!empty($supp_jt)){ ?>
+                                <a href="#myModalemail1" data-target="#myModalemail1" data-toggle="modal"><i class="icofont icofont-ui-delete">Suppressed list</i></a>
+                                <?php } ?>
+                              <!-- </div> -->
+                                <div class="<?php if(!empty($supp_jt)){ echo 'jtitilelist';}?>">
+                                <!-- <div data-toolbar="user-options"  id="flip-toolbar"> -->
+                                  <input type="text"  name="jtitle" id="jtitle" autocomplete = "off"  placeholder="Job Title" value ="<?php if(isset($ldmster)){  echo $ldmster['jtitle']; }?>"  class="form-control form-control-sm cdqadisable
+                                  <?php
+                                  if(isset($ldmster) && in_array('jtitle',$dvrejectreason)) { echo "form-bg-inverse" ; } 
+                                  ?>">
+                                  <!-- </div> -->
+                               <input type="hidden" name="jobtitleexl" id="jobtitleexl" value="<?php echo $campaign['jobtitleexl']; ?>">
+                              </div>
+                              <span style='color:#FF0000' id="jtitle_msg"></span>
                             </div>
                             <div class="col-sm-2">
                                 <select class="form-control form-control-sm cdqadisable" name="jlevel" id="jlevel">
@@ -309,15 +324,18 @@ $(document).ready(function() {
                               <div class="col-sm-2 <?php
                                  if(isset($ldmster) && in_array('company_name',$dvrejectreason) && (!empty($comp_list))) { echo "form-bg-inverse" ; } 
                                  ?>">
+                                  <div class="tooltips">
                                 <div class="compcheck">
 
                                 <?php if(!empty($comp_list)) { ?>
+                                 
                                  <select name="company_name" id="company_name"   class="js-example-basic-single"> 
                                      <option value="">Company Name</option>
                                      <?php foreach ($comp_list as $comp_list): ?>
                                     <option value="<?php echo $comp_list['companynms']; ?>" <?php if(isset($ldmster) && $ldmster['cname'] == $comp_list['companynms']){ echo "selected" ; } ?>><?php echo $comp_list['companynms']; ?></option>
                                 <?php endforeach; ?> 
                                </select>
+                              
                                <?php } else{ ?>
                                 <input type="text" autocomplete = "off"   name="company_name" id="company_name"  placeholder="Company Name"  class="form-control form-control-sm cdqadisable <?php
                                  if(isset($ldmster) && in_array('company_name',$dvrejectreason)) { echo "form-bg-inverse" ; } 
@@ -325,6 +343,11 @@ $(document).ready(function() {
                              <?php  } ?>
 
                                 </div>
+                                 <span class="tooltiptext" id="copypaste" style="height: 40px; font-size:15x"> 
+                                 <!-- <i class="icofont icofont-rounded-down"></i> --> Company Name
+                                   <!-- <button onclick="copyToClipboard('#company_name')">Copy TEXT 1</button> -->
+                                   </span>
+                               </div>
                                 <span style='color:#FF0000' id="comp_msg"></span>
                               </div> 
 
@@ -602,6 +625,41 @@ $(document).ready(function() {
                             </div>  -->
                         </div>
                         <hr>
+                        <div class="form-group row">
+                        <?php if(!empty($comp_dispostatus)) { ?>
+                          <div class="col-sm-2">
+                                <select class="form-control form-control-sm"  name="dispositiontagforcomplist" id="dispositiontagforcomplist">
+                                    <option value="">Disposition Reason for company </option>
+                                    <option value="No relevant job title found">No relevant job title found</option>
+                                    <option value="No contact info found (Website)">No contact info found (Website)</option>
+                                    <option value="No contact info found (LinkedIn)">No contact info found (LinkedIn)</option>
+                                    <option value="Company details not found on LinkedIn">Company details not found on LinkedIn</option>
+                                    <option value="Company website is blocked">Company website is blocked</option>
+                                    <option value="Out of Specs (Location - GEO)">Out of Specs (Location - GEO)</option>
+                                    <option value="Out of Specs (Invalid Industry)">Out of Specs (Invalid Industry)</option>
+                                    <option value="Out of Specs (Invalid Company size)">Out of Specs (Invalid Company size)</option>
+                                </select>
+                          </div> 
+                          <?php } ?>
+
+                          <?php if(!empty($domain_dispostatus)) { ?>
+                          <div class="col-sm-2">
+                                <select class="form-control form-control-sm"  name="dispositiontagfordomain" id="dispositiontagfordomain">
+                                    <option value="">Disposition Reason for Domain </option>
+                                    <option value="No relevant job title found">No relevant job title found</option>
+                                    <option value="No contact info found (Website)">No contact info found (Website)</option>
+                                    <option value="No contact info found (LinkedIn)">No contact info found (LinkedIn)</option>
+                                    <option value="Company details not found on LinkedIn">Company details not found on LinkedIn</option>
+                                    <option value="Company website is blocked">Company website is blocked</option>
+                                    <option value="Out of Specs (Location - GEO)">Out of Specs (Location - GEO)</option>
+                                    <option value="Out of Specs (Invalid Industry)">Out of Specs (Invalid Industry)</option>
+                                    <option value="Out of Specs (Invalid Company size)">Out of Specs (Invalid Company size)</option>
+                                </select>
+                          </div> 
+                          <hr>
+                          <?php } ?>
+                        </div>
+                        
                      
                         <br>
 
@@ -610,7 +668,7 @@ $(document).ready(function() {
                         <input type = hidden name="campaign_idcids" id="campaign_idcids" value="<?php echo $campaign['cids']; ?>">
                         
                        
-                        <?php if(isset($ldmster) && $ldmster != 1 ){ ?> 
+                        <?php //if(isset($ldmster) && $ldmster != 1 ){ ?> 
                           <div class="form-group row" >
                              <div class="col-sm-12  comt">
                                 <label class="col-lable"><b>Comment</b></label>
@@ -632,7 +690,7 @@ $(document).ready(function() {
                                  } ?>">
                             </div> 
                          </div>
-                        
+                         <?php if(isset($ldmster) && $ldmster != 1 ){ ?> 
                           <input type = hidden name="lmid" id="lmid" value="<?php echo $ldmster['lmid']; ?>">
                           <input type = hidden name="emp_id" id="emp_id" value="<?php echo  $_SESSION['empcode']; ?>">
                           <input type = hidden name="sbsvtag" id="sbsvtag" value="<?php echo $ldmster['sbsvtag']; ?>">
@@ -715,11 +773,49 @@ $(document).ready(function() {
     </div>
   </div>
 
+ <!-- Modal -->
+ <div class="modal fade" id="myModalemail1" role="dialog">
+    <div class="modal-dialog">
+    
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <!-- <h4 class="modal-title">Modal Header</h4> -->
+        </div>
+        <div class="modal-body">
+        <div class="mail-body-content">
+            <form>
+                <div class="form-group row">                  
+                    <div class="col-sm-12">
+                      <input type ="text"  id="search_textjt" name="search_textjt" class="form-control form-control-sm" placeholder="Search suppressed jobtitles here...">
+                    </div>
+                </div>
+                
+            </form>
+         <div id="resultdivjt"></div>
+                <div style="clear:both"></div>
+                <br />
+               </div>
+        </div>
+        <div class="modal-footer">
+        <button type="button" id="searchbtnjt" name ="searchbtnjt" class="btn btn-primary">Search</button>
+          <button type="button" class="btn btn-danger " data-dismiss="modal">Close</button>
+        </div>
+      </div>
+      
+    </div>
+  </div>
+
 
    
    
 <!-- // Search result for industry -->
 <script>
+
+
+
+
 $(document).ready(function(){
 	// load_data();
 	function load_data(query)
@@ -741,6 +837,40 @@ $(document).ready(function(){
 		if(search != '')
 		{
 			load_data(search);
+		}
+		else
+		{
+			// load_data();			
+		}
+	});
+});
+// end of search result
+//job titles search start
+$(document).ready(function(){
+	// load_data();
+  var campaign_id = <?php  echo $campaign['cnid']; ?>;
+	function load_datajt(query)
+	{
+		$.ajax({
+			// url:"fetch.php",
+      url:'<?php echo base_url("cdc/getsearcresultofjt");?>',
+			method:"post",
+			data:{
+        query:query,
+        campaign_id:campaign_id
+      },
+			success:function(data)
+			{
+				$('#resultdivjt').html(data);
+			}
+		});
+	}
+	
+	$('#search_textjt').keyup(function(){
+		var searchjt = $(this).val();
+		if(searchjt != '')
+		{
+			load_datajt(searchjt);
 		}
 		else
 		{
@@ -851,6 +981,39 @@ $('#arevenue').change(function(){
 
   $("#revszlink").prop('disabled', false);
   $('#revszlink').val("");
+  
+});
+
+$('#company_name').change(function(){
+  var company_name = $(this).val();
+  $("#copypaste").html(company_name);
+ 
+  
+});
+// check savbe button complist disposition change
+$('#dispositiontagforcomplist').change(function(){
+  var dispositiontagforcomplist = $('#dispositiontagforcomplist').val();
+  
+  if(dispositiontagforcomplist != ""){
+    $("#leadupdate").prop('disabled', true);
+    $("#leadsubmit").prop('disabled', true);
+  }else{
+    $("#leadupdate").prop('disabled', false);
+    $("#leadsubmit").prop('disabled', false);
+  }
+  
+});
+// check savbe button domain disposition change
+$('#dispositiontagfordomain').change(function(){
+  var dispositiontagfordomain = $('#dispositiontagfordomain').val();
+  
+  if(dispositiontagfordomain != ""){
+    $("#leadupdate").prop('disabled', true);
+    $("#leadsubmit").prop('disabled', true);
+  }else{
+    $("#leadupdate").prop('disabled', false);
+    $("#leadsubmit").prop('disabled', false);
+  }
   
 });
 
@@ -1270,6 +1433,58 @@ var arevenuevalue = $('#arevenue').val();
    
 });
 
+    // Check unique jobtitle
+    $('.jtitilelist input:first').blur(function(){
+      var jtitle = $('#jtitle').val();
+      var jobtitleexl = $('#jobtitleexl').val();
+      var campaign_id = <?php  echo $campaign['cnid']; ?>;
+      var url = '<?php echo base_url("cdc/checkjtitle");?>';
+      console.log(url+'?jtitle='+jtitle+"&campaign_id="+campaign_id);
+    // AJAX request
+    $.ajax({
+
+        url:'<?php echo base_url("cdc/checkjtitle");?>',
+        method: 'get',
+        data: {
+          jtitle: jtitle,
+          campaign_id: campaign_id,
+          jobtitleexl:jobtitleexl
+          
+          },
+        dataType: 'json',
+        success: function(response){
+          $( '#jtitle_msg' ).html(response);
+          if(response.domaincheckincl == "true")
+          {
+            $("#jtitle_msg").html("");
+            console.log("true");
+            return true;	
+          }
+          if(response.domaincheckincl == "false")
+          {
+            $("#jtitle_msg").html("Not in Inclusion jobtitle List");
+            console.log("true");
+            // return true;	
+          }
+          else if(response.jtitlesupp == "true")
+          {
+            $("#jtitle_msg").html("Suppressed jobtitle");
+            console.log("true");
+            $('#jtitle').val("");
+            return true;	
+          } else 
+          {
+            $("#jtitle_msg").html("");
+            console.log("true");
+            return false;	
+          }
+          
+        }
+    });
+    
+   
+});
+
 
 
  // Check unique Company
@@ -1552,7 +1767,30 @@ if(lmid == undefined){
             window.location = base_url+"administrator/logout";
             exit;
           }
-        
+          var dispositiontagfordomain = $('#dispositiontagfordomain').val();
+          var dispositiontagforcomplist = $('#dispositiontagforcomplist').val();
+  
+
+
+
+          if(dispositiontagfordomain == undefined){
+            var dispositiontagfordomain = '';
+
+            // alert(dispositiontagfordomain);
+          }
+          if(dispositiontagforcomplist == undefined){
+            var dispositiontagforcomplist = '';
+
+            // alert(dispositiontagforcomplist);
+          }
+          if(dispositiontagforcomplist != ""){
+            alert("Please remove disposition reason or Click on Skip");
+             return; 
+          }
+            if(dispositiontagfordomain != ""){
+              alert("Please remove disposition reason or Click on Skip");
+             return; 
+            }
             var campaign_id = $('#campaign_id').val();
             var campaign_idcids = $('#campaign_idcids').val();
         
@@ -1666,6 +1904,7 @@ if(lmid == undefined){
                     domain:domain,
                     othrlink:othrlink,
                     emailver:emailver,
+                    pcomt:pcomt,
                     aum:aum                 
                       
                     
@@ -1730,6 +1969,31 @@ if(lmid == undefined){
             window.location = base_url+"administrator/logout";
             exit;
           }
+
+          var dispositiontagfordomain = $('#dispositiontagfordomain').val();
+          var dispositiontagforcomplist = $('#dispositiontagforcomplist').val();
+
+          if(dispositiontagfordomain == undefined){
+            var dispositiontagfordomain = '';
+
+            // alert(dispositiontagfordomain);
+          }
+          if(dispositiontagforcomplist == undefined){
+            var dispositiontagforcomplist = '';
+
+            // alert(dispositiontagforcomplist);
+          }
+  // alert(dispositiontagfordomain);
+  // alert(dispositiontagforcomplist);
+          if(dispositiontagforcomplist != ""){
+            alert("Please remove disposition reason or Click on Skip");
+             return; 
+          }
+            if(dispositiontagfordomain != ""){
+              alert("Please remove disposition reason or Click on Skip");
+             return; 
+            }
+            // fdgf
             var campaign_id = $('#campaign_id').val();
 
             var stagtidi = $('#stagtidi').val();
@@ -1928,6 +2192,24 @@ if(lmid == undefined){
         $("#leadsave").on('click', function() 
         {
          
+          var dispositiontagforcomplist = $('#dispositiontagforcomplist').val();
+          var dispositiontagfordomain = $('#dispositiontagfordomain').val();
+          
+          if(dispositiontagfordomain == undefined){
+            var dispositiontagfordomain = '';
+
+            // alert(dispositiontagfordomain);
+          }
+          if(dispositiontagforcomplist == undefined){
+            var dispositiontagforcomplist = '';
+
+            // alert(dispositiontagforcomplist);
+          }
+
+
+
+
+// alert(dispositiontagfordomain);
           var campaign_id = $('#campaign_id').val();
             var campaign_idcids = $('#campaign_idcids').val();
             var lmid = $('#lmid').val();
@@ -2004,12 +2286,74 @@ if(lmid == undefined){
             var emailver = $('#emailver').val();
             var aum = $('#aum').val();
             var assetid = $('#assetid').val();
+
+
+//below added to change disposition tag and complist tag
+
+if(dispositiontagforcomplist != ""|| dispositiontagfordomain != ""){
+
+if(company_name == "" && dispositiontagforcomplist != ""){
+  alert("Select Company Name");
+  return;
+}
+if(domain == "" && dispositiontagfordomain != ""){
+  alert("Select Domain");
+  return;
+}
+
+           if(confirm(" Disposition reason is selected.Data will not save, are you sure?")){ 
+             $.ajax({
+           url :'<?php echo base_url("cdc/ajax_update_leadandcdcbyCDQA_domain_disposition");?>', //domain and complist both
+           type: 'GET', 
+           dataType: 'json',              
+           data: {
+              
+            campaign_id: campaign_id,
+             dispositiontagfordomain:dispositiontagfordomain,
+             domain:domain,
+             dispositiontagforcomplist:dispositiontagforcomplist,
+             company_name:company_name
+
+            
+           },
+   async: true,
+           cache: false,
+           success: function(response){
+             console.log("Success");
+               if(response.statusCode == "Success") 
+               {   
+                   $("#leadsave").html(response.message);
+                   top.location.href=base_url+"cdc/addleaddata?camp_id="+<?php echo $campaign['cnid']; ?>;//redirection
+                 
+                 } else if(response.statusCode =="Exist")
+                 {
+                   alert("Record already Exist");
+                 }
+             },
+            error: function (error) {
+                   alert("Error domain and complist");
+                 
+                   }
+               
+             }); // ajax end
+
+             
+                 }else{
+                           return;
+                         }
+}// domain end
+
+
+
+
+
+
            
             if(fname != "" && lname != "" && company_name != ""  && jtitle != "" && desid != "" && dcd !="" && email != "" && phone !="" && plink !="" && address != "" && city != "" && state != ""  && country_id != "" && industrycd != "" && subindustrycd != "" && empsize != "" && domain !=""  && empszlink != "" && revszlink != ""  && zip_code !="" ){
            
 
             var url = encodeURI("<?php echo base_url("cdc/ajax_save_leaddata");?>");
-            console.log(url+"?campaign_idcids="+campaign_idcids+"&lmid="+lmid+"&campaign_id="+campaign_id+"&sal="+sal+"&fname="+fname+"&lname="+lname+"&jtitle="+jtitle+"&desid="+desid+"&jlevel="+jlevel+"&dcd="+dcd+"&email="+email+"&phone="+phone+"&altphn="+altphn+"&phext="+phext+"&plink="+plink+"&company_name="+company_name+"&address="+address+"&city="+city+"&state="+state+"&zip_code="+zip_code+"&country_id="+country_id+"&timezone="+timezone+"&ctype="+ctype+"&linetype="+linetype+"&industrycd="+industrycd+"&subindustrycd="+subindustrycd+"&sectyp="+sectyp+"&empsize="+empsize+"&mlbl="+mlbl+"&curr="+curr+"&arevenue="+arevenue+"&empszlink="+empszlink+"&indlink="+indlink+"&domain="+domain+"&othrlink="+othrlink+"&revszlink="+revszlink+"&emailver="+emailver+"&aum="+aum+"&assetid="+assetid+"&pcomt="+pcomt);
+            console.log(url+"?campaign_idcids="+campaign_idcids+"&dispositiontagforcomplist="+dispositiontagforcomplist+"&lmid="+lmid+"&campaign_id="+campaign_id+"&sal="+sal+"&fname="+fname+"&lname="+lname+"&jtitle="+jtitle+"&desid="+desid+"&jlevel="+jlevel+"&dcd="+dcd+"&email="+email+"&phone="+phone+"&altphn="+altphn+"&phext="+phext+"&plink="+plink+"&company_name="+company_name+"&address="+address+"&city="+city+"&state="+state+"&zip_code="+zip_code+"&country_id="+country_id+"&timezone="+timezone+"&ctype="+ctype+"&linetype="+linetype+"&industrycd="+industrycd+"&subindustrycd="+subindustrycd+"&sectyp="+sectyp+"&empsize="+empsize+"&mlbl="+mlbl+"&curr="+curr+"&arevenue="+arevenue+"&empszlink="+empszlink+"&indlink="+indlink+"&domain="+domain+"&othrlink="+othrlink+"&revszlink="+revszlink+"&emailver="+emailver+"&aum="+aum+"&assetid="+assetid+"&pcomt="+pcomt);
            
             $.ajax({
                 url :'<?php echo base_url("cdc/ajax_save_leaddata");?>',
@@ -2021,6 +2365,8 @@ if(lmid == undefined){
                   campaign_idcids: campaign_idcids,
                   lmid: lmid,
                
+                  dispositiontagfordomain:dispositiontagfordomain,
+                  dispositiontagforcomplist:dispositiontagforcomplist,
                     sal:sal,
                     fname:fname,
                     lname: lname,

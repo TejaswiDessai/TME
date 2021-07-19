@@ -537,7 +537,7 @@ $(document).ready(function() {
                                  <select name="domain" id="domain"   class="js-example-basic-single"> 
                                      <option value="">Domain</option>
                                      <?php foreach ($domain as $domain): ?>
-                                    <option value="<?php echo $domain['domainnms']; ?>" <?php if(isset($ldmster) && $ldmster['domain'] == $domain['domainnms']){ echo "selected" ; } ?>><?php echo $domain['domainnms']; ?></option>
+                                    <option value=""><?php echo $domain['domainnms']; ?></option>
                                 <?php endforeach; ?> 
                                </select>
                                <?php } else{ ?>

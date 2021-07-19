@@ -42,6 +42,22 @@
 						// print_r($data['campaigns']);  
 						
 
+						$data['domain'] = $this->Administrator_Model->get_domain_byCampaign($camp_id);
+						$data['comp_list'] = $this->Administrator_Model->get_complist_byCampaign($camp_id);
+						if(!empty($data['comp_list'])) {
+							$data['comp_dispostatus'] = $this->Administrator_Model->get_comp_dispo_status_byCampaign($camp_id);
+						}
+						if(!empty($data['domain'])) {
+							$data['domain_dispostatus'] = $this->Administrator_Model->get_domain_dispo_status_byCampaign($camp_id);
+						}
+
+
+						if($camp['jobtitleexl'] =='1'){
+							$data['supp_jt'] = $this->Administrator_Model->get_suppjt_byCampaign($camp_id);
+						}else{
+							$data['supp_jt'] ='';
+						}
+
 						$data['countries'] = $this->Administrator_Model->get_countriesbyCampaign($camp_id);
 				
 							foreach($data['countries'] as $co){
@@ -165,7 +181,24 @@
 						// $data['countries'] = $this->Administrator_Model->get_countries();
 						$data['domain'] = $this->Administrator_Model->get_domain_byCampaign($camp_id);
 						$data['comp_list'] = $this->Administrator_Model->get_complist_byCampaign($camp_id);
+
+						if(!empty($data['comp_list'])) {
+							$data['comp_dispostatus'] = $this->Administrator_Model->get_comp_dispo_status_byCampaign($camp_id);
+						}
+						if(!empty($data['domain'])) {
+							$data['domain_dispostatus'] = $this->Administrator_Model->get_domain_dispo_status_byCampaign($camp_id);
+						}
+
+
+
 						$data['incemail'] = $this->Administrator_Model->get_incemail_byCampaign($camp_id);
+
+						if($camp['jobtitleexl'] =='1'){
+							$data['supp_jt'] = $this->Administrator_Model->get_suppjt_byCampaign($camp_id);
+						}else{
+							$data['supp_jt'] ='';
+						}
+						
 						// print_r($data['incemail']); 
 						// exit();
 
@@ -279,7 +312,7 @@
 						// $data['leadmaster'] = $this->Administrator_Model->get_leadmasterby_campaignidwithempcode($cids,$empcode);
 						$data['leadmaster'] = $this->Administrator_Model->get_dv_cleared_for_candidate_test();
 						if($data['leadmaster'] == Null){
-							// redirect('administrator/logout'); // do it later
+							redirect('administrator/logout'); // do it later
 						}
 
 					   foreach ($data['leadmaster'] as $ldmster) {
@@ -584,6 +617,8 @@
 				$postData = $this->input->post();
 				$postData1 = $postData['campaign_id'];
 			}
+
+			
 		
 						$data['campaigns'] = $this->Administrator_Model->get_campaign_by_id($postData1);
 
@@ -595,9 +630,16 @@
 						
 						$cids = $camp['cids'];
 					
+						if(isset($_GET['lmid'])){
+							$data['leadmaster'] = $this->Administrator_Model->get_leadmasterby_campaignQA_with_lmid($cids,$_GET['lmid']);
+						}else{
+							$data['leadmaster'] = $this->Administrator_Model->get_leadmasterby_campaignQA($cids);
+						}
+						// $data['leadmaster'] = $this->Administrator_Model->get_leadmasterby_campaignQA($cids);
+						$data['leadmastercount'] = $this->Administrator_Model->get_leadmasterby_campaignQA_count($cids); // get pending w
+						$data['leadmastercounts']= count($data['leadmastercount']);
+						// echo $pendinngcountqa;
 						
-						$data['leadmaster'] = $this->Administrator_Model->get_leadmasterby_campaignQA($cids);
-					
 						if(empty($data['leadmaster'])){
 							$this->session->set_flashdata('success', 'Quality verification is finished for this campaign.');
 							redirect('cdc/selectCampaignForQA');
@@ -730,6 +772,72 @@
 						foreach ($data['leadmaster'] as $ldmster) {
 							if (isset($data['leadmaster'])){
 								$data['countriesdv'] = $this->Administrator_Model->get_countriesbyCampaigndv($ldmster['lmid']);
+								$data['industriesdv'] = $this->Administrator_Model->get_industries_ofleadmaster($ldmster['lmid']);
+								$data['subindustriesdv'] = $this->Administrator_Model->get_subindustries_ofleadmaster($ldmster['lmid']);
+								$data['currencydv'] = $this->Administrator_Model->get_currency_ofleadmaster($ldmster['lmid']);
+								$data['timezonedv'] = $this->Administrator_Model->get_timezone_ofleadmaster($ldmster['lmid']);
+								$data['designationdv'] = $this->Administrator_Model->get_designation_ofleadmaster($ldmster['lmid']);
+								$data['departmentsdv'] = $this->Administrator_Model->get_depts_byleadmaster($ldmster['lmid']);
+								$data['assetitledv'] = $this->Administrator_Model->get_assetitle_byleadmaster($ldmster['lmid']);
+								$data['comptypedv'] = $this->Administrator_Model->get_comptype_byleadmaster($ldmster['lmid']);
+							}else if(empty($data['leadmaster'])){
+							
+								redirect('administrator/dashboard');
+							}
+	
+						}
+					
+					
+			$this->load->view('administrator/header-script');
+			$this->load->view('administrator/header');
+			$this->load->view('administrator/header-bottom');
+			 $this->load->view('administrator/'.$page, $data);
+			$this->load->view('administrator/footer');
+		
+		}
+		function qalistings($page = 'qa-listings'){
+			
+			$data['title'] = 'Create Lead';
+			
+			if(isset($_GET['camp_id'])){
+				$postData1 = $_GET['camp_id']; 
+			}else{
+				$postData = $this->input->post();
+				$postData1 = $postData['campaign_id'];
+			}
+						$data['campaigns'] = $this->Administrator_Model->get_campaign_by_id($postData1);
+
+						foreach ($data['campaigns'] as $camp) {
+						
+						}
+						
+						$camp_id = $camp['cnid'];
+						
+						$cids = $camp['cids'];
+						
+						$_SESSION['campaign_id'] = $camp_id;
+
+						$data['empcode'] = $this->session->userdata('empcode');
+						$data['Campid'] = $camp_id;
+						$leadlimit = 10;
+						// $leadrectype = $this->input->post('leadrectype');
+						// $refreshbtn = $this->input->post('refreshbtn');
+						// $data['leadlimit'] = $leadlimit;
+						// $data['leadrectype'] = $leadrectype;
+						// $data['refreshbtn'] = $refreshbtn;
+					
+						// $data['leadmaster'] = $this->Administrator_Model->get_leadmasterby_campaign_lead_generation($cids,$leadlimit,$leadrectype,$data['empcode']);
+						$data['leadmaster'] = $this->Administrator_Model->get_leadmasterby_campaignQA($cids,$leadlimit);
+
+						if(empty($data['leadmaster'])){
+							
+						}
+						
+
+						foreach ($data['leadmaster'] as $ldmster) {
+							if (isset($data['leadmaster'])){
+								$data['countriesdv'] = $this->Administrator_Model->get_countriesbyCampaigndv($ldmster['lmid']);
+								
 								$data['industriesdv'] = $this->Administrator_Model->get_industries_ofleadmaster($ldmster['lmid']);
 								$data['subindustriesdv'] = $this->Administrator_Model->get_subindustries_ofleadmaster($ldmster['lmid']);
 								$data['currencydv'] = $this->Administrator_Model->get_currency_ofleadmaster($ldmster['lmid']);
@@ -886,6 +994,51 @@
 				 <td>'.$row->industry.'</td>
 				 <td>'.$row->subindustry.'</td>
 				 <td>'.$row->description.'</td>
+				
+				</tr>
+			  ';
+			 }
+			}
+			else
+			{
+			 $output .= '<tr>
+				 <td colspan="5">No Data Found</td>
+				</tr>';
+			}
+			$output .= '</table>';
+			echo $output;
+		
+
+		}
+		public function getsearcresultofjt(){ 
+		
+
+			$output = '';
+			$query = '';
+			$campaign_id = $_POST['campaign_id'];
+		
+			if($this->input->post('query'))
+			{
+			 $query = $this->input->post('query');
+			}
+			$data = $this->Administrator_Model->fetch_data_jt($query,$campaign_id);
+			$output .= '
+			<div class="table-responsive">
+			   <table class="table table-bordered table-striped">
+				<tr>
+				 <th>Suppressed Jobtitles</th>
+				
+				 
+				</tr>
+			';
+			if($data->num_rows() > 0)
+			{
+			 foreach($data->result() as $row)
+			 {
+			  $output .= '
+				<tr>
+				 <td>'.$row->jobtitlelist.'</td>
+				
 				
 				</tr>
 			  ';
@@ -1401,6 +1554,79 @@
 								
 			
 		}
+		public function ajax_update_leadandcdcbyCDQA_domain_disposition()
+		{
+			
+			if(!empty($_GET['dispositiontagforcomplist'])){
+				$new_array = array(
+					// 'companynms' => TRIM($_GET['company_name']),
+					'is_disp' => '1',
+					'disp_agent' => $_SESSION['empcode'],
+					'disp_reason' => $_GET['dispositiontagforcomplist']
+						
+					);
+					// print_r($new_array); exit();
+				$updatecomplist = $this->Administrator_Model->update_complist($new_array,$_GET['campaign_id'],$_GET['company_name']);
+				
+				
+			}
+			 if(!empty($_GET['dispositiontagfordomain'])){
+				$new_array1 = array(
+					// 'companynms' => TRIM($_GET['company_name']),
+					'is_dispo' => '1',
+					'disp_agent' => $_SESSION['empcode'],
+					'dispo_reason' => $_GET['dispositiontagfordomain']
+						
+					);
+
+				$updatedomainlist = $this->Administrator_Model->update_domainlist($new_array1,$_GET['campaign_id'],$_GET['domain']);
+				
+			}
+
+
+
+			// if($updatecomplist == true){
+			
+				echo json_encode(array(
+					"statusCode"=>"Success",
+					// "lead_id"=>$updatecomplist,
+					"message"=>"info updated Successfully.."
+				));
+			// }else{
+			// 	echo json_encode(array(
+			// 		"statusCode"=>"Fail",
+			// 		"message"=>"Add data Lead failed.."
+			// 	));
+			// }
+		}
+		public function ajax_update_leadandcdcbyCDQA_complist_disposition()
+		{
+			if(!empty($_GET['dispositiontagforcomplist'])){
+				$new_array1 = array(
+					// 'companynms' => TRIM($_GET['company_name']),
+					'is_disp' => '1',
+					'disp_agent' => $_SESSION['empcode'],
+					'disp_reason' => $_GET['dispositiontagforcomplist']
+						
+					);
+
+				$updatecomplist = $this->Administrator_Model->update_complist($new_array1,$_GET['company_name']);
+				if($updatecomplist == true){
+			
+					echo json_encode(array(
+						"statusCode"=>"Success",
+						"lead_id"=>$updatecomplist,
+						"message"=>"Domain updated Successfully.."
+					));
+				}else{
+					echo json_encode(array(
+						"statusCode"=>"Fail",
+						"message"=>"Add data Lead failed.."
+					));
+				}
+				
+			}
+		}
 		public function ajax_submit_leadandcdcbyCDQA()
 		{
 			$campaign_id = $_GET['campaign_id'];
@@ -1516,26 +1742,26 @@
 				'cids' => $_GET['campaign_idcids'],
 				
 				'sal' => $_GET['sal'],
-				'fname' => $_GET['fname'],
-				'lname' => $_GET['lname'],
+				'fname' => trim($_GET['fname']),
+				'lname' => trim($_GET['lname']),
 				'conname' => $conname, //concate strings
-				'jtitle' => $_GET['jtitle'],
+				'jtitle' => trim($_GET['jtitle']),
 				
 
 				'jlevel' => $_GET['desid'],
 				'dname' => $_GET['dcd'], //department
-				'email' => $_GET['email'],
-				'phone' => $_GET['phone'],
-				'altphn' => $_GET['altphn'],
+				'email' => trim($_GET['email']),
+				'phone' => trim($_GET['phone']),
+				'altphn' => trim($_GET['altphn']),
 
-				'phext' => $phext,
-				'plink' => $_GET['plink'],
-				'cname' => $_GET['company_name'],
-				'address' => $_GET['address'],
+				'phext' => trim($phext),
+				'plink' => trim($_GET['plink']),
+				'cname' => trim($_GET['company_name']),
+				'address' => trim($_GET['address']),
 
-				'city' => $_GET['city'],
-				'state' => $_GET['state'],
-				'zipcode' => $_GET['zip_code'],
+				'city' => trim($_GET['city']),
+				'state' => trim($_GET['state']),
+				'zipcode' => trim($_GET['zip_code']),
 				'country' => $_GET['country_id'],
 				'timez' => $timezones,
 				'ctyp' => $_GET['ctype'],
@@ -1545,21 +1771,21 @@
 				'sindtry' => $_GET['subindustrycd'],
 
 				'sectyp' => $sectype,
-				'empsize' => $_GET['empsize'],
-				'arevenue' => $arrevenue,
+				'empsize' => trim($_GET['empsize']),
+				'arevenue' =>trim($arrevenue),
 				'mlbl' => $_GET['mlbl'],
 				'curr' => $_GET['curr'],
 
-				'domain' => $_GET['domain'],
-				'indlink' => $_GET['indlink'],
-				'revszlink' => $_GET['revszlink'],
-				'empszlink' => $_GET['empszlink'],
-				'pcomt' => $pcomt,
+				'domain' => trim($_GET['domain']),
+				'indlink' => trim($_GET['indlink']),
+				'revszlink' =>trim( $_GET['revszlink']),
+				'empszlink' => trim($_GET['empszlink']),
+				'pcomt' => trim($pcomt),
 
-				'othrlink' => $_GET['othrlink'],
+				'othrlink' =>trim( $_GET['othrlink']),
 
 				'emailver' => $_GET['emailver'],
-				'aum' => $aum,
+				'aum' => trim($aum),
 				'atitle' => $_GET['assetid'],
 
 				'optin' => $optin,
@@ -1568,18 +1794,18 @@
 				'opteml' => $opteml,
 				
 
-				'aa1' => $_GET['aa1'],
-				'aa2' => $_GET['aa2'],
-				'aa3' => $_GET['aa3'],
-				'aa4' => $_GET['aa4'],
-				'aa5' => $_GET['aa5'],
-				'aa6' => $_GET['aa6'],
-				'aa7' => $_GET['aa7'],
-				'aa8' => $_GET['aa8'],
-				'aa9' => $_GET['aa9'],
-				'aa10' => $_GET['aa10'],
-				'aa11' => $_GET['aa11'],
-				'aa12' => $_GET['aa12'],
+				'aa1' => trim($_GET['aa1']),
+				'aa2' => trim($_GET['aa2']),
+				'aa3' => trim($_GET['aa3']),
+				'aa4' => trim($_GET['aa4']),
+				'aa5' => trim($_GET['aa5']),
+				'aa6' =>trim( $_GET['aa6']),
+				'aa7' => trim($_GET['aa7']),
+				'aa8' =>trim( $_GET['aa8']),
+				'aa9' => trim($_GET['aa9']),
+				'aa10' =>trim( $_GET['aa10']),
+				'aa11' =>trim( $_GET['aa11']),
+				'aa12' =>trim( $_GET['aa12']),
 				
 				'lcalldisp' => $lcalldisp, 
 				'lcallstat' => $lcallstat, 
@@ -1633,8 +1859,69 @@
 				}
 				
 				
+
+				$getdomainlist = $this->Administrator_Model->get_domain_byCampaign($campaign_id);
+				if(!empty($getdomainlist)){
+					$new_arraydispo = array(
+					   
+						'is_dispo' => '0'
+						
+							
+						);
+
+					$updatedomainlistdispo = $this->Administrator_Model->update_domainlist($new_arraydispo,$campaign_id,$_GET['domain']);
+					
+				}
+
+				$getcompanylist = $this->Administrator_Model->get_complist_byCampaign($campaign_id);
+				if(!empty($getcompanylist)){
+					$new_arraydisp = array(
+						'is_disp' => '0'
+						);
+
+					$updatecompdisp = $this->Administrator_Model->update_complist($new_arraydisp,$campaign_id,$_GET['company_name']);
+					
+				}
 				
-				$updateleadandcdcdata = $this->Administrator_Model->add_leadandcdcbyCDQA($datacdcandlead);
+
+
+				if(!empty($_GET['dispositiontagforcomplist'])){
+					$new_array = array(
+						// 'companynms' => TRIM($_GET['company_name']),
+						'is_disp' => '1',
+						'disp_agent' => $_SESSION['empcode'],
+						'disp_reason' => $_GET['dispositiontagforcomplist']
+							
+						);
+						// print_r($new_array); exit();
+					$updatecomplist = $this->Administrator_Model->update_complist($new_array,$campaign_id,$_GET['company_name']);
+					
+					
+				}
+				 if(!empty($_GET['dispositiontagfordomain'])){
+					$new_array1 = array(
+						// 'companynms' => TRIM($_GET['company_name']),
+						'is_dispo' => '1',
+						'disp_agent' => $_SESSION['empcode'],
+						'dispo_reason' => $_GET['dispositiontagfordomain']
+							
+						);
+
+					$updatedomainlist = $this->Administrator_Model->update_domainlist($new_array1,$campaign_id,$_GET['domain']);
+					
+				}
+
+			
+
+				if((!empty($_GET['dispositiontagforcomplist'])) || (!empty($_GET['dispositiontagfordomain'])))
+					{
+						$updateleadandcdcdata = "ddd";
+					} else{
+						$updateleadandcdcdata = $this->Administrator_Model->add_leadandcdcbyCDQA($datacdcandlead);
+					}
+				
+				
+				// $updateleadandcdcdata = $this->Administrator_Model->add_leadandcdcbyCDQA($datacdcandlead);
 				
 
 				if($updateleadandcdcdata == true){
@@ -1643,6 +1930,11 @@
 						'statusCode'=>'Success',
 						"lead_id"=>$updateleadandcdcdata,
 						'message'=>'Lead added Successfully..'
+					));
+				}else if($updateleadandcdcdata == "ddd"){
+					echo json_encode(array(
+						"statusCode"=>"Fail",
+						"message"=>"Disposition noted..Please refresh"
 					));
 				}else{
 					echo json_encode(array(
@@ -1913,30 +2205,31 @@
 				    $timezones = 0 ;
 				}
 
+				$pcomt= "DC:".$_SESSION['empcode'].":".$old_date."#".$_GET['pcomt'];
 
 				$datacdcandlead = array(
 				'cids' => $_GET['campaign_idcids'],
 				
 				'sal' => $_GET['sal'],
-				'fname' => $_GET['fname'],
-				'lname' => $_GET['lname'],
+				'fname' => trim($_GET['fname']),
+				'lname' => trim($_GET['lname']),
 				'conname' => $conname, //concate strings
-				'jtitle' => $_GET['jtitle'],
+				'jtitle' =>trim($_GET['jtitle']),
 			
 				'jlevel' => $_GET['desid'],
 				'dname' => $_GET['dcd'], //department
-				'email' => $_GET['email'],
-				'phone' => $_GET['phone'],
-				'altphn' => $_GET['altphn'],
+				'email' => trim($_GET['email']),
+				'phone' => trim($_GET['phone']),
+				'altphn' =>trim($_GET['altphn']),
 
-				'phext' => $phext,
-				'plink' => $_GET['plink'],
-				'cname' => $_GET['company_name'],
-				'address' => $_GET['address'],
+				'phext' => trim($phext),
+				'plink' => trim($_GET['plink']),
+				'cname' => trim($_GET['company_name']),
+				'address' =>trim($_GET['address']),
 
-				'city' => $_GET['city'],
-				'state' => $_GET['state'],
-				'zipcode' => $_GET['zip_code'],
+				'city' => trim($_GET['city']),
+				'state' => trim($_GET['state']),
+				'zipcode' => trim($_GET['zip_code']),
 				'country' => $_GET['country_id'],
 				'timez' => $timezones,
 				'ctyp' => $_GET['ctype'],
@@ -1946,19 +2239,20 @@
 				'sindtry' => $_GET['subindustrycd'],
 
 				'sectyp' => $sectype,
-				'empsize' => $_GET['empsize'],
-				'arevenue' =>$arrevenue,
+				'empsize' => trim($_GET['empsize']),
+				'arevenue' =>trim($arrevenue),
 				'mlbl' => $_GET['mlbl'],
 				'curr' => $_GET['curr'],
 
-				'domain' => $_GET['domain'],
-				'indlink' => $_GET['indlink'],
-				'revszlink' => $_GET['revszlink'],
-				'empszlink' => $_GET['empszlink'],
+				'domain' => trim($_GET['domain']),
+				'indlink' => trim($_GET['indlink']),
+				'revszlink' => trim($_GET['revszlink']),
+				'empszlink' => trim($_GET['empszlink']),
 				
-				'othrlink' => $_GET['othrlink'],
+				'othrlink' => trim($_GET['othrlink']),
 
 				'emailver' => $_GET['emailver'],
+				'pcomt' => trim($pcomt),
 				'aum' => $aum,
 				// tag
 				
@@ -1976,7 +2270,7 @@
 				);
 			
 			
-				$checkforEmail = $this->Administrator_Model->get_email_duplication_count_leadmaster($_GET['email']);
+				$checkforEmail = $this->Administrator_Model->get_email_duplication_count_leadmaster(trim($_GET['email']));
 				if($checkforEmail == true)
 				{
 					echo json_encode(array(
@@ -1985,7 +2279,7 @@
 					));
 					return;
 				}
-				$checkforplink = $this->Administrator_Model->get_plink_duplication_count_leadmaster($_GET['plink']);
+				$checkforplink = $this->Administrator_Model->get_plink_duplication_count_leadmaster(trim($_GET['plink']));
 				
 				if($checkforplink == true)
 				{
@@ -1995,6 +2289,33 @@
 					));
 					return;
 				}
+
+
+
+
+				$getdomainlist = $this->Administrator_Model->get_domain_byCampaign($campaign_id);
+			if(!empty($getdomainlist)){
+				$new_arraydispo = array(
+				   
+					'is_dispo' => '0'
+					
+						
+					);
+
+				$updatedomainlistdispo = $this->Administrator_Model->update_domainlist($new_arraydispo,$campaign_id,$_GET['domain']);
+				
+			}
+
+			$getcompanylist = $this->Administrator_Model->get_complist_byCampaign($campaign_id);
+			if(!empty($getcompanylist)){
+				$new_arraydisp = array(
+					'is_disp' => '0'
+					);
+
+				$updatecompdisp = $this->Administrator_Model->update_complist($new_arraydisp,$campaign_id,$_GET['company_name']);
+				
+			}
+
 				
 				$addleadandcdcdata = $this->Administrator_Model->add_leaddata($datacdcandlead);
 			
@@ -2132,25 +2453,25 @@
 				'cids' => $_GET['campaign_idcids'],
 				
 				'sal' => $_GET['sal'],
-				'fname' => $_GET['fname'],
-				'lname' => $_GET['lname'],
+				'fname' => trim($_GET['fname']),
+				'lname' => trim($_GET['lname']),
 				'conname' => $conname, //concate strings
-				'jtitle' => $_GET['jtitle'],
+				'jtitle' =>trim($_GET['jtitle']),
 				
 				'jlevel' => $_GET['desid'],
 				'dname' => $_GET['dcd'], //department
-				'email' => $email,
-				'phone' => $_GET['phone'],
-				'altphn' => $_GET['altphn'],
+				'email' => trim($email),
+				'phone' => trim($_GET['phone']),
+				'altphn' => trim($_GET['altphn']),
 
-				'phext' => $phext,
-				'plink' => $plink,
-				'cname' => $_GET['company_name'],
-				'address' => $_GET['address'],
+				'phext' => trim($phext),
+				'plink' => trim($plink),
+				'cname' => trim($_GET['company_name']),
+				'address' => trim($_GET['address']),
 
-				'city' => $_GET['city'],
-				'state' => $_GET['state'],
-				'zipcode' => $_GET['zip_code'],
+				'city' => trim($_GET['city']),
+				'state' => trim($_GET['state']),
+				'zipcode' => trim($_GET['zip_code']),
 				'country' => $_GET['country_id'],
 				'timez' => $timezones,
 				'ctyp' => $_GET['ctype'],
@@ -2160,21 +2481,21 @@
 				'sindtry' => $_GET['subindustrycd'],
 
 				'sectyp' => $sectype,
-				'empsize' => $_GET['empsize'],
-				'arevenue' =>$arrevenue,
+				'empsize' => trim($_GET['empsize']),
+				'arevenue' =>trim($arrevenue),
 				'mlbl' => $_GET['mlbl'],
 				'curr' => $_GET['curr'],
 
-				'domain' => $_GET['domain'],
-				'indlink' => $_GET['indlink'],
-				'revszlink' => $_GET['revszlink'],
-				'empszlink' => $_GET['empszlink'],
-				'pcomt' => $pcomt,
+				'domain' => trim($_GET['domain']),
+				'indlink' => trim($_GET['indlink']),
+				'revszlink' => trim($_GET['revszlink']),
+				'empszlink' => trim($_GET['empszlink']),
+				'pcomt' => trim($pcomt),
 
-				'othrlink' => $_GET['othrlink'],
+				'othrlink' =>trim( $_GET['othrlink']),
 
 				'emailver' => $_GET['emailver'],
-				'aum' => $aum,
+				'aum' => trim($aum),
 				// tag
 				'ontag' => '0', // Submit and 0 = new
 				'sbsvtag' => '0', // Save
@@ -2189,13 +2510,131 @@
 			
 			
 			if($lmid > 1){
-		
-				$addleadandcdcdata = $this->Administrator_Model->update_leaddata($datacdcandlead,$lmid);
-			}else{ //new save
 
-				$addleadandcdcdata = $this->Administrator_Model->save_leaddata($datacdcandlead);
-			}
+				$getdomainlist = $this->Administrator_Model->get_domain_byCampaign($campaign_id);
+				if(!empty($getdomainlist)){
+					$new_arraydispo = array(
+					   
+						'is_dispo' => '0'
+						
+							
+						);
+	
+					$updatedomainlistdispo = $this->Administrator_Model->update_domainlist($new_arraydispo,$campaign_id,$_GET['domain']);
+					
+				}
+	
+				$getcompanylist = $this->Administrator_Model->get_complist_byCampaign($campaign_id);
+				if(!empty($getcompanylist)){
+					$new_arraydisp = array(
+						'is_disp' => '0'
+						);
+	
+					$updatecompdisp = $this->Administrator_Model->update_complist($new_arraydisp,$campaign_id,$_GET['company_name']);
+					
+				}
+	
+
+
+
+				if(!empty($_GET['dispositiontagforcomplist'])){
+					$new_array = array(
+						// 'companynms' => TRIM($_GET['company_name']),
+						'is_disp' => '1',
+						'disp_agent' => $_SESSION['empcode'],
+						'disp_reason' => $_GET['dispositiontagforcomplist']
+							
+						);
+						// print_r($new_array); exit();
+					$updatecomplist = $this->Administrator_Model->update_complist($new_array,$campaign_id,$_GET['company_name']);
+
+						
+				}
 				
+				if(!empty($_GET['dispositiontagfordomain'])){
+					$new_array1 = array(
+					
+						'is_dispo' => '1',
+						'disp_agent' => $_SESSION['empcode'],
+						'dispo_reason' => $_GET['dispositiontagfordomain']
+							
+						);
+
+					$updatedomainlist = $this->Administrator_Model->update_domainlist($new_array1,$campaign_id,$_GET['domain']);
+					// $addleadandcdcdata = $this->Administrator_Model->update_leaddata($datacdcandlead,$lmid);
+				}
+
+				// if((!empty($_GET['dispositiontagforcomplist'])) || (!empty($_GET['dispositiontagfordomain'])))
+				// {
+				// 	$addleadandcdcdata = "ddd";
+				// } else{
+					$addleadandcdcdata = $this->Administrator_Model->update_leaddata($datacdcandlead,$lmid);
+				// }
+
+				
+			}else{ //new save
+				// print_r($_GET['dispositiontagforcomplist']); 
+
+				$getdomainlist = $this->Administrator_Model->get_domain_byCampaign($campaign_id);
+				if(!empty($getdomainlist)){
+					$new_arraydispo = array(
+					   
+						'is_dispo' => '0'
+						
+							
+						);
+	
+					$updatedomainlistdispo = $this->Administrator_Model->update_domainlist($new_arraydispo,$campaign_id,$_GET['domain']);
+					
+				}
+	
+				$getcompanylist = $this->Administrator_Model->get_complist_byCampaign($campaign_id);
+				if(!empty($getcompanylist)){
+					$new_arraydisp = array(
+						'is_disp' => '0'
+						);
+	
+					$updatecompdisp = $this->Administrator_Model->update_complist($new_arraydisp,$campaign_id,$_GET['company_name']);
+					
+				}
+	
+
+
+				if(!empty($_GET['dispositiontagforcomplist'])){
+					$new_array = array(
+						// 'companynms' => TRIM($_GET['company_name']),
+						'is_disp' => '1',
+						'disp_agent' => $_SESSION['empcode'],
+						'disp_reason' => $_GET['dispositiontagforcomplist']
+							
+						);
+						// print_r($new_array); exit();
+					$updatecomplist = $this->Administrator_Model->update_complist($new_array,$_GET['company_name']);
+					
+					
+				}
+				 if(!empty($_GET['dispositiontagfordomain'])){
+					$new_array1 = array(
+						// 'companynms' => TRIM($_GET['company_name']),
+						'is_dispo' => '1',
+						'disp_agent' => $_SESSION['empcode'],
+						'dispo_reason' => $_GET['dispositiontagfordomain']
+							
+						);
+
+					$updatedomainlist = $this->Administrator_Model->update_domainlist($new_array1,$_GET['domain']);
+					
+				}
+
+				if((!empty($_GET['dispositiontagforcomplist'])) || (!empty($_GET['dispositiontagfordomain'])))
+					{
+						$addleadandcdcdata = "ddd";
+					} else{
+						$addleadandcdcdata = $this->Administrator_Model->save_leaddata($datacdcandlead);
+					}
+				
+			}
+			// print_r($updatecomplist); exit;	
 			
 				if($addleadandcdcdata == true){
 			
@@ -2204,11 +2643,16 @@
 						"lead_id"=>$addleadandcdcdata,
 						"message"=>"Lead Saved Successfully.."
 					));
+				}else if($addleadandcdcdata == "ddd"){
+					echo json_encode(array(
+						"statusCode"=>"Fail",
+						"message"=>"Disposition noted..Please refresh"
+					));
 				}else{
 					echo json_encode(array(
 						"statusCode"=>"Fail",
-						"message"=>"Lead failed.."
-					));
+						"message"=>"Lead failed to insert..Please refresh"
+					));	
 				}
 								
 			
@@ -3680,24 +4124,24 @@
 				'cids' => $_GET['campaign_idcids'],
 				
 				'sal' => $_GET['sal'],
-				'fname' => $_GET['fname'],
-				'lname' => $_GET['lname'],
+				'fname' => trim($_GET['fname']),
+				'lname' => trim($_GET['lname']),
 				'conname' => $conname, //concate strings
-				'jtitle' => $_GET['jtitle'],
+				'jtitle' =>trim($_GET['jtitle']),
 				'jlevel' => $_GET['desid'],
 				'dname' => $_GET['dcd'], //department
-				'email' => $_GET['email'],
-				'phone' => $_GET['phone'],
-				'altphn' => $_GET['altphn'],
+				'email' => trim($_GET['email']),
+				'phone' => trim($_GET['phone']),
+				'altphn' => trim($_GET['altphn']),
 
-				'phext' => $phext,
-				'plink' => $_GET['plink'],
-				'cname' => $_GET['company_name'],
-				'address' => $_GET['address'],
+				'phext' => trim($phext),
+				'plink' => trim($_GET['plink']),
+				'cname' => trim($_GET['company_name']),
+				'address' => trim($_GET['address']),
 
-				'city' => $_GET['city'],
-				'state' => $_GET['state'],
-				'zipcode' => $_GET['zip_code'],
+				'city' =>  trim($_GET['city']),
+				'state' =>  trim($_GET['state']),
+				'zipcode' =>  trim($_GET['zip_code']),
 				'country' => $_GET['country_id'],
 				'timez' => $timezones,
 				'ctyp' => $_GET['ctype'],
@@ -3707,21 +4151,21 @@
 				'sindtry' => $_GET['subindustrycd'],
 
 				'sectyp' => $sectype,
-				'empsize' => $_GET['empsize'],
-				'arevenue' =>$arrevenue,
+				'empsize' =>  trim($_GET['empsize']),
+				'arevenue' => trim($arrevenue),
 				'mlbl' => $_GET['mlbl'],
 				'curr' => $_GET['curr'],
 
-				'domain' => $_GET['domain'],
-				'indlink' => $_GET['indlink'],
-				'revszlink' => $_GET['revszlink'],
-				'empszlink' => $_GET['empszlink'],
-				'pcomt' => $pcomt,
+				'domain' =>  trim($_GET['domain']),
+				'indlink' =>  trim($_GET['indlink']),
+				'revszlink' =>  trim($_GET['revszlink']),
+				'empszlink' =>  trim($_GET['empszlink']),
+				'pcomt' =>  trim($pcomt),
 
-				'othrlink' => $_GET['othrlink'],
+				'othrlink' =>  trim($_GET['othrlink']),
 
 				'emailver' => $_GET['emailver'],
-				'aum' => $aum,
+				'aum' =>  trim($aum),
 				'dvsbtg' => $dvsbtg,
 				'dvrejtg' => $dvrejtg,
 				
@@ -3741,7 +4185,7 @@
 				);
 			
 		
-			$checkforEmail = $this->Administrator_Model->get_email_duplication_count_leadmaster_update($_GET['email'],$lmid);
+			$checkforEmail = $this->Administrator_Model->get_email_duplication_count_leadmaster_update(trim($_GET['email']),$lmid);
 			if($checkforEmail == true)
 			{
 				echo json_encode(array(
@@ -3750,7 +4194,7 @@
 				));
 				return;
 			}
-			$checkforplink = $this->Administrator_Model->get_plink_duplication_count_leadmaster_update($_GET['plink'],$lmid);
+			$checkforplink = $this->Administrator_Model->get_plink_duplication_count_leadmaster_update(trim($_GET['plink']),$lmid);
 			
 			if($checkforplink == true)
 			{
@@ -3759,6 +4203,31 @@
 					"message"=>"Prospect link is already Exist"
 				));
 				return;
+			}
+
+
+ //below function to update disposition tag in domainlist and complist table
+			$getdomainlist = $this->Administrator_Model->get_domain_byCampaign($campaign_id);
+			if(!empty($getdomainlist)){
+				$new_arraydispo = array(
+				   
+					'is_dispo' => '0'
+					
+						
+					);
+
+				$updatedomainlistdispo = $this->Administrator_Model->update_domainlist($new_arraydispo,$campaign_id,$_GET['domain']);
+				
+			}
+
+			$getcompanylist = $this->Administrator_Model->get_complist_byCampaign($campaign_id);
+			if(!empty($getcompanylist)){
+				$new_arraydisp = array(
+					'is_disp' => '0'
+					);
+
+				$updatecompdisp = $this->Administrator_Model->update_complist($new_arraydisp,$campaign_id,$_GET['company_name']);
+				
 			}
 
 				$addleadandcdcdata = $this->Administrator_Model->update_leaddata($datacdcandlead,$lmid);
@@ -9754,6 +10223,29 @@
 			
 			echo json_encode($data); 
 		  }
+		public function checkjtitle(){ 
+			
+			$campaign_id = $_GET['campaign_id'];
+			$jtitle = trim($_GET['jtitle']);
+			$jobtitleexl = $_GET['jobtitleexl'];
+
+			
+			// get data 
+		
+			
+			$data['jtitlesupp'] = $this->Administrator_Model->check_jtitle_suppression($jtitle,$campaign_id);
+			// $incdomain = $this->Administrator_Model->get_incdomain_byCampaign($campaign_id);
+			
+			// if($inclistnew == 1 && !empty($incdomain))
+			// if($jobtitleexl == 1)
+			// {
+			// 	$data['domaincheckincl'] = $this->Administrator_Model->check_domain_incl($jtitle,$campaign_id);
+			// }
+			
+			
+			echo json_encode($data); 
+		  }
+
 		public function checkdomain(){ 
 			
 			$campaign_id = $_GET['campaign_id'];

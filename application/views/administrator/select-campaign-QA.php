@@ -36,7 +36,8 @@ $(document).ready(function () {
         <div class="col-sm-12">
             <!-- Basic Form Inputs card start -->
             <div class="card" id="camp_form">
-              <form id="basic-form" method="POST" enctype="multipart/form-data" action="qualityform">
+              <!-- <form id="basic-form" method="POST" enctype="multipart/form-data" action="qualityform"> -->
+              <form id="basic-form" method="POST" enctype="multipart/form-data" action="qalistings">
                 <div class="card-header">
                 
                 </div>

@@ -3723,6 +3723,22 @@ public function getPrivillage(){
 		
 			$_SESSION["newcandidate_id"] = $datasavedid; // timer timing 20 mints // line added by tejaswi
 		}
+		
+		function save_client() // Added By Tejaswi
+		{
+			
+			$clcode=$_GET['clcode'];
+			
+			$clid = $_GET['clid'];
+			
+			
+			$datasavedid =$this->Administrator_Model->save_client($clcode,$clid);	
+			echo json_encode(array(
+				"statusCode"=>200,
+				"datasavedid"=>$datasavedid
+			));
+			
+		}
 
 		public function candidate_list($offset = 0)
 		{

@@ -3825,6 +3825,7 @@ public function get_campaign_fordataverification()
 			$this->db->select('*');
 			$this->db->from('users');
 			$this->db->where('users.cid_type', 'ME');
+			$this->db->or_where('users.cid_type', 'HP');
 			$this->db->where('users.status', 0);
 			
 			if(isset($user_id) && $user_id != null)

@@ -493,6 +493,7 @@ $(function(){
                             <div class="col-sm-3">
                                 <label class="col-lable"><b>Select Period</b></label>
                                 <select class="form-control form-control-default form-control-sm "  name="period" id="period">
+                                <option value="0">0 Month</option>
                                 <option value="1">1 Month</option>
                                 <option value="2">2 Month</option>
                                 <option value="3">3 Month</option>

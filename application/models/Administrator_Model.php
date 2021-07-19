@@ -3643,6 +3643,42 @@ public function get_campaign_fordataverification()
 
 		}	
 
+		public function get_user_report_cdc($campid,$user_id,$from,$to,$stage)
+		{
+			$this->db->select('*');
+			$this->db->from('users');
+			$this->db->where('users.cid_type', 'ME');
+			$this->db->where('users.status', 0);
+			
+			if(isset($user_id) && $user_id != null)
+			{
+				$this->db->where('users.empcode', $user_id);
+			}
+			
+			else
+			{
+				// $this->db->group_start();
+				// $this->db->where("stdti >= now()::date + interval '0h'");
+				// // $this->db->OR_where("svdti>= now()::date + interval '0h'");
+				// $this->db->group_end();
+			}
+			// $this->db->group_by('leadmaster.cids');
+			$this->db->group_by('users.fname');
+			$this->db->group_by('users.empcode');
+			$this->db->group_by('users.last_login');
+			// $this->db->group_by('leadmaster.lmid');
+			$this->db->group_by('users.id');
+			
+			// $this->db->group_by('campaign.cids');
+			// $this->db->group_by('campaign.campnm');
+			$query=$this->db->get();
+			// echo $this->db->last_query(); 
+			// show_error($this->db->last_query(), 200, "SQL");
+			return $data=$query->result_array();
+
+		}	
+
+
 		public function get_delivery_leads($username = FALSE, $limit = FALSE, $offset = FALSE,$campid,$delivery_status,$qa_status,$ls_status)
 		{
 			
@@ -4671,19 +4707,24 @@ public function get_all_record_leadmasterby_Delivered($rec_stage,$period,$dcd,$l
 		if(isset($dcd) && $dcd[0] != 0)
 			$this->db->where_in('dname',$dcd);
 
-			if(isset($sector_id) && $sector_id[0] != 0)
-				$this->db->where_in('indtry',$sector_id);
+		if(isset($sector_id) && $sector_id[0] != 0)
+			$this->db->where_in('indtry',$sector_id);
 
-		
-			if(isset($country_id) && $country_id[0] != 0)
-				$this->db->where_in('country',$country_id);
+	
+		if(isset($country_id) && $country_id[0] != 0)
+			$this->db->where_in('country',$country_id);
 
-			if(isset($subindustrycd) && $subindustrycd[0] != 0)
-				$this->db->where_in('sindtry',$subindustrycd);
+		if(isset($subindustrycd) && $subindustrycd[0] != 0)
+			$this->db->where_in('sindtry',$subindustrycd);
 
-			if(isset($desid) && $desid[0] != 0)
-				$this->db->where_in('jlevel',$desid);
+		if(isset($desid) && $desid[0] != 0)
+			$this->db->where_in('jlevel',$desid);
 
+		// if(isset($inclist) && $inclist == 1)
+		// {
+		// 	$this->db->where_in('domain','select domainnms from domainlist where cid=123');
+		// }
+			
 		
 
 			if(isset($emplbound) && $emplbound[0] != 0 && isset($empubound) && $empubound[0] != 0)
@@ -4990,5 +5031,164 @@ public function get_all_record_leadmasterby_Delivered($rec_stage,$period,$dcd,$l
 			}else{
 				return false;
 			}
+		}
+
+		public function get_test_result_export($ids)
+		{
+			$ids= implode(",", $ids);
+			
+			$sql1 = " SELECT leadmaster.lmid,
+			leadmaster.cids,
+			leadmaster.sal,
+			leadmaster.fname,
+			leadmaster.lname,
+			leadmaster.jtitle,
+			joblevels.joblevel,
+			joblevels.joblist,
+			dept.department,
+			leadmaster.cname,
+			comptype.ctypname,
+			industry.industry,
+			industry.subindustry,
+			leadmaster.sectyp,
+				CASE
+					WHEN (leadmaster.sectyp = 0) THEN 'Unknown'::text
+					WHEN (leadmaster.sectyp = 1) THEN 'Public'::text
+					WHEN (leadmaster.sectyp = 2) THEN 'Private'::text
+					WHEN (leadmaster.sectyp = 3) THEN 'Government'::text
+					WHEN (leadmaster.sectyp = 4) THEN 'Non - Profit'::text
+					ELSE NULL::text
+				END AS sector,
+			leadmaster.empsize,
+			leadmaster.arevenue,
+			leadmaster.mlbl,
+				CASE
+					WHEN (leadmaster.mlbl = 0) THEN 'Thousands'::text
+					WHEN (leadmaster.mlbl = 1) THEN 'Millions'::text
+					WHEN (leadmaster.mlbl = 2) THEN 'Billions'::text
+					WHEN (leadmaster.mlbl = 3) THEN 'Trillions'::text
+					ELSE NULL::text
+				END AS denomination,
+			leadmaster.email,
+			leadmaster.phone,
+			leadmaster.linetype,
+				CASE
+					WHEN (leadmaster.linetype = 1) THEN 'Unknown'::text
+					WHEN (leadmaster.linetype = 2) THEN 'Direct'::text
+					WHEN (leadmaster.linetype = 3) THEN 'Board'::text
+					ELSE NULL::text
+				END AS linetypes,
+			leadmaster.phext,
+			leadmaster.altphn,
+			leadmaster.address,
+			leadmaster.city,
+			leadmaster.state,
+			leadmaster.zipcode,
+			country.countryname,
+			country.currnme,
+			timezone.abbrev,
+			leadmaster.domain,
+			leadmaster.plink,
+			leadmaster.empszlink,
+			leadmaster.indlink,
+			leadmaster.revszlink,
+			leadmaster.othrlink,
+			leadmaster.aum
+		   FROM ((((((leadmaster
+			 LEFT JOIN country ON ((leadmaster.country = country.countrycd)))
+			 LEFT JOIN timezone ON ((leadmaster.timez = timezone.zids)))
+			 LEFT JOIN industry ON ((leadmaster.sindtry = industry.subindustrycd)))
+			 LEFT JOIN joblevels ON ((leadmaster.jlevel = joblevels.jid)))
+			 LEFT JOIN dept ON ((leadmaster.dname = dept.dcd)))
+			 LEFT JOIN comptype ON ((leadmaster.ctyp = comptype.ctypid)))
+			
+			WHERE leadmaster.lmid IN ($ids)
+			--  where leadmaster.qaload = 1 and leadmaster.cdcsb <=4 and
+			--  leadmaster.cdcrjt <=4
+		  ORDER BY leadmaster.lmid ;";
+		//   $query1 = $this->db->query($sql);
+			// echo $cond;
+			
+			// $ids= implode(",", $ids);
+			// echo $cond;
+			$sql2 = " SELECT testleadmaster.lmid,
+			testleadmaster.cids,
+			testleadmaster.sal,
+			testleadmaster.fname,
+			testleadmaster.lname,
+			testleadmaster.dname,
+			testleadmaster.jtitle,
+			joblevels.joblevel,
+			joblevels.joblist,
+			dept.department,
+			testleadmaster.cname,
+			testleadmaster.indtry,
+			testleadmaster.sindtry,
+			comptype.ctypname,
+			industry.industry,
+			industry.subindustry,
+			testleadmaster.sectyp,
+				CASE
+					WHEN (testleadmaster.sectyp = 0) THEN 'Unknown'::text
+					WHEN (testleadmaster.sectyp = 1) THEN 'Public'::text
+					WHEN (testleadmaster.sectyp = 2) THEN 'Private'::text
+					WHEN (testleadmaster.sectyp = 3) THEN 'Government'::text
+					WHEN (testleadmaster.sectyp = 4) THEN 'Non - Profit'::text
+					ELSE NULL::text
+				END AS sector,
+			testleadmaster.empsize,
+			testleadmaster.arevenue,
+			testleadmaster.mlbl,
+				CASE
+					WHEN (testleadmaster.mlbl = 0) THEN 'Thousands'::text
+					WHEN (testleadmaster.mlbl = 1) THEN 'Millions'::text
+					WHEN (testleadmaster.mlbl = 2) THEN 'Billions'::text
+					WHEN (testleadmaster.mlbl = 3) THEN 'Trillions'::text
+					ELSE NULL::text
+				END AS denomination,
+			testleadmaster.email,
+			testleadmaster.phone,
+			testleadmaster.timez,
+			testleadmaster.phext,
+			testleadmaster.altphn,
+			testleadmaster.address,
+			testleadmaster.city,
+			testleadmaster.country,
+			testleadmaster.state,
+			testleadmaster.zipcode,
+			country.countryname,
+			country.currnme,
+			country.currab,
+			timezone.abbrev,
+			testleadmaster.curr,
+			testleadmaster.domain,
+			testleadmaster.plink,
+			testleadmaster.empszlink,
+			testleadmaster.indlink,
+			testleadmaster.revszlink,
+			testleadmaster.othrlink,
+			testleadmaster.ctyp,
+			timezone.zonename
+			-- leadmaster.aum
+		   FROM ((((((testleadmaster 
+			 LEFT JOIN country ON ((testleadmaster.country = country.countrycd)))
+			 LEFT JOIN timezone ON ((testleadmaster.timez = timezone.zids)))
+			 LEFT JOIN industry ON ((testleadmaster.sindtry = industry.subindustrycd)))
+			 LEFT JOIN joblevels ON ((testleadmaster.jlevel = joblevels.jid)))
+			 LEFT JOIN dept ON ((testleadmaster.dname = dept.dcd)))
+			 LEFT JOIN comptype ON ((testleadmaster.ctyp = comptype.ctypid)))
+			
+			WHERE 
+			testleadmaster.lmid IN ($ids)
+		  ORDER BY testleadmaster.lmid desc limit 10;";
+		//   $query = $this->db->query($sql1);
+		  $query1 = $this->db->query($sql2);
+		//   show_error($this->db->last_query(), 200, "SQL");
+		//   return $query->result_array();
+		  return $query1->result_array();
+		// return array('categories' => $sql1, 'count' => $sql2);
+		// return $query;
+
+
 		}
 }

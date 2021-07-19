@@ -874,6 +874,67 @@
                                             </tr>
                                             </table>
                                             <hr>
+                                            <hr>
+                                            <h5 style="padding:10px;"><b>CDC Count</b></h5>
+                                            <table class="table">
+                                            <tr>
+                                                <td></td>
+                                                <td><b>CDC Accept</b></td>
+                                                <td><b>CDC Reject</b></td>
+                                                
+                                                
+                                            </tr>
+                                            <tr>
+                                                <td></td>
+                                                <td>
+                                                <?php 
+                                                    $cdc_first_accept = $this->db->query("select * from leadmaster
+                                                    where 
+                                                    rlc = 0
+                                                   
+                                                    and evload = 1
+                                                    and ontag = 1
+                                                    and dvcomt = '1' 
+                                                    and cdcsb >= 1
+                                                    and cdcsbagti is not null
+                                                    and cdcsbdti <= current_date + current_time AND cdcsbdti >= current_date + 00-00-00
+                                                    and cdcsbagti = $empcode");
+                                                    $cdcfirstA = $cdc_first_accept->num_rows();
+                                                    $cdc_second_accept = $this->db->query("select * from leadmaster
+                                                    where 
+                                                    rlc = 0
+                                                    
+                                                    and evload = 1
+                                                    and ontag = 1
+                                                    and dvcomt = '1' 
+                                                    and cdcsb >= 1
+                                                    
+                                                    and cdcsbagtii is not null
+                                                    and cdcsbdtii <= current_date + current_time AND cdcsbdtii >= current_date + 00-00-00
+                                                    and cdcsbagtii = $empcode");
+                                                    $cdcsecondA = $cdc_second_accept->num_rows();
+                                                    echo $cdctotal = $cdcfirstA + $cdcsecondA;
+                                                    ?>
+                                                </td>
+                                                <td><?php 
+                                                $cdc_reject = $this->db->query("select * from leadmaster
+                                                where 
+                                                dvcomt = '1' 
+                                                and cdcrjt >= 1
+                                                and rlc = 0
+                                                and cdcrjt >= 1
+                                                and cdcload is NULL
+                                                and evload is NULL
+                                                and ontag = 1
+                                                and (cdcrjtagti is not null OR cdcrjtagti is not null)
+                                                and cdcrjtdti <= current_date + current_time AND cdcrjtdti >= current_date + 00-00-00
+                                                    and cdcrjtagti = $empcode");
+                                                echo $cdc_reject->num_rows();
+                                                ?></td>
+                                                
+                                            </tr>
+                                            </table>
+                                            <hr>
                                             <style>
                                             #accept_report td {
                                                 border-top: 1px solid #000;

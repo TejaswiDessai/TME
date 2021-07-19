@@ -2190,7 +2190,7 @@ function ProgressCountdown(timeleft, bar, text) {
       if (timeleft <= 0) {
         clearInterval(countdownTimer);
         resolve(true);
-        window.location = base_url+"administrator/logout_candiate";
+        window.location = base_url+"administrator/candidate_result/<?php echo $this->session->userdata('empcode')?>";
       }
     }, 1000);
   });

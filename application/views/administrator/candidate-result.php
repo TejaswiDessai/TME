@@ -54,10 +54,10 @@ $(".emailsend_all").on('change', function () {
 
             <div class="page-header">
                 <div class="page-header-title">
-                    <h4>Result</h4>
+                    <!-- <h4>Result</h4> -->
                 </div>
                 <div class="page-header-breadcrumb">
-                    <ul class="breadcrumb-title">
+                    <!-- <ul class="breadcrumb-title">
                         <li class="breadcrumb-item">
                             <a href="<?php echo base_url();?>administrator/dashboard">
                                 <i class="icofont icofont-home"></i>
@@ -67,51 +67,15 @@ $(".emailsend_all").on('change', function () {
                         </li>
                         <li class="breadcrumb-item"><a href="#!">Result</a>
                         </li>
-                    </ul>
+                    </ul> -->
                 </div>
             </div>
            
             <div class="card">
                     <div class="card-block">
                     <!-- <input type="hidden" value="<?php //echo $empcode;?>" id="empcode"> -->
-                        <form action="<?php echo base_url(); ?>administrator/candidate_list" method="post">
-                            <table class="table" style="margin-bottom:10px;">
-                            <tr>
-                            <!-- <td>
-                            <?php //foreach ($campaigns as $campaign): ?>
-                                <label class="col-lable"><b>Campaign Name: <?php //echo $campaign['campnm']; ?></b></label>
-                                <input type="hidden" value="<?php//echo $campaign['cids']; ?>" id="campnm">
-                            <?php //endforeach; ?>
-                            <input type="hidden" value="<?php //echo $Campid; ?>" id="campaign_id" name="campaign_id">
-                            </td> -->
-                            <!-- <td>
-                                <select style="height:34px;" class="form-control form-control-sm "  name="userstatus" id="userstatus">
-                                <option value="">Select Status</option>
-                                <option value="active" <?php if( isset($userstatus) && $userstatus == "active") { echo "selected" ; } ?>>Active</option>
-                                    <option value="deactivated" <?php if( isset($userstatus) && $userstatus == "deactivated") { echo "selected" ; } ?>>Deactivated</option>
-                                    </select>
-                             </td> -->
-                            <!-- <td>
-                                <select style="height:34px;" class="form-control form-control-sm "  name="cid_type" id="cid_type">
-                                    <option value="">Select Company</option>
-                                    <option value="ME" <?php if( isset($cid_type) && $cid_type == "ME") { echo "selected" ; } ?>>ME</option>
-                                    <option value="HP" <?php if( isset($cid_type) && $cid_type == "HP") { echo "selected" ; } ?>>HP</option>
-                                    <option value="TMB" <?php if( isset($cid_type) && $cid_type == "TMB") { echo "selected" ; } ?>>TMB</option>
-                                    </select>
-                             </td>
-                            
-                            
-                             <td>
-                                <input  class="btn btn-primary" type="submit" name="submit" value="Fetch Record">
-                            </td> -->
-                            <td>
-                               
-                                <a class="btn btn-primary refreshbtn" style="color:white;" href=''>Refresh <i class="icofont icofont-refresh"></i></a>
-                            </td>
-                            </tr>
-                          
-                            </table>
-                            </form>
+                    <h3 class="text-center">Test is finished<br>Thank You!<br><br>
+                                        <i class="icofont icofont-ui-check  f-80" style="color: #0275d8;"></i></h3>
                        
                     </div>
                     <br>
@@ -129,7 +93,7 @@ $(".emailsend_all").on('change', function () {
                             <table id="dom-jqry" class="table table-striped table-bordered nowrap">
                                 <thead>
                                 <tr>
-                                        <th><input type="checkbox" class="emailsend_all  emailclass"  onclick="toggle(this);"/>&nbsp;&nbsp;Select</th>
+                                        <!-- <th><input type="checkbox" class="emailsend_all  emailclass"  onclick="toggle(this);"/>&nbsp;&nbsp;Select</th> -->
                                         <th>Sr.No.</th>
                                         <th>Sal</th>
                                         <th>FName</th>
@@ -174,9 +138,9 @@ $(".emailsend_all").on('change', function () {
                                 $total_final[] = 0;
                                 ?>
                                  <tr>
-                                        <td><input type="checkbox" class ="emailclass checkbox_emailclass" value="<?php echo $post->lmid;?>" name="delivery_final_check[]" id="delivery_final_check_<?php echo $i;?>" ><?php //echo $i;?>
+                                        <!-- <td><input type="checkbox" class ="emailclass checkbox_emailclass" value="<?php echo $post->lmid;?>" name="delivery_final_check[]" id="delivery_final_check_<?php echo $i;?>" ><?php //echo $i;?>
                                         <input type="hidden" name="leadid" id="leadid_<?php echo $i;?>" value="<?php echo $post->lmid;?>">
-                                        </td>
+                                        </td> -->
                                         <!-- <td><?php //echo $post->cids; ?></td> -->
                                         <td><?php echo $i;?></td>
                                         <td><?php 
@@ -665,11 +629,15 @@ $(".emailsend_all").on('change', function () {
                                  </tbody>
 
                             </table>
-                            <input  class="btn btn-primary" id="Export" type="submit" value="Export" name="submit">
+                            <!-- <input  class="btn btn-primary" id="Export" type="submit" value="Export" name="submit"> -->
                                 </form>
                         </div>
+                        <br>
+                        <center><a class="btn btn-primary refreshbtn" style="color:white;" href='<?php echo base_url()?>Administrator/logout_candiate'>Finish</a></center>
                     </div>
+                    
                 </div>
+                
                 <!-- DOM/Jquery table end -->
             </div>
 

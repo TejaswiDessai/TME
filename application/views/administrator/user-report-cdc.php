@@ -141,7 +141,7 @@
                        
                     </div>
                     <br>
-                        <?php if (isset($Stage) && $Stage == "verified")
+                        <?php if (isset($Stage) && $Stage == "cdc")
                         {
                             $display  = "visibility: hidden;";
                         }else{
@@ -209,37 +209,31 @@
                                         // echo "<center><b>Total: </b>".$submit1 = $submit1_total->num_rows();
                                         // echo "<br>";
                                         $total_accept = $this->db->query("select * from leadmaster
-                                        where ontag = 1
-                                        and rlc = 0
-                                        and pload = 0
-                                        and dvagtidi is not null
-                                        and dvragtidi is null
-                                        and (dvsbtg = 0 OR dvsbtg = 1 OR dvsbtg = 2)
-                                        and dvload = 1 and cids = '".$Campid."' and stagtidi = '".$post['empcode']."' 
-                                        and (stdti >= '".$From."' and stdti <= '".$To."')");
+                                        where 
+                                        rlc = 0
+                                       
+                                        and evload = 1
+                                        and ontag = 1
+                                        and dvcomt = '1' 
+                                        and cdcsb >= 1
+                                        and cdcsbagti is not null
+                                        and cdcload = 1 and cids = '".$Campid."' and cdcsbagti = '".$post['empcode']."' 
+                                        and (cdcsbdti >= '".$From."' and cdcsbdti <= '".$To."')");
                                         //echo "Accepted: ".$total_accept->num_rows()."<br>";
                                         $dc_pending_frej = $this->db->query("select * from leadmaster
-                                          where 
-                                          
-                                           
-                                          
-                                           dvragtidi is not null
-                                          
-                                           and cids = '".$Campid."' and stagtidi = '".$post['empcode']."'
-                                          and (stdti >= '".$From."' and stdti <= '".$To."')");
+                                        where 
+                                        dvcomt = '1' 
+                                        and cdcrjt >= 1
+                                        and rlc = 0
+                                        and cdcrjt >= 1
+                                        and cdcload is NULL
+                                        and evload is NULL
+                                        and ontag = 1
+                                        and (cdcrjtagti is not null OR cdcrjtagti is not null)
+                                          and cdcload = 0 and cids = '".$Campid."' and cdcrjtagti = '".$post['empcode']."'
+                                          and (cdcrjtdti >= '".$From."' and cdcrjtdti <= '".$To."')");
                                         
-                                        // $saved = $this->db->query("SELECT * FROM public.leadmaster
-                                        //  where 
-                                        // --  svagtidi is not null
-                                        // dvload = 0
-                                        // --   and sbsvtag = 0 
-                                        //  and cids = '".$Campid."' and stagtidi = '".$post['empcode']."'
-                                        //  and (dvrejtg = 1 OR dvrejtg = 2 OR dvrejtg = 3 )
-                                        //  and sbsvtag = 0
-                                        //  and (stdti >= '".$From."' and stdti <= '".$To."')
-                                        // --  group by svagtidi,lmid
-                                        
-                                        //  ");
+                                       
                                         $AR = $total_accept->num_rows() + $dc_pending_frej->num_rows();
                                         $saved = $submit1_total->num_rows() - $AR;
                                         ?>
@@ -263,21 +257,30 @@
                                         $submit2_total = $this->db->query("SELECT * FROM leadmaster where cids = '".$Campid."' and stagtidii = '".$post['empcode']."' and (stdtii >= '".$From."' and stdtii <= '".$To."')");
                                         // echo "<center><b>Total: </b>".$submit2_total->num_rows();
                                         $total_accept2 = $this->db->query("select * from leadmaster
-                                        where ontag = 1
-                                        and rlc = 0
-                                        and pload = 0
-                                        and (dvsbtg = 0 OR dvsbtg = 1 OR dvsbtg = 2)
-                                        and dvload = 1 and cids = '".$Campid."' and stagtidii = '".$post['empcode']."' 
-                                        and (stdtii >= '".$From."' and stdtii <= '".$To."')");
+                                        where 
+                                        rlc = 0
+                                        
+                                        and evload = 1
+                                        and ontag = 1
+                                        and dvcomt = '1' 
+                                        and cdcsb >= 1
+                                        
+                                        and cdcsbagtii is not null
+                                        and cdcload = 1 and cids = '".$Campid."' and cdcsbagtii = '".$post['empcode']."' 
+                                        and (cdcsbdtii >= '".$From."' and cdcsbdtii <= '".$To."')");
                                         //echo "Accepted: ".$total_accept->num_rows()."<br>";
                                         $dc_pending_frej2 = $this->db->query("select * from leadmaster
-                                          where 
-                                          rlc = 0
-                                          and ontag = 0
-                                          and dvrejtg = 2
-                                          and sbsvtag != 0 
-                                          and dvload = 0 and cids = '".$Campid."' and stagtidii = '".$post['empcode']."'
-                                          and (stdtii >= '".$From."' and stdtii <= '".$To."')");
+                                        where 
+                                        dvcomt = '1' 
+                                        and cdcrjt >= 1
+                                        and rlc = 0
+                                        and cdcrjt >= 1
+                                        and cdcload is NULL
+                                        and evload is NULL
+                                        and ontag = 1
+                                        and (cdcrjtagtii is not null OR cdcrjtagtii is not null)
+                                          and cdcload = 0 and cids = '".$Campid."' and cdcrjtagtii = '".$post['empcode']."'
+                                          and (cdcrjtdtii >= '".$From."' and cdcrjtdtii <= '".$To."')");
                                         
                                         // $saved = $this->db->query("SELECT * FROM public.leadmaster
                                         //  where 

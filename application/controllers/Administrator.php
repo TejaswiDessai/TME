@@ -1960,7 +1960,10 @@ public function getPrivillage(){
 			$data['users'] = $this->Administrator_Model->get_user_reportfordvaccepted($campid,$user_id,$from,$to,$stage);
 		}else if($stage =='verified'){
 			$data['users'] = $this->Administrator_Model->get_user_report($campid,$user_id,$from,$to,$stage);
-		}else{
+		}else if($stage =='cdc'){
+			$data['users'] = $this->Administrator_Model->get_user_report_cdc($campid,$user_id,$from,$to,$stage);
+		}
+		else{
 			$data['users'] = $this->Administrator_Model->get_user_report_dc($campid,$user_id,$from,$to,$stage);
 		}
 		
@@ -3378,7 +3381,15 @@ public function getPrivillage(){
 			$period = $this->input->post('period');
 			// echo $ctype;
 			$sector_id = $this->input->post('sector_id');
-
+			// $inclist = $this->input->post('inclist');
+			// if($inclist == "on")
+			// {
+			// 	$inclist = 1;
+			// }
+			// else
+			// {
+			// 	$inclist = 0;
+			// }
 			$rec_stage = $this->input->post('rec_stage');
 			// print_r($period);die;
 			// $data['users'] = $this->Administrator_Model->get_available_leads(FALSE, $config['per_page'], $offset,$dcd,$ctype,$levelid,$sector_id);
@@ -3854,6 +3865,59 @@ public function getPrivillage(){
 				// redirect('administrator/users');
 			}
 			
+		}
+
+		public function export_csv_test_result($offset = 0){ 
+			// file name 
+			// Pagination Config
+			
+			$config['base_url'] = base_url(). 'administrator/users/';
+			$config['total_rows'] = $this->db->count_all('users');
+			$config['per_page'] = 3;
+			$config['uri_segment'] = 3;
+			$config['attributes'] = array('class' => 'paginate-link'); 
+			$check = $this->input->post('delivery_final_check');
+			$string_version= implode(",", $check);
+			$comp_proSplit= explode(",", $string_version);
+			$cnt=count($comp_proSplit);
+			
+			$filename = 'users_'.date('Ymd').'.csv'; 
+			header("Content-Description: File Transfer"); 
+			header("Content-Disposition: attachment; filename=$filename"); 
+			header("Content-Type: application/csv; ");
+		   // get data
+			$check = $this->input->post('delivery_final_check');
+			$string_version= implode(",", $check);
+			$ids = explode(',', $string_version);
+			
+		   	// print_r($ids);die;
+			// $campid = $this->input->post('campid');
+			// $qa_status = $this->input->post('qa_status');
+			// $delivery_status = $this->input->post('delivery_status');
+			// $ls_status = $this->input->post('ls_status');
+
+			$usersData = $this->Administrator_Model->get_test_result_export($ids);
+			// file creation 
+			
+			$file = fopen('php://output','w');
+			$header = array("Lead Id","Campaign Id","Sal","First Name","Last Name","Job Title","Job Level","Job List","Department","Company Name","Company Type Name","Industry","Subindustry","Sector Type","Sector","Empsize","Revenue","Denomination Code","Denomination","Email","Phone","Line Type Code","Line Types","phext","Alternate No","Address","City","State","Zipcode","Country Name","currancy","abbrev","Domain","Plink","Emp Size Link","indlink","revszlink","othrlink","aum"); 
+			fputcsv($file, $header);
+			foreach ($usersData as $key=>$line){ 
+				fputcsv($file,$line); 
+			}
+			fclose($file); 
+			exit; 
+		}
+		public function candidate_result($candidate_id = NULL)
+		{
+			
+			// $data['leadmaster'] = $this->Administrator_Model->get_lead_record($candidate_id);
+			$data['users'] = $this->Administrator_Model->get_lead_record($candidate_id);
+			$this->load->view('administrator/header-script');
+			// $this->load->view('administrator/header');
+			// $this->load->view('administrator/header-bottom');
+			$this->load->view('administrator/candidate-result', $data);
+			$this->load->view('administrator/footer');
 		}
 
 }

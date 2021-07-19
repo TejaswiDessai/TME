@@ -728,6 +728,7 @@
 			 $this->db->insert('campaign', $datacampaign);
 			 $insert_id = $this->db->insert_id();
 			//  return true;
+			// echo $this->db->last_query(); 
 			 return  $insert_id;
                         // echo $this->db->last_query(); 
 		}
@@ -3065,7 +3066,7 @@ public function get_campaign_fordataverification()
 			function fetch_data_jt($postquery,$cid)
 			{
 			$this->db->select("*");
-			$this->db->where('cid', $cid);
+			// $this->db->where('cid', $cid);
 			$this->db->from("jobtitlelist");
 			if($postquery != '')
 			{
